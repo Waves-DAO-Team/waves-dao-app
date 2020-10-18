@@ -1,0 +1,11 @@
+{
+  "*.md": [
+  "markdownlint --fix"
+  ],
+  "*.{ts,js}": [
+  "standardx --fix --parser @typescript-eslint/parser --plugin @typescript-eslint/eslint-plugin --env jasmine -env jest -env node -env es6"
+  ],
+  "*.scss": [
+  "stylelint --fix"
+  ]
+}

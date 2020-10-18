@@ -1,0 +1,72 @@
+{
+  "name": "dappgrants",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "tests": "run-p test:dapp",
+    "test:dapp": "ng test dapp --browsers=ChromeHeadless --watch=false --progress=false",
+    "test:libs": "ng test libs --browsers=ChromeHeadless --watch=false --progress=false",
+    "test:services": "ng test services --browsers=ChromeHeadless --watch=false --progress=false",
+    "test:ui": "ng test ui --browsers=ChromeHeadless --watch=false --progress=false",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "lint:code": "standardx --fix --parser @typescript-eslint/parser --plugin @typescript-eslint/eslint-plugin --env jasmine -env jest -env node -env es6 \"projects/**/*.js\" \"projects/**/*.js\"",
+    "lint:all": "node ./lint-all.js",
+    "commit": "lint-staged",
+    "push": "run-s lint build e2e tests"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~10.1.6",
+    "@angular/common": "~10.1.6",
+    "@angular/compiler": "~10.1.6",
+    "@angular/core": "~10.1.6",
+    "@angular/forms": "~10.1.6",
+    "@angular/platform-browser": "~10.1.6",
+    "@angular/platform-browser-dynamic": "~10.1.6",
+    "@angular/router": "~10.1.6",
+    "rxjs": "~6.6.3",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1001.7",
+    "@angular-devkit/build-ng-packagr": "~0.1001.7",
+    "@angular/cli": "~10.1.7",
+    "@angular/compiler-cli": "~10.1.6",
+    "@types/jasmine": "~3.5.0",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "codelyzer": "^5.1.2",
+    "husky": "^4.3.0",
+    "jasmine-core": "~3.5.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "karma": "~5.0.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~3.0.2",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "^1.5.0",
+    "lint-staged": "^10.4.2",
+    "markdownlint-cli": "^0.24.0",
+    "ng-packagr": "^10.1.0",
+    "npm-run-all": "^4.1.5",
+    "protractor": "~7.0.0",
+    "standardx": "^5.0.0",
+    "stylelint": "^13.7.2",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "ts-node": "~8.3.0",
+    "tslint": "~6.1.0",
+    "typescript": "~4.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn commit",
+      "pre-push": "yarn push"
+    }
+  }
+}
