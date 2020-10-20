@@ -1,0 +1,12 @@
+// Grid mixins
+
+@mixin layout() {
+  display: grid;
+  grid-column-gap: var(--grid-column-gap);
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+}
+
+@mixin column($cols, $rows) {
+  grid-column: $cols;
+  grid-row: $rows;
+}

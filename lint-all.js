@@ -4,7 +4,7 @@ const server = spawn(
   'docker',
   [
     'run',
-    '-e', 'FILTER_REGEX_EXCLUDE=.*dist/.*|.*idea/.*|.*DS_Store',
+    '-e', 'FILTER_REGEX_EXCLUDE=.*dist/.*|.*idea/.*|.*DS_Store|.*coverage/.*',
     '-e', 'RUN_LOCAL=true',
     '-e', 'VALIDATE_HTML=false',
     '-v', [__dirname, '/tmp/lint'].join(':'),

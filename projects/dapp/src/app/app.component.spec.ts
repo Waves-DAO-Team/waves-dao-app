@@ -1,18 +1,20 @@
-import { TestBed, waitForAsync } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
+import { DevGridModule } from '@ui/dev-grid'
 import { AppComponent } from './app.component'
 
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        DevGridModule
       ],
       declarations: [
         AppComponent
       ]
     }).compileComponents()
-  }))
+  })
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent)
@@ -20,16 +22,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy()
   })
 
-  it('should have as title \'app\'', () => {
+  it('should have as title \'dapp\'', () => {
     const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.componentInstance
-    expect(app.title).toEqual('app')
+    expect(app.title).toEqual('dapp')
   })
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent)
     fixture.detectChanges()
     const compiled = fixture.nativeElement
-    expect(compiled.querySelector('.content span').textContent).toContain('app is running!')
+    expect(compiled.querySelector('.content span').textContent).toContain('dapp app is running!')
   })
 })

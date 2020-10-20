@@ -1,0 +1,61 @@
+@import 'mixins';
+@import '~include-media/dist/_include-media.scss';
+$breakpoints: (
+  phone: 767px,
+  tablet: 1025px,
+  desktop: 1200px,
+);
+
+:root {
+  --layout-width: 1120px;
+  --layout-gutter: auto;
+  --grid-columns: 12;
+  --grid-column-gap: 2rem;
+  --grid-col: 1fr;
+
+  --layout-font-size: $font-size-base;
+}
+
+@include media('<=tablet') {
+  :root {
+    --layout-width-gutter: 30px;
+    --layout-width: calc(100% - (var(--layout-width-gutter) * 2));
+    --grid-column-gap: 1.25rem;
+  }
+}
+
+@include media('<=phone') {
+  :root {
+    --layout-width-gutter: 20px;
+    --layout-width: calc(100% - (var(--layout-width-gutter) * 2));
+    --grid-column-gap: 1rem;
+  }
+}
+
+// Response font-size
+@media screen and (max-width: 767px) {
+  :root {
+    --layout-font-size: 16px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  :root {
+    --layout-font-size: 15px;
+  }
+}
+@media screen and (min-width: 1600px) {
+  :root {
+    --layout-font-size: 17px;
+  }
+}
+@media screen and (min-width: 1900px) {
+  :root {
+    --layout-font-size: 18px;
+  }
+}
+@media screen and (min-width: 2300px) {
+  :root {
+    --layout-font-size: 19px;
+  }
+}
+

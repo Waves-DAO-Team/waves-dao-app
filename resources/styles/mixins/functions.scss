@@ -1,0 +1,36 @@
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@function rem($pixels, $context: 16) {
+  $pxls: strip-unit($pixels);
+  $res: sass-calc($pxls, $context);
+  @return #{$res}rem;
+}
+
+@function em($pixels, $context: 16) {
+  @return #{$pixels/$context}em;
+}
+
+@function sass-calc($val1, $val2) {
+  @return #{$val1/$val2};
+}
+
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@function hex2rgb($hex) {
+  @return red($hex), green($hex), blue($hex);
+}

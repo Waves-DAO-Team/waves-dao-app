@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "tests": "run-p test:dapp",
     "test:dapp": "ng test dapp --browsers=ChromeHeadless --watch=false --progress=false",
@@ -15,19 +15,22 @@
     "e2e": "ng e2e",
     "lint:code": "standardx --fix --parser @typescript-eslint/parser --plugin @typescript-eslint/eslint-plugin --env jasmine -env jest -env node -env es6 \"projects/**/*.js\" \"projects/**/*.js\"",
     "lint:all": "node ./lint-all.js",
-    "commit": "lint-staged",
+    "commit": "lint-staged --allow-empty",
     "push": "run-s lint build e2e tests"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~10.1.6",
+    "@angular/cdk": "^10.2.5",
     "@angular/common": "~10.1.6",
     "@angular/compiler": "~10.1.6",
     "@angular/core": "~10.1.6",
     "@angular/forms": "~10.1.6",
+    "@angular/material": "^10.2.5",
     "@angular/platform-browser": "~10.1.6",
     "@angular/platform-browser-dynamic": "~10.1.6",
     "@angular/router": "~10.1.6",
+    "include-media": "^1.4.9",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -59,6 +62,8 @@
     "standardx": "^5.0.0",
     "stylelint": "^13.7.2",
     "stylelint-config-sass-guidelines": "^7.1.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.18.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.3"
@@ -68,5 +73,6 @@
       "pre-commit": "yarn commit",
       "pre-push": "yarn push"
     }
-  }
+  },
+  "sideEffects": false
 }

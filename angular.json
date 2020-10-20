@@ -1,139 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
+  "defaultProject": "dapp",
   "newProjectRoot": "projects",
   "projects": {
-    "dapp": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/dapp",
-      "sourceRoot": "resources",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/dapp",
-            "index": "projects/dapp/src/index.html",
-            "main": "projects/dapp/src/main.ts",
-            "polyfills": "projects/dapp/src/polyfills.ts",
-            "tsConfig": "projects/dapp/tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "resources/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "resources/assets",
-                "output": "/assets"
-              }
-            ],
-            "styles": ["resources/styles/index.scss"],
-            "scripts": [],
-            "stylePreprocessorOptions": {
-              "includePaths": ["resources/styles"]
-            }
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/dapp/src/environments/environment.ts",
-                  "with": "projects/dapp/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "dapp:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "dapp:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "dapp:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/dapp/src/test.ts",
-            "polyfills": "projects/dapp/src/polyfills.ts",
-            "tsConfig": "projects/dapp/tsconfig.spec.json",
-            "karmaConfig": "projects/dapp/karma.conf.js",
-            "assets": [
-              "resources/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "resources/assets",
-                "output": "/assets"
-              }
-            ],
-            "styles": ["resources/styles/index.scss"],
-            "scripts": [],
-            "stylePreprocessorOptions": {
-              "includePaths": ["resources/styles"]
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/dapp/tsconfig.app.json",
-              "projects/dapp/tsconfig.spec.json",
-              "projects/dapp/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/dapp/e2e/protractor.conf.js",
-            "devServerTarget": "dapp:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "dapp:serve:production"
-            }
-          }
-        }
-      }
-    },
     "libs": {
       "projectType": "library",
       "root": "projects/libs",
@@ -253,6 +122,149 @@
           }
         }
       }
-    }},
-  "defaultProject": "dapp"
+    },
+    "dapp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/dapp",
+      "sourceRoot": "projects/dapp/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dapp",
+            "index": "projects/dapp/src/index.html",
+            "main": "projects/dapp/src/main.ts",
+            "polyfills": "projects/dapp/src/polyfills.ts",
+            "tsConfig": "projects/dapp/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/dapp/src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "resources/assets",
+                "output": "/assets"
+              }
+            ],
+            "styles": [
+              "resources/styles/index.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "resources/styles"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/dapp/src/environments/environment.ts",
+                  "with": "projects/dapp/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dapp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dapp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dapp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dapp/src/test.ts",
+            "polyfills": "projects/dapp/src/polyfills.ts",
+            "tsConfig": "projects/dapp/tsconfig.spec.json",
+            "karmaConfig": "projects/dapp/karma.conf.js",
+            "assets": [
+              "projects/dapp/src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "resources/assets",
+                "output": "/assets"
+              }
+            ],
+            "styles": [
+              "resources/styles/index.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "resources/styles"
+              ]
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dapp/tsconfig.app.json",
+              "projects/dapp/tsconfig.spec.json",
+              "projects/dapp/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/dapp/e2e/protractor.conf.js",
+            "devServerTarget": "dapp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dapp:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "version": 1
 }

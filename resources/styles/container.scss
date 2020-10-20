@@ -1,0 +1,8 @@
+.container {
+  margin: 0 auto;
+  max-width: var(--layout-width);
+
+  &--grid {
+    @include layout();
+  }
+}

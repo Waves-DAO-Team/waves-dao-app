@@ -1,0 +1,45 @@
+@import './functions';
+
+// Base variables
+$font-family-base: 'Montserrat', 'sans-serif';
+$font-family-sans-serif: $font-family-base;
+$font-family-monospace: $font-family-base;
+
+$line-height-base: 1.5;
+$font-size-base: 16;
+$font-weight-base: 400;
+
+$headings-font-weight: 400;
+$headings-line-height: 1.1;
+
+// Typography
+$font-family: $font-family-base;
+$display-4: mat-typography-level(rem(112), 1, $headings-font-weight, $letter-spacing: -0.05em);
+$display-3: mat-typography-level(rem(56), 1, $headings-font-weight, $letter-spacing: -0.02em);
+$display-2: mat-typography-level(rem(45), 1, $headings-font-weight, $letter-spacing: -0.005em);
+$display-1: mat-typography-level(rem(34), 1, $headings-font-weight);
+
+$header-h1: mat-typography-level(rem(24), $headings-line-height, $headings-font-weight);
+$header-h2: mat-typography-level(rem(40), $headings-line-height, $headings-font-weight);
+$header-h3: mat-typography-level(rem(30), $line-height-base, $font-weight-base);
+$header-h4: mat-typography-level(rem($font-size-base), $line-height-base, $font-weight-base);
+$header-h5: mat-typography-level(rem(14), $line-height-base, $font-weight-base);
+$caption: mat-typography-level(rem(12), $line-height-base, $font-weight-base);
+$button: mat-typography-level(rem($font-size-base), $line-height-base, $font-weight-base);
+$input: mat-typography-level(rem($font-size-base), 1.125, $font-weight-base);
+
+$app-config: (
+  display-4:      $display-4,
+  display-3:      $display-3,
+  display-2:      $display-2,
+  display-1:      $display-1,
+  headline:       $header-h1,
+  title:          $header-h2,
+  subheading-2:   $header-h3,
+  subheading-1:   $header-h4,
+  body-2:         $header-h5,
+  body-1:         $header-h5,
+  caption:        $caption,
+  button:         $button,
+  input:          $input,
+);

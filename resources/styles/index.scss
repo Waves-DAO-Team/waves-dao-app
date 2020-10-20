@@ -1,5 +1,42 @@
-/* Entrypoint for global project styles */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+
+// Modifiers mixins
+// Pass  $app-theme and $app-config
 @import 'mixins';
+
+// Css variables
+@import 'variables';
+
+// Fonts
+@import 'fonts';
+
+// IMPORTANT
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core($app-config);
+
+// IMPORTANT
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($app-theme-light);
 
 //html,
 //body {}
+html,
+body { font-size: var(--layout-font-size);
+  height: 100%;}
+
+body { font-family: $font-family-base;
+  margin: 0;}
+
+body {
+  background: rgba(var(--body-bg), 1);
+  color: rgba(var(--body-color), 0.9);
+}
+
+// Global components
+@import 'layout';
+@import 'container';

@@ -11,23 +11,16 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "strict": true,
     "lib": [
       "es2018",
       "dom"
     ],
     "paths": {
-      "libs": [
-        "dist/libs/libs",
-        "dist/libs"
-      ],
-      "services": [
-        "dist/services/services",
-        "dist/services"
-      ],
-      "ui": [
-        "dist/ui/ui",
-        "dist/ui"
-      ]
+      "@pages/*": ["projects/desktop/src/app/pages/*"],
+      "@services/*": ["projects/services/src/lib/*"],
+      "@libs/*": ["projects/libs/src/lib/*"],
+      "@ui/*": ["projects/ui/src/lib/*"]
     }
   },
   "angularCompilerOptions": {

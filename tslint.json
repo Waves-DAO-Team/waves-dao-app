@@ -63,6 +63,7 @@
       "timeEnd",
       "trace"
     ],
+    "no-any": true,
     "no-empty": false,
     "no-inferrable-types": [
       true,
@@ -87,11 +88,11 @@
     },
     "space-before-function-paren": {
       "options": {
-        "anonymous": "never",
+        "anonymous": "always",
         "asyncArrow": "always",
         "constructor": "always",
         "method": "always",
-        "named": "never"
+        "named": "always"
       }
     },
     "typedef-whitespace": {

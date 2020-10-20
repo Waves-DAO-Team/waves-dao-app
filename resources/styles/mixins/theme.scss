@@ -1,0 +1,19 @@
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$app-theme-light: mat-light-theme((
+  color: (
+    primary: $mat-blue,
+    accent: $mat-red
+  )
+));
+
+:root {
+  --primary: hex2rgb(map_get($app-theme-light, primary));
+  --secondary: hex2rgb(map_get($app-theme-light, secondary));
+  --accent: hex2rgb(map_get($app-theme-light, accent));
+
+  --body-bg: hex2rgb(map_get(map_get($app-theme-light, background), background));
+  --body-color: hex2rgb(map_get(map_get($app-theme-light, foreground), based));
+}
