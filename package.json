@@ -30,6 +30,7 @@
     "@angular/platform-browser": "~10.1.6",
     "@angular/platform-browser-dynamic": "~10.1.6",
     "@angular/router": "~10.1.6",
+    "@ngxd/core": "^10.0.0",
     "include-media": "^1.4.9",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",

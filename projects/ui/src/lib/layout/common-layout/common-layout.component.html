@@ -1,0 +1,16 @@
+<div
+  class="layout"
+  [class.single-page-layout]="singlePageLayout"
+  [class.page-wrapper--second-level-navigation]="secondLevelOnNavigation"
+>
+  <header class="layout__header">
+    <ng-container *ngxComponentOutlet="headerComponent"></ng-container>
+  </header>
+  <content class="layout__content" #content>
+    <router-outlet (activate)="onActivateComponent($event)"></router-outlet>
+  </content>
+  <footer class="layout__footer">
+    <ng-container *ngTemplateOutlet="footerExtension"></ng-container>
+    <ng-container *ngxComponentOutlet="footerComponent"></ng-container>
+  </footer>
+</div>

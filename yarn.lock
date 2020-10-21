@@ -1143,6 +1143,13 @@
     enhanced-resolve "4.3.0"
     webpack-sources "1.4.3"
 
+"@ngxd/core@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@ngxd/core/-/core-10.0.0.tgz#0ef47b118a1f53e15df0ce28351daf6bb8bbfe93"
+  integrity sha512-aWIsD2Ak9pCOxSuvmXE4snzSkzPEJnqw7QS/hrIY2bn20mYh4T6hs0zYu7/9g94rWZKGWqNsVeiLXs5cn+mbCQ==
+  dependencies:
+    tslib "^2.0.0"
+
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.3.tgz#3a582bdb53804c6ba6d146579c46e52130cf4a3b"

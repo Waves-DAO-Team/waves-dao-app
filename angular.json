@@ -87,7 +87,7 @@
       "projectType": "library",
       "root": "projects/ui",
       "sourceRoot": "projects/ui/src",
-      "prefix": "",
+      "prefix": "ui",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -174,7 +174,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
