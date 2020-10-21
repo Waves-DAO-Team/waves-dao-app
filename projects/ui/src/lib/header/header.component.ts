@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
+import {
+  APP_CONSTANTS,
+  AppConstantsInterface
+} from '@constants'
 
 @Component({
   selector: 'ui-header',
@@ -6,7 +10,9 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor () { }
+  constructor (
+      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+  ) { }
 
   ngOnInit (): void {
   }

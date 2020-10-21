@@ -6,9 +6,17 @@ import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DevGridModule } from '@ui/dev-grid/dev-grid.module'
 import { WINDOW_PROVIDERS } from '@services/window'
-import { CommonLayoutComponentModel, CommonLayoutModule, provideCommonLayoutFooter, provideCommonLayoutHeader } from '@ui/layout/common-layout'
+import { CommonLayoutModule, provideCommonLayoutFooter, provideCommonLayoutHeader } from '@ui/layout/common-layout'
 import { HeaderComponent } from '@ui/header/header.component'
 import { FooterComponent } from '@ui/footer/footer.component'
+import { HttpClientModule } from '@angular/common/http'
+import { TranslocoRootModule } from './transloco/transloco-root.module'
+import { HeaderModule } from '@ui/header/header.module'
+import { FooterModule } from '@ui/footer/footer.module'
+import { NgProgressModule } from 'ngx-progressbar'
+import { NgProgressHttpModule } from 'ngx-progressbar/http'
+import { provideAppConstants } from './app.providers'
+import { PipesModule } from '@libs/pipes/pipes.module'
 
 @NgModule({
   declarations: [
@@ -17,15 +25,23 @@ import { FooterComponent } from '@ui/footer/footer.component'
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgProgressModule,
+    NgProgressHttpModule,
     BrowserAnimationsModule,
     DevGridModule,
-    CommonLayoutModule
+    CommonLayoutModule,
+    HttpClientModule,
+    TranslocoRootModule,
+    HeaderModule,
+    FooterModule,
+    PipesModule
   ],
   providers: [
     WINDOW_PROVIDERS,
     { provide: LOCALE_ID, useValue: 'en-GB' },
     provideCommonLayoutHeader(HeaderComponent),
-    provideCommonLayoutFooter(FooterComponent)
+    provideCommonLayoutFooter(FooterComponent),
+    provideAppConstants()
   ],
   bootstrap: [AppComponent]
 })

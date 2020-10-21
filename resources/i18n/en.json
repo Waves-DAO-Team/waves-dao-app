@@ -1,0 +1,32 @@
+{
+  "app": {
+    "title": "Application",
+    "header": {
+      "about": "About",
+      "setting": "Setting",
+      "create": "Create",
+      "stylesheet": "Stylesheet"
+    }
+  },
+  "listing": {
+
+  },
+  "entity": {
+
+  },
+  "setting": {
+
+  },
+  "application": {
+
+  },
+  "create": {
+
+  },
+  "about": {
+
+  },
+  "not-found": {
+
+  }
+}

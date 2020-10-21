@@ -17,7 +17,8 @@
       "dom"
     ],
     "paths": {
-      "@pages/*": ["projects/desktop/src/app/pages/*"],
+      "@pages/*": ["projects/dapp/src/app/pages/*"],
+      "@constants": ["projects/dapp/src/app/app.providers"],
       "@services/*": ["projects/services/src/lib/*"],
       "@libs/*": ["projects/libs/src/lib/*"],
       "@ui/*": ["projects/ui/src/lib/*"]

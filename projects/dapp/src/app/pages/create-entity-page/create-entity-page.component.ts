@@ -6,8 +6,5 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./create-entity-page.component.scss']
 })
 export class CreateEntityPageComponent implements OnInit {
-  constructor () { }
-
-  ngOnInit (): void {
-  }
+  ngOnInit (): void {}
 }

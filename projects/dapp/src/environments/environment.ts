@@ -3,7 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  // Routing constants on page
+  routing: {
+    listing: '',
+    entity: 'entity/:entityId',
+    application: 'entity/:entityId/application',
+    about: 'about',
+    setting: 'settings',
+    create: 'create',
+    stylesheet: 'stylesheet'
+  }
 }
 
 /*

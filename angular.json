@@ -152,6 +152,11 @@
                 "glob": "**/*",
                 "input": "resources/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "resources/i18n",
+                "output": "/assets/i18n"
               }
             ],
             "styles": [
@@ -225,6 +230,11 @@
                 "glob": "**/*",
                 "input": "resources/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "resources/i18n",
+                "output": "/assets/i18n"
               }
             ],
             "styles": [

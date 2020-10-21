@@ -1,0 +1,32 @@
+// Ignoring, because this styles configure on other library.
+/* stylelint-disable */
+ng-progress {
+  // host element
+
+  .ng-progress-bar {
+    // bar wrapper
+
+    .ng-bar-placeholder {
+      // bar placeholder
+    }
+
+    .ng-bar {
+      background-color: var(--color-primary) !important;
+      // the actual bar that translates with when the progress increments
+      .ng-meteor {
+        box-shadow: var(--color-primary) 0 0 10px, var(--color-primary) 0 0 5px !important;
+      }
+    }
+
+    .ng-spinner {
+      // Spinner wrapper
+    }
+
+    .ng-spinner-icon {
+      border-left-color: var(--color-primary) !important;
+      border-top-color: var(--color-primary) !important;
+      // The actual spinner where defines the radius size and animation
+    }
+  }
+}
+/* stylelint-enable */

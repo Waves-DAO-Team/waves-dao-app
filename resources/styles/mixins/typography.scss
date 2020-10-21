@@ -19,7 +19,7 @@ $display-3: mat-typography-level(rem(56), 1, $headings-font-weight, $letter-spac
 $display-2: mat-typography-level(rem(45), 1, $headings-font-weight, $letter-spacing: -0.005em);
 $display-1: mat-typography-level(rem(34), 1, $headings-font-weight);
 
-$header-h1: mat-typography-level(rem(24), $headings-line-height, $headings-font-weight);
+$header-h1: mat-typography-level(rem(46), $headings-line-height, $headings-font-weight);
 $header-h2: mat-typography-level(rem(40), $headings-line-height, $headings-font-weight);
 $header-h3: mat-typography-level(rem(30), $line-height-base, $font-weight-base);
 $header-h4: mat-typography-level(rem($font-size-base), $line-height-base, $font-weight-base);

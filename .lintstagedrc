@@ -3,6 +3,7 @@
   "markdownlint --fix"
   ],
   "*.{ts,js}": [
+  "eslint --no-eslintrc -c .github/linters/.eslintrc.yml",
   "standardx --fix --parser @typescript-eslint/parser --plugin @typescript-eslint/eslint-plugin --env jasmine -env jest -env node -env es6"
   ],
   "*.scss": [

@@ -1,1 +1,17 @@
-<p>header works!</p>
+<header class="container header">
+    <a class="header__title" [routerLink]="constants.routes.listing | route">{{ 'app.title' | transloco }}</a>
+
+    <div>
+      <a [routerLink]="constants.routes.about | route">{{ 'app.header.about' | transloco }}</a>
+        &nbsp;
+      <a [routerLink]="constants.routes.setting | route">{{ 'app.header.setting' | transloco }}</a>
+        &nbsp;
+      <a [routerLink]="constants.routes.create | route">{{ 'app.header.create' | transloco }}</a>
+        &nbsp;
+      <a [routerLink]="constants.routes.stylesheet | route">{{ 'app.header.stylesheet' | transloco }}</a>
+        &nbsp;
+    </div>
+</header>
+
+
+
