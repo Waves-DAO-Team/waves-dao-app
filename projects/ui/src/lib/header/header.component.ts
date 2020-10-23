@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core'
 import {
   APP_CONSTANTS,
   AppConstantsInterface
@@ -7,7 +7,8 @@ import {
 @Component({
   selector: 'ui-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
   constructor (

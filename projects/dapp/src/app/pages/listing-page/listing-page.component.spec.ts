@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { ListingPageComponent } from './listing-page.component'
+import { ContractService } from '@services/contract/contract.service'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideApi } from '@constants'
 
 describe('ListingPageComponent', () => {
   let component: ListingPageComponent
@@ -8,7 +11,9 @@ describe('ListingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ListingPageComponent]
+      imports: [HttpClientTestingModule],
+      declarations: [ListingPageComponent],
+      providers: [ContractService, provideApi()]
     })
       .compileComponents()
   })

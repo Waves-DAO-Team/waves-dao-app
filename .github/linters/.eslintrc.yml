@@ -12,7 +12,7 @@
     "@typescript-eslint/no-unused-vars": "off",
     "no-unused-vars": "off",
     "no-useless-constructor": "off",
-    "@typescript-eslint/no-useless-constructor": [ "error" ]
+    "@typescript-eslint/no-useless-constructor": [ "off" ]
   },
   "parserOptions": {
     "ecmaVersion": 6,

@@ -5,6 +5,12 @@
 export const environment = {
   production: false,
 
+  apis: {
+    nodes: 'https://nodes-testnet.wavesnodes.com',
+    rest: 'https://nodes-testnet.wavesnodes.com',
+    contractAddress: '3MvqnYLwBErxGtKzeEjgWgr2RXgniokicR2'
+  },
+
   // Routing constants on page
   routing: {
     listing: '',

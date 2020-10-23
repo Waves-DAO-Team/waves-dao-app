@@ -15,7 +15,7 @@ import { HeaderModule } from '@ui/header/header.module'
 import { FooterModule } from '@ui/footer/footer.module'
 import { NgProgressModule } from 'ngx-progressbar'
 import { NgProgressHttpModule } from 'ngx-progressbar/http'
-import { provideAppConstants } from './app.providers'
+import { provideApi, provideAppConstants } from './app.providers'
 import { PipesModule } from '@libs/pipes/pipes.module'
 
 @NgModule({
@@ -41,7 +41,8 @@ import { PipesModule } from '@libs/pipes/pipes.module'
     { provide: LOCALE_ID, useValue: 'en-GB' },
     provideCommonLayoutHeader(HeaderComponent),
     provideCommonLayoutFooter(FooterComponent),
-    provideAppConstants()
+    provideAppConstants(),
+    provideApi()
   ],
   bootstrap: [AppComponent]
 })
