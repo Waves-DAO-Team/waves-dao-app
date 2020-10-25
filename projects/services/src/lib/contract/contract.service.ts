@@ -59,14 +59,15 @@ export class ContractService {
   }
 
   private group (keys: string[], context: {[s: string]: object}, value: ContractRawDataItem): void {
-    const key: string = keys.shift() || 'undefined'
+    // @ts-ignore
+    const key: string = keys.shift()
+
+    if (!key) {
+      return
+    }
 
     if (!context[key]) {
       context[key] = keys.length === 0 ? value : {}
-    }
-
-    if (keys.length === 0) {
-      return
     }
 
     // @ts-ignore

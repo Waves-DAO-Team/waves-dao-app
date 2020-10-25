@@ -8,7 +8,8 @@ export const environment = {
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',
     rest: 'https://nodes-testnet.wavesnodes.com',
-    contractAddress: '3MvqnYLwBErxGtKzeEjgWgr2RXgniokicR2'
+    // contractAddress: '3MvqnYLwBErxGtKzeEjgWgr2RXgniokicR2'
+    contractAddress: '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5'
   },
 
   // Routing constants on page
