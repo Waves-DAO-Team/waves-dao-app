@@ -1,23 +1,47 @@
 export type ContractRawDataKey = string
 export type ContractRawDataValue = string
-export type ContractRawDataType = string
+export type ContractRawDataTypeString = string
+export type ContractRawDataTypeNumber = number
 
-export interface ContractRawDataItem {
+export interface ContractRawDataString {
   key: ContractRawDataKey
   value: ContractRawDataValue
-  type: ContractRawDataType
+  type: ContractRawDataTypeString
 }
 
-export type ContractRawData = ContractRawDataItem[]
+export interface ContractRawDataNumber {
+  key: ContractRawDataKey
+  value: ContractRawDataValue
+  type: ContractRawDataTypeNumber
+}
+
+export type ContractRawData = ContractRawDataString[]
 
 export interface ContractDataModel {
   working: {
-    group: ContractRawDataItem
-  }
-  group: {
-    member: ContractRawDataItem
+    group: {
+      member: {[s: string]: {
+        weight: ContractRawDataString
+      }}
+      name: ContractRawDataString
+      size: ContractRawDataNumber
+    }
   }
   dao: {
-    members: ContractRawDataItem
+    member: {[s: string]: {
+        weight: ContractRawDataString
+      }},
+    members: ContractRawDataString
+    size: ContractRawDataNumber
   }
+  tasks: {[s: string]: {
+      status: ContractRawDataString
+      title: ContractRawDataString
+      reward: ContractRawDataNumber
+      voting: {
+        amount: ContractRawDataNumber
+        state: ContractRawDataNumber
+      }
+      voted: {[s: string]: ContractRawDataNumber}
+  }}
 }

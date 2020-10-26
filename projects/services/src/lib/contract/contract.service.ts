@@ -10,7 +10,12 @@ import {
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
 import { BehaviorSubject, Observable, Subject } from 'rxjs'
-import { ContractDataModel, ContractRawData, ContractRawDataItem } from './contract.model'
+import {
+  ContractDataModel,
+  ContractRawData,
+  ContractRawDataNumber,
+  ContractRawDataString
+} from './contract.model'
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +63,7 @@ export class ContractService {
     this.contractRefresh$.next(null)
   }
 
-  private group (keys: string[], context: {[s: string]: object}, value: ContractRawDataItem): void {
+  private group (keys: string[], context: {[s: string]: object}, value: ContractRawDataString|ContractRawDataNumber): void {
     // @ts-ignore
     const key: string = keys.shift()
 
