@@ -5,7 +5,9 @@
       "about": "About",
       "setting": "Setting",
       "create": "Create",
-      "stylesheet": "Stylesheet"
+      "stylesheet": "Stylesheet",
+      "signup": "Signup",
+      "logout": "Logout"
     }
   },
   "listing": {
@@ -27,6 +29,10 @@
 
   },
   "not-found": {
-
+    "title": "Sorry!",
+    "description" : "Page not found"
+  },
+  "messages": {
+    "ok": "OK"
   }
 }

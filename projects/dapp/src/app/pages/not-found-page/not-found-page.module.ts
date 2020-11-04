@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common'
 
 import { NotFoundPageRoutingModule } from './not-found-page-routing.module'
 import { NotFoundPageComponent } from './not-found-page.component'
+import { TranslocoModule } from '@ngneat/transloco'
 
 @NgModule({
   declarations: [NotFoundPageComponent],
   imports: [
     CommonModule,
-    NotFoundPageRoutingModule
+    NotFoundPageRoutingModule,
+    TranslocoModule
   ]
 })
 export class NotFoundPageModule { }

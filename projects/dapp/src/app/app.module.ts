@@ -17,6 +17,7 @@ import { NgProgressModule } from 'ngx-progressbar'
 import { NgProgressHttpModule } from 'ngx-progressbar/http'
 import { provideApi, provideAppConstants } from './app.providers'
 import { PipesModule } from '@libs/pipes/pipes.module'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PipesModule } from '@libs/pipes/pipes.module'
     TranslocoRootModule,
     HeaderModule,
     FooterModule,
-    PipesModule
+    PipesModule,
+    MatSnackBarModule
   ],
   providers: [
     WINDOW_PROVIDERS,

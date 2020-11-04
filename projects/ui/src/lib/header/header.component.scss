@@ -1,0 +1,7 @@
+@import 'mixins';
+
+.header {
+  &__profile {
+    display: flex;
+  }
+}

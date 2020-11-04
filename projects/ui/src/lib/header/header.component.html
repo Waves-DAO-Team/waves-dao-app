@@ -9,9 +9,17 @@
       <a [routerLink]="constants.routes.create | route">{{ 'app.header.create' | transloco }}</a>
         &nbsp;
       <a [routerLink]="constants.routes.stylesheet | route">{{ 'app.header.stylesheet' | transloco }}</a>
+
+      <div class="header__profile" *ngIf="user$ | async as user; else guestTemplate">
+        {{ user.name }}&nbsp;<div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
+      </div>
         &nbsp;
     </div>
 </header>
+
+<ng-template #guestTemplate>
+    <div (click)="signupHandler()">{{ 'app.header.signup' | transloco }}</div>
+</ng-template>
 
 
 
