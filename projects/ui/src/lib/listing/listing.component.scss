@@ -40,7 +40,13 @@
 
   .lasting__item__right__value {
     color: #000;
+    display: flex;
     font-size: $font-size-medium;
     font-weight: bold;
   }
+
+  .icon-logo {
+    @include icon-logo
+  ;
+    margin-left: 5px;}
 }

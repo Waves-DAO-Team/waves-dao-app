@@ -10,3 +10,22 @@
   grid-column: $cols;
   grid-row: $rows;
 }
+
+@mixin icon-logo() {
+  background: $blue;
+  border-radius: 50%;
+  height: 21px;
+  position: relative;
+  width: 21px;
+
+  &::after {
+    background: #fff;
+    content: '';
+    height: 7px;
+    left: 7px;
+    position: absolute;
+    top: 7px;
+    transform: rotate(45deg);
+    width: 7px;
+  }
+}
