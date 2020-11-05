@@ -25,7 +25,6 @@ export function EntityFactory (
   route: ActivatedRoute,
   snackBar: MatSnackBar
 ): LoadingWrapperModel<ContractGrantModel> {
-  console.log('route.params', route.params)
   return new LoadingWrapper(
     route.params.pipe(
       switchMap(({ entityId }) => {

@@ -93,7 +93,12 @@
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "projects/ui/tsconfig.lib.json",
-            "project": "projects/ui/ng-package.json"
+            "project": "projects/ui/ng-package.json",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "resources/styles"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -106,7 +111,12 @@
           "options": {
             "main": "projects/ui/src/test.ts",
             "tsConfig": "projects/ui/tsconfig.spec.json",
-            "karmaConfig": "projects/ui/karma.conf.js"
+            "karmaConfig": "projects/ui/karma.conf.js",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "resources/styles"
+              ]
+            }
           }
         },
         "lint": {
