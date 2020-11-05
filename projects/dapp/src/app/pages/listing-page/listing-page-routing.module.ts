@@ -6,8 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: ListingPageComponent,
-    pathMatch: 'full',
-    data: {}
+    pathMatch: 'full'
   }
 ]
 

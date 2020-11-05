@@ -11,8 +11,9 @@ import {
 import { API, AppApiInterface } from '@constants'
 import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import {
-  ContractDataModel,
+  ContractDataModel, ContractGrantModel,
   ContractRawData,
+  ContractRawDataEntityId,
   ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
@@ -29,7 +30,7 @@ export class ContractService {
   private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject(
     {})
 
-  private contractState = this.http.get<Observable<ContractRawData>>(this.apiGetAddressData.href, {
+  private readonly contractState = this.http.get<Observable<ContractRawData>>(this.apiGetAddressData.href, {
     headers: {
       accept: 'application/json; charset=utf-8'
     }
@@ -44,26 +45,45 @@ export class ContractService {
       return this.contractState$.pipe(takeUntil(this.contractRefresh$))
     }),
     tap((data) => {
-      console.log('DATA', data)
+      console.log('Origin contract data :: projects/services/src/lib/contract/contract.service.ts: 47\n\n', data)
     }),
     publishReplay(1),
     refCount()
   )
+
+  public readonly stream: Observable<ContractDataModel> = this.contractState.pipe(
+    publishReplay(1),
+    refCount()
+  )
+
+  public readonly streamTasks: Observable<ContractGrantModel[]> = this.contractState.pipe(map((contract) => {
+    return Object.keys(contract?.tasks).map((entityKey: string) => {
+      return {
+        ...contract?.tasks[entityKey],
+        id: entityKey
+      }
+    })
+  }))
+
+  public readonly streamDAO = this.contractState.pipe(map((contract) => {
+    return Object.values(contract?.dao)
+  }))
+
+  public readonly streamWorkGroup = this.contractState.pipe(map((contract) => {
+    return Object.values(contract?.working)
+  }))
 
   constructor (
       private readonly http: HttpClient,
       @Inject(API) private readonly api: AppApiInterface
   ) {}
 
-  get stream () {
-    return this.contractState
-  }
-
   refresh () {
     this.contractRefresh$.next(null)
   }
 
   private group (keys: string[], context: {[s: string]: object}, value: ContractRawDataString|ContractRawDataNumber): void {
+    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
     const key: string = keys.shift()
 
@@ -75,16 +95,24 @@ export class ContractService {
       context[key] = keys.length === 0 ? value : {}
     }
 
+    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
+    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
     return data.reduce((orig, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig
     }, {})
+  }
+
+  public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
+    return this.stream.pipe(map((data) => {
+      return data?.tasks[entityId]
+    }))
   }
 }

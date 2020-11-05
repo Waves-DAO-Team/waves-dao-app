@@ -8,6 +8,9 @@
       "stylesheet": "Stylesheet",
       "signup": "Signup",
       "logout": "Logout"
+    },
+    "navigation": {
+      "back": "Back"
     }
   },
   "listing": {

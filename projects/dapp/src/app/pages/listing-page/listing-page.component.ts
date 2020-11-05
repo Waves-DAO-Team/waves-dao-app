@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
-import { ContractService } from '@services/contract/contract.service'
 
 @Component({
   selector: 'app-listing-page',
@@ -8,11 +7,7 @@ import { ContractService } from '@services/contract/contract.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListingPageComponent implements OnInit {
-  public readonly list = this.contractService.stream
-
-  constructor (
-      private contractService: ContractService
-  ) {}
+  constructor () {}
 
   ngOnInit (): void {
 

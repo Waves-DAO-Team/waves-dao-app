@@ -1,0 +1,19 @@
+<div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
+    <div class="lasting__item" *ngFor="let entity of list; trackBy: trackByFn">
+        <a [routerLink]="constants.routes.entity | route: entity?.id">
+            {{ entity?.title?.value }} - {{ entity?.reward?.value / 100000000 }} Waves - {{ entity?.status?.value }}
+        </a>
+    </div>
+</div>
+
+<ng-template #loadingOrErrorTemplate>
+    <ng-container *ngIf="grants.error$ | async; else loading">
+        List is a empty
+        <!-- <div class="listing__error"></div> -->
+    </ng-container>
+</ng-template>
+
+<ng-template #loading>
+    Loading...
+    <!-- <div class="listing__loader"></div> -->
+</ng-template>
