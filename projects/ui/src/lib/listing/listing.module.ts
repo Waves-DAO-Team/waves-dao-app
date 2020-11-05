@@ -4,6 +4,7 @@ import { ListingComponent } from './listing.component'
 import { RouterModule } from '@angular/router'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { TranslocoModule } from '@ngneat/transloco'
+import { CollapseContainerModule } from '@ui/collapse-container/collapse-container.module'
 
 @NgModule({
   declarations: [ListingComponent],
@@ -11,7 +12,8 @@ import { TranslocoModule } from '@ngneat/transloco'
     CommonModule,
     RouterModule,
     TranslocoModule,
-    PipesModule
+    PipesModule,
+    CollapseContainerModule
   ],
   exports: [ListingComponent]
 })
