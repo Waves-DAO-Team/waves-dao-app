@@ -10,37 +10,37 @@
     color: #000;
     display: flex;
     text-decoration: none;
+  }
+}
 
-    //.lasting__item__left {
-    //  flex: 1;
-    //  flex-direction: column;
-    //
-    //  .lasting__item__left__status {
-    //    font-size: $font-size-small;
-    //    color: $gray;
-    //  }
-    //
-    //  .lasting__item__left__title {
-    //    color: #000000;
-    //    font-weight: bold;
-    //    font-size: $font-size-medium;
-    //  }
-    //}
-    //
-    //.lasting__item__right {
-    //  text-align: right;
-    //  flex-direction: column;
-    //
-    //  .lasting__item__right__reward {
-    //    font-size: $font-size-small;
-    //    color: $gray;
-    //  }
-    //
-    //  .lasting__item__right__value {
-    //    color: #000000;
-    //    font-weight: bold;
-    //    font-size: $font-size-medium;
-    //  }
-    //}
+.lasting__item__left {
+  flex: 1;
+  flex-direction: column;
+
+  .lasting__item__left__status {
+    color: $gray;
+    font-size: $font-size-small;
+  }
+
+  .lasting__item__left__title {
+    color: #000;
+    font-size: $font-size-medium;
+    font-weight: bold;
+  }
+}
+
+.lasting__item__right {
+  flex-direction: column;
+  text-align: right;
+
+  .lasting__item__right__reward {
+    color: $gray;
+    font-size: $font-size-small;
+  }
+
+  .lasting__item__right__value {
+    color: #000;
+    font-size: $font-size-medium;
+    font-weight: bold;
   }
 }
