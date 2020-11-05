@@ -1,7 +1,15 @@
 <div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
     <div class="lasting__item" *ngFor="let entity of list; trackBy: trackByFn">
         <a [routerLink]="constants.routes.entity | route: entity?.id">
-            {{ entity?.title?.value }} - {{ entity?.reward?.value / 100000000 }} Waves - {{ entity?.status?.value }}
+          <div class="lasting__item__left">
+            <div class="lasting__item__left__status">{{ entity?.status?.value }}</div>
+            <div class="lasting__item__left__title">{{ entity?.title?.value }}</div>
+          </div>
+          <div class="lasting__item__right">
+            <div class="lasting__item__right__reward">Reward</div>
+            <div class="lasting__item__right__value">{{  entity?.reward?.value / 100000000 | number : '1.2'}}</div>
+          </div>
+<!--            {{ entity?.title?.value }} - {{ entity?.reward?.value / 100000000 }} Waves - {{ entity?.status?.value }}-->
         </a>
     </div>
 </div>
