@@ -21,8 +21,13 @@
 
 .collapse__collapse-header__left__title {
   color: #000;
+  cursor: pointer;
   font-size: $font-size-medium;
   font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .collapse__collapse-header__right {
@@ -73,8 +78,9 @@
   }
 }
 
-.toggle-btn {
+.collapse__toggle-btn {
   align-items: center;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   margin-left: $padding;

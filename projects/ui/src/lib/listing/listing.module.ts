@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { TranslocoModule } from '@ngneat/transloco'
 import { CollapseContainerModule } from '@ui/collapse-container/collapse-container.module'
+import { TagModule } from '@ui/tag/tag.module'
 
 @NgModule({
   declarations: [ListingComponent],
@@ -13,6 +14,7 @@ import { CollapseContainerModule } from '@ui/collapse-container/collapse-contain
     RouterModule,
     TranslocoModule,
     PipesModule,
+    TagModule,
     CollapseContainerModule
   ],
   exports: [ListingComponent]

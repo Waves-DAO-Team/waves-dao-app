@@ -1,6 +1,9 @@
 
 <h1>Waves official grants</h1>
 
+<ui-tag [tags]="['Open', 'Close', 'On approval', 'In work']"></ui-tag>
+
+
 <div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
   <div class="lasting__item" *ngFor="let entity of list; trackBy: trackByFn">
     <ui-collapse-container
