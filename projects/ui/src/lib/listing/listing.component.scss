@@ -1,0 +1,5 @@
+@import '../../../../../resources/styles/index';
+
+
+h1 {
+  @include text-title(h1); }

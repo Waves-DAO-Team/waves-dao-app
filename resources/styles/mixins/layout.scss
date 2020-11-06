@@ -46,3 +46,12 @@
     width: 7px;
   }
 }
+
+
+@mixin text-title($type: h1) {
+  @if $type == h1 {
+    color: #000;
+    font-size: $font-size-big;
+    font-weight: 600;
+  }
+}

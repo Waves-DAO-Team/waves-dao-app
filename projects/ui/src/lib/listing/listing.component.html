@@ -1,3 +1,6 @@
+
+<h1>Waves official grants</h1>
+
 <div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
   <div class="lasting__item" *ngFor="let entity of list; trackBy: trackByFn">
     <ui-collapse-container

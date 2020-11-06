@@ -7,11 +7,11 @@ import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angu
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollapseContainerComponent implements OnInit {
-  isOpen = false;
-  @Input() status: string = '';
-  @Input() title: string = '';
-  @Input() rewardValue: string = '';
-  @Input() routes: string = '';
+  isOpen = false
+  @Input() status = ''
+  @Input() title = ''
+  @Input() rewardValue = ''
+  @Input() routes = ''
 
   constructor () {
   }
