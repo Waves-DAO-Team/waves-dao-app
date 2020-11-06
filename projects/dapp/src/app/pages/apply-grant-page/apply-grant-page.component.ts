@@ -9,14 +9,14 @@ import { ActivatedRoute } from '@angular/router'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplyGrantPageComponent implements OnInit {
-  grantId: number = 0;
+  grantId = 0
   grantForm = new FormGroup({
     name: new FormControl('', Validators.required),
     emailOrPhone: new FormControl('', Validators.required),
     team: new FormControl('', Validators.required),
     experience: new FormControl('', Validators.required),
     documentUrl: new FormControl('', Validators.required)
-  });
+  })
 
   constructor (private route: ActivatedRoute) {
 

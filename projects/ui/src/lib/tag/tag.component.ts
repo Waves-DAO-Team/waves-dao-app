@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angu
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TagComponent {
-  @Input() tags: string[] = [];
+  @Input() tags: string[] = []
 }
