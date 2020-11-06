@@ -1,25 +1,28 @@
 <header class="container header">
-    <a class="header__title" [routerLink]="constants.routes.listing | route">{{ 'app.title' | transloco }}</a>
+  <div class="header__controls">
 
-    <div>
-      <a [routerLink]="constants.routes.about | route">{{ 'app.header.about' | transloco }}</a>
-        &nbsp;
-      <a [routerLink]="constants.routes.setting | route">{{ 'app.header.setting' | transloco }}</a>
-        &nbsp;
-      <a [routerLink]="constants.routes.create | route">{{ 'app.header.create' | transloco }}</a>
-        &nbsp;
-      <a [routerLink]="constants.routes.stylesheet | route">{{ 'app.header.stylesheet' | transloco }}</a>
+    <ng-template #guestTemplate>
+      <div #guestTemplate (click)="signupHandler()" routerLinkActive="active">{{ 'app.header.signup' | transloco }}</div>
+    </ng-template>
+  </div>
+  <div class="header__links">
 
-      <div class="header__profile" *ngIf="user$ | async as user; else guestTemplate">
-        {{ user.name }}&nbsp;<div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
-      </div>
-        &nbsp;
-    </div>
+  </div>
+  <a [routerLink]="constants.routes.listing | route" [routerLinkActiveOptions]="{exact:true}"
+     routerLinkActive="active">{{ 'app.title' | transloco }}</a>
+  <a [routerLink]="constants.routes.about | route" routerLinkActive="active">{{ 'app.header.about' | transloco }}</a>
+  <a [routerLink]="constants.routes.setting | route"
+     routerLinkActive="active">{{ 'app.header.setting' | transloco }}</a>
+  <a [routerLink]="constants.routes.create | route" routerLinkActive="active">{{ 'app.header.create' | transloco }}</a>
+  <a [routerLink]="constants.routes.stylesheet | route"
+     routerLinkActive="active">{{ 'app.header.stylesheet' | transloco }}</a>
+  <div class="header__profile" *ngIf="user$ | async as user; else guestTemplate">
+    <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
+  </div>
 </header>
 
-<ng-template #guestTemplate>
-    <div (click)="signupHandler()">{{ 'app.header.signup' | transloco }}</div>
-</ng-template>
+<!--{{ user.name }}&nbsp;-->
+
 
 
 
