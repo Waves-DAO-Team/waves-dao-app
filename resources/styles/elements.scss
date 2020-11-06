@@ -1,5 +1,5 @@
-.btn-container {
-  padding: $padding / 2 $padding;
+@mixin btn-container($type: default) {
+
   text-align: right;
 
   .btn {
@@ -29,16 +29,25 @@
     border: 1px solid $blue;
     color: $blue;
   }
+  @if ($type == full) {
+    //padding: $padding  0;
+    .btn {
+      margin: 0;
+      width: 100%;
+    }
+  } @else {
+    padding: 0 $padding;
+  }
 }
 
 $dot-list-li-size: 16px;
 
 .dot-list {
-  padding: $padding / 2 0;
+  padding: 0;
 
   .title {
     font-weight: bold;
-    padding-bottom: $padding / 2;
+    padding-bottom: 0;
   }
 
   ul {
@@ -76,3 +85,130 @@ $dot-list-li-size: 16px;
     width: $dot-list-li-size;
   }
 }
+
+@mixin br($x: 1) {
+  display: block;
+  width: 100%;
+  //background: red;
+  //outline: 1px solid #0055ff;
+  @if ($x == 1) {
+    height: $padding / 3;
+  } @else if ($x == 2) {
+    height: $padding / 2;
+  } @else if ($x == 3) {
+    height: $padding;
+  }
+}
+
+
+@mixin icon-arrow($direction: down) {
+  border: solid #000;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 3px;
+  transition: 0.2s;
+  @if $direction == up {
+    transform: rotate(-135deg);
+  } @else if $direction == right {
+    transform: rotate(-45deg);
+  } @else if $direction == down {
+    transform: rotate(45deg);
+  } @else if $direction == left {
+    transform: rotate(135deg);
+  }
+}
+
+@mixin icon-logo() {
+  background: $blue;
+  border-radius: 50%;
+  height: 21px;
+  position: relative;
+  width: 21px;
+
+  &::after {
+    background: #fff;
+    content: '';
+    height: 7px;
+    left: 7px;
+    position: absolute;
+    top: 7px;
+    transform: rotate(45deg);
+    width: 7px;
+  }
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+
+
+@mixin text-title($type: h1) {
+  line-height: 1;
+  margin: 0;
+  @if $type == h1 {
+    color: #000;
+    font-size: $font-size-big;
+    font-weight: 600;
+    padding: 0;
+  } @else if $type == h2 {
+    font-size: $font-size-large;
+    color: $blue;
+    padding: 0;
+  } @else if $type == h3 {
+    padding: 0;
+    font-size: $font-size-medium;
+    color: #000;
+  } @else if $type == h4 {
+    padding: 0;
+    font-size: $font-size-small;
+    color: #000;
+  }
+}
+
+@mixin form() {
+  color: $gray;
+  display: flex;
+  flex-direction: column;
+  font-size: $font-size-small;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+  }
+
+  input,
+  textarea {
+    border-bottom: 1px solid #000;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    font-family: 'Montserrat', 'sans-serif';
+    font-size: $font-size-large;
+    margin: 0;
+    outline: none;
+    padding: 0;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-bottom: 1px solid $blue;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+  }
+}
+
+
+.br1 {
+  @include br(1); }
+
+.br2 {
+  @include br(2); }
+
+.br3 {
+  @include br(3); }

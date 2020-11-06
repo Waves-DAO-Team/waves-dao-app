@@ -7,13 +7,15 @@
 
     <a [routerLink]="constants.routes.listing | route" [routerLinkActiveOptions]="{exact:true}"
        routerLinkActive="active">{{ 'app.title' | transloco }}</a>
-    <a [routerLink]="constants.routes.about | route" routerLinkActive="active">{{ 'app.header.about' | transloco }}</a>
-    <a [routerLink]="constants.routes.setting | route"
-       routerLinkActive="active">{{ 'app.header.setting' | transloco }}</a>
-    <a [routerLink]="constants.routes.create | route"
-       routerLinkActive="active">{{ 'app.header.create' | transloco }}</a>
-    <a [routerLink]="constants.routes.stylesheet | route"
-       routerLinkActive="active">{{ 'app.header.stylesheet' | transloco }}</a>
+  <a [routerLink]="['apply-grant', 6]" [routerLinkActiveOptions]="{exact:true}"
+     routerLinkActive="active">{{ 'Apply grant' }}</a>
+<!--    <a [routerLink]="constants.routes.about | route" routerLinkActive="active">{{ 'app.header.about' | transloco }}</a>-->
+<!--    <a [routerLink]="constants.routes.setting | route"-->
+<!--       routerLinkActive="active">{{ 'app.header.setting' | transloco }}</a>-->
+<!--    <a [routerLink]="constants.routes.create | route"-->
+<!--       routerLinkActive="active">{{ 'app.header.create' | transloco }}</a>-->
+<!--    <a [routerLink]="constants.routes.stylesheet | route"-->
+<!--       routerLinkActive="active">{{ 'app.header.stylesheet' | transloco }}</a>-->
     <div class="header__profile" *ngIf="user$ | async as user; else guestTemplate">
       <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
     </div>

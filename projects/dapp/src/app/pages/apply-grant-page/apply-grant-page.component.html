@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="br3"></div>
+  <h2>Apply for grant {{grantId}}</h2>
+  <div class="br3"></div>
+  <h1>Telegram Bot</h1>
+  <div class="br3"></div>
+  <h4>We need a great telegram bot.</h4>
+  <div class="br3"></div>
+  <div class="dot-list">
+    <div class="title">Features:</div>
+    <div class="br3"></div>
+    <ul>
+      <li>Lorem ipsum dolor.</li>
+      <li>Lorem ipsum dolor.</li>
+      <li>Lorem ipsum dolor.</li>
+      <li>Lorem ipsum dolor.</li>
+      <li>Lorem ipsum dolor.</li>
+    </ul>
+  </div>
+  <div class="br3"></div>
+  <div class="br3"></div>
+  <form [formGroup]="grantForm" (ngSubmit)="onSubmit()">
+    <label>
+      Your name:
+      <div class="br1"></div>
+      <input type="text" formControlName="name" placeholder="Firstname Lastname">
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <label>
+      Contacts:
+      <div class="br1"></div>
+      <input type="text" formControlName="emailOrPhone" placeholder="Email or phone number">
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <label>
+      Team name:
+      <div class="br1"></div>
+      <input type="text" formControlName="team" placeholder="My team">
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <label>
+      Description:
+      <div class="br1"></div>
+      <textarea rows="7" type="text" formControlName="experience"
+                placeholder="Your personal or team experience"></textarea>
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <h4 class="text-bold">
+      Technical documents on implementation saved on IPFS
+    </h4>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <label>
+      Link to documents:
+      <div class="br1"></div>
+      <input type="text" formControlName="documentUrl" placeholder="http://mydocuments.example">
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <div class="btn-container">
+      <button type="submit" class="btn active" [disabled]="!grantForm.valid">Apply</button>
+    </div>
+    <div class="br3"></div>
+    <div class="br3"></div>
+  </form>
+</div>

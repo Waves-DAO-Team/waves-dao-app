@@ -1,0 +1,22 @@
+@import './../../resources/styles/index';
+
+h1 {
+  @include text-title(h1);
+}
+
+h2 {
+  @include text-title(h2);
+}
+
+h4 {
+  @include text-title(h4);
+  //&.text-bold{
+  //  padding-top: $padding * 2;
+  //}
+}
+
+form {
+  @include form; }
+
+.btn-container {
+  @include btn-container(full); }

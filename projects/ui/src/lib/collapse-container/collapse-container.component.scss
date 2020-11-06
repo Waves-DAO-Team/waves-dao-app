@@ -1,10 +1,10 @@
-@import '../../../../../resources/styles/variables';
+@import '../../../../../resources/styles/index';
 
 .collapse__collapse-header {
   border: 1px solid $gray-light;
   color: #000;
   display: flex;
-  margin-top: $padding;
+  margin-top: 0;
   padding: $padding;
   text-decoration: none;
 }
@@ -48,7 +48,7 @@
 }
 
 .collapse__collapse-body {
-  margin-bottom: $padding;
+  //margin-bottom: $padding;
   max-height: 0;
   overflow: hidden;
   transition: 0.2s;
@@ -80,8 +80,10 @@
 
 .collapse__toggle-btn {
   align-items: center;
+  background: #fff !important;
   cursor: pointer;
   display: flex;
   justify-content: center;
   margin-left: $padding;
+  user-select: none;
 }
