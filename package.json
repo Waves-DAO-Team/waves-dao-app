@@ -15,7 +15,8 @@
     "lint:code": "standardx --fix --parser @typescript-eslint/parser --plugin @typescript-eslint/eslint-plugin --env jasmine -env jest -env node -env es6 \"projects/**/*.js\" \"projects/**/*.js\"",
     "lint:all": "node ./lint-all.js",
     "commit": "lint-staged --allow-empty",
-    "push": "run-s lint build e2e tests"
+    "push": "run-s lint build e2e tests",
+    "heroku": "pm2-runtime start heroku.config.js"
   },
   "private": true,
   "dependencies": {

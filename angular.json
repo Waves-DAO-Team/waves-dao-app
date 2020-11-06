@@ -177,7 +177,10 @@
               "includePaths": [
                 "resources/styles"
               ]
-            }
+            },
+            "allowedCommonJsDependencies": [
+              "@waves/signer"
+            ]
           },
           "configurations": {
             "production": {
