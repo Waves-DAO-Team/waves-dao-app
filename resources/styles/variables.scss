@@ -1,5 +1,18 @@
 @import 'mixins';
 @import '~include-media/dist/_include-media.scss';
+
+$gray-light: #e7e7eb;
+$gray: #aaa;
+$gray-dark: #717781;
+$blue: #05f;
+
+$padding: 14px;
+
+$font-size-small: 12px;
+$font-size-medium: 16px;
+$font-size-large: 20px;
+$font-size-big: 28px;
+
 $breakpoints: (
   phone: 767px,
   tablet: 1025px,
@@ -58,4 +71,6 @@ $breakpoints: (
     --layout-font-size: 19px;
   }
 }
+
+
 

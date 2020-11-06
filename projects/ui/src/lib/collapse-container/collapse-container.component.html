@@ -1,0 +1,27 @@
+<div class="collapse">
+  <div class="collapse__collapse-header">
+    <div class="collapse__collapse-header__left">
+      <div class="collapse__collapse-header__left__status">
+        {{ status }}
+      </div>
+      <div class="collapse__collapse-header__left__title" [routerLink]="routes">
+        {{title}}
+      </div>
+    </div>
+    <div class="collapse__collapse-header__right">
+      <div class="collapse__collapse-header__right__reward">Reward</div>
+      <div class="collapse__collapse-header__right__value">
+        {{rewardValue}}
+        <div class="icon-logo"></div>
+      </div>
+    </div>
+    <div class="collapse__toggle-btn" >
+      <div class="icon-arrow" [class.up]="isOpen" (click)="isOpen = !isOpen"></div>
+    </div>
+  </div>
+  <div class="collapse__collapse-body" [ngClass]="isOpen ? 'open' : ''">
+    <div class="collapse__collapse-body__container">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

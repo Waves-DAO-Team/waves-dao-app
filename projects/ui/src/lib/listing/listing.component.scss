@@ -1,0 +1,9 @@
+@import '../../../../../resources/styles/index';
+
+
+h1 {
+  @include text-title(h1);
+}
+
+.btn-container {
+  @include btn-container(); }

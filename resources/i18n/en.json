@@ -14,6 +14,15 @@
     }
   },
   "listing": {
+    "status": {
+      "proposed": "Open. In processing",
+      "ready_to_apply": "Open. Ready to apply",
+      "rejected": "Closed to apply. Rejected",
+      "team_chosen": "Open. Looking for a team",
+      "work_started": "Closed to apply. In work",
+      "work_finished": "Closed to apply. Finished",
+      "no_status": "No status"
+    }
 
   },
   "entity": {

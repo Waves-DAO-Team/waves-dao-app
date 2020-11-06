@@ -1,7 +1,26 @@
 @import 'mixins';
+@import '../../../../../resources/styles/variables';
 
 .header {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: $padding * 2 0 $padding / 2 0;
+
   &__profile {
     display: flex;
+  }
+
+  >* {
+    color: $blue;
+    font-size: $font-size-medium;
+    margin: 0 0 0 $padding * 2;
+    padding: 0;
+    text-decoration: none;
+  }
+
+  .active {
+    font-weight: 600;
   }
 }
