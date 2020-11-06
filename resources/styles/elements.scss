@@ -5,22 +5,25 @@
   .btn {
     background: none;
     border: 1px solid $gray-light;
-    border-radius: 0;
+    border-radius: 0 !important;
     cursor: pointer;
     font-weight: bold;
     margin-left: $padding / 4;
+    outline: none;
     padding: $padding;
     transition: 0.2s;
   }
 
   .btn:hover {
     border: 1px solid #000;
+    border-radius: 0;
     color: #000;
   }
 
   .active {
     background: $blue;
     border: 1px solid $blue;
+    border-radius: 0;
     color: #fff;
   }
 
