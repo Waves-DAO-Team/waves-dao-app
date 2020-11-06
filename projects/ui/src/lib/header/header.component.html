@@ -1,11 +1,10 @@
 <header class="container header">
-  <div class="header__controls">
+
     <ng-template #guestTemplate>
       <div #guestTemplate (click)="signupHandler()"
            routerLinkActive="active">{{ 'app.header.signup' | transloco }}</div>
     </ng-template>
-  </div>
-  <div class="header__links">
+
     <a [routerLink]="constants.routes.listing | route" [routerLinkActiveOptions]="{exact:true}"
        routerLinkActive="active">{{ 'app.title' | transloco }}</a>
     <a [routerLink]="constants.routes.about | route" routerLinkActive="active">{{ 'app.header.about' | transloco }}</a>
@@ -18,6 +17,6 @@
     <div class="header__profile" *ngIf="user$ | async as user; else guestTemplate">
       <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
     </div>
-  </div>
+
 </header>
 <!--{{ user.name }}&nbsp;-->
