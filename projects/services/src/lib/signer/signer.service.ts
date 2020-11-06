@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import Signer, { IUserData } from '@waves/signer'
+import { Signer, IUserData } from '@waves/signer/'
 import Provider from '@waves.exchange/provider-web'
 import { API, AppApiInterface } from '@constants'
 import { SignerUser } from './signer.model'
