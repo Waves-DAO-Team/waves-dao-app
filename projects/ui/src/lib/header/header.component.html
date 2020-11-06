@@ -5,7 +5,7 @@
            routerLinkActive="active">{{ 'app.header.signup' | transloco }}</div>
     </ng-template>
 
-    <a [routerLink]="constants.routes.listing | route" [routerLinkActiveOptions]="{exact:true}"
+    <a [routerLink]="constants.routes.listing | route" [routerLinkActiveOptions]="{exact:true}" class="header__title"
        routerLinkActive="active">{{ 'app.title' | transloco }}</a>
   <a [routerLink]="['apply-grant', 6]" [routerLinkActiveOptions]="{exact:true}"
      routerLinkActive="active">{{ 'Apply grant' }}</a>
