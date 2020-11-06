@@ -1,0 +1,78 @@
+.btn-container {
+  padding: $padding / 2 $padding;
+  text-align: right;
+
+  .btn {
+    background: none;
+    border: 1px solid $gray-light;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: $padding / 4;
+    padding: $padding;
+    transition: 0.2s;
+  }
+
+  .btn:hover {
+    border: 1px solid #000;
+    color: #000;
+  }
+
+  .active {
+    background: $blue;
+    border: 1px solid $blue;
+    color: #fff;
+  }
+
+  .active:hover {
+    background: transparent;
+    border: 1px solid $blue;
+    color: $blue;
+  }
+}
+
+$dot-list-li-size: 16px;
+
+.dot-list {
+  padding: $padding / 2 0;
+
+  .title {
+    font-weight: bold;
+    padding-bottom: $padding / 2;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  ul::before {
+    background: #c0d7fb;
+    content: '';
+    height: calc(100% - 5px);
+    left: ($dot-list-li-size / 2) - 0.5;
+    position: absolute;
+    top: 2px;
+    width: 1px;
+  }
+
+  li {
+    padding-left: $padding * 2;
+    position: relative;
+  }
+
+  li::before {
+    background: #6d9dd6;
+    border-radius: 50%;
+    content: '';
+    display: inline-block;
+    height: $dot-list-li-size;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    vertical-align: middle;
+    width: $dot-list-li-size;
+  }
+}
