@@ -145,7 +145,6 @@ $dot-list-li-size: 16px;
 }
 
 
-
 @mixin text-title($type: h1) {
   line-height: 1;
   margin: 0;
@@ -208,28 +207,36 @@ $dot-list-li-size: 16px;
 
 
 .br1 {
-  @include br(1); }
+  @include br(1);
+}
 
 .br2 {
-  @include br(2); }
+  @include br(2);
+}
 
 .br3 {
-  @include br(3); }
+  @include br(3);
+}
 
+.a-router-link {
+  color: $blue;
+  font-size: $font-size-medium;
+  text-decoration: none;
+}
 
 .card {
-  border: 1px solid $gray-light;
   color: #000;
   display: flex;
+  flex-direction: column;
   margin-top: 0;
-  padding: $padding;
   text-decoration: none;
 
   &__header {
-    //background: #ff0000;
+    border: 1px solid $gray-light;
     display: flex;
     flex: 1;
     flex-direction: row;
+    padding: $padding;
 
     &__left-block {
       flex: 1;
@@ -246,7 +253,6 @@ $dot-list-li-size: 16px;
         color: $gray;
         font-size: $font-size-small;
       }
-
     }
 
     .card__header__right-block {
@@ -272,8 +278,9 @@ $dot-list-li-size: 16px;
     }
   }
 
-  .card__body {
-    background: #fff;
+  &__body {
+    border: 1px solid $gray-light;
+    padding: $padding;
   }
 }
 
