@@ -215,3 +215,65 @@ $dot-list-li-size: 16px;
 
 .br3 {
   @include br(3); }
+
+
+.card {
+  border: 1px solid $gray-light;
+  color: #000;
+  display: flex;
+  margin-top: 0;
+  padding: $padding;
+  text-decoration: none;
+
+  &__header {
+    //background: #ff0000;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+
+    &__left-block {
+      flex: 1;
+      flex-direction: column;
+
+      &__title {
+        color: #000;
+        cursor: pointer;
+        font-size: $font-size-medium;
+        font-weight: bold;
+      }
+
+      &__status {
+        color: $gray;
+        font-size: $font-size-small;
+      }
+
+    }
+
+    .card__header__right-block {
+      flex-direction: column;
+      text-align: right;
+
+      &__text {
+        color: $gray;
+        font-size: $font-size-small;
+      }
+
+      &__price {
+        color: #000;
+        display: flex;
+        font-size: $font-size-medium;
+        font-weight: bold;
+
+        .icon-logo {
+          @include icon-logo;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .card__body {
+    background: #fff;
+  }
+}
+
