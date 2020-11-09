@@ -104,8 +104,8 @@ $dot-list-li-size: 16px;
 }
 
 
-@mixin icon-arrow($direction: down) {
-  border: solid #000;
+@mixin icon-arrow($direction: down, $color: #000) {
+  border: solid $color;
   border-width: 0 1px 1px 0;
   display: inline-block;
   padding: 3px;

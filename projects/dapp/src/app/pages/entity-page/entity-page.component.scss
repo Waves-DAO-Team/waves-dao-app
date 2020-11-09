@@ -5,3 +5,8 @@
 //.a-router-link{
 //  background: red;
 //}
+
+.icon-arrow-back {
+  @include icon-arrow(left, $blue);
+  margin-bottom: 2px;
+}

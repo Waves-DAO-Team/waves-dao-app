@@ -1,6 +1,9 @@
 <div class="container">
   <div class="br3"></div>
-  <a class="a-router-link" [routerLink]="constants.routes.listing | route">{{ 'app.navigation.back' | transloco }}</a>
+  <a class="a-router-link" [routerLink]="constants.routes.listing | route">
+    <div class="icon-arrow-back"></div>
+    {{ 'app.navigation.back' | transloco }}
+  </a>
   <div class="entity-page" *ngIf="entity.data$ | async as grant; else loadingOrErrorTemplate">
     <ui-entity [grant]="grant"></ui-entity>
   </div>
