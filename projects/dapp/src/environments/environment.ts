@@ -8,7 +8,7 @@ export const environment = {
   production: false,
 
   apis: {
-    nodes: 'https://nodes-testnet.wavesnodes.com',
+    nodes: 'https://testnodes.wavesnodes.com',
     rest: 'https://nodes-testnet.wavesnodes.com',
     // contractAddress: '3MvqnYLwBErxGtKzeEjgWgr2RXgniokicR2'
     contractAddress: '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5'

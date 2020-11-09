@@ -2,7 +2,7 @@ export const environment = {
   production: true,
 
   apis: {
-    nodes: 'https://nodes-testnet.wavesnodes.com',
+    nodes: 'https://testnodes.wavesnodes.com.com',
     rest: 'https://nodes-testnet.wavesnodes.com',
     contractAddress: '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5'
   },
