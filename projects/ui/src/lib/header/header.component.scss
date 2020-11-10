@@ -2,23 +2,42 @@
 @import '../../../../../resources/styles/variables';
 
 .header {
-
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  padding: $padding * 2 0 $padding / 2 0;
 
   &__profile {
     display: flex;
   }
 
-  >* {
+  &__back {
+    align-items: center;
     color: $blue;
-    font-size: $font-size-medium;
-    margin: 0 0 0 $padding * 2;
+    display: flex;
+    font-size: $font-size-large;
+    justify-content: center;
+    margin: 0;
     padding: 0;
     text-decoration: none;
+
+    img {
+      width: 10px;
+    }
   }
+
+  &__urls {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+
+    > * {
+      color: $blue;
+      font-size: $font-size-large;
+      margin: 0 0 0 $padding * 2;
+      padding: 0;
+      text-decoration: none;
+    }
+  }
+
 
   .active {
     font-weight: 600;

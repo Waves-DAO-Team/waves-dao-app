@@ -1,24 +1,34 @@
-<header class="container header">
 
+<div class="br3"></div>
+<div class="br3"></div>
+<header class="container header">
+  <div class="header__back" (click)="goBack()" *ngIf="!(this.router.url == '/')">
+    <img src="assets/icons/back.svg">
+  </div>
+
+  <div class="header__urls">
     <ng-template #guestTemplate>
       <div #guestTemplate (click)="signupHandler()"
            routerLinkActive="active">{{ 'app.header.signup' | transloco }}</div>
     </ng-template>
-
     <a [routerLink]="constants.routes.listing | route" [routerLinkActiveOptions]="{exact:true}" class="header__title"
        routerLinkActive="active">{{ 'app.title' | transloco }}</a>
-  <a [routerLink]="['apply-grant', 6]" [routerLinkActiveOptions]="{exact:true}"
-     routerLinkActive="active">{{ 'Apply grant' }}</a>
-<!--    <a [routerLink]="constants.routes.about | route" routerLinkActive="active">{{ 'app.header.about' | transloco }}</a>-->
-<!--    <a [routerLink]="constants.routes.setting | route"-->
-<!--       routerLinkActive="active">{{ 'app.header.setting' | transloco }}</a>-->
-<!--    <a [routerLink]="constants.routes.create | route"-->
-<!--       routerLinkActive="active">{{ 'app.header.create' | transloco }}</a>-->
-<!--    <a [routerLink]="constants.routes.stylesheet | route"-->
-<!--       routerLinkActive="active">{{ 'app.header.stylesheet' | transloco }}</a>-->
+    <a [routerLink]="['apply-grant', 6]" [routerLinkActiveOptions]="{exact:true}"
+       routerLinkActive="active">{{ 'Apply grant' }}</a>
+    <!--    <a [routerLink]="constants.routes.about | route" routerLinkActive="active">{{ 'app.header.about' | transloco }}</a>-->
+    <!--    <a [routerLink]="constants.routes.setting | route"-->
+    <!--       routerLinkActive="active">{{ 'app.header.setting' | transloco }}</a>-->
+    <!--    <a [routerLink]="constants.routes.create | route"-->
+    <!--       routerLinkActive="active">{{ 'app.header.create' | transloco }}</a>-->
+    <!--    <a [routerLink]="constants.routes.stylesheet | route"-->
+    <!--       routerLinkActive="active">{{ 'app.header.stylesheet' | transloco }}</a>-->
     <div class="header__profile" *ngIf="user$ | async as user; else guestTemplate">
       <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
+      <!--    {{ user.name }}&nbsp;-->
     </div>
+  </div>
+
 
 </header>
-<!--{{ user.name }}&nbsp;-->
+<div class="br3"></div>
+<div class="br3"></div>
