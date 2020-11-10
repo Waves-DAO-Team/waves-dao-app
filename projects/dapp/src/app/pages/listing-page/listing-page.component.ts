@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { UserService } from '@services/user/user.service'
 
 @Component({
   selector: 'app-listing-page',
@@ -7,9 +8,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListingPageComponent implements OnInit {
-  constructor () {}
+  constructor (private userService: UserService) {}
 
   ngOnInit (): void {
-
   }
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
+import { UserService } from '@services/user/user.service'
 
 @Component({
   selector: 'app-apply-grant-page',
@@ -18,7 +19,7 @@ export class ApplyGrantPageComponent implements OnInit {
     documentUrl: new FormControl('', Validators.required)
   })
 
-  constructor (private route: ActivatedRoute) {
+  constructor (private route: ActivatedRoute, private userService: UserService) {
 
   }
 
