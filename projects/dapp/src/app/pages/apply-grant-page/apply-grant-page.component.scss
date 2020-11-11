@@ -22,7 +22,3 @@ form {
   @include btn-container(full);
 }
 
-.btn-container {
-  @include btn-container();
-  padding: 0;
-}

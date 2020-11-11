@@ -1,0 +1,6 @@
+@import './../../resources/styles/index';
+
+.btn-container {
+  @include btn-container();
+  padding: 0;
+}

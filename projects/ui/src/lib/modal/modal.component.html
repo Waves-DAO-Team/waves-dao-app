@@ -1,0 +1,16 @@
+<div class="modal" *ngIf="isOpen">
+  <div class="modal__container">
+    <div class="modal__container__inner-container">
+      <div class="modal__container__inner-container__title">
+        {{title}}
+      </div>
+      <div class="modal__container__inner-container__text">
+        {{text}}
+      </div>
+      <div class="btn-container">
+        <div class="btn" (click)="onCancel()">Cancel</div>
+        <div class="btn active" (click)="onApply()">Apply</div>
+      </div>
+    </div>
+  </div>
+</div>

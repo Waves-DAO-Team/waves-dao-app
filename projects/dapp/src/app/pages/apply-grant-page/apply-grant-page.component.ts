@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { UserService } from '@services/user/user.service'
+import {ModalComponent} from "@ui/modal/modal.component";
 
 @Component({
   selector: 'app-apply-grant-page',
   templateUrl: './apply-grant-page.component.html',
   styleUrls: ['./apply-grant-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ApplyGrantPageComponent implements OnInit {
   grantId = 0
@@ -18,6 +19,9 @@ export class ApplyGrantPageComponent implements OnInit {
     experience: new FormControl('', Validators.required),
     documentUrl: new FormControl('', Validators.required)
   })
+
+  @ViewChild(ModalComponent) child?: ModalComponent;
+
 
   constructor (private route: ActivatedRoute, private userService: UserService) {
 
@@ -30,6 +34,12 @@ export class ApplyGrantPageComponent implements OnInit {
   }
 
   onSubmit () {
-    console.log('onSubmit', this.grantForm.valid)
+    if (this.grantForm.valid) {
+      this.child?.openModal()
+    }
+  }
+
+  willConfirm(status: boolean) {
+    console.log('willConfirm', status)
   }
 }

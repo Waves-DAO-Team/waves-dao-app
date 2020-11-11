@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { TranslocoRootModule } from './transloco/transloco-root.module'
 import { HeaderModule } from '@ui/header/header.module'
 import { TagModule } from '@ui/tag/tag.module'
+import { ModalModule } from '@ui/modal/modal.module'
 import { FooterModule } from '@ui/footer/footer.module'
 import { NgProgressModule } from 'ngx-progressbar'
 import { NgProgressHttpModule } from 'ngx-progressbar/http'
@@ -36,6 +37,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     TranslocoRootModule,
     HeaderModule,
     TagModule,
+    ModalModule,
     FooterModule,
     PipesModule,
     MatSnackBarModule
