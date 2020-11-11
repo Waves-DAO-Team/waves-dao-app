@@ -8,7 +8,7 @@ import { UserService } from '@services/user/user.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListingPageComponent implements OnInit {
-  constructor (private userService: UserService) {}
+  constructor () {}
 
   ngOnInit (): void {
   }
