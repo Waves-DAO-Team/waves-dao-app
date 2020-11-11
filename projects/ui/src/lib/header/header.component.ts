@@ -10,7 +10,6 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { Router } from '@angular/router'
 import { UserService } from '@services/user/user.service'
-import { switchMap } from 'rxjs/operators'
 import { RoleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
 
@@ -35,7 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit (): void {
-    this._subscribe()
+    this.subscribe()
   }
 
   signupHandler () {
@@ -53,11 +52,10 @@ export class HeaderComponent implements OnInit {
   }
 
   goBack (): void {
-    // this.router.navigateByUrl('/')
     this.location.back()
   }
 
-  private _subscribe (): void {
+  private subscribe (): void {
     this.userService.userData.subscribe((newData) => {
       this.userRole = newData.userRole
     })

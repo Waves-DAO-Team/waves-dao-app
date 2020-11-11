@@ -5,6 +5,7 @@
     <img src="assets/icons/back.svg">
   </div>
   <div class="header__urls">
+    <a [routerLink]="['/']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">{{ 'app.header.home' | transloco }}</a>
     <a [routerLink]="constants.routes.about | route" routerLinkActive="active">{{ 'app.header.about' | transloco }}</a>
     <ng-container *ngIf="userRole === RoleEnum.unauthorized">
       <div #guestTemplate (click)="signupHandler()"

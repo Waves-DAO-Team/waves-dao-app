@@ -27,17 +27,17 @@ export class UserService {
     private contractService: ContractService,
     private snackBar: MatSnackBar
   ) {
-    this._subscribe()
+    this.subscribe()
   }
 
-  _subscribe (): void {
+  private subscribe (): void {
     this.signerService.user.subscribe((e) => {
       if (e.address) {
         this.userData.next({
           ...this.userData.getValue(),
           userAddress: e.address
         })
-        this._defineRol()
+        this.defineRol()
       }
     })
     this.contractService.streamDAO.subscribe((e) => {
@@ -45,32 +45,32 @@ export class UserService {
         ...this.otherData.getValue(),
         DAOMemberAddress: (Object.keys(e[0]) as [])
       })
-      this._defineRol()
+      this.defineRol()
     })
     this.contractService.streamWorkGroup.subscribe((e) => {
       this.otherData.next({
         ...this.otherData.getValue(),
         WorkGroupAddress: (Object.keys(e[0].member) as [])
       })
-      this._defineRol()
+      this.defineRol()
     })
   }
 
-  signup () {
+  public signup ():void {
     this.signerService.login().subscribe(() => {
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
     })
   }
 
-  logout () {
+  public logout (): void {
     this.userData.next({
       userRole: RoleEnum.unauthorized,
       userAddress: ''
     })
   }
 
-  _defineRol (): void {
+  private defineRol (): void {
     if (this.userData.value.userAddress === '') {
       this.userData.next({
         ...this.userData.getValue(),

@@ -2,6 +2,7 @@
   "app": {
     "title": "Application",
     "header": {
+      "home": "Home",
       "about": "About",
       "setting": "Setting",
       "create": "Create",
