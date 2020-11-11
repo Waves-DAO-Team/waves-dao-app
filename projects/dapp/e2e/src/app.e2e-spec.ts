@@ -8,10 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage()
   })
 
-  it('should display title in header', () => {
-    page.navigateTo()
-    expect(page.getTitleText()).toEqual('Application')
-  })
+  // it('should display title in header', () => {
+  //   page.navigateTo()
+  //   expect(page.getTitleText()).toEqual('Application')
+  // })
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
