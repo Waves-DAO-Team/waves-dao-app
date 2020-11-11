@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
+import { UserService } from '@services/user/user.service'
+import { RoleEnum } from '@services/user/user.interface'
+import { GrantStatusEnum } from '../../../../services/src/interface'
 
 @Component({
   selector: 'ui-entity',
@@ -8,8 +11,11 @@ import { ContractGrantModel } from '@services/contract/contract.model'
 })
 export class EntityComponent implements OnInit {
   @Input() grant: ContractGrantModel = {}
+  grantStatusEnum = GrantStatusEnum
+  userRoleEnum = RoleEnum
+  constructor (public userService: UserService) {}
 
-  constructor () {}
+  ngOnInit (): void {
 
-  ngOnInit (): void {}
+  }
 }

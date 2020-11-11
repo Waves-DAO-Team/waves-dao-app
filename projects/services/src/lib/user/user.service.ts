@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core'
-import { RoleEnum } from '@services/user/user.interface'
+import { OtherDataInterface, RoleEnum, UserDataInterface } from '@services/user/user.interface'
 import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { environment } from '../../../../dapp/src/environments/environment'
+import { BehaviorSubject } from 'rxjs'
+import { translate } from '@ngneat/transloco'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  otherData = {
-    DAOMemberAddress: Array(0),
-    WorkGroupAddress: Array(0),
+  otherData = new BehaviorSubject<OtherDataInterface>({
+    DAOMemberAddress: [],
+    WorkGroupAddress: [],
     masterAddress: environment.apis.contractAddress
-  }
+  })
 
-  userData = {
+  userData = new BehaviorSubject<UserDataInterface>({
     userRole: RoleEnum.unauthorized,
     userAddress: ''
-  };
+  })
 
   constructor (
     private signerService: SignerService,
-    private contractService: ContractService
+    private contractService: ContractService,
+    private snackBar: MatSnackBar
   ) {
     this._subscribe()
   }
@@ -29,39 +33,70 @@ export class UserService {
   _subscribe (): void {
     this.signerService.user.subscribe((e) => {
       if (e.address) {
-        this.userData.userAddress = e.address
+        this.userData.next({
+          ...this.userData.getValue(),
+          userAddress: e.address
+        })
         this._defineRol()
       }
     })
     this.contractService.streamDAO.subscribe((e) => {
-      this.otherData.DAOMemberAddress = (Object.keys(e[0]) as [])
+      this.otherData.next({
+        ...this.otherData.getValue(),
+        DAOMemberAddress: (Object.keys(e[0]) as [])
+      })
       this._defineRol()
     })
     this.contractService.streamWorkGroup.subscribe((e) => {
-      this.otherData.WorkGroupAddress = (Object.keys(e[0].member) as [])
+      this.otherData.next({
+        ...this.otherData.getValue(),
+        WorkGroupAddress: (Object.keys(e[0].member) as [])
+      })
       this._defineRol()
+    })
+  }
+
+  signup () {
+    this.signerService.login().subscribe(() => {
+    }, (error) => {
+      this.snackBar.open(error, translate('messages.ok'))
     })
   }
 
   logout () {
-    this.userData = {
+    this.userData.next({
       userRole: RoleEnum.unauthorized,
       userAddress: ''
-    }
+    })
   }
 
   _defineRol (): void {
-    if (this.userData.userAddress === '') {
-      this.userData.userRole = RoleEnum.unauthorized
-    } else if (this.userData.userAddress) {
-      this.userData.userRole = RoleEnum.authorized
-    } else if (this.otherData.DAOMemberAddress.includes(this.userData.userAddress)) {
-      this.userData.userRole = RoleEnum.DAOMember
-    } else if (this.otherData.WorkGroupAddress.includes(this.userData.userAddress)) {
-      this.userData.userRole = RoleEnum.workingGroup
+    if (this.userData.value.userAddress === '') {
+      this.userData.next({
+        ...this.userData.getValue(),
+        userRole: RoleEnum.unauthorized
+      })
+    } else if (this.userData.value.userAddress) {
+      this.userData.next({
+        ...this.userData.getValue(),
+        userRole: RoleEnum.authorized
+      })
+    } else if (this.otherData.value.DAOMemberAddress.includes(this.userData.value.userAddress)) {
+      this.userData.next({
+        ...this.userData.getValue(),
+        userRole: RoleEnum.DAOMember
+      })
+    } else if (this.otherData.value.WorkGroupAddress.includes(this.userData.value.userAddress)) {
+      this.userData.next({
+        ...this.userData.getValue(),
+        userRole: RoleEnum.workingGroup
+      })
     }
-    if (this.otherData.masterAddress === this.userData.userAddress) {
-      this.userData.userRole = RoleEnum.workingGroup
+    if (this.otherData.value.masterAddress === this.userData.value.userAddress) {
+      this.userData.next({
+        ...this.userData.getValue(),
+        userRole: RoleEnum.master
+      })
     }
   }
 }

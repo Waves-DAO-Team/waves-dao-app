@@ -4,6 +4,8 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { GRANTS } from '@ui/listing/listing.providers'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import { ContractGrantModel } from '@services/contract/contract.model'
+import { RoleEnum } from '@services/user/user.interface'
+import { UserService } from '@services/user/user.service'
 
 @Component({
   selector: 'app-entity-page',
@@ -15,9 +17,11 @@ import { ContractGrantModel } from '@services/contract/contract.model'
 export class EntityPageComponent implements OnInit {
   constructor (
       @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-      @Inject(ENTITY) public readonly entity: LoadingWrapperModel<ContractGrantModel>
+      @Inject(ENTITY) public readonly entity: LoadingWrapperModel<ContractGrantModel>,
+      public userService: UserService
   ) {
   }
 
-  ngOnInit (): void {}
+  ngOnInit (): void {
+  }
 }

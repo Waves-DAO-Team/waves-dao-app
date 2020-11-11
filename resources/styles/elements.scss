@@ -231,6 +231,35 @@ $dot-list-li-size: 16px;
   margin-top: 0;
   text-decoration: none;
 
+  &__info {
+    border: 1px solid $gray-light;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: $padding;
+
+    &__left {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__mid {
+      padding-left: $padding;
+
+      &__subtext {
+        color: $gray;
+        font-size: $font-size-small;
+      }
+
+      &__text {
+        color: $blue;
+        cursor: pointer;
+        font-size: $font-size-medium;
+        font-weight: bold;
+      }
+    }
+  }
+
   &__header {
     border: 1px solid $gray-light;
     display: flex;

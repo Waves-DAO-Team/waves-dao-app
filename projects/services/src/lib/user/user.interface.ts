@@ -1,3 +1,5 @@
+import { environment } from '../../../../dapp/src/environments/environment'
+
 export enum RoleEnum {
   unauthorized,
   authorized,
@@ -6,19 +8,13 @@ export enum RoleEnum {
   master
 }
 
-export interface UserInterface {
-  userData: {
+export interface UserDataInterface {
     userRole: RoleEnum,
     userAddress: string
-  }
+}
 
-  otherData: {
-    DAOMemberAddress: string[]
-  }
-
-  getRole(): RoleEnum
-
-  _subscribe(): void
-
-  _defineRol(): void
+export interface OtherDataInterface {
+  DAOMemberAddress: string[],
+  WorkGroupAddress: string[],
+  masterAddress: string
 }

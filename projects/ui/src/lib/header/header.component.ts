@@ -9,6 +9,10 @@ import { Observable, of } from 'rxjs'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { Router } from '@angular/router'
+import { UserService } from '@services/user/user.service'
+import { switchMap } from 'rxjs/operators'
+import { RoleEnum } from '@services/user/user.interface'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'ui-header',
@@ -18,16 +22,20 @@ import { Router } from '@angular/router'
 })
 export class HeaderComponent implements OnInit {
   public readonly user$: Observable<SignerUser> = this.signerService.user
-
+  userRole = RoleEnum.unauthorized
+  RoleEnum = RoleEnum;
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     private signerService: SignerService,
     private snackBar: MatSnackBar,
-    public router: Router
+    public router: Router,
+    public userService: UserService,
+    private location: Location
   ) {
   }
 
   ngOnInit (): void {
+    this._subscribe()
   }
 
   signupHandler () {
@@ -45,6 +53,13 @@ export class HeaderComponent implements OnInit {
   }
 
   goBack (): void {
-    this.router.navigateByUrl('/')
+    // this.router.navigateByUrl('/')
+    this.location.back()
+  }
+
+  private _subscribe (): void {
+    this.userService.userData.subscribe((newData) => {
+      this.userRole = newData.userRole
+    })
   }
 }
