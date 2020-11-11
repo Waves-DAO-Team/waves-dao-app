@@ -6,6 +6,7 @@ import { ApplyGrantPageComponent } from '@pages/apply-grant-page/apply-grant-pag
 import { ReactiveFormsModule } from '@angular/forms'
 import { ModalModule } from '@ui/modal/modal.module'
 import { AuthGuard } from '@pages/apply-grant-page/AuthGuard'
+import { ApplyGrantPageGuard } from '@pages/apply-grant-page/apply-grant-page.guard'
 
 @NgModule({
   declarations: [ApplyGrantPageComponent],
@@ -16,7 +17,7 @@ import { AuthGuard } from '@pages/apply-grant-page/AuthGuard'
     ModalModule
   ],
   providers: [
-    AuthGuard
+    ApplyGrantPageGuard
   ]
 })
 export class ApplyGrantPageModule {
