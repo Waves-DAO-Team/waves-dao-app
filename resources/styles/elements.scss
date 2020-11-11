@@ -233,11 +233,32 @@ $dot-list-li-size: 16px;
   text-decoration: none;
 
   &__info {
+    align-items: center;
     border: 1px solid $gray-light;
     display: flex;
     flex: 1;
     flex-direction: row;
     padding: $padding;
+
+    &__right {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      justify-content: flex-end;
+
+      img {
+        cursor: pointer;
+        height: 32px;
+        margin-left: $padding / 2;
+        opacity: 0.5;
+        transition: 0.3s;
+        width: 32px;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
 
     &__left {
       display: flex;
@@ -245,6 +266,7 @@ $dot-list-li-size: 16px;
     }
 
     &__mid {
+      align-items: center;
       padding-left: $padding;
 
       &__subtext {

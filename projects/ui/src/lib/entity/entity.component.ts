@@ -13,9 +13,14 @@ export class EntityComponent implements OnInit {
   @Input() grant: ContractGrantModel = {}
   grantStatusEnum = GrantStatusEnum
   userRoleEnum = RoleEnum
+  isDAOVote = false
   constructor (public userService: UserService) {}
 
   ngOnInit (): void {
 
+  }
+
+  vote () {
+    this.isDAOVote = true
   }
 }

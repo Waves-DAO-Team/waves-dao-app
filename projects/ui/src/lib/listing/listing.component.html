@@ -13,7 +13,7 @@
             <div class="card__header__left-block__status__role-text"
                  *ngIf="userService.userData.getValue().userRole === RoleEnum.DAOMember
                   && entity?.status?.value === GrantStatusEnum.proposed">
-              {{'listing.DAO_subtext.need_vote' | transloco}} {{entity?.status?.value }}
+              {{'listing.DAO_subtext.need_vote' | transloco}}
             </div>
           </div>
 
@@ -35,11 +35,9 @@
 <ng-template #loadingOrErrorTemplate>
   <ng-container *ngIf="grants.error$ | async; else loading">
     List is a empty
-    <!-- <div class="listing__error"></div> -->
   </ng-container>
 </ng-template>
 
 <ng-template #loading>
   Loading...
-  <!-- <div class="listing__loader"></div> -->
 </ng-template>

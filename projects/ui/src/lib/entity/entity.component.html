@@ -1,5 +1,6 @@
 <div class="entity">
   <div class="br3"></div>
+
   <!-- unauthorized --------------------------------------------------------------------------------------------------->
   <div class="card" *ngIf="(userService.userData | async)?.userRole == userRoleEnum.unauthorized">
     <div class="card__header">
@@ -75,6 +76,50 @@
     </div>
   </div>
   <!-- authorized ----------------------------------------------------------------------------------------------------->
+
+  <!-- DAOMember ------------------------------------------------------------------------------------------------------>
+  <div class="card" *ngIf="(userService.userData | async)?.userRole == userRoleEnum.DAOMember">
+    <div class="card__header">
+      <div class="card__header__left-block">
+        <div class="card__header__left-block__status">
+          {{'listing.status.' + (grant?.status?.value || 'no_status') | transloco}}
+        </div>
+        <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
+      </div>
+      <div class="card__header__right-block">
+        <div class="card__header__right-block__text">Reward</div>
+        <div class="card__header__right-block__price">
+          {{grant?.reward?.value / 100000000 | number : '1.2'}}
+          <div class="icon-logo"></div>
+        </div>
+      </div>
+    </div>
+    <div class="br3"></div>
+    <div class="card__body">
+      <pre>{{ grant | json }}</pre>
+    </div>
+    <div class="br3"></div>
+    <div class="card__info">
+      <div class="card__info__left">
+        <img src="assets/icons/vote.svg">
+      </div>
+      <div class="card__info__mid">
+        <ng-container *ngIf="!isDAOVote">
+          <div class="card__info__mid__subtext">Your voice is important to us</div>
+          <div class="card__info__mid__text">Vote for the grant</div>
+        </ng-container>
+        <ng-container *ngIf="isDAOVote">
+          <div class="card__info__mid__subtext">We will take your vote into account</div>
+          <div class="card__info__mid__text">Thanks for your vote!</div>
+        </ng-container>
+      </div>
+      <div class="card__info__right" *ngIf="!isDAOVote">
+        <img (click)="vote()" src="assets/icons/vote-min.svg">
+        <img (click)="vote()" src="assets/icons/vote-plus.svg">
+      </div>
+    </div>
+  </div>
+  <!-- DAOMember ------------------------------------------------------------------------------------------------------>
 
   <div class="br3"></div>
 
