@@ -14,6 +14,7 @@ export const environment = {
     application: 'entity/:entityId/application',
     about: 'about',
     applyGrant: 'apply-grant/:entityId',
+    createGrant: 'create-grant',
     setting: 'settings',
     create: 'create',
     stylesheet: 'stylesheet'

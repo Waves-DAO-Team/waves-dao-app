@@ -12,7 +12,7 @@ import { Router } from '@angular/router'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
-
+import { environment } from '../../../../dapp/src/environments/environment'
 @Component({
   selector: 'ui-header',
   templateUrl: './header.component.html',
@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   public readonly user$: Observable<SignerUser> = this.signerService.user
   userRole = RoleEnum.unauthorized
   RoleEnum = RoleEnum;
+  routingPath = environment.routing
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     private signerService: SignerService,

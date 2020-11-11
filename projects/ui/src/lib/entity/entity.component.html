@@ -121,11 +121,40 @@
   </div>
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
 
+  <!-- workingGroup --------------------------------------------------------------------------------------------------->
+  <div class="card" *ngIf="(userService.userData | async)?.userRole == userRoleEnum.DAOMember">
+    <div class="card__header">
+      <div class="card__header__left-block">
+        <div class="card__header__left-block__status">
+          {{'listing.status.' + (grant?.status?.value || 'no_status') | transloco}}
+        </div>
+        <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
+      </div>
+      <div class="card__header__right-block">
+        <div class="card__header__right-block__text">Reward</div>
+        <div class="card__header__right-block__price">
+          {{grant?.reward?.value / 100000000 | number : '1.2'}}
+          <div class="icon-logo"></div>
+        </div>
+      </div>
+    </div>
+    <div class="br3"></div>
+    <div class="card__body">
+      <pre>{{ grant | json }}</pre>
+      <div class="btn-container">
+        <button (click)="modal.openModal()" class="btn">Remove</button>
+        <button (click)="modal.openModal()" class="btn">Edit</button>
+        <button (click)="modal.openModal()" class="btn">Finish vote</button>
+      </div>
+    </div>
+  </div>
+  <!-- workingGroup --------------------------------------------------------------------------------------------------->
+
   <div class="br3"></div>
 
   <!--    <div class="entity__title">{{ grant?.title?.value }}</div>-->
   <!--    <div class="entity__reward">{{ grant?.reward?.value }}</div>-->
   <!--    <div class="entity__reward">{{ grant?.status?.value }}</div>-->
 
-
+  <ui-modal></ui-modal>
 </div>

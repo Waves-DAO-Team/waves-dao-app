@@ -1,0 +1,21 @@
+@import './../../resources/styles/index';
+
+h1 {
+  @include text-title(h1);
+}
+
+h2 {
+  @include text-title(h2);
+}
+
+h4 {
+  @include text-title(h4);
+}
+
+form {
+  @include form; }
+
+.btn-container.full {
+  @include btn-container(full);
+}
+

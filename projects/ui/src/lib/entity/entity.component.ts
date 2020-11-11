@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core'
+import {Component, Input, OnInit, ViewChild} from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '../../../../services/src/interface'
+import {ModalComponent} from "@ui/modal/modal.component";
 
 @Component({
   selector: 'ui-entity',
@@ -10,10 +11,13 @@ import { GrantStatusEnum } from '../../../../services/src/interface'
   styleUrls: ['./entity.component.scss']
 })
 export class EntityComponent implements OnInit {
+
   @Input() grant: ContractGrantModel = {}
   grantStatusEnum = GrantStatusEnum
   userRoleEnum = RoleEnum
   isDAOVote = false
+  @ViewChild(ModalComponent) modal?: ModalComponent
+
   constructor (public userService: UserService) {}
 
   ngOnInit (): void {
@@ -23,4 +27,5 @@ export class EntityComponent implements OnInit {
   vote () {
     this.isDAOVote = true
   }
+
 }

@@ -340,6 +340,7 @@ $dot-list-li-size: 16px;
   &__body {
     border: 1px solid $gray-light;
     padding: $padding;
+    overflow: hidden;
   }
 }
 
@@ -348,6 +349,7 @@ $dot-list-li-size: 16px;
   height: 100%;
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   z-index: 9;
 

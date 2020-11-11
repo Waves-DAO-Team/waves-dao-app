@@ -11,13 +11,18 @@
     <a [routerLink]="constants.routes.about | route" routerLinkActive="active">
       {{ 'app.header.about' | transloco }}
     </a>
+    <ng-container *ngIf="userRole === RoleEnum.DAOMember">
+      <a [routerLink]="[routingPath.createGrant]" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
+        {{ 'app.header.createGrant' | transloco }}
+      </a>
+    </ng-container>
     <ng-container *ngIf="userRole === RoleEnum.unauthorized">
       <div #guestTemplate (click)="signupHandler()" routerLinkActive="active">
         {{ 'app.header.signup' | transloco }}
       </div>
     </ng-container>
-    <ng-container *ngIf="userRole === RoleEnum.authorized">
-    </ng-container>
+<!--    <ng-container>-->
+
     <ng-template #guestTemplate>
     </ng-template>
     <div class="header__profile" *ngIf="user$ | async as user; else guestTemplate">

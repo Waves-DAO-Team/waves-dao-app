@@ -8,7 +8,8 @@
       "create": "Create",
       "stylesheet": "Stylesheet",
       "signup": "Signup",
-      "logout": "Logout"
+      "logout": "Logout",
+      "createGrant": "Create grant"
     },
     "navigation": {
       "back": "Back"
