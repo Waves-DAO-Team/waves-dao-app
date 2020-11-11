@@ -13,7 +13,6 @@ import { Router, RouterModule } from '@angular/router'
     PipesModule,
     RouterModule
   ],
-  providers: [Router],
   exports: [HeaderComponent]
 })
 export class HeaderModule { }

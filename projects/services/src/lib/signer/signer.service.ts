@@ -5,7 +5,6 @@ import { API, AppApiInterface } from '@constants'
 import { SignerUser } from './signer.model'
 import { from, Observable, Subject } from 'rxjs'
 import { publishReplay, refCount } from 'rxjs/operators'
-import { UserService } from '@services/user/user.service'
 
 @Injectable({
   providedIn: 'root'

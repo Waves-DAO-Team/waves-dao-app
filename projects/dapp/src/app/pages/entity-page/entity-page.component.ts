@@ -15,8 +15,7 @@ import { UserService } from '@services/user/user.service'
 export class EntityPageComponent implements OnInit {
   constructor (
       @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-      @Inject(ENTITY) public readonly entity: LoadingWrapperModel<ContractGrantModel>,
-      public userService: UserService
+      @Inject(ENTITY) public readonly entity: LoadingWrapperModel<ContractGrantModel>
   ) {
   }
 
