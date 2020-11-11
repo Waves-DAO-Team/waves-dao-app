@@ -281,7 +281,14 @@ $dot-list-li-size: 16px;
 
       &__status {
         color: $gray;
+        display: flex;
         font-size: $font-size-small;
+
+        &__role-text {
+          color: $blue;
+          font-style: italic;
+          margin-left: $padding;
+        }
       }
     }
 
