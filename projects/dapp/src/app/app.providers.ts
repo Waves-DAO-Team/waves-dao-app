@@ -7,6 +7,7 @@ export interface AppConstantsInterface {
 
 export interface AppApiInterface {
   nodes: string
+  signer: string
   rest: string
   contractAddress: string
 }

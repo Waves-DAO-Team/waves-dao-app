@@ -26,7 +26,7 @@ export class SignerService {
       // Specify URL of the node on Testnet
       NODE_URL: api.nodes
     })
-    this.signer.setProvider(new Provider())
+    this.signer.setProvider(new Provider(api.signer))
   }
 
   public login (): Observable<Observable<SignerUser>> {
