@@ -5,6 +5,7 @@ import { provideApi, provideAppConstants } from '@constants'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ContractService } from '@services/contract/contract.service'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { TagModule } from '@ui/tag/tag.module'
 
 describe('ListingComponent', () => {
   let component: ListingComponent
@@ -12,7 +13,7 @@ describe('ListingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatSnackBarModule],
+      imports: [HttpClientTestingModule, MatSnackBarModule, TagModule],
       declarations: [ListingComponent],
       providers: [
         provideAppConstants(),

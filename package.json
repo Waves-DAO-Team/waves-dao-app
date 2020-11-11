@@ -11,7 +11,7 @@
     "test:services": "ng test services --browsers=ChromeHeadless --watch=false --progress=false",
     "test:ui": "ng test ui --browsers=ChromeHeadless --watch=false --progress=false",
     "lint": "ng lint",
-    "e2e": "ng e2e",
+    "e2e": "ng e2e --port 0",
     "lint:code": "standardx --fix --parser @typescript-eslint/parser --plugin @typescript-eslint/eslint-plugin --env jasmine -env jest -env node -env es6 \"projects/**/*.js\" \"projects/**/*.js\"",
     "lint:all": "node ./lint-all.js",
     "commit": "lint-staged --allow-empty",

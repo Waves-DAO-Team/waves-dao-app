@@ -4,6 +4,7 @@ import { ListingPageComponent } from './listing-page.component'
 import { ContractService } from '@services/contract/contract.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { provideApi } from '@constants'
+import { UserService } from '@services/user/user.service'
 
 describe('ListingPageComponent', () => {
   let component: ListingPageComponent
