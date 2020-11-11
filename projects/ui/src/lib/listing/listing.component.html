@@ -1,7 +1,7 @@
 <div class="br3"></div>
 <h1>Waves official grants</h1>
 <div class="br3"></div>
-<ui-tag [tags]="['Open', 'Close', 'On approval', 'In work']"></ui-tag>
+<!--<ui-tag [tags]="['Open', 'Close', 'On approval', 'In work']"></ui-tag>-->
 <div class="br3"></div>
 <div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
   <ng-container  *ngFor="let entity of list; trackBy: trackByFn">
