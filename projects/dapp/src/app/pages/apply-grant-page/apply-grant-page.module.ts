@@ -5,6 +5,7 @@ import { ApplyGrantPageRoutingModule } from '@pages/apply-grant-page/apply-grant
 import { ApplyGrantPageComponent } from '@pages/apply-grant-page/apply-grant-page.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ModalModule } from '@ui/modal/modal.module'
+import {ApplyGrantPageGuard} from "@pages/apply-grant-page/apply-grant-page.guard";
 
 @NgModule({
   declarations: [ApplyGrantPageComponent],
@@ -13,7 +14,8 @@ import { ModalModule } from '@ui/modal/modal.module'
     ApplyGrantPageRoutingModule,
     ReactiveFormsModule,
     ModalModule
-  ]
+  ],
+  providers: [ApplyGrantPageGuard],
 })
 export class ApplyGrantPageModule {
 }
