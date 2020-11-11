@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core'
-import { Routes, RouterModule } from '@angular/router'
+import { Routes, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
 import { ApplyGrantPageComponent } from '@pages/apply-grant-page/apply-grant-page.component'
-import {ApplyGrantPageGuard} from "@pages/apply-grant-page/apply-grant-page.guard";
+import { AuthGuard } from '@pages/apply-grant-page/AuthGuard'
 
 const routes: Routes = [
   {
     path: '',
     component: ApplyGrantPageComponent,
     pathMatch: 'full',
-    canActivate: [ApplyGrantPageGuard],
+    canActivate: [AuthGuard],
     data: {}
   }
 ]

@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
-import {ModalComponent} from "@ui/modal/modal.component";
+import { ModalComponent } from '@ui/modal/modal.component'
 
 @Component({
   selector: 'app-apply-grant-page',
   templateUrl: './apply-grant-page.component.html',
   styleUrls: ['./apply-grant-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplyGrantPageComponent implements OnInit {
   grantId = 0
@@ -21,7 +21,6 @@ export class ApplyGrantPageComponent implements OnInit {
 
   @ViewChild(ModalComponent) modal?: ModalComponent;
 
-
   constructor (private route: ActivatedRoute) {
 
   }
@@ -33,12 +32,15 @@ export class ApplyGrantPageComponent implements OnInit {
   }
 
   onSubmit () {
+    // TODO: Как это написать для линтера без return?
+    let res
     if (this.grantForm.valid) {
-      this.modal?.openModal()
+      res = this.modal?.openModal()
     }
+    return res
   }
 
-  willConfirm(status: boolean) {
+  willConfirm (status: boolean) {
     console.log('willConfirm', status)
   }
 }

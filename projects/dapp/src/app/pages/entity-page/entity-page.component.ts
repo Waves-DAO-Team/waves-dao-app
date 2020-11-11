@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core'
 import { ENTITY, ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/entity-page.providers'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
-import { GRANTS } from '@ui/listing/listing.providers'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { RoleEnum } from '@services/user/user.interface'
 import { UserService } from '@services/user/user.service'
 
 @Component({

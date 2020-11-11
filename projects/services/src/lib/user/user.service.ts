@@ -56,7 +56,7 @@ export class UserService {
     })
   }
 
-  public signup ():void {
+  public signup (): void {
     this.signerService.login().subscribe(() => {
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
