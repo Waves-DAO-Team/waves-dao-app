@@ -1,4 +1,6 @@
 @mixin btn-container($type: default) {
+  display: flex;
+  justify-content: flex-end;
 
   text-align: right;
 
@@ -102,7 +104,6 @@ $dot-list-li-size: 16px;
     height: $padding;
   }
 }
-
 
 @mixin icon-arrow($direction: down, $color: #000) {
   border: solid $color;
@@ -313,3 +314,39 @@ $dot-list-li-size: 16px;
   }
 }
 
+.modal {
+  background: rgba(196, 196, 196, 0.7);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9;
+
+  &__container {
+    bottom: 0;
+    height: 300px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 300px;
+
+    &__inner-container {
+      background: #fff;
+      padding: $padding;
+
+      &__title {
+        @include text-title(h2);
+        color: #000;
+        font-weight: bold;
+        padding-bottom: $padding;
+      }
+
+      &__text {
+        @include text-title(h4);
+        padding-bottom: $padding;
+      }
+    }
+  }
+}

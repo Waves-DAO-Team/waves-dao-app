@@ -18,5 +18,11 @@ h4 {
 form {
   @include form; }
 
+.btn-container.full {
+  @include btn-container(full);
+}
+
 .btn-container {
-  @include btn-container(full); }
+  @include btn-container();
+  padding: 0;
+}
