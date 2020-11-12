@@ -8,10 +8,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class MasterSettingPageComponent implements OnInit {
   settingForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    reward: new FormControl('', Validators.required),
-    tags: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
+    workGroup: new FormControl('', Validators.required),
+    DAOMember: new FormControl('', Validators.required)
   })
 
   constructor() { }

@@ -6,31 +6,16 @@
   <div class="br3"></div>
   <form [formGroup]="settingForm">
     <label>
-      Grant name:
+      Work group:
       <div class="br1"></div>
-      <input type="text" formControlName="name" placeholder="Enter the name of the grant">
+      <input type="text" formControlName="workGroup" placeholder="Enter the working groups">
     </label>
     <div class="br3"></div>
     <div class="br3"></div>
     <label>
-      Reward:
+      DAO memner:
       <div class="br1"></div>
-      <input type="text" formControlName="reward" placeholder="200.00">
-    </label>
-    <div class="br3"></div>
-    <div class="br3"></div>
-    <label>
-      Tegs:
-      <div class="br1"></div>
-      <input type="text" formControlName="tags" placeholder="Enter tags">
-    </label>
-    <div class="br3"></div>
-    <div class="br3"></div>
-    <label>
-      Description:
-      <div class="br1"></div>
-      <textarea rows="7" type="text" formControlName="description"
-                placeholder="Please provide a description of the grant"></textarea>
+      <input type="text" formControlName="DAOMember" placeholder="Enter the DAO member ">
     </label>
     <div class="br3"></div>
     <div class="br3"></div>
@@ -39,6 +24,39 @@
     </div>
     <div class="br3"></div>
   </form>
+
+  <div class="grid">
+    <div class="grid__container">
+      <div class="grid__container__col">
+        <div class="dot-list">
+          <div class="title">Features:</div>
+          <div class="br3"></div>
+          <ul>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid__container__col">
+        <div class="dot-list">
+          <div class="title">Features:</div>
+          <div class="br3"></div>
+          <ul>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <!--<ui-modal (willConfirm)="willConfirm($event)"></ui-modal>-->

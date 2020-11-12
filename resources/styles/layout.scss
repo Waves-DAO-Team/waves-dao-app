@@ -5,3 +5,13 @@
   //
   //&__footer {}
 }
+
+.grid {
+  &__container {
+    display: flex;
+    &__col {
+      flex: 1;
+    }
+  }
+
+}
