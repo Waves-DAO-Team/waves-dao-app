@@ -142,9 +142,9 @@
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container">
-        <button (click)="modal.openModal()" class="btn">Remove</button>
-        <button (click)="modal.openModal()" class="btn">Edit</button>
-        <button (click)="modal.openModal()" class="btn">Finish vote</button>
+        <button (click)="modal?.openModal()" class="btn">Remove</button>
+        <button (click)="modal?.openModal()" class="btn">Edit</button>
+        <button (click)="modal?.openModal()" class="btn">Finish vote</button>
       </div>
     </div>
   </div>
