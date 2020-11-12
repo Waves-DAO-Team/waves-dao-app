@@ -5,27 +5,29 @@
     <img src="assets/icons/back.svg">
   </div>
   <div class="header__urls">
+
+    <!-- routes for everyone ------------------------------------------------------------------------------------------>
     <a [routerLink]="['/']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
       {{ 'app.header.home' | transloco }}
     </a>
     <a [routerLink]="constants.routes.about | route" routerLinkActive="active">
       {{ 'app.header.about' | transloco }}
     </a>
-    <ng-container *ngIf="userRole === RoleEnum.DAOMember">
-      <a [routerLink]="[routingPath.createGrant]" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
-        {{ 'app.header.createGrant' | transloco }}
-      </a>
-    </ng-container>
-    <ng-container *ngIf="userRole === RoleEnum.unauthorized">
-      <div #guestTemplate (click)="signupHandler()" routerLinkActive="active">
-        {{ 'app.header.signup' | transloco }}
-      </div>
-    </ng-container>
-<!--    <ng-container>-->
+    <!-- routes for everyone ------------------------------------------------------------------------------------------>
 
-    <ng-template #guestTemplate>
-    </ng-template>
-    <div class="header__profile" *ngIf="user$ | async as user; else guestTemplate">
+    <!-- role routes -------------------------------------------------------------------------------------------------->
+    <a [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.DAOMember" routerLinkActive="active">
+      {{ 'app.header.createGrant' | transloco }}
+    </a>
+    <a [routerLink]="[routingPath.masterSetting]" routerLinkActive="active" *ngIf="userRole === RoleEnum.master">
+      {{ 'app.header.setting' | transloco }}
+    </a>
+    <div (click)="signupHandler()" routerLinkActive="active" *ngIf="userRole === RoleEnum.unauthorized">
+      {{ 'app.header.signup' | transloco }}
+    </div>
+    <!-- role routes -------------------------------------------------------------------------------------------------->
+
+    <div class="header__profile" *ngIf="user$ | async as user">
       <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
     </div>
   </div>

@@ -5,7 +5,6 @@ import { ApplyGrantPageRoutingModule } from '@pages/apply-grant-page/apply-grant
 import { ApplyGrantPageComponent } from '@pages/apply-grant-page/apply-grant-page.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ModalModule } from '@ui/modal/modal.module'
-import { AuthGuard } from '@pages/apply-grant-page/AuthGuard'
 import { ApplyGrantPageGuard } from '@pages/apply-grant-page/apply-grant-page.guard'
 
 @NgModule({

@@ -1,3 +1,4 @@
+
 export const environment = {
   production: false,
 
@@ -17,6 +18,7 @@ export const environment = {
     about: 'about',
     applyGrant: 'apply-grant/:entityId',
     createGrant: 'create-grant',
+    masterSetting: 'master-setting',
     setting: 'settings',
     create: 'create',
     stylesheet: 'stylesheet'

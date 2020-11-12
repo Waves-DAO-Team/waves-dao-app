@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="br3"></div>
+  <h2>Setting</h2>
+
+  <div class="br3"></div>
+  <div class="br3"></div>
+  <form [formGroup]="settingForm">
+    <label>
+      Grant name:
+      <div class="br1"></div>
+      <input type="text" formControlName="name" placeholder="Enter the name of the grant">
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <label>
+      Reward:
+      <div class="br1"></div>
+      <input type="text" formControlName="reward" placeholder="200.00">
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <label>
+      Tegs:
+      <div class="br1"></div>
+      <input type="text" formControlName="tags" placeholder="Enter tags">
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <label>
+      Description:
+      <div class="br1"></div>
+      <textarea rows="7" type="text" formControlName="description"
+                placeholder="Please provide a description of the grant"></textarea>
+    </label>
+    <div class="br3"></div>
+    <div class="br3"></div>
+    <div class="btn-container full">
+      <button type="submit" class="btn active">Apply</button>
+    </div>
+    <div class="br3"></div>
+  </form>
+</div>
+
+<!--<ui-modal (willConfirm)="willConfirm($event)"></ui-modal>-->

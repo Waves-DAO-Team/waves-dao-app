@@ -30,6 +30,11 @@ const routes: Routes = [
           import('./pages/application-page/application-page.module').then((m) => m.ApplicationPageModule)
       },
       {
+        path: environment.routing.masterSetting,
+        loadChildren: () =>
+          import('./pages/master-setting-page/master-setting-page.module').then((m) => m.MasterSettingPageModule)
+      },
+      {
         path: environment.routing.about,
         loadChildren: () => import('./pages/about-page/about-page.module').then((m) => m.AboutPageModule),
         pathMatch: 'full'
