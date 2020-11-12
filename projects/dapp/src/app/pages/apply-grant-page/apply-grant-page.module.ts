@@ -6,6 +6,7 @@ import { ApplyGrantPageComponent } from '@pages/apply-grant-page/apply-grant-pag
 import { ReactiveFormsModule } from '@angular/forms'
 import { ModalModule } from '@ui/modal/modal.module'
 import { ApplyGrantPageGuard } from '@pages/apply-grant-page/apply-grant-page.guard'
+import {TranslocoModule} from "@ngneat/transloco";
 
 @NgModule({
   declarations: [ApplyGrantPageComponent],
@@ -13,7 +14,8 @@ import { ApplyGrantPageGuard } from '@pages/apply-grant-page/apply-grant-page.gu
     CommonModule,
     ApplyGrantPageRoutingModule,
     ReactiveFormsModule,
-    ModalModule
+    ModalModule,
+    TranslocoModule
   ],
   providers: [
     ApplyGrantPageGuard

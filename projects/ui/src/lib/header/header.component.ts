@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private subscribe (): void {
-    this.userService.userData.subscribe((newData) => {
+    this.userService.data.subscribe((newData) => {
       this.userRole = newData.userRole
     })
   }

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CreateGrantPageRoutingModule } from './create-grant-page-routing.module';
 import { CreateGrantPageComponent } from './create-grant-page.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {CreateGrantPageGuard} from "@pages/create-grant-page/create-grant-page.guard";
+import {TranslocoModule} from "@ngneat/transloco";
 
 
 @NgModule({
@@ -11,7 +13,11 @@ import {ReactiveFormsModule} from "@angular/forms";
   imports: [
     CommonModule,
     CreateGrantPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslocoModule
+  ],
+  providers: [
+    CreateGrantPageGuard
   ]
 })
 export class CreateGrantPageModule { }

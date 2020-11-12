@@ -1,5 +1,7 @@
 <div class="br3"></div>
-<h1>Waves official grants</h1>
+<h1>
+  {{'listing.title' | transloco}}
+</h1>
 <div class="br3"></div>
 <ui-tag [tags]="['Open', 'Close', 'On approval', 'In work']"></ui-tag>
 <div class="br3"></div>
@@ -11,7 +13,7 @@
           <div class="card__header__left-block__status">
             {{'listing.status.' + (entity?.status?.value || 'no_status') | transloco}}
             <div class="card__header__left-block__status__role-text"
-                 *ngIf="userService.userData.getValue().userRole === RoleEnum.DAOMember
+                 *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember
                   && entity?.status?.value === GrantStatusEnum.proposed">
               {{'listing.DAO_subtext.need_vote' | transloco}}
             </div>

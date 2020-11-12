@@ -27,7 +27,7 @@
     </div>
     <!-- role routes -------------------------------------------------------------------------------------------------->
 
-    <div class="header__profile" *ngIf="user$ | async as user">
+    <div class="header__profile" *ngIf="(user$ | async)?.name">
       <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
     </div>
   </div>

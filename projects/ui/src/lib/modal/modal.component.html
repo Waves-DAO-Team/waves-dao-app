@@ -8,8 +8,12 @@
         {{text}}
       </div>
       <div class="btn-container">
-        <div class="btn" (click)="onCancel()">Cancel</div>
-        <div class="btn active" (click)="onApply()">Apply</div>
+        <div class="btn" (click)="onCancel()">
+          {{'modal.cancel' | transloco}}
+        </div>
+        <div class="btn active" (click)="onApply()">
+          {{'modal.apply' | transloco}}
+        </div>
       </div>
     </div>
   </div>

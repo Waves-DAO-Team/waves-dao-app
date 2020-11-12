@@ -1,4 +1,6 @@
-@import './../../resources/styles/index';
+//@import './../../resources/styles/index';
+@import 'variables';
+@import 'elements';
 
 h1 {
   @include text-title(h1);
@@ -10,9 +12,6 @@ h2 {
 
 h4 {
   @include text-title(h4);
-  //&.text-bold{
-  //  padding-top: $padding * 2;
-  //}
 }
 
 form {

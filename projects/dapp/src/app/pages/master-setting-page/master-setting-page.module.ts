@@ -5,6 +5,7 @@ import { MasterSettingPageRoutingModule } from './master-setting-page-routing.mo
 import { MasterSettingPageComponent } from './master-setting-page.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MasterSettingPageGuard} from "@pages/master-setting-page/master-setting-page.guard";
+import {TranslocoModule} from "@ngneat/transloco";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {MasterSettingPageGuard} from "@pages/master-setting-page/master-setting-
   imports: [
     CommonModule,
     MasterSettingPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslocoModule
   ],
   providers: [
     MasterSettingPageGuard

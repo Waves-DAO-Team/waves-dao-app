@@ -2,7 +2,7 @@
   <div class="br3"></div>
 
   <!-- unauthorized --------------------------------------------------------------------------------------------------->
-  <div class="card" *ngIf="(userService.userData | async)?.userRole == userRoleEnum.unauthorized">
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.unauthorized">
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -11,7 +11,9 @@
         <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
       </div>
       <div class="card__header__right-block">
-        <div class="card__header__right-block__text">Reward</div>
+        <div class="card__header__right-block__text">
+          {{'entity.reward' | transloco}}
+        </div>
         <div class="card__header__right-block__price">
           {{grant?.reward?.value / 100000000 | number : '1.2'}}
           <div class="icon-logo"></div>
@@ -22,14 +24,16 @@
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container">
-        <button class="btn active" (click)="userService.signup()">Log in for apply</button>
+        <button class="btn active" (click)="userService.signup()">
+          {{'entity.log_in_for_apply' | transloco}}
+        </button>
       </div>
     </div>
   </div>
   <!-- unauthorized --------------------------------------------------------------------------------------------------->
 
   <!-- authorized ----------------------------------------------------------------------------------------------------->
-  <div class="card" *ngIf="(userService.userData | async)?.userRole == userRoleEnum.authorized">
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.authorized">
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -38,7 +42,9 @@
         <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
       </div>
       <div class="card__header__right-block">
-        <div class="card__header__right-block__text">Reward</div>
+        <div class="card__header__right-block__text">
+          {{'entity.reward' | transloco}}
+        </div>
         <div class="card__header__right-block__price">
           {{grant?.reward?.value / 100000000 | number : '1.2'}}
           <div class="icon-logo"></div>
@@ -49,7 +55,9 @@
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container">
-        <button class="btn active" [routerLink]="['/', 'apply-grant', 6]">Apply</button>
+        <button class="btn active" [routerLink]="['/', 'apply-grant', 6]">
+          {{'entity.apply' | transloco}}
+        </button>
       </div>
     </div>
     <div class="br3"></div>
@@ -61,16 +69,28 @@
       </div>
       <div class="card__info__mid">
         <ng-container *ngIf="grant?.status?.value === grantStatusEnum.proposed">
-          <div class="card__info__mid__subtext">Wait. We contact with you</div>
-          <div class="card__info__mid__text">You won this grant</div>
+          <div class="card__info__mid__subtext">
+            {{'entity.grant.status.proposed.subtext' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.grant.status.proposed.text' | transloco}}
+          </div>
         </ng-container>
         <ng-container *ngIf="grant?.status?.value === grantStatusEnum.rejected">
-          <div class="card__info__mid__subtext">You failed this grant :(</div>
-          <div class="card__info__mid__text">Grant failed</div>
+          <div class="card__info__mid__subtext">
+            {{'entity.grant.status.rejected.subtext' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.grant.status.rejected.text' | transloco}}
+          </div>
         </ng-container>
         <ng-container *ngIf="grant?.status?.value === grantStatusEnum.workFinished">
-          <div class="card__info__mid__subtext">You have successfully completed your grant</div>
-          <div class="card__info__mid__text">Grant completed</div>
+          <div class="card__info__mid__subtext">
+            {{'entity.grant.status.workFinished.subtext' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.grant.status.workFinished.text' | transloco}}
+          </div>
         </ng-container>
       </div>
     </div>
@@ -78,7 +98,7 @@
   <!-- authorized ----------------------------------------------------------------------------------------------------->
 
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
-  <div class="card" *ngIf="(userService.userData | async)?.userRole == userRoleEnum.DAOMember">
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -87,7 +107,9 @@
         <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
       </div>
       <div class="card__header__right-block">
-        <div class="card__header__right-block__text">Reward</div>
+        <div class="card__header__right-block__text">
+          {{'entity.reward' | transloco}}
+        </div>
         <div class="card__header__right-block__price">
           {{grant?.reward?.value / 100000000 | number : '1.2'}}
           <div class="icon-logo"></div>
@@ -105,12 +127,20 @@
       </div>
       <div class="card__info__mid">
         <ng-container *ngIf="!isDAOVote">
-          <div class="card__info__mid__subtext">Your voice is important to us</div>
-          <div class="card__info__mid__text">Vote for the grant</div>
+          <div class="card__info__mid__subtext">
+            {{'entity.DAO.vote.true.subtext' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.DAO.vote.true.text' | transloco}}
+          </div>
         </ng-container>
         <ng-container *ngIf="isDAOVote">
-          <div class="card__info__mid__subtext">We will take your vote into account</div>
-          <div class="card__info__mid__text">Thanks for your vote!</div>
+          <div class="card__info__mid__subtext">
+            {{'entity.DAO.vote.false.text' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.DAO.vote.false.text' | transloco}}
+          </div>
         </ng-container>
       </div>
       <div class="card__info__right" *ngIf="!isDAOVote">
@@ -122,7 +152,7 @@
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
 
   <!-- workingGroup --------------------------------------------------------------------------------------------------->
-  <div class="card" *ngIf="(userService.userData | async)?.userRole == userRoleEnum.DAOMember">
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -131,7 +161,9 @@
         <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
       </div>
       <div class="card__header__right-block">
-        <div class="card__header__right-block__text">Reward</div>
+        <div class="card__header__right-block__text">
+          {{'entity.reward' | transloco}}
+        </div>
         <div class="card__header__right-block__price">
           {{grant?.reward?.value / 100000000 | number : '1.2'}}
           <div class="icon-logo"></div>
@@ -142,16 +174,22 @@
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container">
-        <button (click)="modal?.openModal()" class="btn">Remove</button>
-        <button (click)="modal?.openModal()" class="btn">Edit</button>
-        <button (click)="modal?.openModal()" class="btn">Finish vote</button>
+        <button (click)="modal?.openModal()" class="btn">
+          {{'entity.remove' | transloco}}
+        </button>
+        <button (click)="modal?.openModal()" class="btn">
+          {{'entity.edit' | transloco}}
+        </button>
+        <button (click)="modal?.openModal()" class="btn">
+          {{'entity.finish_vote' | transloco}}
+        </button>
       </div>
     </div>
   </div>
   <!-- workingGroup --------------------------------------------------------------------------------------------------->
 
   <!-- master --------------------------------------------------------------------------------------------------------->
-  <div class="card" *ngIf="(userService.userData | async)?.userRole == userRoleEnum.master">
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.master">
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -160,7 +198,9 @@
         <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
       </div>
       <div class="card__header__right-block">
-        <div class="card__header__right-block__text">Reward</div>
+        <div class="card__header__right-block__text">
+          {{'entity.reward' | transloco}}
+        </div>
         <div class="card__header__right-block__price">
           {{grant?.reward?.value / 100000000 | number : '1.2'}}
           <div class="icon-logo"></div>
@@ -171,7 +211,7 @@
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container no-padding-right">
-        <button class="btn active">Apply</button>
+        <button class="btn active"> {{'entity.apply' | transloco}}</button>
       </div>
     </div>
   </div>

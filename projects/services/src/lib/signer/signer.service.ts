@@ -3,8 +3,9 @@ import { Signer, IUserData } from '@waves/signer/'
 import Provider from '@waves.exchange/provider-web'
 import { API, AppApiInterface } from '@constants'
 import { SignerUser } from './signer.model'
-import { from, Observable, Subject } from 'rxjs'
-import { publishReplay, refCount } from 'rxjs/operators'
+import {BehaviorSubject, from, Observable, ReplaySubject, Subject} from 'rxjs'
+import {publishReplay, refCount, startWith} from 'rxjs/operators'
+import { UserService } from '@services/user/user.service'
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,16 @@ import { publishReplay, refCount } from 'rxjs/operators'
 export class SignerService {
   private readonly signer: Signer
 
-  private user$: Subject<SignerUser> = new Subject()
+  private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({
+      name: "",
+      address: "",
+      publicKey: ""
+  })
 
   public user: Observable<SignerUser> = this.user$.pipe(
     publishReplay(1),
-    refCount()
+    refCount(),
+
   )
 
   constructor (
@@ -26,7 +32,7 @@ export class SignerService {
       // Specify URL of the node on Testnet
       NODE_URL: api.nodes
     })
-    this.signer.setProvider(new Provider(api.signer))
+    this.signer.setProvider(new Provider())
   }
 
   public login (): Observable<Observable<SignerUser>> {

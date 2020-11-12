@@ -17,13 +17,13 @@ import {
   ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
+import {SignerUser} from "@services/signer/signer.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
   private apiGetAddressData = new URL('/addresses/data/' + this.api.contractAddress, this.api.rest)
-
   private contractRefresh$: Subject<null> = new Subject()
 
   // @ts-ignore

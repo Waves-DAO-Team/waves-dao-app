@@ -15,6 +15,10 @@
       "back": "Back"
     }
   },
+  "modal": {
+    "apply": "Apply",
+    "cancel": "Cancel"
+  },
   "listing": {
     "status": {
       "proposed": "Open. In processing",
@@ -27,26 +31,119 @@
     },
     "DAO_subtext": {
       "need_vote": "Need vote"
-    }
+    },
+    "title": "Waves official grants"
   },
   "entity": {
-
+    "reward": "Reward",
+    "log_in_for_apply": "Log in for apply",
+    "apply": "Apply",
+    "remove": "Remove",
+    "edit": "Edit",
+    "finish_vote": "Finish vote",
+    "DAO": {
+      "vote": {
+        "true": {
+          "subtext": "Your voice is important to us",
+          "text": "Vote for the grant"
+        },
+        "false": {
+          "subtext": "We will take your vote into account",
+          "text": "Thanks for your vote!"
+        }
+      }
+    },
+    "grant": {
+      "status": {
+        "proposed": {
+          "subtext": "Wait. We contact with you",
+          "text": "You won this grant"
+        },
+        "rejected": {
+          "subtext": "You failed this grant :(",
+          "text": "Grant failed"
+        },
+        "workFinished": {
+          "subtext": "You have successfully completed your grant",
+          "text": "Grant completed"
+        }
+      }
+    }
   },
   "setting": {
-
   },
   "application": {
+  },
+  "master_setting": {
+    "setting": "Setting",
+    "form": {
+      "work_group": {
+        "label": "Work group",
+        "placeholder": "Enter the working groups"
+      },
+      "DAO_member": {
+        "label": "DAO member",
+        "placeholder": "Enter the DAO member"
+      },
+      "apply": "Apply"
+    }
+  },
+  "create_grant": {
+    "form": {
+      "name": {
+        "label": "Grant name",
+        "placeholder": "Enter the name of the grant"
+      },
+      "reward": {
+        "label": "Reward",
+        "placeholder": "200.00"
+      },
+      "tags": {
+        "label": "Tags",
+        "placeholder": "Enter tags"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Please provide a description of the grant"
+      },
+      "apply": "Apply"
+    }
+  },
+  "apply_grant": {
+    "title": "Apply for grant",
+    "form": {
+      "name": {
+        "label": "Your name",
+        "placeholder": "Firstname Lastname"
+      },
+      "contacts": {
+        "label": "Contacts",
+        "placeholder": "Email or phone number"
+      },
+      "team": {
+        "label": "Team name",
+        "placeholder": "My team"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Your personal or team experience"
+      },
+      "document": "Technical documents on implementation saved on IPFS",
+      "document_url": {
+        "label": "Link to documents",
+        "placeholder": "http://mydocuments.example"
+      },
+      "apply": "Apply"
+    }
 
   },
   "create": {
-
   },
   "about": {
-
   },
   "not-found": {
     "title": "Sorry!",
-    "description" : "Page not found"
+    "description": "Page not found"
   },
   "messages": {
     "ok": "OK"
