@@ -3,11 +3,8 @@ import { RoleEnum, UserDataInterface} from '@services/user/user.interface'
 import {SignerService} from '@services/signer/signer.service'
 import {ContractService} from '@services/contract/contract.service'
 import {environment} from '../../../../dapp/src/environments/environment'
-import {BehaviorSubject, combineLatest, Observable, ObservedValueOf} from 'rxjs'
-import {translate} from '@ngneat/transloco'
-import {MatSnackBar} from '@angular/material/snack-bar'
-import {defaultIfEmpty, map, publishReplay, refCount, switchMap, tap} from "rxjs/operators";
-import {ContractDataModel} from "@services/contract/contract.model";
+import {BehaviorSubject, combineLatest} from 'rxjs'
+import {publishReplay, refCount, switchMap, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -42,27 +39,20 @@ export class UserService {
     )
 
   constructor(
-    private signerService: SignerService, private contractService: ContractService, private snackBar: MatSnackBar
+    private signerService: SignerService, private contractService: ContractService
   ) {
     this.data$.subscribe()
-  }
-
-  public signup(): void {
-    this.signerService.login().subscribe(() => {
-    }, (error) => {
-      this.snackBar.open(error, translate('messages.ok'))
-    })
   }
 
   private defineRol(masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleEnum {
     if (masterAddress === userAddress) {
       return RoleEnum.master
-    } else if (userAddress != '') {
-      return RoleEnum.authorized
     } else if (DAOMemberAddress.includes(userAddress)) {
       return RoleEnum.DAOMember
     } else if (WorkGroupAddress.includes(userAddress)) {
       return RoleEnum.workingGroup
+    } else if (userAddress != '') {
+      return RoleEnum.authorized
     } else {
       return RoleEnum.unauthorized
     }
