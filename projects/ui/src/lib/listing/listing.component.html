@@ -1,31 +1,33 @@
 <h1>
   {{'listing.title' | transloco}}
 </h1>
-<ui-tag [tags]="['Open', 'Close', 'On approval', 'In work']"></ui-tag>
+<ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
 <div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
   <ng-container *ngFor="let entity of list; trackBy: trackByFn">
-    <a class="card" [routerLink]="constants.routes.entity | route: entity?.id">
-      <div class="card__header">
-        <div class="card__header__left-block">
-          <div class="card__header__left-block__status">
-            {{'listing.status.' + (entity?.status?.value || 'no_status') | transloco}}
-            <div class="card__header__left-block__status__role-text"
-                 *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember
+    <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
+      <a class="card" [routerLink]="constants.routes.entity | route: entity?.id">
+        <div class="card__header">
+          <div class="card__header__left-block">
+            <div class="card__header__left-block__status">
+              {{'listing.status.' + (entity?.status?.value || 'no_status') | transloco}}
+              <div class="card__header__left-block__status__role-text"
+                   *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember
                   && entity?.status?.value === GrantStatusEnum.proposed">
-              {{'listing.DAO_subtext.need_vote' | transloco}}
+                {{'listing.DAO_subtext.need_vote' | transloco}}
+              </div>
+            </div>
+            <div class="card__header__left-block__title">{{entity?.title?.value}}</div>
+          </div>
+          <div class="card__header__right-block">
+            <div class="card__header__right-block__text">Reward</div>
+            <div class="card__header__right-block__price">
+              {{entity?.reward?.value / 100000000 | number : '1.2'}}
+              <div class="icon-logo"></div>
             </div>
           </div>
-          <div class="card__header__left-block__title">{{entity?.title?.value}}</div>
         </div>
-        <div class="card__header__right-block">
-          <div class="card__header__right-block__text">Reward</div>
-          <div class="card__header__right-block__price">
-            {{entity?.reward?.value / 100000000 | number : '1.2'}}
-            <div class="icon-logo"></div>
-          </div>
-        </div>
-      </div>
-    </a>
+      </a>
+    </ng-container>
   </ng-container>
 </div>
 

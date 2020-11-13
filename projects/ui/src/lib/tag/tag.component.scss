@@ -1,4 +1,3 @@
-//@import '../../../../../resources/styles/index';
 @import 'variables';
 
 ul {
@@ -7,21 +6,20 @@ ul {
   margin: 0;
   padding: 0;
   margin-bottom: $padding;
-}
+  li {
+    border: 1px solid $gray-light;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: $font-size-small;
+    margin-right: $padding / 4;
+    padding: $padding / 3 $padding;
+    transition: 0.2s;
 
-li {
-  border: 1px solid $gray-light;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: $font-size-small;
-  margin-right: $padding / 4;
-  padding: $padding / 3 $padding;
-  transition: 0.2s;
-
-  &:hover,
-  .active {
-    background: $blue;
-    border: 1px solid $blue;
-    color: #fff;
+    &:hover,
+    &.active {
+      background: $blue;
+      border: 1px solid $blue;
+      color: #fff;
+    }
   }
 }

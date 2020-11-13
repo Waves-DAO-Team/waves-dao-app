@@ -1,3 +1,5 @@
 <ul>
-  <li *ngFor="let tag of tags">{{tag}}</li>
+  <li *ngFor="let tag of tags" (click)="select(tag)" [class.active]="tag === lastTag">
+    {{'listing.status.' + tag | transloco}}
+  </li>
 </ul>
