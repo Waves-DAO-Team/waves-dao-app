@@ -1,11 +1,9 @@
 @mixin btn-container($type: default) {
   display: flex;
   justify-content: flex-end;
-
   text-align: right;
-  &.no-padding-right {
-    padding-right: 0;
-  }
+  padding: 0;
+
   .btn {
     background: none;
     border: 1px solid $gray-light;
@@ -42,8 +40,6 @@
       margin: 0;
       width: 100%;
     }
-  } @else {
-    padding: 0 $padding;
   }
 }
 
@@ -51,10 +47,11 @@ $dot-list-li-size: 16px;
 
 .dot-list {
   padding: 0;
+  margin-bottom: $padding;
 
   .title {
     font-weight: bold;
-    padding-bottom: 0;
+    padding-bottom: $padding / 2;
   }
 
   ul {
@@ -84,12 +81,15 @@ $dot-list-li-size: 16px;
     border-radius: 50%;
     content: '';
     display: inline-block;
-    height: $dot-list-li-size;
+    min-height: $dot-list-li-size;
+    max-height: $dot-list-li-size;
+    min-width: $dot-list-li-size;
+    max-width: $dot-list-li-size;
     left: 0;
     position: absolute;
     top: 2px;
     vertical-align: middle;
-    width: $dot-list-li-size;
+
   }
 }
 
@@ -176,7 +176,9 @@ $dot-list-li-size: 16px;
   display: flex;
   flex-direction: column;
   font-size: $font-size-small;
-
+  >:not(:last-child) {
+    margin-bottom: $padding;
+  }
   label {
     display: flex;
     flex-direction: column;
@@ -184,7 +186,6 @@ $dot-list-li-size: 16px;
     margin: 0;
     padding: 0;
   }
-
   input,
   textarea {
     border-bottom: 1px solid #000;
@@ -197,12 +198,10 @@ $dot-list-li-size: 16px;
     outline: none;
     padding: 0;
   }
-
   input:focus,
   textarea:focus {
     border-bottom: 1px solid $blue;
   }
-
   button:disabled {
     opacity: 0.5;
   }
@@ -233,6 +232,11 @@ $dot-list-li-size: 16px;
   flex-direction: column;
   margin-top: 0;
   text-decoration: none;
+  margin-bottom: $padding;
+
+  > :not(:last-child) {
+    margin-bottom: $padding;
+  }
 
   &__info {
     align-items: center;

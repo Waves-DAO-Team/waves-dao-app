@@ -1,42 +1,26 @@
 <div class="container">
-  <div class="br3"></div>
   <form [formGroup]="grantForm" (ngSubmit)="onSubmit()">
     <label>
       {{'create_grant.form.name.label' | transloco}}:
-      <div class="br1"></div>
       <input type="text" formControlName="name" [placeholder]="'create_grant.form.name.placeholder' | transloco">
     </label>
-    <div class="br3"></div>
-    <div class="br3"></div>
     <label>
       {{'create_grant.form.reward.label' | transloco}}:
-      <div class="br1"></div>
       <input type="text" formControlName="reward" [placeholder]="'create_grant.form.reward.placeholder' | transloco">
     </label>
-    <div class="br3"></div>
-    <div class="br3"></div>
     <label>
       {{'create_grant.form.tags.label' | transloco}}:
-      <div class="br1"></div>
       <input type="text" formControlName="tags" [placeholder]="'create_grant.form.tags.placeholder' | transloco">
     </label>
-    <div class="br3"></div>
-    <div class="br3"></div>
     <label>
       {{'create_grant.form.description.label' | transloco}}:
-      <div class="br1"></div>
       <textarea rows="7" type="text" formControlName="description"
                 [placeholder]="'create_grant.form.description.placeholder' | transloco"></textarea>
     </label>
-    <div class="br3"></div>
-    <div class="br3"></div>
     <div class="btn-container full">
       <button type="submit" class="btn active" [disabled]="!grantForm.valid">
         {{'create_grant.form.apply' | transloco}}
       </button>
     </div>
-    <div class="br3"></div>
   </form>
 </div>
-
-<!--<ui-modal (willConfirm)="willConfirm($event)"></ui-modal>-->

@@ -4,18 +4,22 @@
 
 h1 {
   @include text-title(h1);
+  padding-bottom: $padding;
 }
 
 h2 {
   @include text-title(h2);
+  padding-bottom: $padding;
 }
 
 h4 {
   @include text-title(h4);
+  padding-bottom: $padding;
 }
 
 form {
-  @include form; }
+  @include form;
+}
 
 .btn-container.full {
   @include btn-container(full);

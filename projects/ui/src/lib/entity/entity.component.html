@@ -1,5 +1,4 @@
 <div class="entity">
-  <div class="br3"></div>
 
   <!-- unauthorized --------------------------------------------------------------------------------------------------->
   <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.unauthorized">
@@ -20,7 +19,6 @@
         </div>
       </div>
     </div>
-    <div class="br3"></div>
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container">
@@ -33,7 +31,8 @@
   <!-- unauthorized --------------------------------------------------------------------------------------------------->
 
   <!-- authorized ----------------------------------------------------------------------------------------------------->
-  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.authorized">
+    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.authorized">
+<!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -51,7 +50,6 @@
         </div>
       </div>
     </div>
-    <div class="br3"></div>
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container">
@@ -60,7 +58,6 @@
         </button>
       </div>
     </div>
-    <div class="br3"></div>
     <div class="card__info">
       <div class="card__info__left">
         <img src="assets/icons/grant-completed.svg" *ngIf="grant?.status?.value === grantStatusEnum.workFinished">
@@ -98,7 +95,8 @@
   <!-- authorized ----------------------------------------------------------------------------------------------------->
 
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
-  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
+    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
+<!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -116,11 +114,9 @@
         </div>
       </div>
     </div>
-    <div class="br3"></div>
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
     </div>
-    <div class="br3"></div>
     <div class="card__info">
       <div class="card__info__left">
         <img src="assets/icons/vote.svg">
@@ -152,7 +148,8 @@
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
 
   <!-- workingGroup --------------------------------------------------------------------------------------------------->
-  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
+    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
+<!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -170,7 +167,6 @@
         </div>
       </div>
     </div>
-    <div class="br3"></div>
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container">
@@ -189,7 +185,8 @@
   <!-- workingGroup --------------------------------------------------------------------------------------------------->
 
   <!-- master --------------------------------------------------------------------------------------------------------->
-  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.master">
+    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.master">
+<!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -207,7 +204,6 @@
         </div>
       </div>
     </div>
-    <div class="br3"></div>
     <div class="card__body">
       <pre>{{ grant | json }}</pre>
       <div class="btn-container no-padding-right">
@@ -216,12 +212,5 @@
     </div>
   </div>
   <!-- master --------------------------------------------------------------------------------------------------------->
-
-  <div class="br3"></div>
-
-  <!--    <div class="entity__title">{{ grant?.title?.value }}</div>-->
-  <!--    <div class="entity__reward">{{ grant?.reward?.value }}</div>-->
-  <!--    <div class="entity__reward">{{ grant?.status?.value }}</div>-->
-
   <ui-modal></ui-modal>
 </div>

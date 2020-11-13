@@ -1,31 +1,20 @@
 <div class="container">
-  <div class="br3"></div>
   <h2>
     {{'master_setting.setting' | transloco}}:
   </h2>
-  <div class="br3"></div>
-  <div class="br3"></div>
   <form [formGroup]="settingForm">
     <label>
       {{'master_setting.form.work_group.label' | transloco}}:
-      <div class="br1"></div>
       <input type="text" formControlName="workGroup" [placeholder]="'master_setting.form.work_group.placeholder' | transloco">
     </label>
-    <div class="br3"></div>
-    <div class="br3"></div>
     <label>
       {{'master_setting.form.DAO_member.label' | transloco}}:
-      <div class="br1"></div>
       <input type="text" formControlName="DAOMember" [placeholder]="'master_setting.form.DAO_member.placeholder' | transloco">
     </label>
-    <div class="br3"></div>
-    <div class="br3"></div>
     <div class="btn-container full">
       <button type="submit" class="btn active">{{'master_setting.form.apply' | transloco}}</button>
     </div>
-    <div class="br3"></div>
   </form>
-
   <div class="grid">
     <div class="grid__container">
       <div class="grid__container__col">
@@ -33,7 +22,6 @@
           <div class="title">
             {{'master_setting.form.DAO_member.label' | transloco}}:
           </div>
-          <div class="br3"></div>
           <ul>
             <li>Lorem ipsum dolor.</li>
             <li>Lorem ipsum dolor.</li>
@@ -48,7 +36,6 @@
           <div class="title">
             {{'master_setting.form.work_group.label' | transloco}}:
           </div>
-          <div class="br3"></div>
           <ul>
             <li>Lorem ipsum dolor.</li>
             <li>Lorem ipsum dolor.</li>
@@ -59,9 +46,5 @@
         </div>
       </div>
     </div>
-
   </div>
-
 </div>
-
-<!--<ui-modal (willConfirm)="willConfirm($event)"></ui-modal>-->

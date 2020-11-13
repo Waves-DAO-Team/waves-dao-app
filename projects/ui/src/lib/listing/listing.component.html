@@ -1,10 +1,7 @@
-<div class="br3"></div>
 <h1>
   {{'listing.title' | transloco}}
 </h1>
-<div class="br3"></div>
 <ui-tag [tags]="['Open', 'Close', 'On approval', 'In work']"></ui-tag>
-<div class="br3"></div>
 <div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
   <ng-container *ngFor="let entity of list; trackBy: trackByFn">
     <a class="card" [routerLink]="constants.routes.entity | route: entity?.id">
@@ -18,7 +15,6 @@
               {{'listing.DAO_subtext.need_vote' | transloco}}
             </div>
           </div>
-
           <div class="card__header__left-block__title">{{entity?.title?.value}}</div>
         </div>
         <div class="card__header__right-block">
@@ -30,7 +26,6 @@
         </div>
       </div>
     </a>
-    <div class="br3"></div>
   </ng-container>
 </div>
 

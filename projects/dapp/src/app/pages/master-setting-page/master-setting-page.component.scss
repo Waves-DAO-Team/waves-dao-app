@@ -9,6 +9,7 @@ h1 {
 
 h2 {
   @include text-title(h2);
+  margin-bottom: $padding;
 }
 
 h4 {
@@ -22,3 +23,6 @@ form {
   @include btn-container(full);
 }
 
+.grid {
+  margin-top: $padding * 2;
+}

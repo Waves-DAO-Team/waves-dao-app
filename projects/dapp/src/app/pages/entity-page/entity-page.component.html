@@ -1,5 +1,4 @@
 <div class="container">
-  <div class="br3"></div>
   <div class="entity-page" *ngIf="entity.data$ | async as grant; else loadingOrErrorTemplate">
     <ui-entity [grant]="grant"></ui-entity>
   </div>
