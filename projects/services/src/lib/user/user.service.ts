@@ -36,12 +36,11 @@ export class UserService {
       }),
       publishReplay(1),
       refCount()
-    )
+    ).subscribe()
 
   constructor(
     private signerService: SignerService, private contractService: ContractService
   ) {
-    this.data$.subscribe()
   }
 
   private defineRol(masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleEnum {
