@@ -24,7 +24,7 @@ export class ListingComponent implements OnInit {
       (grants) => {
         this.listGrantStatuses = []
         grants.forEach((grant) => {
-          let status: string = grant.status?.value === undefined ? 'no_status' : grant.status?.value
+          let status: string = grant.status?.value === undefined ? GrantStatusEnum.noStatus : grant.status?.value
           if (!(this.listGrantStatuses.includes(status))) {
             this.listGrantStatuses.push(status)
           }
