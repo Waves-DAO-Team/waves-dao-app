@@ -7,6 +7,9 @@ import { ModalComponent } from '@ui/modal/modal.component'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
+import {ContractService} from "@services/contract/contract.service";
+import {ActivatedRoute} from "@angular/router";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'ui-entity',
@@ -20,10 +23,27 @@ export class EntityComponent {
   isDAOVote = false
   @ViewChild(ModalComponent) modal?: ModalComponent
 
-  constructor (public userService: UserService, private signerService: SignerService, private snackBar: MatSnackBar) {}
+  entityId: string = ''
+  entityId$ =   this.route.params
+    .pipe(
+      tap(
+        (param)=>{
+          this.entityId = param.entityId
+        }
+      )
+    ).subscribe()
+
+  constructor (
+    private route: ActivatedRoute,
+    public userService: UserService,
+    private signerService: SignerService,
+    private snackBar: MatSnackBar,
+    private contractService: ContractService) {
+  }
 
   vote () {
     this.isDAOVote = true
+    this.contractService.voteForApplicant('',this.entityId,1)
   }
 
   public signup (): void {
