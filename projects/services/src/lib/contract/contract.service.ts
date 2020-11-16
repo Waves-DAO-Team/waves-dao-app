@@ -17,7 +17,7 @@ import {
   ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
-import {SignerUser} from "@services/signer/signer.model";
+import { SignerUser } from '@services/signer/signer.model'
 
 @Injectable({
   providedIn: 'root'

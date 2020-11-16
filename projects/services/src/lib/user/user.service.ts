@@ -1,16 +1,15 @@
-import {Injectable} from '@angular/core'
-import { RoleEnum, UserDataInterface} from '@services/user/user.interface'
-import {SignerService} from '@services/signer/signer.service'
-import {ContractService} from '@services/contract/contract.service'
-import {environment} from '../../../../dapp/src/environments/environment'
-import {BehaviorSubject, combineLatest} from 'rxjs'
-import {publishReplay, refCount, switchMap, tap} from "rxjs/operators";
+import { Injectable } from '@angular/core'
+import { RoleEnum, UserDataInterface } from '@services/user/user.interface'
+import { SignerService } from '@services/signer/signer.service'
+import { ContractService } from '@services/contract/contract.service'
+import { environment } from '../../../../dapp/src/environments/environment'
+import { BehaviorSubject, combineLatest } from 'rxjs'
+import { publishReplay, refCount, switchMap, tap } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   public data: BehaviorSubject<UserDataInterface> = new BehaviorSubject<UserDataInterface>({
     userRole: RoleEnum.unauthorized,
     userAddress: '',
@@ -21,7 +20,7 @@ export class UserService {
 
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
-      tap(([userAddress, contract]) =>{
+      tap(([userAddress, contract]) => {
         const masterAddress = environment.apis.contractAddress
         const WorkGroupAddress = Object.keys(contract.working.group.member)
         const DAOMemberAddress = Object.keys(contract.dao.member)
@@ -33,28 +32,28 @@ export class UserService {
           userAddress: userAddress.address,
           userRole
         })
+        console.log('user data: ', this.data.getValue())
       }),
       publishReplay(1),
       refCount()
     ).subscribe()
 
-  constructor(
+  constructor (
     private signerService: SignerService, private contractService: ContractService
   ) {
   }
 
-  private defineRol(masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleEnum {
+  private defineRol (masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleEnum {
     if (masterAddress === userAddress) {
       return RoleEnum.master
     } else if (DAOMemberAddress.includes(userAddress)) {
       return RoleEnum.DAOMember
     } else if (WorkGroupAddress.includes(userAddress)) {
       return RoleEnum.workingGroup
-    } else if (userAddress != '') {
+    } else if (userAddress !== '') {
       return RoleEnum.authorized
     } else {
       return RoleEnum.unauthorized
     }
   }
-
 }

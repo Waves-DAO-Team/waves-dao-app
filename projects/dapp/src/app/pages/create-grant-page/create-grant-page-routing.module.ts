@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {CreateGrantPageComponent} from "@pages/create-grant-page/create-grant-page.component";
-import {CreateGrantPageGuard} from "@pages/create-grant-page/create-grant-page.guard";
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
+import { CreateGrantPageComponent } from '@pages/create-grant-page/create-grant-page.component'
+import { CreateGrantPageGuard } from '@pages/create-grant-page/create-grant-page.guard'
 
 const routes: Routes = [
   {
@@ -11,8 +11,7 @@ const routes: Routes = [
     canActivate: [CreateGrantPageGuard],
     data: {}
   }
-];
-
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

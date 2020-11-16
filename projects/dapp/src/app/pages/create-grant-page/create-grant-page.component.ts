@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-create-grant-page',
@@ -7,7 +7,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./create-grant-page.component.scss']
 })
 export class CreateGrantPageComponent implements OnInit {
-
   grantForm = new FormGroup({
     name: new FormControl('', Validators.required),
     reward: new FormControl('', Validators.required),
@@ -15,12 +14,12 @@ export class CreateGrantPageComponent implements OnInit {
     description: new FormControl('', Validators.required)
   })
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
-  onSubmit() {
+  onSubmit () {
 
   }
 }
