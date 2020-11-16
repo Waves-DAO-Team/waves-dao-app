@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { ContractService } from '@services/contract/contract.service'
 
 @Component({
   selector: 'app-create-grant-page',
@@ -14,12 +15,13 @@ export class CreateGrantPageComponent implements OnInit {
     description: new FormControl('', Validators.required)
   })
 
-  constructor () { }
+  constructor (private contractService: ContractService) { }
 
   ngOnInit (): void {
   }
 
   onSubmit () {
-
+    // console.log('form', this.grantForm.value.name)
+    this.contractService.addTask(this.grantForm.value.name)
   }
 }

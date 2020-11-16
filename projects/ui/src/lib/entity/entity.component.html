@@ -95,8 +95,8 @@
   <!-- authorized ----------------------------------------------------------------------------------------------------->
 
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
-<!--    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">-->
-  <div class="card">
+    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
+<!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -148,7 +148,7 @@
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
 
   <!-- workingGroup --------------------------------------------------------------------------------------------------->
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
+    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.workingGroup">
 <!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">

@@ -118,60 +118,82 @@ export class ContractService {
     }))
   }
 
-  public createCertificate (title: string): Observable<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    return from(this.signerService.invoke('proposeTemplate',
-      [{ type: 'string', value: title }]))
+  // dapp
+
+  public addDAOMember (members: string) {
+    this.signerService.invoke('addDAOMember', [
+      { type: 'string', value: members }
+    ])
   }
 
-  public certificateDescription (
-    templateId: string,
-    description: string,
-    author: string,
-    company: string,
-    link: string
-  ): Observable<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    console.log('Update data', templateId, description, author, company, link)
-    return from(this.signerService.invoke('addTemplateDetails', [
-      { type: 'string', value: templateId },
-      { type: 'string', value: description },
-      { type: 'string', value: author },
-      { type: 'string', value: company },
-      { type: 'string', value: link }
-    ]))
+  public addGroupMember (members: string) {
+    this.signerService.invoke('addGroupMember', [
+      { type: 'string', value: members }
+    ])
   }
 
-  public acceptCertificate (templateId: string): Observable<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    return from(this.signerService.invoke('acceptTemplate', [
-      { type: 'string', value: templateId }
-    ]))
+  public addTask (taskName: string) {
+    this.signerService.invoke('addTask', [
+      { type: 'string', value: taskName }
+    ])
   }
 
-  public voteForApplicant (
-    templateId: string,
-    applicantId: string,
-    voteValue: number
-  ): Observable<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    return from(this.signerService.invoke('voteForApplicant', [
-      { type: 'string', value: templateId },
-      { type: 'string', value: applicantId },
+  public rateTask (taskId: string, rate: number) {
+    this.signerService.invoke('rateTask', [
+      { type: 'string', value: taskId },
+      { type: 'integer', value: rate }
+    ])
+  }
+
+  public addTaskDetails (taskId: string) {
+    this.signerService.invoke('addTaskDetails', [
+      { type: 'string', value: taskId }
+    ])
+  }
+
+  public voteForTaskProposal (taskId: string, voteValue: number) {
+    this.signerService.invoke('voteForTaskProposal', [
+      { type: 'string', value: taskId },
       { type: 'integer', value: voteValue }
-    ]))
+    ])
   }
 
-  public finishApplicantVoting (
-    templateId: string,
-    applicantId: string
-  ): Observable<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    return from(this.signerService.invoke('voteForApplicant', [
-      { type: 'string', value: templateId },
-      { type: 'string', value: applicantId }
-    ]))
+  public finishTaskProposalVoting (taskId: string) {
+    this.signerService.invoke('finishTaskProposalVoting', [
+      { type: 'string', value: taskId }
+    ])
   }
 
-  public requestCertificate (templateId: string, details: string): Observable<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    return from(this.signerService.invoke('requestCertificate', [
-      { type: 'string', value: templateId },
-      { type: 'string', value: details }
-    ]))
+  public applyForTask (taskId: string, teamName: string) {
+    this.signerService.invoke('applyForTask', [
+      { type: 'string', value: taskId },
+      { type: 'string', value: teamName }
+    ])
+  }
+
+  public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: number) {
+    this.signerService.invoke('voteForApplicant', [
+      { type: 'string', value: taskId },
+      { type: 'string', value: teamIdentifier },
+      { type: 'integer', value: voteValue }
+    ])
+  }
+
+  public finishApplicantsVoting (taskId: string) {
+    this.signerService.invoke('finishApplicantsVoting', [
+      { type: 'string', value: taskId }
+    ])
+  }
+
+  public startWork (taskId: string) {
+    this.signerService.invoke('startWork', [
+      { type: 'string', value: taskId }
+    ])
+  }
+
+  public acceptWorkResult (taskId: string) {
+    this.signerService.invoke('acceptWorkResult', [
+      { type: 'string', value: taskId }
+    ])
   }
 }

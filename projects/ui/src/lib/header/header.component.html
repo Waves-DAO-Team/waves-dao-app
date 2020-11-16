@@ -16,7 +16,7 @@
     <!-- routes for everyone ------------------------------------------------------------------------------------------>
 
     <!-- role routes -------------------------------------------------------------------------------------------------->
-    <a [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.DAOMember" routerLinkActive="active">
+    <a [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
       {{ 'app.header.createGrant' | transloco }}
     </a>
     <a [routerLink]="[routingPath.masterSetting]" routerLinkActive="active" *ngIf="userRole === RoleEnum.master">
