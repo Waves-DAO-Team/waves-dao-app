@@ -22,6 +22,6 @@ export class CreateGrantPageComponent implements OnInit {
 
   onSubmit () {
     // console.log('form', this.grantForm.value.name)
-    this.contractService.addTask(this.grantForm.value.name)
+    this.contractService.addTask(this.grantForm.value.name, this.grantForm.value.reward)
   }
 }

@@ -13,6 +13,7 @@ import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
 import { environment } from '../../../../dapp/src/environments/environment'
+import { ContractService } from '@services/contract/contract.service'
 @Component({
   selector: 'ui-header',
   templateUrl: './header.component.html',
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
     private snackBar: MatSnackBar,
     public router: Router,
     public userService: UserService,
+    public contractService: ContractService,
     private location: Location
   ) {
   }
@@ -60,5 +62,13 @@ export class HeaderComponent implements OnInit {
     this.userService.data.subscribe((newData) => {
       this.userRole = newData.userRole
     })
+  }
+
+  test () {
+    // payment: [{
+    //   assetId: 'string',
+    //   amount: LONG,
+    // }],
+    // this.contractService.addTaskDetails('3YmhzN8keAksJeyvk5grfJ9c3mTCFAzCdTuL8w2yHoQ3')
   }
 }

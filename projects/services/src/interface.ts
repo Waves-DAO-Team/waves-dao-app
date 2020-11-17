@@ -7,3 +7,18 @@ export enum GrantStatusEnum {
   workFinished = 'work_finished',
   noStatus = 'no_status'
 }
+
+export interface InvokeResponseInterface {
+  call: {}
+  dApp: string
+  fee: number
+  feeAssetId: string
+  id: string
+  payment: []
+  proofs: []
+  sender: string
+  senderPublicKey: string
+  timestamp: number
+  type: number
+  version: number
+}

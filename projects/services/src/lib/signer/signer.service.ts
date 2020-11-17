@@ -7,6 +7,8 @@ import { BehaviorSubject, from, Observable, ReplaySubject, Subject } from 'rxjs'
 import { publishReplay, refCount, startWith } from 'rxjs/operators'
 import { UserService } from '@services/user/user.service'
 import { IWithApiMixin, IInvokeScriptTransaction } from '@waves/ts-types'
+import { IMoney } from '@waves/signer/cjs/interface'
+import { InvokeResponseInterface } from '../../interface'
 
 @Injectable({
   providedIn: 'root'
@@ -57,13 +59,41 @@ export class SignerService {
   }
 
   // @ts-ignore
-  public invoke (command: string, args: SignerInvokeArgs[]): Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
+  public invoke (command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []):
+    Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
     return this.signer.invoke({
+      payment,
       dApp: this.api.contractAddress,
       call: {
         function: command,
         // @ts-ignore
         args
+      }
+    }).broadcast()
+  }
+
+  public invokeTest (): Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
+    return this.signer.invoke({
+      payment: [{
+        assetId: 'WAVES',
+        amount: 22
+      }],
+      dApp: this.api.contractAddress,
+      // call: {
+      //   function: 'addTaskDetails',
+      //   // @ts-ignore
+      //   args: [   ]
+      // }
+      //
+      // payment: [{
+      //   assetId: '73pu8pHFNpj9tmWuYjqnZ962tXzJvLGX86dxjZxGYhoK',
+      //   amount: 7,
+      // }],
+      call: {
+        function: 'addTaskDetails',
+        args: [
+          { type: 'string', value: '2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX' }
+        ]
       }
     }).broadcast()
   }

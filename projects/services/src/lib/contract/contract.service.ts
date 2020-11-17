@@ -19,6 +19,7 @@ import {
 } from './contract.model'
 import { SignerService } from '@services/signer/signer.service'
 import { IWithApiMixin, IInvokeScriptTransaction } from '@waves/ts-types'
+import { InvokeResponseInterface } from '../../interface'
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ import { IWithApiMixin, IInvokeScriptTransaction } from '@waves/ts-types'
 export class ContractService {
   private apiGetAddressData = new URL('/addresses/data/' + this.api.contractAddress, this.api.rest)
   private contractRefresh$: Subject<null> = new Subject()
-
+  private averageOperationSpeed = 5000
   // @ts-ignore
   private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject(
     {})
@@ -75,16 +76,17 @@ export class ContractService {
   }))
 
   constructor (
-      private readonly http: HttpClient,
-      @Inject(API) private readonly api: AppApiInterface,
-      private readonly signerService: SignerService
-  ) {}
+    private readonly http: HttpClient,
+    @Inject(API) private readonly api: AppApiInterface,
+    private readonly signerService: SignerService
+  ) {
+  }
 
   refresh () {
     this.contractRefresh$.next(null)
   }
 
-  private group (keys: string[], context: {[s: string]: object}, value: ContractRawDataString|ContractRawDataNumber): void {
+  private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
     const key: string = keys.shift()
@@ -132,14 +134,20 @@ export class ContractService {
     ])
   }
 
-  public addTask (taskName: string) {
-    this.signerService.invoke('addTask', [
-      { type: 'string', value: taskName }
-    ])
+  public addTask (taskName: string, reward?: number) {
+    this.signerService.invoke('addTask', [{ type: 'string', value: taskName }])
+      .then((e) => {
+        if (reward) {
+          const result = e as unknown as InvokeResponseInterface
+          this.addTaskDetails(result.id, reward)
+        }
+      })
       .finally(() => {
-        setTimeout(() => {
-          this.refresh()
-        }, 5000)
+        if (!reward) {
+          setTimeout(() => {
+            this.refresh()
+          }, this.averageOperationSpeed)
+        }
       })
   }
 
@@ -150,10 +158,15 @@ export class ContractService {
     ])
   }
 
-  public addTaskDetails (taskId: string) {
-    this.signerService.invoke('addTaskDetails', [
-      { type: 'string', value: taskId }
-    ])
+  public addTaskDetails (taskId: string, reward: number) {
+    this.signerService.invoke('addTaskDetails',
+      [{ type: 'string', value: taskId }],
+      [{ assetId: 'WAVES', amount: reward }])
+      .finally(() => {
+        setTimeout(() => {
+          this.refresh()
+        }, this.averageOperationSpeed)
+      })
   }
 
   public voteForTaskProposal (taskId: string, voteValue: number) {
