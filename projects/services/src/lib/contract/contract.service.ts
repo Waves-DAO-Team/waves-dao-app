@@ -187,6 +187,14 @@ export class ContractService {
       { type: 'string', value: taskId },
       { type: 'string', value: teamName }
     ])
+      .then((e) => {
+        console.log('applyForTask', e)
+      })
+      .finally(() => {
+        setTimeout(() => {
+          this.refresh()
+        }, this.averageOperationSpeed)
+      })
   }
 
   public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: number) {

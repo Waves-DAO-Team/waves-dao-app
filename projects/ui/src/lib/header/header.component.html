@@ -2,6 +2,7 @@
 
 <header class="container header">
 
+  <button (click)="test()">test</button>
   <div class="header__back" (click)="goBack()" *ngIf="!(this.router.url == '/')">
     <img src="assets/icons/back.svg">
   </div>

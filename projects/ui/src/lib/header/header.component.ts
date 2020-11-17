@@ -69,6 +69,7 @@ export class HeaderComponent implements OnInit {
     //   assetId: 'string',
     //   amount: LONG,
     // }],
-    // this.contractService.addTaskDetails('3YmhzN8keAksJeyvk5grfJ9c3mTCFAzCdTuL8w2yHoQ3')
+    // this.contractService.startWork('2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    this.contractService.applyForTask('2ZzpPijE7FuYrhDVoB7fCQkCWmr4ZsfrwiDuqQhwsAh8', 'teamName33')
   }
 }

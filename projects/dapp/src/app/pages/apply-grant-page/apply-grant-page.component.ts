@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { ModalComponent } from '@ui/modal/modal.component'
+import { ContractService } from '@services/contract/contract.service'
 
 @Component({
   selector: 'app-apply-grant-page',
@@ -10,18 +11,18 @@ import { ModalComponent } from '@ui/modal/modal.component'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplyGrantPageComponent implements OnInit {
-  grantId = 0
+  grantId = ''
   grantForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    emailOrPhone: new FormControl('', Validators.required),
+    name: new FormControl(''),
+    emailOrPhone: new FormControl(''),
     team: new FormControl('', Validators.required),
-    experience: new FormControl('', Validators.required),
-    documentUrl: new FormControl('', Validators.required)
+    experience: new FormControl(''),
+    documentUrl: new FormControl('')
   })
 
   @ViewChild(ModalComponent) modal?: ModalComponent;
 
-  constructor (private route: ActivatedRoute) {
+  constructor (private route: ActivatedRoute, public contractService: ContractService) {
 
   }
 
@@ -33,11 +34,15 @@ export class ApplyGrantPageComponent implements OnInit {
 
   onSubmit () {
     // TODO: Как это написать для линтера без return?
-    let res
-    if (this.grantForm.valid) {
-      res = this.modal?.openModal()
-    }
-    return res
+    // let res
+    // if (this.grantForm.valid) {
+    this.contractService.applyForTask(this.grantId, this.grantForm.value.team)
+    //
+    //   // res = this.modal?.openModal()
+    // }
+    // return res
+
+    // this.contractService.applyForTask('2ZzpPijE7FuYrhDVoB7fCQkCWmr4ZsfrwiDuqQhwsAh8', 'teamName33')
   }
 
   willConfirm (status: boolean) {
