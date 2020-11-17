@@ -173,7 +173,7 @@
         <button (click)="modal?.openModal()" class="btn">
           {{'entity.remove' | transloco}}
         </button>
-        <button (click)="modal?.openModal()" class="btn">
+        <button [routerLink]="['/', 'edit-grant', entityId ]" class="btn">
           {{'entity.edit' | transloco}}
         </button>
         <button (click)="modal?.openModal()" class="btn">

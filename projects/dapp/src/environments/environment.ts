@@ -18,6 +18,7 @@ export const environment = {
     about: 'about',
     applyGrant: 'apply-grant/:entityId',
     createGrant: 'create-grant',
+    editGrant: 'edit-grant/:entityId',
     masterSetting: 'master-setting',
     setting: 'settings',
     create: 'create',

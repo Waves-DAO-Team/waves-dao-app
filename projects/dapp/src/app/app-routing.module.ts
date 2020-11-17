@@ -45,6 +45,11 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: environment.routing.editGrant,
+        loadChildren: () => import('./pages/edit-grant-page/edit-grant-page.module').then((m) => m.EditGrantPageModule),
+        pathMatch: 'full'
+      },
+      {
         path: environment.routing.applyGrant,
         loadChildren: () => import('./pages/apply-grant-page/apply-grant-page.module').then((m) => m.ApplyGrantPageModule),
         pathMatch: 'full'
