@@ -136,6 +136,11 @@ export class ContractService {
     this.signerService.invoke('addTask', [
       { type: 'string', value: taskName }
     ])
+      .finally(() => {
+        setTimeout(() => {
+          this.refresh()
+        }, 5000)
+      })
   }
 
   public rateTask (taskId: string, rate: number) {
