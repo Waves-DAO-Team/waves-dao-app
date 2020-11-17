@@ -70,6 +70,9 @@ export class HeaderComponent implements OnInit {
     //   amount: LONG,
     // }],
     // this.contractService.startWork('2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    this.contractService.applyForTask('2ZzpPijE7FuYrhDVoB7fCQkCWmr4ZsfrwiDuqQhwsAh8', 'teamName33')
+    // this.contractService.applyForTask('3YmhzN8keAksJeyvk5grfJ9c3mTCFAzCdTuL8w2yHoQ3', 'xxxx')
+    // this.contractService.finishApplicantsVoting('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
+    // this.contractService.startWork('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
+    this.contractService.acceptWorkResult('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
   }
 }

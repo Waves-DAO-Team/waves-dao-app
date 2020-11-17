@@ -37,7 +37,8 @@ export class EntityComponent {
     private route: ActivatedRoute,
     public userService: UserService,
     private signerService: SignerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public contractService: ContractService,
   ) {
   }
 
@@ -56,5 +57,10 @@ export class EntityComponent {
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
     })
+  }
+
+  finishVote() {
+    this.contractService.finishApplicantsVoting(this.entityId)
+
   }
 }

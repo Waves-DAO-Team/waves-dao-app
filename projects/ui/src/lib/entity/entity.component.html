@@ -176,12 +176,12 @@
         <button [routerLink]="['/', 'edit-grant', entityId ]" class="btn">
           {{'entity.edit' | transloco}}
         </button>
-        <button (click)="modal?.openModal()" class="btn">
+        <button (click)="finishVote()" class="btn">
           {{'entity.finish_vote' | transloco}}
         </button>
-        <button class="btn active" [routerLink]="['/', 'apply-grant', entityId]">
-          {{'entity.apply' | transloco}}
-        </button>
+<!--        <button class="btn active" [routerLink]="['/', 'apply-grant', entityId]">-->
+<!--          {{'entity.apply' | transloco}}-->
+<!--        </button>-->
       </div>
     </div>
   </div>

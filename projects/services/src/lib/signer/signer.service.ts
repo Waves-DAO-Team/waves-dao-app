@@ -71,30 +71,4 @@ export class SignerService {
       }
     }).broadcast()
   }
-
-  public invokeTest (): Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    return this.signer.invoke({
-      payment: [{
-        assetId: 'WAVES',
-        amount: 22
-      }],
-      dApp: this.api.contractAddress,
-      // call: {
-      //   function: 'addTaskDetails',
-      //   // @ts-ignore
-      //   args: [   ]
-      // }
-      //
-      // payment: [{
-      //   assetId: '73pu8pHFNpj9tmWuYjqnZ962tXzJvLGX86dxjZxGYhoK',
-      //   amount: 7,
-      // }],
-      call: {
-        function: 'addTaskDetails',
-        args: [
-          { type: 'string', value: '2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX' }
-        ]
-      }
-    }).broadcast()
-  }
 }

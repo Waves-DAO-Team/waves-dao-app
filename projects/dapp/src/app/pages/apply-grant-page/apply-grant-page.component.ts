@@ -33,16 +33,7 @@ export class ApplyGrantPageComponent implements OnInit {
   }
 
   onSubmit () {
-    // TODO: Как это написать для линтера без return?
-    // let res
-    // if (this.grantForm.valid) {
     this.contractService.applyForTask(this.grantId, this.grantForm.value.team)
-    //
-    //   // res = this.modal?.openModal()
-    // }
-    // return res
-
-    // this.contractService.applyForTask('2ZzpPijE7FuYrhDVoB7fCQkCWmr4ZsfrwiDuqQhwsAh8', 'teamName33')
   }
 
   willConfirm (status: boolean) {
