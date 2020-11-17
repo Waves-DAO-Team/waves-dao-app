@@ -17,39 +17,28 @@ import { tap } from 'rxjs/operators'
   styleUrls: ['./entity.component.scss']
 })
 export class EntityComponent {
-  @Input() grant: ContractGrantModel = {}
+  @Input() public readonly grant: ContractGrantModel = {}
   grantStatusEnum = GrantStatusEnum
   userRoleEnum = RoleEnum
   isDAOVote = false
   @ViewChild(ModalComponent) modal?: ModalComponent
 
-  entityId: string = ''
-  entityId$ = this.route.params
-    .pipe(
-      tap(
-        (param) => {
-          this.entityId = param.entityId
-        }
-      )
-    ).subscribe()
-
   constructor (
-    private route: ActivatedRoute,
     public userService: UserService,
     private signerService: SignerService,
     private snackBar: MatSnackBar,
-    public contractService: ContractService,
+    public contractService: ContractService
   ) {
   }
 
-  vote () {
+  vote (value: number) {
     this.isDAOVote = true
 
-    // this.contractService.voteForApplicant(
-    //   '2WrSKBJj6fiYAUiDVDCccfjHmqHc1hpEsQzxuDGBNhxP',
-    //   '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5',
-    //   2
-    // )
+    this.contractService.voteForApplicant(
+      '2WrSKBJj6fiYAUiDVDCccfjHmqHc1hpEsQzxuDGBNhxP',
+      '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5',
+      2
+    )
   }
 
   public signup (): void {
@@ -59,8 +48,7 @@ export class EntityComponent {
     })
   }
 
-  finishVote() {
-    this.contractService.finishApplicantsVoting(this.entityId)
-
+  finishVote () {
+    this.contractService.finishApplicantsVoting(this.grant.id as string)
   }
 }

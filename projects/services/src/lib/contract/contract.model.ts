@@ -19,7 +19,14 @@ export interface ContractRawDataNumber {
 
 export type ContractRawData = ContractRawDataString[]
 
-export interface ContractGrantModel {
+export interface ContractGrantAppModel {
+  id: ContractRawDataString
+  leader: ContractRawDataString
+  name: ContractRawDataString
+  key?: string;
+}
+
+export interface ContractGrantCommonModel {
   id?: ContractRawDataEntityId
   status?: ContractRawDataString
   title?: ContractRawDataString
@@ -28,7 +35,18 @@ export interface ContractGrantModel {
     amount?: ContractRawDataNumber
     state?: ContractRawDataNumber
   }
+  applicants?: ContractRawDataString
   voted?: {[s: string]: ContractRawDataNumber}
+  app?: {[s: string]: ContractGrantAppModel} | ContractGrantAppModel[]
+}
+
+export interface ContractGrantRawModel extends ContractGrantCommonModel {
+  app?: {[s: string]: ContractGrantAppModel}
+}
+
+export interface ContractGrantModel extends ContractGrantCommonModel {
+  app?: ContractGrantAppModel[]
+  id?: ContractRawDataEntityId;
 }
 
 export interface ContractDataModel {
@@ -48,5 +66,5 @@ export interface ContractDataModel {
     members: ContractRawDataString
     size: ContractRawDataNumber
   }
-  tasks: {[s: string]: ContractGrantModel}
+  tasks: {[s: string]: ContractGrantRawModel}
 }
