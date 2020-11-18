@@ -24,6 +24,7 @@ export class EntityComponent {
   @ViewChild(ModalComponent) modal?: ModalComponent
 
   constructor (
+    private route: ActivatedRoute,
     public userService: UserService,
     private signerService: SignerService,
     private snackBar: MatSnackBar,

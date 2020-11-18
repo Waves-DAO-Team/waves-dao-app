@@ -18,6 +18,8 @@ export const environment = {
     createGrant: 'create-grant',
     setting: 'settings',
     create: 'create',
-    stylesheet: 'stylesheet'
+    stylesheet: 'stylesheet',
+    editGrant: 'edit-grant/:entityId',
+    masterSetting: 'master-setting'
   }
 }

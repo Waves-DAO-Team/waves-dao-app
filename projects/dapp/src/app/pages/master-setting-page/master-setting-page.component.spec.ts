@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { MasterSettingPageComponent } from './master-setting-page.component';
+import { MasterSettingPageComponent } from './master-setting-page.component'
+import { TranslocoModule } from '@ngneat/transloco'
 
 describe('MasterSettingPageComponent', () => {
-  let component: MasterSettingPageComponent;
-  let fixture: ComponentFixture<MasterSettingPageComponent>;
+  let component: MasterSettingPageComponent
+  let fixture: ComponentFixture<MasterSettingPageComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MasterSettingPageComponent ]
+      imports: [TranslocoModule],
+      declarations: [MasterSettingPageComponent]
     })
-    .compileComponents();
-  });
+      .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MasterSettingPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(MasterSettingPageComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})
