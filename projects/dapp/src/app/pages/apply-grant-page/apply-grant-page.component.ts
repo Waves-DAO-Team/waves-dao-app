@@ -16,6 +16,7 @@ export class ApplyGrantPageComponent implements OnInit {
     name: new FormControl(''),
     emailOrPhone: new FormControl(''),
     team: new FormControl('', Validators.required),
+    link: new FormControl('', Validators.required),
     experience: new FormControl(''),
     documentUrl: new FormControl('')
   })
@@ -33,7 +34,7 @@ export class ApplyGrantPageComponent implements OnInit {
   }
 
   onSubmit () {
-    this.contractService.applyForTask(this.grantId, this.grantForm.value.team)
+    this.contractService.applyForTask(this.grantId, this.grantForm.value.team, this.grantForm.value.link)
   }
 
   willConfirm (status: boolean) {

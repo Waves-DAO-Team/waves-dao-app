@@ -21,5 +21,7 @@ export const environment = {
     stylesheet: 'stylesheet',
     editGrant: 'edit-grant/:entityId',
     masterSetting: 'master-setting'
-  }
+  },
+
+  showDevTools: false
 }

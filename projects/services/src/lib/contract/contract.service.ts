@@ -183,7 +183,11 @@ export class ContractService {
       { type: 'string', value: taskId },
       { type: 'integer', value: voteValue }
     ]).catch((res) => {
-      alert(res.message)
+      console.error('voteForTaskProposal:', res)
+    }).finally(() => {
+      setTimeout(() => {
+        this.refresh()
+      }, this.averageOperationSpeed)
     })
   }
 
@@ -193,16 +197,14 @@ export class ContractService {
     ])
   }
 
-  public applyForTask (taskId: string, teamName: string) {
+  public applyForTask (taskId: string, teamName: string, link: string) {
     this.signerService.invoke('applyForTask', [
       { type: 'string', value: taskId },
-      { type: 'string', value: teamName }
+      { type: 'string', value: teamName },
+      { type: 'string', value: link }
     ])
       .catch((res) => {
-        alert(res.message)
-      })
-      .then((e) => {
-        console.log('applyForTask', e)
+        console.error('applyForTask', res)
       })
       .finally(() => {
         setTimeout(() => {
