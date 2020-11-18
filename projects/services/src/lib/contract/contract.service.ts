@@ -183,7 +183,9 @@ export class ContractService {
       { type: 'string', value: taskId },
       { type: 'integer', value: voteValue }
     ]).catch((res) => {
-      console.error('voteForTaskProposal:', res)
+      console.error('voteForTaskProposal error:', res)
+    }).then((res) => {
+      console.info('voteForTaskProposal info:', res)
     }).finally(() => {
       setTimeout(() => {
         this.refresh()
@@ -226,8 +228,10 @@ export class ContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        console.log('finishApplicantsVoting taskId', taskId)
-        console.error('finishApplicantsVoting catch:', res)
+        console.error('finishApplicantsVoting catch', res)
+      })
+      .then((res) => {
+        console.info('finishApplicantsVoting info', res)
       })
       .finally(() => {
         setTimeout(() => {

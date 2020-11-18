@@ -74,6 +74,7 @@ export class HeaderComponent implements OnInit {
     // this.contractService.finishApplicantsVoting('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
     // this.contractService.startWork('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
     // this.contractService.acceptWorkResult('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
-    this.contractService.voteForTaskProposal('9uPafD46iaZ5p5PHgUK1XWpvCWntay9h96PQZ5PetPRy', 1)
+    // this.contractService.voteForTaskProposal('9uPafD46iaZ5p5PHgUK1XWpvCWntay9h96PQZ5PetPRy', 1)
+    this.contractService.finishTaskProposalVoting('2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
   }
 }
