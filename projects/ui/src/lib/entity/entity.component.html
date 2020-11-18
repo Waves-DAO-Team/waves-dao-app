@@ -25,8 +25,8 @@
           {{'entity.log_in_for_apply' | transloco}}
         </button>
       </div>
-
-      <pre>{{ grant | json }}</pre>
+      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>
   <!-- unauthorized --------------------------------------------------------------------------------------------------->
@@ -57,8 +57,8 @@
           {{'entity.apply' | transloco}}
         </button>
       </div>
-
-      <pre>{{ grant | json }}</pre>
+      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
     <div class="card__info">
       <div class="card__info__left">
@@ -117,12 +117,8 @@
       </div>
     </div>
     <div class="card__body">
-
-      <div *ngFor="grant?.app">
-
-      </div>
-
-      <pre>{{ grant | json }}</pre>
+      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
     <div class="card__info">
       <div class="card__info__left">
@@ -185,8 +181,8 @@
         <button (click)="finishVote()" class="btn">
           {{'entity.finish_vote' | transloco}}
         </button>
-
-        <pre>{{ grant | json }}</pre>
+        link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+        <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
 <!--        <button class="btn active" [routerLink]="['/', 'apply-grant', grant.id]">-->
 <!--          {{'entity.apply' | transloco}}-->
 <!--        </button>-->
@@ -219,8 +215,8 @@
       <div class="btn-container no-padding-right">
         <button class="btn active"> {{'entity.apply' | transloco}}</button>
       </div>
-
-      <pre>{{ grant | json }}</pre>
+      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>
   <!-- master --------------------------------------------------------------------------------------------------------->

@@ -124,6 +124,10 @@
         "label": "Team name",
         "placeholder": "My team"
       },
+      "link": {
+        "label": "Link",
+        "placeholder": "My link"
+      },
       "description": {
         "label": "Description",
         "placeholder": "Your personal or team experience"

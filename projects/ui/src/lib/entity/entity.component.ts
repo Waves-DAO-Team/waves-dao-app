@@ -10,6 +10,7 @@ import { translate } from '@ngneat/transloco'
 import { ContractService } from '@services/contract/contract.service'
 import { ActivatedRoute } from '@angular/router'
 import { tap } from 'rxjs/operators'
+import { environment } from '../../../../dapp/src/environments/environment'
 
 @Component({
   selector: 'ui-entity',
@@ -22,8 +23,12 @@ export class EntityComponent {
   userRoleEnum = RoleEnum
   isDAOVote = false
   @ViewChild(ModalComponent) modal?: ModalComponent
+  environment: {
+    showDevTools: boolean;
+  } = environment;
 
   constructor (
+    private route: ActivatedRoute,
     public userService: UserService,
     private signerService: SignerService,
     private snackBar: MatSnackBar,

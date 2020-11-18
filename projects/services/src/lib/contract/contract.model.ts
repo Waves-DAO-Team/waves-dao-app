@@ -47,6 +47,7 @@ export interface ContractGrantRawModel extends ContractGrantCommonModel {
 export interface ContractGrantModel extends ContractGrantCommonModel {
   app?: ContractGrantAppModel[]
   id?: ContractRawDataEntityId;
+  link?: ContractRawDataEntityId;
 }
 
 export interface ContractDataModel {

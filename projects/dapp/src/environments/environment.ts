@@ -23,5 +23,7 @@ export const environment = {
     setting: 'settings',
     create: 'create',
     stylesheet: 'stylesheet'
-  }
+  },
+
+  showDevTools: true
 }
