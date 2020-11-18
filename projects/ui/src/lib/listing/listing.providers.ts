@@ -1,6 +1,6 @@
 import { InjectionToken, Provider } from '@angular/core'
 import {
-  ContractGrantModel
+  ContractGrantModel, ContractGrantRawModel
 } from '@services/contract/contract.model'
 import { ContractService } from '@services/contract/contract.service'
 import { catchError } from 'rxjs/operators'
@@ -23,7 +23,7 @@ export const GRANTS_PROVIDERS: Provider[] = [
 export function grantsFactory (
   contractService: ContractService,
   snackBar: MatSnackBar
-): LoadingWrapperModel<ContractGrantModel[]> {
+): LoadingWrapperModel<ContractGrantRawModel[]> {
   return new LoadingWrapper(
     contractService.streamTasks.pipe(catchError((error) => {
       // Todo обработать ошибки в нормальное сообщение
