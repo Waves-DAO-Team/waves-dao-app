@@ -25,7 +25,8 @@
           {{'entity.log_in_for_apply' | transloco}}
         </button>
       </div>
-      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      {{'entity.link' | transloco}}: <a [href]="grant?.link?.value" *ngIf="grant?.link?.value">{{grant?.link?.value}}</a>
+      <span *ngIf="!grant.link">{{'entity.empty_link' | transloco}}</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>

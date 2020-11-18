@@ -144,8 +144,13 @@ export class ContractService {
       })
   }
 
-  public addTask (taskName: string, reward?: number) {
-    this.signerService.invoke('addTask', [{ type: 'string', value: taskName }])
+  public addTask (taskName: string, reward: number, link: string) {
+    this.signerService.invoke('addTask', [
+      { type: 'string', value: taskName },
+      { type: 'string', value: link }
+      ],
+      // [{ assetId: 'WAVES', amount: 900000 }]
+    )
       .catch((res) => {
         alert(res.message)
       })

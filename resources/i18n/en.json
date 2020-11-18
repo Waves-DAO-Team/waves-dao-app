@@ -41,6 +41,8 @@
     "remove": "Remove",
     "edit": "Edit",
     "finish_vote": "Finish vote",
+    "link": "Link",
+    "empty_link": "link empty",
     "DAO": {
       "vote": {
         "true": {
@@ -101,6 +103,10 @@
       "tags": {
         "label": "Tags",
         "placeholder": "Enter tags"
+      },
+      "link": {
+        "label": "Link",
+        "placeholder": "Enter link"
       },
       "description": {
         "label": "Description",

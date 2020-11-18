@@ -30,6 +30,7 @@ export class UserService {
     .pipe(
       tap(([userAddress, contract]) => {
         const masterAddress = environment.apis.contractAddress
+        // console.log('------', contract)
         const WorkGroupAddress = Object.keys(contract.working.group.member)
         const DAOMemberAddress = Object.keys(contract.dao.member)
         const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
