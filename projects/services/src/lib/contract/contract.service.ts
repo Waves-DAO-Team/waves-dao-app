@@ -79,6 +79,7 @@ export class ContractService {
 
   refresh() {
     this.contractRefresh$.next(null)
+    this.popupService.add('refresh')
   }
 
   private group(keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
@@ -131,34 +132,45 @@ export class ContractService {
   public addDAOMember(members: string) {
     this.signerService.invoke('addDAOMember', [
       {type: 'string', value: members}
-    ])
-      .catch((res) => {
-        this.popupService.add('addDAOMember: ' + res.message)
-      })
+    ]).catch((res) => {
+      this.popupService.add('addDAOMember: ' + res.message)
+    }).finally(() => {
+      setTimeout(() => {
+        this.refresh()
+        this.popupService.add('addDAOMember finally')
+      }, this.averageOperationSpeed)
+    })
   }
 
   public addGroupMember(members: string) {
     this.signerService.invoke('addGroupMember', [
       {type: 'string', value: members}
-    ])
-      .catch((res) => {
-        this.popupService.add('addGroupMember: ' + res.message)
-      })
+    ]).catch((res) => {
+      this.popupService.add('addGroupMember: ' + res.message)
+    }).finally(() => {
+      setTimeout(() => {
+        this.refresh()
+        this.popupService.add('addGroupMember finally')
+      }, this.averageOperationSpeed)
+    })
   }
 
   public addTask(taskName: string, reward: number, link: string) {
-    this.signerService.invoke('addTask', [
-        {type: 'string', value: taskName},
-        {type: 'string', value: link}
-      ])
+    const tx = this.signerService.invoke('addTask', [
+      {type: 'string', value: taskName},
+      {type: 'string', value: link}
+    ])
       .catch((res) => {
         this.popupService.add('addTask: ' + res.message)
       })
       .then((e) => {
         if (reward) {
           const result = e as unknown as InvokeResponseInterface
+          // await this.signerService.signer.broadcast(result.id, {chain: true, confirmations: 2})
           this.addTaskDetails(result.id, reward)
+
         }
+        this.popupService.add('addTask ok')
       })
       .finally(() => {
         if (!reward) {
@@ -167,6 +179,12 @@ export class ContractService {
           }, this.averageOperationSpeed)
         }
       })
+    // @ts-ignore
+
+    console.log('------------------')
+    // tx.then((e) =>{
+    //   console.log('-----------', e)
+    // })
   }
 
   public addTaskDetails(taskId: string, reward: number) {
@@ -177,6 +195,7 @@ export class ContractService {
         this.popupService.add('addTaskDetails: ' + res.message)
       })
       .finally(() => {
+        this.popupService.add('addTaskDetails ok')
         setTimeout(() => {
           this.refresh()
         }, this.averageOperationSpeed)
@@ -184,18 +203,29 @@ export class ContractService {
   }
 
   public voteForTaskProposal(taskId: string, voteValue: number) {
-    this.signerService.invoke('voteForTaskProposal', [
+    const x = this.signerService.invoke('voteForTaskProposal', [
       {type: 'string', value: taskId},
       {type: 'integer', value: voteValue}
     ]).catch((res) => {
       this.popupService.add('voteForTaskProposal: ' + res.message)
-    }).then((res) => {
-      console.info('voteForTaskProposal info:', res)
+    }).then((res: any) => {
+      console.info('voteForTaskProposal info:', res.id)
+
+      // core.js:4442 ERROR Error: Uncaught (in promise): Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj":[{"msg":["\"Bus7vuhFTVBcA6gX33p4u36LFGoHNngkscw6zdnC1g7J\" is not an object"],"args":[]}]}}
+      // this.signerService.signer.broadcast(res.id).then((e)=>{
+      //   console.log('-------', e)
+      // })
     }).finally(() => {
       setTimeout(() => {
         this.refresh()
       }, this.averageOperationSpeed)
     })
+
+    // core.js:4442 ERROR Error: Uncaught (in promise): Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj":[{"msg":["'type' is undefined on object: {\"__zone_symbol__state\":null,\"__zone_symbol__value\":[],\"__zone_symbol__finally\":\"__zone_symbol__finally\"}"],"args":[]}]}}
+    // this.signerService.signer.broadcast(x).then((e)=>{
+    //   console.log('-------', e)
+    // })
+
   }
 
   public finishTaskProposalVoting(taskId: string) {

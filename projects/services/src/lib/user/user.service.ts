@@ -27,6 +27,8 @@ export class UserService {
     voted: []
   })
 
+  lastAddress = ''
+
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
@@ -45,10 +47,11 @@ export class UserService {
           roles: dr.roles,
           voted: dv
         })
-        if(userAddress.address) {
+        if(userAddress.address !== this.lastAddress) {
           this.popupService.add('Login: ' + userAddress.address)
-          console.log('user data: ', this.data.getValue())
+          this.lastAddress = userAddress.address
         }
+        console.log('user data: ', this.data.getValue())
       }),
       publishReplay(1),
       refCount()
