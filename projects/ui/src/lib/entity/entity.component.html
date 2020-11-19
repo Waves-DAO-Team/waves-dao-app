@@ -137,8 +137,8 @@
         </ng-container>
       </div>
       <div class="card__info__right" *ngIf="!isDAOVote && !(userService.data | async)?.voted.includes(grant.id)">
-        <img (click)="vote(-1)" src="assets/icons/vote-min.svg">
-        <img (click)="vote(1)" src="assets/icons/vote-plus.svg">
+        <img (click)="vote('dislike')" src="assets/icons/vote-min.svg">
+        <img (click)="vote('like')" src="assets/icons/vote-plus.svg">
       </div>
     </div>
   </div>

@@ -36,7 +36,7 @@ export class EntityComponent {
   ) {
   }
 
-  vote (value: number) {
+  vote (value: 'like' | 'dislike') {
     // this.isDAOVote = true
 
     // this.contractService.voteForApplicant(
