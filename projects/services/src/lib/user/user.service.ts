@@ -6,6 +6,7 @@ import { environment } from '../../../../dapp/src/environments/environment'
 import { BehaviorSubject, combineLatest } from 'rxjs'
 import { publishReplay, refCount, tap } from 'rxjs/operators'
 import { ContractGrantRawModel } from '@services/contract/contract.model'
+import {PopupService} from "@services/popup/popup.service";
 
 @Injectable({
   providedIn: 'root'
@@ -44,14 +45,17 @@ export class UserService {
           roles: dr.roles,
           voted: dv
         })
-        console.log('user data: ', this.data.getValue())
+        if(userAddress.address) {
+          this.popupService.add('Login: ' + userAddress.address)
+          console.log('user data: ', this.data.getValue())
+        }
       }),
       publishReplay(1),
       refCount()
     ).subscribe()
 
   constructor (
-    private signerService: SignerService, private contractService: ContractService
+    private signerService: SignerService, private contractService: ContractService, private popupService: PopupService
   ) {
     // setInterval(()=>{
     //   console.log('---', this.contractService.)

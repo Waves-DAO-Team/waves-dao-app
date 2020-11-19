@@ -14,6 +14,7 @@ import { RoleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
 import { environment } from '../../../../dapp/src/environments/environment'
 import { ContractService } from '@services/contract/contract.service'
+import {PopupService} from "@services/popup/popup.service";
 @Component({
   selector: 'ui-header',
   templateUrl: './header.component.html',
@@ -32,7 +33,8 @@ export class HeaderComponent implements OnInit {
     public router: Router,
     public userService: UserService,
     public contractService: ContractService,
-    private location: Location
+    private location: Location,
+    private popupService: PopupService
   ) {
   }
 
@@ -65,6 +67,11 @@ export class HeaderComponent implements OnInit {
   }
 
   test () {
+    this.popupService.add('Lorem 1 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    this.popupService.add('Lorem 2 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    this.popupService.add('Lorem 3 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    this.popupService.add('Lorem 4 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    this.popupService.add('Lorem 5 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
     // payment: [{
     //   assetId: 'string',
     //   amount: LONG,
@@ -75,6 +82,10 @@ export class HeaderComponent implements OnInit {
     // this.contractService.startWork('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
     // this.contractService.acceptWorkResult('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
     // this.contractService.voteForTaskProposal('9uPafD46iaZ5p5PHgUK1XWpvCWntay9h96PQZ5PetPRy', 1)
-    this.contractService.finishTaskProposalVoting('2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    // this.contractService.finishTaskProposalVoting('2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+  }
+
+  test2() {
+    this.popupService.rmLast()
   }
 }
