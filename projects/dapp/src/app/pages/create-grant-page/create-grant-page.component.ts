@@ -11,8 +11,9 @@ export class CreateGrantPageComponent implements OnInit {
   grantForm = new FormGroup({
     name: new FormControl('', Validators.required),
     reward: new FormControl('', Validators.required),
-    tags: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
+    link: new FormControl('', Validators.required),
+    // tags: new FormControl('', Validators.required),
+    // description: new FormControl('', Validators.required)
   })
 
   constructor (private contractService: ContractService) { }
@@ -22,6 +23,6 @@ export class CreateGrantPageComponent implements OnInit {
 
   onSubmit () {
     // console.log('form', this.grantForm.value.name)
-    this.contractService.addTask(this.grantForm.value.name, this.grantForm.value.reward)
+    this.contractService.addTask(this.grantForm.value.name, this.grantForm.value.reward, this.grantForm.value.link)
   }
 }

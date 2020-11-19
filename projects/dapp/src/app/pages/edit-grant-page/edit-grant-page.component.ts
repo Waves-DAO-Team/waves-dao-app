@@ -12,8 +12,8 @@ export class EditGrantPageComponent implements OnInit {
   grantForm = new FormGroup({
     name: new FormControl('', Validators.required),
     reward: new FormControl('', Validators.required),
-    tags: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
+    // tags: new FormControl('', Validators.required),
+    // description: new FormControl('', Validators.required)
   })
 
   grantId = '';

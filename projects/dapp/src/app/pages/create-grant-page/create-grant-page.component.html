@@ -9,14 +9,18 @@
       <input type="text" formControlName="reward" [placeholder]="'create_grant.form.reward.placeholder' | transloco">
     </label>
     <label>
-      {{'create_grant.form.tags.label' | transloco}}:
-      <input type="text" formControlName="tags" [placeholder]="'create_grant.form.tags.placeholder' | transloco">
+      {{'create_grant.form.link.label' | transloco}}:
+      <input type="text" formControlName="link" [placeholder]="'create_grant.form.link.placeholder' | transloco">
     </label>
-    <label>
-      {{'create_grant.form.description.label' | transloco}}:
-      <textarea rows="7" type="text" formControlName="description"
-                [placeholder]="'create_grant.form.description.placeholder' | transloco"></textarea>
-    </label>
+<!--    <label>-->
+<!--      {{'create_grant.form.tags.label' | transloco}}:-->
+<!--      <input type="text" formControlName="tags" [placeholder]="'create_grant.form.tags.placeholder' | transloco">-->
+<!--    </label>-->
+<!--    <label>-->
+<!--      {{'create_grant.form.description.label' | transloco}}:-->
+<!--      <textarea rows="7" type="text" formControlName="description"-->
+<!--                [placeholder]="'create_grant.form.description.placeholder' | transloco"></textarea>-->
+<!--    </label>-->
     <div class="btn-container full">
       <button type="submit" class="btn active" [disabled]="!grantForm.valid">
         {{'create_grant.form.apply' | transloco}}

@@ -1,0 +1,6 @@
+<ul class="popup" [@listAnimation]="popupService.message$ | async">
+  <li *ngFor="let message of popupService.message$.getValue()" (click)="popupService.rm(message)">
+    {{message}}
+    <div href="#" class="close"></div>
+  </li>
+</ul>
