@@ -3,7 +3,7 @@
 {-# SCRIPT_TYPE ACCOUNT #-}
 
 
-let QUORUM = 50  # 50% votes needed
+let QUORUM = 1  # 50% votes needed
 
 func tryGetInteger(key: String) = {
     let val = match getInteger(this, key) {
@@ -58,22 +58,26 @@ func addDAOMember(memberAddress: String) = {
     if (!isOwner(i.caller)) then {
         throw("access only to the DAO owner")
     } else {
-        let group = getMembers()
-        let newGroup = group + ";" + memberAddress
+        if (tryGetInteger("dao_member_"+memberAddress+"_weight") == 1) then {
+            throw("This user already exists")
+        } else {
+            let group = getMembers()
+            let newGroup = group + ";" + memberAddress
 
-        let groupSize = tryGetInteger("dao_size")
-        let newGroupSize = groupSize + 1
+            let groupSize = tryGetInteger("dao_size")
+            let newGroupSize = groupSize + 1
 
-        WriteSet([
-            # Parsed in dAPP to dao.members -> list (separator ;)
-            DataEntry("dao_members", newGroup),
+            WriteSet([
+                # Parsed in dAPP to dao.members -> list (separator ;)
+                DataEntry("dao_members", newGroup),
 
-            # Parsed in dAPP to dao.size
-            DataEntry("dao_size", newGroupSize),
+                # Parsed in dAPP to dao.size
+                DataEntry("dao_size", newGroupSize),
 
-            # Parsed in dAPP to dao.member[id].weight
-            DataEntry("dao_member_"+memberAddress+"_weight", 1)
-        ])
+                # Parsed in dAPP to dao.member[id].weight
+                DataEntry("dao_member_"+memberAddress+"_weight", 1)
+            ])
+        }
     }
 }
 
@@ -83,33 +87,40 @@ func addGroupMember(memberAddress: String) = {
     if (!isOwner(i.caller)) then {
         throw("access only to the DAO owner")
     } else {
-        let group = getGroup()
-        let newGroup = group + ";" + memberAddress
+        if (tryGetInteger("working_group_member_"+memberAddress+"_weight") == 1) then {
+            throw("This user already exists")
+        } else {
+            let group = getGroup()
+            let newGroup = group + ";" + memberAddress
 
-        let groupSize = tryGetInteger("working_group_size")
-        let newGroupSize = groupSize + 1
+            let groupSize = tryGetInteger("working_group_size")
+            let newGroupSize = groupSize + 1
 
-        WriteSet([
-            # Parsed in dAPP to working.group.name -> list (separator ;)
-            DataEntry("working_group_name", newGroup),
+            WriteSet([
+                # Parsed in dAPP to working.group.name -> list (separator ;)
+                DataEntry("working_group_name", newGroup),
 
-            # Parsed in dAPP to working.group.size
-            DataEntry("working_group_size", newGroupSize),
+                # Parsed in dAPP to working.group.size
+                DataEntry("working_group_size", newGroupSize),
 
-            # Parsed in dAPP to working.group.member[id].weight
-            DataEntry("working_group_member_"+memberAddress+"_weight", 1)
-        ])
+                # Parsed in dAPP to working.group.member[id].weight
+                DataEntry("working_group_member_"+memberAddress+"_weight", 1)
+            ])
+        }
     }
 }
 
 
 @Callable(i)
-func addTask(title: String) = {
+func addTask(title: String, link: String) = {
     if (!(isGroupMember(i.caller))) then {
         throw("grants working group access only")
     } else {
         # Parsed in dAPP to tasks[id].title
-        WriteSet([DataEntry("tasks_" + i.transactionId.toBase58String() + "_title", title)])  # title, description
+        WriteSet([
+            DataEntry("tasks_" + i.transactionId.toBase58String() + "_title", title),
+            DataEntry("tasks_" + i.transactionId.toBase58String() + "_link", link)
+        ])  # title, description
     }
 }
 
@@ -209,7 +220,7 @@ func finishTaskProposalVoting(taskId: String) = {
 
 
 @Callable(i)
-func applyForTask(taskId: String, teamName: String) = {
+func applyForTask(taskId: String, teamName: String, link: String) = {
     let status = tryGetString("tasks_" + taskId + "_status")
 
     if (status != "ready_to_apply") then {
@@ -220,13 +231,14 @@ func applyForTask(taskId: String, teamName: String) = {
         let listKey = "tasks_"+taskId+"_applicants"
         let currentApplicantsList = tryGetString(listKey)
 
-        let applicantKey = drop(i.caller.toString(), 20)
+        let applicantKey = drop(i.caller.toString(), 10)
 
         # Use address leader as identifier team
         let newApplicantsList = currentApplicantsList+";"+i.caller.toString()
         WriteSet([
             # Parsed in dAPP to tasks[id].app[id].name -> string
             DataEntry("tasks_"+taskId+"_app_"+applicantKey+"_name", teamName),
+            DataEntry("tasks_"+taskId+"_app_"+applicantKey+"_link", link),
 
             # Parsed in dAPP to tasks[id].app[id].leader -> id
             DataEntry("tasks_"+taskId+"_app_"+applicantKey+"_leader", i.caller.toString()),
