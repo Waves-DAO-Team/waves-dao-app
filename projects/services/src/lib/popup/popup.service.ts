@@ -10,11 +10,11 @@ export class PopupService {
 
   constructor () {}
 
-  public async add ( text: any, title?: string,) {
+  public async add (text: string, title?: string) {
     this.message$.next([...this.message$.getValue(), text.toString()])
-    console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
+    console.log(`---------------------------------------------------------LOG ${title || ''}`)
     console.log(text)
-    console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
+    console.log(`---------------------------------------------------------LOG ${title || ''}`)
     setTimeout(() => {
       this.rmLast()
     }, 5000)

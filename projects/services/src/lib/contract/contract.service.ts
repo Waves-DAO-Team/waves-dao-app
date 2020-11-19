@@ -277,10 +277,10 @@ export class ContractService {
       { type: 'string', value: link }
     ])
       .then((res) => {
-        this.popupService.add(res, 'applyForTask then')
+        this.popupService.add(res.toString(), 'applyForTask then')
       })
       .catch((res) => {
-        this.popupService.add(res, 'applyForTask catch')
+        this.popupService.add(res.toString(), 'applyForTask catch')
       })
       .finally(() => {
         this.popupService.add('', 'applyForTask finally')

@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core'
-import {RoleEnum, RoleRowInterface, UserDataInterface} from '@services/user/user.interface'
-import {SignerService} from '@services/signer/signer.service'
-import {ContractService} from '@services/contract/contract.service'
-import {environment} from '../../../../dapp/src/environments/environment'
-import {BehaviorSubject, combineLatest} from 'rxjs'
-import {publishReplay, refCount, tap} from 'rxjs/operators'
-import {ContractGrantRawModel} from '@services/contract/contract.model'
-import {PopupService} from '@services/popup/popup.service'
+import { Injectable } from '@angular/core'
+import { RoleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
+import { SignerService } from '@services/signer/signer.service'
+import { ContractService } from '@services/contract/contract.service'
+import { environment } from '../../../../dapp/src/environments/environment'
+import { BehaviorSubject, combineLatest } from 'rxjs'
+import { publishReplay, refCount, tap } from 'rxjs/operators'
+import { ContractGrantRawModel } from '@services/contract/contract.model'
+import { PopupService } from '@services/popup/popup.service'
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +60,7 @@ export class UserService {
       refCount()
     ).subscribe()
 
-  constructor(
+  constructor (
     private signerService: SignerService, private contractService: ContractService, private popupService: PopupService
   ) {
     // setInterval(()=>{
@@ -68,8 +68,8 @@ export class UserService {
     // },5000)
   }
 
-  private defineApply(userAddress: string, tasks: ContractGrantRawModel): string[] {
-    let result: string[] = []
+  private defineApply (userAddress: string, tasks: ContractGrantRawModel): string[] {
+    const result: string[] = []
     for (const key of Object.keys(tasks)) {
       // @ts-ignore
       if (userAddress && tasks[key]?.applicants?.value.includes(userAddress)) {
@@ -79,7 +79,7 @@ export class UserService {
     return result
   }
 
-  private defineVoted(userAddress: string, tasks: ContractGrantRawModel): string[] {
+  private defineVoted (userAddress: string, tasks: ContractGrantRawModel): string[] {
     const result = []
     // @ts-ignore
     for (const key of Object.keys(tasks)) {
@@ -93,7 +93,7 @@ export class UserService {
     return result
   }
 
-  private defineRol(masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleRowInterface {
+  private defineRol (masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleRowInterface {
     const result: RoleRowInterface = {
       mainRole: RoleEnum.unauthorized,
       roles: {

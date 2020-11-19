@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
@@ -7,8 +7,8 @@ import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '@services/../interface'
 import { tap } from 'rxjs/operators'
-import {ContractService} from "@services/contract/contract.service";
-import {TeamService} from "@services/team/team.service";
+import { ContractService } from '@services/contract/contract.service'
+import { TeamService } from '@services/team/team.service'
 
 @Component({
   selector: 'ui-listing',
@@ -31,12 +31,11 @@ export class ListingComponent implements OnInit {
             this.listGrantStatuses.push(status)
           }
         })
-
       }
     )
   ).subscribe()
 
-  grants$ = this.userService.data.subscribe(() =>{
+  grants$ = this.userService.data.subscribe(() => {
     this.cdr.markForCheck()
   })
 
