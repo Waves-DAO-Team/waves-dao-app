@@ -228,7 +228,7 @@ func applyForTask(taskId: String, teamName: String, link: String) = {
     if (status != "ready_to_apply") then {
         throw("this grant has not yet been approved")
     } else {
-        let applicantKey = drop(i.caller.toString(), 10)
+        let applicantKey = drop(i.caller.toString(), 20)
 
         if (tryGetString("tasks_"+taskId+"_app_"+applicantKey+"_name") == teamName) then {
             throw("commnad with name is exist")
@@ -276,10 +276,12 @@ func voteForApplicant(taskId: String, teamIdentifier: String, voteValue: String)
                         if (vote == "like") then {1} else {-1}
                     }
                     # Parsed in dAPP to tasks[id].vote[meId][teamId] -> boolean
-                    let voteHash = drop(i.caller.toString(), 10) + drop(teamIdentifier, 10)
-                    let voteKey = "tasks_"+taskId+"_vote_"+voteHash
-                    let vote = tryGetInteger(voteKey)
-                    if (vote != 0) then {
+                    let listKey = "tasks_"+taskId+"_app_"+teamIdentifier+"_voted"
+                    let newApplicantsList = tryGetString(listKey)+";"+i.caller.toString()
+                    let voteHash = drop(i.caller.toString(), 20) + drop(teamIdentifier, 20)
+                    let voteKey = "tasks_"+taskId+"_vh_"+voteHash
+
+                    if (tryGetString(voteKey) == i.caller.toString()) then {
                         throw("you have already voted on this team")
                     } else {
                         let teamVotesAmountKey = "tasks_"+taskId+"_app_"+teamIdentifier+"_votes"
@@ -288,8 +290,9 @@ func voteForApplicant(taskId: String, teamIdentifier: String, voteValue: String)
                         let newTeamScore = getValue(voteValue) + tryGetInteger(teamScoreKey)
                         WriteSet([
                             # Parsed in dAPP to tasks[id].app[teamId].votes -> integer
-                            DataEntry(voteKey, getValue(voteValue)),
-
+                            DataEntry(listKey, newApplicantsList),
+                            DataEntry(voteKey, i.caller.toString()),
+                            DataEntry(teamVotesAmountKey, teamVotesAmount),
                             # Parsed in dAPP to tasks[id].app[teamId].score -> integer
                             DataEntry(teamScoreKey, newTeamScore)
                         ])
