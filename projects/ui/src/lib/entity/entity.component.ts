@@ -41,7 +41,7 @@ export class EntityComponent {
 
     // this.contractService.voteForApplicant(
     const id = this.grant.id || ''
-    console.info('vote', id, value)
+    // console.info('vote', id, value)
     this.contractService.voteForTaskProposal(id, value)
   }
 

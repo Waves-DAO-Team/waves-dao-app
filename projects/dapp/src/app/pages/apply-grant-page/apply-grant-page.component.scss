@@ -1,6 +1,6 @@
 //@import './../../resources/styles/index';
 @import 'variables';
-@import 'elements';
+@import 'mixins/elements';
 
 h1 {
   @include text-title(h1);

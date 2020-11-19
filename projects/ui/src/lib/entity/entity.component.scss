@@ -1,5 +1,5 @@
 @import 'variables';
-@import 'elements';
+@import 'mixins/elements';
 
 .btn-container {
   @include btn-container();

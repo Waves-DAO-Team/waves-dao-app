@@ -27,6 +27,7 @@ export interface UserDataInterface {
   masterAddress: string,
   roles: RolesInterface
   voted: string[]
+  apply: string[]
   // vote: {
   //   votedFor: []
   // }

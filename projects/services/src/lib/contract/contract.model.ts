@@ -23,6 +23,7 @@ export interface ContractGrantAppModel {
   id: ContractRawDataString
   leader: ContractRawDataString
   name: ContractRawDataString
+  link: ContractRawDataString
   key?: string;
 }
 

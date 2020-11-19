@@ -4,7 +4,7 @@ import { HeaderComponent } from './header.component'
 import { TranslocoModule } from '@ngneat/transloco'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { RouterModule } from '@angular/router'
-import {PopupModule} from "@ui/popup/popup.module";
+import { PopupModule } from '@ui/popup/popup.module'
 
 @NgModule({
   declarations: [HeaderComponent],

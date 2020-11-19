@@ -1,5 +1,5 @@
 <div class="entity">
-<!--  {{(userService.data | async)?.voted.includes(grant.id) ? 'yes' : 'no'}}-->
+  <!--  {{(userService.data | async)?.voted.includes(grant.id) ? 'yes' : 'no'}}-->
   <!-- unauthorized --------------------------------------------------------------------------------------------------->
   <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.unauthorized">
     <div class="card__header">
@@ -20,12 +20,8 @@
       </div>
     </div>
     <div class="card__body">
-      <div class="btn-container">
-        <button class="btn active" (click)="signup()">
-          {{'entity.log_in_for_apply' | transloco}}
-        </button>
-      </div>
-      {{'entity.link' | transloco}}: <a [href]="grant?.link?.value" *ngIf="grant?.link?.value">{{grant?.link?.value}}</a>
+      {{'entity.link' | transloco}}: <a [href]="grant?.link?.value"
+                                        *ngIf="grant?.link?.value">{{grant?.link?.value}}</a>
       <span *ngIf="!grant.link">{{'entity.empty_link' | transloco}}</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
@@ -33,8 +29,8 @@
   <!-- unauthorized --------------------------------------------------------------------------------------------------->
 
   <!-- authorized ----------------------------------------------------------------------------------------------------->
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.authorized">
-<!--  <div class="card">-->
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.authorized">
+    <!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -53,11 +49,7 @@
       </div>
     </div>
     <div class="card__body">
-      <div class="btn-container">
-        <button class="btn active" [routerLink]="['/', 'apply-grant', grant.id]">
-          {{'entity.apply' | transloco}}
-        </button>
-      </div>
+
       link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
@@ -98,8 +90,8 @@
   <!-- authorized ----------------------------------------------------------------------------------------------------->
 
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
-<!--  <div class="card">-->
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
+    <!--  <div class="card">-->
 
     <div class="card__header">
       <div class="card__header__left-block">
@@ -153,8 +145,8 @@
   <!-- DAOMember ------------------------------------------------------------------------------------------------------>
 
   <!-- workingGroup --------------------------------------------------------------------------------------------------->
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.workingGroup">
-<!--  <div class="card">-->
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.workingGroup">
+    <!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -175,51 +167,42 @@
     <div class="card__body">
       link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
-      <div class="btn-container">
-        <button (click)="modal?.openModal()" class="btn">
-          {{'entity.remove' | transloco}}
-        </button>
-        <button [routerLink]="['/', 'edit-grant', grant.id ]" class="btn">
-          {{'entity.edit' | transloco}}
-        </button>
-        <button (click)="finishVote()" class="btn">
-          {{'entity.finish_vote' | transloco}}
-        </button>
+
+    </div>
+    <div *ngIf="(userService.data | async)?.roles.isDAO && !(userService.data | async)?.voted.includes(grant.id)"
+         class="card__info">
+      <div class="card__info__left">
+        <img src="assets/icons/vote.svg">
+      </div>
+      <div class="card__info__mid">
+        <ng-container *ngIf="!isDAOVote">
+          <div class="card__info__mid__subtext">
+            {{'entity.DAO.vote.true.subtext' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.DAO.vote.true.text' | transloco}}
+          </div>
+        </ng-container>
+        <ng-container *ngIf="isDAOVote">
+          <div class="card__info__mid__subtext">
+            {{'entity.DAO.vote.false.text' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.DAO.vote.false.text' | transloco}}
+          </div>
+        </ng-container>
+      </div>
+      <div class="card__info__right" *ngIf="!isDAOVote">
+        <img (click)="vote(-1)" src="assets/icons/vote-min.svg">
+        <img (click)="vote(1)" src="assets/icons/vote-plus.svg">
       </div>
     </div>
-      <div  *ngIf="(userService.data | async)?.roles.isDAO && !(userService.data | async)?.voted.includes(grant.id)" class="card__info">
-        <div class="card__info__left">
-          <img src="assets/icons/vote.svg">
-        </div>
-        <div class="card__info__mid">
-          <ng-container *ngIf="!isDAOVote">
-            <div class="card__info__mid__subtext">
-              {{'entity.DAO.vote.true.subtext' | transloco}}
-            </div>
-            <div class="card__info__mid__text">
-              {{'entity.DAO.vote.true.text' | transloco}}
-            </div>
-          </ng-container>
-          <ng-container *ngIf="isDAOVote">
-            <div class="card__info__mid__subtext">
-              {{'entity.DAO.vote.false.text' | transloco}}
-            </div>
-            <div class="card__info__mid__text">
-              {{'entity.DAO.vote.false.text' | transloco}}
-            </div>
-          </ng-container>
-        </div>
-        <div class="card__info__right" *ngIf="!isDAOVote">
-          <img (click)="vote(-1)" src="assets/icons/vote-min.svg">
-          <img (click)="vote(1)" src="assets/icons/vote-plus.svg">
-        </div>
-      </div>
   </div>
   <!-- workingGroup --------------------------------------------------------------------------------------------------->
 
   <!-- master --------------------------------------------------------------------------------------------------------->
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.master">
-<!--  <div class="card">-->
+  <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.master">
+    <!--  <div class="card">-->
     <div class="card__header">
       <div class="card__header__left-block">
         <div class="card__header__left-block__status">
@@ -246,5 +229,54 @@
     </div>
   </div>
   <!-- master --------------------------------------------------------------------------------------------------------->
+
+  <div class="card">
+    <div class="card__body">
+      <div class="btn-container">
+        <button (click)="modal?.openModal()" class="btn" *ngIf="userService.data.getValue().roles.isMaster">
+          {{'entity.remove' | transloco}}
+        </button>
+        <button
+          [routerLink]="['/', 'edit-grant', grant.id ]"
+          class="btn"
+          *ngIf="userService.data.getValue().roles.isMaster">
+          {{'entity.edit' | transloco}}
+        </button>
+
+        <!--WG-->
+        <button
+          (click)="finishVote()"
+          class="btn" *ngIf="userService.data.getValue().roles.isWG">
+          {{'entity.finish_vote' | transloco}}
+        </button>
+        <button
+          (click)="modal?.openModal()"
+          class="btn" *ngIf="userService.data.getValue().roles.isWG">
+          {{'entity.remove' | transloco}}
+        </button>
+        <button
+          [routerLink]="['/', 'edit-grant', grant.id ]"
+          class="btn"
+          *ngIf="userService.data.getValue().roles.isWG">
+          {{'entity.edit' | transloco}}
+        </button>
+
+        <!--unauthorized-->
+        <button
+          class="btn active"
+          [routerLink]="['/', 'apply-grant', grant.id]"
+          *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized"
+          [disabled]="userService.data.getValue().apply.includes(grant?.id)">
+          {{'entity.apply' | transloco}}
+        </button>
+        <button
+          class="btn active"
+          (click)="signup()"
+          *ngIf="userService.data.getValue().userRole == userRoleEnum.unauthorized">
+          {{'entity.log_in_for_apply' | transloco}}
+        </button>
+      </div>
+    </div>
+  </div>
   <ui-modal></ui-modal>
 </div>
