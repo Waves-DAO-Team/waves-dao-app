@@ -37,13 +37,12 @@ export class EntityComponent {
   }
 
   vote (value: number) {
-    this.isDAOVote = true
+    // this.isDAOVote = true
 
-    this.contractService.voteForApplicant(
-      '2WrSKBJj6fiYAUiDVDCccfjHmqHc1hpEsQzxuDGBNhxP',
-      '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5',
-      2
-    )
+    // this.contractService.voteForApplicant(
+    const id = this.grant.id || ''
+    console.info('vote', id, value)
+    this.contractService.voteForTaskProposal(id, value)
   }
 
   public signup (): void {
@@ -54,6 +53,6 @@ export class EntityComponent {
   }
 
   finishVote () {
-    this.contractService.finishApplicantsVoting(this.grant.id as string)
+    this.contractService.finishTaskProposalVoting(this.grant.id as string)
   }
 }

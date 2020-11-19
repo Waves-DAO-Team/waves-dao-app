@@ -14,7 +14,7 @@ import { InvokeResponseInterface } from '../../interface'
   providedIn: 'root'
 })
 export class SignerService {
-  private readonly signer: Signer
+  public readonly signer: Signer
 
   private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({
     name: '',
@@ -59,9 +59,9 @@ export class SignerService {
   }
 
   // @ts-ignore
-  public invoke (command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []):
+  public async invoke (command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []):
     Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    return this.signer.invoke({
+    const tx = await this.signer.invoke({
       payment,
       dApp: this.api.contractAddress,
       call: {
@@ -69,6 +69,11 @@ export class SignerService {
         // @ts-ignore
         args
       }
-    }).broadcast()
+    })
+    // console.log('------>', tx.alias().)
+    // this.signer.waitTxConfirm(tx.alias, {}).then((e)=>{
+    //   console.log('!!!', e)
+    // })
+    return tx.broadcast()
   }
 }

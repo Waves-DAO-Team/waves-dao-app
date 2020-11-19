@@ -2,47 +2,58 @@
   <h2>
     {{'master_setting.setting' | transloco}}:
   </h2>
-  <form [formGroup]="settingForm">
-    <label>
-      {{'master_setting.form.work_group.label' | transloco}}:
-      <input type="text" formControlName="workGroup" [placeholder]="'master_setting.form.work_group.placeholder' | transloco">
-    </label>
-    <label>
-      {{'master_setting.form.DAO_member.label' | transloco}}:
-      <input type="text" formControlName="DAOMember" [placeholder]="'master_setting.form.DAO_member.placeholder' | transloco">
-    </label>
-    <div class="btn-container full">
-      <button type="submit" class="btn active">{{'master_setting.form.apply' | transloco}}</button>
-    </div>
-  </form>
-  <div class="grid">
-    <div class="grid__container">
-      <div class="grid__container__col">
-        <div class="dot-list">
-          <div class="title">
-            {{'master_setting.form.DAO_member.label' | transloco}}:
+  <ul class="tab-title">
+    <li [class.active]="activeTab === 'dao'" (click)="setTab('dao')">DAO Member</li>
+    <li [class.active]="activeTab === 'wg'" (click)="setTab('wg')">Work Group</li>
+  </ul>
+
+  <div class="dao" *ngIf="activeTab === 'dao'">
+    <form [formGroup]="DAOMemberForm"(ngSubmit)="submitDAO()">
+      <label>
+        {{'master_setting.form.DAO_member.label' | transloco}}:
+        <input type="text" formControlName="DAOMember" [placeholder]="'master_setting.form.DAO_member.placeholder' | transloco">
+      </label>
+      <div class="btn-container full">
+        <button type="submit" class="btn active"[disabled]="!DAOMemberForm.valid" >{{'master_setting.form.apply' | transloco}}</button>
+      </div>
+    </form>
+    <div class="grid">
+      <div class="grid__container">
+        <div class="grid__container__col">
+          <div class="dot-list">
+            <div class="title">
+              {{'master_setting.form.DAO_member.label' | transloco}}:
+            </div>
+            <ul>
+              <li *ngFor="let dao of userService.data.getValue().DAOMemberAddress">{{dao}}</li>
+            </ul>
           </div>
-          <ul>
-            <li>Lorem ipsum dolor.</li>
-            <li>Lorem ipsum dolor.</li>
-            <li>Lorem ipsum dolor.</li>
-            <li>Lorem ipsum dolor.</li>
-            <li>Lorem ipsum dolor.</li>
-          </ul>
         </div>
       </div>
-      <div class="grid__container__col">
-        <div class="dot-list">
-          <div class="title">
-            {{'master_setting.form.work_group.label' | transloco}}:
+    </div>
+  </div>
+
+  <div class="dao" *ngIf="activeTab === 'wg'">
+    <form [formGroup]="workGroupForm"(ngSubmit)="submitWG()">
+      <label>
+        {{'master_setting.form.work_group.label' | transloco}}:
+        <input type="text" formControlName="workGroup" [placeholder]="'master_setting.form.work_group.placeholder' | transloco">
+      </label>
+      <div class="btn-container full">
+        <button type="submit" class="btn active"[disabled]="!workGroupForm.valid" >{{'master_setting.form.apply' | transloco}}</button>
+      </div>
+    </form>
+    <div class="grid">
+      <div class="grid__container">
+        <div class="grid__container__col">
+          <div class="dot-list">
+            <div class="title">
+              {{'master_setting.form.work_group.label' | transloco}}:
+            </div>
+            <ul>
+              <li *ngFor="let wg of userService.data.getValue().WorkGroupAddress">{{wg}}</li>
+            </ul>
           </div>
-          <ul>
-            <li>Lorem ipsum dolor.</li>
-            <li>Lorem ipsum dolor.</li>
-            <li>Lorem ipsum dolor.</li>
-            <li>Lorem ipsum dolor.</li>
-            <li>Lorem ipsum dolor.</li>
-          </ul>
         </div>
       </div>
     </div>

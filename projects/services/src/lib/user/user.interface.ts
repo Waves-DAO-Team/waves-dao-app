@@ -7,10 +7,27 @@ export enum RoleEnum {
   master = 'master'
 }
 
+export interface RolesInterface {
+  isMaster: boolean
+  isDAO: boolean
+  isWG: boolean
+  isAuth: boolean
+}
+
+export interface RoleRowInterface {
+  mainRole: RoleEnum
+  roles: RolesInterface
+}
+
 export interface UserDataInterface {
   userRole: RoleEnum,
   userAddress: string,
   DAOMemberAddress: string[],
   WorkGroupAddress: string[],
-  masterAddress: string
+  masterAddress: string,
+  roles: RolesInterface
+  voted: string[]
+  // vote: {
+  //   votedFor: []
+  // }
 }
