@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import {Inject, Injectable} from '@angular/core'
+import {HttpClient} from '@angular/common/http'
 import {
   map,
   publishReplay,
@@ -8,8 +8,8 @@ import {
   switchMap, takeUntil,
   tap
 } from 'rxjs/operators'
-import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs'
+import {API, AppApiInterface} from '@constants'
+import {BehaviorSubject, from, Observable, Subject} from 'rxjs'
 import {
   ContractDataModel, ContractGrantAppModel, ContractGrantModel,
   ContractGrantRawModel,
@@ -18,9 +18,10 @@ import {
   ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
-import { SignerService } from '@services/signer/signer.service'
-import { IWithApiMixin, IInvokeScriptTransaction } from '@waves/ts-types'
-import { InvokeResponseInterface } from '../../interface'
+import {SignerService} from '@services/signer/signer.service'
+import {IWithApiMixin, IInvokeScriptTransaction} from '@waves/ts-types'
+import {InvokeResponseInterface} from '../../interface'
+import {PopupService} from "@services/popup/popup.service";
 
 @Injectable({
   providedIn: 'root'
@@ -68,18 +69,19 @@ export class ContractService {
     })
   }))
 
-  constructor (
+  constructor(
     private readonly http: HttpClient,
     @Inject(API) private readonly api: AppApiInterface,
-    private readonly signerService: SignerService
+    private readonly signerService: SignerService,
+    private popupService: PopupService
   ) {
   }
 
-  refresh () {
+  refresh() {
     this.contractRefresh$.next(null)
   }
 
-  private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
+  private group(keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
     const key: string = keys.shift()
@@ -97,7 +99,7 @@ export class ContractService {
     return this.group(keys, context[key], value)
   }
 
-  private prepareData (data: ContractRawData): ContractDataModel {
+  private prepareData(data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
     return data.reduce((orig, item) => {
@@ -107,7 +109,7 @@ export class ContractService {
     }, {})
   }
 
-  public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
+  public entityById(entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
     return this.stream.pipe(map((data: ContractDataModel) => {
       const grant: ContractGrantRawModel = data.tasks[entityId]
 
@@ -126,33 +128,31 @@ export class ContractService {
 
   // dapp
 
-  public addDAOMember (members: string) {
+  public addDAOMember(members: string) {
     this.signerService.invoke('addDAOMember', [
-      { type: 'string', value: members }
+      {type: 'string', value: members}
     ])
       .catch((res) => {
-        alert(res.message)
+        this.popupService.add('addDAOMember: ' + res.message)
       })
   }
 
-  public addGroupMember (members: string) {
+  public addGroupMember(members: string) {
     this.signerService.invoke('addGroupMember', [
-      { type: 'string', value: members }
+      {type: 'string', value: members}
     ])
       .catch((res) => {
-        alert(res.message)
+        this.popupService.add('addGroupMember: ' + res.message)
       })
   }
 
-  public addTask (taskName: string, reward: number, link: string) {
+  public addTask(taskName: string, reward: number, link: string) {
     this.signerService.invoke('addTask', [
-      { type: 'string', value: taskName },
-      { type: 'string', value: link }
-      ],
-      // [{ assetId: 'WAVES', amount: 900000 }]
-    )
+        {type: 'string', value: taskName},
+        {type: 'string', value: link}
+      ])
       .catch((res) => {
-        alert(res.message)
+        this.popupService.add('addTask: ' + res.message)
       })
       .then((e) => {
         if (reward) {
@@ -169,12 +169,12 @@ export class ContractService {
       })
   }
 
-  public addTaskDetails (taskId: string, reward: number) {
+  public addTaskDetails(taskId: string, reward: number) {
     this.signerService.invoke('addTaskDetails',
-      [{ type: 'string', value: taskId }],
-      [{ assetId: 'WAVES', amount: reward }])
+      [{type: 'string', value: taskId}],
+      [{assetId: 'WAVES', amount: reward}])
       .catch((res) => {
-        alert(res.message)
+        this.popupService.add('addTaskDetails: ' + res.message)
       })
       .finally(() => {
         setTimeout(() => {
@@ -183,12 +183,12 @@ export class ContractService {
       })
   }
 
-  public voteForTaskProposal (taskId: string, voteValue: number) {
+  public voteForTaskProposal(taskId: string, voteValue: number) {
     this.signerService.invoke('voteForTaskProposal', [
-      { type: 'string', value: taskId },
-      { type: 'integer', value: voteValue }
+      {type: 'string', value: taskId},
+      {type: 'integer', value: voteValue}
     ]).catch((res) => {
-      console.error('voteForTaskProposal error:', res)
+      this.popupService.add('voteForTaskProposal: ' + res.message)
     }).then((res) => {
       console.info('voteForTaskProposal info:', res)
     }).finally(() => {
@@ -198,20 +198,22 @@ export class ContractService {
     })
   }
 
-  public finishTaskProposalVoting (taskId: string) {
+  public finishTaskProposalVoting(taskId: string) {
     this.signerService.invoke('finishTaskProposalVoting', [
-      { type: 'string', value: taskId }
-    ])
+      {type: 'string', value: taskId}
+    ]).catch((res) => {
+      this.popupService.add('finishTaskProposalVoting: ' + res.message)
+    })
   }
 
-  public applyForTask (taskId: string, teamName: string, link: string) {
+  public applyForTask(taskId: string, teamName: string, link: string) {
     this.signerService.invoke('applyForTask', [
-      { type: 'string', value: taskId },
-      { type: 'string', value: teamName },
-      { type: 'string', value: link }
+      {type: 'string', value: taskId},
+      {type: 'string', value: teamName},
+      {type: 'string', value: link}
     ])
       .catch((res) => {
-        console.error('applyForTask', res)
+        this.popupService.add('applyForTask: ' + res.message)
       })
       .finally(() => {
         setTimeout(() => {
@@ -220,20 +222,22 @@ export class ContractService {
       })
   }
 
-  public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: number) {
+  public voteForApplicant(taskId: string, teamIdentifier: string, voteValue: number) {
     this.signerService.invoke('voteForApplicant', [
-      { type: 'string', value: taskId },
-      { type: 'string', value: teamIdentifier },
-      { type: 'integer', value: voteValue }
-    ])
+      {type: 'string', value: taskId},
+      {type: 'string', value: teamIdentifier},
+      {type: 'integer', value: voteValue}
+    ]).catch((res) => {
+      this.popupService.add('voteForApplicant: ' + res.message)
+    })
   }
 
-  public finishApplicantsVoting (taskId: string) {
+  public finishApplicantsVoting(taskId: string) {
     this.signerService.invoke('finishApplicantsVoting', [
-      { type: 'string', value: taskId }
+      {type: 'string', value: taskId}
     ])
       .catch((res) => {
-        console.error('finishApplicantsVoting catch', res)
+        this.popupService.add('finishApplicantsVoting: ' + res.message)
       })
       .then((res) => {
         console.info('finishApplicantsVoting info', res)
@@ -245,13 +249,12 @@ export class ContractService {
       })
   }
 
-  public startWork (taskId: string) {
+  public startWork(taskId: string) {
     this.signerService.invoke('startWork', [
-      { type: 'string', value: taskId }
+      {type: 'string', value: taskId}
     ])
       .catch((res) => {
-        console.log('startWork taskId', taskId)
-        console.error('startWork catch:', res)
+        this.popupService.add('startWork: ' + res.message)
       })
       .finally(() => {
         setTimeout(() => {
@@ -260,9 +263,11 @@ export class ContractService {
       })
   }
 
-  public acceptWorkResult (taskId: string) {
+  public acceptWorkResult(taskId: string) {
     this.signerService.invoke('acceptWorkResult', [
-      { type: 'string', value: taskId }
-    ])
+      {type: 'string', value: taskId}
+    ]).catch((res) => {
+      this.popupService.add('acceptWorkResult: ' + res.message)
+    })
   }
 }
