@@ -98,7 +98,7 @@ func addGroupMember(memberAddress: String) = {
 
             WriteSet([
                 # Parsed in dAPP to working.group.name -> list (separator ;)
-                DataEntry("working_group_name", newGroup),
+                DataEntry("working_group_members", newGroup),
 
                 # Parsed in dAPP to working.group.size
                 DataEntry("working_group_size", newGroupSize),
