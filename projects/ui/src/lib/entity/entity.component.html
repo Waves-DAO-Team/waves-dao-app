@@ -246,5 +246,26 @@
     </div>
   </div>
   <!-- master --------------------------------------------------------------------------------------------------------->
+
+  <div class="card">
+    <div class="card__body">
+<!--      <div class="card__info__right" *ngIf="userService.data.getValue().roles.isDAO">-->
+<!--        <img (click)="vote(-1)" src="assets/icons/vote-min.svg">-->
+<!--        <img (click)="vote(1)" src="assets/icons/vote-plus.svg">-->
+<!--      </div>-->
+
+      <div class="btn-container">
+        <button (click)="modal?.openModal()" class="btn" *ngIf="userService.data.getValue().roles.isMaster">
+          {{'entity.remove' | transloco}}
+        </button>
+        <button [routerLink]="['/', 'edit-grant', grant.id ]" class="btn" *ngIf="userService.data.getValue().roles.isMaster">
+          {{'entity.edit' | transloco}}
+        </button>
+        <button (click)="finishVote()" class="btn" *ngIf="userService.data.getValue().roles.isWG">
+          {{'entity.finish_vote' | transloco}}
+        </button>
+      </div>
+    </div>
+  </div>
   <ui-modal></ui-modal>
 </div>

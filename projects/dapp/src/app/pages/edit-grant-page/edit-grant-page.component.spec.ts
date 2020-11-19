@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { ContractService } from '@services/contract/contract.service'
 import { TranslocoModule } from '@ngneat/transloco'
+import { provideApi, provideAppConstants } from '@constants'
 
 describe('EditGrantPageComponent', () => {
   let component: EditGrantPageComponent
@@ -14,12 +15,10 @@ describe('EditGrantPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule, TranslocoModule],
       declarations: [EditGrantPageComponent],
-      providers: [{
-        provide: ContractService,
-        useValue: {
-          addTaskDetails: (grantId: string, reward: string) => {}
-        }
-      }]
+      providers: [
+        provideAppConstants(),
+        provideApi()
+      ]
     })
       .compileComponents()
   })
