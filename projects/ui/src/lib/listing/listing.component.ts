@@ -8,6 +8,7 @@ import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '@services/../interface'
 import { tap } from 'rxjs/operators'
 import {ContractService} from "@services/contract/contract.service";
+import {TeamService} from "@services/team/team.service";
 
 @Component({
   selector: 'ui-listing',
@@ -44,7 +45,8 @@ export class ListingComponent implements OnInit {
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
     public userService: UserService,
-    public contractService: ContractService
+    public contractService: ContractService,
+    public teamService: TeamService
   ) {
 
   }
