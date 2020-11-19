@@ -30,7 +30,8 @@
       "no_status": "No status"
     },
     "DAO_subtext": {
-      "need_vote": "Need vote"
+      "need_vote": "Need vote",
+      "vote_counted": "Your vote has been counted"
     },
     "title": "Waves official grants"
   },

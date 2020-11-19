@@ -1,9 +1,14 @@
 <h1>
   {{'listing.title' | transloco}}
 </h1>
+<!--<div *ngFor="let task of (contractService?.stream | async)?.tasks">-->
+<!--  <div *ngFor="let applicant of task?.applicants">{{applicant}}</div>-->
+<!--</div>-->
+{{(contractService.stream | async)?.tasks  | json }}
 <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
 <div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
   <ng-container *ngFor="let entity of list; trackBy: trackByFn">
+
     <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
       <a class="card" [routerLink]="constants.routes.entity | route: entity?.id">
         <div class="card__header">
@@ -11,9 +16,12 @@
             <div class="card__header__left-block__status">
               {{'listing.status.' + (entity?.status?.value || 'no_status') | transloco}}
               <div class="card__header__left-block__status__role-text"
-                   *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember
+                   *ngIf="userService.data.getValue().roles.isDAO
                   && entity?.status?.value === GrantStatusEnum.proposed">
-                {{'listing.DAO_subtext.need_vote' | transloco}}
+                {{ userService.data.getValue().voted.includes(entity?.id)
+                ? ('listing.DAO_subtext.vote_counted' | transloco)
+                : ('listing.DAO_subtext.need_vote' | transloco)}}
+<!--                {{userService.data.getValue().voted.includes(entity?.id) ? "!!!" : "???"}}-->
               </div>
             </div>
             <div class="card__header__left-block__title">{{entity?.title?.value}}</div>
@@ -29,6 +37,7 @@
       </a>
     </ng-container>
   </ng-container>
+
 </div>
 
 <ng-template #loadingOrErrorTemplate>
