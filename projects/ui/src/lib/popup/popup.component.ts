@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {PopupService} from "@services/popup/popup.service";
-import {trigger, transition, style, animate, query, stagger} from '@angular/animations';
-import {tap} from "rxjs/operators";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
+import { PopupService } from '@services/popup/popup.service'
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations'
+import { tap } from 'rxjs/operators'
 
 export const fadeAnimation = trigger('fadeAnimation', [
   transition(':enter', [
@@ -10,7 +10,7 @@ export const fadeAnimation = trigger('fadeAnimation', [
   transition(':leave',
     [style({ opacity: 1 }), animate('300ms', style({ opacity: 0 }))]
   )
-]);
+])
 const listAnimation = trigger('listAnimation', [
   transition('* <=> *', [
     query(':enter',
@@ -22,7 +22,7 @@ const listAnimation = trigger('listAnimation', [
       { optional: true }
     )
   ])
-]);
+])
 @Component({
   selector: 'ui-popup',
   templateUrl: './popup.component.html',
@@ -30,11 +30,9 @@ const listAnimation = trigger('listAnimation', [
   animations: [fadeAnimation, listAnimation]
 })
 export class PopupComponent implements OnInit, OnDestroy {
+  constructor (public popupService: PopupService) {}
 
-  constructor(public popupService: PopupService) {}
+  ngOnInit (): void {}
 
-  ngOnInit(): void {}
-
-  ngOnDestroy(): void {}
-
+  ngOnDestroy (): void {}
 }

@@ -9,9 +9,9 @@ import {
   tap
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import {
-  ContractDataModel, ContractGrantAppModel, ContractGrantModel,
+  ContractDataModel, ContractGrantModel,
   ContractGrantRawModel,
   ContractRawData,
   ContractRawDataEntityId,
@@ -19,7 +19,6 @@ import {
   ContractRawDataString
 } from './contract.model'
 import { SignerService } from '@services/signer/signer.service'
-import { IWithApiMixin, IInvokeScriptTransaction } from '@waves/ts-types'
 import { InvokeResponseInterface } from '../../interface'
 import { PopupService } from '@services/popup/popup.service'
 
@@ -164,7 +163,7 @@ export class ContractService {
         this.popupService.add('addTask: ' + res.message)
       })
       .then((e) => {
-        console.info('=============o-----:', e)
+        // console.info('=============o-----:', e)
 
         if (reward) {
           const result = e as unknown as InvokeResponseInterface
@@ -182,7 +181,7 @@ export class ContractService {
       })
     // @ts-ignore
 
-    console.log('------------------')
+    console.log(tx)
     // tx.then((e) =>{
     //   console.log('-----------', e)
     // })
@@ -199,9 +198,9 @@ export class ContractService {
       .catch((res) => {
         this.popupService.add('addTaskDetails: ' + res.message)
       })
-      .then((res:any) => {
+      .then((res) => {
         this.popupService.add('addTaskDetails then:' + res)
-        console.log('then', res.id)
+        console.log('then', res)
 
         // this.signerService.signer.waitTxConfirm(res, 5).then((e)=>{
         //   console.log('!!! ------------------------', e)
@@ -222,10 +221,13 @@ export class ContractService {
       { type: 'integer', value: voteValue }
     ]).catch((res) => {
       this.popupService.add('voteForTaskProposal: ' + res.message)
-    }).then((res: any) => {
-      console.info('voteForTaskProposal info:', res.id)
+    }).then((res) => {
+      console.log(res)
+      // console.info('voteForTaskProposal info:', res.id)
 
-      // core.js:4442 ERROR Error: Uncaught (in promise): Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj":[{"msg":["\"Bus7vuhFTVBcA6gX33p4u36LFGoHNngkscw6zdnC1g7J\" is not an object"],"args":[]}]}}
+      // core.js:4442 ERROR Error: Uncaught (in promise):
+      // Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj"
+      // :[{"msg":["\"Bus7vuhFTVBcA6gX33p4u36LFGoHNngkscw6zdnC1g7J\" is not an object"],"args":[]}]}}
       // this.signerService.signer.broadcast(res.id).then((e)=>{
       //   console.log('-------', e)
       // })
@@ -234,8 +236,11 @@ export class ContractService {
         this.refresh()
       }, this.averageOperationSpeed)
     })
-
-    // core.js:4442 ERROR Error: Uncaught (in promise): Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj":[{"msg":["'type' is undefined on object: {\"__zone_symbol__state\":null,\"__zone_symbol__value\":[],\"__zone_symbol__finally\":\"__zone_symbol__finally\"}"],"args":[]}]}}
+    console.log(x)
+    // core.js:4442 ERROR Error: Uncaught (in promise):
+    // Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj":
+    // [{"msg":["'type' is undefined on object: {\"__zone_symbol__state\":null,\"__zone_symbol__value\":[],
+    // \"__zone_symbol__finally\":\"__zone_symbol__finally\"}"],"args":[]}]}}
     // this.signerService.signer.broadcast(x).then((e)=>{
     //   console.log('-------', e)
     // })
@@ -289,7 +294,8 @@ export class ContractService {
         this.popupService.add('finishApplicantsVoting: ' + res.message)
       })
       .then((res) => {
-        console.info('finishApplicantsVoting info', res)
+        // console.info('finishApplicantsVoting info', res)
+        console.log(res)
       })
       .finally(() => {
         setTimeout(() => {

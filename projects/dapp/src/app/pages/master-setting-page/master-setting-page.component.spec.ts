@@ -13,7 +13,7 @@ describe('MasterSettingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslocoModule, HttpClientTestingModule!],
+      imports: [TranslocoModule, HttpClientTestingModule],
       declarations: [MasterSettingPageComponent],
       providers: [
         provideAppConstants(),

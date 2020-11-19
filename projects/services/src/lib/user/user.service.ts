@@ -6,7 +6,7 @@ import { environment } from '../../../../dapp/src/environments/environment'
 import { BehaviorSubject, combineLatest } from 'rxjs'
 import { publishReplay, refCount, tap } from 'rxjs/operators'
 import { ContractGrantRawModel } from '@services/contract/contract.model'
-import {PopupService} from "@services/popup/popup.service";
+import { PopupService } from '@services/popup/popup.service'
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +47,7 @@ export class UserService {
           roles: dr.roles,
           voted: dv
         })
-        if(userAddress.address !== this.lastAddress) {
+        if (userAddress.address !== this.lastAddress) {
           this.popupService.add('Login: ' + userAddress.address)
           this.lastAddress = userAddress.address
         }
@@ -67,7 +67,9 @@ export class UserService {
 
   private defineVoted (userAddress: string, tasks: ContractGrantRawModel): string[] {
     const result = []
-    for (const key in tasks) {
+    // @ts-ignore
+    for (const key of Object.keys(tasks)) {
+    // for (const key in tasks) {
       // @ts-ignore
       const grant = tasks[key]
       if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
