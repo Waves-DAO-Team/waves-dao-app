@@ -229,7 +229,33 @@
     </div>
   </div>
   <!-- master --------------------------------------------------------------------------------------------------------->
+  <!-- team ----------------------------------------------------------------------------------------------------------->
+  <!--  <div class="card team" *ngIf="userService.data.getValue().roles.isDAO">-->
+  <div class="card team">
+    <div class="card__body">
+      <ul>
+        <li *ngFor="let app of grant.app">
+          <div class="info">
+            <div class="name">{{app?.name?.value}}</div>
+            <div class="link">{{app?.link?.value}}</div>
+          </div>
+          <div class="controls">
+            <code>
+              userAddress: {{userService.data.getValue().userAddress}}<br>
+              grant?.id: {{grant?.id}} <br>
+              app?.leader?.value: {{app?.leader?.value}} <br>
+              isVoteForTeam: {{ userService.isVoteForTeam(grant?.id, app?.leader?.value) }} <br>
+            </code>
 
+            <img (click)="voteTeam(-1, app.id.value)" src="assets/icons/vote-min.svg">
+            <img (click)="voteTeam(1, app.id.value)" src="assets/icons/vote-plus.svg">
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- team ----------------------------------------------------------------------------------------------------------->
+  <!-- controls ------------------------------------------------------------------------------------------------------->
   <div class="card">
     <div class="card__body">
       <div class="btn-container">
@@ -278,5 +304,7 @@
       </div>
     </div>
   </div>
+  <!-- controls ------------------------------------------------------------------------------------------------------->
+
   <ui-modal></ui-modal>
 </div>

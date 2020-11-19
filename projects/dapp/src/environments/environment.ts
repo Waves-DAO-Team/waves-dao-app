@@ -23,7 +23,8 @@ export const environment = {
     masterSetting: 'master-setting',
     setting: 'settings',
     create: 'create',
-    stylesheet: 'stylesheet'
+    stylesheet: 'stylesheet',
+    team: 'team/:entityId'
   },
 
   showDevTools: true

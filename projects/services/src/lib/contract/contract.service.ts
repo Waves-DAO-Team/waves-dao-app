@@ -225,10 +225,10 @@ export class ContractService {
       })
   }
 
-  public voteForTaskProposal(taskId: string, voteValue: number) {
+  public voteForTaskProposal(taskId: string, voteValue: string) {
     const x = this.signerService.invoke('voteForTaskProposal', [
       {type: 'string', value: taskId},
-      {type: 'integer', value: voteValue}
+      {type: 'string', value: voteValue}
     ]).catch((res) => {
       this.popupService.add('voteForTaskProposal: ' + res.message)
     }).then((res) => {
@@ -290,14 +290,24 @@ export class ContractService {
       })
   }
 
-  public voteForApplicant(taskId: string, teamIdentifier: string, voteValue: number) {
+  public voteForApplicant(taskId: string, teamIdentifier: string, voteValue: string) {
     this.signerService.invoke('voteForApplicant', [
       {type: 'string', value: taskId},
       {type: 'string', value: teamIdentifier},
-      {type: 'integer', value: voteValue}
+      {type: 'string', value: voteValue}
     ]).catch((res) => {
-      this.popupService.add('voteForApplicant: ' + res.message)
+      this.popupService.add(res, 'voteForApplicant catch')
+    }).then((res) => {
+      // console.info('finishApplicantsVoting info', res)
+      this.popupService.add(res, 'voteForApplicant then')
     })
+      .finally(() => {
+        this.popupService.add('', 'voteForApplicant finally')
+
+        setTimeout(() => {
+          this.refresh()
+        }, this.averageOperationSpeed)
+      })
   }
 
   public finishApplicantsVoting(taskId: string) {

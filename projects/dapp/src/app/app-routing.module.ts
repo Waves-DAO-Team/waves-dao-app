@@ -68,6 +68,11 @@ const routes: Routes = [
         path: environment.routing.stylesheet,
         loadChildren: () => import('./pages/stylesheet-page/stylesheet-page.module').then((m) => m.StylesheetPageModule),
         pathMatch: 'full'
+      },
+      {
+        path: environment.routing.team,
+        loadChildren: () => import('./pages/team-page/team-page-routing.module').then((m) => m.TeamPageRoutingModule),
+        pathMatch: 'full'
       }
     ]
   },

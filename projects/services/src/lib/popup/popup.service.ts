@@ -11,7 +11,7 @@ export class PopupService {
   constructor () {}
 
   public async add ( text: any, title?: string,) {
-    this.message$.next([...this.message$.getValue(), text.toString()])
+    this.message$.next([...this.message$.getValue(), JSON.stringify(text)])
     console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
     console.log(text)
     console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)

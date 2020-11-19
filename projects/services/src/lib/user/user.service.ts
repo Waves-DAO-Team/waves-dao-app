@@ -5,7 +5,7 @@ import {ContractService} from '@services/contract/contract.service'
 import {environment} from '../../../../dapp/src/environments/environment'
 import {BehaviorSubject, combineLatest} from 'rxjs'
 import {publishReplay, refCount, tap} from 'rxjs/operators'
-import {ContractGrantRawModel} from '@services/contract/contract.model'
+import {ContractDataModel, ContractGrantAppModel, ContractGrantRawModel} from '@services/contract/contract.model'
 import {PopupService} from '@services/popup/popup.service'
 
 @Injectable({
@@ -29,6 +29,7 @@ export class UserService {
   })
 
   lastAddress = ''
+  contract: ContractDataModel | undefined;
 
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
@@ -40,6 +41,7 @@ export class UserService {
         const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
         const dv = this.defineVoted(userAddress.address, contract.tasks)
         const ad = this.defineApply(userAddress.address, contract.tasks)
+        this.contract = contract
         this.data.next({
           DAOMemberAddress,
           WorkGroupAddress,
@@ -62,11 +64,7 @@ export class UserService {
 
   constructor(
     private signerService: SignerService, private contractService: ContractService, private popupService: PopupService
-  ) {
-    // setInterval(()=>{
-    //   console.log('---', this.contractService.)
-    // },5000)
-  }
+  ) {}
 
   private defineApply(userAddress: string, tasks: ContractGrantRawModel): string[] {
     let result: string[] = []
@@ -119,6 +117,51 @@ export class UserService {
       result.mainRole = result.mainRole === RoleEnum.unauthorized ? RoleEnum.authorized : result.mainRole
       result.roles.isAuth = true
     }
+    return result
+  }
+
+  public isVoteForTeam(grantId: string, teamId: string): boolean {
+    let result = false
+
+    let userAddress = this.data.getValue().userAddress.substr(10, this.data.getValue().userAddress.length)
+
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    console.log('isVoteForTeam', grantId, teamId, userAddress)
+    // let tasks = this.contract?.tasks
+    // if(tasks) {
+    //   for (const key of Object.keys(tasks)) {
+    //
+    //
+    //     if(key === grantId){
+    //
+    //       // @ts-ignore
+    //       const grant = tasks[key]
+    //       const app = grant.app as any
+    //       if(app) {
+    //         for (const key2 of Object.keys(app)) {
+    //           // console.log('---', app[key2].leader.value)
+    //           if(app[key2].leader.value === this.data.getValue().userAddress) {
+    //             result = true
+    //           }
+    //
+    //         }
+    //       }
+    //
+    //     }
+
+        // if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
+        //   result.push(key)
+        // }
+        // let app: ContractGrantAppModel = grant?.app as ContractGrantAppModel
+        // if(app) {
+        //   console.log(grant?.app.)
+        //
+        // }
+
+    //   }
+    // }
+    // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
     return result
   }
 }
