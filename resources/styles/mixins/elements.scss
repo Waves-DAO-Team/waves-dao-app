@@ -1,3 +1,15 @@
+$gray-light: #e7e7eb;
+$gray: #aaa;
+$gray-dark: #717781;
+$blue: #05f;
+
+$padding: 14px;
+
+$font-size-small: 12px;
+$font-size-medium: 16px;
+$font-size-large: 20px;
+$font-size-big: 28px;
+
 @mixin btn-container($type: default) {
   display: flex;
   justify-content: flex-end;
@@ -27,6 +39,9 @@
     border: 1px solid $blue;
     border-radius: 0;
     color: #fff;
+  }
+  >:disabled {
+    opacity: 0.5 !important;
   }
 
   .active:hover {

@@ -14,7 +14,7 @@ import { RoleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
 import { environment } from '../../../../dapp/src/environments/environment'
 import { ContractService } from '@services/contract/contract.service'
-import {PopupService} from "@services/popup/popup.service";
+import { PopupService } from '@services/popup/popup.service'
 @Component({
   selector: 'ui-header',
   templateUrl: './header.component.html',
@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit {
     // this.contractService.finishTaskProposalVoting('2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
   }
 
-  test2() {
+  test2 () {
     this.popupService.rmLast()
   }
 }

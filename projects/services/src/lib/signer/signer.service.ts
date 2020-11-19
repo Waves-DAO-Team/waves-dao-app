@@ -59,9 +59,9 @@ export class SignerService {
   }
 
   // @ts-ignore
-  public async invoke (command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []):
+  public invoke (command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []):
     Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    const tx = await this.signer.invoke({
+    const tx = this.signer.invoke({
       payment,
       dApp: this.api.contractAddress,
       call: {
@@ -70,10 +70,19 @@ export class SignerService {
         args
       }
     })
+
+    // let v = this.signer.broadcast(tx.id, {chain: true, confirmations: 1})
+    // signer.invoke({
+    //   dApp: address,
+    //   call: { function: name, args: convertedArgs },
+    // }).sign();
     // console.log('------>', tx.alias().)
     // this.signer.waitTxConfirm(tx.alias, {}).then((e)=>{
     //   console.log('!!!', e)
     // })
-    return tx.broadcast()
+
+    return tx.broadcast(
+      // {chain: true, confirmations: 1}
+    )
   }
 }

@@ -9,9 +9,9 @@ import {
   tap
 } from 'rxjs/operators'
 import {API, AppApiInterface} from '@constants'
-import {BehaviorSubject, from, Observable, Subject} from 'rxjs'
+import {BehaviorSubject, Observable, Subject} from 'rxjs'
 import {
-  ContractDataModel, ContractGrantAppModel, ContractGrantModel,
+  ContractDataModel, ContractGrantCommonModel, ContractGrantModel,
   ContractGrantRawModel,
   ContractRawData,
   ContractRawDataEntityId,
@@ -19,9 +19,8 @@ import {
   ContractRawDataString
 } from './contract.model'
 import {SignerService} from '@services/signer/signer.service'
-import {IWithApiMixin, IInvokeScriptTransaction} from '@waves/ts-types'
 import {InvokeResponseInterface} from '../../interface'
-import {PopupService} from "@services/popup/popup.service";
+import {PopupService} from '@services/popup/popup.service'
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +29,7 @@ export class ContractService {
   private apiGetAddressData = new URL('/addresses/data/' + this.api.contractAddress, this.api.rest)
   private contractRefresh$: Subject<null> = new Subject()
   private averageOperationSpeed = 5000
+  public applicants: string[] = []
   // @ts-ignore
   private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject(
     {})
@@ -50,6 +50,8 @@ export class ContractService {
     }),
     tap((data) => {
       console.log('Origin contract data :: projects/services/src/lib/contract/contract.service.ts: 47\n\n', data)
+
+      // this.defineApplicants(data)
     }),
     publishReplay(1),
     refCount()
@@ -82,6 +84,13 @@ export class ContractService {
     this.popupService.add('refresh')
   }
 
+  // private defineApplicants(data: ContractDataModel) {
+  //
+  //   let applicants: string[] = []
+  //
+  //     console.log('task -----', data.tasks)
+  //   data.tasks.key
+  // }
   private group(keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
@@ -164,11 +173,12 @@ export class ContractService {
         this.popupService.add('addTask: ' + res.message)
       })
       .then((e) => {
+        // console.info('=============o-----:', e)
+
         if (reward) {
           const result = e as unknown as InvokeResponseInterface
           // await this.signerService.signer.broadcast(result.id, {chain: true, confirmations: 2})
           this.addTaskDetails(result.id, reward)
-
         }
         this.popupService.add('addTask ok')
       })
@@ -181,24 +191,37 @@ export class ContractService {
       })
     // @ts-ignore
 
-    console.log('------------------')
+    console.log(tx)
     // tx.then((e) =>{
     //   console.log('-----------', e)
     // })
   }
 
   public addTaskDetails(taskId: string, reward: number) {
+    // console.log('addTaskDetails ->>>>>')
+    // setTimeout(()=>{
+    //   console.log('ST ->>>>>')
+    // },5000)
     this.signerService.invoke('addTaskDetails',
       [{type: 'string', value: taskId}],
       [{assetId: 'WAVES', amount: reward}])
       .catch((res) => {
         this.popupService.add('addTaskDetails: ' + res.message)
       })
+      .then((res) => {
+        this.popupService.add('addTaskDetails then:' + res)
+        console.log('then', res)
+
+        // this.signerService.signer.waitTxConfirm(res, 5).then((e)=>{
+        //   console.log('!!! ------------------------', e)
+        // })
+      })
       .finally(() => {
         this.popupService.add('addTaskDetails ok')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        this.refresh()
+        // console.log('finally ->>>>>')
+        // }, this.averageOperationSpeed)
       })
   }
 
@@ -208,10 +231,13 @@ export class ContractService {
       {type: 'integer', value: voteValue}
     ]).catch((res) => {
       this.popupService.add('voteForTaskProposal: ' + res.message)
-    }).then((res: any) => {
-      console.info('voteForTaskProposal info:', res.id)
+    }).then((res) => {
+      console.log(res)
+      // console.info('voteForTaskProposal info:', res.id)
 
-      // core.js:4442 ERROR Error: Uncaught (in promise): Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj":[{"msg":["\"Bus7vuhFTVBcA6gX33p4u36LFGoHNngkscw6zdnC1g7J\" is not an object"],"args":[]}]}}
+      // core.js:4442 ERROR Error: Uncaught (in promise):
+      // Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj"
+      // :[{"msg":["\"Bus7vuhFTVBcA6gX33p4u36LFGoHNngkscw6zdnC1g7J\" is not an object"],"args":[]}]}}
       // this.signerService.signer.broadcast(res.id).then((e)=>{
       //   console.log('-------', e)
       // })
@@ -220,12 +246,14 @@ export class ContractService {
         this.refresh()
       }, this.averageOperationSpeed)
     })
-
-    // core.js:4442 ERROR Error: Uncaught (in promise): Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj":[{"msg":["'type' is undefined on object: {\"__zone_symbol__state\":null,\"__zone_symbol__value\":[],\"__zone_symbol__finally\":\"__zone_symbol__finally\"}"],"args":[]}]}}
+    console.log(x)
+    // core.js:4442 ERROR Error: Uncaught (in promise):
+    // Object: {"error":1,"message":"failed to parse json message","cause":null,"validationErrors":{"obj":
+    // [{"msg":["'type' is undefined on object: {\"__zone_symbol__state\":null,\"__zone_symbol__value\":[],
+    // \"__zone_symbol__finally\":\"__zone_symbol__finally\"}"],"args":[]}]}}
     // this.signerService.signer.broadcast(x).then((e)=>{
     //   console.log('-------', e)
     // })
-
   }
 
   public finishTaskProposalVoting(taskId: string) {
@@ -234,6 +262,12 @@ export class ContractService {
     ]).catch((res) => {
       this.popupService.add('finishTaskProposalVoting: ' + res.message)
     })
+      .then((res) => {
+        this.popupService.add('finishTaskProposalVoting: ' + res)
+        setTimeout(() => {
+          this.refresh()
+        }, this.averageOperationSpeed)
+      })
   }
 
   public applyForTask(taskId: string, teamName: string, link: string) {
@@ -242,10 +276,14 @@ export class ContractService {
       {type: 'string', value: teamName},
       {type: 'string', value: link}
     ])
+      .then((res) => {
+        this.popupService.add(res, 'applyForTask then')
+      })
       .catch((res) => {
-        this.popupService.add('applyForTask: ' + res.message)
+        this.popupService.add(res, 'applyForTask catch')
       })
       .finally(() => {
+        this.popupService.add('','applyForTask finally')
         setTimeout(() => {
           this.refresh()
         }, this.averageOperationSpeed)
@@ -270,7 +308,8 @@ export class ContractService {
         this.popupService.add('finishApplicantsVoting: ' + res.message)
       })
       .then((res) => {
-        console.info('finishApplicantsVoting info', res)
+        // console.info('finishApplicantsVoting info', res)
+        console.log(res)
       })
       .finally(() => {
         setTimeout(() => {
