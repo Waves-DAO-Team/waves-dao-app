@@ -36,13 +36,9 @@ export class EntityComponent {
   ) {
   }
 
-  vote (value: number) {
-    // this.isDAOVote = true
-
-    // this.contractService.voteForApplicant(
+  vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
-    console.info('voteForTaskProposal data', id, value == 1 ? 'like' : 'dislike')
-    this.contractService.voteForTaskProposal(id, value == 1 ? 'like' : 'dislike')
+    this.contractService.voteForTaskProposal(id, value)
   }
 
   public signup (): void {
