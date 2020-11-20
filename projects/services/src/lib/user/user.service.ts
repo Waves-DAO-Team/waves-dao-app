@@ -5,7 +5,7 @@ import {ContractService} from '@services/contract/contract.service'
 import {environment} from '../../../../dapp/src/environments/environment'
 import {BehaviorSubject, combineLatest} from 'rxjs'
 import {publishReplay, refCount, tap} from 'rxjs/operators'
-import {ContractGrantRawModel} from '@services/contract/contract.model'
+import {ContractGrantModel, ContractGrantRawModel} from '@services/contract/contract.model'
 import {PopupService} from '@services/popup/popup.service'
 import {AddTextObjInterface} from "@services/popup/popup.interface";
 
@@ -123,48 +123,4 @@ export class UserService {
     return result
   }
 
-  public isVoteForTeam(grantId: string, teamId: string): boolean {
-    let result = false
-
-    let userAddress = this.data.getValue().userAddress.substr(10, this.data.getValue().userAddress.length)
-
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    console.log('isVoteForTeam', grantId, teamId, userAddress)
-    // let tasks = this.contract?.tasks
-    // if(tasks) {
-    //   for (const key of Object.keys(tasks)) {
-    //
-    //
-    //     if(key === grantId){
-    //
-    //       // @ts-ignore
-    //       const grant = tasks[key]
-    //       const app = grant.app as any
-    //       if(app) {
-    //         for (const key2 of Object.keys(app)) {
-    //           // console.log('---', app[key2].leader.value)
-    //           if(app[key2].leader.value === this.data.getValue().userAddress) {
-    //             result = true
-    //           }
-    //
-    //         }
-    //       }
-    //
-    //     }
-
-        // if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
-        //   result.push(key)
-        // }
-        // let app: ContractGrantAppModel = grant?.app as ContractGrantAppModel
-        // if(app) {
-        //   console.log(grant?.app.)
-        //
-        // }
-
-    //   }
-    // }
-    // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-
-    return result
-  }
 }

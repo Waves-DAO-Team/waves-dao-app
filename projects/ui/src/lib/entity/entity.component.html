@@ -242,21 +242,18 @@
         <li *ngFor="let app of grant.app">
           <div class="info">
             <div class="name">{{app?.name?.value}}</div>
-            <div class="link">{{app?.link?.value}}</div>
           </div>
-          <div class="controls" *ngIf="(userService.data | async)?.roles.isDAO">
-            <code>
-              userAddress: {{userService.data.getValue().userAddress}}<br>
-              grant?.id: {{grant?.id}} <br>
-              app?.leader?.value: {{app?.leader?.value}} <br>
-              isVoteForTeam: {{ userService.isVoteForTeam(grant?.id, app?.leader?.value) }} <br>
-              <br>
-            </code>
-
-            <img (click)="voteTeam(-1, app.id.value)" src="assets/icons/vote-min.svg">
-            <img (click)="voteTeam(1, app.id.value)" src="assets/icons/vote-plus.svg">
+          <div class="controls">
+            <div *ngIf="app?.voted?.value.includes(userService.data.getValue().userAddress) && userService.data.getValue().userAddress">
+              {{'entity.already_voted' | transloco}}
+            </div>
+            <div *ngIf="!(app?.voted?.value.includes(userService.data.getValue().userAddress)) && userService.data.getValue().userAddress">
+              <img (click)="voteTeam(-1, app.id.value)" src="assets/icons/vote-min.svg">
+              <img (click)="voteTeam(1, app.id.value)" src="assets/icons/vote-plus.svg">
+            </div>
           </div>
         </li>
+
       </ul>
     </div>
   </div>

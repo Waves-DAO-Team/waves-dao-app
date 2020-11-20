@@ -44,6 +44,7 @@
     "finish_vote": "Finish vote",
     "link": "Link",
     "empty_link": "link empty",
+    "already_voted": "you have already voted for this team",
     "DAO": {
       "vote": {
         "true": {
