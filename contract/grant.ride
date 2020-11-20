@@ -278,7 +278,7 @@ func voteForApplicant(taskId: String, teamIdentifier: String, voteValue: String)
                     # Parsed in dAPP to tasks[id].vote[meId][teamId] -> boolean
                     let listKey = "tasks_"+taskId+"_app_"+teamIdentifier+"_voted"
                     let newApplicantsList = tryGetString(listKey)+";"+i.caller.toString()
-                    let voteHash = drop(i.caller.toString(), 20) + drop(teamIdentifier, 20)
+                    let voteHash = drop(i.caller.toString(), 20) + teamIdentifier
                     let voteKey = "tasks_"+taskId+"_vh_"+voteHash
 
                     if (tryGetString(voteKey) == i.caller.toString()) then {
