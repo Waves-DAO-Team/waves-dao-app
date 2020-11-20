@@ -1,5 +1,5 @@
-import {Inject, Injectable} from '@angular/core'
-import {HttpClient} from '@angular/common/http'
+import { Inject, Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
 import {
   map,
   publishReplay,
@@ -8,8 +8,8 @@ import {
   switchMap, takeUntil,
   tap
 } from 'rxjs/operators'
-import {API, AppApiInterface} from '@constants'
-import {BehaviorSubject, Observable, Subject} from 'rxjs'
+import { API, AppApiInterface } from '@constants'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import {
   ContractDataModel, ContractGrantCommonModel, ContractGrantModel,
   ContractGrantRawModel,
@@ -18,10 +18,10 @@ import {
   ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
-import {SignerService} from '@services/signer/signer.service'
-import {InvokeResponseInterface} from '../../interface'
-import {PopupService} from '@services/popup/popup.service'
-import {AddTextObjInterface} from "@services/popup/popup.interface";
+import { SignerService } from '@services/signer/signer.service'
+import { InvokeResponseInterface } from '../../interface'
+import { PopupService } from '@services/popup/popup.service'
+import { AddTextObjInterface } from '@services/popup/popup.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ import {AddTextObjInterface} from "@services/popup/popup.interface";
 export class ContractService {
   private apiGetAddressData = new URL('/addresses/data/' + this.api.contractAddress, this.api.rest)
   private contractRefresh$: Subject<null> = new Subject()
-  private averageOperationSpeed = 5000
+  private averageOperationSpeed = 10000
   public applicants: string[] = []
   // @ts-ignore
   private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject(
@@ -72,7 +72,7 @@ export class ContractService {
     })
   }))
 
-  constructor(
+  constructor (
     private readonly http: HttpClient,
     @Inject(API) private readonly api: AppApiInterface,
     private readonly signerService: SignerService,
@@ -80,7 +80,7 @@ export class ContractService {
   ) {
   }
 
-  refresh() {
+  refresh () {
     this.contractRefresh$.next(null)
     this.popupService.add('refresh' as unknown as AddTextObjInterface)
   }
@@ -92,7 +92,7 @@ export class ContractService {
   //     console.log('task -----', data.tasks)
   //   data.tasks.key
   // }
-  private group(keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
+  private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
     const key: string = keys.shift()
@@ -110,7 +110,7 @@ export class ContractService {
     return this.group(keys, context[key], value)
   }
 
-  private prepareData(data: ContractRawData): ContractDataModel {
+  private prepareData (data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
     return data.reduce((orig, item) => {
@@ -120,7 +120,7 @@ export class ContractService {
     }, {})
   }
 
-  public entityById(entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
+  public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
     return this.stream.pipe(map((data: ContractDataModel) => {
       const grant: ContractGrantRawModel = data.tasks[entityId]
 
@@ -139,9 +139,9 @@ export class ContractService {
 
   // dapp
 
-  public addDAOMember(members: string) {
+  public addDAOMember (members: string) {
     this.signerService.invoke('addDAOMember', [
-      {type: 'string', value: members}
+      { type: 'string', value: members }
     ])
       .catch((res) => {
         this.popupService.add(res, 'addDAOMember catch')
@@ -153,16 +153,16 @@ export class ContractService {
         }, this.averageOperationSpeed)
       })
       .finally(() => {
-        this.popupService.add(' ' as unknown as AddTextObjInterface, "addDAOMember finally")
+        this.popupService.add(' ' as unknown as AddTextObjInterface, 'addDAOMember finally')
         setTimeout(() => {
           this.refresh()
         }, this.averageOperationSpeed)
       })
   }
 
-  public addGroupMember(members: string) {
+  public addGroupMember (members: string) {
     this.signerService.invoke('addGroupMember', [
-      {type: 'string', value: members}
+      { type: 'string', value: members }
     ])
       .catch((res) => {
         this.popupService.add(res, 'addGroupMember catch')
@@ -174,17 +174,17 @@ export class ContractService {
         }, this.averageOperationSpeed)
       })
       .finally(() => {
-        this.popupService.add(' ' as unknown as AddTextObjInterface, "addGroupMember finally")
+        this.popupService.add(' ' as unknown as AddTextObjInterface, 'addGroupMember finally')
         setTimeout(() => {
           this.refresh()
         }, this.averageOperationSpeed)
       })
   }
 
-  public addTask(taskName: string, reward: number, link: string) {
+  public addTask (taskName: string, reward: number, link: string) {
     const tx = this.signerService.invoke('addTask', [
-      {type: 'string', value: taskName},
-      {type: 'string', value: link}
+      { type: 'string', value: taskName },
+      { type: 'string', value: link }
     ])
       .catch((res) => {
         this.popupService.add(res, 'addTask catch')
@@ -197,17 +197,17 @@ export class ContractService {
         }
       })
       .finally(() => {
-        this.popupService.add(' ' as unknown as AddTextObjInterface, "addTask finally")
+        this.popupService.add(' ' as unknown as AddTextObjInterface, 'addTask finally')
         setTimeout(() => {
           this.refresh()
         }, this.averageOperationSpeed)
       })
   }
 
-  public addTaskDetails(taskId: string, reward: number) {
+  public addTaskDetails (taskId: string, reward: number) {
     this.signerService.invoke('addTaskDetails',
-      [{type: 'string', value: taskId}],
-      [{assetId: 'WAVES', amount: reward}])
+      [{ type: 'string', value: taskId }],
+      [{ assetId: 'WAVES', amount: reward }])
       .catch((res) => {
         this.popupService.add(res, 'addTaskDetails catch')
       })
@@ -218,35 +218,35 @@ export class ContractService {
         }, this.averageOperationSpeed)
       })
       .finally(() => {
-        this.popupService.add(' ' as unknown as AddTextObjInterface, "addTaskDetails finally")
+        this.popupService.add(' ' as unknown as AddTextObjInterface, 'addTaskDetails finally')
         setTimeout(() => {
           this.refresh()
         }, this.averageOperationSpeed)
       })
   }
 
-  public voteForTaskProposal(taskId: string, voteValue: 'like' | 'dislike') {
+  public voteForTaskProposal (taskId: string, voteValue: 'like' | 'dislike') {
     this.signerService.invoke('voteForTaskProposal', [
-      {type: 'string', value: taskId},
-      {type: 'string', value: voteValue}
+      { type: 'string', value: taskId },
+      { type: 'string', value: voteValue }
     ])
       .catch((res) => {
-        this.popupService.add(res, "voteForTaskProposal this")
+        this.popupService.add(res, 'voteForTaskProposal this')
       })
       .then((res) => {
-        this.popupService.add(res as unknown as AddTextObjInterface, "voteForTaskProposal then")
+        this.popupService.add(res as unknown as AddTextObjInterface, 'voteForTaskProposal then')
       })
       .finally(() => {
-        this.popupService.add(' ' as unknown as AddTextObjInterface, "voteForTaskProposal finally")
+        this.popupService.add(' ' as unknown as AddTextObjInterface, 'voteForTaskProposal finally')
         setTimeout(() => {
           this.refresh()
         }, this.averageOperationSpeed)
       })
   }
 
-  public finishTaskProposalVoting(taskId: string) {
+  public finishTaskProposalVoting (taskId: string) {
     this.signerService.invoke('finishTaskProposalVoting', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ])
       .catch((res) => {
         this.popupService.add(res, 'finishTaskProposalVoting')
@@ -258,15 +258,16 @@ export class ContractService {
         }, this.averageOperationSpeed)
       })
       .finally(() => {
-        this.popupService.add(' ' as unknown as AddTextObjInterface, "finishTaskProposalVoting finally")
+        this.popupService.add(' ' as unknown as AddTextObjInterface, 'finishTaskProposalVoting finally')
       })
   }
 
-  public applyForTask(taskId: string, teamName: string, link: string) {
+  public applyForTask (taskId: string, teamName: string, link: string) {
+    this.popupService.add(`${taskId} ${teamName} ${link}` as unknown as AddTextObjInterface, 'applyForTask')
     this.signerService.invoke('applyForTask', [
-      {type: 'string', value: taskId},
-      {type: 'string', value: teamName},
-      {type: 'string', value: link}
+      { type: 'string', value: taskId },
+      { type: 'string', value: teamName },
+      { type: 'string', value: link }
     ])
       .then((res) => {
         this.popupService.add(res as unknown as AddTextObjInterface, 'applyForTask then')
@@ -282,11 +283,13 @@ export class ContractService {
       })
   }
 
-  public voteForApplicant(taskId: string, teamIdentifier: string, voteValue: string) {
+  public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: string) {
+    const text = `taskId:${taskId} teamIdentifier:${teamIdentifier} voteValue:${voteValue}`
+    this.popupService.add(text as unknown as AddTextObjInterface, 'voteForApplicant catch')
     this.signerService.invoke('voteForApplicant', [
-      {type: 'string', value: taskId},
-      {type: 'string', value: teamIdentifier},
-      {type: 'string', value: voteValue}
+      { type: 'string', value: taskId },
+      { type: 'string', value: teamIdentifier },
+      { type: 'string', value: voteValue }
     ])
       .catch((res) => {
         this.popupService.add(res, 'voteForApplicant catch')
@@ -296,12 +299,15 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add(' ' as unknown as AddTextObjInterface, 'voteForApplicant finally')
+        setTimeout(() => {
+          this.refresh()
+        }, this.averageOperationSpeed)
       })
   }
 
-  public finishApplicantsVoting(taskId: string) {
+  public finishApplicantsVoting (taskId: string) {
     this.signerService.invoke('finishApplicantsVoting', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ])
       .catch((res) => {
         this.popupService.add(res, 'finishApplicantsVoting catch')
@@ -317,9 +323,9 @@ export class ContractService {
       })
   }
 
-  public startWork(taskId: string) {
+  public startWork (taskId: string) {
     this.signerService.invoke('startWork', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ])
       .catch((res) => {
         this.popupService.add(res, 'startWork catch')
@@ -335,9 +341,9 @@ export class ContractService {
       })
   }
 
-  public acceptWorkResult(taskId: string) {
+  public acceptWorkResult (taskId: string) {
     this.signerService.invoke('acceptWorkResult', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ])
       .catch((res) => {
         this.popupService.add(res, 'acceptWorkResult catch')

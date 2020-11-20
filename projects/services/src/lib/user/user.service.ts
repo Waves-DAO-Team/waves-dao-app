@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core'
-import {RoleEnum, RoleRowInterface, UserDataInterface} from '@services/user/user.interface'
-import {SignerService} from '@services/signer/signer.service'
-import {ContractService} from '@services/contract/contract.service'
-import {environment} from '../../../../dapp/src/environments/environment'
-import {BehaviorSubject, combineLatest} from 'rxjs'
-import {publishReplay, refCount, tap} from 'rxjs/operators'
-import {ContractGrantModel, ContractGrantRawModel} from '@services/contract/contract.model'
-import {PopupService} from '@services/popup/popup.service'
-import {AddTextObjInterface} from "@services/popup/popup.interface";
+import { Injectable } from '@angular/core'
+import { RoleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
+import { SignerService } from '@services/signer/signer.service'
+import { ContractService } from '@services/contract/contract.service'
+import { environment } from '../../../../dapp/src/environments/environment'
+import { BehaviorSubject, combineLatest } from 'rxjs'
+import { publishReplay, refCount, tap } from 'rxjs/operators'
+import { ContractGrantModel, ContractGrantRawModel } from '@services/contract/contract.model'
+import { PopupService } from '@services/popup/popup.service'
+import { AddTextObjInterface } from '@services/popup/popup.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,7 @@ export class UserService {
       tap(([userAddress, contract]) => {
         const masterAddress = environment.apis.contractAddress
         // console.log('------', contract)
-        const WorkGroupAddress = Object.keys(contract.working.group.member)
+        const WorkGroupAddress = Object.keys(contract.working?.group?.member)
         const DAOMemberAddress = Object.keys(contract.dao.member)
         const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
         const dv = this.defineVoted(userAddress.address, contract.tasks)
@@ -52,7 +52,7 @@ export class UserService {
           apply: ad
         })
         if (userAddress.address !== this.lastAddress) {
-          this.popupService.add( userAddress.address as unknown as AddTextObjInterface, 'Login')
+          this.popupService.add(userAddress.address as unknown as AddTextObjInterface, 'Login')
           this.lastAddress = userAddress.address
         }
         console.log('user data: ', this.data.getValue())
@@ -71,26 +71,32 @@ export class UserService {
 
   private defineApply (userAddress: string, tasks: ContractGrantRawModel): string[] {
     const result: string[] = []
-    for (const key of Object.keys(tasks)) {
-      // @ts-ignore
-      if (userAddress && tasks[key]?.applicants?.value.includes(userAddress)) {
-        result.push(key)
+    if (tasks) {
+      for (const key of Object.keys(tasks)) {
+        // @ts-ignore
+        if (userAddress && tasks[key]?.applicants?.value.includes(userAddress)) {
+          result.push(key)
+        }
       }
     }
+
     return result
   }
 
   private defineVoted (userAddress: string, tasks: ContractGrantRawModel): string[] {
     const result = []
-    // @ts-ignore
-    for (const key of Object.keys(tasks)) {
-      // for (const key in tasks) {
+    if (tasks) {
       // @ts-ignore
-      const grant = tasks[key]
-      if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
-        result.push(key)
+      for (const key of Object.keys(tasks)) {
+        // for (const key in tasks) {
+        // @ts-ignore
+        const grant = tasks[key]
+        if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
+          result.push(key)
+        }
       }
     }
+
     return result
   }
 
@@ -122,5 +128,4 @@ export class UserService {
     }
     return result
   }
-
 }

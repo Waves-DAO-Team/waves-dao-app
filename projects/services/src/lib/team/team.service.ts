@@ -25,25 +25,28 @@ export class TeamService {
   private defineTeamList (data: ContractDataModel): TeamInterface[] {
     const result: TeamInterface[] = []
     const tasks = data.tasks
-    for (const key of Object.keys(tasks)) {
-      // @ts-ignore
-      const grant = tasks[key]
-      if (grant.app) {
-        const app = grant.app
-        for (const key2 of Object.keys(app)) {
-          const id = app[key2].leader?.value
-          const link = app[key2].link?.value
-          const name = app[key2].name?.value
-          if (id || link || name) {
-            result.push({
-              id,
-              link,
-              name
-            })
+    if (tasks) {
+      for (const key of Object.keys(tasks)) {
+        // @ts-ignore
+        const grant = tasks[key]
+        if (grant.app) {
+          const app = grant.app
+          for (const key2 of Object.keys(app)) {
+            const id = app[key2].leader?.value
+            const link = app[key2].link?.value
+            const name = app[key2].name?.value
+            if (id || link || name) {
+              result.push({
+                id,
+                link,
+                name
+              })
+            }
           }
         }
       }
     }
+
     return result
   }
 }

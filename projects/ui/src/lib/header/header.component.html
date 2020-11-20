@@ -1,9 +1,6 @@
 
-
 <header class="container header">
 
-  <button (click)="test()">test</button>
-  <button (click)="test2()">test2</button>
   <div class="header__back" (click)="goBack()" *ngIf="!(this.router.url == '/')">
     <img src="assets/icons/back.svg">
   </div>
@@ -30,9 +27,20 @@
     </div>
     <!-- role routes -------------------------------------------------------------------------------------------------->
 
+<!--    <div class="header__profile" *ngIf="(user$ | async)?.name">-->
+<!--      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>-->
+<!--    </div>-->
+
     <div class="header__profile" *ngIf="(user$ | async)?.name">
-      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>
+      <!--      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>-->
+      (
+      {{userService.data.getValue().roles.isDAO ? 'DAO' : ''}}
+      {{userService.data.getValue().roles.isWG ? 'WG' : ''}}
+      {{userService.data.getValue().roles.isMaster ? 'Master' : ''}}
+      {{userService.data.getValue().roles.isAuth ? 'Auth' : ''}}
+      ){{(user$ | async)?.name}}
     </div>
+
   </div>
 </header>
 
