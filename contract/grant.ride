@@ -306,6 +306,8 @@ func voteForApplicant(taskId: String, teamIdentifier: String, voteValue: String)
 
 @Callable(i)
 func finishApplicantsVoting(taskId: String) = {
+    # filter second
+
     func isApplicantVotedEnough(aid: Int, aid2: Int) = {
         let listKey = "tasks_"+taskId+"_applicants"
         let applicantsList = getStringValue(this, listKey).split(";")
@@ -349,7 +351,7 @@ func finishApplicantsVoting(taskId: String) = {
         } else {
 
             let chosenTeamId = FOLD<2>([0,1], 0, hasMoreVotes)
-            let teamIdentifier = applicantsList[chosenTeamId]
+            let teamIdentifier = drop(applicantsList[chosenTeamId], 20)
             WriteSet([
                 # Parsed in dAPP to tasks[id].status -> string
                 DataEntry("tasks_"+taskId+"_status", "team_chosen"),
