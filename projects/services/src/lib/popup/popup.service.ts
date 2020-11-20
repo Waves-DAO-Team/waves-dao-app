@@ -11,13 +11,25 @@ export class PopupService {
   constructor () {}
 
   public async add ( text: any, title?: string,) {
-    this.message$.next([...this.message$.getValue(), JSON.stringify(text)])
-    console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
-    console.log(text)
-    console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
-    setTimeout(() => {
-      this.rmLast()
-    }, 5000)
+    let JSONtext;
+    if(text?.message) {
+      JSONtext = JSON.stringify(text.message).slice(0,50) + (text.message.length > 50 ? '...' : '')
+    } else if (text) {
+      JSONtext = JSON.stringify(text).slice(0,50) + (text.length > 50 ? '...' : '')
+    }
+
+    if(text && JSONtext && JSONtext.length > 2) {
+      this.message$.next([...this.message$.getValue(), JSONtext])
+      console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
+      console.log(text)
+      console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
+      setTimeout(() => {
+        this.rmLast()
+      }, 5000)
+    }
+
+
+
   }
 
   rmLast () {
