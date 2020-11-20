@@ -67,11 +67,11 @@ export class HeaderComponent implements OnInit {
   }
 
   test () {
-    this.popupService.add('Lorem 1 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    this.popupService.add('Lorem 2 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    this.popupService.add('Lorem 3 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    this.popupService.add('Lorem 4 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    this.popupService.add('Lorem 5 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    // this.popupService.add('Lorem 1 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX' )
+    // this.popupService.add('Lorem 2 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    // this.popupService.add('Lorem 3 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    // this.popupService.add('Lorem 4 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
+    // this.popupService.add('Lorem 5 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
     // payment: [{
     //   assetId: 'string',
     //   amount: LONG,

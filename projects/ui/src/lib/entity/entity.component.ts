@@ -37,11 +37,7 @@ export class EntityComponent {
   }
 
   vote (value: 'like' | 'dislike') {
-    // this.isDAOVote = true
-
-    // this.contractService.voteForApplicant(
     const id = this.grant.id || ''
-    // console.info('vote', id, value)
     this.contractService.voteForTaskProposal(id, value)
   }
 
@@ -54,5 +50,13 @@ export class EntityComponent {
 
   finishVote () {
     this.contractService.finishTaskProposalVoting(this.grant.id as string)
+  }
+
+  voteTeam(voteValue: number, teamIdentifier: string) {
+    this.contractService.voteForApplicant(
+      this.grant.id as string,
+      teamIdentifier,
+      voteValue == 1 ? 'like' : 'dislike'
+    )
   }
 }

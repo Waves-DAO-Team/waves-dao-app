@@ -53,7 +53,11 @@
       link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
-    <div class="card__info">
+    <div class="card__info" *ngIf="
+      grant?.status?.value === grantStatusEnum.workFinished
+      || grant?.status?.value === grantStatusEnum.rejected
+      || grant?.status?.value === grantStatusEnum.proposed
+    ">
       <div class="card__info__left">
         <img src="assets/icons/grant-completed.svg" *ngIf="grant?.status?.value === grantStatusEnum.workFinished">
         <img src="assets/icons/grant-failed.svg" *ngIf="grant?.status?.value === grantStatusEnum.rejected">
@@ -229,8 +233,34 @@
     </div>
   </div>
   <!-- master --------------------------------------------------------------------------------------------------------->
+  <!-- team ----------------------------------------------------------------------------------------------------------->
+  <!--  <div class="card team" *ngIf="userService.data.getValue().roles.isDAO">-->
+  <div class="card team" *ngIf="grant?.app?.length > 0">
+    <h4>Teams</h4>
+    <div class="card__body">
+      <ul>
+        <li *ngFor="let app of grant.app">
+          <div class="info">
+            <div class="name">{{app?.name?.value}}</div>
+          </div>
+          <div class="controls">
+            <div *ngIf="app?.voted?.value.includes(userService.data.getValue().userAddress) && userService.data.getValue().userAddress">
+              {{'entity.already_voted' | transloco}}
+            </div>
+            <div *ngIf="!(app?.voted?.value.includes(userService.data.getValue().userAddress)) && userService.data.getValue().userAddress">
+              <img (click)="voteTeam(-1, app.id.value)" src="assets/icons/vote-min.svg">
+              <img (click)="voteTeam(1, app.id.value)" src="assets/icons/vote-plus.svg">
+            </div>
+          </div>
+        </li>
 
+      </ul>
+    </div>
+  </div>
+  <!-- team ----------------------------------------------------------------------------------------------------------->
+  <!-- controls ------------------------------------------------------------------------------------------------------->
   <div class="card">
+    <h4>Controls</h4>
     <div class="card__body">
       <div class="btn-container">
         <button (click)="modal?.openModal()" class="btn" *ngIf="userService.data.getValue().roles.isMaster">
@@ -278,5 +308,7 @@
       </div>
     </div>
   </div>
+  <!-- controls ------------------------------------------------------------------------------------------------------->
+
   <ui-modal></ui-modal>
 </div>

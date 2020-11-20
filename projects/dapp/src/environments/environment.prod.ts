@@ -21,7 +21,8 @@ export const environment = {
     create: 'create',
     stylesheet: 'stylesheet',
     editGrant: 'edit-grant/:entityId',
-    masterSetting: 'master-setting'
+    masterSetting: 'master-setting',
+    team: 'team/:entityId'
   },
 
   showDevTools: false

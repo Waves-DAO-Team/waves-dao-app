@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core'
-import { RoleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
-import { SignerService } from '@services/signer/signer.service'
-import { ContractService } from '@services/contract/contract.service'
-import { environment } from '../../../../dapp/src/environments/environment'
-import { BehaviorSubject, combineLatest } from 'rxjs'
-import { publishReplay, refCount, tap } from 'rxjs/operators'
-import { ContractGrantRawModel } from '@services/contract/contract.model'
-import { PopupService } from '@services/popup/popup.service'
+import {Injectable} from '@angular/core'
+import {RoleEnum, RoleRowInterface, UserDataInterface} from '@services/user/user.interface'
+import {SignerService} from '@services/signer/signer.service'
+import {ContractService} from '@services/contract/contract.service'
+import {environment} from '../../../../dapp/src/environments/environment'
+import {BehaviorSubject, combineLatest} from 'rxjs'
+import {publishReplay, refCount, tap} from 'rxjs/operators'
+import {ContractGrantModel, ContractGrantRawModel} from '@services/contract/contract.model'
+import {PopupService} from '@services/popup/popup.service'
+import {AddTextObjInterface} from "@services/popup/popup.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,7 @@ export class UserService {
           apply: ad
         })
         if (userAddress.address !== this.lastAddress) {
-          this.popupService.add('Login: ' + userAddress.address)
+          this.popupService.add( userAddress.address as unknown as AddTextObjInterface, 'Login')
           this.lastAddress = userAddress.address
         }
         console.log('user data: ', this.data.getValue())
@@ -121,4 +122,5 @@ export class UserService {
     }
     return result
   }
+
 }
