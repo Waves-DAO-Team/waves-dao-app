@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { TeamPageComponent } from './team-page.component'
+import { provideApi } from '@constants'
 
 describe('TeamComponent', () => {
   let component: TeamPageComponent
@@ -8,7 +9,10 @@ describe('TeamComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeamPageComponent]
+      declarations: [TeamPageComponent],
+      providers: [
+        provideApi()
+      ]
     })
       .compileComponents()
   })
