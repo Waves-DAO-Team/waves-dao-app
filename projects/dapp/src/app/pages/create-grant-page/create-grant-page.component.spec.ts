@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ContractService } from '@services/contract/contract.service'
 import { TranslocoModule } from '@ngneat/transloco'
 import { provideApi, provideAppConstants } from '@constants'
+import { RouterTestingModule } from '@angular/router/testing'
 
 describe('CreateGrantPageComponent', () => {
   let component: CreateGrantPageComponent
@@ -12,7 +13,7 @@ describe('CreateGrantPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, TranslocoModule],
+      imports: [HttpClientTestingModule, TranslocoModule, RouterTestingModule],
       declarations: [CreateGrantPageComponent],
       providers: [
         provideAppConstants(),
