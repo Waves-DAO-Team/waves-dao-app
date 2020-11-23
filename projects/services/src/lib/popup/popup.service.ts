@@ -19,8 +19,8 @@ export class PopupService {
   }
 
   public async add (text: string, title?: string) {
-    const message = text.slice(0, 50) + (text.length > 50 ? '...' : '')
-    if (message.length > 5) {
+    if (text && text.length > 5) {
+      const message = text.slice(0, 50) + (text.length > 50 ? '...' : '')
       this.message$.next([...this.message$.getValue(), message])
       console.log(`---------------------------------------------------------LOG ${title || ''}`)
       console.log(text)

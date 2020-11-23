@@ -26,10 +26,9 @@
       {{ 'app.header.signup' | transloco }}
     </div>
     <!-- role routes -------------------------------------------------------------------------------------------------->
-
-<!--    <div class="header__profile" *ngIf="(user$ | async)?.name">-->
-<!--      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>-->
-<!--    </div>-->
+    <div (click)="logoutHandler()" routerLinkActive="active"  *ngIf="(user$ | async)?.name">
+      {{ 'app.header.logout' | transloco }}
+    </div>
 
     <div class="header__profile" *ngIf="(user$ | async)?.name">
       <!--      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>-->
