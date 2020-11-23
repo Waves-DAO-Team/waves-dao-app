@@ -52,7 +52,7 @@ export class UserService {
           apply: ad
         })
         if (userAddress.address !== this.lastAddress) {
-          this.popupService.add(userAddress.address as unknown as AddTextObjInterface, 'Login')
+          this.popupService.add(userAddress.address, 'Login')
           this.lastAddress = userAddress.address
         }
         console.log('user data: ', this.data.getValue())
@@ -63,11 +63,7 @@ export class UserService {
 
   constructor (
     private signerService: SignerService, private contractService: ContractService, private popupService: PopupService
-  ) {
-    // setInterval(()=>{
-    //   console.log('---', this.contractService.)
-    // },5000)
-  }
+  ) {}
 
   private defineApply (userAddress: string, tasks: ContractGrantRawModel): string[] {
     const result: string[] = []

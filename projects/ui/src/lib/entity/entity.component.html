@@ -25,11 +25,13 @@
   <!-- proposed -->
 
   <!-- readyToApply -->
-  <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.readyToApply && (!userService.data.getValue().apply.includes(grant?.id) || userService.data.getValue().userRole == userRoleEnum.unauthorized )">
+  <div class="card"
+       *ngIf="grant?.status?.value === grantStatusEnum.readyToApply && (!userService.data.getValue().apply.includes(grant?.id) || userService.data.getValue().userRole == userRoleEnum.unauthorized )">
     <div class="card__body">
       <div class="btn-container">
         <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
-          <button class="btn active" [routerLink]="['/', 'apply-grant', grant.id]" *ngIf="!userService.data.getValue().apply.includes(grant?.id)">
+          <button class="btn active" [routerLink]="['/', 'apply-grant', grant.id]"
+                  *ngIf="!userService.data.getValue().apply.includes(grant?.id)">
             {{'entity.apply' | transloco}}
           </button>
         </ng-container>
@@ -39,7 +41,8 @@
       </div>
     </div>
   </div>
-  <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.readyToApply && userService.data.getValue().userRole == userRoleEnum.workingGroup ">
+  <div class="card"
+       *ngIf="grant?.status?.value === grantStatusEnum.readyToApply && userService.data.getValue().userRole == userRoleEnum.workingGroup ">
     <div class="card__body">
       <div class="btn-container">
         <button
@@ -53,7 +56,8 @@
   <!-- readyToApply -->
 
   <!-- teamChosen -->
-  <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.teamChosen && userService.data.getValue().userRole == userRoleEnum.workingGroup">
+  <div class="card"
+       *ngIf="grant?.status?.value === grantStatusEnum.teamChosen && userService.data.getValue().userRole == userRoleEnum.workingGroup">
     <div class="card__body">
       <div class="btn-container">
         <button
@@ -67,7 +71,8 @@
   <!-- teamChosen -->
 
   <!-- workStarted -->
-  <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.workStarted && userService.data.getValue().userRole == userRoleEnum.workingGroup">
+  <div class="card"
+       *ngIf="grant?.status?.value === grantStatusEnum.workStarted && userService.data.getValue().userRole == userRoleEnum.workingGroup">
     <div class="card__body">
       <div class="btn-container">
         <button
@@ -271,8 +276,8 @@
             </div>
             <div
               *ngIf="!(app?.voted?.value.includes(userService.data.getValue().userAddress)) && userService.data.getValue().userAddress">
-              <img (click)="voteTeam(-1, app.id.value)" src="assets/icons/vote-min.svg">
-              <img (click)="voteTeam(1, app.id.value)" src="assets/icons/vote-plus.svg">
+              <img (click)="voteTeam( 'dislike', app.id.value)" src="assets/icons/vote-min.svg">
+              <img (click)="voteTeam('like', app.id.value)" src="assets/icons/vote-plus.svg">
             </div>
           </div>
         </li>

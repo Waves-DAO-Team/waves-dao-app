@@ -56,11 +56,11 @@ export class EntityComponent {
     this.contractService.finishApplicantsVoting(this.grant.id as string)
   }
 
-  voteTeam (voteValue: number, teamIdentifier: string) {
+  voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
     this.contractService.voteForApplicant(
       this.grant.id as string,
       teamIdentifier,
-      voteValue === 1 ? 'like' : 'dislike'
+      voteValue
     )
   }
 

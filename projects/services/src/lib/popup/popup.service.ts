@@ -3,6 +3,12 @@ import { BehaviorSubject, Observable, Subject, timer } from 'rxjs'
 import { delay, tap } from 'rxjs/operators'
 import { AddTextInterface, AddTextObjInterface } from '@services/popup/popup.interface'
 
+class IInvokeScriptTransaction<T> {
+}
+
+class IWithApiMixin {
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,15 +18,10 @@ export class PopupService {
   constructor () {
   }
 
-  public async add (text: AddTextObjInterface, title?: string) {
-    let JSONtext
-    if (text?.message) {
-      JSONtext = JSON.stringify(text.message).slice(0, 50) + (text.message.length > 50 ? '...' : '')
-    } else if (text) {
-      JSONtext = JSON.stringify(text).slice(0, 50) + ((text as unknown as string).length > 50 ? '...' : '')
-    }
-    if (text && JSONtext && JSONtext.length > 5) {
-      this.message$.next([...this.message$.getValue(), JSONtext])
+  public async add (text: string, title?: string) {
+    const message = text.slice(0, 50) + (text.length > 50 ? '...' : '')
+    if (message.length > 5) {
+      this.message$.next([...this.message$.getValue(), message])
       console.log(`---------------------------------------------------------LOG ${title || ''}`)
       console.log(text)
       console.log(`---------------------------------------------------------LOG ${title || ''}`)
