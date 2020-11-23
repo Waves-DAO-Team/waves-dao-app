@@ -9,6 +9,7 @@ import { UserService } from '@services/user/user.service'
 import { IWithApiMixin, IInvokeScriptTransaction } from '@waves/ts-types'
 import { IMoney } from '@waves/signer/cjs/interface'
 import { InvokeResponseInterface } from '../../interface'
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,8 @@ export class SignerService {
     )
 
   constructor (
-      @Inject(API) private readonly api: AppApiInterface
+      @Inject(API) private readonly api: AppApiInterface,
+      private router: Router
   ) {
     this.signer = new Signer({
       // Specify URL of the node on Testnet
@@ -61,6 +63,7 @@ export class SignerService {
       address: '',
       publicKey: ''
     })
+    this.router.navigate(['/'])
     return from(this.signer.logout())
   }
 
