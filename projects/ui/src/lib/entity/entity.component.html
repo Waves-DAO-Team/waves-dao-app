@@ -267,7 +267,7 @@
   <!-- team ----------------------------------------------------------------------------------------------------------->
   <div class="card team">
     <h4>Teams</h4>
-    <div class="card__body" *ngIf="grant.app.length > 0">
+    <div class="card__body" *ngIf="grant?.app?.length > 0">
       <ul>
         <li *ngFor="let app of grant.app">
           <div class="info">
@@ -289,7 +289,7 @@
         </li>
       </ul>
     </div>
-    <div class="card__body" *ngIf="grant.app.length === 0">
+    <div class="card__body" *ngIf="grant?.app?.length === 0">
       {{'entity.no_applied_teams' | transloco}}
     </div>
   </div>
