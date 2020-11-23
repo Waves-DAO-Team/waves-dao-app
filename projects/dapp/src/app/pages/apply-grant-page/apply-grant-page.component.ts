@@ -13,12 +13,12 @@ import { ContractService } from '@services/contract/contract.service'
 export class ApplyGrantPageComponent implements OnInit {
   grantId = ''
   grantForm = new FormGroup({
-    name: new FormControl(''),
-    emailOrPhone: new FormControl(''),
-    team: new FormControl(''),
-    link: new FormControl(''),
-    experience: new FormControl(''),
-    documentUrl: new FormControl('')
+    // name: new FormControl(''),
+    // emailOrPhone: new FormControl(''),
+    team: new FormControl('', Validators.required),
+    link: new FormControl('', Validators.required)
+    // experience: new FormControl(''),
+    // documentUrl: new FormControl('')
   })
 
   @ViewChild(ModalComponent) modal?: ModalComponent;

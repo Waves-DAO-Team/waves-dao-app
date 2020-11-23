@@ -50,10 +50,16 @@ export class HeaderComponent implements OnInit {
   }
 
   logoutHandler () {
-    this.signerService.logout().subscribe(() => {
+    console.log('logoutHandler', '-------------------------------')
+    this.signerService.logout().subscribe((e) => {
+      console.log('logoutHandler subscribe', e)
+      this.contractService.refresh()
     }, (error) => {
+      console.log('logoutHandler error', error)
+
       this.snackBar.open(error, translate('messages.ok'))
     })
+    console.log('-------------------------------', 'logoutHandler')
   }
 
   goBack (): void {

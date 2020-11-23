@@ -3,24 +3,7 @@
 </h1>
 
 <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
-<!--teams-->
-<!--<div class="listing">-->
-<!--  <ng-container *ngFor="let team of teamService.teams.getValue()">-->
-<!--      <a class="card">-->
-<!--        <div class="card__header">-->
-<!--          <div class="card__header__left-block">-->
-<!--            <div class="card__header__left-block__status">-->
-<!--              {{team.id}}-->
-<!--            </div>-->
-<!--            <div class="card__header__left-block__title">-->
-<!--              {{team.name}}-->
-<!--            </div>-->
-<!--          </div>-->
 
-<!--        </div>-->
-<!--      </a>-->
-<!--    </ng-container>-->
-<!--</div>-->
 
 <!--grants-->
 <div class="listing" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">

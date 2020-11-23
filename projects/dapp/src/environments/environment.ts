@@ -7,8 +7,9 @@ export const environment = {
     signer: 'https://testnet.waves.exchange/signer/',
     rest: 'https://nodes-testnet.wavesnodes.com',
     // contractAddress: '3MvqnYLwBErxGtKzeEjgWgr2RXgniokicR2'
-    contractAddress: '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5'
+    // contractAddress: '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5'
     // contractAddress: '3MtDV965HUsLhFcW1wA36qX5tNSa52nfnq5'
+    contractAddress: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA'
   },
 
   // Routing constants on page
@@ -27,5 +28,5 @@ export const environment = {
     team: 'team/:entityId'
   },
 
-  showDevTools: true
+  showDevTools: false
 }

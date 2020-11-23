@@ -1,7 +1,13 @@
-import {Injectable} from '@angular/core'
-import {BehaviorSubject, Observable, Subject, timer} from 'rxjs'
-import {delay, tap} from 'rxjs/operators'
-import {AddTextInterface, AddTextObjInterface} from "@services/popup/popup.interface";
+import { Injectable } from '@angular/core'
+import { BehaviorSubject, Observable, Subject, timer } from 'rxjs'
+import { delay, tap } from 'rxjs/operators'
+import { AddTextInterface, AddTextObjInterface } from '@services/popup/popup.interface'
+
+class IInvokeScriptTransaction<T> {
+}
+
+class IWithApiMixin {
+}
 
 @Injectable({
   providedIn: 'root'
@@ -9,32 +15,27 @@ import {AddTextInterface, AddTextObjInterface} from "@services/popup/popup.inter
 export class PopupService {
   message$ = new BehaviorSubject<string[]>([])
 
-  constructor() {
+  constructor () {
   }
 
-  public async add(text: AddTextObjInterface, title?: string) {
-    let JSONtext;
-    if (text?.message) {
-      JSONtext = JSON.stringify(text.message).slice(0, 50) + (text.message.length > 50 ? '...' : '')
-    } else if (text) {
-      JSONtext = JSON.stringify(text).slice(0, 50) + ((text as unknown as string).length > 50 ? '...' : '')
-    }
-    if (text && JSONtext && JSONtext.length > 5) {
-      this.message$.next([...this.message$.getValue(), JSONtext])
-      console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
+  public async add (text: string, title?: string) {
+    if (text && text.length > 5) {
+      const message = text.slice(0, 50) + (text.length > 50 ? '...' : '')
+      this.message$.next([...this.message$.getValue(), message])
+      console.log(`---------------------------------------------------------LOG ${title || ''}`)
       console.log(text)
-      console.log(`---------------------------------------------------------LOG ${title ? title : ''}`)
+      console.log(`---------------------------------------------------------LOG ${title || ''}`)
       setTimeout(() => {
         this.rmLast()
       }, 5000)
     }
   }
 
-  rmLast() {
+  rmLast () {
     this.message$.next(this.message$.getValue().slice(0, -1))
   }
 
-  rm(text: string) {
+  rm (text: string) {
     const roomArr: string[] = this.message$.getValue()
     roomArr.forEach((item, index) => {
       if (item === text) {

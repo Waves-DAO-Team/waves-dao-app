@@ -27,7 +27,8 @@
       "team_chosen": "Open. Looking for a team",
       "work_started": "Closed to apply. In work",
       "work_finished": "Closed to apply. Finished",
-      "no_status": "No status"
+      "no_status": "No status",
+      "all": "All"
     },
     "DAO_subtext": {
       "need_vote": "Need vote",
@@ -42,9 +43,13 @@
     "remove": "Remove",
     "edit": "Edit",
     "finish_vote": "Finish vote",
+    "finish_applicants_voting": "Finish applicants voting",
+    "accept_work_result": "Accept work result",
+    "start_work": "Start work",
     "link": "Link",
     "empty_link": "link empty",
     "already_voted": "you have already voted for this team",
+    "no_applied_teams": "no teams have applied for this grant",
     "DAO": {
       "vote": {
         "true": {

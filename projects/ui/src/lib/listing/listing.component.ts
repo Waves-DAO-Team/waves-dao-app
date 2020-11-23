@@ -25,9 +25,11 @@ export class ListingComponent implements OnInit {
     tap(
       (grants) => {
         this.listGrantStatuses = []
+        this.listGrantStatuses.push('all')
         grants.forEach((grant) => {
           const status: string = grant.status?.value === undefined ? GrantStatusEnum.noStatus : grant.status?.value
           if (!(this.listGrantStatuses.includes(status))) {
+            console.log('status:', status)
             this.listGrantStatuses.push(status)
           }
         })
@@ -61,6 +63,9 @@ export class ListingComponent implements OnInit {
   }
 
   isCanShowByTag (status: string, selectedTagName: string) {
+    if (selectedTagName === 'all') {
+      return true
+    }
     status = !status ? 'no_status' : status
     if (status === selectedTagName || selectedTagName === '') {
       return true

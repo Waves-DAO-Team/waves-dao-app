@@ -8,18 +8,19 @@
 .team {
   ul {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+
     li {
-      padding: 0;
-      margin: 0 0 10px 0;
+      border: 1px solid $gray-light;
       display: flex;
+      margin: 0 0 10px;
+      padding: $padding;
+
       .info {
         flex: 1;
       }
-      .controls {
 
-      }
       &:last-child {
         margin: 0;
       }

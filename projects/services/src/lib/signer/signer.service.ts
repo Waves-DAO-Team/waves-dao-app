@@ -22,11 +22,12 @@ export class SignerService {
     publicKey: ''
   })
 
-  public user: Observable<SignerUser> = this.user$.pipe(
-    publishReplay(1),
-    refCount()
+  public user: Observable<SignerUser> = this.user$
+    .pipe(
+      publishReplay(1),
+      refCount()
 
-  )
+    )
 
   constructor (
       @Inject(API) private readonly api: AppApiInterface
@@ -55,6 +56,11 @@ export class SignerService {
   }
 
   public logout (): Observable<void> {
+    this.user$.next({
+      name: '',
+      address: '',
+      publicKey: ''
+    })
     return from(this.signer.logout())
   }
 

@@ -52,11 +52,28 @@ export class EntityComponent {
     this.contractService.finishTaskProposalVoting(this.grant.id as string)
   }
 
-  voteTeam(voteValue: number, teamIdentifier: string) {
+  finishApplicantsVote () {
+    this.contractService.finishApplicantsVoting(this.grant.id as string)
+  }
+
+  voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
     this.contractService.voteForApplicant(
       this.grant.id as string,
       teamIdentifier,
-      voteValue == 1 ? 'like' : 'dislike'
+      voteValue
     )
+  }
+
+  isCanVoteForTeam () {
+    // g status
+    // u role
+  }
+
+  startWork () {
+    this.contractService.startWork(this.grant.id as string)
+  }
+
+  acceptWorkResult () {
+    this.contractService.acceptWorkResult(this.grant.id as string)
   }
 }

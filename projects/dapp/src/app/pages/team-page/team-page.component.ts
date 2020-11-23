@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-team-page',
@@ -6,12 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./team-page.component.scss']
 })
 export class TeamPageComponent implements OnInit {
+  constructor () { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
-
 }
-
-
