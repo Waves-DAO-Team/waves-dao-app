@@ -7833,6 +7833,13 @@ ng-packagr@^10.1.0:
     stylus "^0.54.7"
     terser "^5.0.0"
 
+ngx-mask@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-11.0.1.tgz#da28bdec7fe47dc2441abcdd9ca05002ead0f1d4"
+  integrity sha512-mdVA4PhKuP0V+ogkgQkEYL6v5hWjfLwYmW632XEf07FylDdl57rN9EZVlLPdpTjfxhkxnQmA0E+I/m5r7iXwxg==
+  dependencies:
+    tslib "^2.0.0"
+
 ngx-progressbar@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/ngx-progressbar/-/ngx-progressbar-6.0.3.tgz#38abd2c6d770f146119817a91fb0db28889dcd0b"

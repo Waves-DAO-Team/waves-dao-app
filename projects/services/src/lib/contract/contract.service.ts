@@ -85,6 +85,19 @@ export class ContractService {
     this.popupService.add('refresh')
   }
 
+  doRefreshTimeOut () {
+    this.refresh()
+    setTimeout(() => {
+      this.refresh()
+    }, 1000)
+    setTimeout(() => {
+      this.refresh()
+    }, 5000)
+    setTimeout(() => {
+      this.refresh()
+    }, 10000)
+  }
+
   private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
@@ -146,9 +159,10 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'addDAOMember finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -161,15 +175,17 @@ export class ContractService {
       })
       .then((res) => {
         this.popupService.add(JSON.stringify(res), 'addGroupMember then')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
       .finally(() => {
         this.popupService.add('', 'addGroupMember finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -191,9 +207,10 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'addTask finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -207,15 +224,17 @@ export class ContractService {
       .then((res) => {
         // @ts-ignore
         this.popupService.add(res.toString(), 'addTaskDetails then')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
       .finally(() => {
         this.popupService.add('', 'addTaskDetails finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -233,9 +252,10 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'voteForTaskProposal finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -249,12 +269,14 @@ export class ContractService {
       .then((res) => {
         // @ts-ignore
         this.popupService.add(res.toString(), 'finishTaskProposalVoting then')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
       .finally(() => {
         this.popupService.add('', 'finishTaskProposalVoting finally')
+        this.doRefreshTimeOut()
       })
   }
 
@@ -273,9 +295,10 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'applyForTask finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -295,9 +318,10 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'voteForApplicant finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -313,9 +337,10 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'finishApplicantsVoting finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -331,9 +356,10 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'startWork finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 
@@ -349,9 +375,10 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'acceptWorkResult finally')
-        setTimeout(() => {
-          this.refresh()
-        }, this.averageOperationSpeed)
+        // setTimeout(() => {
+        //   this.refresh()
+        // }, this.averageOperationSpeed)
+        this.doRefreshTimeOut()
       })
   }
 }

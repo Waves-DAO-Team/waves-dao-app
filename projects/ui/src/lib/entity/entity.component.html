@@ -146,43 +146,43 @@
       link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
-    <div class="card__info" *ngIf="
-      grant?.status?.value === grantStatusEnum.workFinished
-      || grant?.status?.value === grantStatusEnum.rejected
-      || grant?.status?.value === grantStatusEnum.proposed
-    ">
-      <div class="card__info__left">
-        <img src="assets/icons/grant-completed.svg" *ngIf="grant?.status?.value === grantStatusEnum.workFinished">
-        <img src="assets/icons/grant-failed.svg" *ngIf="grant?.status?.value === grantStatusEnum.rejected">
-        <img src="assets/icons/grant-wait.svg" *ngIf="grant?.status?.value === grantStatusEnum.proposed">
-      </div>
-      <div class="card__info__mid">
-        <ng-container *ngIf="grant?.status?.value === grantStatusEnum.proposed">
-          <div class="card__info__mid__subtext">
-            {{'entity.grant.status.proposed.subtext' | transloco}}
-          </div>
-          <div class="card__info__mid__text">
-            {{'entity.grant.status.proposed.text' | transloco}}
-          </div>
-        </ng-container>
-        <ng-container *ngIf="grant?.status?.value === grantStatusEnum.rejected">
-          <div class="card__info__mid__subtext">
-            {{'entity.grant.status.rejected.subtext' | transloco}}
-          </div>
-          <div class="card__info__mid__text">
-            {{'entity.grant.status.rejected.text' | transloco}}
-          </div>
-        </ng-container>
-        <ng-container *ngIf="grant?.status?.value === grantStatusEnum.workFinished">
-          <div class="card__info__mid__subtext">
-            {{'entity.grant.status.workFinished.subtext' | transloco}}
-          </div>
-          <div class="card__info__mid__text">
-            {{'entity.grant.status.workFinished.text' | transloco}}
-          </div>
-        </ng-container>
-      </div>
-    </div>
+<!--    <div class="card__info" *ngIf="-->
+<!--      grant?.status?.value === grantStatusEnum.workFinished-->
+<!--      || grant?.status?.value === grantStatusEnum.rejected-->
+<!--      || grant?.status?.value === grantStatusEnum.proposed-->
+<!--    ">-->
+<!--      <div class="card__info__left">-->
+<!--        <img src="assets/icons/grant-completed.svg" *ngIf="grant?.status?.value === grantStatusEnum.workFinished">-->
+<!--        <img src="assets/icons/grant-failed.svg" *ngIf="grant?.status?.value === grantStatusEnum.rejected">-->
+<!--        <img src="assets/icons/grant-wait.svg" *ngIf="grant?.status?.value === grantStatusEnum.proposed">-->
+<!--      </div>-->
+<!--      <div class="card__info__mid">-->
+<!--        <ng-container *ngIf="grant?.status?.value === grantStatusEnum.proposed">-->
+<!--          <div class="card__info__mid__subtext">-->
+<!--            {{'entity.grant.status.proposed.subtext' | transloco}}-->
+<!--          </div>-->
+<!--          <div class="card__info__mid__text">-->
+<!--            {{'entity.grant.status.proposed.text' | transloco}}-->
+<!--          </div>-->
+<!--        </ng-container>-->
+<!--        <ng-container *ngIf="grant?.status?.value === grantStatusEnum.rejected">-->
+<!--          <div class="card__info__mid__subtext">-->
+<!--            {{'entity.grant.status.rejected.subtext' | transloco}}-->
+<!--          </div>-->
+<!--          <div class="card__info__mid__text">-->
+<!--            {{'entity.grant.status.rejected.text' | transloco}}-->
+<!--          </div>-->
+<!--        </ng-container>-->
+<!--        <ng-container *ngIf="grant?.status?.value === grantStatusEnum.workFinished">-->
+<!--          <div class="card__info__mid__subtext">-->
+<!--            {{'entity.grant.status.workFinished.subtext' | transloco}}-->
+<!--          </div>-->
+<!--          <div class="card__info__mid__text">-->
+<!--            {{'entity.grant.status.workFinished.text' | transloco}}-->
+<!--          </div>-->
+<!--        </ng-container>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
   <!-- authorized ----------------------------------------------------------------------------------------------------->
 
@@ -296,15 +296,16 @@
   <!-- team ----------------------------------------------------------------------------------------------------------->
 
   <!-- vote ----------------------------------------------------------------------------------------------------------->
+<!--   *ngIf="(userService.data | async)?.roles.isDAO && !(userService.data | async)?.voted.includes(grant.id)"-->
   <div class="card"
        *ngIf="(userService.data | async)?.roles.isDAO && grant?.status?.value === grantStatusEnum.proposed">
-    <div *ngIf="(userService.data | async)?.roles.isDAO && !(userService.data | async)?.voted.includes(grant.id)"
+    <div
          class="card__info">
       <div class="card__info__left">
         <img src="assets/icons/vote.svg">
       </div>
       <div class="card__info__mid">
-        <ng-container *ngIf="!isDAOVote">
+        <ng-container *ngIf="(userService.data | async)?.voted.includes(grant.id)">
           <div class="card__info__mid__subtext">
             {{'entity.DAO.vote.true.subtext' | transloco}}
           </div>
@@ -312,7 +313,7 @@
             {{'entity.DAO.vote.true.text' | transloco}}
           </div>
         </ng-container>
-        <ng-container *ngIf="isDAOVote">
+        <ng-container *ngIf="!(userService.data | async)?.voted.includes(grant.id)">
           <div class="card__info__mid__subtext">
             {{'entity.DAO.vote.false.text' | transloco}}
           </div>
@@ -321,7 +322,7 @@
           </div>
         </ng-container>
       </div>
-      <div class="card__info__right" *ngIf="!isDAOVote">
+      <div class="card__info__right" *ngIf="!(userService.data | async)?.voted.includes(grant.id)">
         <img (click)="vote('dislike')" src="assets/icons/vote-min.svg">
         <img (click)="vote('like')" src="assets/icons/vote-plus.svg">
       </div>

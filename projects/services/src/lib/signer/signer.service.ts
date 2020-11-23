@@ -9,6 +9,7 @@ import { UserService } from '@services/user/user.service'
 import { IWithApiMixin, IInvokeScriptTransaction } from '@waves/ts-types'
 import { IMoney } from '@waves/signer/cjs/interface'
 import { InvokeResponseInterface } from '../../interface'
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root'
@@ -16,22 +17,11 @@ import { InvokeResponseInterface } from '../../interface'
 export class SignerService {
   public readonly signer: Signer
 
-  private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({
-    name: '',
-    address: '',
-    publicKey: ''
-  })
+  private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '' })
 
-  public user: Observable<SignerUser> = this.user$
-    .pipe(
-      publishReplay(1),
-      refCount()
+  public user: Observable<SignerUser> = this.user$.pipe(publishReplay(1), refCount())
 
-    )
-
-  constructor (
-      @Inject(API) private readonly api: AppApiInterface
-  ) {
+  constructor (@Inject(API) private readonly api: AppApiInterface, private router: Router) {
     this.signer = new Signer({
       // Specify URL of the node on Testnet
       NODE_URL: api.nodes
@@ -56,11 +46,8 @@ export class SignerService {
   }
 
   public logout (): Observable<void> {
-    this.user$.next({
-      name: '',
-      address: '',
-      publicKey: ''
-    })
+    this.user$.next({ name: '', address: '', publicKey: '' })
+    this.router.navigate(['/'])
     return from(this.signer.logout())
   }
 

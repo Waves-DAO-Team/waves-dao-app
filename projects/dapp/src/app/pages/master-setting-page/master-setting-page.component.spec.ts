@@ -6,6 +6,7 @@ import { provideApi, provideAppConstants } from '@constants'
 import { ContractService } from '@services/contract/contract.service'
 import { HttpClient } from '@angular/common/http'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { RouterTestingModule } from '@angular/router/testing'
 
 describe('MasterSettingPageComponent', () => {
   let component: MasterSettingPageComponent
@@ -13,7 +14,7 @@ describe('MasterSettingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslocoModule, HttpClientTestingModule],
+      imports: [TranslocoModule, HttpClientTestingModule, RouterTestingModule],
       declarations: [MasterSettingPageComponent],
       providers: [
         provideAppConstants(),
