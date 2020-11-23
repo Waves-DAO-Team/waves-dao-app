@@ -1,0 +1,23 @@
+@import 'variables';
+
+.logo {
+  margin-bottom: $padding;
+  text-align: center;
+
+  .icon-logo {
+    @include icon-logo(90px);
+    margin: auto;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: $font-size-big;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.title {
+  font-size: $font-size-large;
+  font-weight: bold;
+}

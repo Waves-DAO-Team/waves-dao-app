@@ -13,8 +13,8 @@ $font-size-big: 28px;
 @mixin btn-container($type: default) {
   display: flex;
   justify-content: flex-end;
-  text-align: right;
   padding: 0;
+  text-align: right;
 
   .btn {
     background: none;
@@ -40,6 +40,7 @@ $font-size-big: 28px;
     border-radius: 0;
     color: #fff;
   }
+
   >:disabled {
     opacity: 0.5 !important;
   }
@@ -61,8 +62,8 @@ $font-size-big: 28px;
 $dot-list-li-size: 16px;
 
 .dot-list {
-  padding: 0;
   margin-bottom: $padding;
+  padding: 0;
 
   .title {
     font-weight: bold;
@@ -96,11 +97,11 @@ $dot-list-li-size: 16px;
     border-radius: 50%;
     content: '';
     display: inline-block;
-    min-height: $dot-list-li-size;
-    max-height: $dot-list-li-size;
-    min-width: $dot-list-li-size;
-    max-width: $dot-list-li-size;
     left: 0;
+    max-height: $dot-list-li-size;
+    max-width: $dot-list-li-size;
+    min-height: $dot-list-li-size;
+    min-width: $dot-list-li-size;
     position: absolute;
     top: 2px;
     vertical-align: middle;
@@ -139,22 +140,26 @@ $dot-list-li-size: 16px;
   }
 }
 
-@mixin icon-logo() {
+@mixin icon-logo($size: 21px) {
   background: $blue;
   border-radius: 50%;
-  height: 21px;
+  height: $size;
   position: relative;
-  width: 21px;
+  width: $size;
 
   &::after {
     background: #fff;
+    bottom: 0;
     content: '';
-    height: 7px;
-    left: 7px;
+    height: $size / 3;
+
+    left: 0;
+    margin: auto;
     position: absolute;
-    top: 7px;
+    right: 0;
+    top: 0;
     transform: rotate(45deg);
-    width: 7px;
+    width: $size / 3;
   }
 }
 
@@ -191,9 +196,11 @@ $dot-list-li-size: 16px;
   display: flex;
   flex-direction: column;
   font-size: $font-size-small;
+
   >:not(:last-child) {
     margin-bottom: $padding;
   }
+
   label {
     display: flex;
     flex-direction: column;
@@ -201,6 +208,7 @@ $dot-list-li-size: 16px;
     margin: 0;
     padding: 0;
   }
+
   input,
   textarea {
     border-bottom: 1px solid #000;
@@ -213,10 +221,12 @@ $dot-list-li-size: 16px;
     outline: none;
     padding: 0;
   }
+
   input:focus,
   textarea:focus {
     border-bottom: 1px solid $blue;
   }
+
   button:disabled {
     opacity: 0.5;
   }
@@ -245,9 +255,9 @@ $dot-list-li-size: 16px;
   color: #000;
   display: flex;
   flex-direction: column;
+  margin-bottom: $padding;
   margin-top: 0;
   text-decoration: none;
-  margin-bottom: $padding;
 
   > :not(:last-child) {
     margin-bottom: $padding;
@@ -360,17 +370,17 @@ $dot-list-li-size: 16px;
 
   &__body {
     border: 1px solid $gray-light;
-    padding: $padding;
     overflow: hidden;
+    padding: $padding;
   }
 }
 
 .modal {
   background: rgba(196, 196, 196, 0.7);
   height: 100%;
+  left: 0;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   z-index: 9;
 
