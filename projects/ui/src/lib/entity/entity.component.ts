@@ -64,6 +64,11 @@ export class EntityComponent {
     )
   }
 
+  isCanVoteForTeam () {
+    // g status
+    // u role
+  }
+
   startWork () {
     this.contractService.startWork(this.grant.id as string)
   }

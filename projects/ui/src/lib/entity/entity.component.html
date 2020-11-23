@@ -4,7 +4,13 @@
   <pre *ngIf="environment.showDevTools">{{ (grant?.status?.value || 'no_status') | json }}</pre>
 
   <!-- proposed -->
-  <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.proposed">
+  <div class="card" *ngIf="
+  grant?.status?.value === grantStatusEnum.proposed
+  && (
+    userService.data.getValue().roles.isMaster
+    || userService.data.getValue().userRole == userRoleEnum.workingGroup
+  )
+">
     <div class="card__body">
       <div class="btn-container">
         <button
@@ -14,7 +20,7 @@
           {{'entity.edit' | transloco}}
         </button>
         <button
-          *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup "
+          *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup"
           (click)="finishVote()"
           class="btn">
           {{'entity.finish_vote' | transloco}}
@@ -259,9 +265,9 @@
   <!-- master --------------------------------------------------------------------------------------------------------->
 
   <!-- team ----------------------------------------------------------------------------------------------------------->
-  <div class="card team" *ngIf="grant?.app?.length > 0 && userService.data.getValue().roles.isDAO">
+  <div class="card team">
     <h4>Teams</h4>
-    <div class="card__body">
+    <div class="card__body" *ngIf="grant.app.length > 0">
       <ul>
         <li *ngFor="let app of grant.app">
           <div class="info">
@@ -282,6 +288,9 @@
           </div>
         </li>
       </ul>
+    </div>
+    <div class="card__body" *ngIf="grant.app.length === 0">
+      {{'entity.no_applied_teams' | transloco}}
     </div>
   </div>
   <!-- team ----------------------------------------------------------------------------------------------------------->
