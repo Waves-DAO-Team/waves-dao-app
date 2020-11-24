@@ -27,7 +27,7 @@ export class EntityComponent {
     showDevTools: boolean;
   } = environment;
 
-  reportLink: string = '';
+  reportLink = '';
 
   constructor (
     private route: ActivatedRoute,
