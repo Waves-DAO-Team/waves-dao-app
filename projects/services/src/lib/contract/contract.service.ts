@@ -40,7 +40,7 @@ export class ContractService {
     switchMap((url) => {
       return this.http.get<Observable<ContractRawData>>(url.href, {
         headers: { accept: 'application/json; charset=utf-8' }
-      }).pipe(repeatWhen(() => { return this.contractRefresh$ }))
+      }).pipe(repeatWhen(() => this.contractRefresh$))
     }),
     map((data: ContractRawData) => {
       return this.prepareData(data)
