@@ -272,7 +272,7 @@
         <li *ngFor="let app of grant.app">
           <div class="info">
             <div class="name">{{app?.name?.value}}</div>
-            <div class="id">{{app.id.value}}</div>
+            <div class="id">{{app?.id?.value}}</div>
             <div class="link">{{app?.link?.value}}</div>
           </div>
           <div class="controls">
@@ -281,9 +281,16 @@
               {{'entity.already_voted' | transloco}}
             </div>
             <div
-              *ngIf="!(app?.voted?.value.includes(userService.data.getValue().userAddress)) && userService.data.getValue().userAddress">
+              *ngIf="
+              !(app?.voted?.value.includes(userService.data.getValue().userAddress))
+              && userService.data.getValue().userAddress
+              && !userService.data.getValue().userAddress.includes(app?.id?.value)
+              ">
               <img (click)="voteTeam( 'dislike', app.id.value)" src="assets/icons/vote-min.svg">
               <img (click)="voteTeam('like', app.id.value)" src="assets/icons/vote-plus.svg">
+            </div>
+            <div *ngIf="userService.data.getValue().userAddress.includes(app?.id?.value)">
+              {{'entity.this_your_team' | transloco}}
             </div>
           </div>
         </li>

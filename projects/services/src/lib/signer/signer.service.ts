@@ -56,6 +56,7 @@ export class SignerService {
     Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
     const tx = this.signer.invoke({
       payment,
+      // dApp: this.api.contractAddress,
       dApp: this.api.contractAddress,
       call: {
         function: command,

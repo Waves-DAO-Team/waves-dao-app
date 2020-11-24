@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import {
-  map,
+  map, mergeMap,
   publishReplay,
   refCount,
   repeatWhen,
@@ -9,7 +9,7 @@ import {
   tap
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
+import { BehaviorSubject, interval, Observable, of, Subject } from 'rxjs'
 import {
   ContractDataModel, ContractGrantCommonModel, ContractGrantModel,
   ContractGrantRawModel,
@@ -22,37 +22,32 @@ import { SignerService } from '@services/signer/signer.service'
 import { InvokeResponseInterface } from '../../interface'
 import { PopupService } from '@services/popup/popup.service'
 import { AddTextObjInterface } from '@services/popup/popup.interface'
+import { translate } from '@ngneat/transloco'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-  private apiGetAddressData = new URL('/addresses/data/' + this.api.contractAddress, this.api.rest)
+  public apiGetAddressData = new BehaviorSubject(new URL('/addresses/data/' + this.api.contractAddress, this.api.rest))
   private contractRefresh$: Subject<null> = new Subject()
   private averageOperationSpeed = 10000
   public applicants: string[] = []
   // @ts-ignore
-  private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject(
-    {})
+  private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject({})
 
-  private readonly contractState = this.http.get<Observable<ContractRawData>>(this.apiGetAddressData.href, {
-    headers: {
-      accept: 'application/json; charset=utf-8'
-    }
-  }).pipe(
+  private readonly contractState = this.apiGetAddressData.pipe(
     // @ts-ignore
-    repeatWhen(() => this.contractRefresh$),
+    switchMap((url) => {
+      return this.http.get<Observable<ContractRawData>>(url.href, {
+        headers: { accept: 'application/json; charset=utf-8' }
+      }).pipe(repeatWhen(() => { return this.contractRefresh$ }))
+    }),
     map((data: ContractRawData) => {
       return this.prepareData(data)
     }),
     switchMap((data: ContractDataModel) => {
       this.contractState$.next(data)
       return this.contractState$.pipe(takeUntil(this.contractRefresh$))
-    }),
-    tap((data) => {
-      console.log('Origin contract data :: projects/services/src/lib/contract/contract.service.ts: 47\n\n', data)
-
-      // this.defineApplicants(data)
     }),
     publishReplay(1),
     refCount()
@@ -77,12 +72,17 @@ export class ContractService {
     @Inject(API) private readonly api: AppApiInterface,
     private readonly signerService: SignerService,
     private popupService: PopupService
-  ) {
-  }
+  ) {}
 
   refresh () {
     this.contractRefresh$.next(null)
     this.popupService.add('refresh')
+  }
+
+  public switchContract (address: string) {
+    this.apiGetAddressData.next(new URL('/addresses/data/' + address, this.api.rest))
+    this.contractRefresh$.next(null)
+    this.signerService.logout().subscribe((e) => { this.refresh() })
   }
 
   doRefreshTimeOut () {
