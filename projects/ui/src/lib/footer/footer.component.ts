@@ -10,15 +10,13 @@ import { ContractService } from '@services/contract/contract.service'
 })
 export class FooterComponent implements OnInit {
   environment = environment;
+
   ngOnInit (): void {}
   constructor (public contractService: ContractService) {
   }
 
   setEnv (address: string) {
+    environment.apis.contractAddress = address
     this.contractService.switchContract(address)
-  }
-
-  refresh () {
-    this.contractService.refresh()
   }
 }
