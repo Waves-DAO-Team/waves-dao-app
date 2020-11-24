@@ -46,6 +46,7 @@ export class ContractService {
       return this.prepareData(data)
     }),
     switchMap((data: ContractDataModel) => {
+      console.log(data)
       this.contractState$.next(data)
       return this.contractState$.pipe(takeUntil(this.contractRefresh$))
     }),
@@ -304,7 +305,7 @@ export class ContractService {
 
   public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: string) {
     const text = `taskId:${taskId} teamIdentifier:${teamIdentifier} voteValue:${voteValue}`
-    this.popupService.add(text, 'voteForApplicant catch')
+    this.popupService.add(text, '==========================================voteForApplicant')
     this.signerService.invoke('voteForApplicant', [
       { type: 'string', value: taskId },
       { type: 'string', value: teamIdentifier },
@@ -363,9 +364,10 @@ export class ContractService {
       })
   }
 
-  public acceptWorkResult (taskId: string) {
+  public acceptWorkResult (taskId: string, teamIdentifier: string) {
     this.signerService.invoke('acceptWorkResult', [
-      { type: 'string', value: taskId }
+      { type: 'string', value: taskId },
+      { type: 'string', value: teamIdentifier }
     ])
       .catch((res) => {
         this.popupService.add(res, 'acceptWorkResult catch')

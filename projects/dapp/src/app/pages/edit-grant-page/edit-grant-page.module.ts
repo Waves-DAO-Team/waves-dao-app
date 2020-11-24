@@ -9,14 +9,18 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { TranslocoModule } from '@ngneat/transloco'
 import { CreateGrantPageGuard } from '@pages/create-grant-page/create-grant-page.guard'
 import { EditGrantPageGuard } from '@pages/edit-grant-page/edit-grant-page.guard'
-
+import { IConfig, NgxMaskModule } from 'ngx-mask'
+const maskConfig: Partial<IConfig> = {
+  validation: false
+}
 @NgModule({
   declarations: [EditGrantPageComponent],
   imports: [
     CommonModule,
     EditGrantPageRoutingModule,
     ReactiveFormsModule,
-    TranslocoModule
+    TranslocoModule,
+    NgxMaskModule.forRoot(maskConfig)
   ],
   providers: [
     EditGrantPageGuard

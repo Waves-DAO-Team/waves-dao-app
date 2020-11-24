@@ -64,16 +64,11 @@ export class EntityComponent {
     )
   }
 
-  isCanVoteForTeam () {
-    // g status
-    // u role
-  }
-
   startWork () {
     this.contractService.startWork(this.grant.id as string)
   }
 
   acceptWorkResult () {
-    this.contractService.acceptWorkResult(this.grant.id as string)
+    this.contractService.acceptWorkResult(this.grant.id as string, this.userService.data.getValue().userAddress)
   }
 }
