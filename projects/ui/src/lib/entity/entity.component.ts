@@ -27,6 +27,8 @@ export class EntityComponent {
     showDevTools: boolean;
   } = environment;
 
+  reportLink: string = '';
+
   constructor (
     private route: ActivatedRoute,
     public userService: UserService,
@@ -69,6 +71,12 @@ export class EntityComponent {
   }
 
   acceptWorkResult () {
-    this.contractService.acceptWorkResult(this.grant.id as string, this.userService.data.getValue().userAddress)
+    console.log('-----!!!------acceptWorkResult:', this.grant.id as string, this.userService.data.getValue().userAddress, this.reportLink)
+    this.contractService.acceptWorkResult(this.grant.id as string, this.reportLink)
+  }
+
+  reject () {
+    console.log('-----!!!------reject:')
+    this.contractService.rejectTask(this.grant.id as string)
   }
 }

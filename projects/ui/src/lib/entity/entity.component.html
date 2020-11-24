@@ -7,13 +7,8 @@
   </pre>
 
   <!-- proposed -->
-  <div class="card" *ngIf="
-  grant?.status?.value === grantStatusEnum.proposed
-  && (
-    userService.data.getValue().roles.isMaster
-    || userService.data.getValue().userRole == userRoleEnum.workingGroup
-  )
-">
+  <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.proposed
+  && (userService.data.getValue().roles.isMaster || userService.data.getValue().userRole == userRoleEnum.workingGroup)">
     <div class="card__body">
       <div class="btn-container">
         <button
@@ -22,9 +17,7 @@
           *ngIf="userService.data.getValue().roles.isWG">
           {{'entity.edit' | transloco}}
         </button>
-        <button
-          *ngIf="grant?.voted && userService.data.getValue().userRole == userRoleEnum.workingGroup"
-          (click)="finishVote()"
+        <button *ngIf="grant?.voted && userService.data.getValue().userRole == userRoleEnum.workingGroup" (click)="finishVote()"
           class="btn">
           {{'entity.finish_vote' | transloco}}
         </button>
@@ -35,7 +28,9 @@
 
   <!-- readyToApply -->
   <div class="card"
-       *ngIf="grant?.status?.value === grantStatusEnum.readyToApply && (!userService.data.getValue().apply.includes(grant?.id) || userService.data.getValue().userRole == userRoleEnum.unauthorized )">
+       *ngIf="grant?.status?.value === grantStatusEnum.readyToApply
+       && (!userService.data.getValue().apply.includes(grant?.id)
+       || userService.data.getValue().userRole == userRoleEnum.unauthorized )">
     <div class="card__body">
       <div class="btn-container">
         <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
@@ -51,14 +46,14 @@
     </div>
   </div>
   <div class="card"
-       *ngIf="grant?.status?.value === grantStatusEnum.readyToApply && userService.data.getValue().userRole == userRoleEnum.workingGroup ">
+       *ngIf="grant?.status?.value === grantStatusEnum.readyToApply
+       && grant?.app.length > 0
+       && grant?.voted
+       && grant?.vh
+       && userService.data.getValue().userRole == userRoleEnum.workingGroup ">
     <div class="card__body">
       <div class="btn-container">
-        <button
-          (click)="finishApplicantsVote()"
-          class="btn">
-          {{'entity.finish_applicants_voting' | transloco}}
-        </button>
+        <button (click)="finishApplicantsVote()" class="btn">{{'entity.finish_applicants_voting' | transloco}}</button>
       </div>
     </div>
   </div>
@@ -66,14 +61,12 @@
 
   <!-- teamChosen -->
   <div class="card"
-       *ngIf="grant?.status?.value === grantStatusEnum.teamChosen && userService.data.getValue().userRole == userRoleEnum.workingGroup">
+       *ngIf="grant?.status?.value === grantStatusEnum.teamChosen
+       && userService.data.getValue().userRole == userRoleEnum.workingGroup">
     <div class="card__body">
       <div class="btn-container">
-        <button
-          (click)="startWork()"
-          class="btn">
-          {{'entity.start_work' | transloco}}
-        </button>
+        <button (click)="startWork()" *ngIf="userService.data.getValue().userAddress.includes(grant?.performer?.value)" class="btn">{{'entity.start_work' | transloco}}</button>
+        <button class="btn" *ngIf="userService.data.getValue().roles.isWG" (click)="reject()">Reject</button>
       </div>
     </div>
   </div>
@@ -84,10 +77,8 @@
        *ngIf="grant?.status?.value === grantStatusEnum.workStarted && userService.data.getValue().userRole == userRoleEnum.workingGroup">
     <div class="card__body">
       <div class="btn-container">
-        <button
-          (click)="acceptWorkResult()"
-          class="btn">
-          <!--          TODO: add team id-->
+        <input type="text" [(ngModel)]="reportLink" placeholder="report link">
+        <button (click)="acceptWorkResult()" class="btn">
           {{'entity.accept_work_result' | transloco}}
         </button>
       </div>
@@ -257,7 +248,6 @@
               && !userService.data.getValue().userAddress.includes(app?.id?.value)
               ">
                 <!--                     // grant?.status?.value === grantStatusEnum.readyToApply &&-->
-                <!--                TODO: скрыть при не реди ту аплай-->
                 <img (click)="voteTeam( 'dislike', app.id.value)" src="assets/icons/vote-min.svg">
                 <img (click)="voteTeam('like', app.id.value)" src="assets/icons/vote-plus.svg">
               </div>

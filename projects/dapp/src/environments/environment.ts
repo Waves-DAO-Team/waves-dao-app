@@ -33,5 +33,5 @@ export const environment = {
     team: 'team/:entityId'
   },
 
-  showDevTools: false
+  showDevTools: true
 }

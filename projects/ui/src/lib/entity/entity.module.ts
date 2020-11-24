@@ -4,6 +4,7 @@ import { EntityComponent } from './entity.component'
 import { TranslocoModule } from '@ngneat/transloco'
 import { RouterModule } from '@angular/router'
 import { ModalModule } from '@ui/modal/modal.module'
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [EntityComponent],
@@ -11,7 +12,8 @@ import { ModalModule } from '@ui/modal/modal.module'
     CommonModule,
     TranslocoModule,
     RouterModule,
-    ModalModule
+    ModalModule,
+    FormsModule
   ],
   exports: [EntityComponent]
 })

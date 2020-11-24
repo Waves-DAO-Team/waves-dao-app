@@ -364,10 +364,27 @@ export class ContractService {
       })
   }
 
-  public acceptWorkResult (taskId: string, teamIdentifier: string) {
+  public rejectTask (taskId: string) {
+    this.signerService.invoke('rejectTask', [
+      { type: 'string', value: taskId }
+    ])
+      .catch((res) => {
+        this.popupService.add(res, 'rejectTask catch')
+      })
+      .then((res) => {
+        this.popupService.add(JSON.stringify(res), 'rejectTask then')
+      })
+      .finally(() => {
+        this.popupService.add('', 'rejectTask finally')
+        this.doRefreshTimeOut()
+      })
+  }
+
+  public acceptWorkResult (taskId: string, reportLink: string) {
     this.signerService.invoke('acceptWorkResult', [
       { type: 'string', value: taskId },
-      { type: 'string', value: teamIdentifier }
+      // { type: 'string', value: teamIdentifier }
+      { type: 'string', value: reportLink }
     ])
       .catch((res) => {
         this.popupService.add(res, 'acceptWorkResult catch')

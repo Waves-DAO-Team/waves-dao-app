@@ -54,6 +54,7 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   app?: ContractGrantAppModel[]
   id?: ContractRawDataEntityId;
   vh?: ContractGrantRawModel;
+  performer?: ContractRawDataString,
   link?: ContractRawDataEntityId | {
     value: string
   };
