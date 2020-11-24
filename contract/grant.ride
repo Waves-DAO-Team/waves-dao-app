@@ -340,7 +340,6 @@ func finishApplicantsVoting(taskId: String) = {
     if (!(isGroupMember(i.caller))) then {
         throw("grants working group access only")
     } else {
-
         let listKeys = tryGetString("tasks_" + taskId + "_applicants")
         let applicantsList = listKeys.split(";")
 
@@ -393,10 +392,8 @@ func rejectTask(taskId: String) = {
     if (!isGroupMember(i.caller)) then {
         throw("grants working group access only")
     } else {
-        let teamIdentifier = this.getStringValue("tasks_"+taskId+"_performer")
         WriteSet([
-            DataEntry("tasks_"+taskId+"_status", "rejected"),
-            DataEntry("tasks_"+taskId+"_app_"+teamIdentifier+"_process", "rejected")
+            DataEntry("tasks_"+taskId+"_status", "rejected")
         ])
     }
 }
@@ -415,7 +412,7 @@ func acceptWorkResult(taskId: String, reportLink: String) = {
                 DataEntry("tasks_"+taskId+"_status", "work_finished"),
 
                 # Parsed in dAPP to tasks[id].app[teamId].process -> string
-                DataEntry("tasks_"+taskId+"_app_"+teamIdentifier+"_process", "work_finished")
+                DataEntry("tasks_"+taskId+"_app_"+teamIdentifier+"_process", "work_finished"),
 
                 # report is created by Working Group and stored into SC
                 DataEntry("tasks_"+taskId+"_app_"+teamIdentifier+"_report", reportLink)
