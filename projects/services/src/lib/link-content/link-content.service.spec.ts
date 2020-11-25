@@ -1,13 +1,13 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { LinkContentService } from './link-content.service';
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {RouterTestingModule} from "@angular/router/testing";
-import {provideApi, provideAppConstants} from "@constants";
-import {TeamService} from "@services/team/team.service";
+import { LinkContentService } from './link-content.service'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { RouterTestingModule } from '@angular/router/testing'
+import { provideApi, provideAppConstants } from '@constants'
+import { TeamService } from '@services/team/team.service'
 
 describe('LinkContentService', () => {
-  let service: LinkContentService;
+  let service: LinkContentService
 
   beforeEach(() => {
     // TestBed.configureTestingModule({});
@@ -21,9 +21,9 @@ describe('LinkContentService', () => {
       ]
     })
     service = TestBed.inject(LinkContentService)
-  });
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})

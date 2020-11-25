@@ -11,14 +11,14 @@ import { ContractService } from '@services/contract/contract.service'
 import { ActivatedRoute } from '@angular/router'
 import { tap } from 'rxjs/operators'
 import { environment } from '../../../../dapp/src/environments/environment'
-import {LinkContentService} from "@services/link-content/link-content.service";
+import { LinkContentService } from '@services/link-content/link-content.service'
 
 @Component({
   selector: 'ui-entity',
   templateUrl: './entity.component.html',
   styleUrls: ['./entity.component.scss']
 })
-export class EntityComponent implements OnInit{
+export class EntityComponent implements OnInit {
   @Input() public readonly grant: ContractGrantModel = {}
   grantStatusEnum = GrantStatusEnum
   userRoleEnum = RoleEnum
@@ -39,10 +39,10 @@ export class EntityComponent implements OnInit{
     public linkContentService: LinkContentService
   ) {
   }
+
   markdown = ''
 
-  ngOnInit(): void {
-
+  ngOnInit (): void {
     this.markdown = `## Markdown __rulez__!
 ---
 
@@ -58,11 +58,11 @@ const language = 'typescript';
   - Another unordered bullet point
 
 ### Blockquote
-> Blockquote to the max`;
-      if (this.grant?.link?.value) {
-        this.linkContentService.init(this.grant.link.value)
-      }
+> Blockquote to the max`
+    if (this.grant?.link?.value) {
+      this.linkContentService.init(this.grant.link.value)
     }
+  }
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''

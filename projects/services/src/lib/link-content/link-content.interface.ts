@@ -1,4 +1,6 @@
+/* eslint-disable camelcase */
 
+// @ts-ignore
 export interface MainResponseInterface {
   name: string,
   path: string,
@@ -15,6 +17,8 @@ export interface MainResponseInterface {
     html: string
   }
 }
+
+// @ts-ignore
 export interface ReposResponseInterface {
   url: string,
   repository_url: string,
@@ -75,7 +79,7 @@ export interface ReposResponseInterface {
     organizations_url: string,
     repos_url: string,
     events_url: string,
-    received_events_url:string,
+    received_events_url: string,
     type: string,
     site_admin: boolean
   },
@@ -113,25 +117,27 @@ export interface ReposResponseInterface {
   performed_via_github_app: null
 }
 
+// @ts-ignore
 export interface ReposMainResponseInterface {
-  "name": string,
-  "path": string,
-  "sha": string,
-  "size": number,
-  "url": string,
-  "html_url": string,
-  "git_url": string,
-  "download_url": string,
-  "type": string,
-  "content": string,
-  "encoding": string,
-  "_links": {
-    "self": string,
-    "git": string,
-    "html": string
+  'name': string,
+  'path': string,
+  'sha': string,
+  'size': number,
+  'url': string,
+  'html_url': string,
+  'git_url': string,
+  'download_url': string,
+  'type': string,
+  'content': string,
+  'encoding': string,
+  '_links': {
+    'self': string,
+    'git': string,
+    'html': string
   }
 }
 
+// @ts-ignore
 export interface LinkContentDataInterface {
   isGitHub: boolean,
   isGitHubIssues: boolean,

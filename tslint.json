@@ -1,6 +1,7 @@
 {
   "extends": "tslint:recommended",
   "rules": {
+    "camelcase": [2, {"properties": "always"}],
     "align": {
       "options": [
         "parameters",
@@ -19,8 +20,7 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
-      "camelCase"
+      "app"
     ],
     "component-selector": [
       true,
