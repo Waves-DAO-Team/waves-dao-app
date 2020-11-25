@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import {PopupService} from "@services/popup/popup.service";
-import {LinkContentDataInterface, ReposResponseInterface} from "@services/link-content/link-content.interface";
+import {
+  LinkContentDataInterface, MainResponseInterface,
+  ReposMainResponseInterface,
+  ReposResponseInterface
+} from "@services/link-content/link-content.interface";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {ContractRawData} from "@services/contract/contract.model";
 import {HttpClient} from "@angular/common/http";
@@ -19,7 +23,9 @@ export class LinkContentService {
     apiUrl: "",
     url: null,
     isGitHub: false,
-    isGitHubIssues: false
+    isGitHubIssues: false,
+    isGitHubMain: false,
+    responseMani: null
   }
 
   constructor(private popupService: PopupService, private readonly http: HttpClient) {
@@ -44,13 +50,20 @@ export class LinkContentService {
     this.data.isGitHub = url.includes('github.com')
     if(this.data.isGitHub) {
       this.data.isGitHubIssues = pathname.toLowerCase().includes('issues')
-      if(this.data.isGitHubIssues && this.data.url?.pathname) {
+      if(this.data.isGitHubIssues) {
+        console.log('----isGitHubIssues')
         this.data.apiUrl = `https://api.github.com/repos${this.data.url?.pathname}`
-        this.http.get<ReposResponseInterface>(this.data.apiUrl, {
-          headers: { accept: 'application/json; charset=utf-8' }
-        }).subscribe((e: ReposResponseInterface)=>{
+        this.http.get<ReposResponseInterface>(this.data.apiUrl).subscribe((e: ReposResponseInterface)=>{
           this.data.response = e
           this.bodyMd.next(e.body)
+        })
+      } else {
+        console.log('----main')
+        this.data.apiUrl = `https://api.github.com/repos${this.data.url?.pathname}/contents/README.md`
+        this.http.get<MainResponseInterface>(this.data.apiUrl)
+          .subscribe((e: MainResponseInterface)=>{
+            this.data.response = e
+            this.bodyMd.next(atob(e.content))
         })
       }
     }
@@ -62,7 +75,9 @@ export class LinkContentService {
       apiUrl: "",
       url: null,
       isGitHub: false,
-      isGitHubIssues: false
+      isGitHubIssues: false,
+      isGitHubMain: false,
+      responseMani: null
     }
   }
 
