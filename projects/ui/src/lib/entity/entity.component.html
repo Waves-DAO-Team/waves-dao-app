@@ -110,6 +110,9 @@
     <div class="card__body">
       {{'entity.link' | transloco}}:
       <a [href]="grant?.link?.value" *ngIf="grant?.link?.value">{{grant?.link?.value}}</a>
+      <pre *ngIf="linkContentService.bodyMd">
+        {{linkContentService.bodyMd | async }}
+      </pre>
       <span *ngIf="!grant.link">{{'entity.empty_link' | transloco}}</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>

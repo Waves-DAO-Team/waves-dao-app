@@ -11,13 +11,14 @@ import { ContractService } from '@services/contract/contract.service'
 import { ActivatedRoute } from '@angular/router'
 import { tap } from 'rxjs/operators'
 import { environment } from '../../../../dapp/src/environments/environment'
+import {LinkContentService} from "@services/link-content/link-content.service";
 
 @Component({
   selector: 'ui-entity',
   templateUrl: './entity.component.html',
   styleUrls: ['./entity.component.scss']
 })
-export class EntityComponent {
+export class EntityComponent implements OnInit{
   @Input() public readonly grant: ContractGrantModel = {}
   grantStatusEnum = GrantStatusEnum
   userRoleEnum = RoleEnum
@@ -34,9 +35,18 @@ export class EntityComponent {
     public userService: UserService,
     private signerService: SignerService,
     private snackBar: MatSnackBar,
-    public contractService: ContractService
+    public contractService: ContractService,
+    public linkContentService: LinkContentService
   ) {
   }
+
+  ngOnInit(): void {
+
+
+      if (this.grant?.link?.value) {
+        this.linkContentService.init(this.grant.link.value)
+      }
+    }
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
