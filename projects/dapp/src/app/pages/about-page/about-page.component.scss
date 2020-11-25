@@ -1,4 +1,5 @@
-@import 'variables';
+@import 'const';
+@import 'mixins/elements/icon-logo';
 
 .logo {
   margin-bottom: $padding;
