@@ -20,6 +20,7 @@ import { NgProgressHttpModule } from 'ngx-progressbar/http'
 import { provideApi, provideAppConstants } from './app.providers'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import {MarkdownModule} from "ngx-markdown";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     ModalModule,
     FooterModule,
     PipesModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MarkdownModule.forRoot(),
   ],
   providers: [
     WINDOW_PROVIDERS,

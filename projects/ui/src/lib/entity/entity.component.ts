@@ -11,13 +11,14 @@ import { ContractService } from '@services/contract/contract.service'
 import { ActivatedRoute } from '@angular/router'
 import { tap } from 'rxjs/operators'
 import { environment } from '../../../../dapp/src/environments/environment'
+import {LinkContentService} from "@services/link-content/link-content.service";
 
 @Component({
   selector: 'ui-entity',
   templateUrl: './entity.component.html',
   styleUrls: ['./entity.component.scss']
 })
-export class EntityComponent {
+export class EntityComponent implements OnInit{
   @Input() public readonly grant: ContractGrantModel = {}
   grantStatusEnum = GrantStatusEnum
   userRoleEnum = RoleEnum
@@ -27,14 +28,41 @@ export class EntityComponent {
     showDevTools: boolean;
   } = environment;
 
+  reportLink = '';
+
   constructor (
     private route: ActivatedRoute,
     public userService: UserService,
     private signerService: SignerService,
     private snackBar: MatSnackBar,
-    public contractService: ContractService
+    public contractService: ContractService,
+    public linkContentService: LinkContentService
   ) {
   }
+  markdown = ''
+
+  ngOnInit(): void {
+
+    this.markdown = `## Markdown __rulez__!
+---
+
+### Syntax highlight
+\`\`\`typescript
+const language = 'typescript';
+\`\`\`
+
+### Lists
+1. Ordered list
+2. Another bullet point
+  - Unordered list
+  - Another unordered bullet point
+
+### Blockquote
+> Blockquote to the max`;
+      if (this.grant?.link?.value) {
+        this.linkContentService.init(this.grant.link.value)
+      }
+    }
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
@@ -64,16 +92,17 @@ export class EntityComponent {
     )
   }
 
-  isCanVoteForTeam () {
-    // g status
-    // u role
-  }
-
   startWork () {
     this.contractService.startWork(this.grant.id as string)
   }
 
   acceptWorkResult () {
-    this.contractService.acceptWorkResult(this.grant.id as string)
+    console.log('-----!!!------acceptWorkResult:', this.grant.id as string, this.userService.data.getValue().userAddress, this.reportLink)
+    this.contractService.acceptWorkResult(this.grant.id as string, this.reportLink)
+  }
+
+  reject () {
+    console.log('-----!!!------reject:')
+    this.contractService.rejectTask(this.grant.id as string)
   }
 }

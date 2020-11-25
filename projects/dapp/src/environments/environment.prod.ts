@@ -7,7 +7,12 @@ export const environment = {
     rest: 'https://nodes-testnet.wavesnodes.com',
     // contractAddress: '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5'
     // contractAddress: '3MtDV965HUsLhFcW1wA36qX5tNSa52nfnq5'
-    contractAddress: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA'
+    contractAddress: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
+    contracts: [
+      '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
+      '3MtDV965HUsLhFcW1wA36qX5tNSa52nfnq5',
+      '3N1eyWNffhxPCmYBWBdnWbhmAVAVjkTEqY5'
+    ]
   },
 
   // Routing constants on page

@@ -49,6 +49,7 @@
     "link": "Link",
     "empty_link": "link empty",
     "already_voted": "you have already voted for this team",
+    "this_your_team": "this is your team",
     "no_applied_teams": "no teams have applied for this grant",
     "DAO": {
       "vote": {

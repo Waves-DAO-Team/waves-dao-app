@@ -19,7 +19,6 @@ export class TagComponent implements OnInit {
   }
 
   select (tag: string): void {
-    console.log(tag, this.lastTag, tag === this.lastTag)
     if (this.lastTag === tag) {
       this.lastTag = ''
       this.selectedTag.emit('')

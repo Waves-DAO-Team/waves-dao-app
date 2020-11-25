@@ -50,12 +50,14 @@ export interface ContractGrantRawModel extends ContractGrantCommonModel {
   app?: {[s: string]: ContractGrantAppModel}
 }
 
+
+
 export interface ContractGrantModel extends ContractGrantCommonModel {
   app?: ContractGrantAppModel[]
   id?: ContractRawDataEntityId;
-  link?: ContractRawDataEntityId | {
-    value: string
-  };
+  vh?: ContractGrantRawModel;
+  performer?: ContractRawDataString,
+  link?: ContractRawDataString;
 }
 
 export interface ContractDataModel {

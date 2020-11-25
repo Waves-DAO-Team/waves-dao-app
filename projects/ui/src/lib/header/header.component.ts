@@ -56,7 +56,6 @@ export class HeaderComponent implements OnInit {
       this.contractService.refresh()
     }, (error) => {
       console.log('logoutHandler error', error)
-
       this.snackBar.open(error, translate('messages.ok'))
     })
     console.log('-------------------------------', 'logoutHandler')
