@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import {PopupService} from "@services/popup/popup.service";
 import {
   LinkContentDataInterface, MainResponseInterface,
-  ReposMainResponseInterface,
   ReposResponseInterface
 } from "@services/link-content/link-content.interface";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {ContractRawData} from "@services/contract/contract.model";
+import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -14,10 +12,9 @@ import {HttpClient} from "@angular/common/http";
 })
 export class LinkContentService {
 
-  // bodyMd = new BehaviorSubject<string | null>(null)
   bodyMd = new Subject()
   lastUr = ''
-
+  gitHubRawMdUrl = ''
   data: LinkContentDataInterface =  {
     response: null,
     apiUrl: "",
@@ -25,15 +22,12 @@ export class LinkContentService {
     isGitHub: false,
     isGitHubIssues: false,
     isGitHubMain: false,
-    responseMani: null
+    responseMani: null,
+    urlRawMd: ""
   }
 
   constructor(private popupService: PopupService, private readonly http: HttpClient) {
     this.bodyMd.subscribe()
-    // this.http.post('https://raw.githubusercontent.com/Waves-Association/grants-program/main/README.md', {})
-    //   .subscribe((r)=>{
-    //   console.log('raw', r)
-    // })
   }
 
   public init(url: string): void {
@@ -41,8 +35,13 @@ export class LinkContentService {
       if(this.validURL(url)) {
         this.reset()
         this.data.url = new URL(url)
-        this.parseGitHub(this.data.url.host, this.data.url.pathname)
-        console.log('LinkContentService init(url)', this.data)
+        // // this.parseGitHub(this.data.url.host, this.data.url.pathname)
+        // console.log('LinkContentService init(url)', this.data)
+        if (this.isGitHubRawMd(url)) {
+          this.gitHubRawMdUrl = url
+        } else if(this.isGitHub(url)){
+          this.getBodyMd(url)
+        }
       } else {
         this.popupService.add('url is not valid', 'LinkContentService init')
       }
@@ -50,32 +49,35 @@ export class LinkContentService {
     }
   }
 
-  private parseGitHub(url: string, pathname: string): void {
-    this.data.isGitHub = url.includes('github.com')
-    if(this.data.isGitHub) {
-      this.data.isGitHubIssues = pathname.toLowerCase().includes('issues')
-      if(this.data.isGitHubIssues) {
-        console.log('----isGitHubIssues')
-        this.data.apiUrl = `https://api.github.com/repos${this.data.url?.pathname}`
-        this.http.get<ReposResponseInterface>(this.data.apiUrl).subscribe((e: ReposResponseInterface)=>{
-          this.data.response = e
-          this.bodyMd.next(e.body)
-        })
-      } else {
+  private isGitHubRawMd (url: string): boolean {
+    return url.includes('githubusercontent') && url.includes('raw')
+  }
+  private isGitHub (url: string): boolean {
+    return url.includes('github.com')
+  }
 
-        this.data.apiUrl = `https://api.github.com/repos${this.data.url?.pathname}/contents/README.md`
-        console.log('----main', this.data.apiUrl)
-        this.http.get<MainResponseInterface>(this.data.apiUrl)
-          .subscribe((e: MainResponseInterface)=>{
-            this.data.response = e
-            this.bodyMd.next(atob(e.content))
-            console.log(atob(e.content))
+  getBodyMd(url: string) {
+    let urlObj = new URL(url)
+    if(urlObj.pathname.split('/').length === 3 && this.isGitHubRawMd(url)) {
+      this.gitHubRawMdUrl = `https://raw.githubusercontent.com${urlObj.pathname}/master/README.md`
+    } else if (urlObj.pathname.split('/').length === 5 && urlObj.pathname.toLowerCase().includes('issues')) {
+      this.data.apiUrl = `https://api.github.com/repos${this.data.url?.pathname}`
+      this.http.get<ReposResponseInterface>(this.data.apiUrl).subscribe((e: ReposResponseInterface)=>{
+        this.data.response = e
+        this.bodyMd.next(e.body)
+      })
+    } else if(urlObj.pathname.split('/').length === 3) {
+      this.data.apiUrl = `https://api.github.com/repos${this.data.url?.pathname}/contents/README.md`
+      this.http.get<MainResponseInterface>(this.data.apiUrl)
+        .subscribe((e: MainResponseInterface)=>{
+          this.data.response = e
+          this.bodyMd.next(atob(e.content))
         })
-      }
     }
   }
 
   private reset() {
+    this.gitHubRawMdUrl = ''
     this.data = {
       response: null,
       apiUrl: "",
@@ -83,7 +85,8 @@ export class LinkContentService {
       isGitHub: false,
       isGitHubIssues: false,
       isGitHubMain: false,
-      responseMani: null
+      responseMani: null,
+      urlRawMd: "",
     }
   }
 

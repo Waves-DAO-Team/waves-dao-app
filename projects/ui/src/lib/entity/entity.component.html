@@ -1,12 +1,10 @@
 <div class="entity">
   <!-- controls ------------------------------------------------------------------------------------------------------->
-<!--  <markdown emoji>I :heart: ngx-markdown</markdown>-->
-  <markdown emoji>I :heart: ngx-markdown</markdown>
-  <markdown emoji>I :arrow_right: ngx-markdown</markdown>
-  <markdown src="https://github.com/dimpu/ngx-md/blob/master/README.md"></markdown>
+
   <pre *ngIf="environment.showDevTools">
     {{ grant?.voted ? "voted" : "no voted" }}
     {{ (grant?.status?.value || 'no_status') | json }}
+    linkContentService.data.urlRawMd: {{linkContentService.gitHubRawMdUrl}}
   </pre>
 
   <!-- proposed -->
@@ -113,7 +111,8 @@
     <div class="card__body">
       {{'entity.link' | transloco}}:
       <a [href]="grant?.link?.value" *ngIf="grant?.link?.value">{{grant?.link?.value}}</a>
-      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
+      <markdown [data]="linkContentService?.bodyMd | async"></markdown>
+      <markdown [src]="linkContentService.gitHubRawMdUrl"></markdown>
       <span *ngIf="!grant.link">{{'entity.empty_link' | transloco}}</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
@@ -142,7 +141,8 @@
     </div>
     <div class="card__body">
       {{'entity.link' | transloco}}:
-      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
+<!--      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>-->
+      <markdown [src]="linkContentService.gitHubRawMdUrl"></markdown>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>
@@ -169,7 +169,8 @@
     </div>
     <div class="card__body">
       {{'entity.link' | transloco}}:
-      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
+<!--      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>-->
+      <markdown [src]="linkContentService.gitHubRawMdUrl"></markdown>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>
@@ -196,7 +197,9 @@
     </div>
     <div class="card__body">
       {{'entity.link' | transloco}}:
-      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
+<!--      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>-->
+<!--      <markdown [src]="linkContentService.data.urlRawMd"></markdown>-->
+      <markdown [src]="linkContentService.gitHubRawMdUrl"></markdown>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>
@@ -223,7 +226,8 @@
     </div>
     <div class="card__body">
       {{'entity.link' | transloco}}:
-      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
+<!--      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>-->
+      <markdown [src]="linkContentService.gitHubRawMdUrl"></markdown>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>

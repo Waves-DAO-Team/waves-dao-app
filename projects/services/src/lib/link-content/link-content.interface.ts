@@ -137,7 +137,8 @@ export interface LinkContentDataInterface {
   isGitHubIssues: boolean,
   isGitHubMain: boolean,
   url: URL | null,
+  urlRawMd: string,
   apiUrl: string,
   response: ReposResponseInterface | MainResponseInterface | null
-  responseMani: ReposMainResponseInterface | null
+  responseMani: ReposMainResponseInterface | null,
 }
