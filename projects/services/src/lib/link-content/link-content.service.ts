@@ -30,6 +30,10 @@ export class LinkContentService {
 
   constructor(private popupService: PopupService, private readonly http: HttpClient) {
     this.bodyMd.subscribe()
+    // this.http.post('https://raw.githubusercontent.com/Waves-Association/grants-program/main/README.md', {})
+    //   .subscribe((r)=>{
+    //   console.log('raw', r)
+    // })
   }
 
   public init(url: string): void {
@@ -58,12 +62,14 @@ export class LinkContentService {
           this.bodyMd.next(e.body)
         })
       } else {
-        console.log('----main')
+
         this.data.apiUrl = `https://api.github.com/repos${this.data.url?.pathname}/contents/README.md`
+        console.log('----main', this.data.apiUrl)
         this.http.get<MainResponseInterface>(this.data.apiUrl)
           .subscribe((e: MainResponseInterface)=>{
             this.data.response = e
             this.bodyMd.next(atob(e.content))
+            console.log(atob(e.content))
         })
       }
     }

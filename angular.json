@@ -172,7 +172,7 @@
             "styles": [
               "resources/styles/index.scss"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/emoji-toolkit/lib/js/joypixels.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"
@@ -253,7 +253,7 @@
             "styles": [
               "resources/styles/index.scss"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/emoji-toolkit/lib/js/joypixels.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"
