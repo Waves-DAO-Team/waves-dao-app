@@ -8,7 +8,6 @@ import { UserService } from '@services/user/user.service'
 @Component({
   selector: 'app-entity-page',
   templateUrl: './entity-page.component.html',
-  styleUrls: ['./entity-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: ENTITY_PAGE_PROVIDERS
 })

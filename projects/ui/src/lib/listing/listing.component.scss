@@ -1,5 +1,5 @@
-@import 'variables';
+@import 'const';
 
 h1 {
-  padding-bottom: 14px;
+  padding-bottom: $padding;
 }
