@@ -39,10 +39,26 @@ export class EntityComponent implements OnInit{
     public linkContentService: LinkContentService
   ) {
   }
+  markdown = ''
 
   ngOnInit(): void {
 
+    this.markdown = `## Markdown __rulez__!
+---
 
+### Syntax highlight
+\`\`\`typescript
+const language = 'typescript';
+\`\`\`
+
+### Lists
+1. Ordered list
+2. Another bullet point
+  - Unordered list
+  - Another unordered bullet point
+
+### Blockquote
+> Blockquote to the max`;
       if (this.grant?.link?.value) {
         this.linkContentService.init(this.grant.link.value)
       }

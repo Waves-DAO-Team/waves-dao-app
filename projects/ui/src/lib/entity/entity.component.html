@@ -1,5 +1,6 @@
 <div class="entity">
   <!-- controls ------------------------------------------------------------------------------------------------------->
+<!--  <markdown emoji>I :heart: ngx-markdown</markdown>-->
 
   <pre *ngIf="environment.showDevTools">
     {{ grant?.voted ? "voted" : "no voted" }}
@@ -110,9 +111,7 @@
     <div class="card__body">
       {{'entity.link' | transloco}}:
       <a [href]="grant?.link?.value" *ngIf="grant?.link?.value">{{grant?.link?.value}}</a>
-      <pre *ngIf="linkContentService.bodyMd">
-        {{linkContentService.bodyMd | async }}
-      </pre>
+      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
       <span *ngIf="!grant.link">{{'entity.empty_link' | transloco}}</span>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
@@ -140,8 +139,8 @@
       </div>
     </div>
     <div class="card__body">
-
-      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      {{'entity.link' | transloco}}:
+      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>
@@ -167,7 +166,8 @@
       </div>
     </div>
     <div class="card__body">
-      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      {{'entity.link' | transloco}}:
+      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>
@@ -193,7 +193,8 @@
       </div>
     </div>
     <div class="card__body">
-      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      {{'entity.link' | transloco}}:
+      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>
@@ -219,7 +220,8 @@
       </div>
     </div>
     <div class="card__body">
-      link: <a [href]="grant.link" *ngIf="grant.link">LINK</a> <span *ngIf="!grant.link">link empty</span>
+      {{'entity.link' | transloco}}:
+      <markdown  [data]="linkContentService?.bodyMd | async"></markdown>
       <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
     </div>
   </div>

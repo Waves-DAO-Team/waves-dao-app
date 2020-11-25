@@ -5,6 +5,7 @@ import { TranslocoModule } from '@ngneat/transloco'
 import { RouterModule } from '@angular/router'
 import { ModalModule } from '@ui/modal/modal.module'
 import { FormsModule } from '@angular/forms'
+import {MarkdownModule} from "ngx-markdown";
 
 @NgModule({
   declarations: [EntityComponent],
@@ -13,7 +14,9 @@ import { FormsModule } from '@angular/forms'
     TranslocoModule,
     RouterModule,
     ModalModule,
-    FormsModule
+    FormsModule,
+    MarkdownModule,
+
   ],
   exports: [EntityComponent]
 })

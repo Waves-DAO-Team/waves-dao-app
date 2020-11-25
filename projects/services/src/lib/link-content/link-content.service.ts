@@ -10,6 +10,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class LinkContentService {
 
+  // bodyMd = new BehaviorSubject<string | null>(null)
   bodyMd = new Subject()
   lastUr = ''
 
@@ -21,7 +22,9 @@ export class LinkContentService {
     isGitHubIssues: false
   }
 
-  constructor(private popupService: PopupService, private readonly http: HttpClient) { }
+  constructor(private popupService: PopupService, private readonly http: HttpClient) {
+    this.bodyMd.subscribe()
+  }
 
   public init(url: string): void {
     if(this.lastUr != url){
