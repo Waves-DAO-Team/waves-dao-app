@@ -11,7 +11,7 @@
     font-size: $font_size_h4;
     color: $color_dark_gray;
     max-width: 720px;
-    margin-bottom: $padding;
+    margin-bottom: $padding * 2;
     span {
       color: $color_black;
       font-weight: bold;
@@ -80,9 +80,23 @@
         }
       }
     }
-    margin-bottom: $padding;
+    margin-bottom: $padding * 3;
+  }
+  .content {
+    display: flex;
+    ui-tag {
+      flex: 1;
+      //padding-right: $padding / 2;
+    }
+    .listing-list {
+      //padding-left: $padding / 4;
+      flex: 2;
+      margin-left: $padding/ 2;
+    }
   }
 }
+
+
 
 @include media('<=tablet') {
   .listing {
@@ -93,6 +107,15 @@
         &:last-child{
           margin: 0;
         }
+      }
+    }
+    .content {
+      flex-direction: column;
+      ui-tag {
+        margin: 0 0 $padding * 3 0;
+      }
+      .listing-list {
+
       }
     }
   }
