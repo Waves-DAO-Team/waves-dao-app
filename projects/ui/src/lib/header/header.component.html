@@ -1,45 +1,73 @@
 
-<header class="container header">
+<!--<header class="container header">-->
 
-  <div class="header__back" (click)="goBack()" *ngIf="!(this.router.url == '/')">
-    <img src="assets/icons/back.svg">
-  </div>
-  <div class="header__urls">
+<!--  <div class="header__back" (click)="goBack()" *ngIf="!(this.router.url == '/')">-->
+<!--    <img src="assets/icons/back.svg">-->
+<!--  </div>-->
+<!--  <div class="header__urls">-->
 
-    <!-- routes for everyone ------------------------------------------------------------------------------------------>
-    <a [routerLink]="['/']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
-      {{ 'app.header.home' | transloco }}
-    </a>
-    <a [routerLink]="constants.routes.about | route" routerLinkActive="active">
-      {{ 'app.header.about' | transloco }}
-    </a>
-    <!-- routes for everyone ------------------------------------------------------------------------------------------>
+<!--    &lt;!&ndash; routes for everyone &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <a [routerLink]="['/']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">-->
+<!--      {{ 'app.header.home' | transloco }}-->
+<!--    </a>-->
+<!--    <a [routerLink]="constants.routes.about | route" routerLinkActive="active">-->
+<!--      {{ 'app.header.about' | transloco }}-->
+<!--    </a>-->
+<!--    &lt;!&ndash; routes for everyone &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
 
-    <!-- role routes -------------------------------------------------------------------------------------------------->
-    <a [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
-      {{ 'app.header.createGrant' | transloco }}
-    </a>
-    <a [routerLink]="[routingPath.masterSetting]" routerLinkActive="active" *ngIf="userRole === RoleEnum.master">
-      {{ 'app.header.setting' | transloco }}
-    </a>
-    <div (click)="signupHandler()" routerLinkActive="active" *ngIf="userRole === RoleEnum.unauthorized">
-      {{ 'app.header.signup' | transloco }}
+<!--    &lt;!&ndash; role routes &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <a [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">-->
+<!--      {{ 'app.header.createGrant' | transloco }}-->
+<!--    </a>-->
+<!--    <a [routerLink]="[routingPath.masterSetting]" routerLinkActive="active" *ngIf="userRole === RoleEnum.master">-->
+<!--      {{ 'app.header.setting' | transloco }}-->
+<!--    </a>-->
+<!--    <div (click)="signupHandler()" routerLinkActive="active" *ngIf="userRole === RoleEnum.unauthorized">-->
+<!--      {{ 'app.header.signup' | transloco }}-->
+<!--    </div>-->
+<!--    &lt;!&ndash; role routes &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <div (click)="logoutHandler()" routerLinkActive="active"  *ngIf="(user$ | async)?.name">-->
+<!--      {{ 'app.header.logout' | transloco }}-->
+<!--    </div>-->
+
+<!--    <div class="header__profile" *ngIf="(user$ | async)?.name">-->
+<!--      &lt;!&ndash;      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>&ndash;&gt;-->
+<!--      (-->
+<!--      {{userService.data.getValue().roles.isDAO ? 'DAO' : ''}}-->
+<!--      {{userService.data.getValue().roles.isWG ? 'WG' : ''}}-->
+<!--      {{userService.data.getValue().roles.isMaster ? 'Master' : ''}}-->
+<!--      {{userService.data.getValue().roles.isAuth ? 'Auth' : ''}}-->
+<!--      ){{(user$ | async)?.name}}-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</header>-->
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <img src="assets/icons/logo.png">
     </div>
-    <!-- role routes -------------------------------------------------------------------------------------------------->
-    <div (click)="logoutHandler()" routerLinkActive="active"  *ngIf="(user$ | async)?.name">
-      {{ 'app.header.logout' | transloco }}
-    </div>
-
-    <div class="header__profile" *ngIf="(user$ | async)?.name">
-      <!--      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>-->
-      (
-      {{userService.data.getValue().roles.isDAO ? 'DAO' : ''}}
-      {{userService.data.getValue().roles.isWG ? 'WG' : ''}}
-      {{userService.data.getValue().roles.isMaster ? 'Master' : ''}}
-      {{userService.data.getValue().roles.isAuth ? 'Auth' : ''}}
-      ){{(user$ | async)?.name}}
-    </div>
-
+    <ul class="nav">
+      <li [routerLink]="['/']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
+        {{ 'app.header.home' | transloco }}
+      </li>
+      <li [routerLink]="constants.routes.about | route" routerLinkActive="active">
+        {{ 'app.header.about' | transloco }}
+      </li>
+      <li>
+        <button (click)="signupHandler()" routerLinkActive="active" *ngIf="userRole === RoleEnum.unauthorized">
+          {{ 'app.header.login' | transloco }}
+          <img src="assets/icons/arr-right.svg">
+        </button>
+        <button (click)="logoutHandler()" routerLinkActive="active" *ngIf="(user$ | async)?.name">
+          {{ 'app.header.logout' | transloco }}
+          <img src="assets/icons/arr-right.svg">
+        </button>
+      </li>
+    </ul>
   </div>
 </header>
+
+<hr>
 

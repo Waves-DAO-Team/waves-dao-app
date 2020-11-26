@@ -8,6 +8,7 @@
       "create": "Create",
       "stylesheet": "Stylesheet",
       "signup": "Signup",
+      "login": "Log in",
       "logout": "Logout",
       "createGrant": "Create grant"
     },
