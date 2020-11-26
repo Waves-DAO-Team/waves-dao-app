@@ -25,7 +25,6 @@ export class LinkContentService {
     // @ts-ignore
     filter((url: string | null) => url != null),
     map((url: string) => {
-      console.log('md$-------------------------3')
       return {
         isGH: url.includes('github.com'),
         isIssues: url.includes('issues'),
