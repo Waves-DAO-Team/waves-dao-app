@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: CreateGrantPageComponent,
     pathMatch: 'full',
-    // canActivate: [CreateGrantPageGuard],
+    canActivate: [CreateGrantPageGuard],
     data: {}
   }
 ]
