@@ -17,6 +17,8 @@ import { TeamService } from '@services/team/team.service'
   providers: GRANTS_PROVIDERS
 })
 export class ListingComponent implements OnInit {
+
+  grantsVariationActive = '1'
   RoleEnum = RoleEnum
   GrantStatusEnum = GrantStatusEnum
   selectedTagName = ''

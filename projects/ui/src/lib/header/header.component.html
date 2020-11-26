@@ -55,6 +55,12 @@
       <li [routerLink]="constants.routes.about | route" routerLinkActive="active">
         {{ 'app.header.about' | transloco }}
       </li>
+      <li [routerLink]="[routingPath.masterSetting]" *ngIf="userRole === RoleEnum.master" routerLinkActive="active">
+        {{ 'app.header.setting' | transloco }}
+      </li>
+      <li [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
+        {{ 'app.header.createGrant' | transloco }}
+      </li>
       <li>
         <button (click)="signupHandler()" routerLinkActive="active" *ngIf="userRole === RoleEnum.unauthorized">
           {{ 'app.header.login' | transloco }}
@@ -70,4 +76,3 @@
 </header>
 
 <hr>
-
