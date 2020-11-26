@@ -42,7 +42,8 @@ import { MarkdownModule } from 'ngx-markdown'
     FooterModule,
     PipesModule,
     MatSnackBarModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+
   ],
   providers: [
     WINDOW_PROVIDERS,

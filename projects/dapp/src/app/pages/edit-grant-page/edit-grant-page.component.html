@@ -6,7 +6,7 @@
     </label>
     <label>
       {{'create_grant.form.reward.label' | transloco}}:
-      <input type="text" mask="0 0000.0000" formControlName="reward" [placeholder]="'create_grant.form.reward.placeholder' | transloco">
+      <input rewardDirective formControlName="reward" [placeholder]="'create_grant.form.reward.placeholder' | transloco">
     </label>
     <div class="btn-container full">
       <button type="submit" class="btn active" [disabled]="!grantForm.valid">

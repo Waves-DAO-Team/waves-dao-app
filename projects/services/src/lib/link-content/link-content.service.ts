@@ -12,11 +12,7 @@ export class LinkContentService {
   mdText$ = new BehaviorSubject<string | null>(null)
   md$ = this.link$.pipe(
     // @ts-ignore
-    tap(
-      (url: string | null) => {
-        this.mdText$.next(null)
-      }
-    ),
+    tap((url: string | null) => {this.mdText$.next(null)}),
     // @ts-ignore
     filter((url: string | null) => url != null),
     map((url: string) => {

@@ -25,8 +25,14 @@ export class EditGrantPageComponent implements OnInit {
     })
   }
 
-  onSubmit () {
-    console.log('form', this.grantId, this.grantForm.value.reward)
-    this.contractService.addTaskDetails(this.grantId, this.grantForm.value.reward)
+  onSubmit() {
+    let reward = this.grantForm.value.reward
+    if (reward.length == 1) {
+      reward *= 100000000
+    } else {
+      reward = reward.replace('.', '')
+      reward *= 1000000
+    }
+    this.contractService.addTask(this.grantForm.value.name,reward, this.grantForm.value.link)
   }
 }

@@ -106,7 +106,7 @@
       },
       "reward": {
         "label": "Reward",
-        "placeholder": "2 0000.0000"
+        "placeholder": "2.00"
       },
       "tags": {
         "label": "Tags",
