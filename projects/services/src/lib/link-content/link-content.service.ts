@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core'
-import { PopupService } from '@services/popup/popup.service'
-import {
-  LinkContentDataInterface, MainResponseInterface,
-  ReposResponseInterface
-} from '@services/link-content/link-content.interface'
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
+import {MainResponseInterface, ReposResponseInterface} from '@services/link-content/link-content.interface'
+import { BehaviorSubject} from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { filter, map, repeatWhen, switchMap, tap } from 'rxjs/operators'
-import { ContractRawData } from '@services/contract/contract.model'
+import { filter, map, switchMap, tap } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
