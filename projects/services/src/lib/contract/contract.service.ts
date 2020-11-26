@@ -46,7 +46,7 @@ export class ContractService {
       return this.prepareData(data)
     }),
     switchMap((data: ContractDataModel) => {
-      console.log(data)
+      // console.log(data)
       this.contractState$.next(data)
       return this.contractState$.pipe(takeUntil(this.contractRefresh$))
     }),

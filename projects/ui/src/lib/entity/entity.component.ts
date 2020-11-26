@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
@@ -9,7 +9,6 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { ContractService } from '@services/contract/contract.service'
 import { ActivatedRoute } from '@angular/router'
-import { tap } from 'rxjs/operators'
 import { environment } from '../../../../dapp/src/environments/environment'
 import { LinkContentService } from '@services/link-content/link-content.service'
 
@@ -29,6 +28,9 @@ export class EntityComponent implements OnInit {
   } = environment;
 
   reportLink = '';
+  mdText$ = this.linkContentService.mdText$.subscribe(() => {
+    this.cdr.markForCheck()
+  })
 
   constructor (
     private route: ActivatedRoute,
@@ -36,31 +38,16 @@ export class EntityComponent implements OnInit {
     private signerService: SignerService,
     private snackBar: MatSnackBar,
     public contractService: ContractService,
-    public linkContentService: LinkContentService
+    public linkContentService: LinkContentService,
+    public cdr: ChangeDetectorRef
   ) {
   }
 
-  markdown = ''
-
   ngOnInit (): void {
-    this.markdown = `## Markdown __rulez__!
----
-
-### Syntax highlight
-\`\`\`typescript
-const language = 'typescript';
-\`\`\`
-
-### Lists
-1. Ordered list
-2. Another bullet point
-  - Unordered list
-  - Another unordered bullet point
-
-### Blockquote
-> Blockquote to the max`
     if (this.grant?.link?.value) {
-      this.linkContentService.init(this.grant.link.value)
+      // this.linkContentService.init(this.grant.link.value)
+
+      this.linkContentService.link$.next(this.grant.link.value)
     }
   }
 

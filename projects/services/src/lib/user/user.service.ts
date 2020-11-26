@@ -55,7 +55,7 @@ export class UserService {
           this.popupService.add(userAddress.address, 'Login')
           this.lastAddress = userAddress.address
         }
-        console.log('user data: ', this.data.getValue())
+        // console.log('user data: ', this.data.getValue())
       }),
       publishReplay(1),
       refCount()
