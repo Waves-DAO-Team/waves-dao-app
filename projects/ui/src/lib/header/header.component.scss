@@ -58,6 +58,24 @@ header {
             border: 1px solid $color_waves_blue;
           }
         }
+
+        &.profile {
+          .icon {
+            margin-right: $padding;
+            display: flex;
+            img {}
+          }
+          .content {
+            .name {
+              font-size: $font_size_h4;
+              color: $color_black;
+            }
+            .role {
+              font-size: $font_size_h5;
+              color: $color_dark_gray;
+            }
+          }
+        }
       }
     }
   }

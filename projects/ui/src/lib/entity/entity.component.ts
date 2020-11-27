@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { ContractService } from '@services/contract/contract.service'
 import { ActivatedRoute } from '@angular/router'
-import { environment } from '../../../../dapp/src/environments/environment'
+
 import { LinkContentService } from '@services/link-content/link-content.service'
 
 @Component({
@@ -23,9 +23,6 @@ export class EntityComponent implements OnInit {
   userRoleEnum = RoleEnum
   isDAOVote = false
   @ViewChild(ModalComponent) modal?: ModalComponent
-  environment: {
-    showDevTools: boolean;
-  } = environment;
 
   reportLink = '';
   mdText$ = this.linkContentService.mdText$.subscribe(() => {

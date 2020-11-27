@@ -5,221 +5,78 @@
     </button>
   </div>
   <div class="entity">
-    <!-- controls ------------------------------------------------------------------------------------------------------->
-    <pre *ngIf="environment.showDevTools">
-    {{ grant?.voted ? "voted" : "no voted" }}
-      {{ (grant?.status?.value || 'no_status') | json }}
-  </pre>
-
-
-
-    <!-- proposed -->
-    <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.proposed
-  && (userService.data.getValue().roles.isMaster || userService.data.getValue().userRole == userRoleEnum.workingGroup)">
-      <div class="card__body">
-        <div class="btn-container">
-          <button
-            [routerLink]="['/', 'edit-grant', grant.id ]"
-            class="btn"
-            *ngIf="userService.data.getValue().roles.isWG">
-            {{'entity.edit' | transloco}}
-          </button>
-          <button *ngIf="grant?.voted && userService.data.getValue().userRole == userRoleEnum.workingGroup" (click)="finishVote()"
-                  class="btn">
-            {{'entity.finish_vote' | transloco}}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- proposed -->
-
-    <!-- readyToApply -->
-    <div class="card"
-         *ngIf="grant?.status?.value === grantStatusEnum.readyToApply
-       && (!userService.data.getValue().apply.includes(grant?.id)
-       || userService.data.getValue().userRole == userRoleEnum.unauthorized )">
-      <div class="card__body">
-        <div class="btn-container">
-          <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
-            <button class="btn active" [routerLink]="['/', 'apply-grant', grant.id]"
-                    *ngIf="!userService.data.getValue().apply.includes(grant?.id)">
-              {{'entity.apply' | transloco}}
-            </button>
-          </ng-container>
-          <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.unauthorized">
-            <button class="btn active" (click)="signup()">{{'entity.log_in_for_apply' | transloco}}</button>
-          </ng-container>
-        </div>
-      </div>
-    </div>
-    <div class="card"
-         *ngIf="grant?.status?.value === grantStatusEnum.readyToApply
-       && grant?.app.length > 0
-       && grant?.voted
-       && grant?.vh
-       && userService.data.getValue().userRole == userRoleEnum.workingGroup ">
-      <div class="card__body">
-        <div class="btn-container">
-          <button (click)="finishApplicantsVote()" class="btn">{{'entity.finish_applicants_voting' | transloco}}</button>
-        </div>
-      </div>
-    </div>
-    <!-- readyToApply -->
-
-    <!-- teamChosen -->
-    <div class="card"
-         *ngIf="grant?.status?.value === grantStatusEnum.teamChosen
-       && userService.data.getValue().userRole == userRoleEnum.workingGroup">
-      <div class="card__body">
-        <div class="btn-container">
-          <button (click)="startWork()" *ngIf="userService.data.getValue().userAddress.includes(grant?.performer?.value)" class="btn">{{'entity.start_work' | transloco}}</button>
-          <button class="btn" *ngIf="userService.data.getValue().roles.isWG" (click)="reject()">Reject</button>
-        </div>
-      </div>
-    </div>
-    <!-- teamChosen -->
-
-    <!-- workStarted -->
-    <div class="card"
-         *ngIf="grant?.status?.value === grantStatusEnum.workStarted && userService.data.getValue().userRole == userRoleEnum.workingGroup">
-      <div class="card__body">
-        <div class="btn-container">
-          <input type="text" [(ngModel)]="reportLink" placeholder="report link">
-          <button (click)="acceptWorkResult()" class="btn">
-            {{'entity.accept_work_result' | transloco}}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- workStarted -->
-
-    <!-- controls ------------------------------------------------------------------------------------------------------->
-
     <!-- unauthorized --------------------------------------------------------------------------------------------------->
     <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.unauthorized">
-
-
       <ui-header
         [status]="grant?.status?.value || 'no_status'"
         [title]="grant?.title?.value"
         [reward]="grant?.reward?.value"
       ></ui-header>
-      <div class="card__body">
-        {{'entity.link' | transloco}}:
-        <a [href]="grant?.link?.value" *ngIf="grant?.link?.value">{{grant?.link?.value}}</a>
-        <markdown *ngIf="linkContentService.mdText$.getValue()" [data]="linkContentService.mdText$.getValue()"></markdown>
-        <span *ngIf="!grant.link">{{'entity.empty_link' | transloco}}</span>
-        <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
-      </div>
+      <ui-body
+        [md]="linkContentService.mdText$.getValue()"
+        [link]="grant?.link?.value"
+        [grant]="grant"
+      ></ui-body>
     </div>
     <!-- unauthorized --------------------------------------------------------------------------------------------------->
 
     <!-- authorized ----------------------------------------------------------------------------------------------------->
     <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.authorized">
-      <!--  <div class="card">-->
-      <div class="card__header">
-        <div class="card__header__left-block">
-          <div class="card__header__left-block__status">
-            {{'listing.status.' + (grant?.status?.value || 'no_status') | transloco}}
-          </div>
-          <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
-        </div>
-        <div class="card__header__right-block">
-          <div class="card__header__right-block__text">
-            {{'entity.reward' | transloco}}
-          </div>
-          <div class="card__header__right-block__price">
-            {{grant?.reward?.value / 100000000 | number : '1.2'}}
-            <div class="icon-logo"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card__body">
-        {{'entity.link' | transloco}}:
-        <markdown *ngIf="linkContentService.mdText$.getValue()" [data]="linkContentService.mdText$.getValue()"></markdown>
-        <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
-      </div>
+      <ui-header
+        [status]="grant?.status?.value || 'no_status'"
+        [title]="grant?.title?.value"
+        [reward]="grant?.reward?.value"
+      ></ui-header>
+      <ui-body
+        [md]="linkContentService.mdText$.getValue()"
+        [link]="grant?.link?.value"
+        [grant]="grant"
+      ></ui-body>
     </div>
     <!-- authorized ----------------------------------------------------------------------------------------------------->
 
     <!-- DAOMember ------------------------------------------------------------------------------------------------------>
     <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
-      <div class="card__header">
-        <div class="card__header__left-block">
-          <div class="card__header__left-block__status">
-            {{'listing.status.' + (grant?.status?.value || 'no_status') | transloco}}
-          </div>
-          <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
-        </div>
-        <div class="card__header__right-block">
-          <div class="card__header__right-block__text">
-            {{'entity.reward' | transloco}}
-          </div>
-          <div class="card__header__right-block__price">
-            {{grant?.reward?.value / 100000000 | number : '1.2'}}
-            <div class="icon-logo"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card__body">
-        {{'entity.link' | transloco}}:
-        <markdown *ngIf="linkContentService.mdText$.getValue()" [data]="linkContentService.mdText$.getValue()"></markdown>
-        <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
-      </div>
+      <ui-header
+        [status]="grant?.status?.value || 'no_status'"
+        [title]="grant?.title?.value"
+        [reward]="grant?.reward?.value"
+      ></ui-header>
+      <ui-body
+        [md]="linkContentService.mdText$.getValue()"
+        [link]="grant?.link?.value"
+        [grant]="grant"
+      ></ui-body>
     </div>
     <!-- DAOMember ------------------------------------------------------------------------------------------------------>
 
     <!-- workingGroup --------------------------------------------------------------------------------------------------->
     <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.workingGroup">
-      <div class="card__header">
-        <div class="card__header__left-block">
-          <div class="card__header__left-block__status">
-            {{'listing.status.' + (grant?.status?.value || 'no_status') | transloco}}
-          </div>
-          <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
-        </div>
-        <div class="card__header__right-block">
-          <div class="card__header__right-block__text">
-            {{'entity.reward' | transloco}}
-          </div>
-          <div class="card__header__right-block__price">
-            {{grant?.reward?.value / 100000000 | number : '1.2'}}
-            <div class="icon-logo"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card__body">
-        {{'entity.link' | transloco}}:
-        <markdown *ngIf="linkContentService.mdText$.getValue()" [data]="linkContentService.mdText$.getValue()"></markdown>
-        <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
-      </div>
+      <ui-header
+        [status]="grant?.status?.value || 'no_status'"
+        [title]="grant?.title?.value"
+        [reward]="grant?.reward?.value"
+      ></ui-header>
+      <ui-body
+        [md]="linkContentService.mdText$.getValue()"
+        [link]="grant?.link?.value"
+        [grant]="grant"
+      ></ui-body>
     </div>
     <!-- workingGroup --------------------------------------------------------------------------------------------------->
 
     <!-- master --------------------------------------------------------------------------------------------------------->
     <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.master">
-      <div class="card__header">
-        <div class="card__header__left-block">
-          <div class="card__header__left-block__status">
-            {{'listing.status.' + (grant?.status?.value || 'no_status') | transloco}}
-          </div>
-          <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
-        </div>
-        <div class="card__header__right-block">
-          <div class="card__header__right-block__text">
-            {{'entity.reward' | transloco}}
-          </div>
-          <div class="card__header__right-block__price">
-            {{grant?.reward?.value / 100000000 | number : '1.2'}}
-            <div class="icon-logo"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card__body">
-        {{'entity.link' | transloco}}:
-        <markdown *ngIf="linkContentService.mdText$.getValue()" [data]="linkContentService.mdText$.getValue()"></markdown>
-        <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
-      </div>
+      <ui-header
+        [status]="grant?.status?.value || 'no_status'"
+        [title]="grant?.title?.value"
+        [reward]="grant?.reward?.value"
+      ></ui-header>
+      <ui-body
+        [md]="linkContentService.mdText$.getValue()"
+        [link]="grant?.link?.value"
+        [grant]="grant"
+      ></ui-body>
     </div>
     <!-- master --------------------------------------------------------------------------------------------------------->
 
@@ -301,6 +158,93 @@
       </div>
     </div>
     <!-- vote ----------------------------------------------------------------------------------------------------------->
+
+    <!-- controls ----------------------------------------------------------------------------------------------------->
+    <!-- proposed -->
+    <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.proposed
+  && (userService.data.getValue().roles.isMaster || userService.data.getValue().userRole == userRoleEnum.workingGroup)">
+      <div class="card__body">
+        <div class="btn-container">
+          <button
+            [routerLink]="['/', 'edit-grant', grant.id ]"
+            class="btn"
+            *ngIf="userService.data.getValue().roles.isWG">
+            {{'entity.edit' | transloco}}
+          </button>
+          <button *ngIf="grant?.voted && userService.data.getValue().userRole == userRoleEnum.workingGroup"
+                  (click)="finishVote()"
+                  class="btn">
+            {{'entity.finish_vote' | transloco}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- proposed -->
+
+    <!-- readyToApply -->
+    <div class="card"
+         *ngIf="grant?.status?.value === grantStatusEnum.readyToApply
+       && (!userService.data.getValue().apply.includes(grant?.id)
+       || userService.data.getValue().userRole == userRoleEnum.unauthorized )">
+      <div class="card__body">
+        <div class="btn-container">
+          <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
+            <button class="btn active" [routerLink]="['/', 'apply-grant', grant.id]"
+                    *ngIf="!userService.data.getValue().apply.includes(grant?.id)">
+              {{'entity.apply' | transloco}}
+            </button>
+          </ng-container>
+          <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.unauthorized">
+            <button class="btn active" (click)="signup()">{{'entity.log_in_for_apply' | transloco}}</button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="card"
+         *ngIf="grant?.status?.value === grantStatusEnum.readyToApply
+       && grant?.app.length > 0
+       && grant?.voted
+       && grant?.vh
+       && userService.data.getValue().userRole == userRoleEnum.workingGroup ">
+      <div class="card__body">
+        <div class="btn-container">
+          <button (click)="finishApplicantsVote()"
+                  class="btn">{{'entity.finish_applicants_voting' | transloco}}</button>
+        </div>
+      </div>
+    </div>
+    <!-- readyToApply -->
+
+    <!-- teamChosen -->
+    <div class="card"
+         *ngIf="grant?.status?.value === grantStatusEnum.teamChosen
+       && userService.data.getValue().userRole == userRoleEnum.workingGroup">
+      <div class="card__body">
+        <div class="btn-container">
+          <button (click)="startWork()"
+                  *ngIf="userService.data.getValue().userAddress.includes(grant?.performer?.value)"
+                  class="btn">{{'entity.start_work' | transloco}}</button>
+          <button class="btn" *ngIf="userService.data.getValue().roles.isWG" (click)="reject()">Reject</button>
+        </div>
+      </div>
+    </div>
+    <!-- teamChosen -->
+
+    <!-- workStarted -->
+    <div class="card"
+         *ngIf="grant?.status?.value === grantStatusEnum.workStarted && userService.data.getValue().userRole == userRoleEnum.workingGroup">
+      <div class="card__body">
+        <div class="btn-container">
+          <input type="text" [(ngModel)]="reportLink" placeholder="report link">
+          <button (click)="acceptWorkResult()" class="btn">
+            {{'entity.accept_work_result' | transloco}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- workStarted -->
+
+    <!-- controls ------------------------------------------------------------------------------------------------------->
 
     <ui-modal></ui-modal>
   </div>

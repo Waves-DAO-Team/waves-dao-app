@@ -7,6 +7,7 @@ import { ModalModule } from '@ui/modal/modal.module'
 import { FormsModule } from '@angular/forms'
 import { MarkdownModule } from 'ngx-markdown'
 import {HeaderModule} from "@ui/entity/header/header.module";
+import {BodyModule} from "@ui/entity/body/body.module";
 
 @NgModule({
   declarations: [EntityComponent],
@@ -17,7 +18,8 @@ import {HeaderModule} from "@ui/entity/header/header.module";
     ModalModule,
     FormsModule,
     MarkdownModule,
-    HeaderModule
+    HeaderModule,
+    BodyModule
 
   ],
   exports: [EntityComponent]

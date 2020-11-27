@@ -61,13 +61,31 @@
       <li [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
         {{ 'app.header.createGrant' | transloco }}
       </li>
-      <li>
-        <button (click)="signupHandler()" routerLinkActive="active" *ngIf="userRole === RoleEnum.unauthorized">
-          {{ 'app.header.login' | transloco }}
+      <li *ngIf="(user$ | async)?.name">
+        <button (click)="logoutHandler()">
+          {{ 'app.header.logout' | transloco }}
           <img src="assets/icons/arr-right.svg">
         </button>
-        <button (click)="logoutHandler()" routerLinkActive="active" *ngIf="(user$ | async)?.name">
-          {{ 'app.header.logout' | transloco }}
+      </li>
+      <li *ngIf="(user$ | async)?.name" class="profile">
+        <div class="icon">
+          <img src="assets/icons/user.png">
+        </div>
+        <div class="content">
+          <div class="name">
+            {{(user$ | async)?.name}}
+          </div>
+          <div class="role">
+            {{userService.data.getValue().roles.isDAO ? 'DAO' : ''}}
+            {{userService.data.getValue().roles.isWG ? 'WG' : ''}}
+            {{userService.data.getValue().roles.isMaster ? 'Master' : ''}}
+            {{userService.data.getValue().roles.isAuth ? 'Auth' : ''}}
+          </div>
+        </div>
+      </li>
+      <li *ngIf="userRole === RoleEnum.unauthorized">
+        <button (click)="signupHandler()">
+          {{ 'app.header.login' | transloco }}
           <img src="assets/icons/arr-right.svg">
         </button>
       </li>
@@ -76,3 +94,4 @@
 </header>
 
 <hr>
+
