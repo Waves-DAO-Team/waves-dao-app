@@ -61,27 +61,40 @@
       <li [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
         {{ 'app.header.createGrant' | transloco }}
       </li>
-      <li *ngIf="(user$ | async)?.name">
-        <button (click)="logoutHandler()">
-          {{ 'app.header.logout' | transloco }}
-          <img src="assets/icons/arr-right.svg">
-        </button>
-      </li>
+<!--      <li *ngIf="(user$ | async)?.name">-->
+<!--        <button (click)="logoutHandler()">-->
+<!--          {{ 'app.header.logout' | transloco }}-->
+<!--          <img src="assets/icons/arr-right.svg">-->
+<!--        </button>-->
+<!--      </li>-->
       <li *ngIf="(user$ | async)?.name" class="profile">
         <div class="icon">
-          <img src="assets/icons/user.png">
+          <img src="assets/icons/avatar/master.png" *ngIf="userService.data.getValue().userRole === RoleEnum.master">
+          <img src="assets/icons/avatar/dao.png" *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
+          <img src="assets/icons/avatar/wg.png" *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
+          <img src="assets/icons/avatar/auth.png" *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
         </div>
         <div class="content">
           <div class="name">
             {{(user$ | async)?.name}}
           </div>
           <div class="role">
-            {{userService.data.getValue().roles.isDAO ? 'DAO' : ''}}
-            {{userService.data.getValue().roles.isWG ? 'WG' : ''}}
-            {{userService.data.getValue().roles.isMaster ? 'Master' : ''}}
-            {{userService.data.getValue().roles.isAuth ? 'Auth' : ''}}
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.master">
+              {{ 'role.master' | transloco }}
+            </ng-container>
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
+              {{ 'role.wg' | transloco }}
+            </ng-container>
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
+              {{ 'role.dao' | transloco }}
+            </ng-container>
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
+              {{ 'role.auth' | transloco }}
+            </ng-container>
           </div>
+
         </div>
+        <img src="assets/icons/logout.svg" (click)="logoutHandler()">
       </li>
       <li *ngIf="userRole === RoleEnum.unauthorized">
         <button (click)="signupHandler()">

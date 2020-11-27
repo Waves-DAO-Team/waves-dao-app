@@ -66,6 +66,7 @@ header {
             img {}
           }
           .content {
+            margin-right: $padding;
             .name {
               font-size: $font_size_h4;
               color: $color_black;

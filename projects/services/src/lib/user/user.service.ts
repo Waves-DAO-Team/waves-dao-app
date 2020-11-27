@@ -107,9 +107,9 @@ export class UserService {
         isAuth: false
       }
     }
-    if (masterAddress === userAddress) {
-      result.mainRole = RoleEnum.master
-      result.roles.isMaster = true
+    if (userAddress !== '') {
+      result.mainRole = result.mainRole === RoleEnum.unauthorized ? RoleEnum.authorized : result.mainRole
+      result.roles.isAuth = true
     }
     if (DAOMemberAddress.includes(userAddress)) {
       result.mainRole = RoleEnum.DAOMember
@@ -119,9 +119,9 @@ export class UserService {
       result.mainRole = RoleEnum.workingGroup
       result.roles.isWG = true
     }
-    if (userAddress !== '') {
-      result.mainRole = result.mainRole === RoleEnum.unauthorized ? RoleEnum.authorized : result.mainRole
-      result.roles.isAuth = true
+    if (masterAddress === userAddress) {
+      result.mainRole = RoleEnum.master
+      result.roles.isMaster = true
     }
     return result
   }

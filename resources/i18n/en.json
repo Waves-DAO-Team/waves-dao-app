@@ -20,6 +20,12 @@
     "apply": "Apply",
     "cancel": "Cancel"
   },
+  "role": {
+    "master": "Waves Association Member",
+    "wg": "Working Group Member",
+    "dao": "DAO Owner",
+    "auth": "Authorized User"
+  },
   "listing": {
     "status": {
       "proposed": "Open. In processing",
