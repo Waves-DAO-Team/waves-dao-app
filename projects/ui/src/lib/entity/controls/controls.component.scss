@@ -1,0 +1,37 @@
+@import "const";
+
+.controls {
+  text-align: right;
+  margin-top: $padding * 3;
+  margin-bottom: $padding * 3;
+  button {
+    cursor: pointer;
+    outline: none;
+    font-size: $font_size_h4;
+    border: 1px solid $color_light_gray;
+    color: $color_black;
+    background: none;
+    padding: $padding $padding * 2;
+    text-transform: uppercase;
+    transition: 0.3s;
+
+    img {
+      padding-left: $padding;
+    }
+
+    &:hover {
+      border: 1px solid $color_waves_blue;
+    }
+
+    &.active {
+      color: white;
+      background: $color_waves_blue;
+      border: 1px solid $color_waves_blue;
+      &:hover {
+        border: 1px solid $color_black;
+        background: $color_black;
+      }
+    }
+
+  }
+}

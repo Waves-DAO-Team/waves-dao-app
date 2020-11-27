@@ -1,54 +1,57 @@
-<ng-container *ngIf="status === grantStatusEnum.noStatus">
+<div class="controls">
+  <ng-container *ngIf="status === grantStatusEnum.noStatus">
 
-</ng-container>
-
-<ng-container *ngIf="status === grantStatusEnum.proposed">
-  <ng-container *ngIf="userService.data.getValue().roles.isWG">
-    <button [routerLink]="['/', 'edit-grant', grantId ]">
-      {{'entity.edit' | transloco}}
-    </button>
-    <button *ngIf="voted" (click)="finishVote()">
-      {{'entity.finish_vote' | transloco}}
-    </button>
   </ng-container>
-</ng-container>
 
-<ng-container *ngIf="status === grantStatusEnum.readyToApply">
-  <ng-container *ngIf="!userService.data.getValue().apply.includes(grantId)">
-    <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
-      <button [routerLink]="['/', 'apply-grant', grantId]">
-        {{'entity.apply' | transloco}}
+  <ng-container *ngIf="status === grantStatusEnum.proposed">
+    <ng-container *ngIf="userService.data.getValue().roles.isWG">
+      <button [routerLink]="['/', 'edit-grant', grantId ]">
+        {{'entity.edit' | transloco}}
+      </button>
+      <button *ngIf="voted" (click)="finishVote()">
+        {{'entity.finish_vote' | transloco}}
       </button>
     </ng-container>
-    <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.unauthorized">
-      <button (click)="signup()">{{'entity.log_in_for_apply' | transloco}}</button>
+  </ng-container>
+
+  <ng-container *ngIf="status === grantStatusEnum.readyToApply">
+    <ng-container *ngIf="!userService.data.getValue().apply.includes(grantId)">
+      <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
+        <button [routerLink]="['/', 'apply-grant', grantId]">
+          {{'entity.apply' | transloco}}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.unauthorized">
+        <button class="active" (click)="signup()">{{'entity.log_in_for_apply' | transloco}}</button>
+      </ng-container>
     </ng-container>
   </ng-container>
-</ng-container>
 
-<ng-container *ngIf="status === grantStatusEnum.rejected">
+  <ng-container *ngIf="status === grantStatusEnum.rejected">
 
-</ng-container>
+  </ng-container>
 
-<ng-container *ngIf="status === grantStatusEnum.teamChosen">
-  <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
-    <ng-container *ngIf="userService.data.getValue().userAddress.includes(performer)">
-      <button (click)="startWork()">{{'entity.start_work' | transloco}}</button>
+  <ng-container *ngIf="status === grantStatusEnum.teamChosen">
+    <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
+      <ng-container *ngIf="userService.data.getValue().userAddress.includes(performer)">
+        <button (click)="startWork()">{{'entity.start_work' | transloco}}</button>
+      </ng-container>
+      <button class="btn" (click)="reject()">Reject</button>
     </ng-container>
-    <button class="btn" (click)="reject()">Reject</button>
   </ng-container>
-</ng-container>
 
-<ng-container *ngIf="status === grantStatusEnum.workStarted">
-  <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
-    <input type="text" [(ngModel)]="reportLink" placeholder="report link">
-    <button (click)="acceptWorkResult()" class="btn">
-      {{'entity.accept_work_result' | transloco}}
-    </button>
+  <ng-container *ngIf="status === grantStatusEnum.workStarted">
+    <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
+      <input type="text" [(ngModel)]="reportLink" placeholder="report link">
+      <button (click)="acceptWorkResult()" class="btn">
+        {{'entity.accept_work_result' | transloco}}
+      </button>
+    </ng-container>
   </ng-container>
-</ng-container>
 
-<ng-container *ngIf="status === grantStatusEnum.workFinished">
+  <ng-container *ngIf="status === grantStatusEnum.workFinished">
 
-</ng-container>
+  </ng-container>
+</div>
+
 
