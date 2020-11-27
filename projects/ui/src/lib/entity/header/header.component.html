@@ -1,0 +1,14 @@
+<div class="card__header__entity">
+
+  <div class="card__header__entity__top">
+    {{'listing.status.' + status | transloco}}
+  </div>
+
+  <div class="card__header__entity__mid">
+    {{title}}
+  </div>
+
+  <div class="card__header__entity__bottom">
+    {{'entity.reward' | transloco}}: <span>{{reward / 100000000 | number : '1.2'}} WAVES</span>
+  </div>
+</div>

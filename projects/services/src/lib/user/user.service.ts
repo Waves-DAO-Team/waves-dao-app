@@ -39,23 +39,24 @@ export class UserService {
         const WorkGroupAddress = Object.keys(contract.working?.group?.member)
         const DAOMemberAddress = Object.keys(contract.dao.member)
         const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
-        const dv = this.defineVoted(userAddress.address, contract.tasks)
-        const ad = this.defineApply(userAddress.address, contract.tasks)
-        this.data.next({
+        let newData = {
           DAOMemberAddress,
           WorkGroupAddress,
-          masterAddress,
+          masterAddress: environment.apis.contractAddress,
           userAddress: userAddress.address,
           userRole: dr.mainRole,
           roles: dr.roles,
-          voted: dv,
-          apply: ad
-        })
-        if (userAddress.address !== this.lastAddress) {
-          this.popupService.add(userAddress.address, 'Login')
-          this.lastAddress = userAddress.address
+          voted: this.defineVoted(userAddress.address, contract.tasks),
+          apply: this.defineApply(userAddress.address, contract.tasks)
         }
-        // console.log('user data: ', this.data.getValue())
+        if( JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
+          this.data.next(newData)
+          if (userAddress.address !== this.lastAddress) {
+            this.popupService.add(userAddress.address, 'Login')
+            this.lastAddress = userAddress.address
+          }
+          console.log('user data: ', this.data.getValue())
+        }
       }),
       publishReplay(1),
       refCount()

@@ -11,6 +11,8 @@
       {{ (grant?.status?.value || 'no_status') | json }}
   </pre>
 
+
+
     <!-- proposed -->
     <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.proposed
   && (userService.data.getValue().roles.isMaster || userService.data.getValue().userRole == userRoleEnum.workingGroup)">
@@ -95,23 +97,13 @@
 
     <!-- unauthorized --------------------------------------------------------------------------------------------------->
     <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.unauthorized">
-      <div class="card__header">
-        <div class="card__header__left-block">
-          <div class="card__header__left-block__status">
-            {{'listing.status.' + (grant?.status?.value || 'no_status') | transloco}}
-          </div>
-          <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
-        </div>
-        <div class="card__header__right-block">
-          <div class="card__header__right-block__text">
-            {{'entity.reward' | transloco}}
-          </div>
-          <div class="card__header__right-block__price">
-            {{grant?.reward?.value / 100000000 | number : '1.2'}}
-            <div class="icon-logo"></div>
-          </div>
-        </div>
-      </div>
+
+
+      <ui-header
+        [status]="grant?.status?.value || 'no_status'"
+        [title]="grant?.title?.value"
+        [reward]="grant?.reward?.value"
+      ></ui-header>
       <div class="card__body">
         {{'entity.link' | transloco}}:
         <a [href]="grant?.link?.value" *ngIf="grant?.link?.value">{{grant?.link?.value}}</a>

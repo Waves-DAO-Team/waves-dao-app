@@ -32,6 +32,7 @@ export class CreateGrantPageComponent {
       reward = reward.replace('.', '')
       reward *= 1000000
     }
+    console.log('reward: ', reward)
     this.contractService.addTask(this.grantForm.value.name,reward, this.grantForm.value.link)
   }
 }

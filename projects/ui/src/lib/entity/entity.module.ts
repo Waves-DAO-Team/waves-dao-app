@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router'
 import { ModalModule } from '@ui/modal/modal.module'
 import { FormsModule } from '@angular/forms'
 import { MarkdownModule } from 'ngx-markdown'
+import {HeaderModule} from "@ui/entity/header/header.module";
 
 @NgModule({
   declarations: [EntityComponent],
@@ -15,7 +16,8 @@ import { MarkdownModule } from 'ngx-markdown'
     RouterModule,
     ModalModule,
     FormsModule,
-    MarkdownModule
+    MarkdownModule,
+    HeaderModule
 
   ],
   exports: [EntityComponent]
