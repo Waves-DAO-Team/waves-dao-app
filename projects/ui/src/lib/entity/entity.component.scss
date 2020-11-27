@@ -29,3 +29,32 @@
   }
 
 }
+
+
+.container {
+  display: flex;
+  &__left, &__right{
+    flex: 1;
+  }
+
+  &__left {
+
+    &__back-btn {
+      background: transparent;
+      border: 0;
+      outline: none;
+      color: $color_black;
+      font-size: $font_size_h4;
+      font-weight: 100;
+      cursor: pointer;
+      img {
+        margin-right: $padding;
+      }
+    }
+
+  }
+
+  .entity {
+    flex: 4.5;
+  }
+}
