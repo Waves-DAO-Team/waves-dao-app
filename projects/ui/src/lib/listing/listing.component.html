@@ -40,11 +40,16 @@
   <div class="content">
     <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
 
-      <!--grants-->
-      <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
-        <ng-container *ngFor="let entity of list; trackBy: trackByFn">
+    <!--grants-->
+    <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
+      <!--Important-->
+      <ng-container *ngIf="selectedTagName === 'all'">
+        <div class="listing-list__title">Important grants</div>
+        <ng-container *ngFor="let entity of list" >
           <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
-            <a class="card" [routerLink]="constants.routes.entity | route: entity?.id">
+            <a class="card active"
+               *ngIf="entity?.status?.value === GrantStatusEnum.readyToApply"
+               [routerLink]="constants.routes.entity | route: entity?.id">
               <div class="card__header">
                 <div class="card__header__left-block">
                   <div class="card__header__left-block__status">
@@ -70,24 +75,59 @@
             </a>
           </ng-container>
         </ng-container>
-      </div>
-      <ng-template #loadingOrErrorTemplate>
-        <ng-container *ngIf="grants.error$ | async; else loading">
-          List is a empty
+      </ng-container>
+
+      <!--Important-->
+      <div class="listing-list__title">All grants</div>
+      <ng-container *ngFor="let entity of list; trackBy: trackByFn">
+        <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
+          <a class="card"
+             *ngIf="
+                (selectedTagName === 'all' && entity?.status?.value !== GrantStatusEnum.readyToApply)
+                || selectedTagName !== 'all'
+              "
+             [routerLink]="constants.routes.entity | route: entity?.id">
+            <div class="card__header">
+              <div class="card__header__left-block">
+                <div class="card__header__left-block__status">
+                  {{'listing.status.' + (entity?.status?.value || 'no_status') | transloco}}
+                  <div class="card__header__left-block__status__role-text"
+                       *ngIf="userService.data.getValue().roles.isDAO
+                      && entity?.status?.value === GrantStatusEnum.proposed">
+                    {{ userService.data.getValue().voted.includes(entity?.id)
+                    ? ('listing.DAO_subtext.vote_counted' | transloco)
+                    : ('listing.DAO_subtext.need_vote' | transloco)}}
+                  </div>
+                </div>
+                <div class="card__header__left-block__title">{{entity?.title?.value}}</div>
+              </div>
+              <div class="card__header__right-block">
+                <div class="card__header__right-block__text">Reward</div>
+                <div class="card__header__right-block__price">
+                  {{entity?.reward?.value / 100000000 | number : '1.2'}}
+                  <div class="icon-logo"></div>
+                </div>
+              </div>
+            </div>
+          </a>
         </ng-container>
-      </ng-template>
+      </ng-container>
+    </div>
+    <ng-template #loadingOrErrorTemplate>
+      <ng-container *ngIf="grants.error$ | async; else loading">
+        List is a empty
+      </ng-container>
+    </ng-template>
 
-      <ng-template #loading>
-        Loading...
-      </ng-template>
-
-
+    <ng-template #loading>
+      Loading...
+    </ng-template>
 
 
   </div>
 
 </div>
 
-    <!--  <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>-->
+<!--  <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>-->
 
 

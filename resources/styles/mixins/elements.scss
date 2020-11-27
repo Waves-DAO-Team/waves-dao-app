@@ -136,6 +136,7 @@ $dot-list-li-size: 16px;
     margin-bottom: $padding;
   }
 
+
   &__info {
     align-items: center;
     border: 1px solid $gray-light;
@@ -193,7 +194,6 @@ $dot-list-li-size: 16px;
     flex: 1;
     flex-direction: row;
     padding: $padding;
-
     &__left-block {
       flex: 1;
       flex-direction: column;
@@ -203,6 +203,10 @@ $dot-list-li-size: 16px;
         cursor: pointer;
         font-size: $font-size-medium;
         font-weight: bold;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 85%;
       }
 
       &__status {
@@ -245,6 +249,26 @@ $dot-list-li-size: 16px;
     border: 1px solid $gray-light;
     overflow: hidden;
     padding: $padding;
+  }
+
+  &.active {
+    background-color: $color_waves_blue;
+    background-image: url("~resources/assets/img/bg-active-card.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: auto 100%;
+    .card__header__left-block__status, .card__header__left-block__title, .card__header__right-block__text, .card__header__right-block__price {
+      color: $color_white;
+    }
+    .card__header__left-block__status,.card__header__right-block__text {
+      opacity: 0.6;
+    }
+    .icon-logo {
+      background: $color_white;
+      &::after {
+        background: $color_waves_blue;
+      }
+    }
   }
 }
 
