@@ -159,92 +159,13 @@
     </div>
     <!-- vote ----------------------------------------------------------------------------------------------------------->
 
-    <!-- controls ----------------------------------------------------------------------------------------------------->
-    <!-- proposed -->
-    <div class="card" *ngIf="grant?.status?.value === grantStatusEnum.proposed
-  && (userService.data.getValue().roles.isMaster || userService.data.getValue().userRole == userRoleEnum.workingGroup)">
-      <div class="card__body">
-        <div class="btn-container">
-          <button
-            [routerLink]="['/', 'edit-grant', grant.id ]"
-            class="btn"
-            *ngIf="userService.data.getValue().roles.isWG">
-            {{'entity.edit' | transloco}}
-          </button>
-          <button *ngIf="grant?.voted && userService.data.getValue().userRole == userRoleEnum.workingGroup"
-                  (click)="finishVote()"
-                  class="btn">
-            {{'entity.finish_vote' | transloco}}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- proposed -->
-
-    <!-- readyToApply -->
-    <div class="card"
-         *ngIf="grant?.status?.value === grantStatusEnum.readyToApply
-       && (!userService.data.getValue().apply.includes(grant?.id)
-       || userService.data.getValue().userRole == userRoleEnum.unauthorized )">
-      <div class="card__body">
-        <div class="btn-container">
-          <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
-            <button class="btn active" [routerLink]="['/', 'apply-grant', grant.id]"
-                    *ngIf="!userService.data.getValue().apply.includes(grant?.id)">
-              {{'entity.apply' | transloco}}
-            </button>
-          </ng-container>
-          <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.unauthorized">
-            <button class="btn active" (click)="signup()">{{'entity.log_in_for_apply' | transloco}}</button>
-          </ng-container>
-        </div>
-      </div>
-    </div>
-    <div class="card"
-         *ngIf="grant?.status?.value === grantStatusEnum.readyToApply
-       && grant?.app.length > 0
-       && grant?.voted
-       && grant?.vh
-       && userService.data.getValue().userRole == userRoleEnum.workingGroup ">
-      <div class="card__body">
-        <div class="btn-container">
-          <button (click)="finishApplicantsVote()"
-                  class="btn">{{'entity.finish_applicants_voting' | transloco}}</button>
-        </div>
-      </div>
-    </div>
-    <!-- readyToApply -->
-
-    <!-- teamChosen -->
-    <div class="card"
-         *ngIf="grant?.status?.value === grantStatusEnum.teamChosen
-       && userService.data.getValue().userRole == userRoleEnum.workingGroup">
-      <div class="card__body">
-        <div class="btn-container">
-          <button (click)="startWork()"
-                  *ngIf="userService.data.getValue().userAddress.includes(grant?.performer?.value)"
-                  class="btn">{{'entity.start_work' | transloco}}</button>
-          <button class="btn" *ngIf="userService.data.getValue().roles.isWG" (click)="reject()">Reject</button>
-        </div>
-      </div>
-    </div>
-    <!-- teamChosen -->
-
-    <!-- workStarted -->
-    <div class="card"
-         *ngIf="grant?.status?.value === grantStatusEnum.workStarted && userService.data.getValue().userRole == userRoleEnum.workingGroup">
-      <div class="card__body">
-        <div class="btn-container">
-          <input type="text" [(ngModel)]="reportLink" placeholder="report link">
-          <button (click)="acceptWorkResult()" class="btn">
-            {{'entity.accept_work_result' | transloco}}
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- workStarted -->
-
-    <!-- controls ------------------------------------------------------------------------------------------------------->
+    <ui-controls
+      [status]="grant?.status?.value"
+      [grantId]="grant?.id"
+      [role]="userService.data.getValue().userRole"
+      [voted]="grant?.voted"
+      [performer]="grant?.performer?.value"
+    ></ui-controls>
 
     <ui-modal></ui-modal>
   </div>

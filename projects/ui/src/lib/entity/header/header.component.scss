@@ -19,6 +19,7 @@
   }
   &__bottom {
     display: flex;
+    margin-bottom: $padding;
     &__left {
       flex: 1;
     }

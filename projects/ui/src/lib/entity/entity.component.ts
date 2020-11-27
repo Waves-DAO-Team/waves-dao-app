@@ -53,16 +53,7 @@ export class EntityComponent implements OnInit {
     this.contractService.voteForTaskProposal(id, value)
   }
 
-  public signup (): void {
-    this.signerService.login().subscribe(() => {
-    }, (error) => {
-      this.snackBar.open(error, translate('messages.ok'))
-    })
-  }
 
-  finishVote () {
-    this.contractService.finishTaskProposalVoting(this.grant.id as string)
-  }
 
   finishApplicantsVote () {
     this.contractService.finishApplicantsVoting(this.grant.id as string)
@@ -76,17 +67,8 @@ export class EntityComponent implements OnInit {
     )
   }
 
-  startWork () {
-    this.contractService.startWork(this.grant.id as string)
-  }
 
-  acceptWorkResult () {
-    console.log('-----!!!------acceptWorkResult:', this.grant.id as string, this.userService.data.getValue().userAddress, this.reportLink)
-    this.contractService.acceptWorkResult(this.grant.id as string, this.reportLink)
-  }
 
-  reject () {
-    console.log('-----!!!------reject:')
-    this.contractService.rejectTask(this.grant.id as string)
-  }
+
+
 }

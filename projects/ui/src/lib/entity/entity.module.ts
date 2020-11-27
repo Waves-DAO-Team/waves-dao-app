@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms'
 import { MarkdownModule } from 'ngx-markdown'
 import {HeaderModule} from "@ui/entity/header/header.module";
 import {BodyModule} from "@ui/entity/body/body.module";
+import {ControlsModule} from "@ui/entity/controls/controls.module";
 
 @NgModule({
   declarations: [EntityComponent],
@@ -19,7 +20,8 @@ import {BodyModule} from "@ui/entity/body/body.module";
     FormsModule,
     MarkdownModule,
     HeaderModule,
-    BodyModule
+    BodyModule,
+    ControlsModule
 
   ],
   exports: [EntityComponent]
