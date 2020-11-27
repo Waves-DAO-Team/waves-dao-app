@@ -57,4 +57,8 @@ export class ControlsComponent implements OnInit {
     this.contractService.acceptWorkResult(this.grantId as string, this.reportLink)
   }
 
+  finishApplicantsVote () {
+    this.contractService.finishApplicantsVoting(this.grantId as string)
+  }
+
 }

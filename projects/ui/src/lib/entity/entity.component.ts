@@ -55,9 +55,7 @@ export class EntityComponent implements OnInit {
 
 
 
-  finishApplicantsVote () {
-    this.contractService.finishApplicantsVoting(this.grant.id as string)
-  }
+
 
   voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
     this.contractService.voteForApplicant(
