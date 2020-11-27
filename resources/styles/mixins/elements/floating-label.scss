@@ -1,0 +1,38 @@
+@mixin floating-label() {
+  .input-wrp {
+    position: relative;
+    width: 100%;
+
+    margin-top: -20px;
+  }
+  .input-wrp .inputText{
+    width: 100%;
+    outline: none;
+    border:none;
+    border-bottom: 1px solid #777;
+    box-shadow: none !important;
+    font-size: $font_size_h4;
+    font-weight: 100;
+    padding-bottom: $padding / 2;
+  }
+  .input-wrp .inputText:focus{
+    border-color: $color_waves_blue;
+    border-width: medium medium 2px;
+  }
+  .input-wrp .floating-label {
+    position: absolute;
+    pointer-events: none;
+    top: 18px;
+    left: 0px;
+    transition: 0.2s ease all;
+    color: $color_dark_gray;
+    font-size: $font_size_h4;
+  }
+  .input-wrp input:focus ~ .floating-label,
+  .input-wrp input:not(:focus):valid ~ .floating-label{
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+    font-size: $font_size_h5;
+  }
+}
