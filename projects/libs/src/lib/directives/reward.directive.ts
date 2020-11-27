@@ -9,11 +9,16 @@ export class RewardDirective {
   }
 
   @HostListener('blur') blur() {
+    console.log(123)
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)
   }
 
   format(str: string) {
-    return parseFloat(str).toFixed(2).toString()
+    let res = parseFloat(str).toFixed(2).toString()
+    if(res === 'NaN') {
+      res = parseFloat('0').toFixed(2).toString()
+    }
+    return res
   }
 
 }

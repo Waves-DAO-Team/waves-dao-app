@@ -1,25 +1,25 @@
-//@import './../../resources/styles/index';
 @import 'const';
-@import 'mixins/elements/text-title';
+@import 'mixins/container';
 @import 'mixins/elements/form';
+@import 'mixins/elements/floating-label';
 @import 'mixins/elements/btn-container';
-
-h1 {
-  @include text-title(h1);
-}
-
-h2 {
-  @include text-title(h2);
-}
-
-h4 {
-  @include text-title(h4);
-}
-
-form {
-  @include form; }
 
 .btn-container.full {
   @include btn-container(full);
 }
 
+.container {
+  @include container();
+  form {
+    //@include form;
+    flex: 4.5;
+    .input {
+      @include floating-label();
+      margin-bottom: $padding * 2;
+    }
+  }
+  &__right {
+    @include floating-label()
+
+  }
+}

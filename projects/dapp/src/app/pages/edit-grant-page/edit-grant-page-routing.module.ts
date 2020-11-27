@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: EditGrantPageComponent,
     pathMatch: 'full',
-    canActivate: [EditGrantPageGuard],
+    // canActivate: [EditGrantPageGuard],
     data: {}
   }
 ]

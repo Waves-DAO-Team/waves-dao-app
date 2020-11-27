@@ -13,7 +13,7 @@ const maskConfig: Partial<IConfig> = {
   validation: false
 }
 @NgModule({
-  declarations: [CreateGrantPageComponent, RewardDirective],
+  declarations: [CreateGrantPageComponent],
   imports: [
     CommonModule,
     CreateGrantPageRoutingModule,
@@ -24,6 +24,7 @@ const maskConfig: Partial<IConfig> = {
   ],
   providers: [
     CreateGrantPageGuard
-  ]
+  ],
+  exports: []
 })
 export class CreateGrantPageModule { }

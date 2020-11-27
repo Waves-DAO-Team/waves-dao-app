@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {ContractService} from '@services/contract/contract.service'
 import {debounce} from 'rxjs/operators'
 import {timer} from 'rxjs'
-import {CurrencyPipe} from '@angular/common'
+import {CurrencyPipe, Location} from '@angular/common'
 
 @Component({
   selector: 'app-create-grant-page',
@@ -19,10 +19,7 @@ export class CreateGrantPageComponent {
     link: new FormControl('', Validators.required)
   })
 
-  constructor(private contractService: ContractService) {
-
-
-  }
+  constructor(private contractService: ContractService, private location: Location,) {}
 
   onSubmit() {
     let reward = this.grantForm.value.reward
@@ -34,5 +31,9 @@ export class CreateGrantPageComponent {
     }
     console.log('reward: ', reward)
     this.contractService.addTask(this.grantForm.value.name,reward, this.grantForm.value.link)
+  }
+
+  goBack (): void {
+    this.location.back()
   }
 }
