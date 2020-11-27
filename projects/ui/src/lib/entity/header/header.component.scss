@@ -17,4 +17,14 @@
     margin-top: $padding * 2;
     margin-bottom: $padding * 2;
   }
+  &__bottom {
+    display: flex;
+    &__left {
+      flex: 1;
+    }
+    &__right {
+      flex: 1;
+      text-align: right;
+    }
+  }
 }
