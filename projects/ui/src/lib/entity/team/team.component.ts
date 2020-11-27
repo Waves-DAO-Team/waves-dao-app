@@ -21,7 +21,9 @@ export class TeamComponent implements OnInit {
   }
 
   voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
-    this.contractService.voteForApplicant(this.grant?.id as string, teamIdentifier, voteValue)
+    if(this.grant?.status?.value === this.grantStatusEnum.readyToApply) {
+      this.contractService.voteForApplicant(this.grant?.id as string, teamIdentifier, voteValue)
+    }
   }
 
 }
