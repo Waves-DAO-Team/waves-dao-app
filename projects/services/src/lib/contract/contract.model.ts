@@ -25,6 +25,11 @@ export interface ContractGrantAppModel {
   name: ContractRawDataString
   link: ContractRawDataString
   key?: string
+  score?: {
+    key: string
+    type: string
+    value: string
+  }
   voted: {
     key: string
     type: string

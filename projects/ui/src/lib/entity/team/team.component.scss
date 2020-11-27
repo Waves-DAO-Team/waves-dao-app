@@ -1,0 +1,45 @@
+@import "const";
+
+.team {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: flex;
+      margin-bottom: $padding;
+      .left {
+        width: $padding * 7;
+        height: $padding * 7;
+        background: $color_gray;
+      }
+      .mid {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        .name {
+          padding-left: $padding;
+          font-size: $font_size_h4;
+          font-weight: bold;
+        }
+        .link {
+          padding-left: $padding;
+          font-size: $font_size_h5;
+          color: $color_waves_blue;
+          text-decoration: none;
+          display: flex;
+          justify-content: center;
+          img {
+            padding-left: $padding / 2;
+          }
+        }
+      }
+      .right {}
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -57,13 +57,13 @@ export class EntityComponent implements OnInit {
 
 
 
-  voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
-    this.contractService.voteForApplicant(
-      this.grant.id as string,
-      teamIdentifier,
-      voteValue
-    )
-  }
+  // voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
+  //   this.contractService.voteForApplicant(
+  //     this.grant.id as string,
+  //     teamIdentifier,
+  //     voteValue
+  //   )
+  // }
 
 
 
