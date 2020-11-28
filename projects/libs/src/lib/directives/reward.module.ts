@@ -4,11 +4,13 @@ import { RewardDirective } from './reward.directive'
 
 @NgModule({
   declarations: [
-    RewardDirective
+    RewardDirective,
+    // BoldDirective
   ],
   imports: [CommonModule],
   exports: [
-    RewardDirective
+    RewardDirective,
+    // BoldDirective
   ]
 })
 export class RewardModule {}

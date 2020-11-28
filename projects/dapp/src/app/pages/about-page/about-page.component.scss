@@ -1,4 +1,5 @@
 @import 'const';
+@import 'mixins/container';
 @import 'mixins/elements/icon-logo';
 
 .logo {
@@ -21,4 +22,8 @@
 .title {
   font-size: $font-size-large;
   font-weight: bold;
+}
+
+.container {
+  @include container();
 }

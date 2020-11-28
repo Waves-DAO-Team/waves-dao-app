@@ -1,9 +1,4 @@
-<div class="container">
-  <div class="container__left">
-    <button class="container__left__back-btn" [routerLink]="['/']">
-      <img src="assets/icons/arr-left.svg">Back
-    </button>
-  </div>
+
   <div class="entity">
     <!-- unauthorized --------------------------------------------------------------------------------------------------->
     <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.unauthorized">
@@ -172,6 +167,3 @@
 
     <ui-modal></ui-modal>
   </div>
-  <div class="container__right"></div>
-</div>
-

@@ -12,7 +12,7 @@
  @include container();
   form {
     //@include form;
-    flex: 4.5;
+
     .input {
       @include floating-label();
       margin-bottom: $padding * 2;

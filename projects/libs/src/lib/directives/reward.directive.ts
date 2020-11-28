@@ -9,7 +9,6 @@ export class RewardDirective {
   }
 
   @HostListener('blur') blur() {
-    console.log(123)
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)
   }
 
