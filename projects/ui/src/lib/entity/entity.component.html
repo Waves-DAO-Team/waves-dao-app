@@ -143,7 +143,7 @@
           </div>
         </div>
         <div class="btn-container full">
-          <button type="button" (click)="modal.onCancel()" class="btn">{{'modal.cancel' | transloco}}</button>
+          <button type="button" (click)="modal?.onCancel()" class="btn">{{'modal.cancel' | transloco}}</button>
           <button type="submit" class="btn active" [disabled]="!applyGrantForm.valid">{{'apply_grant.form.apply' | transloco}}</button>
         </div>
       </form>
