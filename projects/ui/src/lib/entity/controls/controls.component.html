@@ -17,7 +17,8 @@
   <ng-container *ngIf="status === grantStatusEnum.readyToApply">
     <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
       <ng-container *ngIf="grantId && !userService.data.getValue().apply.includes(grantId)">
-        <button [routerLink]="['/', 'apply-grant', grantId]">
+<!--        <button [routerLink]="['/', 'apply-grant', grantId]">-->
+        <button (click)="onOpenApplyModal()">
           {{'entity.apply' | transloco}}
         </button>
       </ng-container>

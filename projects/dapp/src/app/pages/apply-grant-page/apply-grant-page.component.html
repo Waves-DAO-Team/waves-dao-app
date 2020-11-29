@@ -13,14 +13,6 @@
     </ul>
   </div>
   <form [formGroup]="grantForm" (ngSubmit)="onSubmit()">
-<!--    <label>-->
-<!--      {{'apply_grant.form.name.label' | transloco}}:-->
-<!--      <input type="text" formControlName="name" [placeholder]="'apply_grant.form.name.placeholder' | transloco">-->
-<!--    </label>-->
-<!--    <label>-->
-<!--      {{'apply_grant.form.contacts.label' | transloco}}:-->
-<!--      <input type="text" formControlName="emailOrPhone" [placeholder]="'apply_grant.form.contacts.placeholder' | transloco">-->
-<!--    </label>-->
     <label>
       {{'apply_grant.form.team.label' | transloco}}:
       <input type="text" formControlName="team" [placeholder]="'apply_grant.form.team.placeholder' | transloco">
@@ -29,18 +21,6 @@
       {{'apply_grant.form.link.label' | transloco}}:
       <input type="text" formControlName="link" [placeholder]="'apply_grant.form.link.placeholder' | transloco">
     </label>
-<!--    <label>-->
-<!--      {{'apply_grant.form.description.label' | transloco}}:-->
-<!--      <textarea rows="7" type="text" formControlName="experience"-->
-<!--                [placeholder]="'apply_grant.form.description.placeholder' | transloco"></textarea>-->
-<!--    </label>-->
-<!--    <h4 class="text-bold">-->
-<!--      {{'apply_grant.form.document' | transloco}}-->
-<!--    </h4>-->
-<!--    <label>-->
-<!--      {{'apply_grant.form.document_url.label' | transloco}}:-->
-<!--      <input type="text" formControlName="documentUrl" [placeholder]="'apply_grant.form.document_url.placeholder' | transloco">-->
-<!--    </label>-->
     <div class="btn-container full">
       <button type="submit" class="btn active" [disabled]="!grantForm.valid">{{'apply_grant.form.apply' | transloco}}</button>
     </div>

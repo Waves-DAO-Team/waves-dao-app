@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {GrantStatusEnum} from "../../../../../services/src/interface";
 import {UserService} from "@services/user/user.service";
 import {ContractService} from "@services/contract/contract.service";
@@ -6,6 +6,7 @@ import {RoleEnum} from "@services/user/user.interface";
 import {translate} from "@ngneat/transloco";
 import {SignerService} from "@services/signer/signer.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'ui-controls',
@@ -22,6 +23,7 @@ export class ControlsComponent implements OnInit {
   @Input() role: string | null = null
   @Input() voted: string | null = null
   @Input() performer: string | null = null
+  @Output() openApplyModal = new EventEmitter<boolean>()
 
   reportLink = ''
 
@@ -59,6 +61,10 @@ export class ControlsComponent implements OnInit {
 
   finishApplicantsVote () {
     this.contractService.finishApplicantsVoting(this.grantId as string)
+  }
+
+  onOpenApplyModal() {
+    this.openApplyModal.emit(true)
   }
 
 }

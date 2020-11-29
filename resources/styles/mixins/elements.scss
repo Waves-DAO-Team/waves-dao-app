@@ -280,7 +280,10 @@ $dot-list-li-size: 16px;
   top: 0;
   width: 100%;
   z-index: 9;
-
+  .title {
+    font-size: $font_size_h3;
+    margin-bottom: $padding * 2;
+  }
   &__container {
     bottom: 0;
     height: 300px;
@@ -289,11 +292,11 @@ $dot-list-li-size: 16px;
     position: absolute;
     right: 0;
     top: 0;
-    width: 300px;
+    width: 440px;
 
     &__inner-container {
       background: #fff;
-      padding: $padding;
+      padding: $padding * 3 $padding * 2;
 
       &__title {
         @include text-title(h2);

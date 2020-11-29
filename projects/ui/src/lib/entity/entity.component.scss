@@ -1,5 +1,7 @@
 @import 'const';
 @import 'mixins/elements/btn-container';
+@import 'mixins/elements/floating-label';
+//@import 'mixins/elements/btn-container';
 
 .btn-container {
   @include btn-container();
@@ -29,32 +31,7 @@
   }
 
 }
-
-//
-//.container {
-//  display: flex;
-//  &__left, &__right{
-//    flex: 1;
-//  }
-//
-//  &__left {
-//
-//    &__back-btn {
-//      background: transparent;
-//      border: 0;
-//      outline: none;
-//      color: $color_black;
-//      font-size: $font_size_h4;
-//      font-weight: 100;
-//      cursor: pointer;
-//      img {
-//        margin-right: $padding;
-//      }
-//    }
-//
-//  }
-//
-//  //.entity {
-//  //  flex: 4.5;
-//  //}
-//}
+.input {
+  @include floating-label();
+  margin-bottom: $padding * 2;
+}

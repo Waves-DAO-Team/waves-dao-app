@@ -1,16 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { UserService } from '@services/user/user.service'
-import { RoleEnum } from '@services/user/user.interface'
-import { GrantStatusEnum } from '../../../../services/src/interface'
-import { ModalComponent } from '@ui/modal/modal.component'
-import { SignerService } from '@services/signer/signer.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { translate } from '@ngneat/transloco'
-import { ContractService } from '@services/contract/contract.service'
-import { ActivatedRoute } from '@angular/router'
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core'
+import {ContractGrantModel} from '@services/contract/contract.model'
+import {UserService} from '@services/user/user.service'
+import {RoleEnum} from '@services/user/user.interface'
+import {GrantStatusEnum} from '../../../../services/src/interface'
+import {ModalComponent} from '@ui/modal/modal.component'
+import {SignerService} from '@services/signer/signer.service'
+import {MatSnackBar} from '@angular/material/snack-bar'
+import {translate} from '@ngneat/transloco'
+import {ContractService} from '@services/contract/contract.service'
+import {ActivatedRoute} from '@angular/router'
 
-import { LinkContentService } from '@services/link-content/link-content.service'
+import {LinkContentService} from '@services/link-content/link-content.service'
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'ui-entity',
@@ -29,7 +30,12 @@ export class EntityComponent implements OnInit {
     this.cdr.markForCheck()
   })
 
-  constructor (
+  applyGrantForm = new FormGroup({
+    team: new FormControl('', Validators.required),
+    link: new FormControl('', Validators.required)
+  })
+
+  constructor(
     private route: ActivatedRoute,
     public userService: UserService,
     private signerService: SignerService,
@@ -38,35 +44,35 @@ export class EntityComponent implements OnInit {
     public linkContentService: LinkContentService,
     public cdr: ChangeDetectorRef
   ) {
+
+
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     if (this.grant?.link?.value) {
-      // this.linkContentService.init(this.grant.link.value)
-
       this.linkContentService.link$.next(this.grant.link.value)
     }
+    //
+    //
+    // setTimeout(() => {
+    //   console.log('000')
+    //   this.modal?.openModal()
+    // }, 500)
   }
 
-  vote (value: 'like' | 'dislike') {
+  vote(value: 'like' | 'dislike') {
     const id = this.grant.id || ''
     this.contractService.voteForTaskProposal(id, value)
   }
 
+  onSubmitApplyGrantForm() {
+    if (this.grant.id) {
+      this.contractService.applyForTask(this.grant.id, this.applyGrantForm.value.team, this.applyGrantForm.value.link)
+      this.modal?.onCancel()
+    }
+  }
 
-
-
-
-  // voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
-  //   this.contractService.voteForApplicant(
-  //     this.grant.id as string,
-  //     teamIdentifier,
-  //     voteValue
-  //   )
-  // }
-
-
-
-
-
+  openApplyModal($event: any) {
+    this.modal?.openModal()
+  }
 }
