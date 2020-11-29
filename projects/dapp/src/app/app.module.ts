@@ -21,7 +21,7 @@ import { provideApi, provideAppConstants } from './app.providers'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MarkdownModule } from 'ngx-markdown'
-import {RewardDirective} from "@libs/directives/reward.directive";
+import { RewardDirective } from '@libs/directives/reward.directive'
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import {RewardDirective} from "@libs/directives/reward.directive";
     FooterModule,
     PipesModule,
     MatSnackBarModule,
-    MarkdownModule.forRoot(),
+    MarkdownModule.forRoot()
 
   ],
   providers: [

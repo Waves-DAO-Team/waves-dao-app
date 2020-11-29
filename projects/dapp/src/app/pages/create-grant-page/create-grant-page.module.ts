@@ -7,15 +7,15 @@ import { CreateGrantPageComponent } from './create-grant-page.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { CreateGrantPageGuard } from '@pages/create-grant-page/create-grant-page.guard'
 import { TranslocoModule } from '@ngneat/transloco'
-import {AppComponent} from "@dapp/src/app/app.component";
-import {RewardDirective} from "@libs/directives/reward.directive";
-import {RewardModule} from "@libs/directives/reward.module";
+import { AppComponent } from '@dapp/src/app/app.component'
+import { RewardDirective } from '@libs/directives/reward.directive'
+import { RewardModule } from '@libs/directives/reward.module'
 // import {RewardModule} from "@libs/directives/reward.module";
 const maskConfig: Partial<IConfig> = {
   validation: false
 }
 @NgModule({
-  declarations: [CreateGrantPageComponent, ],
+  declarations: [CreateGrantPageComponent],
   imports: [
     RewardModule,
     CommonModule,

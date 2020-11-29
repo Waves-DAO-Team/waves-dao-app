@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core'
 
 @Component({
   selector: 'ui-header',
@@ -6,14 +6,12 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Input() status = ''
+  @Input() title = ''
+  @Input() reward = 0
 
-  @Input() status: string = ''
-  @Input() title: string = ''
-  @Input() reward: number = 0
+  constructor () { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
-
 }

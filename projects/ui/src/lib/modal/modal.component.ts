@@ -1,4 +1,4 @@
-import {EventEmitter, Component, Input, OnInit, Output, ChangeDetectorRef} from '@angular/core'
+import { EventEmitter, Component, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core'
 
 @Component({
   selector: 'ui-modal',
@@ -23,7 +23,7 @@ export class ModalComponent implements OnInit {
     this.cdr.markForCheck()
   }
 
-  onCancel () {
+  onCancel (): void {
     this.isOpen = false
     this.willConfirm.emit(false)
   }

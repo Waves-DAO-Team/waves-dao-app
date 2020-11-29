@@ -272,7 +272,7 @@ export class ContractService {
       })
   }
 
-  public applyForTask (taskId: string, teamName: string, link: string) {
+  public applyForTask (taskId: string, teamName: string, link: string): void {
     this.popupService.add(`${taskId} ${teamName} ${link}`, 'applyForTask')
     this.signerService.invoke('applyForTask', [
       { type: 'string', value: taskId },

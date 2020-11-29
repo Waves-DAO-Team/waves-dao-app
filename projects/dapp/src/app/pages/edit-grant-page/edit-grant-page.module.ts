@@ -10,8 +10,8 @@ import { TranslocoModule } from '@ngneat/transloco'
 import { CreateGrantPageGuard } from '@pages/create-grant-page/create-grant-page.guard'
 import { EditGrantPageGuard } from '@pages/edit-grant-page/edit-grant-page.guard'
 import { IConfig, NgxMaskModule } from 'ngx-mask'
-import {RewardDirective} from "@libs/directives/reward.directive";
-import {RewardModule} from "@libs/directives/reward.module";
+import { RewardDirective } from '@libs/directives/reward.directive'
+import { RewardModule } from '@libs/directives/reward.module'
 // import {RewardModule} from "@libs/directives/reward.module";
 const maskConfig: Partial<IConfig> = {
   validation: false
@@ -32,5 +32,3 @@ const maskConfig: Partial<IConfig> = {
   exports: []
 })
 export class EditGrantPageModule { }
-
-

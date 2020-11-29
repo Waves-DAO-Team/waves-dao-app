@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { ContractService } from '@services/contract/contract.service'
-import {Location} from "@angular/common";
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-edit-grant-page',
@@ -12,7 +12,7 @@ import {Location} from "@angular/common";
 export class EditGrantPageComponent implements OnInit {
   grantForm = new FormGroup({
     name: new FormControl(''),
-    reward: new FormControl(''),
+    reward: new FormControl('')
     // tags: new FormControl('', Validators.required),
     // description: new FormControl('', Validators.required)
   })
@@ -26,18 +26,18 @@ export class EditGrantPageComponent implements OnInit {
     })
   }
 
-  onSubmit() {
+  onSubmit () {
     let reward = this.grantForm.value.reward
-    if (reward.length == 1) {
+    if (reward.length === 1) {
       reward *= 100000000
     } else {
       reward = reward.replace('.', '')
       reward *= 1000000
     }
-    this.contractService.addTask(this.grantForm.value.name,reward, this.grantForm.value.link)
+    this.contractService.addTask(this.grantForm.value.name, reward, this.grantForm.value.link)
   }
 
-  goBack() {
+  goBack () {
     this.location.back()
   }
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
-import {Location} from "@angular/common";
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-about-page',
@@ -9,7 +9,7 @@ import {Location} from "@angular/common";
 })
 export class AboutPageComponent implements OnInit {
   ngOnInit (): void {}
-  constructor(private location: Location) {
+  constructor (private location: Location) {
   }
 
   goBack (): void {

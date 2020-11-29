@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import {MainResponseInterface, ReposResponseInterface} from '@services/link-content/link-content.interface'
-import { BehaviorSubject} from 'rxjs'
+import { MainResponseInterface, ReposResponseInterface } from '@services/link-content/link-content.interface'
+import { BehaviorSubject } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { filter, map, switchMap, tap } from 'rxjs/operators'
 
@@ -12,7 +12,7 @@ export class LinkContentService {
   mdText$ = new BehaviorSubject<string | null>(null)
   md$ = this.link$.pipe(
     // @ts-ignore
-    tap((url: string | null) => {this.mdText$.next(null)}),
+    tap((url: string | null) => { this.mdText$.next(null) }),
     // @ts-ignore
     filter((url: string | null) => url != null),
     map((url: string) => {
@@ -20,7 +20,7 @@ export class LinkContentService {
         isGH: url.includes('github.com'),
         isIssues: url.includes('issues'),
         separatorCounter: url.split('/').length,
-        url: url
+        url
       }
     }),
     filter((data) => (data.isGH && (data.isIssues || data.separatorCounter === 5))),
