@@ -13,7 +13,6 @@
 
   form {
     //@include form;
-
     .input {
       @include floating-label();
       margin-bottom: $padding * 2;
