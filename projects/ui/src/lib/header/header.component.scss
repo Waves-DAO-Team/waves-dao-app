@@ -3,6 +3,7 @@
 /* stylelint-disable */
 
 @mixin profile() {
+
   .icon {
     margin-right: $padding;
     display: flex;
@@ -38,6 +39,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
     img {
       padding-left: $padding;
       width: 18px;
@@ -116,8 +118,9 @@ header {
       .logo {
         display: flex;
         justify-content: space-between;
-        img {
+        >img {
           margin-left: $padding;
+          //margin-left: $padding;
         //  width: 100%;
         //  max-width: 200px;
         //  margin: $padding * 2 auto $padding * 2 auto !important;
@@ -127,9 +130,17 @@ header {
           display: block;
           list-style: none;
           margin-right: $padding;
-          li   {
-            @include profile;
+          li {
+            @include profile();
+            display: flex;
+            .icon {
+              img {
+                max-width: none;
+                width: 40px;
+                height: 40px;
 
+              }
+            }
           }
         }
       }
