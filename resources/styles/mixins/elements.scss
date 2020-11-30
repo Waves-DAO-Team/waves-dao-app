@@ -302,6 +302,11 @@ $dot-list-li-size: 16px;
 
   .text {
     margin-bottom: $padding;
+
+    a {
+      color: $color_waves_blue;
+      text-decoration: none;
+    }
   }
 
   &__container {

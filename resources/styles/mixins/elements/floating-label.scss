@@ -1,38 +1,53 @@
 @mixin floating-label() {
   .input-wrp {
-    position: relative;
-    width: 100%;
 
     margin-top: -20px;
-  }
-  .input-wrp .inputText{
+    position: relative;
     width: 100%;
-    outline: none;
-    border:none;
+  }
+
+  .input-wrp .inputText {
+    border: 0;
     border-bottom: 1px solid #777;
     box-shadow: none !important;
     font-size: $font_size_h4;
     font-weight: 100;
+    outline: none;
     padding-bottom: $padding / 2;
+    width: 100%;
   }
-  .input-wrp .inputText:focus{
+
+  .input-wrp .inputText:focus {
     border-color: $color_waves_blue;
     border-width: medium medium 2px;
   }
+
   .input-wrp .floating-label {
-    position: absolute;
-    pointer-events: none;
-    top: 18px;
-    left: 0px;
-    transition: 0.2s ease all;
     color: $color_dark_gray;
     font-size: $font_size_h4;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 18px;
+    transition: 0.2s ease all;
   }
+
   .input-wrp input:focus ~ .floating-label,
-  .input-wrp input:not(:focus):valid ~ .floating-label{
-    top: 0px;
-    left: 0px;
-    opacity: 1;
+  .input-wrp input:not(:focus):valid ~ .floating-label {
     font-size: $font_size_h5;
+    left: 0;
+    opacity: 1;
+    top: 0;
+  }
+
+  .sub-text {
+    color: $color_dark_gray;
+    font-size: $font_size_h5;
+    margin-top: $padding / 2;
+
+    a {
+      color: $color_waves_blue;
+      text-decoration: none;
+    }
   }
 }
