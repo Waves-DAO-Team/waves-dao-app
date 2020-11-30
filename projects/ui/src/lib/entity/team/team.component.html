@@ -2,7 +2,7 @@
   <h4>Teams</h4>
 
   <ul *ngIf="grant?.app?.length > 0">
-    <li *ngFor="let app of grant?.app" [class.winner]="app?.process">
+    <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process">
       <div class="left">
         <div class="up" [class.disabled]="!(grant?.status?.value === grantStatusEnum.readyToApply)">
           <img src="assets/icons/arr-up.svg"

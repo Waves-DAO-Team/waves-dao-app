@@ -32,6 +32,7 @@
     "@angular/router": "~10.2.2",
     "@ngneat/transloco": "^2.19.1",
     "@ngxd/core": "^10.0.0",
+    "@types/lodash": "^4.14.165",
     "@waves.exchange/provider-web": "^0.2.3",
     "@waves/signer": "^0.1.2",
     "include-media": "^1.4.9",
