@@ -1,11 +1,11 @@
 @import 'const';
 @import '~include-media/dist/_include-media.scss';
-
+/* stylelint-disable */
 
 @mixin profile() {
   .icon {
-    display: flex;
     margin-right: $padding;
+    display: flex;
 
   }
 
@@ -13,32 +13,31 @@
     margin-right: $padding;
 
     .name {
-      color: $color_black;
       font-size: $font_size_h4;
+      color: $color_black;
     }
 
     .role {
-      color: $color_dark_gray;
       font-size: $font_size_h5;
+      color: $color_dark_gray;
     }
   }
 
   button {
-    align-items: center;
-    background: none;
+    cursor: pointer;
+    outline: none;
+    font-size: $font_size_h4;
     border: 1px solid $color_light_gray;
     color: $color_black;
-    cursor: pointer;
-    display: flex;
-    font-size: $font_size_h4;
-    height: 48px;
-    justify-content: center;
-    outline: none;
+    background: none;
     padding: $padding $padding * 2;
-    position: relative;
     text-transform: uppercase;
     transition: 0.3s;
-
+    height: 48px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
       padding-left: $padding;
       width: 18px;
@@ -53,83 +52,22 @@
 hr {
   border-bottom: 0;
   border-top: 1px solid $color_light_gray;
-  margin: 0 0 $padding * 4 0;
   padding: 0;
+  margin: 0 0 $padding * 4 0;
 }
 
 header {
-
-  @include media('<=tablet') {
-    margin: 0;
-    max-width: 100vw !important;
-    overflow: hidden;
-    padding: 0;
-
-    .container {
-      flex-direction: column;
-      margin: 0;
-      max-width: 100vw;
-      padding: 0;
-
-
-      .logo {
-        display: flex;
-        justify-content: space-between;
-
-        img {
-          margin-left: $padding;
-          //  width: 100%;
-          //  max-width: 200px;
-          //  margin: $padding * 2 auto $padding * 2 auto !important;
-        }
-
-        ul {
-          display: block;
-          list-style: none;
-          margin-right: $padding;
-
-          li {
-            @include profile;
-
-          }
-        }
-      }
-
-      .nav {
-        border-top: 1px solid $color_light_gray;
-        flex-direction: row;
-        justify-content: center;
-        padding-top: $padding;
-
-        .profile {
-          display: none;
-        }
-
-        li {
-          justify-content: center;
-          margin-bottom: $padding;
-          padding: 0;
-          padding-left: $padding;
-          padding-right: $padding;
-        }
-      }
-    }
-  }
-
   .container {
     display: flex;
     padding: $padding * 2 $padding;
-
     .logo {
+      flex: 1;
       align-items: center;
       display: flex;
-      flex: 1;
-
       img {
-        display: block;
         max-width: 40%;
+        display: block;
       }
-
       ul {
         display: none;
       }
@@ -142,24 +80,76 @@ header {
       padding: 0;
 
       li {
-        align-items: center;
-        color: $color_dark_gray;
-        cursor: pointer;
-        display: flex;
-        font-size: $font_size_h4;
-        outline: none;
         padding-left: $padding * 3;
+        font-size: $font_size_h4;
+        color: $color_dark_gray;
+        align-items: center;
+        display: flex;
+        cursor: pointer;
+        outline: none;
+        &.active {
+          color: $color_waves_blue;
+        }
+
+        &.profile {
+          @include profile()
+        }
 
 
       }
 
-      .active {
-        color: $color_waves_blue;
+    }
+  }
+
+  @include media('<=tablet') {
+    max-width: 100vw !important;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    .container {
+      padding: 0;
+      margin: 0;
+      max-width: 100vw;
+      flex-direction: column;
+
+
+      .logo {
+        display: flex;
+        justify-content: space-between;
+        img {
+          margin-left: $padding;
+        //  width: 100%;
+        //  max-width: 200px;
+        //  margin: $padding * 2 auto $padding * 2 auto !important;
+        }
+
+        ul {
+          display: block;
+          list-style: none;
+          margin-right: $padding;
+          li   {
+            @include profile;
+
+          }
+        }
       }
 
-      .profile {
-        @include profile()
-      ;}
+      .nav {
+        flex-direction: row;
+        justify-content: center;
+        border-top: 1px solid $color_light_gray;
+        padding-top: $padding;
+        .profile {
+          display: none;
+        }
+        li {
+          padding: 0;
+          justify-content: center;
+          margin-bottom: $padding;
+          padding-right: $padding;
+          padding-left: $padding;
+        }
+      }
     }
   }
 
