@@ -46,7 +46,6 @@ export class ContractService {
       return this.prepareData(data)
     }),
     switchMap((data: ContractDataModel) => {
-      console.log(data)
       this.contractState$.next(data)
       return this.contractState$.pipe(takeUntil(this.contractRefresh$))
     }),
@@ -60,7 +59,7 @@ export class ContractService {
   )
 
   public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.contractState.pipe(map((contract) => {
-    return Object.keys(contract?.tasks).map((entityKey: string) => {
+    return Object.keys(contract?.tasks || {}).map((entityKey: string) => {
       return {
         ...contract?.tasks[entityKey],
         id: entityKey
@@ -143,7 +142,6 @@ export class ContractService {
   }
 
   // dapp
-
   public addDAOMember (members: string) {
     this.signerService.invoke('addDAOMember', [
       { type: 'string', value: members }
