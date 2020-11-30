@@ -75,6 +75,15 @@
     </div>
     <!-- master --------------------------------------------------------------------------------------------------------->
 
+    <ui-controls
+      [status]="grant?.status?.value"
+      [grantId]="grant?.id"
+      [role]="userService.data.getValue().userRole"
+      [voted]="grant?.voted"
+      [performer]="grant?.performer?.value"
+      (openApplyModal)="openApplyModal($event)"
+    ></ui-controls>
+
     <!-- team ----------------------------------------------------------------------------------------------------------->
     <ui-team
       [grant]="grant"
@@ -116,14 +125,7 @@
     </div>
     <!-- vote ----------------------------------------------------------------------------------------------------------->
 
-    <ui-controls
-      [status]="grant?.status?.value"
-      [grantId]="grant?.id"
-      [role]="userService.data.getValue().userRole"
-      [voted]="grant?.voted"
-      [performer]="grant?.performer?.value"
-      (openApplyModal)="openApplyModal($event)"
-    ></ui-controls>
+
 
     <ui-modal>
       <div class="title">Apply for grant</div>
