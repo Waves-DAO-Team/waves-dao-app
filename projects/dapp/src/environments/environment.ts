@@ -29,6 +29,7 @@ export const environment = {
     masterSetting: 'master-setting',
     setting: 'settings',
     create: 'create',
+    members: 'members',
     stylesheet: 'stylesheet',
     team: 'team/:entityId'
   },

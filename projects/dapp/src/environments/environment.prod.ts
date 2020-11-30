@@ -25,6 +25,7 @@ export const environment = {
     createGrant: 'create-grant',
     setting: 'settings',
     create: 'create',
+    members: 'members',
     stylesheet: 'stylesheet',
     editGrant: 'edit-grant/:entityId',
     masterSetting: 'master-setting',

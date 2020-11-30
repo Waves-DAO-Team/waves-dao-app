@@ -1,0 +1,6 @@
+@import 'const';
+@import 'mixins/container';
+
+.container {
+  @include container();
+}

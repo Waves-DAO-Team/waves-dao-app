@@ -46,7 +46,6 @@
   <div class="container">
     <div class="logo">
       <img src="assets/icons/logo.png">
-
       <ul>
         <li *ngIf="(user$ | async)?.name" class="profile">
           <div class="icon">
@@ -99,6 +98,9 @@
       </li>
       <li [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
         {{ 'app.header.createGrant' | transloco }}
+      </li>
+      <li [routerLink]="[routingPath.members]" routerLinkActive="active">
+        Members
       </li>
       <!--      <li *ngIf="(user$ | async)?.name">-->
       <!--        <button (click)="logoutHandler()">-->
