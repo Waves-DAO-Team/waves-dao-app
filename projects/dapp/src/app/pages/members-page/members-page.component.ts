@@ -12,7 +12,7 @@ export class MembersPageComponent implements OnInit {
     this.cdr.markForCheck()
   })
 
-  constructor (private location: Location, private userService: UserService, public cdr: ChangeDetectorRef) {
+  constructor (private location: Location, public userService: UserService, public cdr: ChangeDetectorRef) {
   }
 
   goBack (): void {
