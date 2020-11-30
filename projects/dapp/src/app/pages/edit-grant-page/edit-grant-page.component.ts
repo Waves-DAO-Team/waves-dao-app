@@ -19,7 +19,14 @@ export class EditGrantPageComponent implements OnInit {
   })
 
   grantId = '';
-  constructor (public userService: UserService, private route: ActivatedRoute, private contractService: ContractService, private location: Location) {}
+
+  constructor (
+    public userService: UserService,
+    private route: ActivatedRoute,
+    private contractService: ContractService,
+    private location: Location
+  ) {
+  }
 
   ngOnInit (): void {
     this.route.params.subscribe((p) => {

@@ -130,7 +130,8 @@ export class UserService {
 
   isBalanceMoreCommission (): boolean {
     let result = false
-    if (this.data.getValue().balance.length > 0 && parseInt(this.data.getValue().balance) > 0.005) {
+    /* eslint-disable */
+    if (this.data.getValue().balance.length > 0 && (parseInt(this.data.getValue().balance, 10) > 0.005)) {
       result = true
     }
     return result
