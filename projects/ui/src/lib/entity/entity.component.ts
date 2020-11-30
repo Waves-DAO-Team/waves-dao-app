@@ -30,16 +30,15 @@ export class EntityComponent implements OnInit {
     this.cdr.markForCheck()
   })
 
+  modalStep = 1
+
   applyGrantForm = new FormGroup({
     team: new FormControl('', Validators.required),
     link: new FormControl('', Validators.required)
   })
 
   constructor (
-    private route: ActivatedRoute,
     public userService: UserService,
-    private signerService: SignerService,
-    private snackBar: MatSnackBar,
     public contractService: ContractService,
     public linkContentService: LinkContentService,
     public cdr: ChangeDetectorRef
@@ -51,11 +50,10 @@ export class EntityComponent implements OnInit {
     if (this.grant?.link?.value) {
       this.linkContentService.link$.next(this.grant.link.value)
     }
-    //
-    //
     // setTimeout(() => {
     //   console.log('000')
     //   this.modal?.openModal()
+    //   this.modalStep = 1
     // }, 500)
   }
 
@@ -74,5 +72,13 @@ export class EntityComponent implements OnInit {
 
   openApplyModal ($event: boolean): void {
     this.modal?.openModal()
+    this.modalStep = 1
+  }
+
+  modalGoTo (com: 'ALREADY_APPLIED' | 'NEED_APPLY') {
+    if (com === 'NEED_APPLY') {
+      window.open('https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+', '_blank')
+    }
+    this.modalStep = 2
   }
 }

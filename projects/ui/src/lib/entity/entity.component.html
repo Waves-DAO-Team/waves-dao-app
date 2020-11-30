@@ -128,26 +128,39 @@
 
 
     <ui-modal>
-      <div class="title">Apply for grant</div>
-      <form [formGroup]="applyGrantForm" (ngSubmit)="onSubmitApplyGrantForm()">
-        <div class="input">
-          <div class="input-wrp">
-            <br/>
-            <input type="text" class="inputText" formControlName="team" required />
-            <span class="floating-label">{{'apply_grant.form.team.label' | transloco}}</span>
-          </div>
-        </div>
-        <div class="input">
-          <div class="input-wrp">
-            <br/>
-            <input type="text" class="inputText" formControlName="link" required />
-            <span class="floating-label">{{'apply_grant.form.link.label' | transloco}}</span>
-          </div>
-        </div>
+      <ng-container *ngIf="modalStep === 1">
+        <div class="step">STEP 1</div>
+        <div class="title">Apply form on GitHubt</div>
+        <div class="text">Please submit the form using issue on GitHub.</div>
         <div class="btn-container full">
-          <button type="button" (click)="modal?.onCancel()" class="btn">{{'modal.cancel' | transloco}}</button>
-          <button type="submit" class="btn active" [disabled]="!applyGrantForm.valid">{{'apply_grant.form.apply' | transloco}}</button>
+          <button type="button" class="btn" (click)="modalGoTo('NEED_APPLY')">APPLY ON GITHUB</button>
+          <button type="button" class="btn active" (click)="modalGoTo('ALREADY_APPLIED')">I ALREADY APPLIED</button>
         </div>
-      </form>
+      </ng-container>
+      <ng-container *ngIf="modalStep === 2">
+        <div class="step">STEP 2</div>
+        <div class="title">Link to apply form</div>
+        <form [formGroup]="applyGrantForm" (ngSubmit)="onSubmitApplyGrantForm()">
+          <div class="input">
+            <div class="input-wrp">
+              <br/>
+              <input type="text" class="inputText" formControlName="team" required />
+              <span class="floating-label">{{'apply_grant.form.team.label' | transloco}}</span>
+            </div>
+          </div>
+          <div class="input">
+            <div class="input-wrp">
+              <br/>
+              <input type="text" class="inputText" formControlName="link" required />
+              <span class="floating-label">{{'apply_grant.form.link.label' | transloco}}</span>
+            </div>
+          </div>
+          <div class="btn-container full">
+            <button type="submit" class="btn active" [disabled]="!applyGrantForm.valid">{{'apply_grant.form.apply' | transloco}}</button>
+            <button type="button" (click)="modal?.onCancel()" class="btn">{{'modal.cancel' | transloco}}</button>
+          </div>
+        </form>
+      </ng-container>
+
     </ui-modal>
   </div>

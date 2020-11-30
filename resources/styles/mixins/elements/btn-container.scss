@@ -39,10 +39,16 @@
     color: $blue;
   }
   @if ($type == full) {
-    //padding: $padding  0;
+    flex-direction: column;
+
     .btn {
       margin: 0;
+      margin-bottom: $padding / 2;
       width: 100%;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }
