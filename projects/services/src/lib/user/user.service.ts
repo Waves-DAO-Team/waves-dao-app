@@ -37,8 +37,8 @@ export class UserService {
     .pipe(
       tap(([userAddress, contract]) => {
         const masterAddress = environment.apis.contractAddress
-        const WorkGroupAddress = Object.keys(contract.working?.group?.member)
-        const DAOMemberAddress = Object.keys(contract.dao.member)
+        const WorkGroupAddress = Object.keys(contract?.working?.group?.member || {})
+        const DAOMemberAddress = Object.keys(contract?.dao?.member || {})
         const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
         const newData: UserDataInterface = {
           DAOMemberAddress,
@@ -47,8 +47,8 @@ export class UserService {
           userAddress: userAddress.address,
           userRole: dr.mainRole,
           roles: dr.roles,
-          voted: this.defineVoted(userAddress.address, contract.tasks),
-          apply: this.defineApply(userAddress.address, contract.tasks),
+          voted: this.defineVoted(userAddress.address, contract?.tasks || {}),
+          apply: this.defineApply(userAddress.address, contract?.tasks || {}),
           balance: userAddress.balance
         }
         if (JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
