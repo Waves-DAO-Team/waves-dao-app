@@ -14,6 +14,10 @@
     outline: none;
     padding: $padding;
     transition: 0.2s;
+
+    &:disabled {
+      background: #f00 !important;
+    }
   }
 
   .btn:hover {
@@ -30,6 +34,7 @@
   }
 
   >:disabled {
+    background: #f00;
     opacity: 0.5 !important;
   }
 

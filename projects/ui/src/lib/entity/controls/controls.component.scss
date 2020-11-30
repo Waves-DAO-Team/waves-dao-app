@@ -1,20 +1,27 @@
-@import "const";
+/* stylelint-disable */
+
+@import 'const';
 
 .controls {
-  text-align: right;
-  margin-top: $padding * 3;
   margin-bottom: $padding * 3;
+  margin-top: $padding * 3;
+  text-align: right;
+
   button {
-    margin-left: $padding;
-    cursor: pointer;
-    outline: none;
-    font-size: $font_size_h4;
+    background: none;
     border: 1px solid $color_light_gray;
     color: $color_black;
-    background: none;
+    cursor: pointer;
+    font-size: $font_size_h4;
+    margin-left: $padding;
+    outline: none;
     padding: $padding $padding * 2;
     text-transform: uppercase;
     transition: 0.3s;
+
+    &:disabled {
+      background: #f00 !important;
+    }
 
     img {
       padding-left: $padding;
@@ -25,12 +32,13 @@
     }
 
     &.active {
-      color: white;
       background: $color_waves_blue;
       border: 1px solid $color_waves_blue;
+      color: #fff;
+
       &:hover {
-        border: 1px solid $color_black;
         background: $color_black;
+        border: 1px solid $color_black;
       }
     }
 
