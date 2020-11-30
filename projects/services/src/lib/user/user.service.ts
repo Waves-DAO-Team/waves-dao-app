@@ -4,7 +4,7 @@ import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { environment } from '../../../../dapp/src/environments/environment'
 import { BehaviorSubject, combineLatest } from 'rxjs'
-import { publishReplay, refCount, tap } from 'rxjs/operators'
+import { catchError, publishReplay, refCount, tap } from 'rxjs/operators'
 import { ContractGrantModel, ContractGrantRawModel } from '@services/contract/contract.model'
 import { PopupService } from '@services/popup/popup.service'
 import { AddTextObjInterface } from '@services/popup/popup.interface'
@@ -26,20 +26,21 @@ export class UserService {
       isAuth: false
     },
     voted: [],
-    apply: []
+    apply: [],
+    balance: ''
   })
 
   lastAddress = ''
 
+  // @ts-ignore
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
         const masterAddress = environment.apis.contractAddress
-        // console.log('------', contract)
         const WorkGroupAddress = Object.keys(contract.working?.group?.member)
         const DAOMemberAddress = Object.keys(contract.dao.member)
         const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
-        const newData = {
+        const newData: UserDataInterface = {
           DAOMemberAddress,
           WorkGroupAddress,
           masterAddress: environment.apis.contractAddress,
@@ -47,7 +48,8 @@ export class UserService {
           userRole: dr.mainRole,
           roles: dr.roles,
           voted: this.defineVoted(userAddress.address, contract.tasks),
-          apply: this.defineApply(userAddress.address, contract.tasks)
+          apply: this.defineApply(userAddress.address, contract.tasks),
+          balance: userAddress.balance
         }
         if (JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
           this.data.next(newData)
@@ -122,6 +124,14 @@ export class UserService {
     if (masterAddress === userAddress) {
       result.mainRole = RoleEnum.master
       result.roles.isMaster = true
+    }
+    return result
+  }
+
+  isBalanceMoreCommission (): boolean {
+    let result = false
+    if (this.data.getValue().balance.length > 0 && parseInt(this.data.getValue().balance) > 0.005) {
+      result = true
     }
     return result
   }

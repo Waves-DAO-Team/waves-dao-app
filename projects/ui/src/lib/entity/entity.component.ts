@@ -41,7 +41,8 @@ export class EntityComponent implements OnInit {
     public userService: UserService,
     public contractService: ContractService,
     public linkContentService: LinkContentService,
-    public cdr: ChangeDetectorRef
+    public cdr: ChangeDetectorRef,
+    private readonly signerService: SignerService
   ) {
 
   }
@@ -50,11 +51,10 @@ export class EntityComponent implements OnInit {
     if (this.grant?.link?.value) {
       this.linkContentService.link$.next(this.grant.link.value)
     }
-    // setTimeout(() => {
-    //   console.log('000')
-    //   this.modal?.openModal()
-    //   this.modalStep = 1
-    // }, 500)
+    // setInterval(() => {
+    //   console.log('--->',   this.signerService.signer.getBalance())
+    //
+    // }, 5000)
   }
 
   vote (value: 'like' | 'dislike') {

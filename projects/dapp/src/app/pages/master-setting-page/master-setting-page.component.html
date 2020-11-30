@@ -14,7 +14,9 @@
         <input type="text" formControlName="DAOMember" [placeholder]="'master_setting.form.DAO_member.placeholder' | transloco">
       </label>
       <div class="btn-container full">
-        <button type="submit" class="btn active"[disabled]="!DAOMemberForm.valid" >{{'master_setting.form.apply' | transloco}}</button>
+        <button type="submit" class="btn active"[disabled]="!DAOMemberForm.valid && !userService.isBalanceMoreCommission()">
+          {{'master_setting.form.apply' | transloco}
+          }</button>
       </div>
     </form>
     <div class="grid">
@@ -40,7 +42,7 @@
         <input type="text" formControlName="workGroup" [placeholder]="'master_setting.form.work_group.placeholder' | transloco">
       </label>
       <div class="btn-container full">
-        <button type="submit" class="btn active"[disabled]="!workGroupForm.valid" >{{'master_setting.form.apply' | transloco}}</button>
+        <button type="submit" class="btn active"[disabled]="!workGroupForm.valid && !userService.isBalanceMoreCommission()" >{{'master_setting.form.apply' | transloco}}</button>
       </div>
     </form>
     <div class="grid">

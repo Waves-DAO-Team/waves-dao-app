@@ -4,6 +4,7 @@ import { ContractService } from '@services/contract/contract.service'
 import { debounce } from 'rxjs/operators'
 import { timer } from 'rxjs'
 import { CurrencyPipe, Location } from '@angular/common'
+import { UserService } from '@services/user/user.service'
 
 @Component({
   selector: 'app-create-grant-page',
@@ -19,7 +20,7 @@ export class CreateGrantPageComponent {
     link: new FormControl('', Validators.required)
   })
 
-  constructor (private contractService: ContractService, private location: Location) {}
+  constructor (private contractService: ContractService, private location: Location, public userService: UserService) {}
 
   onSubmit () {
     let reward = this.grantForm.value.reward
