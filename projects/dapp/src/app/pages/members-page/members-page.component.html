@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
@@ -6,10 +5,14 @@
     </button>
   </div>
   <div class="container__mid">
-      Master:
-      <ul>
-        <li>{{userService?.data?.getValue().masterAddress}}</li>
-      </ul>
+    Contract:
+    <ul>
+      <li>{{environment.apis.contractAddress}}</li>
+    </ul>
+    Master:
+    <ul>
+      <li>{{userService?.data?.getValue().masterAddress}}</li>
+    </ul>
     WG:
     <ul>
       <li *ngFor="let wg of userService?.data?.getValue().WorkGroupAddress">{{wg}}</li>

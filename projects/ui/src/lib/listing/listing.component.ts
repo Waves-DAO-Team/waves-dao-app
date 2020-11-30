@@ -9,7 +9,7 @@ import { GrantStatusEnum } from '@services/../interface'
 import { tap } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
-
+import { environment } from '@dapp/src/environments/environment'
 @Component({
   selector: 'ui-listing',
   templateUrl: './listing.component.html',
@@ -17,7 +17,7 @@ import { TeamService } from '@services/team/team.service'
   providers: GRANTS_PROVIDERS
 })
 export class ListingComponent implements OnInit {
-
+  environment = environment;
   grantsVariationActive = '1'
   RoleEnum = RoleEnum
   GrantStatusEnum = GrantStatusEnum
@@ -72,5 +72,10 @@ export class ListingComponent implements OnInit {
       return true
     }
     return false
+  }
+
+  setEnv (address: string) {
+    environment.apis.contractAddress = address
+    this.contractService.switchContract(address)
   }
 }

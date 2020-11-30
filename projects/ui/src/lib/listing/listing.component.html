@@ -8,7 +8,9 @@
   </div>
 
   <div class="grants-variation">
-    <div class="grant" [class.active]="grantsVariationActive === '1'" (click)="grantsVariationActive = '1'">
+    <div class="grant"
+         [class.active]="environment.apis.contractAddress === environment.apis.contracts.disruptive"
+         (click)="setEnv(environment.apis.contracts.disruptive)">
       <div class="img"></div>
       <div class="content">
         <div class="title">Disruptive Tech Grant</div>
@@ -17,7 +19,9 @@
         </div>
       </div>
     </div>
-    <div class="grant" [class.active]="grantsVariationActive === '2'" (click)="grantsVariationActive = '2'">
+    <div class="grant"
+         [class.active]="environment.apis.contractAddress === environment.apis.contracts.dev"
+         (click)="setEnv(environment.apis.contracts.dev)">
       <div class="img"></div>
       <div class="content">
         <div class="title">Web3.0 Dev Grant</div>
@@ -26,7 +30,9 @@
         </div>
       </div>
     </div>
-    <div class="grant" [class.active]="grantsVariationActive === '3'" (click)="grantsVariationActive = '3'">
+    <div class="grant"
+         [class.active]="environment.apis.contractAddress === environment.apis.contracts.interhack"
+         (click)="setEnv(environment.apis.contracts.interhack)">
       <div class="img"></div>
       <div class="content">
         <div class="title">Interhack Grant</div>
