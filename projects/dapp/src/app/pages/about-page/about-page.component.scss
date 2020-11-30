@@ -1,12 +1,15 @@
-@import 'variables';
+@import 'const';
+@import 'mixins/container';
+@import 'mixins/elements/icon-logo';
 
 .logo {
-  margin-bottom: $padding;
+  margin-bottom: $padding * 2;
   text-align: center;
 
   .icon-logo {
     @include icon-logo(90px);
-    margin: auto;
+    margin: $padding * 2 auto;
+
     text-align: center;
   }
 
@@ -20,4 +23,8 @@
 .title {
   font-size: $font-size-large;
   font-weight: bold;
+}
+
+.container {
+  @include container();
 }

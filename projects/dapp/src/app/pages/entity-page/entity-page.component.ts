@@ -4,6 +4,7 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-entity-page',
@@ -14,11 +15,16 @@ import { UserService } from '@services/user/user.service'
 })
 export class EntityPageComponent implements OnInit {
   constructor (
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-      @Inject(ENTITY) public readonly entity: LoadingWrapperModel<ContractGrantModel>
+    private location: Location,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(ENTITY) public readonly entity: LoadingWrapperModel<ContractGrantModel>
   ) {
   }
 
   ngOnInit (): void {
+  }
+
+  goBack (): void {
+    this.location.back()
   }
 }

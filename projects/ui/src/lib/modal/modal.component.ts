@@ -1,4 +1,4 @@
-import { EventEmitter, Component, Input, OnInit, Output } from '@angular/core'
+import { EventEmitter, Component, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core'
 
 @Component({
   selector: 'ui-modal',
@@ -11,16 +11,19 @@ export class ModalComponent implements OnInit {
   @Input() text = 'Are you sure you want to apply for a grant?'
   @Output() willConfirm = new EventEmitter<boolean>();
 
-  constructor () { }
+  constructor (public cdr: ChangeDetectorRef) {
+
+  }
 
   ngOnInit (): void {
   }
 
   openModal () {
     this.isOpen = true
+    this.cdr.markForCheck()
   }
 
-  onCancel () {
+  onCancel (): void {
     this.isOpen = false
     this.willConfirm.emit(false)
   }

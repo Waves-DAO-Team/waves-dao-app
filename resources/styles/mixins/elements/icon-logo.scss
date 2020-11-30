@@ -1,0 +1,29 @@
+@mixin icon-logo($size: 21px, $type: default) {
+  border-radius: 50%;
+  height: $size;
+  position: relative;
+  width: $size;
+  &::after {
+    bottom: 0;
+    content: '';
+    height: $size / 3;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: rotate(45deg);
+    width: $size / 3;
+  }
+  @if ($type == default) {
+    background: $color_waves_blue;
+    &::after {
+      background: $color_white;
+    }
+  } @else if ($type == active) {
+    background: $color_white;
+    &::after {
+      background: $color_waves_blue;
+    }
+  }
+}

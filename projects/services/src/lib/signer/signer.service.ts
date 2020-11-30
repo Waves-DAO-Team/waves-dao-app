@@ -17,7 +17,7 @@ import { Router } from '@angular/router'
 export class SignerService {
   public readonly signer: Signer
 
-  private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '' })
+  private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '', balance: '' })
 
   public user: Observable<SignerUser> = this.user$.pipe(publishReplay(1), refCount())
 
@@ -33,12 +33,14 @@ export class SignerService {
     return from(
       this.signer.login()
         .then((user: IUserData) => {
-          console.log('login(ser: IUserData):', user)
-          this.user$.next({
-            ...user,
-            name: user.address.slice(0, 3) + '…' + user.address.slice(-3)
+          this.signer.getBalance().then((res) => {
+            console.log('login(ser: IUserData):', user)
+            this.user$.next({
+              ...user,
+              balance: res[0].amount.toString(),
+              name: user.address.slice(0, 3) + '…' + user.address.slice(-3)
+            })
           })
-
           return this.user
         })
         // Todo transform errors to messages in snackbar
@@ -46,7 +48,7 @@ export class SignerService {
   }
 
   public logout (): Observable<void> {
-    this.user$.next({ name: '', address: '', publicKey: '' })
+    this.user$.next({ name: '', address: '', publicKey: '', balance: '' })
     this.router.navigate(['/'])
     return from(this.signer.logout())
   }

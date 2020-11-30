@@ -4,7 +4,7 @@ import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { environment } from '../../../../dapp/src/environments/environment'
 import { BehaviorSubject, combineLatest } from 'rxjs'
-import { publishReplay, refCount, tap } from 'rxjs/operators'
+import { catchError, publishReplay, refCount, tap } from 'rxjs/operators'
 import { ContractGrantModel, ContractGrantRawModel } from '@services/contract/contract.model'
 import { PopupService } from '@services/popup/popup.service'
 import { AddTextObjInterface } from '@services/popup/popup.interface'
@@ -26,36 +26,39 @@ export class UserService {
       isAuth: false
     },
     voted: [],
-    apply: []
+    apply: [],
+    balance: ''
   })
 
   lastAddress = ''
 
+  // @ts-ignore
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
         const masterAddress = environment.apis.contractAddress
-        // console.log('------', contract)
         const WorkGroupAddress = Object.keys(contract.working?.group?.member)
         const DAOMemberAddress = Object.keys(contract.dao.member)
         const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
-        const dv = this.defineVoted(userAddress.address, contract.tasks)
-        const ad = this.defineApply(userAddress.address, contract.tasks)
-        this.data.next({
+        const newData: UserDataInterface = {
           DAOMemberAddress,
           WorkGroupAddress,
-          masterAddress,
+          masterAddress: environment.apis.contractAddress,
           userAddress: userAddress.address,
           userRole: dr.mainRole,
           roles: dr.roles,
-          voted: dv,
-          apply: ad
-        })
-        if (userAddress.address !== this.lastAddress) {
-          this.popupService.add(userAddress.address, 'Login')
-          this.lastAddress = userAddress.address
+          voted: this.defineVoted(userAddress.address, contract.tasks),
+          apply: this.defineApply(userAddress.address, contract.tasks),
+          balance: userAddress.balance
         }
-        console.log('user data: ', this.data.getValue())
+        if (JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
+          this.data.next(newData)
+          if (userAddress.address !== this.lastAddress) {
+            this.popupService.add(userAddress.address, 'Login')
+            this.lastAddress = userAddress.address
+          }
+          console.log('user data: ', this.data.getValue())
+        }
       }),
       publishReplay(1),
       refCount()
@@ -106,9 +109,9 @@ export class UserService {
         isAuth: false
       }
     }
-    if (masterAddress === userAddress) {
-      result.mainRole = RoleEnum.master
-      result.roles.isMaster = true
+    if (userAddress !== '') {
+      result.mainRole = result.mainRole === RoleEnum.unauthorized ? RoleEnum.authorized : result.mainRole
+      result.roles.isAuth = true
     }
     if (DAOMemberAddress.includes(userAddress)) {
       result.mainRole = RoleEnum.DAOMember
@@ -118,9 +121,18 @@ export class UserService {
       result.mainRole = RoleEnum.workingGroup
       result.roles.isWG = true
     }
-    if (userAddress !== '') {
-      result.mainRole = result.mainRole === RoleEnum.unauthorized ? RoleEnum.authorized : result.mainRole
-      result.roles.isAuth = true
+    if (masterAddress === userAddress) {
+      result.mainRole = RoleEnum.master
+      result.roles.isMaster = true
+    }
+    return result
+  }
+
+  isBalanceMoreCommission (): boolean {
+    let result = false
+    /* eslint-disable */
+    if (this.data.getValue().balance.length > 0 && (parseInt(this.data.getValue().balance, 10) > 0.005)) {
+      result = true
     }
     return result
   }

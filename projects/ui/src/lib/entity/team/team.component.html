@@ -1,0 +1,40 @@
+<div class="team">
+  <h4>Teams</h4>
+
+  <ul *ngIf="grant?.app?.length > 0">
+    <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process">
+      <div class="left">
+        <div class="up" [class.disabled]="!(grant?.status?.value === grantStatusEnum.readyToApply)">
+          <img src="assets/icons/arr-up.svg"
+               (click)="voteTeam( 'like', app.id.value)"
+               *ngIf="!(grant?.status?.value === grantStatusEnum.readyToApply) && userService.data.getValue().roles.isDAO">
+          <img src="assets/icons/arr-up-blue.svg"
+               (click)="voteTeam( 'like', app.id.value)"
+               *ngIf="(grant?.status?.value === grantStatusEnum.readyToApply) && userService.data.getValue().roles.isDAO">
+        </div>
+        <div class="score">{{app?.score?.value || 0}}</div>
+        <div class="down" [class.disabled]="!(grant?.status?.value === grantStatusEnum.readyToApply)">
+          <img src="assets/icons/arr-down.svg"
+               (click)="voteTeam( 'dislike', app.id.value)"
+               *ngIf="!(grant?.status?.value === grantStatusEnum.readyToApply) && userService.data.getValue().roles.isDAO">
+          <img src="assets/icons/arr-down-red.svg"
+               (click)="voteTeam( 'like', app.id.value)"
+               *ngIf="(grant?.status?.value === grantStatusEnum.readyToApply) && userService.data.getValue().roles.isDAO">
+        </div>
+      </div>
+      <div class="mid">
+        <div class="name">{{app?.name?.value}}</div>
+        <a class="link" [href]="app?.link?.value"> Learn more about the team <img src="assets/icons/link.svg"></a>
+      </div>
+      <div class="right">
+        <ng-container *ngIf="app.process">
+          <img src="assets/icons/winner.png">WINNER
+        </ng-container>
+      </div>
+    </li>
+  </ul>
+
+  <div class="card__body" *ngIf="grant?.app?.length === 0">
+    {{'entity.no_applied_teams' | transloco}}
+  </div>
+</div>

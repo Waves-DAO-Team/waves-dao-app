@@ -1,79 +1,47 @@
-import { Injectable } from '@angular/core';
-import {PopupService} from "@services/popup/popup.service";
-import {LinkContentDataInterface, ReposResponseInterface} from "@services/link-content/link-content.interface";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {ContractRawData} from "@services/contract/contract.model";
-import {HttpClient} from "@angular/common/http";
+import { Injectable } from '@angular/core'
+import { MainResponseInterface, ReposResponseInterface } from '@services/link-content/link-content.interface'
+import { BehaviorSubject } from 'rxjs'
+import { HttpClient } from '@angular/common/http'
+import { filter, map, switchMap, tap } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class LinkContentService {
-
-  // bodyMd = new BehaviorSubject<string | null>(null)
-  bodyMd = new Subject()
-  lastUr = ''
-
-  data: LinkContentDataInterface =  {
-    response: null,
-    apiUrl: "",
-    url: null,
-    isGitHub: false,
-    isGitHubIssues: false
-  }
-
-  constructor(private popupService: PopupService, private readonly http: HttpClient) {
-    this.bodyMd.subscribe()
-  }
-
-  public init(url: string): void {
-    if(this.lastUr != url){
-      if(this.validURL(url)) {
-        this.reset()
-        this.data.url = new URL(url)
-        this.parseGitHub(this.data.url.host, this.data.url.pathname)
-        console.log('LinkContentService init(url)', this.data)
+  link$ = new BehaviorSubject<string | null>(null)
+  mdText$ = new BehaviorSubject<string | null>(null)
+  md$ = this.link$.pipe(
+    // @ts-ignore
+    tap((url: string | null) => { this.mdText$.next(null) }),
+    // @ts-ignore
+    filter((url: string | null) => url != null),
+    map((url: string) => {
+      return {
+        isGH: url.includes('github.com'),
+        isIssues: url.includes('issues'),
+        separatorCounter: url.split('/').length,
+        url
+      }
+    }),
+    filter((data) => (data.isGH && (data.isIssues || data.separatorCounter === 5))),
+    // @ts-ignore
+    switchMap((data) => {
+      if (data.isGH && data.isIssues) {
+        return this.http.get<ReposResponseInterface>(`https://api.github.com/repos${(new URL(data.url)).pathname}`)
       } else {
-        this.popupService.add('url is not valid', 'LinkContentService init')
+        return this.http.get<MainResponseInterface>(`https://api.github.com/repos${(new URL(data.url)).pathname}/contents/README.md`)
       }
-      this.lastUr = url
-    }
-  }
-
-  private parseGitHub(url: string, pathname: string): void {
-    this.data.isGitHub = url.includes('github.com')
-    if(this.data.isGitHub) {
-      this.data.isGitHubIssues = pathname.toLowerCase().includes('issues')
-      if(this.data.isGitHubIssues && this.data.url?.pathname) {
-        this.data.apiUrl = `https://api.github.com/repos${this.data.url?.pathname}`
-        this.http.get<ReposResponseInterface>(this.data.apiUrl, {
-          headers: { accept: 'application/json; charset=utf-8' }
-        }).subscribe((e: ReposResponseInterface)=>{
-          this.data.response = e
-          this.bodyMd.next(e.body)
-        })
+    }),
+    tap(
+      (data: ReposResponseInterface | MainResponseInterface) => {
+        if ('body' in data) {
+          this.mdText$.next(data.body)
+        } else if ('content' in data) {
+          this.mdText$.next(atob(data.content))
+        }
       }
-    }
-  }
+    )
+  ).subscribe()
 
-  private reset() {
-    this.data = {
-      response: null,
-      apiUrl: "",
-      url: null,
-      isGitHub: false,
-      isGitHubIssues: false
-    }
-  }
-
-  private validURL(str: string) {
-    let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return !!pattern.test(str);
-  }
-
+  constructor (private readonly http: HttpClient) { }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { ContractService } from '@services/contract/contract.service'
+import { Location } from '@angular/common'
+import { UserService } from '@services/user/user.service'
 
 @Component({
   selector: 'app-edit-grant-page',
@@ -10,14 +12,21 @@ import { ContractService } from '@services/contract/contract.service'
 })
 export class EditGrantPageComponent implements OnInit {
   grantForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    reward: new FormControl('', Validators.required),
+    name: new FormControl(''),
+    reward: new FormControl('')
     // tags: new FormControl('', Validators.required),
     // description: new FormControl('', Validators.required)
   })
 
   grantId = '';
-  constructor (private route: ActivatedRoute, private contractService: ContractService) {}
+
+  constructor (
+    public userService: UserService,
+    private route: ActivatedRoute,
+    private contractService: ContractService,
+    private location: Location
+  ) {
+  }
 
   ngOnInit (): void {
     this.route.params.subscribe((p) => {
@@ -26,7 +35,17 @@ export class EditGrantPageComponent implements OnInit {
   }
 
   onSubmit () {
-    console.log('form', this.grantId, this.grantForm.value.reward)
-    this.contractService.addTaskDetails(this.grantId, this.grantForm.value.reward)
+    let reward = this.grantForm.value.reward
+    if (reward.length === 1) {
+      reward *= 100000000
+    } else {
+      reward = reward.replace('.', '')
+      reward *= 1000000
+    }
+    this.contractService.addTask(this.grantForm.value.name, reward, this.grantForm.value.link)
+  }
+
+  goBack () {
+    this.location.back()
   }
 }

@@ -1,23 +1,23 @@
-//@import './../../resources/styles/index';
-@import 'variables';
-@import 'mixins/elements';
-
-h1 {
-  @include text-title(h1);
-}
-
-h2 {
-  @include text-title(h2);
-}
-
-h4 {
-  @include text-title(h4);
-}
-
-form {
-  @include form; }
+@import 'const';
+@import 'mixins/container';
+//@import 'mixins/elements/form';
+@import 'mixins/elements/floating-label';
+@import 'mixins/elements/btn-container';
 
 .btn-container.full {
   @include btn-container(full);
 }
 
+.container {
+  @include container();
+
+  form {
+    .input {
+      @include floating-label();
+      margin-bottom: $padding * 2;
+    }
+  }
+
+  &__right {
+    @include floating-label(); }
+}

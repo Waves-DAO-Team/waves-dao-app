@@ -172,7 +172,7 @@
             "styles": [
               "resources/styles/index.scss"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/emoji-toolkit/lib/js/joypixels.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"
@@ -202,12 +202,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "5000kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "100kb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "5000kb"
                 }
               ]
             }
@@ -253,7 +253,7 @@
             "styles": [
               "resources/styles/index.scss"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/emoji-toolkit/lib/js/joypixels.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"

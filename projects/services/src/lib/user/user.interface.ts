@@ -28,6 +28,7 @@ export interface UserDataInterface {
   roles: RolesInterface
   voted: string[]
   apply: string[]
+  balance: string
   // vote: {
   //   votedFor: []
   // }

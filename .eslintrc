@@ -12,7 +12,8 @@
   },
   "rules": {
     "no-unused-vars": "off",
-    "no-useless-constructor": "off"
+    "no-useless-constructor": "off",
+    "camelcase": [2, {"properties": "always"}]
   },
   "parserOptions": {
     "ecmaVersion": 6,

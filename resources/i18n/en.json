@@ -8,6 +8,7 @@
       "create": "Create",
       "stylesheet": "Stylesheet",
       "signup": "Signup",
+      "login": "Log in",
       "logout": "Logout",
       "createGrant": "Create grant"
     },
@@ -19,14 +20,20 @@
     "apply": "Apply",
     "cancel": "Cancel"
   },
+  "role": {
+    "master": "Waves Association Member",
+    "wg": "Working Group Member",
+    "dao": "DAO Owner",
+    "auth": "Authorized User"
+  },
   "listing": {
     "status": {
-      "proposed": "Open. In processing",
-      "ready_to_apply": "Open. Ready to apply",
-      "rejected": "Closed to apply. Rejected",
-      "team_chosen": "Open. Looking for a team",
-      "work_started": "Closed to apply. In work",
-      "work_finished": "Closed to apply. Finished",
+      "proposed": "Open",
+      "ready_to_apply": "Ready to apply",
+      "rejected": "Rejected",
+      "team_chosen": "Looking for a team",
+      "work_started": "In work",
+      "work_finished": "Finished",
       "no_status": "No status",
       "all": "All"
     },
@@ -106,7 +113,7 @@
       },
       "reward": {
         "label": "Reward",
-        "placeholder": "2 0000.0000"
+        "placeholder": "2.00"
       },
       "tags": {
         "label": "Tags",

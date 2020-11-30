@@ -1,0 +1,40 @@
+@mixin form() {
+  color: $gray;
+  display: flex;
+  flex-direction: column;
+  font-size: $font-size-small;
+
+  >:not(:last-child) {
+    margin-bottom: $padding;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+  }
+
+  input,
+  textarea {
+    border-bottom: 1px solid #000;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    font-family: 'Montserrat', 'sans-serif';
+    font-size: $font-size-large;
+    margin: 0;
+    outline: none;
+    padding: 0;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-bottom: 1px solid $blue;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+  }
+}

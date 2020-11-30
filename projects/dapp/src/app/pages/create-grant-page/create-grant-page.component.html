@@ -1,23 +1,43 @@
 <div class="container">
-  <form [formGroup]="grantForm" (ngSubmit)="onSubmit()">
-    <label>
-      {{'create_grant.form.name.label' | transloco}}:
-      <input type="text" formControlName="name" [placeholder]="'create_grant.form.name.placeholder' | transloco">
-    </label>
-    <label>
-      {{'create_grant.form.reward.label' | transloco}}:
-      <input type="text" formControlName="reward"
-             mask="0 0000.0000"
-             [placeholder]="'create_grant.form.reward.placeholder' | transloco">
-    </label>
-    <label>
-      {{'create_grant.form.link.label' | transloco}}:
-      <input type="text" formControlName="link" [placeholder]="'create_grant.form.link.placeholder' | transloco">
-    </label>
-    <div class="btn-container full">
-      <button type="submit" class="btn active" [disabled]="!grantForm.valid">
-        {{'create_grant.form.apply' | transloco}}
-      </button>
-    </div>
-  </form>
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img src="assets/icons/arr-left.svg">Back
+    </button>
+  </div>
+  <div class="container__mid">
+
+    <form [formGroup]="grantForm" (ngSubmit)="onSubmit()">
+      <div class="input">
+        <div class="input-wrp">
+          <br/>
+          <input type="text" class="inputText" formControlName="name" required />
+          <span class="floating-label">{{'create_grant.form.name.label' | transloco}}</span>
+        </div>
+      </div>
+
+      <div class="input">
+        <div class="input-wrp">
+          <br/>
+          <input type="text" formControlName="reward" rewardDirective class="inputText" required>
+          <span class="floating-label">{{'create_grant.form.reward.label' | transloco}}</span>
+        </div>
+      </div>
+
+      <div class="input">
+        <div class="input-wrp">
+          <br/>
+          <input type="text" class="inputText" formControlName="link" required/>
+          <span class="floating-label">{{'create_grant.form.link.label' | transloco}}</span>
+        </div>
+      </div>
+
+      <div class="btn-container full">
+        <button type="submit" class="btn active" [disabled]="!userService.isBalanceMoreCommission()">
+          {{'create_grant.form.apply' | transloco}}
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="container__right">
+  </div>
 </div>

@@ -1,45 +1,151 @@
+<!--<header class="container header">-->
 
-<header class="container header">
+<!--  <div class="header__back" (click)="goBack()" *ngIf="!(this.router.url == '/')">-->
+<!--    <img src="assets/icons/back.svg">-->
+<!--  </div>-->
+<!--  <div class="header__urls">-->
 
-  <div class="header__back" (click)="goBack()" *ngIf="!(this.router.url == '/')">
-    <img src="assets/icons/back.svg">
-  </div>
-  <div class="header__urls">
+<!--    &lt;!&ndash; routes for everyone &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <a [routerLink]="['/']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">-->
+<!--      {{ 'app.header.home' | transloco }}-->
+<!--    </a>-->
+<!--    <a [routerLink]="constants.routes.about | route" routerLinkActive="active">-->
+<!--      {{ 'app.header.about' | transloco }}-->
+<!--    </a>-->
+<!--    &lt;!&ndash; routes for everyone &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
 
-    <!-- routes for everyone ------------------------------------------------------------------------------------------>
-    <a [routerLink]="['/']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
-      {{ 'app.header.home' | transloco }}
-    </a>
-    <a [routerLink]="constants.routes.about | route" routerLinkActive="active">
-      {{ 'app.header.about' | transloco }}
-    </a>
-    <!-- routes for everyone ------------------------------------------------------------------------------------------>
+<!--    &lt;!&ndash; role routes &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <a [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">-->
+<!--      {{ 'app.header.createGrant' | transloco }}-->
+<!--    </a>-->
+<!--    <a [routerLink]="[routingPath.masterSetting]" routerLinkActive="active" *ngIf="userRole === RoleEnum.master">-->
+<!--      {{ 'app.header.setting' | transloco }}-->
+<!--    </a>-->
+<!--    <div (click)="signupHandler()" routerLinkActive="active" *ngIf="userRole === RoleEnum.unauthorized">-->
+<!--      {{ 'app.header.signup' | transloco }}-->
+<!--    </div>-->
+<!--    &lt;!&ndash; role routes &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <div (click)="logoutHandler()" routerLinkActive="active"  *ngIf="(user$ | async)?.name">-->
+<!--      {{ 'app.header.logout' | transloco }}-->
+<!--    </div>-->
 
-    <!-- role routes -------------------------------------------------------------------------------------------------->
-    <a [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
-      {{ 'app.header.createGrant' | transloco }}
-    </a>
-    <a [routerLink]="[routingPath.masterSetting]" routerLinkActive="active" *ngIf="userRole === RoleEnum.master">
-      {{ 'app.header.setting' | transloco }}
-    </a>
-    <div (click)="signupHandler()" routerLinkActive="active" *ngIf="userRole === RoleEnum.unauthorized">
-      {{ 'app.header.signup' | transloco }}
+<!--    <div class="header__profile" *ngIf="(user$ | async)?.name">-->
+<!--      &lt;!&ndash;      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>&ndash;&gt;-->
+<!--      (-->
+<!--      {{userService.data.getValue().roles.isDAO ? 'DAO' : ''}}-->
+<!--      {{userService.data.getValue().roles.isWG ? 'WG' : ''}}-->
+<!--      {{userService.data.getValue().roles.isMaster ? 'Master' : ''}}-->
+<!--      {{userService.data.getValue().roles.isAuth ? 'Auth' : ''}}-->
+<!--      ){{(user$ | async)?.name}}-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</header>-->
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <img src="assets/icons/logo.png">
+      <ul>
+        <li *ngIf="(user$ | async)?.name" class="profile">
+          <div class="icon">
+            <img src="assets/icons/avatar/master.png" *ngIf="userService.data.getValue().userRole === RoleEnum.master">
+            <img src="assets/icons/avatar/dao.png" *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
+            <img src="assets/icons/avatar/wg.png"
+                 *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
+            <img src="assets/icons/avatar/auth.png"
+                 *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
+          </div>
+          <div class="content">
+            <div class="name">
+              {{(user$ | async)?.name}}
+            </div>
+            <div class="role">
+              <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.master">
+                {{ 'role.master' | transloco }}
+              </ng-container>
+              <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
+                {{ 'role.wg' | transloco }}
+              </ng-container>
+              <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
+                {{ 'role.dao' | transloco }}
+              </ng-container>
+              <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
+                {{ 'role.auth' | transloco }}
+              </ng-container>
+            </div>
+
+          </div>
+          <img src="assets/icons/logout.svg" (click)="logoutHandler()">
+        </li>
+        <li *ngIf="userRole === RoleEnum.unauthorized">
+          <button (click)="signupHandler()">
+            {{ 'app.header.login' | transloco }}
+            <img src="assets/icons/arr-right.svg">
+          </button>
+        </li>
+      </ul>
     </div>
-    <!-- role routes -------------------------------------------------------------------------------------------------->
-    <div (click)="logoutHandler()" routerLinkActive="active"  *ngIf="(user$ | async)?.name">
-      {{ 'app.header.logout' | transloco }}
-    </div>
+    <ul class="nav">
+      <li [routerLink]="['/']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
+        {{ 'app.header.home' | transloco }}
+      </li>
+      <li [routerLink]="constants.routes.about | route" routerLinkActive="active">
+        {{ 'app.header.about' | transloco }}
+      </li>
+      <li [routerLink]="[routingPath.masterSetting]" *ngIf="userRole === RoleEnum.master" routerLinkActive="active">
+        {{ 'app.header.setting' | transloco }}
+      </li>
+      <li [routerLink]="[routingPath.createGrant]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
+        {{ 'app.header.createGrant' | transloco }}
+      </li>
+      <li [routerLink]="[routingPath.members]" routerLinkActive="active">
+        Members
+      </li>
+      <!--      <li *ngIf="(user$ | async)?.name">-->
+      <!--        <button (click)="logoutHandler()">-->
+      <!--          {{ 'app.header.logout' | transloco }}-->
+      <!--          <img src="assets/icons/arr-right.svg">-->
+      <!--        </button>-->
+      <!--      </li>-->
+      <li *ngIf="(user$ | async)?.name" class="profile">
+        <div class="icon">
+          <img src="assets/icons/avatar/master.png" *ngIf="userService.data.getValue().userRole === RoleEnum.master">
+          <img src="assets/icons/avatar/dao.png" *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
+          <img src="assets/icons/avatar/wg.png" *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
+          <img src="assets/icons/avatar/auth.png" *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
+        </div>
+        <div class="content">
+          <div class="name">
+            {{(user$ | async)?.name}}
+          </div>
+          <div class="role">
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.master">
+              {{ 'role.master' | transloco }}
+            </ng-container>
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
+              {{ 'role.wg' | transloco }}
+            </ng-container>
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
+              {{ 'role.dao' | transloco }}
+            </ng-container>
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
+              {{ 'role.auth' | transloco }}
+            </ng-container>
+          </div>
 
-    <div class="header__profile" *ngIf="(user$ | async)?.name">
-      <!--      <div (click)="logoutHandler()">{{ 'app.header.logout' | transloco }}</div>-->
-      (
-      {{userService.data.getValue().roles.isDAO ? 'DAO' : ''}}
-      {{userService.data.getValue().roles.isWG ? 'WG' : ''}}
-      {{userService.data.getValue().roles.isMaster ? 'Master' : ''}}
-      {{userService.data.getValue().roles.isAuth ? 'Auth' : ''}}
-      ){{(user$ | async)?.name}}
-    </div>
-
+        </div>
+        <img src="assets/icons/logout.svg" (click)="logoutHandler()">
+      </li>
+      <li *ngIf="userRole === RoleEnum.unauthorized" class="profile">
+        <button (click)="signupHandler()">
+          {{ 'app.header.login' | transloco }}
+          <img src="assets/icons/arr-right.svg">
+        </button>
+      </li>
+    </ul>
   </div>
 </header>
+
+<hr>
 

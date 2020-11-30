@@ -1,5 +1,7 @@
-@import 'variables';
-@import 'mixins/elements';
+@import 'const';
+@import 'mixins/elements/btn-container';
+@import 'mixins/elements/floating-label';
+//@import 'mixins/elements/btn-container';
 
 .btn-container {
   @include btn-container();
@@ -28,4 +30,8 @@
 
   }
 
+}
+.input {
+  @include floating-label();
+  margin-bottom: $padding * 2;
 }

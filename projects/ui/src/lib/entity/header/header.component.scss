@@ -1,0 +1,31 @@
+@import "const";
+
+.card__header__entity {
+  &__top, &__bottom {
+    font-style: $font_size_h5;
+    color: $color_dark_gray;
+    line-height: 1;
+    span {
+      font-weight: bold;
+      color: $color_black;
+    }
+  }
+  &__mid {
+    font-size: $font_size_h2;
+    color: $color_black;
+    line-height: 1;
+    margin-top: $padding * 2;
+    margin-bottom: $padding * 2;
+  }
+  &__bottom {
+    display: flex;
+    margin-bottom: $padding;
+    &__left {
+      flex: 1;
+    }
+    &__right {
+      flex: 1;
+      text-align: right;
+    }
+  }
+}

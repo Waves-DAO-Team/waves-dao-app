@@ -1,0 +1,38 @@
+@import '~include-media/dist/_include-media.scss';
+
+@mixin container {
+  display: flex;
+  &__mid {
+    flex: 4.5;
+  }
+  &__left, &__right{
+    flex: 1;
+    //padding-left: $padding;
+  }
+  &__left {
+
+
+
+    &__back-btn {
+      background: transparent;
+      border: 0;
+      outline: none;
+      color: $color_black;
+      font-size: $font_size_h4;
+      font-weight: 100;
+      cursor: pointer;
+      img {
+        margin-right: $padding;
+      }
+    }
+
+  }
+  @include media('<=tablet') {
+    flex-direction: column;
+    &__left {
+      margin-bottom: $padding * 4;
+    }
+  }
+
+}
+

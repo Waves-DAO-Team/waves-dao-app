@@ -1,3 +1,4 @@
+
 @import 'mixins';
 @import '~include-media/dist/_include-media.scss';
 
@@ -9,7 +10,7 @@ $breakpoints: (
 
 :root {
   //--layout-width: 1120px;
-  --layout-width: 500px;
+  --layout-width: 1200px;
   --layout-gutter: auto;
   --grid-columns: 12;
   --grid-column-gap: 2rem;

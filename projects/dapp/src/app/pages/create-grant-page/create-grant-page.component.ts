@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ContractService } from '@services/contract/contract.service'
 import { debounce } from 'rxjs/operators'
 import { timer } from 'rxjs'
-import { CurrencyPipe } from '@angular/common'
+import { CurrencyPipe, Location } from '@angular/common'
+import { UserService } from '@services/user/user.service'
 
 @Component({
   selector: 'app-create-grant-page',
@@ -15,14 +16,25 @@ import { CurrencyPipe } from '@angular/common'
 export class CreateGrantPageComponent {
   grantForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    reward: new FormControl('100000000', Validators.required),
+    reward: new FormControl('', Validators.required),
     link: new FormControl('', Validators.required)
   })
 
-  constructor (private contractService: ContractService) { }
+  constructor (private contractService: ContractService, private location: Location, public userService: UserService) {}
 
   onSubmit () {
-    // console.log(this.grantForm.value)
-    this.contractService.addTask(this.grantForm.value.name, this.grantForm.value.reward, this.grantForm.value.link)
+    let reward = this.grantForm.value.reward
+    if (reward.length === 1) {
+      reward *= 100000000
+    } else {
+      reward = reward.replace('.', '')
+      reward *= 1000000
+    }
+    console.log('reward: ', reward)
+    this.contractService.addTask(this.grantForm.value.name, reward, this.grantForm.value.link)
+  }
+
+  goBack (): void {
+    this.location.back()
   }
 }

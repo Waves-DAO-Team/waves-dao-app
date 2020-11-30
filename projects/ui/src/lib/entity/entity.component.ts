@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
@@ -9,100 +9,76 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { ContractService } from '@services/contract/contract.service'
 import { ActivatedRoute } from '@angular/router'
-import { tap } from 'rxjs/operators'
-import { environment } from '../../../../dapp/src/environments/environment'
-import {LinkContentService} from "@services/link-content/link-content.service";
+
+import { LinkContentService } from '@services/link-content/link-content.service'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'ui-entity',
   templateUrl: './entity.component.html',
   styleUrls: ['./entity.component.scss']
 })
-export class EntityComponent implements OnInit{
+export class EntityComponent implements OnInit {
   @Input() public readonly grant: ContractGrantModel = {}
   grantStatusEnum = GrantStatusEnum
   userRoleEnum = RoleEnum
   isDAOVote = false
   @ViewChild(ModalComponent) modal?: ModalComponent
-  environment: {
-    showDevTools: boolean;
-  } = environment;
 
   reportLink = '';
+  mdText$ = this.linkContentService.mdText$.subscribe(() => {
+    this.cdr.markForCheck()
+  })
+
+  modalStep = 1
+
+  applyGrantForm = new FormGroup({
+    team: new FormControl('', Validators.required),
+    link: new FormControl('', Validators.required)
+  })
 
   constructor (
-    private route: ActivatedRoute,
     public userService: UserService,
-    private signerService: SignerService,
-    private snackBar: MatSnackBar,
     public contractService: ContractService,
-    public linkContentService: LinkContentService
+    public linkContentService: LinkContentService,
+    public cdr: ChangeDetectorRef,
+    private readonly signerService: SignerService
   ) {
+
   }
-  markdown = ''
 
-  ngOnInit(): void {
-
-    this.markdown = `## Markdown __rulez__!
----
-
-### Syntax highlight
-\`\`\`typescript
-const language = 'typescript';
-\`\`\`
-
-### Lists
-1. Ordered list
-2. Another bullet point
-  - Unordered list
-  - Another unordered bullet point
-
-### Blockquote
-> Blockquote to the max`;
-      if (this.grant?.link?.value) {
-        this.linkContentService.init(this.grant.link.value)
-      }
+  ngOnInit (): void {
+    if (this.grant?.link?.value) {
+      this.linkContentService.link$.next(this.grant.link.value)
     }
+    // setInterval(() => {
+    //   console.log('--->',   this.signerService.signer.getBalance())
+    //
+    // }, 5000)
+  }
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
     this.contractService.voteForTaskProposal(id, value)
   }
 
-  public signup (): void {
-    this.signerService.login().subscribe(() => {
-    }, (error) => {
-      this.snackBar.open(error, translate('messages.ok'))
-    })
+  onSubmitApplyGrantForm (): void {
+    /* eslint-disable no-unused-expressions */
+    if (this.grant?.id && this.applyGrantForm?.value?.team && this.applyGrantForm?.value?.link) {
+      this.contractService.applyForTask(this.grant?.id, this.applyGrantForm?.value?.team, this.applyGrantForm?.value?.link)
+      this.modal?.onCancel()
+    }
   }
 
-  finishVote () {
-    this.contractService.finishTaskProposalVoting(this.grant.id as string)
+  openApplyModal ($event: boolean): void {
+    this.modal?.openModal()
+    this.modalStep = 1
   }
 
-  finishApplicantsVote () {
-    this.contractService.finishApplicantsVoting(this.grant.id as string)
-  }
-
-  voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
-    this.contractService.voteForApplicant(
-      this.grant.id as string,
-      teamIdentifier,
-      voteValue
-    )
-  }
-
-  startWork () {
-    this.contractService.startWork(this.grant.id as string)
-  }
-
-  acceptWorkResult () {
-    console.log('-----!!!------acceptWorkResult:', this.grant.id as string, this.userService.data.getValue().userAddress, this.reportLink)
-    this.contractService.acceptWorkResult(this.grant.id as string, this.reportLink)
-  }
-
-  reject () {
-    console.log('-----!!!------reject:')
-    this.contractService.rejectTask(this.grant.id as string)
+  modalGoTo (com: 'ALREADY_APPLIED' | 'NEED_APPLY') {
+    if (com === 'NEED_APPLY') {
+      window.open('https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+', '_blank')
+    }
+    this.modalStep = 2
   }
 }

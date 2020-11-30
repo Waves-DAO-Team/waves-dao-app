@@ -40,6 +40,11 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: environment.routing.members,
+        loadChildren: () => import('./pages/members-page/members-page.module').then((m) => m.MembersPageModule),
+        pathMatch: 'full'
+      },
+      {
         path: environment.routing.createGrant,
         loadChildren: () => import('./pages/create-grant-page/create-grant-page.module').then((m) => m.CreateGrantPageModule),
         pathMatch: 'full'

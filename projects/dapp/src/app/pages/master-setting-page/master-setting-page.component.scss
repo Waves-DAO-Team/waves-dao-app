@@ -1,6 +1,8 @@
 //@import './../../resources/styles/index';
-@import 'variables';
-@import 'mixins/elements';
+@import 'const';
+@import 'mixins/elements/text-title';
+@import 'mixins/elements/form';
+@import 'mixins/elements/btn-container';
 
 
 h1 {
@@ -29,21 +31,25 @@ form {
 
 .tab-title {
   display: flex;
-  padding: 0;
   margin: 0;
   margin-bottom: $padding;
+  padding: 0;
+
   li {
+    border: 1px solid #000;
+    cursor: pointer;
     list-style: none;
     margin: 0;
-    border: 1px solid #000;
-    padding: $padding/2 $padding;
     margin-right: -1px;
-    cursor: pointer;
+    padding: $padding/2 $padding;
     transition: 0.3s;
-    &.active {
-      color: #ffffff;
-      background: $blue;
-      border: 1px solid $blue;
-    }
+
+
+  }
+
+  .active {
+    background: $blue;
+    border: 1px solid $blue;
+    color: #fff;
   }
 }

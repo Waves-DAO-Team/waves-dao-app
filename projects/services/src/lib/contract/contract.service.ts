@@ -77,7 +77,6 @@ export class ContractService {
 
   refresh () {
     this.contractRefresh$.next(null)
-    this.popupService.add('refresh')
   }
 
   public switchContract (address: string) {
@@ -160,9 +159,6 @@ export class ContractService {
       })
       .finally(() => {
         this.popupService.add('', 'addDAOMember finally')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
         this.doRefreshTimeOut()
       })
   }
@@ -176,16 +172,10 @@ export class ContractService {
       })
       .then((res) => {
         this.popupService.add(JSON.stringify(res), 'addGroupMember then')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
         this.doRefreshTimeOut()
       })
       .finally(() => {
         this.popupService.add('', 'addGroupMember finally')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
         this.doRefreshTimeOut()
       })
   }
@@ -216,6 +206,7 @@ export class ContractService {
   }
 
   public addTaskDetails (taskId: string, reward: number) {
+    console.log('addTaskDetails:', taskId, reward)
     this.signerService.invoke('addTaskDetails',
       [{ type: 'string', value: taskId }],
       [{ assetId: 'WAVES', amount: reward }])
@@ -281,7 +272,7 @@ export class ContractService {
       })
   }
 
-  public applyForTask (taskId: string, teamName: string, link: string) {
+  public applyForTask (taskId: string, teamName: string, link: string): void {
     this.popupService.add(`${taskId} ${teamName} ${link}`, 'applyForTask')
     this.signerService.invoke('applyForTask', [
       { type: 'string', value: taskId },
