@@ -8,15 +8,15 @@
   <div class="container__mid">
       Master:
       <ul>
-        <li>{{userService.data.getValue().masterAddress}}</li>
+        <li>{{userService?.data?.getValue().masterAddress}}</li>
       </ul>
     WG:
     <ul>
-      <li *ngFor="let wg of userService.data.getValue().WorkGroupAddress">{{wg}}</li>
+      <li *ngFor="let wg of userService?.data?.getValue().WorkGroupAddress">{{wg}}</li>
     </ul>
     DAO:
     <ul>
-      <li *ngFor="let dao of userService.data.getValue().DAOMemberAddress">{{dao}}</li>
+      <li *ngFor="let dao of userService?.data?.getValue().DAOMemberAddress">{{dao}}</li>
     </ul>
   </div>
   <div class="container__right">
