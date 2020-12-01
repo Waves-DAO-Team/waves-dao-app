@@ -3,10 +3,10 @@ export const environment = {
   confirmations: 1,
 
   apis: {
-    nodes: 'https://nodes-testnet.wavesnodes.com',
-    signer: 'https://testnet.waves.exchange/signer/',
-    rest: 'https://nodes-testnet.wavesnodes.com',
-    contractAddress: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
+    nodes: 'https://nodes.wavesnodes.com',
+    signer: 'https://waves.exchange/signer/',
+    rest: 'https://nodes.wavesnodes.com',
+    contractAddress: '3PBZs1dzpMoQwCZM1KNwxxQZVnmRU6wqC2e',
     contracts: {
       disruptive: '3PLAhMnipQdjzasGeh5B2EKxKP74dasHHqD',
       dev: '3PB8KDpFJqiDbqhmu8crSmU8h7krxFt68Pd',
