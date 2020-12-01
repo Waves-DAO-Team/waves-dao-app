@@ -1,6 +1,7 @@
 
 export const environment = {
   production: false,
+  confirmations: 0,
 
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',
