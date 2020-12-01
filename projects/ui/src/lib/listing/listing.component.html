@@ -7,6 +7,7 @@
     You can vote for grants from the community, vote for grant applicants, try to execute the grant yourself. <span>Select a category now:</span>
   </div>
 
+
   <div class="grants-variation">
     <div class="grant"
          [class.active]="user.masterAddress === api.contracts.disruptive"
@@ -41,6 +42,7 @@
         </div>
       </div>
     </div>
+    <div class="final"></div>
   </div>
 
   <div class="content">
@@ -54,7 +56,7 @@
         <ng-container *ngFor="let entity of list" >
           <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
             <a class="card active"
-               *ngIf="entity?.status?.value === GrantStatusEnum.readyToApply"
+               *ngIf="entity?.status?.value === GrantStatusEnum.readyToApply && !isAppliedForGrant(entity?.id)"
                [routerLink]="constants.routes.entity | route: entity?.id">
               <div class="card__header">
                 <div class="card__header__left-block">
@@ -88,10 +90,8 @@
       <ng-container *ngFor="let entity of list; trackBy: trackByFn">
         <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
           <a class="card"
-             *ngIf="
-                (selectedTagName === 'all' && entity?.status?.value !== GrantStatusEnum.readyToApply)
-                || selectedTagName !== 'all'
-              "
+             *ngIf="(selectedTagName === 'all' && (entity?.status?.value !== GrantStatusEnum.readyToApply || isAppliedForGrant(entity?.id)))
+                || selectedTagName !== 'all'"
              [routerLink]="constants.routes.entity | route: entity?.id">
             <div class="card__header">
               <div class="card__header__left-block">
