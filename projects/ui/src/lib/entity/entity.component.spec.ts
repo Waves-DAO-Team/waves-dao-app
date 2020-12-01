@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { EntityComponent } from './entity.component'
 import { UserService } from '@services/user/user.service'
-import { provideApi } from '@constants'
+import { provideApi, provideAppConstants } from '@constants'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -34,7 +34,7 @@ describe('EntityComponent', () => {
         ReactiveFormsModule
       ],
       declarations: [EntityComponent],
-      providers: [UserService, provideApi(), MarkdownService, {
+      providers: [UserService, provideApi(), provideAppConstants(), MarkdownService, {
         provide: SECURITY_CONTEXT,
         useValue: 0
       }]

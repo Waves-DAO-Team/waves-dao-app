@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing'
 import { ContractService } from './contract.service'
-import { provideApi } from '@constants'
+import { provideApi, provideAppConstants } from '@constants'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
+import { StorageService } from '@services/storage/storage.service'
 
 describe('ContractService', () => {
   let service: ContractService
@@ -11,6 +12,8 @@ describe('ContractService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [
+        StorageService,
+        provideAppConstants(),
         provideApi()
       ]
     })
