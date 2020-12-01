@@ -52,7 +52,7 @@
     <!--grants-->
     <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
       <!--Important-->
-      <ng-container *ngIf="selectedTagName === 'all'">
+      <ng-container>
         <div class="listing-list__title">Important grants</div>
         <ng-container *ngFor="let entity of list" >
           <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
@@ -100,7 +100,7 @@
                   {{'listing.status.' + (entity?.status?.value || 'no_status') | transloco}}
                   <div class="card__header__left-block__status__role-text"
                        *ngIf="userService.data.getValue().roles.isDAO
-                      && entity?.status?.value === GrantStatusEnum.proposed">
+                      && entity?.status?.value !== GrantStatusEnum.proposed">
                     {{ userService.data.getValue().voted.includes(entity?.id)
                     ? ('listing.DAO_subtext.vote_counted' | transloco)
                     : ('listing.DAO_subtext.need_vote' | transloco)}}
