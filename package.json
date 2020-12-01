@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --prod --configuration=$CONFIG",
     "test": "ng test",
     "tests": "run-p test:*",
     "test:dapp": "ng test dapp --browsers=ChromeHeadless --watch=false --progress=false",

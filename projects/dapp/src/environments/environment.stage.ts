@@ -1,7 +1,6 @@
-
 export const environment = {
-  production: false,
-  confirmations: 0,
+  production: true,
+  confirmations: 1,
 
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',
@@ -23,12 +22,12 @@ export const environment = {
     about: 'about',
     applyGrant: 'apply-grant/:entityId',
     createGrant: 'create-grant',
-    editGrant: 'edit-grant/:entityId',
-    masterSetting: 'master-setting',
     setting: 'settings',
     create: 'create',
     members: 'members',
     stylesheet: 'stylesheet',
+    editGrant: 'edit-grant/:entityId',
+    masterSetting: 'master-setting',
     team: 'team/:entityId'
   },
 
