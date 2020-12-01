@@ -2,6 +2,7 @@ import { InjectionToken, Provider, Type } from '@angular/core'
 import { environment } from '../environments/environment'
 
 export interface AppConstantsInterface {
+  production: boolean
   routes: {[s: string]: string | string[]}
 }
 
@@ -37,7 +38,8 @@ export function provideAppConstants (): Provider[] {
     {
       provide: APP_CONSTANTS,
       useValue: {
-        routes: environment.routing
+        routes: environment.routing,
+        production: environment.production
       }
     }
   ]

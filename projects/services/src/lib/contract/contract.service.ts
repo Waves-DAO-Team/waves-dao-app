@@ -16,12 +16,13 @@ import {
   ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
+import { StorageService } from '@services/storage/storage.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-  private contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.api.contractAddress)
+  private contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.storageService.contactAddress || this.api.contractAddress)
   public applicants: string[] = []
   // @ts-ignore
   private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject({})
@@ -69,11 +70,13 @@ export class ContractService {
 
   constructor (
     private readonly http: HttpClient,
+    private storageService: StorageService,
     @Inject(API) private readonly api: AppApiInterface
   ) {}
 
-  public refresh (address?: string) {
-    this.contractAddress$.next(address || this.getAddress())
+  public refresh (address: string = this.getAddress()) {
+    this.storageService.contactAddress = address
+    this.contractAddress$.next(address)
   }
 
   public switchContract (address: string) {
