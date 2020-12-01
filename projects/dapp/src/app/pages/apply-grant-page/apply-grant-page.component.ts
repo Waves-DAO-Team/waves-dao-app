@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { ModalComponent } from '@ui/modal/modal.component'
 import { ContractService } from '@services/contract/contract.service'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 
 @Component({
   selector: 'app-apply-grant-page',
@@ -19,7 +20,8 @@ export class ApplyGrantPageComponent implements OnInit {
 
   @ViewChild(ModalComponent) modal?: ModalComponent;
 
-  constructor (private route: ActivatedRoute, public contractService: ContractService) {
+  constructor (private route: ActivatedRoute,
+               public disruptiveContractService: DisruptiveContractService) {
 
   }
 
@@ -30,7 +32,7 @@ export class ApplyGrantPageComponent implements OnInit {
   }
 
   onSubmit () {
-    this.contractService.applyForTask(this.grantId, this.grantForm.value.team, this.grantForm.value.link)
+    this.disruptiveContractService.applyForTask(this.grantId, this.grantForm.value.team, this.grantForm.value.link)
   }
 
   willConfirm (status: boolean) {

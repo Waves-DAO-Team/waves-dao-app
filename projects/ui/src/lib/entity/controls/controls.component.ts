@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { GrantStatusEnum } from '../../../../../services/src/interface'
 import { UserService } from '@services/user/user.service'
-import { ContractService } from '@services/contract/contract.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { translate } from '@ngneat/transloco'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 
 @Component({
   selector: 'ui-controls',
@@ -27,7 +27,7 @@ export class ControlsComponent implements OnInit {
 
   constructor (
     public userService: UserService,
-    public contractService: ContractService,
+    public disruptiveContractService: DisruptiveContractService,
     private signerService: SignerService,
     private snackBar: MatSnackBar
   ) { }
@@ -35,7 +35,7 @@ export class ControlsComponent implements OnInit {
   ngOnInit () {}
 
   finishVote () {
-    this.contractService.finishTaskProposalVoting(this.grantId as string)
+    this.disruptiveContractService.finishTaskProposalVoting(this.grantId as string)
   }
 
   signup () {
@@ -46,19 +46,19 @@ export class ControlsComponent implements OnInit {
   }
 
   startWork () {
-    this.contractService.startWork(this.grantId as string)
+    this.disruptiveContractService.startWork(this.grantId as string)
   }
 
   reject () {
-    this.contractService.rejectTask(this.grantId as string)
+    this.disruptiveContractService.rejectTask(this.grantId as string)
   }
 
   acceptWorkResult () {
-    this.contractService.acceptWorkResult(this.grantId as string, this.reportLink)
+    this.disruptiveContractService.acceptWorkResult(this.grantId as string, this.reportLink)
   }
 
   finishApplicantsVote () {
-    this.contractService.finishApplicantsVoting(this.grantId as string)
+    this.disruptiveContractService.finishApplicantsVoting(this.grantId as string)
   }
 
   onOpenApplyModal () {

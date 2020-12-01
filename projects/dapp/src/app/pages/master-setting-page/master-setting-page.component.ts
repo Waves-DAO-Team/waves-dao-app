@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '@services/user/user.service'
 import { ContractService } from '@services/contract/contract.service'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 
 @Component({
   selector: 'app-master-setting-page',
@@ -19,7 +20,7 @@ export class MasterSettingPageComponent implements OnInit {
 
   public activeTab: 'dao' | 'wg' = 'dao';
 
-  constructor (public userService: UserService, private contractService: ContractService) { }
+  constructor (public userService: UserService, private disruptiveContractService: DisruptiveContractService) { }
 
   ngOnInit (): void {
   }
@@ -30,11 +31,11 @@ export class MasterSettingPageComponent implements OnInit {
 
   submitDAO () {
     console.log('submitDAO', this.DAOMemberForm.value.DAOMember)
-    this.contractService.addDAOMember(this.DAOMemberForm.value.DAOMember)
+    this.disruptiveContractService.addDAOMember(this.DAOMemberForm.value.DAOMember)
   }
 
   submitWG () {
     console.log('submitWG', this.workGroupForm.value.workGroup)
-    this.contractService.addGroupMember(this.workGroupForm.value.workGroup)
+    this.disruptiveContractService.addGroupMember(this.workGroupForm.value.workGroup)
   }
 }

@@ -52,12 +52,12 @@ export class SignerService {
   }
 
   // @ts-ignore
-  public invoke (command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []):
+  public invoke (contractAddress: string, command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []):
     Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
     const tx = this.signer.invoke({
       payment,
       // dApp: this.api.contractAddress,
-      dApp: this.api.contractAddress,
+      dApp: contractAddress,
       call: {
         function: command,
         // @ts-ignore

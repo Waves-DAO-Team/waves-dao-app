@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import { ContractService } from '@services/contract/contract.service'
 import { Location } from '@angular/common'
 import { UserService } from '@services/user/user.service'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 
 @Component({
   selector: 'app-edit-grant-page',
@@ -23,7 +24,7 @@ export class EditGrantPageComponent implements OnInit {
   constructor (
     public userService: UserService,
     private route: ActivatedRoute,
-    private contractService: ContractService,
+    private disruptiveContractService: DisruptiveContractService,
     private location: Location
   ) {
   }
@@ -35,14 +36,15 @@ export class EditGrantPageComponent implements OnInit {
   }
 
   onSubmit () {
-    let reward = this.grantForm.value.reward
-    if (reward.length === 1) {
-      reward *= 100000000
-    } else {
-      reward = reward.replace('.', '')
-      reward *= 1000000
-    }
-    this.contractService.addTask(this.grantForm.value.name, reward, this.grantForm.value.link)
+    // let reward = this.grantForm.value.reward
+    // if (reward.length === 1) {
+    //   reward *= 100000000
+    // } else {
+    //   reward = reward.replace('.', '')
+    //   reward *= 1000000
+    // }
+
+    this.disruptiveContractService.addTask(this.grantForm.value.name, this.grantForm.value.link)
   }
 
   goBack () {

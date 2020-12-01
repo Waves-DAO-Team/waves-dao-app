@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs'
   providedIn: 'root'
 })
 export class PopupService {
-  private readonly message$ = new BehaviorSubject<string[]>([])
+  public readonly message$ = new BehaviorSubject<string[]>([])
 
   public async add (text: string, title?: string) {
     if (text && text.length > 5) {

@@ -3,6 +3,7 @@ import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { ContractService } from '@services/contract/contract.service'
 import { GrantStatusEnum } from '../../../../../services/src/interface'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 
 @Component({
   selector: 'ui-team',
@@ -13,7 +14,9 @@ export class TeamComponent implements OnInit {
   grantStatusEnum = GrantStatusEnum
   @Input() grant: ContractGrantModel | null = null
 
-  constructor (public userService: UserService, public contractService: ContractService) {
+  constructor (
+      public userService: UserService,
+      public disruptiveContractService: DisruptiveContractService) {
   }
 
   ngOnInit (): void {
@@ -21,7 +24,7 @@ export class TeamComponent implements OnInit {
 
   voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
     if (this.grant?.status?.value === this.grantStatusEnum.readyToApply) {
-      this.contractService.voteForApplicant(this.grant?.id as string, teamIdentifier, voteValue)
+      this.disruptiveContractService.voteForApplicant(this.grant?.id as string, teamIdentifier, voteValue)
     }
   }
 }

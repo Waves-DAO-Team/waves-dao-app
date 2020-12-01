@@ -7,6 +7,7 @@ import { ModalComponent } from '@ui/modal/modal.component'
 import { ContractService } from '@services/contract/contract.service'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 
 @Component({
   selector: 'ui-entity',
@@ -34,7 +35,7 @@ export class EntityComponent implements OnInit {
 
   constructor (
     public userService: UserService,
-    public contractService: ContractService,
+    public disruptiveContractService: DisruptiveContractService,
     public linkContentService: LinkContentService,
     public cdr: ChangeDetectorRef
   ) {
@@ -53,13 +54,13 @@ export class EntityComponent implements OnInit {
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
-    this.contractService.voteForTaskProposal(id, value)
+    this.disruptiveContractService.voteForTaskProposal(id, value)
   }
 
   onSubmitApplyGrantForm (): void {
     /* eslint-disable no-unused-expressions */
     if (this.grant?.id && this.applyGrantForm?.value?.team && this.applyGrantForm?.value?.link) {
-      this.contractService.applyForTask(this.grant?.id, this.applyGrantForm?.value?.team, this.applyGrantForm?.value?.link)
+      this.disruptiveContractService.applyForTask(this.grant?.id, this.applyGrantForm?.value?.team, this.applyGrantForm?.value?.link)
       this.modal?.onCancel()
     }
   }
