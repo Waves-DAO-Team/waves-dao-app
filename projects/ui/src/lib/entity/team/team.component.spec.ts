@@ -4,6 +4,7 @@ import { TeamComponent } from './team.component'
 import { provideApi, provideAppConstants } from '@constants'
 import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('TeamComponent', () => {
   let component: TeamComponent
@@ -11,7 +12,7 @@ describe('TeamComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, getTranslocoModule()],
       declarations: [TeamComponent],
       providers: [
         provideAppConstants(),

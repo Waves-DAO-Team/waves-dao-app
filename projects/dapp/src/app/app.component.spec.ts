@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { DevGridModule } from '@ui/dev-grid/dev-grid.module'
 import { AppComponent } from './app.component'
 import { NgProgressModule } from 'ngx-progressbar'
+import { MarkdownModule } from 'ngx-markdown'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -10,7 +11,8 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         DevGridModule,
-        NgProgressModule
+        NgProgressModule,
+        MarkdownModule
       ],
       declarations: [
         AppComponent

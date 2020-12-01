@@ -179,7 +179,8 @@
               ]
             },
             "allowedCommonJsDependencies": [
-              "@waves/signer"
+              "@waves/signer",
+              "lodash"
             ]
           },
           "configurations": {

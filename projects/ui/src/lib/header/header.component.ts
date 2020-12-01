@@ -1,11 +1,18 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit
+} from '@angular/core'
 import {
   APP_CONSTANTS,
   AppConstantsInterface
 } from '@constants'
 import { SignerService } from '@services/signer/signer.service'
 import { SignerUser } from '@services/signer/signer.model'
-import { Observable, of } from 'rxjs'
+import { Observable, of, Subject } from 'rxjs'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { Router } from '@angular/router'
@@ -15,17 +22,25 @@ import { Location } from '@angular/common'
 import { environment } from '../../../../dapp/src/environments/environment'
 import { ContractService } from '@services/contract/contract.service'
 import { PopupService } from '@services/popup/popup.service'
+import { take, takeUntil } from 'rxjs/operators'
+import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
+
 @Component({
   selector: 'ui-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public readonly user$: Observable<SignerUser> = this.signerService.user
   userRole = RoleEnum.unauthorized
   RoleEnum = RoleEnum;
   routingPath = environment.routing
+
+  // Subject activate if component destroyed
+  // And unsubscribe all subscribers used takeUntil(this.destroyed$)
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>;
+
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     private signerService: SignerService,
@@ -34,6 +49,7 @@ export class HeaderComponent implements OnInit {
     public userService: UserService,
     public contractService: ContractService,
     private location: Location,
+    private cdr: ChangeDetectorRef,
     private popupService: PopupService
   ) {
   }
@@ -50,15 +66,12 @@ export class HeaderComponent implements OnInit {
   }
 
   logoutHandler () {
-    console.log('logoutHandler', '-------------------------------')
-    this.signerService.logout().subscribe((e) => {
-      console.log('logoutHandler subscribe', e)
+    // Get one value after click
+    this.signerService.logout().pipe(take(1)).subscribe((e) => {
       this.contractService.refresh()
     }, (error) => {
-      console.log('logoutHandler error', error)
       this.snackBar.open(error, translate('messages.ok'))
     })
-    console.log('-------------------------------', 'logoutHandler')
   }
 
   goBack (): void {
@@ -66,31 +79,16 @@ export class HeaderComponent implements OnInit {
   }
 
   private subscribe (): void {
-    this.userService.data.subscribe((newData) => {
-      this.userRole = newData.userRole
-    })
+    this.userService.data
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((newData) => {
+        this.userRole = newData.userRole
+
+        // After change contract mark component as changed
+        // Repaint component an next tick
+        this.cdr.markForCheck()
+      })
   }
 
-  test () {
-    // this.popupService.add('Lorem 1 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX' )
-    // this.popupService.add('Lorem 2 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    // this.popupService.add('Lorem 3 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    // this.popupService.add('Lorem 4 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    // this.popupService.add('Lorem 5 2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    // payment: [{
-    //   assetId: 'string',
-    //   amount: LONG,
-    // }],
-    // this.contractService.startWork('2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-    // this.contractService.applyForTask('3YmhzN8keAksJeyvk5grfJ9c3mTCFAzCdTuL8w2yHoQ3', 'xxxx')
-    // this.contractService.finishApplicantsVoting('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
-    // this.contractService.startWork('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
-    // this.contractService.acceptWorkResult('4hozrKrn8u2Aqck24KE3Y4UgNWzGoBGkkJJJcVuPQFhg')
-    // this.contractService.voteForTaskProposal('9uPafD46iaZ5p5PHgUK1XWpvCWntay9h96PQZ5PetPRy', 1)
-    // this.contractService.finishTaskProposalVoting('2GweZpRK94t3KNXFZwqhoZBYzHNUuCCeCpGPhF3qihaX')
-  }
-
-  test2 () {
-    this.popupService.rmLast()
-  }
+  ngOnDestroy () {}
 }

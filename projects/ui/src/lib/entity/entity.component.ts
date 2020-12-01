@@ -1,15 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '../../../../services/src/interface'
 import { ModalComponent } from '@ui/modal/modal.component'
-import { SignerService } from '@services/signer/signer.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { translate } from '@ngneat/transloco'
 import { ContractService } from '@services/contract/contract.service'
-import { ActivatedRoute } from '@angular/router'
-
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
@@ -41,8 +36,7 @@ export class EntityComponent implements OnInit {
     public userService: UserService,
     public contractService: ContractService,
     public linkContentService: LinkContentService,
-    public cdr: ChangeDetectorRef,
-    private readonly signerService: SignerService
+    public cdr: ChangeDetectorRef
   ) {
 
   }

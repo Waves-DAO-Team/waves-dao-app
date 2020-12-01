@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { BodyComponent } from './body.component'
 import { provideApi, provideAppConstants } from '@constants'
 import { TranslocoModule } from '@ngneat/transloco'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
+import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
 
 describe('BodyComponent', () => {
   let component: BodyComponent
@@ -10,11 +12,15 @@ describe('BodyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslocoModule],
+      imports: [getTranslocoModule(), MarkdownModule],
       declarations: [BodyComponent],
       providers: [
         provideAppConstants(),
-        provideApi()
+        provideApi(),
+        MarkdownService, {
+          provide: SECURITY_CONTEXT,
+          useValue: 0
+        }
       ]
     })
       .compileComponents()

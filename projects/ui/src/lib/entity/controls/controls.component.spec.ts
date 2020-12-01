@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClient } from '@angular/common/http'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('ControlsComponent', () => {
   let component: ControlsComponent
@@ -13,7 +14,7 @@ describe('ControlsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, MatSnackBarModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, MatSnackBarModule, getTranslocoModule()],
       declarations: [ControlsComponent],
       providers: [
         provideAppConstants(),

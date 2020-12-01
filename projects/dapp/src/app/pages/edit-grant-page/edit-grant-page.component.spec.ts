@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { EditGrantPageComponent } from './edit-grant-page.component'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
-import { ContractService } from '@services/contract/contract.service'
-import { TranslocoModule } from '@ngneat/transloco'
 import { provideApi, provideAppConstants } from '@constants'
+import { getTranslocoModule } from '../../transloco-module.spec'
+import { ReactiveFormsModule } from '@angular/forms'
 
 describe('EditGrantPageComponent', () => {
   let component: EditGrantPageComponent
@@ -13,7 +13,7 @@ describe('EditGrantPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule, TranslocoModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, getTranslocoModule(), ReactiveFormsModule],
       declarations: [EditGrantPageComponent],
       providers: [
         provideAppConstants(),

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import 'reflect-metadata'
 
 export const destroyQueue = (target: object, func: () => void) => {
   const METADATA_PROPERTY_KEY = 'ngOnDestroy'
@@ -14,19 +14,23 @@ export const destroyQueue = (target: object, func: () => void) => {
 
   Reflect.defineMetadata(METADATA_KEY, (metadata || []).concat([func]), target, METADATA_PROPERTY_KEY)
 
-  Reflect.set(
-    // @ts-ignore
-    target.constructor.ɵcmp,
-    'onDestroy',
-    function (...args: (() => void)[]) {
-      if (typeof originalDestroy === 'function') {
-        // @ts-ignore
-        originalDestroy.apply(this, args)
-      }
+  // @ts-ignore
+  if (target.constructor && target.constructor.ɵcmp) {
+    Reflect.set(
+      // @ts-ignore
+      target.constructor.ɵcmp,
+      'onDestroy',
+      function (...args: (() => void)[]) {
+        if (typeof originalDestroy === 'function') {
+          // @ts-ignore
+          originalDestroy.apply(this, args)
+        }
 
-      Reflect.getMetadata(METADATA_KEY, target, METADATA_PROPERTY_KEY).reduce((orig: null, fn: () => void) => {
-        return fn()
-      }, null)
-    }.bind(target)
-  )
+        Reflect.getMetadata(METADATA_KEY, target, METADATA_PROPERTY_KEY)
+          .reduce((orig: null, fn: () => void) => {
+            return fn()
+          }, null)
+      }.bind(target)
+    )
+  }
 }

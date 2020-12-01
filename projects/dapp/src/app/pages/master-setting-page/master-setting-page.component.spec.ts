@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { MasterSettingPageComponent } from './master-setting-page.component'
-import { TranslocoModule } from '@ngneat/transloco'
 import { provideApi, provideAppConstants } from '@constants'
-import { ContractService } from '@services/contract/contract.service'
-import { HttpClient } from '@angular/common/http'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
+import { ReactiveFormsModule } from '@angular/forms'
 
 describe('MasterSettingPageComponent', () => {
   let component: MasterSettingPageComponent
@@ -14,7 +13,7 @@ describe('MasterSettingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslocoModule, HttpClientTestingModule, RouterTestingModule],
+      imports: [getTranslocoModule(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule],
       declarations: [MasterSettingPageComponent],
       providers: [
         provideAppConstants(),

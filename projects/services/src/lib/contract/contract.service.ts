@@ -81,7 +81,8 @@ export class ContractService {
   public switchContract (address: string) {
     this.apiGetAddressData.next(new URL('/addresses/data/' + address, this.api.rest))
     this.contractRefresh$.next(null)
-    this.signerService.logout().subscribe((e) => { this.refresh() })
+    // this.signerService.logout().subscribe((e) => { this.refresh() })
+    this.refresh()
   }
 
   doRefreshTimeOut () {

@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { CreateGrantPageComponent } from './create-grant-page.component'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ContractService } from '@services/contract/contract.service'
-import { TranslocoModule } from '@ngneat/transloco'
 import { provideApi, provideAppConstants } from '@constants'
 import { RouterTestingModule } from '@angular/router/testing'
+import { getTranslocoModule } from '../../transloco-module.spec'
+import { ReactiveFormsModule } from '@angular/forms'
 
 describe('CreateGrantPageComponent', () => {
   let component: CreateGrantPageComponent
@@ -13,7 +13,7 @@ describe('CreateGrantPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, TranslocoModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, ReactiveFormsModule],
       declarations: [CreateGrantPageComponent],
       providers: [
         provideAppConstants(),

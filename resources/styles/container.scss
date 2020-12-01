@@ -5,4 +5,8 @@
   &--grid {
     @include layout();
   }
+
+  &--middle {
+    max-width: var(--layout-width-md);
+  }
 }

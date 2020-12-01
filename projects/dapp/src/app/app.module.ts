@@ -44,7 +44,6 @@ import { RewardDirective } from '@libs/directives/reward.directive'
     PipesModule,
     MatSnackBarModule,
     MarkdownModule.forRoot()
-
   ],
   providers: [
     WINDOW_PROVIDERS,
