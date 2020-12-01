@@ -1,9 +1,33 @@
 import { EventEmitter, Component, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core'
+import { animate, group, stagger, state, style, transition, trigger } from '@angular/animations'
 
 @Component({
   selector: 'ui-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.scss'],
+  animations: [
+    trigger(
+      'inOutAnimation',
+      [
+        transition(
+          ':enter',
+          [
+            style({ opacity: 0 }),
+            animate('0.1s ease-out',
+              style({ opacity: 1 }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ opacity: 1 }),
+            animate('0.1s ease-in',
+              style({ opacity: 0 }))
+          ]
+        )
+      ]
+    )
+  ]
 })
 export class ModalComponent implements OnInit {
   isOpen = false
