@@ -27,4 +27,24 @@
 
 .container {
   @include container();
+
+  .blockquote {
+    position: relative;
+
+    &::before {
+      background: #000;
+      content: '';
+      display: block;
+      height: 100%;
+      left: -10px;
+      position: absolute;
+      top: 0;
+      width: 5px;
+    }
+  }
+
+  a {
+    color: $color_waves_blue;
+    text-decoration: none;
+  }
 }
