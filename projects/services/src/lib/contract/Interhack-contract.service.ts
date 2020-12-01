@@ -37,20 +37,6 @@ export class InterhackContractService {
   // Finished create task. Start voting
   // Permission: only WG
   public addReward (taskId: string, reward: number) {
-    this.signerService.invoke(this.contractService.getAddress(), 'addReward',
-      [{ type: 'string', value: taskId }],
-      [{ assetId: 'WAVES', amount: reward }])
-      .catch((res) => {
-        this.popupService.add(res, 'addReward catch')
-      })
-      .then((res) => {
-      // @ts-ignore
-        this.popupService.add(res.toString(), 'addReward then')
-        this.contractService.doRefreshTimeOut()
-      })
-      .finally(() => {
-        this.popupService.add('', 'addReward finally')
-        this.contractService.doRefreshTimeOut()
-      })
+    return this.commonContractService.addReward(taskId, reward)
   }
 }

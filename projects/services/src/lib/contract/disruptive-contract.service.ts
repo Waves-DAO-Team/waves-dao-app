@@ -34,8 +34,8 @@ export class DisruptiveContractService {
 
   // Finished create task. Start voting
   // Permission: only WG
-  public addTaskDetails (taskId: string, reward: number) {
-    return this.commonContractService.addTaskDetails(taskId, reward)
+  public addReward (taskId: string, reward: number) {
+    return this.commonContractService.addReward(taskId, reward)
   }
 
   public voteForTaskProposal (taskId: string, voteValue: 'like' | 'dislike') {
