@@ -73,9 +73,9 @@ export class CommonContractService {
       })
   }
 
-  public addTaskDetails (taskId: string, reward: number) {
+  public addReward (taskId: string, reward: number) {
     console.log('addTaskDetails:', taskId, reward)
-    this.signerService.invoke(this.contractService.getAddress(), 'addTaskDetails',
+    this.signerService.invoke(this.contractService.getAddress(), 'addReward',
       [{ type: 'string', value: taskId }],
       [{ assetId: 'WAVES', amount: reward }])
       .catch((res) => {
