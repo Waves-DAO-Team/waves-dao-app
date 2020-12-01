@@ -66,9 +66,11 @@ header {
       flex: 1;
       align-items: center;
       display: flex;
+      outline: none;
       img {
         max-width: 40%;
         display: block;
+        cursor: pointer;
       }
       ul {
         display: none;
