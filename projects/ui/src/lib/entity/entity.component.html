@@ -167,6 +167,18 @@
           </div>
         </form>
       </ng-container>
+      <ng-container *ngIf="modalStep === 3">
 
+        <div class="modalStep3">
+          <img src="assets/icons/success-grant-apply.svg">
+          <div class="text">Successfully applied</div>
+
+          <div class="btn-container center">
+            <button type="button" (click)="modal?.onCancel()" class="btn">BACK TO GRANT</button>
+          </div>
+        </div>
+
+
+      </ng-container>
     </ui-modal>
   </div>
