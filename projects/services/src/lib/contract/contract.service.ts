@@ -4,11 +4,10 @@ import {
   map,
   publishReplay,
   refCount,
-  repeatWhen,
-  switchMap, takeUntil
+  switchMap, take, withLatestFrom
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import {
   ContractDataModel, ContractGrantModel,
   ContractGrantRawModel,
@@ -25,32 +24,40 @@ import { PopupService } from '@services/popup/popup.service'
   providedIn: 'root'
 })
 export class ContractService {
-  public apiGetAddressData = new BehaviorSubject(new URL('/addresses/data/' + this.api.contractAddress, this.api.rest))
-  private contractRefresh$: Subject<null> = new Subject()
+  private contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.api.contractAddress)
   private averageOperationSpeed = 10000
   public applicants: string[] = []
   // @ts-ignore
   private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject({})
 
-  private readonly contractState = this.apiGetAddressData.pipe(
+  private readonly contractState = this.contractAddress$.pipe(
     // @ts-ignore
-    switchMap((url) => {
+    switchMap((address) => {
+      const url = new URL('/addresses/data/' + address, this.api.rest)
       return this.http.get<Observable<ContractRawData>>(url.href, {
         headers: { accept: 'application/json; charset=utf-8' }
-      }).pipe(repeatWhen(() => this.contractRefresh$))
+      })
     }),
     map((data: ContractRawData) => {
       return this.prepareData(data)
     }),
     switchMap((data: ContractDataModel) => {
       this.contractState$.next(data)
-      return this.contractState$.pipe(takeUntil(this.contractRefresh$))
+      return this.contractState$.pipe(take(1))
     }),
     publishReplay(1),
     refCount()
   )
 
   public readonly stream: Observable<ContractDataModel> = this.contractState.pipe(
+    withLatestFrom(this.contractAddress$),
+    map(([data, address]) => {
+      return {
+        ...data,
+        // Pass current contract address in data stream
+        address
+      }
+    }),
     publishReplay(1),
     refCount()
   )
@@ -71,15 +78,12 @@ export class ContractService {
     private popupService: PopupService
   ) {}
 
-  refresh () {
-    this.contractRefresh$.next(null)
+  public refresh (address: string = this.api.contractAddress) {
+    this.contractAddress$.next(address)
   }
 
   public switchContract (address: string) {
-    this.apiGetAddressData.next(new URL('/addresses/data/' + address, this.api.rest))
-    this.contractRefresh$.next(null)
-    // this.signerService.logout().subscribe((e) => { this.refresh() })
-    this.refresh()
+    this.refresh(address)
   }
 
   doRefreshTimeOut () {
@@ -137,6 +141,10 @@ export class ContractService {
         id: entityId
       } as ContractGrantModel
     }))
+  }
+
+  public getAddress (): string {
+    return this.contractAddress$.getValue()
   }
 
   // dapp

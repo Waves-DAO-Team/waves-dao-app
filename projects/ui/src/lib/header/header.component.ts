@@ -84,6 +84,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((newData) => {
         this.userRole = newData.userRole
 
+        console.log('Refresh header')
         // After change contract mark component as changed
         // Repaint component an next tick
         this.cdr.markForCheck()

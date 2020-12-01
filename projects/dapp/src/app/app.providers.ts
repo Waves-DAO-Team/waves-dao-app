@@ -10,6 +10,11 @@ export interface AppApiInterface {
   signer: string
   rest: string
   contractAddress: string
+  contracts: {
+    disruptive: string,
+    dev: string,
+    interhack: string
+  }
 }
 
 export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Application constants')

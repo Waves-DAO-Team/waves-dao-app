@@ -2,14 +2,19 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
-import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import {
+  API,
+  APP_CONSTANTS,
+  AppApiInterface,
+  AppConstantsInterface
+} from '@constants'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '@services/../interface'
 import { tap } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
-import { environment } from '@dapp/src/environments/environment'
+
 @Component({
   selector: 'ui-listing',
   templateUrl: './listing.component.html',
@@ -17,13 +22,12 @@ import { environment } from '@dapp/src/environments/environment'
   providers: GRANTS_PROVIDERS
 })
 export class ListingComponent implements OnInit {
-  environment = environment;
-  grantsVariationActive = '1'
-  RoleEnum = RoleEnum
-  GrantStatusEnum = GrantStatusEnum
-  selectedTagName = ''
-  listGrantStatuses: string[] = []
-  listGrantStatuses$ = this.grants.data$.pipe(
+  public readonly grantsVariationActive = '1'
+  public readonly RoleEnum = RoleEnum
+  public readonly GrantStatusEnum = GrantStatusEnum
+  public selectedTagName = ''
+  public listGrantStatuses: string[] = []
+  public readonly listGrantStatuses$ = this.grants.data$.pipe(
     tap(
       (grants) => {
         this.listGrantStatuses = []
@@ -38,13 +42,12 @@ export class ListingComponent implements OnInit {
     )
   ).subscribe()
 
-  grants$ = this.userService.data.subscribe(() => {
-    this.cdr.markForCheck()
-  })
+  public readonly user$ = this.userService.data
 
   constructor (
     public cdr: ChangeDetectorRef,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(API) public readonly api: AppApiInterface,
     @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
     public userService: UserService,
     public contractService: ContractService,
@@ -75,7 +78,6 @@ export class ListingComponent implements OnInit {
   }
 
   setEnv (address: string) {
-    environment.apis.contractAddress = address
     this.contractService.switchContract(address)
   }
 }

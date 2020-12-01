@@ -1,4 +1,4 @@
-<div class="container listing">
+<div class="container listing" *ngIf="user$ | async as user">
   <h1>
     {{'listing.title' | transloco}}
   </h1>
@@ -9,8 +9,8 @@
 
   <div class="grants-variation">
     <div class="grant"
-         [class.active]="environment.apis.contractAddress === environment.apis.contracts.disruptive"
-         (click)="setEnv(environment.apis.contracts.disruptive)">
+         [class.active]="user.masterAddress === api.contracts.disruptive"
+         (click)="setEnv(api.contracts.disruptive)">
       <div class="img"></div>
       <div class="content">
         <div class="title">Disruptive Tech Grant</div>
@@ -20,8 +20,8 @@
       </div>
     </div>
     <div class="grant"
-         [class.active]="environment.apis.contractAddress === environment.apis.contracts.dev"
-         (click)="setEnv(environment.apis.contracts.dev)">
+         [class.active]="user.masterAddress === api.contracts.dev"
+         (click)="setEnv(api.contracts.dev)">
       <div class="img"></div>
       <div class="content">
         <div class="title">Web3.0 Dev Grant</div>
@@ -31,8 +31,8 @@
       </div>
     </div>
     <div class="grant"
-         [class.active]="environment.apis.contractAddress === environment.apis.contracts.interhack"
-         (click)="setEnv(environment.apis.contracts.interhack)">
+         [class.active]="user.masterAddress === api.contracts.interhack"
+         (click)="setEnv(api.contracts.interhack)">
       <div class="img"></div>
       <div class="content">
         <div class="title">Interhack Grant</div>

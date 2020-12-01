@@ -60,8 +60,6 @@ export interface ContractGrantRawModel extends ContractGrantCommonModel {
   app?: {[s: string]: ContractGrantAppModel}
 }
 
-
-
 export interface ContractGrantModel extends ContractGrantCommonModel {
   app?: ContractGrantAppModel[]
   id?: ContractRawDataEntityId;
@@ -71,6 +69,7 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
 }
 
 export interface ContractDataModel {
+  address: string,
   working: {
     group: {
       member: {[s: string]: {

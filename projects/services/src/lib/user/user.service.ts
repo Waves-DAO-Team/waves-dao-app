@@ -35,14 +35,14 @@ export class UserService {
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
-        const masterAddress = this.api.contractAddress
+        console.log('SET user', contract)
         const WorkGroupAddress = Object.keys(contract?.working?.group?.member || {})
         const DAOMemberAddress = Object.keys(contract?.dao?.member || {})
-        const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
+        const dr = this.defineRol(contract.address, userAddress.address, DAOMemberAddress, WorkGroupAddress)
         const newData: UserDataInterface = {
           DAOMemberAddress,
           WorkGroupAddress,
-          masterAddress: this.api.contractAddress,
+          masterAddress: contract.address,
           userAddress: userAddress.address,
           userRole: dr.mainRole,
           roles: dr.roles,

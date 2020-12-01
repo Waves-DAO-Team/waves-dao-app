@@ -4,20 +4,20 @@
       <img src="assets/icons/arr-left.svg">Back
     </button>
   </div>
-  <div class="container__mid">
-    Contract:
+  <div class="container__mid" *ngIf="user$ | async as user">
+    <h1>Members</h1>
+    <p>{{user.masterAddress}}</p>
+    <p>&nbsp;</p>
+
+    <h3>Master</h3>
     <ul>
-      <li>{{environment.apis.contractAddress}}</li>
+      <li>{{user.masterAddress}}</li>
     </ul>
-    Master:
-    <ul>
-      <li>{{userService?.data?.getValue().masterAddress}}</li>
-    </ul>
-    WG:
+    <h3>WG</h3>
     <ul>
       <li *ngFor="let wg of userService?.data?.getValue().WorkGroupAddress">{{wg}}</li>
     </ul>
-    DAO:
+    <h3>DAO</h3>
     <ul>
       <li *ngFor="let dao of userService?.data?.getValue().DAOMemberAddress">{{dao}}</li>
     </ul>
