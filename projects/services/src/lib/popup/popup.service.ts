@@ -1,22 +1,11 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, Observable, Subject, timer } from 'rxjs'
-import { delay, tap } from 'rxjs/operators'
-import { AddTextInterface, AddTextObjInterface } from '@services/popup/popup.interface'
-
-class IInvokeScriptTransaction<T> {
-}
-
-class IWithApiMixin {
-}
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopupService {
-  message$ = new BehaviorSubject<string[]>([])
-
-  constructor () {
-  }
+  private readonly message$ = new BehaviorSubject<string[]>([])
 
   public async add (text: string, title?: string) {
     if (text && text.length > 5) {

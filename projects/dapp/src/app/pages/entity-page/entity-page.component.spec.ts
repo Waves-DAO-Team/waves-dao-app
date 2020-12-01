@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { EntityPageComponent } from './entity-page.component'
-import { APP_CONSTANTS, provideApi, provideAppConstants } from '@constants'
+import { provideApi, provideAppConstants } from '@constants'
 import { ContractService } from '@services/contract/contract.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'

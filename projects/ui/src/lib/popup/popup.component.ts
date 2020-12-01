@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { PopupService } from '@services/popup/popup.service'
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations'
-import { tap } from 'rxjs/operators'
 
 export const fadeAnimation = trigger('fadeAnimation', [
   transition(':enter', [

@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component, ComponentRef,
+  Component,
   ElementRef,
   Inject,
   OnDestroy,
@@ -18,9 +18,6 @@ import {
 } from './common-layout.interface'
 import { filter, takeUntil } from 'rxjs/operators'
 import { Subject } from 'rxjs'
-import { FooterComponent } from '@ui/footer/footer.component'
-import { HeaderComponent } from '@ui/header/header.component'
-import { ComponentType } from '@angular/cdk/overlay'
 
 @Component({
   selector: 'ui-common-layout',

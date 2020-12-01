@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { FooterComponent } from './footer.component'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ContractService } from '@services/contract/contract.service'
 import { provideApi, provideAppConstants } from '@constants'
 import { RouterTestingModule } from '@angular/router/testing'
 

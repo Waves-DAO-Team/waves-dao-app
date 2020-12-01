@@ -3,7 +3,6 @@ import { ENTITY, ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/entity-page.pr
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { UserService } from '@services/user/user.service'
 import { Location } from '@angular/common'
 
 @Component({

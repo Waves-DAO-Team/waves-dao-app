@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { Routes, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
+import { Routes, RouterModule } from '@angular/router'
 import { ApplyGrantPageComponent } from '@pages/apply-grant-page/apply-grant-page.component'
 import { ApplyGrantPageGuard } from '@pages/apply-grant-page/apply-grant-page.guard'
 

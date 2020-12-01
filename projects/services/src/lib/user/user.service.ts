@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable } from '@angular/core'
 import { RoleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
 import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
-import { environment } from '../../../../dapp/src/environments/environment'
 import { BehaviorSubject, combineLatest } from 'rxjs'
-import { catchError, publishReplay, refCount, tap } from 'rxjs/operators'
-import { ContractGrantModel, ContractGrantRawModel } from '@services/contract/contract.model'
+import { publishReplay, refCount, tap } from 'rxjs/operators'
+import { ContractGrantRawModel } from '@services/contract/contract.model'
 import { PopupService } from '@services/popup/popup.service'
-import { AddTextObjInterface } from '@services/popup/popup.interface'
+import { API, AppApiInterface } from '@constants'
 
 @Injectable({
   providedIn: 'root'
@@ -36,14 +35,14 @@ export class UserService {
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
-        const masterAddress = environment.apis.contractAddress
+        const masterAddress = this.api.contractAddress
         const WorkGroupAddress = Object.keys(contract?.working?.group?.member || {})
         const DAOMemberAddress = Object.keys(contract?.dao?.member || {})
         const dr = this.defineRol(masterAddress, userAddress.address, DAOMemberAddress, WorkGroupAddress)
         const newData: UserDataInterface = {
           DAOMemberAddress,
           WorkGroupAddress,
-          masterAddress: environment.apis.contractAddress,
+          masterAddress: this.api.contractAddress,
           userAddress: userAddress.address,
           userRole: dr.mainRole,
           roles: dr.roles,
@@ -65,7 +64,10 @@ export class UserService {
     ).subscribe()
 
   constructor (
-    private signerService: SignerService, private contractService: ContractService, private popupService: PopupService
+    @Inject(API) private readonly api: AppApiInterface,
+    private signerService: SignerService,
+    private contractService: ContractService,
+    private popupService: PopupService
   ) {}
 
   private defineApply (userAddress: string, tasks: ContractGrantRawModel): string[] {

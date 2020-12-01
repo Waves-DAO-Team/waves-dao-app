@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { PopupComponent } from './popup.component'
-import { UserService } from '@services/user/user.service'
 import { provideApi } from '@constants'
 import { PopupService } from '@services/popup/popup.service'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'

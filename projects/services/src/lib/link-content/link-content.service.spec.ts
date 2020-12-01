@@ -4,7 +4,6 @@ import { LinkContentService } from './link-content.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { provideApi, provideAppConstants } from '@constants'
-import { TeamService } from '@services/team/team.service'
 
 describe('LinkContentService', () => {
   let service: LinkContentService

@@ -1,17 +1,16 @@
 import { Inject, Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import {
-  map, mergeMap,
+  map,
   publishReplay,
   refCount,
   repeatWhen,
-  switchMap, takeUntil,
-  tap
+  switchMap, takeUntil
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, interval, Observable, of, Subject } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import {
-  ContractDataModel, ContractGrantCommonModel, ContractGrantModel,
+  ContractDataModel, ContractGrantModel,
   ContractGrantRawModel,
   ContractRawData,
   ContractRawDataEntityId,
@@ -21,8 +20,6 @@ import {
 import { SignerService } from '@services/signer/signer.service'
 import { InvokeResponseInterface } from '../../interface'
 import { PopupService } from '@services/popup/popup.service'
-import { AddTextObjInterface } from '@services/popup/popup.interface'
-import { translate } from '@ngneat/transloco'
 
 @Injectable({
   providedIn: 'root'
@@ -180,7 +177,7 @@ export class ContractService {
   }
 
   public addTask (taskName: string, reward: number, link: string) {
-    const tx = this.signerService.invoke('addTask', [
+    this.signerService.invoke('addTask', [
       { type: 'string', value: taskName },
       { type: 'string', value: link }
     ])

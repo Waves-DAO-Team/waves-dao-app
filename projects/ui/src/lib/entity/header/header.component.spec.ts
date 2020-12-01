@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { HeaderComponent } from './header.component'
-import { TranslocoModule } from '@ngneat/transloco'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('HeaderComponent', () => {

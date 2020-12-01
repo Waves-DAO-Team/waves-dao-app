@@ -1,6 +1,7 @@
 {
-  "extends": "tslint:recommended",
+  "extends": ["tslint:recommended", "tslint-etc"],
   "rules": {
+    "no-unused-declaration": true,
     "camelcase": [2, {"properties": "always"}],
     "align": {
       "options": [
@@ -144,7 +145,8 @@
   "linterOptions": {
     "exclude": [
       "*.json",
-      "**/*.json"
+      "**/*.json",
+      "*.e2e-spec.ts"
     ]
   }
 }

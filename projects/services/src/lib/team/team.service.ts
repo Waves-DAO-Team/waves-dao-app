@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { tap } from 'rxjs/operators'
-import { ContractDataModel, ContractGrantRawModel } from '@services/contract/contract.model'
+import { ContractDataModel } from '@services/contract/contract.model'
 import { TeamInterface } from '@services/team/team.interface'
 import { BehaviorSubject } from 'rxjs'
 

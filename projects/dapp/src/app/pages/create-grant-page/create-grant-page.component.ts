@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ContractService } from '@services/contract/contract.service'
-import { debounce } from 'rxjs/operators'
-import { timer } from 'rxjs'
 import { CurrencyPipe, Location } from '@angular/common'
 import { UserService } from '@services/user/user.service'
 

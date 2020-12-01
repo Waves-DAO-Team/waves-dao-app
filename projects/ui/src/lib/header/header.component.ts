@@ -12,7 +12,7 @@ import {
 } from '@constants'
 import { SignerService } from '@services/signer/signer.service'
 import { SignerUser } from '@services/signer/signer.model'
-import { Observable, of, Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { Router } from '@angular/router'

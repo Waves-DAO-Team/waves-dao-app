@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
