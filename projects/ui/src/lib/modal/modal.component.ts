@@ -1,5 +1,5 @@
 import { EventEmitter, Component, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core'
-import { animate, group, stagger, state, style, transition, trigger } from '@angular/animations'
+import { animate, style, transition, trigger } from '@angular/animations'
 
 @Component({
   selector: 'ui-modal',
