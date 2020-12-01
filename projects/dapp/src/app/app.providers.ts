@@ -11,6 +11,7 @@ export interface AppApiInterface {
   signer: string
   rest: string
   contractAddress: string
+  confirmations: number
   contracts: {
     disruptive: string,
     dev: string,
@@ -27,7 +28,8 @@ export function provideApi (): Provider[] {
     {
       provide: API,
       useValue: {
-        ...environment.apis
+        ...environment.apis,
+        confirmations: environment.confirmations
       }
     }
   ]

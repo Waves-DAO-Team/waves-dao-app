@@ -2,24 +2,35 @@ import { Inject, Injectable } from '@angular/core'
 import { Signer, IUserData } from '@waves/signer/'
 import Provider from '@waves.exchange/provider-web'
 import { API, AppApiInterface } from '@constants'
-import { SignerUser, SignerInvokeArgs } from './signer.model'
+import { SignerUser, SignerInvokeArgs, TransactionRawState, TransactionState } from './signer.model'
 import { BehaviorSubject, from, Observable } from 'rxjs'
-import { publishReplay, refCount } from 'rxjs/operators'
-import { IWithApiMixin, IInvokeScriptTransaction } from '@waves/ts-types'
-import { IMoney } from '@waves/signer/cjs/interface'
+import { publishReplay, refCount, tap, switchMap, retryWhen, delay, map } from 'rxjs/operators'
+import {
+  IWithApiMixin,
+  IInvokeScriptTransaction,
+  TTransactionFromAPI
+} from '@waves/ts-types'
+import {
+  IMoney, TLong
+} from '@waves/signer/cjs/interface'
 import { Router } from '@angular/router'
+import { HttpClient } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignerService {
-  public readonly signer: Signer
+  public readonly signer!: Signer
 
   private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '', balance: '' })
 
   public user: Observable<SignerUser> = this.user$.pipe(publishReplay(1), refCount())
 
-  constructor (@Inject(API) private readonly api: AppApiInterface, private router: Router) {
+  constructor (
+      @Inject(API) private readonly api: AppApiInterface,
+      private readonly http: HttpClient,
+      private readonly router: Router
+  ) {
     this.signer = new Signer({
       // Specify URL of the node on Testnet
       NODE_URL: api.nodes
@@ -64,19 +75,59 @@ export class SignerService {
         args
       }
     })
+    return tx.broadcast()
+  }
 
-    // let v = this.signer.broadcast(tx.id, {chain: true, confirmations: 1})
-    // signer.invoke({
-    //   dApp: address,
-    //   call: { function: name, args: convertedArgs },
-    // }).sign();
-    // console.log('------>', tx.alias().)
-    // this.signer.waitTxConfirm(tx.alias, {}).then((e)=>{
-    //   console.log('!!!', e)
-    // })
+  public invokeProcess (contractAddress: string, command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []) {
+    return from(this.signer.invoke({
+      payment,
+      dApp: contractAddress,
+      call: {
+        function: command,
+        // @ts-ignore
+        args
+      }
+    }).sign()).pipe(
+    // @ts-ignore
+      switchMap((tx) => {
+        return from(this.signer.broadcast(tx))
+      }),
+      switchMap((data: TTransactionFromAPI<TLong>) => {
+        return this.status(data.id)
+      }))
+  }
 
-    return tx.broadcast(
-      // {chain: true, confirmations: 1}
+  status (tx: string) {
+    const url = new URL('/transactions/status/', this.api.rest)
+    return this.http.get<TransactionRawState>(url.href, {
+      params: {
+        id: tx
+      },
+      headers: { accept: 'application/json; charset=utf-8' }
+    }).pipe(
+      map((data: TransactionState[]) => {
+        data.forEach((state: TransactionState) => {
+          if (state.status === 'confirmed' && state.confirmations === this.api.confirmations) {
+            return state
+          }
+        })
+        throw new Error('wait')
+      }),
+      retryWhen((data) => {
+        console.log('Retry')
+        return data.pipe(delay(1000))
+      }),
+      tap((data: TransactionState) => {
+        console.log('After retry', data)
+      })
     )
+  }
+
+  test () {
+    this.invokeProcess('3MtV1AQ8fEPk76tjKgvrufuMe5aA3q4TviQ', 'test', [
+      { type: 'string', value: 'TEST 1' }
+    ]).subscribe((data) => {
+      console.log('data', data)
+    })
   }
 }

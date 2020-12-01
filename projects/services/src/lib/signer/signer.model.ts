@@ -1,5 +1,12 @@
 import { IUserData } from '@waves/signer/cjs/interface'
 
+export interface TransactionState {
+  status: 'unconfirmed' | 'confirmed'
+  confirmations: number
+}
+
+export type TransactionRawState = TransactionState[]
+
 export interface SignerUser extends IUserData {
   name: string
   balance: string
