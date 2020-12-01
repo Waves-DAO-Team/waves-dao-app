@@ -80,4 +80,8 @@ export class ListingComponent implements OnInit {
   setEnv (address: string) {
     this.contractService.switchContract(address)
   }
+
+  isAppliedForGrant (grantId: string): boolean {
+    return this.userService.data.getValue().apply.includes(grantId)
+  }
 }
