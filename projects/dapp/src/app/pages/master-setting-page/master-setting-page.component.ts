@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '@services/user/user.service'
-import { ContractService } from '@services/contract/contract.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 
 @Component({

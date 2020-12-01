@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
-import { ContractService } from '@services/contract/contract.service'
 import { GrantStatusEnum } from '../../../../../services/src/interface'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 

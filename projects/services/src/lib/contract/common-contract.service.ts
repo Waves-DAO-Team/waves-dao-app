@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { ContractService } from '@services/contract/contract.service'
 import { SignerService } from '@services/signer/signer.service'
 import { PopupService } from '@services/popup/popup.service'
-import { InvokeResponseInterface } from '../../interface'
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { ContractService } from '@services/contract/contract.service'
 import { CurrencyPipe, Location } from '@angular/common'
 import { UserService } from '@services/user/user.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'

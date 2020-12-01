@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
-import { ContractService } from '@services/contract/contract.service'
 import { Location } from '@angular/common'
 import { UserService } from '@services/user/user.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'

@@ -16,9 +16,6 @@ import {
   ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
-import { SignerService } from '@services/signer/signer.service'
-import { InvokeResponseInterface } from '../../interface'
-import { PopupService } from '@services/popup/popup.service'
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import { InvokeResponseInterface } from '../../interface'
 import { SignerService } from '@services/signer/signer.service'
 import { PopupService } from '@services/popup/popup.service'
 import { ContractService } from '@services/contract/contract.service'
