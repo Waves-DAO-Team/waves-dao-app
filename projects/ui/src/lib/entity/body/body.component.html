@@ -1,7 +1,7 @@
 <div class="entity__body">
-  <ng-container *ngIf="!md">
-    {{'entity.link' | transloco}}: {{link}}
-  </ng-container>
+<!--  <ng-container *ngIf="!md">-->
+<!--    {{'entity.link' | transloco}}: {{link}}-->
+<!--  </ng-container>-->
   <markdown [data]="md"></markdown>
   <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
 </div>
