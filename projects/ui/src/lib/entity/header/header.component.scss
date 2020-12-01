@@ -1,31 +1,48 @@
-@import "const";
+@import 'const';
 
 .card__header__entity {
-  &__top, &__bottom {
-    font-style: $font_size_h5;
+  &__top,
+  &__bottom {
     color: $color_dark_gray;
+    font-style: $font_size_h5;
     line-height: 1;
+
     span {
-      font-weight: bold;
       color: $color_black;
+      font-weight: bold;
     }
   }
+
   &__mid {
-    font-size: $font_size_h2;
     color: $color_black;
+    font-size: $font_size_h2;
     line-height: 1;
-    margin-top: $padding * 2;
     margin-bottom: $padding * 2;
+    margin-top: $padding * 2;
   }
+
   &__bottom {
     display: flex;
     margin-bottom: $padding;
+
     &__left {
       flex: 1;
     }
+
     &__right {
       flex: 1;
       text-align: right;
+    }
+  }
+
+  a {
+    color: $color_waves_blue;
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+
+    img {
+      margin-left: $padding / 2;
     }
   }
 }

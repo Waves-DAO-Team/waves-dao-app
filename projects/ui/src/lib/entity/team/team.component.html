@@ -3,25 +3,24 @@
 
   <ul *ngIf="grant?.app?.length > 0">
     <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process">
-      <div class="left">
-        <div class="up" [class.disabled]="!(grant?.status?.value === grantStatusEnum.readyToApply)">
-          <img src="assets/icons/arr-up.svg"
-               (click)="voteTeam( 'like', app.id.value)"
-               *ngIf="!(grant?.status?.value === grantStatusEnum.readyToApply) && userService.data.getValue().roles.isDAO">
-          <img src="assets/icons/arr-up-blue.svg"
-               (click)="voteTeam( 'like', app.id.value)"
-               *ngIf="(grant?.status?.value === grantStatusEnum.readyToApply) && userService.data.getValue().roles.isDAO">
+      <div class="left" *ngIf="isReadyToApply()">
+        <div class="up" [class.disabled]="!isReadyToApply()">
+          <img src="assets/icons/arr-up.svg" (click)="voteTeam( 'like', app.id.value)" *ngIf="!isReadyToApply() && isDAO()">
+          <img src="assets/icons/arr-up-blue.svg" (click)="voteTeam( 'like', app.id.value)" *ngIf="isReadyToApply() && isDAO()">
         </div>
         <div class="score">{{app?.score?.value || 0}}</div>
-        <div class="down" [class.disabled]="!(grant?.status?.value === grantStatusEnum.readyToApply)">
-          <img src="assets/icons/arr-down.svg"
-               (click)="voteTeam( 'dislike', app.id.value)"
-               *ngIf="!(grant?.status?.value === grantStatusEnum.readyToApply) && userService.data.getValue().roles.isDAO">
-          <img src="assets/icons/arr-down-red.svg"
-               (click)="voteTeam( 'like', app.id.value)"
-               *ngIf="(grant?.status?.value === grantStatusEnum.readyToApply) && userService.data.getValue().roles.isDAO">
+        <div class="down" [class.disabled]="!isReadyToApply()">
+          <img src="assets/icons/arr-down.svg" (click)="voteTeam( 'dislike', app.id.value)" *ngIf="!isReadyToApply() && isDAO()">
+          <img src="assets/icons/arr-down-red.svg" (click)="voteTeam( 'like', app.id.value)" *ngIf="isReadyToApply() && isDAO()">
         </div>
       </div>
+      <div class="left"  *ngIf="!isReadyToApply()">
+        <div class="top">Votes</div>
+        <div class="bottom">{{app?.score?.value || 0}}</div>
+      </div>
+
+
+
       <div class="mid">
         <div class="name">{{app?.name?.value}}</div>
         <a class="link" [href]="app?.link?.value"> Learn more about the team <img src="assets/icons/link.svg"></a>

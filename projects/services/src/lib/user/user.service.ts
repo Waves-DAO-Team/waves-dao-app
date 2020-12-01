@@ -49,14 +49,14 @@ export class UserService {
           apply: this.defineApply(userAddress.address, contract?.tasks || {}),
           balance: userAddress.balance
         }
-        if (JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
-          this.data.next(newData)
-          if (userAddress.address !== this.lastAddress) {
-            this.popupService.add(userAddress.address, 'Login')
-            this.lastAddress = userAddress.address
-          }
-          console.log('user data: ', this.data.getValue())
+        // if (JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
+        this.data.next(newData)
+        if (userAddress.address !== this.lastAddress) {
+          this.popupService.add(userAddress.address, 'Login')
+          this.lastAddress = userAddress.address
         }
+        console.log('user data: ', this.data.getValue())
+        // }
       }),
       publishReplay(1),
       refCount()

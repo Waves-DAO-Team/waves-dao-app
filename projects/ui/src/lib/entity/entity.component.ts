@@ -25,7 +25,7 @@ export class EntityComponent implements OnInit {
     this.cdr.markForCheck()
   })
 
-  modalStep = 1
+  modalStep: 1 | 2 | 3 = 1
 
   applyGrantForm = new FormGroup({
     team: new FormControl('', Validators.required),
@@ -45,10 +45,9 @@ export class EntityComponent implements OnInit {
     if (this.grant?.link?.value) {
       this.linkContentService.link$.next(this.grant.link.value)
     }
-    // setInterval(() => {
-    //   console.log('--->',   this.signerService.signer.getBalance())
-    //
-    // }, 5000)
+    // setTimeout(() => {
+    //   this.modal?.openModal()
+    // }, 500)
   }
 
   vote (value: 'like' | 'dislike') {
@@ -60,7 +59,8 @@ export class EntityComponent implements OnInit {
     /* eslint-disable no-unused-expressions */
     if (this.grant?.id && this.applyGrantForm?.value?.team && this.applyGrantForm?.value?.link) {
       this.disruptiveContractService.applyForTask(this.grant?.id, this.applyGrantForm?.value?.team, this.applyGrantForm?.value?.link)
-      this.modal?.onCancel()
+      // this.modal?.onCancel()
+      this.modalGoTo('CLOSE')
     }
   }
 
@@ -69,10 +69,14 @@ export class EntityComponent implements OnInit {
     this.modalStep = 1
   }
 
-  modalGoTo (com: 'ALREADY_APPLIED' | 'NEED_APPLY') {
-    if (com === 'NEED_APPLY') {
-      window.open('https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+', '_blank')
+  modalGoTo (com: 'ALREADY_APPLIED' | 'NEED_APPLY' | 'CLOSE') {
+    if (com === 'CLOSE') {
+      this.modalStep = 3
+    } else {
+      if (com === 'NEED_APPLY') {
+        window.open('https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+', '_blank')
+      }
+      this.modalStep = 2
     }
-    this.modalStep = 2
   }
 }

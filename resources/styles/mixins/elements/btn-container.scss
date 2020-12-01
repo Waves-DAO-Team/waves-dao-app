@@ -16,6 +16,7 @@
     transition: 0.2s;
 
     &:disabled {
+
       background: #f00 !important;
     }
   }
@@ -54,6 +55,13 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
+  } @else if($type == center) {
+    text-align: center;
+    margin: auto;
+
+    .btn {
+      padding: $padding $padding * 2;
     }
   }
 }

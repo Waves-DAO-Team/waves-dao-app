@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core'
 export class HeaderComponent implements OnInit {
   @Input() status = ''
   @Input() title = ''
+  @Input() link = ''
   @Input() reward = 0
 
   constructor () { }

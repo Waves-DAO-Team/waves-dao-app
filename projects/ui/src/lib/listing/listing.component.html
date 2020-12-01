@@ -46,7 +46,8 @@
   </div>
 
   <div class="content">
-    <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
+<!--    <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>-->
+
 
     <!--grants-->
     <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
