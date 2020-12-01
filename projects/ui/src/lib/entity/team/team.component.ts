@@ -26,4 +26,12 @@ export class TeamComponent implements OnInit {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, teamIdentifier, voteValue)
     }
   }
+
+  isReadyToApply (): boolean {
+    return this.grant?.status?.value === this.grantStatusEnum.readyToApply
+  }
+
+  isDAO (): boolean {
+    return this.userService.data.getValue().roles.isDAO
+  }
 }

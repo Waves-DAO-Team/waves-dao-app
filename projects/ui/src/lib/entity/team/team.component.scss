@@ -1,69 +1,93 @@
-@import "const";
+@import 'const';
 
 .team {
   ul {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+
+    .winner {
+      outline: 1px solid $color_waves_blue;
+    }
 
     li {
       display: flex;
       margin-bottom: $padding;
 
-      &.winner {
-        outline: 1px solid $color_waves_blue;
-      }
 
       .left {
-        width: $padding * 7;
-        height: $padding * 7;
         background: $color_light_gray;
         display: flex;
         flex-direction: column;
-        .up, .down {
+        height: $padding * 7;
+        width: $padding * 7;
+
+        .top {
+          align-items: flex-end;
+          color: $color_dark_gray;
+          display: flex;
           flex: 1;
+          font-size: $font_size_h5;
           justify-content: center;
+        }
+
+        .bottom {
+          align-items: baseline;
+          display: flex;
+          flex: 1.2;
+          font-size: $font_size_h3;
+          font-weight: bold;
+          justify-content: center;
+          line-height: 1;
+        }
+
+        .up,
+        .down {
           align-items: center;
           display: flex;
+          flex: 1;
+          justify-content: center;
+
           &.disabled {
             opacity: 0.5;
           }
+
           img {
-            height: 15px;
             cursor: pointer;
+            height: 15px;
           }
         }
 
         .score {
-          flex: 1;
-          justify-content: center;
           align-items: center;
           display: flex;
+          flex: 1;
           font-size: $font_size_h4;
+          justify-content: center;
         }
 
       }
 
       .mid {
-        flex: 1;
-        display: flex;
-        justify-content: center;
         align-items: flex-start;
+        display: flex;
+        flex: 1;
         flex-direction: column;
+        justify-content: center;
 
         .name {
-          padding-left: $padding;
           font-size: $font_size_h4;
           font-weight: bold;
+          padding-left: $padding;
         }
 
         .link {
-          padding-left: $padding;
-          font-size: $font_size_h5;
           color: $color_waves_blue;
-          text-decoration: none;
           display: flex;
+          font-size: $font_size_h5;
           justify-content: center;
+          padding-left: $padding;
+          text-decoration: none;
 
           img {
             padding-left: $padding / 2;
@@ -72,12 +96,13 @@
       }
 
       .right {
-        justify-content: center;
         align-items: center;
-        display: flex;
         color: $color_waves_blue;
+        display: flex;
         font-size: $font_size_h4;
+        justify-content: center;
         padding-right: $padding * 2;
+
         img {
           margin-right: $padding / 2;
         }
