@@ -1,11 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
 import { environment } from '@dapp/src/environments/environment'
 import { ContractGrantModel } from '@services/contract/contract.model'
 
 @Component({
   selector: 'ui-body',
   templateUrl: './body.component.html',
-  styleUrls: ['./body.component.scss']
+  styleUrls: ['./body.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyComponent implements OnInit {
   environment: {

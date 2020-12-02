@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { GrantStatusEnum } from '../../../../../services/src/interface'
@@ -7,7 +7,8 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 @Component({
   selector: 'ui-team',
   templateUrl: './team.component.html',
-  styleUrls: ['./team.component.scss']
+  styleUrls: ['./team.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamComponent implements OnInit {
   grantStatusEnum = GrantStatusEnum

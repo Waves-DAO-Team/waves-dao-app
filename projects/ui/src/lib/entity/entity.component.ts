@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
@@ -11,7 +11,8 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 @Component({
   selector: 'ui-entity',
   templateUrl: './entity.component.html',
-  styleUrls: ['./entity.component.scss']
+  styleUrls: ['./entity.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntityComponent implements OnInit {
   @Input() public readonly grant: ContractGrantModel = {}

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '@services/user/user.service'
 import { Location } from '@angular/common'
@@ -7,7 +7,8 @@ import { CommonContractService } from '@services/contract/common-contract.servic
 @Component({
   selector: 'app-master-setting-page',
   templateUrl: './master-setting-page.component.html',
-  styleUrls: ['./master-setting-page.component.scss']
+  styleUrls: ['./master-setting-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MasterSettingPageComponent implements OnInit {
   workGroupForm = new FormGroup({

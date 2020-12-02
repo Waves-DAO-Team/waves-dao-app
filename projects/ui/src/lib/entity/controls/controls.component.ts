@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
 import { GrantStatusEnum } from '../../../../../services/src/interface'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
@@ -10,7 +10,8 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 @Component({
   selector: 'ui-controls',
   templateUrl: './controls.component.html',
-  styleUrls: ['./controls.component.scss']
+  styleUrls: ['./controls.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlsComponent implements OnInit {
   grantStatusEnum = GrantStatusEnum

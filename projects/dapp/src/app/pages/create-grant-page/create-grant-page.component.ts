@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { CurrencyPipe, Location } from '@angular/common'
 import { UserService } from '@services/user/user.service'
@@ -8,6 +8,7 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
   selector: 'app-create-grant-page',
   templateUrl: './create-grant-page.component.html',
   styleUrls: ['./create-grant-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CurrencyPipe]
 })
 export class CreateGrantPageComponent {

@@ -1,10 +1,11 @@
-import { EventEmitter, Component, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core'
+import { EventEmitter, Component, Input, OnInit, Output, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core'
 import { animate, style, transition, trigger } from '@angular/animations'
 
 @Component({
   selector: 'ui-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger(
       'inOutAnimation',

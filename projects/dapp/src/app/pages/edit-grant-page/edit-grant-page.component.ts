@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { Location } from '@angular/common'
@@ -8,7 +8,8 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 @Component({
   selector: 'app-edit-grant-page',
   templateUrl: './edit-grant-page.component.html',
-  styleUrls: ['./edit-grant-page.component.scss']
+  styleUrls: ['./edit-grant-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditGrantPageComponent implements OnInit {
   grantForm = new FormGroup({

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core'
 import { PopupService } from '@services/popup/popup.service'
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations'
 
@@ -26,6 +26,7 @@ const listAnimation = trigger('listAnimation', [
   selector: 'ui-popup',
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeAnimation, listAnimation]
 })
 export class PopupComponent implements OnInit, OnDestroy {

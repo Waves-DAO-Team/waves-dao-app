@@ -1,11 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { Location } from '@angular/common'
 import { UserService } from '@services/user/user.service'
 
 @Component({
   selector: 'app-members-page',
   templateUrl: './members-page.component.html',
-  styleUrls: ['./members-page.component.scss']
+  styleUrls: ['./members-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MembersPageComponent implements OnInit {
   public readonly user$ = this.userService.data;
