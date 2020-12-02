@@ -21,7 +21,6 @@ export class LinkContentService {
     // @ts-ignore
     tap((url: string | null) => { this.mdText$.next(null) }),
     repeatWhen(() => this.link$),
-    tap((url: string | null) => { console.log('--- md$') }),
     // @ts-ignore
     filter((url: string | null) => url != null),
     map((url: string) => {

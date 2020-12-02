@@ -16,7 +16,6 @@ export class BodyComponent implements OnInit {
   mdTemp: string | null = null
   @Input() set md (value: string | null) {
     this.mdTemp = value
-    console.log('---- md undefined?', value === undefined)
     this.cdr.markForCheck()
   }
 
