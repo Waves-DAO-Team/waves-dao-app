@@ -6,6 +6,7 @@ import { translate } from '@ngneat/transloco'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'ui-controls',
@@ -40,10 +41,11 @@ export class ControlsComponent implements OnInit {
   }
 
   signup () {
-    this.signerService.login().subscribe(() => {
-    }, (error) => {
-      this.snackBar.open(error, translate('messages.ok'))
-    })
+    this.signerService.login()
+      .pipe(take(1))
+      .subscribe(() => {}, (error) => {
+        this.snackBar.open(error, translate('messages.ok'))
+      })
   }
 
   startWork () {

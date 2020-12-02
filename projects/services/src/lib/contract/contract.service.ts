@@ -4,7 +4,7 @@ import {
   map,
   publishReplay,
   refCount,
-  switchMap, take, withLatestFrom
+  switchMap, take, takeUntil, withLatestFrom
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
 import { BehaviorSubject, Observable } from 'rxjs'
@@ -124,20 +124,22 @@ export class ContractService {
   }
 
   public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
-    return this.stream.pipe(map((data: ContractDataModel) => {
-      const grant: ContractGrantRawModel = data.tasks[entityId]
+    return this.stream.pipe(
+      map((data: ContractDataModel) => {
+        const grant: ContractGrantRawModel = data.tasks[entityId]
 
-      return {
-        ...grant,
-        app: grant.app ? Object.keys(grant.app).map((appKey) => {
-          return {
-            ...grant?.app?.[appKey],
-            key: appKey
-          }
-        }) : [],
-        id: entityId
-      } as ContractGrantModel
-    }))
+        return {
+          ...grant,
+          app: grant.app ? Object.keys(grant.app).map((appKey) => {
+            return {
+              ...grant?.app?.[appKey],
+              key: appKey
+            }
+          }) : [],
+          id: entityId
+        } as ContractGrantModel
+      })
+    )
   }
 
   public getAddress (): string {

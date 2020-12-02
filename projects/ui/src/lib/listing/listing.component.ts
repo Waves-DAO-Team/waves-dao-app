@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core'
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject,
+  OnDestroy,
+  OnInit
+} from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
@@ -22,7 +26,7 @@ import { TeamService } from '@services/team/team.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: GRANTS_PROVIDERS
 })
-export class ListingComponent implements OnInit {
+export class ListingComponent implements OnInit, OnDestroy {
   public readonly grantsVariationActive = '1'
   public readonly RoleEnum = RoleEnum
   public readonly GrantStatusEnum = GrantStatusEnum
@@ -53,9 +57,7 @@ export class ListingComponent implements OnInit {
     public userService: UserService,
     public contractService: ContractService,
     public teamService: TeamService
-  ) {
-
-  }
+  ) {}
 
   ngOnInit (): void {}
 
@@ -84,5 +86,9 @@ export class ListingComponent implements OnInit {
 
   isAppliedForGrant (grantId: string): boolean {
     return this.userService.data.getValue().apply.includes(grantId)
+  }
+
+  ngOnDestroy () {
+    this.grants.destroy()
   }
 }

@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
@@ -7,6 +15,9 @@ import { ModalComponent } from '@ui/modal/modal.component'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
+import { takeUntil, tap } from 'rxjs/operators'
+import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
+import { Subject } from 'rxjs'
 
 @Component({
   selector: 'ui-entity',
@@ -14,17 +25,23 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
   styleUrls: ['./entity.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntityComponent implements OnInit {
+export class EntityComponent implements OnInit, OnDestroy {
   @Input() public readonly grant: ContractGrantModel = {}
-  grantStatusEnum = GrantStatusEnum
-  userRoleEnum = RoleEnum
-  isDAOVote = false
-  @ViewChild(ModalComponent) modal?: ModalComponent
+  public readonly grantStatusEnum = GrantStatusEnum
+  public readonly userRoleEnum = RoleEnum
+  public readonly isDAOVote = false
+  @ViewChild(ModalComponent) public readonly modal?: ModalComponent
+
+  // Subject activate if component destroyed
+  // And unsubscribe all subscribers used takeUntil(this.destroyed$)
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>;
 
   reportLink = '';
-  mdText$ = this.linkContentService.mdText$.subscribe(() => {
-    this.cdr.markForCheck()
-  })
+  mdText$ = this.linkContentService.mdText$
+    .pipe(takeUntil(this.destroyed$))
+    .subscribe(() => {
+      this.cdr.markForCheck()
+    })
 
   modalStep: 1 | 2 | 3 = 1
 
@@ -38,17 +55,12 @@ export class EntityComponent implements OnInit {
     public disruptiveContractService: DisruptiveContractService,
     public linkContentService: LinkContentService,
     public cdr: ChangeDetectorRef
-  ) {
-
-  }
+  ) {}
 
   ngOnInit (): void {
     if (this.grant?.link?.value) {
       this.linkContentService.link$.next(this.grant.link.value)
     }
-    // setTimeout(() => {
-    //   this.modal?.openModal()
-    // }, 500)
   }
 
   vote (value: 'like' | 'dislike') {
@@ -80,4 +92,6 @@ export class EntityComponent implements OnInit {
       this.modalStep = 2
     }
   }
+
+  ngOnDestroy () {}
 }

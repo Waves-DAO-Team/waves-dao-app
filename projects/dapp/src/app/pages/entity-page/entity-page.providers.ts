@@ -1,5 +1,5 @@
 import { InjectionToken, Provider } from '@angular/core'
-import { switchMap, publishReplay, refCount, catchError } from 'rxjs/operators'
+import { switchMap, publishReplay, refCount, catchError, take } from 'rxjs/operators'
 import { ActivatedRoute } from '@angular/router'
 import { LoadingWrapper, LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import { ContractGrantModel } from '@services/contract/contract.model'
@@ -25,6 +25,7 @@ export function EntityFactory (
   route: ActivatedRoute,
   snackBar: MatSnackBar
 ): LoadingWrapperModel<ContractGrantModel> {
+  console.log('Create LoadingWrapper')
   return new LoadingWrapper(
     route.params.pipe(
       switchMap(({ entityId }) => {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import { ENTITY, ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/entity-page.providers'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
@@ -12,18 +12,20 @@ import { Location } from '@angular/common'
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: ENTITY_PAGE_PROVIDERS
 })
-export class EntityPageComponent implements OnInit {
+export class EntityPageComponent implements OnInit, OnDestroy {
   constructor (
     private location: Location,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    @Inject(ENTITY) public readonly entity: LoadingWrapperModel<ContractGrantModel>
-  ) {
-  }
+    @Inject(ENTITY) public entity: LoadingWrapperModel<ContractGrantModel>
+  ) {}
 
-  ngOnInit (): void {
-  }
+  ngOnInit (): void {}
 
   goBack (): void {
     this.location.back()
+  }
+
+  ngOnDestroy () {
+    this.entity.destroy()
   }
 }
