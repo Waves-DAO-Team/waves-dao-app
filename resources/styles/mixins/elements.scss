@@ -131,6 +131,7 @@ $dot-list-li-size: 16px;
   margin-bottom: $padding;
   margin-top: 0;
   text-decoration: none;
+  transition: 0.3s;
 
   > :not(:last-child) {
     margin-bottom: $padding;
@@ -259,6 +260,7 @@ $dot-list-li-size: 16px;
     background-repeat: no-repeat;
     background-size: auto 100%;
 
+
     .card__header__left-block__status,
     .card__header__left-block__title,
     .card__header__right-block__text,
@@ -277,6 +279,16 @@ $dot-list-li-size: 16px;
       &::after {
         background: $color_waves_blue;
       }
+    }
+
+    &:hover {
+      background-color: #1e73ff;
+    }
+  }
+
+  &:not(.active) {
+    &:hover {
+      outline: 1px solid #717781;
     }
   }
 }
