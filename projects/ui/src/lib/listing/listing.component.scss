@@ -48,9 +48,23 @@
         margin: 0;
       }
 
+      img {
+        width: 100%;
+      }
+
+
       .img {
         background: $color_gray;
+
+        background-repeat: no-repeat;
+        background-size: cover;
         height: 200px;
+        //background-size: 90%;
+        //&.disruptive {
+        //  background-image: url('~resources/assets/img/disruptive-type.png');
+        //  //background-position: center center;
+        //}
+
       }
 
       .content {
