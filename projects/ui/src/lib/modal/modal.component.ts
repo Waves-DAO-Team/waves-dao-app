@@ -51,6 +51,7 @@ export class ModalComponent implements OnInit {
   onCancel (): void {
     this.isOpen = false
     this.willConfirm.emit(false)
+    this.cdr.markForCheck()
   }
 
   onApply () {
