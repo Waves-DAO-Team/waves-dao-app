@@ -6,6 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { ReactiveFormsModule } from '@angular/forms'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('MasterSettingPageComponent', () => {
   let component: MasterSettingPageComponent
@@ -13,7 +14,7 @@ describe('MasterSettingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [getTranslocoModule(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule],
+      imports: [getTranslocoModule(), HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, MatSnackBarModule],
       declarations: [MasterSettingPageComponent],
       providers: [
         provideAppConstants(),

@@ -4,7 +4,7 @@ import {
   map,
   publishReplay,
   refCount,
-  switchMap, take, takeUntil, withLatestFrom
+  switchMap, take, withLatestFrom
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
 import { BehaviorSubject, Observable } from 'rxjs'

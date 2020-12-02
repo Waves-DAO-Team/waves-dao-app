@@ -4,6 +4,7 @@ import { TeamService } from './team.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { provideApi, provideAppConstants } from '@constants'
 import { RouterTestingModule } from '@angular/router/testing'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('TeamService', () => {
   let service: TeamService
@@ -13,7 +14,7 @@ describe('TeamService', () => {
     // service = TestBed.inject(TeamService);
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, MatSnackBarModule],
       providers: [
         provideAppConstants(),
         provideApi()

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core'
 import { ContractService } from '@services/contract/contract.service'
 import { SignerService } from '@services/signer/signer.service'
-import { PopupService } from '@services/popup/popup.service'
 import { catchError, tap } from 'rxjs/operators'
-import { of, EMPTY } from 'rxjs'
+import { EMPTY } from 'rxjs'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
 

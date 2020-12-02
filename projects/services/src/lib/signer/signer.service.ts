@@ -80,7 +80,12 @@ export class SignerService {
     return tx.broadcast()
   }
 
-  public invokeProcess (contractAddress: string, command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []): Observable<TransactionsSuccessResult> {
+  public invokeProcess (
+    contractAddress: string,
+    command: string,
+    args: SignerInvokeArgs[],
+    payment: Array<IMoney> = []
+  ): Observable<TransactionsSuccessResult> {
     return from(this.signer.invoke({
       payment,
       dApp: contractAddress,

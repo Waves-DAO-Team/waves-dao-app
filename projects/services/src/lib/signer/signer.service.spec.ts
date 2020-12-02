@@ -3,13 +3,14 @@ import { SignerService } from './signer.service'
 import { provideApi } from '@constants'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('SignerService', () => {
   let service: SignerService
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, MatSnackBarModule],
       providers: [
         provideApi()
       ]

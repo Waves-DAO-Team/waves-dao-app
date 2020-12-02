@@ -15,7 +15,7 @@ import { ModalComponent } from '@ui/modal/modal.component'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { takeUntil, tap } from 'rxjs/operators'
+import { takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
 

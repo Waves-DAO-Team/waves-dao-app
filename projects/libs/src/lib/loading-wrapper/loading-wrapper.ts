@@ -1,5 +1,5 @@
 import { Observable, Subject, EMPTY } from 'rxjs'
-import { shareReplay, catchError, take, tap, takeUntil } from 'rxjs/operators'
+import { shareReplay, catchError, takeUntil } from 'rxjs/operators'
 
 export interface LoadingWrapperModel<T> {
   data$: Observable<T>

@@ -6,6 +6,7 @@ import { provideApi, provideAppConstants } from '@constants'
 import { RouterTestingModule } from '@angular/router/testing'
 import { getTranslocoModule } from '../../transloco-module.spec'
 import { ReactiveFormsModule } from '@angular/forms'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('CreateGrantPageComponent', () => {
   let component: CreateGrantPageComponent
@@ -13,7 +14,7 @@ describe('CreateGrantPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, ReactiveFormsModule],
+      imports: [HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, ReactiveFormsModule, MatSnackBarModule],
       declarations: [CreateGrantPageComponent],
       providers: [
         provideAppConstants(),

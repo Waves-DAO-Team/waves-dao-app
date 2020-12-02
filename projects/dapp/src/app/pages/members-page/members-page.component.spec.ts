@@ -4,6 +4,7 @@ import { MembersPageComponent } from './members-page.component'
 import { provideApi, provideAppConstants } from '@constants'
 import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('MembersPageComponent', () => {
   let component: MembersPageComponent
@@ -12,7 +13,7 @@ describe('MembersPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule, HttpClientTestingModule
+        RouterTestingModule, HttpClientTestingModule, MatSnackBarModule
       ],
       declarations: [MembersPageComponent],
       providers: [
