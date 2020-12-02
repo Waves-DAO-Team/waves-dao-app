@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '@services/user/user.service'
 import { Location } from '@angular/common'
@@ -10,7 +10,7 @@ import { CommonContractService } from '@services/contract/common-contract.servic
   styleUrls: ['./master-setting-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MasterSettingPageComponent implements OnInit {
+export class MasterSettingPageComponent implements OnInit, OnDestroy {
   data$ = this.userService.data
     .subscribe((newData) => {
       this.cdr.markForCheck()
@@ -41,10 +41,10 @@ export class MasterSettingPageComponent implements OnInit {
 
   submitDAO () {
     const DAOMemberAddress = this.DAOMemberForm.value.DAOMember
-    this.workGroupForm.reset()
-
     this.commonContractService.addDAOMember(DAOMemberAddress)
-      .subscribe((data) => {})
+      .subscribe((data) => {
+        this.workGroupForm.reset()
+      })
   }
 
   submitWG () {
@@ -57,5 +57,9 @@ export class MasterSettingPageComponent implements OnInit {
 
   goBack (): void {
     this.location.back()
+  }
+
+  ngOnDestroy (): void {
+    this.data$.unsubscribe()
   }
 }
