@@ -15,35 +15,49 @@
     padding: $padding;
     transition: 0.2s;
 
-    &:disabled {
+    &:hover {
+      border: 1px solid #000;
+      border-radius: 0;
+      color: #000;
+    }
 
-      background: #f00 !important;
+    &.active {
+      background: $blue;
+      border: 1px solid $blue;
+      border-radius: 0;
+      color: #fff;
+
+      &:disabled,
+      &:hover:disabled {
+        background: $blue;
+        border: 1px solid $blue;
+        color: rgba(255, 255, 255, 0.5);
+        cursor: default;
+        filter: grayscale(0.8);
+        opacity: 0.3 !important;
+      }
+    }
+
+    >:disabled {
+      filter: grayscale(0.3);
+      opacity: 0.5 !important;
+    }
+
+    &.active:hover {
+      background: transparent;
+      border: 1px solid $blue;
+      color: $blue;
+    }
+
+    &:disabled,
+    &:hover:disabled {
+      border: 1px solid $gray-light;
+      cursor: default;
+      filter: grayscale(0.3);
+      opacity: 0.5 !important;
     }
   }
 
-  .btn:hover {
-    border: 1px solid #000;
-    border-radius: 0;
-    color: #000;
-  }
-
-  .active {
-    background: $blue;
-    border: 1px solid $blue;
-    border-radius: 0;
-    color: #fff;
-  }
-
-  >:disabled {
-    background: #f00;
-    opacity: 0.5 !important;
-  }
-
-  .active:hover {
-    background: transparent;
-    border: 1px solid $blue;
-    color: $blue;
-  }
   @if ($type == full) {
     flex-direction: column;
 

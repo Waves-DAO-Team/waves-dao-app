@@ -1,12 +1,49 @@
-//@import './../../resources/styles/index';
 @import 'const';
+@import 'mixins/container';
 @import 'mixins/elements/text-title';
 @import 'mixins/elements/form';
 @import 'mixins/elements/btn-container';
+@import 'mixins/elements/icon-logo';
+
+.master-setting {
+  &__title {
+    font-size: 48px;
+    padding-bottom: 0;
+  }
+
+  &__desc {
+    color: #717781;
+    font-size: 16px;
+    margin-bottom: 3rem;
+  }
 
 
-h1 {
-  @include text-title(h1);
+  &__groups {
+    margin-bottom: 2rem;
+
+    &-title {
+      margin-right: 10px;
+    }
+
+    //&-list {
+    //
+    //}
+  }
+
+  &__address {
+    margin-bottom: 2rem;
+
+    &-list {
+      margin-top: $padding * 5;
+      opacity: 0.4;
+    }
+
+    &-submit {
+      @include btn-container(full);
+      margin-top: 3rem;
+    }
+  }
+
 }
 
 h2 {
@@ -20,14 +57,6 @@ h4 {
 
 form {
   @include form; }
-
-.btn-container.full {
-  @include btn-container(full);
-}
-
-.grid {
-  margin-top: $padding * 2;
-}
 
 .tab-title {
   display: flex;
@@ -43,8 +72,6 @@ form {
     margin-right: -1px;
     padding: $padding/2 $padding;
     transition: 0.3s;
-
-
   }
 
   .active {
@@ -53,3 +80,28 @@ form {
     color: #fff;
   }
 }
+
+.container {
+  @include container();
+
+  .blockquote {
+    position: relative;
+
+    &::before {
+      background: #000;
+      content: '';
+      display: block;
+      height: 100%;
+      left: -10px;
+      position: absolute;
+      top: 0;
+      width: 5px;
+    }
+  }
+
+  a {
+    color: $color_waves_blue;
+    text-decoration: none;
+  }
+}
+

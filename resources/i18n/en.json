@@ -92,17 +92,17 @@
   "application": {
   },
   "master_setting": {
-    "setting": "Setting",
+    "setting": "Settings",
     "form": {
       "work_group": {
-        "label": "Work group",
+        "label": "Existing Work Group Members",
         "placeholder": "Enter the working groups"
       },
       "DAO_member": {
-        "label": "DAO member",
+        "label": "Existing DAO Members",
         "placeholder": "Enter the DAO member"
       },
-      "apply": "Apply"
+      "add": "Add member"
     }
   },
   "create_grant": {

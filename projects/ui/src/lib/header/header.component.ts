@@ -19,7 +19,6 @@ import { Router } from '@angular/router'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
-import { environment } from '../../../../dapp/src/environments/environment'
 import { ContractService } from '@services/contract/contract.service'
 import { PopupService } from '@services/popup/popup.service'
 import { take, takeUntil } from 'rxjs/operators'
@@ -35,7 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public readonly user$: Observable<SignerUser> = this.signerService.user
   userRole = RoleEnum.unauthorized
   RoleEnum = RoleEnum;
-  routingPath = environment.routing
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)

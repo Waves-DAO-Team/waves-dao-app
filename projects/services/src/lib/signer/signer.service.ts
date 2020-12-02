@@ -2,9 +2,9 @@ import { Inject, Injectable } from '@angular/core'
 import { Signer, IUserData } from '@waves/signer/'
 import Provider from '@waves.exchange/provider-web'
 import { API, AppApiInterface } from '@constants'
-import { SignerUser, SignerInvokeArgs, TransactionRawState, TransactionState } from './signer.model'
+import { SignerUser, SignerInvokeArgs, TransactionRawState, TransactionState, TransactionsSuccessResult } from './signer.model'
 import { BehaviorSubject, from, Observable } from 'rxjs'
-import { publishReplay, refCount, tap, switchMap, retryWhen, delay, map } from 'rxjs/operators'
+import { publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take } from 'rxjs/operators'
 import {
   IWithApiMixin,
   IInvokeScriptTransaction,
@@ -15,6 +15,8 @@ import {
 } from '@waves/signer/cjs/interface'
 import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
+import { translate } from '@ngneat/transloco'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,8 @@ export class SignerService {
   constructor (
       @Inject(API) private readonly api: AppApiInterface,
       private readonly http: HttpClient,
-      private readonly router: Router
+      private readonly router: Router,
+      private snackBar: MatSnackBar
   ) {
     this.signer = new Signer({
       // Specify URL of the node on Testnet
@@ -43,7 +46,6 @@ export class SignerService {
       this.signer.login()
         .then((user: IUserData) => {
           this.signer.getBalance().then((res) => {
-            console.log('login(ser: IUserData):', user)
             this.user$.next({
               ...user,
               balance: res[0].amount.toString(),
@@ -78,7 +80,7 @@ export class SignerService {
     return tx.broadcast()
   }
 
-  public invokeProcess (contractAddress: string, command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []) {
+  public invokeProcess (contractAddress: string, command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []): Observable<TransactionsSuccessResult> {
     return from(this.signer.invoke({
       payment,
       dApp: contractAddress,
@@ -88,16 +90,25 @@ export class SignerService {
         args
       }
     }).sign()).pipe(
-    // @ts-ignore
+      take(1),
+      tap(() => {
+        this.snackBar.open('Мы отправили транзакцию в Waves блокчейн.\n' +
+            'Можно продолжить пользоваться приложением, мы сообщим когда транзакция будет подтверждена в Blockchain')
+      }),
+      // @ts-ignore
       switchMap((tx) => {
         return from(this.signer.broadcast(tx))
       }),
       switchMap((data: TTransactionFromAPI<TLong>) => {
         return this.status(data.id)
-      }))
+      }),
+      tap(() => {
+        this.snackBar.open('Transaction is complete', translate('messages.ok'))
+      })
+    )
   }
 
-  status (tx: string) {
+  status (tx: string): Observable<TransactionsSuccessResult> {
     const url = new URL('/transactions/status/', this.api.rest)
     return this.http.get<TransactionRawState>(url.href, {
       params: {
@@ -106,28 +117,20 @@ export class SignerService {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
       map((data: TransactionState[]) => {
-        data.forEach((state: TransactionState) => {
-          if (state.status === 'confirmed' && state.confirmations === this.api.confirmations) {
-            return state
-          }
+        const confirmation = data.find((state: TransactionState) => {
+          return state.status === 'confirmed' && state.confirmations >= this.api.confirmations
         })
-        throw new Error('wait')
+
+        console.log('Confirmation', confirmation)
+        if (!confirmation) {
+          throw new Error('wait')
+        }
+
+        return confirmation as TransactionsSuccessResult
       }),
       retryWhen((data) => {
-        console.log('Retry')
         return data.pipe(delay(1000))
-      }),
-      tap((data: TransactionState) => {
-        console.log('After retry', data)
       })
     )
-  }
-
-  test () {
-    this.invokeProcess('3MtV1AQ8fEPk76tjKgvrufuMe5aA3q4TviQ', 'test', [
-      { type: 'string', value: 'TEST 1' }
-    ]).subscribe((data) => {
-      console.log('data', data)
-    })
   }
 }

@@ -16,18 +16,18 @@ export const environment = {
 
   // Routing constants on page
   routing: {
+    home: '',
     listing: '',
     entity: 'entity/:entityId',
     application: 'entity/:entityId/application',
     about: 'about',
     applyGrant: 'apply-grant/:entityId',
     createGrant: 'create-grant',
-    setting: 'settings',
     create: 'create',
     members: 'members',
     stylesheet: 'stylesheet',
     editGrant: 'edit-grant/:entityId',
-    masterSetting: 'master-setting',
+    masterSetting: 'settings',
     team: 'team/:entityId'
   },
 

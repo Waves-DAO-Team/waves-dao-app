@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '@services/user/user.service'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
+import { Location } from '@angular/common'
+import { CommonContractService } from '@services/contract/common-contract.service'
 
 @Component({
   selector: 'app-master-setting-page',
@@ -19,7 +20,11 @@ export class MasterSettingPageComponent implements OnInit {
 
   public activeTab: 'dao' | 'wg' = 'dao';
 
-  constructor (public userService: UserService, private disruptiveContractService: DisruptiveContractService) { }
+  constructor (public userService: UserService,
+               private commonContractService: CommonContractService,
+               private location: Location,
+               private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit (): void {
   }
@@ -29,12 +34,22 @@ export class MasterSettingPageComponent implements OnInit {
   }
 
   submitDAO () {
-    console.log('submitDAO', this.DAOMemberForm.value.DAOMember)
-    this.disruptiveContractService.addDAOMember(this.DAOMemberForm.value.DAOMember)
+    const DAOMemberAddress = this.workGroupForm.value.workGroup
+    this.workGroupForm.reset()
+
+    this.commonContractService.addDAOMember(DAOMemberAddress)
+      .subscribe((data) => {})
   }
 
   submitWG () {
-    console.log('submitWG', this.workGroupForm.value.workGroup)
-    this.disruptiveContractService.addGroupMember(this.workGroupForm.value.workGroup)
+    const workGroupAddress = this.workGroupForm.value.workGroup
+    this.workGroupForm.reset()
+
+    this.commonContractService.addGroupMember(workGroupAddress)
+      .subscribe(() => {})
+  }
+
+  goBack (): void {
+    this.location.back()
   }
 }

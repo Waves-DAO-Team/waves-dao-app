@@ -1,7 +1,7 @@
 
 export const environment = {
   production: false,
-  confirmations: 0,
+  confirmations: 1,
 
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',
@@ -17,6 +17,7 @@ export const environment = {
 
   // Routing constants on page
   routing: {
+    home: '',
     listing: '',
     entity: 'entity/:entityId',
     application: 'entity/:entityId/application',
@@ -24,8 +25,7 @@ export const environment = {
     applyGrant: 'apply-grant/:entityId',
     createGrant: 'create-grant',
     editGrant: 'edit-grant/:entityId',
-    masterSetting: 'master-setting',
-    setting: 'settings',
+    masterSetting: 'settings',
     create: 'create',
     members: 'members',
     stylesheet: 'stylesheet',

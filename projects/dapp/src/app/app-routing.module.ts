@@ -60,11 +60,6 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: environment.routing.setting,
-        loadChildren: () => import('./pages/setting-page/setting-page.module').then((m) => m.SettingPageModule),
-        pathMatch: 'full'
-      },
-      {
         path: environment.routing.create,
         loadChildren: () => import('./pages/create-entity-page/create-entity-page.module').then((m) => m.CreateEntityPageModule),
         pathMatch: 'full'

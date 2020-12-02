@@ -1,63 +1,89 @@
-<div class="container container--middle">
-  <h2>
-    {{'master_setting.setting' | transloco}}:
-  </h2>
-  <ul class="tab-title">
-    <li [class.active]="activeTab === 'dao'" (click)="setTab('dao')">DAO Member</li>
-    <li [class.active]="activeTab === 'wg'" (click)="setTab('wg')">Work Group</li>
-  </ul>
-
-  <div class="dao" *ngIf="activeTab === 'dao'">
-    <form [formGroup]="DAOMemberForm"(ngSubmit)="submitDAO()">
-      <label>
-        {{'master_setting.form.DAO_member.label' | transloco}}:
-        <input type="text" formControlName="DAOMember" [placeholder]="'master_setting.form.DAO_member.placeholder' | transloco">
-      </label>
-      <div class="btn-container full">
-        <button type="submit" class="btn active"[disabled]="!DAOMemberForm.valid && !userService.isBalanceMoreCommission()">
-          {{'master_setting.form.apply' | transloco}}
-        </button>
-      </div>
-    </form>
-    <div class="grid">
-      <div class="grid__container">
-        <div class="grid__container__col">
-          <div class="dot-list">
-            <div class="title">
-              {{'master_setting.form.DAO_member.label' | transloco}}:
-            </div>
-            <ul>
-              <li *ngFor="let dao of userService.data.getValue().DAOMemberAddress">{{dao}}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="container master-setting">
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img src="assets/icons/arr-left.svg">{{ 'app.navigation.back' | transloco }}
+    </button>
   </div>
+  <div class="container__mid">
+    <h1 class="master-setting__title">
+      {{'master_setting.setting' | transloco}}
+    </h1>
+    <p class="master-setting__desc">Contract group management settings page. Allows you to add DAO members and Working group members</p>
 
-  <div class="dao" *ngIf="activeTab === 'wg'">
-    <form [formGroup]="workGroupForm"(ngSubmit)="submitWG()">
-      <label>
-        {{'master_setting.form.work_group.label' | transloco}}:
-        <input type="text" formControlName="workGroup" [placeholder]="'master_setting.form.work_group.placeholder' | transloco">
-      </label>
-      <div class="btn-container full">
-        <button type="submit" class="btn active"[disabled]="!workGroupForm.valid && !userService.isBalanceMoreCommission()" >{{'master_setting.form.apply' | transloco}}</button>
+    <div class="master-setting__groups">
+      <h3 class="master-setting__groups-title">Group</h3>
+      <ul class="master-setting__groups-list tab-title">
+        <li [class.active]="activeTab === 'dao'" (click)="setTab('dao')">DAO Member</li>
+        <li [class.active]="activeTab === 'wg'" (click)="setTab('wg')">Work Group</li>
+      </ul>
+
+      <div class="master-setting__groups-desc" *ngIf="activeTab === 'dao'">
+        <b>DAO Member</b> is a member of the Waves Association, a whitelisted individual who can vote. For a decision to be passed, the DAO needs at least 50% of the votes.
       </div>
-    </form>
-    <div class="grid">
-      <div class="grid__container">
-        <div class="grid__container__col">
-          <div class="dot-list">
-            <div class="title">
-              {{'master_setting.form.work_group.label' | transloco}}:
+
+      <div class="master-setting__groups-desc" *ngIf="activeTab === 'wg'">
+        <b>Working Group Member</b> is a member of the Waves Association’s working group, a whitelisted individual who is responsible for managing tasks, votes and <b>performers</b>.
+      </div>
+    </div>
+
+    <div class="master-setting__address">
+      <h3 class="master-setting__address-title">Address:</h3>
+      <div class="master-setting__address-field" *ngIf="activeTab === 'dao'">
+        <form [formGroup]="DAOMemberForm"(ngSubmit)="submitDAO()">
+          <label>
+            {{'master_setting.form.DAO_member.label' | transloco}}:
+            <input type="text" formControlName="DAOMember" [placeholder]="'master_setting.form.DAO_member.placeholder' | transloco">
+          </label>
+          <div class="master-setting__address-submit btn-container full">
+            <button type="submit" class="btn active"[disabled]="!DAOMemberForm.valid && !userService.isBalanceMoreCommission()">
+              {{'master_setting.form.add' | transloco}}
+            </button>
+          </div>
+        </form>
+        <div class="grid master-setting__address-list">
+          <div class="grid__container">
+            <div class="grid__container__col">
+              <div class="dot-list">
+                <h3>
+                  {{'master_setting.form.DAO_member.label' | transloco}}:
+                </h3>
+                <ul>
+                  <li *ngFor="let dao of userService.data.getValue().DAOMemberAddress">{{dao}}</li>
+                </ul>
+              </div>
             </div>
-            <ul>
-              <li *ngFor="let wg of userService.data.getValue().WorkGroupAddress">{{wg}}</li>
-            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="master-setting__address" *ngIf="activeTab === 'wg'">
+        <form [formGroup]="workGroupForm"(ngSubmit)="submitWG()">
+          <label>
+            {{'master_setting.form.work_group.label' | transloco}}:
+            <input type="text" formControlName="workGroup" [placeholder]="'master_setting.form.work_group.placeholder' | transloco">
+          </label>
+          <div class="master-setting__address-submit btn-container full">
+            <button type="submit" class="btn active"[disabled]="!workGroupForm.valid && !userService.isBalanceMoreCommission()" >{{'master_setting.form.add' | transloco}}</button>
+          </div>
+        </form>
+        <div class="grid master-setting__address-list">
+          <div class="grid__container">
+            <div class="grid__container__col">
+              <div class="dot-list">
+                <h3>
+                  {{'master_setting.form.work_group.label' | transloco}}:
+                </h3>
+                <ul>
+                  <li *ngFor="let wg of userService.data.getValue().WorkGroupAddress">{{wg}}</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+  </div>
+  <div class="container__right">
   </div>
 </div>

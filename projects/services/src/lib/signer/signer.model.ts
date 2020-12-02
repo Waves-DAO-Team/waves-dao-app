@@ -1,11 +1,17 @@
 import { IUserData } from '@waves/signer/cjs/interface'
 
 export interface TransactionState {
+  id: string
   status: 'unconfirmed' | 'confirmed'
   confirmations: number
 }
 
 export type TransactionRawState = TransactionState[]
+
+export interface TransactionsSuccessResult extends TransactionState{
+  applicationStatus: 'succeeded'
+  height: number
+}
 
 export interface SignerUser extends IUserData {
   name: string
