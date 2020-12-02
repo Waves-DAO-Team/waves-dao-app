@@ -40,8 +40,9 @@ export class LinkContentService {
         return this.http.get<ReposResponseInterface>(`https://api.github.com/repos${(new URL(data.url)).pathname}`)
       } else if (data.isFile) {
         const path = (new URL(data.url)).pathname
-        return this.http.get(`https://raw.githubusercontent.com/${path.replace('/blob', '')}`)
-          .pipe(catchError((e) => of('')))
+        return this.http.request('get', `https://raw.githubusercontent.com/${path.replace('/blob', '')}`, {
+          responseType: 'text'
+        }).pipe(catchError((e) => of('')))
       } else {
         return this.http.get<MainResponseInterface>(`https://api.github.com/repos${(new URL(data.url)).pathname}/contents/README.md`)
           .pipe(catchError((e) => of('')))
