@@ -195,6 +195,7 @@ $dot-list-li-size: 16px;
     flex: 1;
     flex-direction: row;
     padding: $padding;
+    transition: 0.3s;
 
     &__left-block {
       flex: 1;
@@ -287,9 +288,12 @@ $dot-list-li-size: 16px;
   }
 
   &:not(.active) {
-    &:hover {
-      outline: 1px solid #717781;
+    .card__header {
+      &:hover {
+        border: 1px solid #717781;
+      }
     }
+
   }
 }
 
