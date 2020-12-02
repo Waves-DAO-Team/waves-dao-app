@@ -20,7 +20,12 @@
     transition: 0.3s;
 
     &:disabled {
-      background: #f00 !important;
+      background: $blue;
+      border: 1px solid $blue;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: default;
+      filter: grayscale(0.8);
+      opacity: 0.3 !important;
     }
 
     img {

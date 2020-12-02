@@ -46,8 +46,7 @@
   </div>
 
   <div class="content">
-<!--    <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>-->
-
+    <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
 
     <!--grants-->
     <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
@@ -86,7 +85,7 @@
         </ng-container>
       </ng-container>
 
-      <!--Important-->
+      <!-- Other -->
       <div class="listing-list__title">All grants</div>
       <ng-container *ngFor="let entity of list; trackBy: trackByFn">
         <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
@@ -135,6 +134,6 @@
 
 </div>
 
-<!--  <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>-->
+<!--<ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>-->
 
 

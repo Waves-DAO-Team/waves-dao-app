@@ -21,6 +21,7 @@
         <button (click)="onOpenApplyModal()" [disabled]="!userService.isBalanceMoreCommission()">
           {{'entity.apply' | transloco}}
         </button>
+        <p *ngIf="!userService.isBalanceMoreCommission()">Insufficient balance</p>
       </ng-container>
       <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
         <button (click)="finishApplicantsVote()" [disabled]="!userService.isBalanceMoreCommission()">
@@ -41,6 +42,7 @@
     <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
       <ng-container *ngIf="performer && userService.data.getValue().userAddress.includes(performer)">
         <button class="active" (click)="startWork()" [disabled]="!userService.isBalanceMoreCommission()">{{'entity.start_work' | transloco}}</button>
+        <p *ngIf="!userService.isBalanceMoreCommission()">Insufficient balance</p>
       </ng-container>
       <button class="btn" (click)="reject()">Reject</button>
     </ng-container>
@@ -52,6 +54,7 @@
       <button (click)="acceptWorkResult()" class="btn" [disabled]="!userService.isBalanceMoreCommission()">
         {{'entity.accept_work_result' | transloco}}
       </button>
+      <p *ngIf="!userService.isBalanceMoreCommission()">Insufficient balance</p>
     </ng-container>
   </ng-container>
 
