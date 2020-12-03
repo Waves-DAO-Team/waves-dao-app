@@ -10,39 +10,49 @@
 
   <div class="grants-variation">
     <div class="grant"
-         [class.active]="user.masterAddress === api.contracts.disruptive"
-         (click)="setEnv(api.contracts.disruptive)">
-      <!--      <div class="img disruptive"></div>-->
-      <img src="assets/img/disruptive-type.png">
+         *ngFor="let grants of grantsVariationsList"
+         [class.active]="user.masterAddress === grants.type"
+         (click)="setEnv(grants.type)">
+      <img [src]="grants.img">
       <div class="content">
-        <div class="title">Disruptive Tech Grant</div>
-        <div class="desc">Disruptive Tech Grant is awarded to implement tasks dedicated to developing solutions that
-          meet the rapidly accelerating Waves ecosystem’s needs.
+        <div class="title">{{grants.title}}</div>
+        <div class="desc">{{grants.desc}}
         </div>
       </div>
     </div>
-    <div class="grant"
-         [class.active]="user.masterAddress === api.contracts.dev"
-         (click)="setEnv(api.contracts.dev)">
-      <img src="assets/img/dev-type.png">
-      <div class="content">
-        <div class="title">Web3.0 Dev Grant</div>
-        <div class="desc">Web 3.0 Development Grant is awarded for creating products based on the Waves protocol that
-          resolves specific problems and foster mass adoption.
-        </div>
-      </div>
-    </div>
-    <div class="grant"
-         [class.active]="user.masterAddress === api.contracts.interhack"
-         (click)="setEnv(api.contracts.interhack)">
-      <img src="assets/img/interhack-type.png">
-      <div class="content">
-        <div class="title">Interhack Grant</div>
-        <div class="desc">Interhack grants are awarded for building innovative solutions at hackathons in accordance
-          with assignments provided by the Waves Association.
-        </div>
-      </div>
-    </div>
+<!--    <div class="grant"-->
+<!--         [class.active]="user.masterAddress === api.contracts.disruptive"-->
+<!--         (click)="setEnv(api.contracts.disruptive)">-->
+<!--      <img src="assets/img/disruptive-type.png">-->
+<!--      <div class="content">-->
+<!--        <div class="title">Disruptive Tech Grant</div>-->
+<!--        <div class="desc">Disruptive Tech Grant is awarded to implement tasks dedicated to developing solutions that-->
+<!--          meet the rapidly accelerating Waves ecosystem’s needs.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="grant"-->
+<!--         [class.active]="user.masterAddress === api.contracts.dev"-->
+<!--         (click)="setEnv(api.contracts.dev)">-->
+<!--      <img src="assets/img/dev-type.png">-->
+<!--      <div class="content">-->
+<!--        <div class="title">Web3.0 Dev Grant</div>-->
+<!--        <div class="desc">Web 3.0 Development Grant is awarded for creating products based on the Waves protocol that-->
+<!--          resolves specific problems and foster mass adoption.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="grant"-->
+<!--         [class.active]="user.masterAddress === api.contracts.interhack"-->
+<!--         (click)="setEnv(api.contracts.interhack)">-->
+<!--      <img src="assets/img/interhack-type.png">-->
+<!--      <div class="content">-->
+<!--        <div class="title">Interhack Grant</div>-->
+<!--        <div class="desc">Interhack grants are awarded for building innovative solutions at hackathons in accordance-->
+<!--          with assignments provided by the Waves Association.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="final"></div>
   </div>
 

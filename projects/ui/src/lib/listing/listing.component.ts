@@ -20,7 +20,12 @@ import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { translate } from '@ngneat/transloco'
 import { BehaviorSubject, combineLatest } from 'rxjs'
-
+export interface grantsVariationType {
+  type: string,
+  img: string,
+  title: string,
+  desc: string
+}
 @Component({
   selector: 'ui-listing',
   templateUrl: './listing.component.html',
@@ -63,6 +68,27 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   public readonly user$ = this.userService.data
 
+  public readonly grantsVariationsList: grantsVariationType[] = [
+    {
+      type: this.api.contracts.disruptive,
+      img: 'assets/img/disruptive-type.png',
+      title: 'Disruptive Tech Grant',
+      desc: 'Disruptive Tech Grant is awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.'
+    },
+    {
+      type: this.api.contracts.dev,
+      img: 'assets/img/dev-type.png',
+      title: 'Web3.0 Dev Grant',
+      desc: 'Web 3.0 Development Grant is awarded for creating products based on the Waves protocol that resolves specific problems and foster mass adoption.'
+    },
+    {
+      type: this.api.contracts.interhack,
+      img: 'assets/img/interhack-type.png',
+      title: 'Interhack Grant',
+      desc: 'Interhack grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.'
+    }
+  ]
+
   public readonly otherGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
     .pipe(
       map(([grants, userServiceData, selectedTagName]) => {
@@ -87,7 +113,9 @@ export class ListingComponent implements OnInit, OnDestroy {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
               // @ts-ignore
-              e.reward = {}; e.reward.value = '0.00'
+              e.reward = {}
+              // @ts-ignore
+              e.reward.value = '0.00'
             }
             return e
           })
@@ -146,7 +174,9 @@ export class ListingComponent implements OnInit, OnDestroy {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
               // @ts-ignore
-              e.reward = {}; e.reward.value = '0.00'
+              e.reward = {}
+              // @ts-ignore
+              e.reward.value = '0.00'
             }
             return e
           })
