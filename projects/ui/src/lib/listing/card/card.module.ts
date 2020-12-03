@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ListingComponent } from './listing.component'
+import { CardComponent } from './card.component'
 import { RouterModule } from '@angular/router'
-import { PipesModule } from '@libs/pipes/pipes.module'
 import { TranslocoModule } from '@ngneat/transloco'
+import { PipesModule } from '@libs/pipes/pipes.module'
 import { TagModule } from '@ui/tag/tag.module'
-import { CardModule } from '@ui/listing/card/card.module'
 
 @NgModule({
-  declarations: [ListingComponent],
+  declarations: [CardComponent],
   imports: [
     CommonModule,
     RouterModule,
     TranslocoModule,
     PipesModule,
-    TagModule,
-    CardModule
+    TagModule
   ],
-  exports: [ListingComponent]
+  exports: [CardComponent]
 })
-export class ListingModule { }
+export class CardModule { }

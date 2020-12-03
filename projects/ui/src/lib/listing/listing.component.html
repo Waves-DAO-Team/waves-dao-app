@@ -49,64 +49,10 @@
   <div class="content">
     <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
 
-    <!--grants-->
     <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
-
-      <!--Important new-->
-      <ng-container *ngIf="(importantGrant$ | async)?.length > 0">
-        <div class="listing-list__title">Important grants</div>
-        <a
-          class="card active"
-          *ngFor="let grant of importantGrant$ | async"
-          [routerLink]="constants.routes.entity | route: grant.id">
-          <div class="card__header">
-            <div class="card__header__left-block">
-              <div class="card__header__left-block__status">
-                {{grant.status}}
-                <div class="card__header__left-block__status__role-text"></div>
-              </div>
-              <div class="card__header__left-block__title">{{grant.title?.value}}</div>
-            </div>
-            <div class="card__header__right-block">
-              <div class="card__header__right-block__text">Reward</div>
-              <div class="card__header__right-block__price">
-                {{grant?.reward?.value / 100000000 | number : '1.2'}}
-                <div class="icon-logo"></div>
-              </div>
-            </div>
-          </div>
-        </a>
-      </ng-container>
-
-      <!-- Other new-->
-
-      <ng-container *ngIf="(otherGrant$ | async)?.length > 0">
-        <div class="listing-list__title">All grants</div>
-        <a
-          class="card"
-          *ngFor="let grant of otherGrant$ | async"
-          [routerLink]="constants.routes.entity | route: grant.id">
-          <div class="card__header">
-            <div class="card__header__left-block">
-              <div class="card__header__left-block__status">
-                {{grant.status}}
-                <div class="card__header__left-block__status__role-text" *ngIf="grant.isRoleText">{{grant.roleText}}</div>
-              </div>
-              <div class="card__header__left-block__title">{{grant.title?.value}}</div>
-            </div>
-            <div class="card__header__right-block">
-              <div class="card__header__right-block__text">Reward</div>
-              <div class="card__header__right-block__price">
-                {{grant?.reward?.value / 100000000 | number : '1.2'}}
-                <div class="icon-logo"></div>
-              </div>
-            </div>
-          </div>
-        </a>
-      </ng-container>
-
-      <!-- Other new-->
-
+     // ui-sub-list
+      <ui-card [isImportant]="true" title="Important grants" [grants]="(importantGrant$ | async)"></ui-card>
+      <ui-card [isImportant]="false" title="All grants" [grants]="(otherGrant$ | async)"></ui-card>
     </div>
     <ng-template #loadingOrErrorTemplate>
       <ng-container *ngIf="grants.error$ | async; else loading">

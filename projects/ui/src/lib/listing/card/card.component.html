@@ -1,0 +1,22 @@
+<div class="title" *ngIf="title">{{title}}</div>
+<a
+  class="card" [class.important]="isImportant"
+  *ngFor="let grant of grants"
+  [routerLink]="constants.routes.entity | route: grant.id">
+  <div class="card__header">
+    <div class="card__header__left-block">
+      <div class="card__header__left-block__status">
+        {{grant.status}}
+        <div class="card__header__left-block__status__role-text" *ngIf="grant?.isRoleText">{{grant?.roleText}}</div>
+      </div>
+      <div class="card__header__left-block__title">{{grant.title?.value}}</div>
+    </div>
+    <div class="card__header__right-block">
+      <div class="card__header__right-block__text">Reward</div>
+      <div class="card__header__right-block__price">
+        {{grant?.reward?.value / 100000000 | number : '1.2'}}
+        <div class="icon-logo"></div>
+      </div>
+    </div>
+  </div>
+</a>

@@ -19,7 +19,7 @@ import { map, switchMap, tap } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { translate } from '@ngneat/transloco'
-import { BehaviorSubject, combineLatest, of } from 'rxjs'
+import { BehaviorSubject, combineLatest } from 'rxjs'
 
 @Component({
   selector: 'ui-listing',
@@ -29,6 +29,17 @@ import { BehaviorSubject, combineLatest, of } from 'rxjs'
   providers: GRANTS_PROVIDERS
 })
 export class ListingComponent implements OnInit, OnDestroy {
+  constructor (
+    public cdr: ChangeDetectorRef,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(API) public readonly api: AppApiInterface,
+    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
+    public userService: UserService,
+    public contractService: ContractService,
+    public teamService: TeamService
+  ) {
+  }
+
   public readonly grantsVariationActive = '1'
   public readonly RoleEnum = RoleEnum
   public readonly GrantStatusEnum = GrantStatusEnum
@@ -52,24 +63,10 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   public readonly user$ = this.userService.data
 
-  constructor (
-    public cdr: ChangeDetectorRef,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    @Inject(API) public readonly api: AppApiInterface,
-    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
-    public userService: UserService,
-    public contractService: ContractService,
-    public teamService: TeamService
-  ) {
-  }
-
-  ngOnInit (): void {
-  }
-
   public readonly otherGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
     .pipe(
-      switchMap((a) => {
-        return this.grants.data$
+      map(([grants, userService, selectedTagName$]) => {
+        return grants // тут получить все св
       }),
       map(data => {
         return data.filter((d) => {
@@ -91,7 +88,7 @@ export class ListingComponent implements OnInit, OnDestroy {
               const status = translate('listing.status.' + (d.status && d.status.value ? d.status.value : 'no_status'))
               const isGrantOpen = d.status && d.status.value ? d.status.value === 'proposed' : false
               const roleText = translate('listing.DAO_subtext.' + (d.status && d.status.value ? 'vote_counted' : 'need_vote'))
-              newData.push({ ...d, status, isRoleText: isDAO && !isVote && isGrantOpen, roleText: roleText })
+              newData.push({ ...d, status, isRoleText: isDAO && !isVote && isGrantOpen, roleText })
             }
           }
           )
@@ -111,7 +108,7 @@ export class ListingComponent implements OnInit, OnDestroy {
           return data.filter((d) => {
             return d.status ? d.status.value === GrantStatusEnum.readyToApply : false
           })
-        } else return []
+        } else { return [] }
       }),
       map(
         (data) => {
@@ -127,6 +124,9 @@ export class ListingComponent implements OnInit, OnDestroy {
       ),
       tap((data) => console.log('importantGrant$', data))
     )
+
+  ngOnInit (): void {
+  }
 
   selectedTag ($event: string) {
     this.selectedTagName = $event
