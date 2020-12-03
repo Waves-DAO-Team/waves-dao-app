@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { SubListComponent } from './card.component'
+import { SubListComponent } from './sub-list.component'
 
 describe('CardComponent', () => {
   let component: SubListComponent
