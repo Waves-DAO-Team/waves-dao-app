@@ -20,7 +20,7 @@ import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { translate } from '@ngneat/transloco'
 import { BehaviorSubject, combineLatest } from 'rxjs'
-export interface grantsVariationType {
+export interface GrantsVariationType {
   type: string,
   img: string,
   title: string,
@@ -68,7 +68,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   public readonly user$ = this.userService.data
 
-  public readonly grantsVariationsList: grantsVariationType[] = [
+  public readonly grantsVariationsList: GrantsVariationType[] = [
     {
       type: this.api.contracts.disruptive,
       img: 'assets/img/disruptive-type.png',
