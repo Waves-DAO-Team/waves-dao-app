@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { SubListComponent } from './sub-list.component'
+import { provideApi, provideAppConstants } from '@constants'
 
 describe('CardComponent', () => {
   let component: SubListComponent
@@ -8,7 +9,11 @@ describe('CardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SubListComponent]
+      declarations: [SubListComponent],
+      providers: [
+        provideAppConstants(),
+        provideApi()
+      ]
     })
       .compileComponents()
   })
