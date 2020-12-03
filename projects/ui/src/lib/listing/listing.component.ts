@@ -15,7 +15,7 @@ import {
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '@services/../interface'
-import { map, switchMap, tap } from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { translate } from '@ngneat/transloco'
