@@ -90,7 +90,7 @@
             <div class="card__header__left-block">
               <div class="card__header__left-block__status">
                 {{grant.status}}
-                <div class="card__header__left-block__status__role-text"></div>
+                <div class="card__header__left-block__status__role-text" *ngIf="grant.isRoleText">{{grant.roleText}}</div>
               </div>
               <div class="card__header__left-block__title">{{grant.title?.value}}</div>
             </div>

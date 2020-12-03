@@ -66,6 +66,12 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   vh?: ContractGrantRawModel;
   performer?: ContractRawDataString,
   link?: ContractRawDataString;
+
+}
+
+export interface ContractGrantExtendedModel extends ContractGrantModel {
+  isRoleText?: boolean;
+  roleText?: string;
 }
 
 export interface ContractDataModel {

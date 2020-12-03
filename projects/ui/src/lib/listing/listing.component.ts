@@ -4,7 +4,7 @@ import {
   OnInit
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
-import { ContractGrantModel } from '@services/contract/contract.model'
+import { ContractGrantExtendedModel, ContractGrantModel } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
   API,
@@ -83,14 +83,15 @@ export class ListingComponent implements OnInit, OnDestroy {
       }),
       map(
         (data) => {
-          const newData: any[] = []
+          const newData: ContractGrantExtendedModel[] = []
           const isDAO = this.userService.data.getValue().roles.isDAO
           data.forEach((d) => {
             if (d.id) {
               const isVote = this.userService.data.getValue().voted.includes(d.id)
-              const roleText = translate('listing.DAO_subtext.' + isVote ? 'vote_counted' : 'need_vote')
               const status = translate('listing.status.' + (d.status && d.status.value ? d.status.value : 'no_status'))
-              newData.push({ ...d, status, isRoleText: !!isDAO, roleText: roleText })
+              const isGrantOpen = d.status && d.status.value ? d.status.value === 'proposed' : false
+              const roleText = translate('listing.DAO_subtext.' + (d.status && d.status.value ? 'vote_counted' : 'need_vote'))
+              newData.push({ ...d, status, isRoleText: isDAO && !isVote && isGrantOpen, roleText: roleText })
             }
           }
           )
@@ -114,16 +115,11 @@ export class ListingComponent implements OnInit, OnDestroy {
       }),
       map(
         (data) => {
-          const newData: any[] = []
-          const isDAO = this.userService.data.getValue().roles.isDAO
+          const newData: ContractGrantModel[] = []
           data.forEach((d) => {
-            const isInc = d.id ? this.userService.data.getValue().voted.includes(d.id) : false
-            const roleText = isInc ? translate('listing.DAO_subtext.vote_counted') : translate('listing.DAO_subtext.need_vote')
-            const isProc = d.status?.value === GrantStatusEnum.proposed
             if (d.id) {
               const status = translate('listing.status.' + (d.status?.value || 'no_status'))
-              const isRoleText = !!((isDAO && !isProc))
-              newData.push({ ...d, status, isRoleText, roleText })
+              newData.push({ ...d, status })
             }
           })
           return newData
