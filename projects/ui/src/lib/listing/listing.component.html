@@ -12,7 +12,7 @@
     <div class="grant"
          [class.active]="user.masterAddress === api.contracts.disruptive"
          (click)="setEnv(api.contracts.disruptive)">
-<!--      <div class="img disruptive"></div>-->
+      <!--      <div class="img disruptive"></div>-->
       <img src="assets/img/disruptive-type.png">
       <div class="content">
         <div class="title">Disruptive Tech Grant</div>
@@ -51,74 +51,62 @@
 
     <!--grants-->
     <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
-      <!--Important-->
-      <ng-container>
-        <div class="listing-list__title">Important grants</div>
-        <ng-container *ngFor="let entity of list" >
-          <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
-            <a class="card active"
-               *ngIf="entity?.status?.value === GrantStatusEnum.readyToApply && !isAppliedForGrant(entity?.id)"
-               [routerLink]="constants.routes.entity | route: entity?.id">
-              <div class="card__header">
-                <div class="card__header__left-block">
-                  <div class="card__header__left-block__status">
-                    {{'listing.status.' + (entity?.status?.value || 'no_status') | transloco}}
-                    <div class="card__header__left-block__status__role-text"
-                         *ngIf="userService.data.getValue().roles.isDAO
-                      && entity?.status?.value === GrantStatusEnum.proposed">
-                      {{ userService.data.getValue().voted.includes(entity?.id)
-                      ? ('listing.DAO_subtext.vote_counted' | transloco)
-                      : ('listing.DAO_subtext.need_vote' | transloco)}}
-                    </div>
-                  </div>
-                  <div class="card__header__left-block__title">{{entity?.title?.value}}</div>
-                </div>
-                <div class="card__header__right-block">
-                  <div class="card__header__right-block__text">Reward</div>
-                  <div class="card__header__right-block__price">
-                    {{entity?.reward?.value / 100000000 | number : '1.2'}}
-                    <div class="icon-logo"></div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </ng-container>
-        </ng-container>
-      </ng-container>
 
-      <!-- Other -->
-      <div class="listing-list__title">All grants</div>
-      <ng-container *ngFor="let entity of list; trackBy: trackByFn">
-        <ng-container *ngIf="isCanShowByTag(entity?.status?.value, selectedTagName)">
-          <a class="card"
-             *ngIf="(selectedTagName === 'all' && (entity?.status?.value !== GrantStatusEnum.readyToApply || isAppliedForGrant(entity?.id)))
-                || selectedTagName !== 'all'"
-             [routerLink]="constants.routes.entity | route: entity?.id">
-            <div class="card__header">
-              <div class="card__header__left-block">
-                <div class="card__header__left-block__status">
-                  {{'listing.status.' + (entity?.status?.value || 'no_status') | transloco}}
-                  <div class="card__header__left-block__status__role-text"
-                       *ngIf="userService.data.getValue().roles.isDAO
-                      && entity?.status?.value !== GrantStatusEnum.proposed">
-                    {{ userService.data.getValue().voted.includes(entity?.id)
-                    ? ('listing.DAO_subtext.vote_counted' | transloco)
-                    : ('listing.DAO_subtext.need_vote' | transloco)}}
-                  </div>
-                </div>
-                <div class="card__header__left-block__title">{{entity?.title?.value}}</div>
+      <!--Important new-->
+      <ng-container *ngIf="(importantGrant$ | async)?.length > 0">
+        <div class="listing-list__title">Important grants</div>
+        <a
+          class="card active"
+          *ngFor="let grant of importantGrant$ | async"
+          [routerLink]="constants.routes.entity | route: grant.id">
+          <div class="card__header">
+            <div class="card__header__left-block">
+              <div class="card__header__left-block__status">
+                {{grant.status}}
+                <div class="card__header__left-block__status__role-text"></div>
               </div>
-              <div class="card__header__right-block">
-                <div class="card__header__right-block__text">Reward</div>
-                <div class="card__header__right-block__price">
-                  {{entity?.reward?.value / 100000000 | number : '1.2'}}
-                  <div class="icon-logo"></div>
-                </div>
+              <div class="card__header__left-block__title">{{grant.title?.value}}</div>
+            </div>
+            <div class="card__header__right-block">
+              <div class="card__header__right-block__text">Reward</div>
+              <div class="card__header__right-block__price">
+                {{grant?.reward?.value / 100000000 | number : '1.2'}}
+                <div class="icon-logo"></div>
               </div>
             </div>
-          </a>
-        </ng-container>
+          </div>
+        </a>
       </ng-container>
+
+      <!-- Other new-->
+
+      <ng-container *ngIf="(otherGrant$ | async)?.length > 0">
+        <div class="listing-list__title">All grants</div>
+        <a
+          class="card"
+          *ngFor="let grant of otherGrant$ | async"
+          [routerLink]="constants.routes.entity | route: grant.id">
+          <div class="card__header">
+            <div class="card__header__left-block">
+              <div class="card__header__left-block__status">
+                {{grant.status}}
+                <div class="card__header__left-block__status__role-text"></div>
+              </div>
+              <div class="card__header__left-block__title">{{grant.title?.value}}</div>
+            </div>
+            <div class="card__header__right-block">
+              <div class="card__header__right-block__text">Reward</div>
+              <div class="card__header__right-block__price">
+                {{grant?.reward?.value / 100000000 | number : '1.2'}}
+                <div class="icon-logo"></div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </ng-container>
+
+      <!-- Other new-->
+
     </div>
     <ng-template #loadingOrErrorTemplate>
       <ng-container *ngIf="grants.error$ | async; else loading">

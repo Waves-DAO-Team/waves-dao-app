@@ -15,9 +15,11 @@ import {
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '@services/../interface'
-import { tap } from 'rxjs/operators'
+import { map, switchMap, tap } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
+import { translate } from '@ngneat/transloco'
+import { BehaviorSubject, combineLatest, of } from 'rxjs'
 
 @Component({
   selector: 'ui-listing',
@@ -31,6 +33,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   public readonly RoleEnum = RoleEnum
   public readonly GrantStatusEnum = GrantStatusEnum
   public selectedTagName = ''
+  public selectedTagName$ = new BehaviorSubject('')
   public listGrantStatuses: string[] = []
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
     tap(
@@ -57,19 +60,84 @@ export class ListingComponent implements OnInit, OnDestroy {
     public userService: UserService,
     public contractService: ContractService,
     public teamService: TeamService
-  ) {}
-
-  ngOnInit (): void {}
-
-  trackByFn (index: number) {
-    return index
+  ) {
   }
+
+  ngOnInit (): void {
+  }
+
+  public readonly otherGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
+    .pipe(
+      switchMap((a) => {
+        return this.grants.data$
+      }),
+      map(data => {
+        return data.filter((d) => {
+          const status = d.status && d.status.value ? d.status.value : null
+          const selectedTagName = this.selectedTagName$.getValue()
+          const isNoTRTA = status !== GrantStatusEnum.readyToApply
+          return selectedTagName !== GrantStatusEnum.readyToApply
+            ? this.isCanShowByTag(status, selectedTagName) && isNoTRTA
+            : this.isCanShowByTag(status, selectedTagName) && !isNoTRTA
+        })
+      }),
+      map(
+        (data) => {
+          const newData: any[] = []
+          const isDAO = this.userService.data.getValue().roles.isDAO
+          data.forEach((d) => {
+            if (d.id) {
+              const isVote = this.userService.data.getValue().voted.includes(d.id)
+              const roleText = translate('listing.DAO_subtext.' + isVote ? 'vote_counted' : 'need_vote')
+              const status = translate('listing.status.' + (d.status && d.status.value ? d.status.value : 'no_status'))
+              newData.push({ ...d, status, isRoleText: !!isDAO, roleText: roleText })
+            }
+          }
+          )
+          return newData
+        }
+      )
+      // tap((data) => console.log('otherGrant$', data)),
+    )
+
+  public readonly importantGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
+    .pipe(
+      switchMap((a) => {
+        return this.grants.data$
+      }),
+      map(data => {
+        if (this.selectedTagName$.getValue() === 'all') {
+          return data.filter((d) => {
+            return d.status ? d.status.value === GrantStatusEnum.readyToApply : false
+          })
+        } else return []
+      }),
+      map(
+        (data) => {
+          const newData: any[] = []
+          const isDAO = this.userService.data.getValue().roles.isDAO
+          data.forEach((d) => {
+            const isInc = d.id ? this.userService.data.getValue().voted.includes(d.id) : false
+            const roleText = isInc ? translate('listing.DAO_subtext.vote_counted') : translate('listing.DAO_subtext.need_vote')
+            const isProc = d.status?.value === GrantStatusEnum.proposed
+            if (d.id) {
+              const status = translate('listing.status.' + (d.status?.value || 'no_status'))
+              const isRoleText = !!((isDAO && !isProc))
+              newData.push({ ...d, status, isRoleText, roleText })
+            }
+          })
+          return newData
+        }
+      ),
+      tap((data) => console.log('importantGrant$', data))
+    )
 
   selectedTag ($event: string) {
     this.selectedTagName = $event
+    this.selectedTagName$.next($event)
   }
 
-  isCanShowByTag (status: string, selectedTagName: string) {
+  isCanShowByTag (status: string | null, selectedTagName: string) {
     if (selectedTagName === 'all') {
       return true
     }
