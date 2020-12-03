@@ -8,8 +8,8 @@ export const environment = {
     rest: 'https://nodes-testnet.wavesnodes.com',
     contractAddress: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
     contracts: {
-      disruptive: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
-      dev: '3MtV1AQ8fEPk76tjKgvrufuMe5aA3q4TviQ',
+      disruptive: '3N71MDc3kPD6cnbdWp6iEuDY8ghgZ9DiVan',
+      dev: '3N6QtvE15KN8rsW1jkBe1kz8xJHdmhNsYnG',
       interhack: '3N2sQRGTRmL9NGZVVtzhfBEjEyVR7S9Mkum'
     }
   },
