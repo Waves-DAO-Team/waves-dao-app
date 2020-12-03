@@ -6,15 +6,15 @@
   <div class="card__header">
     <div class="card__header__left-block">
       <div class="card__header__left-block__status">
-        {{grant.status}}
-        <div class="card__header__left-block__status__role-text" *ngIf="grant?.isRoleText">{{grant?.roleText}}</div>
+        {{grant.statusText}}
+        <div class="card__header__left-block__status__role-text">{{grant?.voteText}}</div>
       </div>
       <div class="card__header__left-block__title">{{grant.title?.value}}</div>
     </div>
     <div class="card__header__right-block">
       <div class="card__header__right-block__text">Reward</div>
       <div class="card__header__right-block__price">
-        {{grant?.reward?.value / 100000000 | number : '1.2'}}
+        {{grant?.reward?.value}}
         <div class="icon-logo"></div>
       </div>
     </div>

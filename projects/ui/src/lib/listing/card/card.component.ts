@@ -8,7 +8,7 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() grants: ContractGrantExtendedModel | null = null
+  @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false
   @Input() title: string | null = null
 

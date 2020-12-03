@@ -70,8 +70,9 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
 }
 
 export interface ContractGrantExtendedModel extends ContractGrantModel {
-  isRoleText?: boolean;
-  roleText?: string;
+  voteText?: string;
+  statusText?: string;
+  rewardText?: string;
 }
 
 export interface ContractDataModel {

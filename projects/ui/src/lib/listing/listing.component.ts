@@ -65,37 +65,62 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   public readonly otherGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
     .pipe(
-      map(([grants, userService, selectedTagName$]) => {
-        return grants // тут получить все св
-      }),
-      map(data => {
-        return data.filter((d) => {
-          const status = d.status && d.status.value ? d.status.value : null
-          const selectedTagName = this.selectedTagName$.getValue()
-          const isNoTRTA = status !== GrantStatusEnum.readyToApply
-          return selectedTagName !== GrantStatusEnum.readyToApply
-            ? this.isCanShowByTag(status, selectedTagName) && isNoTRTA
-            : this.isCanShowByTag(status, selectedTagName) && !isNoTRTA
-        })
-      }),
-      map(
-        (data) => {
-          const newData: ContractGrantExtendedModel[] = []
-          const isDAO = this.userService.data.getValue().roles.isDAO
-          data.forEach((d) => {
-            if (d.id) {
-              const isVote = this.userService.data.getValue().voted.includes(d.id)
-              const status = translate('listing.status.' + (d.status && d.status.value ? d.status.value : 'no_status'))
-              const isGrantOpen = d.status && d.status.value ? d.status.value === 'proposed' : false
-              const roleText = translate('listing.DAO_subtext.' + (d.status && d.status.value ? 'vote_counted' : 'need_vote'))
-              newData.push({ ...d, status, isRoleText: isDAO && !isVote && isGrantOpen, roleText })
+      map(([grants, userServiceData, selectedTagName]) => {
+        return { // all to one
+          grants: grants.filter((e) => {
+            const status = (e.status && e.status.value) || null
+            if (status !== GrantStatusEnum.readyToApply) {
+              return true
             }
-          }
-          )
-          return newData
+          }),
+          selectedTag: selectedTagName,
+          isDAO: userServiceData.roles.isDAO
         }
-      )
-      // tap((data) => console.log('otherGrant$', data)),
+      }),
+      map((data) => { // fix reward
+        return {
+          ...data,
+          grants: data.grants.map((e) => {
+            if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
+              e.reward.value = (e.reward.value / 100000000).toFixed(2)
+            } else if (e.reward === undefined) {
+              // @ts-ignore
+              e.reward = {}
+              // @ts-ignore
+              e.reward.value = '0.00'
+            }
+            return e
+          })
+        }
+      }),
+      map((data) => { // isCanShowByTag
+        return {
+          ...data,
+          grants: data.grants.filter((e) => {
+            const status = e.status && e.status.value ? e.status.value : null
+            return this.isCanShowByTag(status, data.selectedTag)
+          })
+        }
+      }),
+      map((data) => { // add roleText, statusText
+        return {
+          ...data,
+          grants: data.grants.map((e: ContractGrantExtendedModel) => {
+            const status = e.status && e.status.value ? e.status.value : 'no_status'
+            e.statusText = translate('listing.status.' + status)
+            if (data.isDAO && status === GrantStatusEnum.proposed && e.id) {
+              const isVote = this.userService.data.getValue().voted.includes(e.id)
+              const voteText = (isVote ? 'vote_counted' : 'need_vote')
+              e.voteText = translate('listing.DAO_subtext.' + voteText)
+            }
+            return e
+          })
+        }
+      }),
+      map((data): ContractGrantExtendedModel[] => {
+        return data.grants
+      }),
+      tap((data) => console.log('otherGrant$', data))
     )
 
   public readonly importantGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
@@ -108,7 +133,9 @@ export class ListingComponent implements OnInit, OnDestroy {
           return data.filter((d) => {
             return d.status ? d.status.value === GrantStatusEnum.readyToApply : false
           })
-        } else { return [] }
+        } else {
+          return []
+        }
       }),
       map(
         (data) => {
@@ -121,8 +148,8 @@ export class ListingComponent implements OnInit, OnDestroy {
           })
           return newData
         }
-      ),
-      tap((data) => console.log('importantGrant$', data))
+      )
+      // tap((data) => console.log('importantGrant$', data))
     )
 
   ngOnInit (): void {
