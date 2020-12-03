@@ -1,4 +1,4 @@
-<div class="title" *ngIf="title">{{title}}</div>
+<div class="title" *ngIf="title && grants.length > 0">{{title}}</div>
 <a
   class="card" [class.important]="isImportant"
   *ngFor="let grant of grants"

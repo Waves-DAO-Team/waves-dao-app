@@ -51,7 +51,7 @@
 
     <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
 <!--     // ui-sub-list-->
-<!--      <ui-card [isImportant]="true" title="Important grants" [grants]="(importantGrant$ | async)"></ui-card>-->
+      <ui-card [isImportant]="true" title="Important grants" [grants]="(importantGrant$ | async)"></ui-card>
       <ui-card [isImportant]="false" title="All grants" [grants]="(otherGrant$ | async)"></ui-card>
     </div>
     <ng-template #loadingOrErrorTemplate>

@@ -71,6 +71,8 @@ export class ListingComponent implements OnInit, OnDestroy {
             const status = (e.status && e.status.value) || null
             if (status !== GrantStatusEnum.readyToApply) {
               return true
+            } else if (selectedTagName === GrantStatusEnum.readyToApply && status === GrantStatusEnum.readyToApply) {
+              return true
             }
           }),
           selectedTag: selectedTagName,
@@ -85,9 +87,7 @@ export class ListingComponent implements OnInit, OnDestroy {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
               // @ts-ignore
-              e.reward = {}
-              // @ts-ignore
-              e.reward.value = '0.00'
+              e.reward = {}; e.reward.value = '0.00'
             }
             return e
           })
@@ -119,36 +119,52 @@ export class ListingComponent implements OnInit, OnDestroy {
       }),
       map((data): ContractGrantExtendedModel[] => {
         return data.grants
-      }),
-      tap((data) => console.log('otherGrant$', data))
+      })
+      // tap((data) => console.log('otherGrant$', data))
     )
 
   public readonly importantGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
     .pipe(
-      switchMap((a) => {
-        return this.grants.data$
-      }),
-      map(data => {
-        if (this.selectedTagName$.getValue() === 'all') {
-          return data.filter((d) => {
-            return d.status ? d.status.value === GrantStatusEnum.readyToApply : false
-          })
-        } else {
-          return []
-        }
-      }),
-      map(
-        (data) => {
-          const newData: ContractGrantModel[] = []
-          data.forEach((d) => {
-            if (d.id) {
-              const status = translate('listing.status.' + (d.status?.value || 'no_status'))
-              newData.push({ ...d, status })
+      map(([grants, userServiceData, selectedTagName]) => {
+        return { // all to one
+          grants: grants.filter((e) => {
+            const status = (e.status && e.status.value) || null
+            if (status === GrantStatusEnum.readyToApply && selectedTagName === 'all') {
+              return true
             }
-          })
-          return newData
+            return false
+          }),
+          selectedTag: selectedTagName,
+          isDAO: userServiceData.roles.isDAO
         }
-      )
+      }),
+      map((data) => { // fix reward
+        return {
+          ...data,
+          grants: data.grants.map((e) => {
+            if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
+              e.reward.value = (e.reward.value / 100000000).toFixed(2)
+            } else if (e.reward === undefined) {
+              // @ts-ignore
+              e.reward = {}; e.reward.value = '0.00'
+            }
+            return e
+          })
+        }
+      }),
+      map((data) => { // add statusText
+        return {
+          ...data,
+          grants: data.grants.map((e: ContractGrantExtendedModel) => {
+            const status = e.status && e.status.value ? e.status.value : 'no_status'
+            e.statusText = translate('listing.status.' + status)
+            return e
+          })
+        }
+      }),
+      map((data): ContractGrantExtendedModel[] => {
+        return data.grants
+      })
       // tap((data) => console.log('importantGrant$', data))
     )
 
