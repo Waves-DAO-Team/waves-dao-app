@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { TranslocoModule } from '@ngneat/transloco'
 import { TagModule } from '@ui/tag/tag.module'
-import { CardModule } from '@ui/listing/card/card.module'
+import { SubListModule } from '@ui/listing/sub-list/sub-list.module'
 
 @NgModule({
   declarations: [ListingComponent],
@@ -15,7 +15,7 @@ import { CardModule } from '@ui/listing/card/card.module'
     TranslocoModule,
     PipesModule,
     TagModule,
-    CardModule
+    SubListModule
   ],
   exports: [ListingComponent]
 })

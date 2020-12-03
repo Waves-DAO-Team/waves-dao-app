@@ -50,9 +50,8 @@
     <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
 
     <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
-<!--     // ui-sub-list-->
-      <ui-card [isImportant]="true" title="Important grants" [grants]="(importantGrant$ | async)"></ui-card>
-      <ui-card [isImportant]="false" title="All grants" [grants]="(otherGrant$ | async)"></ui-card>
+      <ui-sub-list [isImportant]="true" title="Important grants" [grants]="(importantGrant$ | async)"></ui-sub-list>
+      <ui-sub-list [isImportant]="false" title="All grants" [grants]="(otherGrant$ | async)"></ui-sub-list>
     </div>
     <ng-template #loadingOrErrorTemplate>
       <ng-container *ngIf="grants.error$ | async; else loading">
