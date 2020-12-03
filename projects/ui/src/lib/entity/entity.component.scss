@@ -1,7 +1,8 @@
 @import 'const';
 @import 'mixins/elements/btn-container';
 @import 'mixins/elements/floating-label';
-//@import 'mixins/elements/btn-container';
+@import 'mixins/elements/card';
+@import 'mixins/elements/icon-logo';
 
 .btn-container {
   @include btn-container();
@@ -57,3 +58,6 @@
     @include btn-container(center);
   }
 }
+
+.card {
+  @include card; }

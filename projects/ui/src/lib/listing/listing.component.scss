@@ -1,8 +1,13 @@
 @import 'const';
+@import 'container';
 @import '~include-media/dist/_include-media.scss';
 
+.container {
+  @include container();
+}
+
 .listing {
-  padding: $padding;
+  //padding: $padding;
 
   h1 {
     font-size: $font_size_h1;

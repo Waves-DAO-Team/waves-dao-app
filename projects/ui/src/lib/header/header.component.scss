@@ -1,5 +1,6 @@
 @import 'const';
 @import '~include-media/dist/_include-media.scss';
+@import 'container';
 /* stylelint-disable */
 
 @mixin profile() {
@@ -60,7 +61,9 @@ hr {
 
 header {
   .container {
-    display: flex;
+    //display: flex;
+
+    @include container();
     padding: $padding * 2 $padding;
     .logo {
       flex: 1;

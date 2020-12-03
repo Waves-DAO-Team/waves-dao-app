@@ -1,0 +1,171 @@
+@mixin card {
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $padding;
+  margin-top: 0;
+  text-decoration: none;
+  transition: 0.3s;
+
+  > :not(:last-child) {
+    margin-bottom: $padding;
+  }
+
+  &__info {
+    align-items: center;
+    border: 1px solid $gray-light;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: $padding;
+
+    &__right {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      justify-content: flex-end;
+
+      img {
+        cursor: pointer;
+        height: 32px;
+        margin-left: $padding / 2;
+        opacity: 0.5;
+        transition: 0.3s;
+        width: 32px;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    &__left {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__mid {
+      align-items: center;
+      padding-left: $padding;
+
+      &__subtext {
+        color: $gray;
+        font-size: $font-size-small;
+      }
+
+      &__text {
+        color: $blue;
+        cursor: pointer;
+        font-size: $font-size-medium;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__header {
+    border: 1px solid $gray-light;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: $padding;
+    transition: 0.3s;
+
+    &__left-block {
+      flex: 1;
+      flex-direction: column;
+
+      &__title {
+        color: #000;
+        cursor: pointer;
+        font-size: $font-size-medium;
+        font-weight: bold;
+        max-width: 85%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      &__status {
+        color: $gray;
+        display: flex;
+        font-size: $font-size-small;
+
+        &__role-text {
+          color: $blue;
+          font-style: italic;
+          margin-left: $padding;
+        }
+      }
+    }
+
+    .card__header__right-block {
+      flex-direction: column;
+      text-align: right;
+
+      &__text {
+        color: $gray;
+        font-size: $font-size-small;
+      }
+
+      &__price {
+        color: #000;
+        display: flex;
+        font-size: $font-size-medium;
+        font-weight: bold;
+
+        .icon-logo {
+          @include icon-logo;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  &__body {
+    border: 1px solid $gray-light;
+    overflow: hidden;
+    padding: $padding;
+  }
+
+  &.important {
+    background-color: $color_waves_blue;
+    background-image: url('~resources/assets/img/bg-active-card.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+
+
+    .card__header__left-block__status,
+    .card__header__left-block__title,
+    .card__header__right-block__text,
+    .card__header__right-block__price {
+      color: $color_white;
+    }
+
+    .card__header__left-block__status,
+    .card__header__right-block__text {
+      opacity: 0.6;
+    }
+
+    .icon-logo {
+      background: $color_white;
+
+      &::after {
+        background: $color_waves_blue;
+      }
+    }
+
+    &:hover {
+      background-color: #1e73ff;
+    }
+  }
+
+  &:not(.active) {
+    .card__header {
+      &:hover {
+        border: 1px solid #717781;
+      }
+    }
+
+  }
+}

@@ -1,12 +1,52 @@
-.container {
+
+
+@import '~include-media/dist/_include-media.scss';
+
+@mixin container {
+  display: flex;
   margin: 0 auto;
   max-width: var(--layout-width);
+  @include media('<=tablet') {
+    flex-direction: column;
 
-  &--grid {
-    @include layout();
+    &__left {
+      margin-bottom: $padding * 4;
+    }
   }
 
-  &--middle {
-    max-width: var(--layout-width-md);
+  &__mid,
+  &__left,
+  &__right {
+    padding-left: $padding;
+    padding-right: $padding;
   }
+
+  &__mid {
+    flex: 4.5;
+    padding-bottom: 3rem;
+  }
+
+  &__left,
+  &__right {
+    flex: 1;
+    //padding-left: $padding;
+  }
+
+  &__left {
+    &__back-btn {
+      background: transparent;
+      border: 0;
+      color: $color_black;
+      cursor: pointer;
+      font-size: $font_size_h4;
+      font-weight: 100;
+      outline: none;
+
+      img {
+        margin-right: $padding;
+      }
+    }
+  }
+
 }
+
