@@ -16,7 +16,8 @@ export interface AppApiInterface {
     disruptive: string,
     dev: string,
     interhack: string
-  }
+  },
+  grantsProgramLink: string
 }
 
 export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Application constants')
@@ -29,7 +30,8 @@ export function provideApi (): Provider[] {
       provide: API,
       useValue: {
         ...environment.apis,
-        confirmations: environment.confirmations
+        confirmations: environment.confirmations,
+        grantsProgramLink: environment.grantsProgramLink
       }
     }
   ]

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -18,6 +18,7 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 import { takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
+import {API, AppApiInterface} from "@constants";
 
 @Component({
   selector: 'ui-entity',
@@ -54,7 +55,8 @@ export class EntityComponent implements OnInit, OnDestroy {
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
     public linkContentService: LinkContentService,
-    public cdr: ChangeDetectorRef
+    public cdr: ChangeDetectorRef,
+    @Inject(API) public readonly api: AppApiInterface,
   ) {}
 
   ngOnInit (): void {

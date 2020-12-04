@@ -17,8 +17,33 @@
     }
   },
   "modal": {
-    "apply": "Apply",
-    "cancel": "Cancel"
+    "texts": {
+      "link_to_apply": "Link to apply form",
+      "apply_on_githubt": "Apply form on GitHubt",
+      "issue_on_githubt": "issue on GitHub",
+      "please_submit": "Please submit the form using",
+      "successfully_applied": {
+        "successfully": "Successfully ",
+        "applied": "applied"
+      },
+      "paste_link": "and paste the link to it above"
+    },
+    "steps": {
+      "1": "STEP 1",
+      "2": "STEP 2",
+      "3": "STEP 3"
+    },
+    "btn": {
+      "apply": "APPLY",
+      "apply_on_githubt": "APPLY ON GITHUB",
+      "already_apply": "I ALREADY APPLIED",
+      "back_to_grant": "BACK TO GRANT",
+      "cancel": "CANCEL"
+    },
+    "form": {
+      "link": "Link to document",
+      "team": "Team name"
+    }
   },
   "role": {
     "master": "Waves Association Member",

@@ -126,62 +126,62 @@ $dot-list-li-size: 16px;
 
 
 
-.modal {
-  background: rgba(196, 196, 196, 0.7);
-  height: 100%;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 9;
-
-  .title {
-    font-size: $font_size_h3;
-    margin-bottom: $padding;
-  }
-
-  .step {
-    color: $color_waves_blue;
-    margin-bottom: $padding;
-  }
-
-  .text {
-    margin-bottom: $padding;
-
-    a {
-      color: $color_waves_blue;
-      text-decoration: none;
-    }
-  }
-
-  &__container {
-    bottom: 0;
-    height: 300px;
-    left: 0;
-    margin: auto;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 440px;
-
-    &__inner-container {
-      background: #fff;
-      padding: $padding * 3 $padding * 2;
-
-      &__title {
-        @include text-title(h2);
-        color: #000;
-        font-weight: bold;
-        padding-bottom: $padding;
-      }
-
-      &__text {
-        @include text-title(h4);
-        padding-bottom: $padding;
-      }
-    }
-  }
-}
+//.modal {
+//  background: rgba(41, 44, 48,0.4);
+//  height: 100%;
+//  left: 0;
+//  position: fixed;
+//  top: 0;
+//  width: 100%;
+//  z-index: 9;
+//
+//  .title {
+//    font-size: $font_size_h3;
+//    margin-bottom: $padding;
+//  }
+//
+//  .step {
+//    color: $color_waves_blue;
+//    margin-bottom: $padding;
+//  }
+//
+//  .text {
+//    margin-bottom: $padding;
+//
+//    a {
+//      color: $color_waves_blue;
+//      text-decoration: none;
+//    }
+//  }
+//
+//  &__container {
+//    bottom: 0;
+//    height: 300px;
+//    left: 0;
+//    margin: auto;
+//    position: absolute;
+//    right: 0;
+//    top: 0;
+//    width: 440px;
+//
+//    &__inner-container {
+//      background: #fff;
+//      padding: $padding * 3 $padding * 2;
+//
+//      &__title {
+//        @include text-title(h2);
+//        color: #000;
+//        font-weight: bold;
+//        padding-bottom: $padding;
+//      }
+//
+//      &__text {
+//        @include text-title(h4);
+//        padding-bottom: $padding;
+//      }
+//    }
+//  }
+//}
 
 .btn-container.full {
   @include btn-container(full);

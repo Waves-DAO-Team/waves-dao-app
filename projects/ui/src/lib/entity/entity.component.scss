@@ -3,6 +3,7 @@
 @import 'mixins/elements/floating-label';
 @import 'mixins/elements/card';
 @import 'mixins/elements/icon-logo';
+@import 'mixins/elements/modal';
 
 .btn-container {
   @include btn-container();
@@ -38,25 +39,29 @@
   margin-bottom: $padding * 2;
 }
 
-.modalStep3 {
-  display: flex;
-  flex-direction: column;
-  font-size: $font_size_h3;
-  text-align: center;
+//.modalStep3 {
+//  display: flex;
+//  flex-direction: column;
+//  font-size: $font_size_h3;
+//  text-align: center;
+//
+//  .text {
+//    margin: auto;
+//    margin-bottom: $padding * 3;
+//    width: 200px;
+//  }
+//
+//  img {
+//    margin-bottom: $padding * 3;
+//  }
+//
+//  .btn-container.center {
+//    @include btn-container(center);
+//  }
+//}
 
-  .text {
-    margin: auto;
-    margin-bottom: $padding * 3;
-    width: 200px;
-  }
-
-  img {
-    margin-bottom: $padding * 3;
-  }
-
-  .btn-container.center {
-    @include btn-container(center);
-  }
+ui-modal {
+ @include modal-content
 }
 
 .card {

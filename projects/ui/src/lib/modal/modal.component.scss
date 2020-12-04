@@ -1,9 +1,14 @@
 //@import './../../resources/styles/index';
 @import 'const';
+@import 'mixins/elements/modal';
 //@import 'mixins/elements';
 @import 'mixins/elements/btn-container';
 
-.btn-container {
-  @include btn-container();
-  padding: 0;
+
+.modal {
+  @include modal
 }
+//.btn-container {
+//  @include btn-container();
+//  padding: 0;
+//}
