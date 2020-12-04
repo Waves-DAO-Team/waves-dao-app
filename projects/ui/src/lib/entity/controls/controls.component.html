@@ -1,6 +1,9 @@
 <div class="controls">
-  <ng-container *ngIf="status === grantStatusEnum.noStatus">
 
+  <ng-container *ngIf="!status && userService.data.getValue().roles.isWG"> <!--no status-->
+    <button [routerLink]="['/', 'add-reward', grantId ]" [disabled]="!userService.isBalanceMoreCommission">
+      {{'entity.add_reward' | transloco}}
+    </button>
   </ng-container>
 
   <ng-container *ngIf="status === grantStatusEnum.proposed">

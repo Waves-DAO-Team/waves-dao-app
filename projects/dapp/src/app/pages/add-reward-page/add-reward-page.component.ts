@@ -35,7 +35,7 @@ export class AddRewardPageComponent implements OnInit {
   onSubmit () {
     if (this.grantId && this.grantForm.value.reward) {
       const reward = (this.grantForm.value.reward * 100000000).toString()
-      this.disruptiveContractService.addReward(this.grantId.toString(), reward)
+      this.disruptiveContractService.addReward(this.grantId.toString(), reward).subscribe()
     }
   }
 }

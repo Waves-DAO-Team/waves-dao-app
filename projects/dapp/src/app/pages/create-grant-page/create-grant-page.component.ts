@@ -20,7 +20,7 @@ export class CreateGrantPageComponent {
   constructor (private disruptiveContractService: DisruptiveContractService, private location: Location, public userService: UserService) {}
 
   onSubmit () {
-    this.disruptiveContractService.addTask(this.grantForm.value.name, this.grantForm.value.link)
+    this.disruptiveContractService.addTask(this.grantForm.value.name, this.grantForm.value.link).subscribe()
   }
 
   goBack (): void {

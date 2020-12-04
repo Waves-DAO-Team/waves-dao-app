@@ -84,12 +84,11 @@ export class CommonContractService {
 
   public addReward (taskId: string, reward: string) {
     console.log('addReward', taskId, reward)
-    this.signerService.invokeProcess(
+    return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addReward',
       [
-        { type: 'string', value: taskId },
-        { type: 'string', value: reward }
+        { type: 'string', value: taskId }
       ],
       [
         { assetId: 'WAVES', amount: reward }
