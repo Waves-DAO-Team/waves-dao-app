@@ -8,10 +8,10 @@
 <!--      <button [routerLink]="['/', 'edit-grant', grantId ]" [disabled]="!isBalanceMoreCommission">-->
 <!--        {{'entity.edit' | transloco}}-->
 <!--      </button>   -->
-      <button [routerLink]="['/', 'add-reward', grantId ]" [disabled]="!(this.userService.isBalanceMoreCommission$ | async)">
+      <button [routerLink]="['/', 'add-reward', grantId ]" [disabled]="!userService.isBalanceMoreCommission">
         {{'entity.add_reward' | transloco}}
       </button>
-      <button *ngIf="voted" (click)="finishVote()" [disabled]="!(this.userService.isBalanceMoreCommission$ | async)">
+      <button *ngIf="voted" (click)="finishVote()" [disabled]="!userService.isBalanceMoreCommission">
         {{'entity.finish_vote' | transloco}}
       </button>
     </ng-container>
@@ -21,13 +21,13 @@
     <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
       <ng-container *ngIf="grantId && !userService.data.getValue().apply.includes(grantId)">
 <!--        <button [routerLink]="['/', 'apply-grant', grantId]">-->
-        <button (click)="onOpenApplyModal()" [disabled]="!(this.userService.isBalanceMoreCommission$ | async)">
+        <button (click)="onOpenApplyModal()" [disabled]="!userService.isBalanceMoreCommission">
           {{'entity.apply' | transloco}}
         </button>
-        <p *ngIf="!(this.userService.isBalanceMoreCommission$ | async)">Insufficient balance</p>
+        <p *ngIf="!userService.isBalanceMoreCommission">Insufficient balance</p>
       </ng-container>
       <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
-        <button (click)="finishApplicantsVote()" [disabled]="!(this.userService.isBalanceMoreCommission$ | async)">
+        <button (click)="finishApplicantsVote()" [disabled]="!userService.isBalanceMoreCommission">
           {{'entity.finish_applicants_voting' | transloco}}
         </button>
       </ng-container>
@@ -44,8 +44,8 @@
   <ng-container *ngIf="status === grantStatusEnum.teamChosen">
     <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
       <ng-container *ngIf="performer && userService.data.getValue().userAddress.includes(performer)">
-        <button class="active" (click)="startWork()" [disabled]="!(this.userService.isBalanceMoreCommission$ | async)">{{'entity.start_work' | transloco}}</button>
-        <p *ngIf="!(this.userService.isBalanceMoreCommission$ | async)">Insufficient balance</p>
+        <button class="active" (click)="startWork()" [disabled]="!userService.isBalanceMoreCommission">{{'entity.start_work' | transloco}}</button>
+        <p *ngIf="!userService.isBalanceMoreCommission">Insufficient balance</p>
       </ng-container>
       <button class="btn" (click)="reject()">Reject</button>
     </ng-container>
@@ -54,10 +54,10 @@
   <ng-container *ngIf="status === grantStatusEnum.workStarted">
     <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
       <input type="text" [(ngModel)]="reportLink" placeholder="report link">
-      <button (click)="acceptWorkResult()" class="btn" [disabled]="!(this.userService.isBalanceMoreCommission$ | async)">
+      <button (click)="acceptWorkResult()" class="btn" [disabled]="!userService.isBalanceMoreCommission">
         {{'entity.accept_work_result' | transloco}}
       </button>
-      <p *ngIf="!(this.userService.isBalanceMoreCommission$ | async)">Insufficient balance</p>
+      <p *ngIf="!userService.isBalanceMoreCommission">Insufficient balance</p>
     </ng-container>
   </ng-container>
 

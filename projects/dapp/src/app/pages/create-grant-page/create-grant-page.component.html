@@ -32,7 +32,7 @@
       </div>
 
       <div class="btn-container full">
-        <button type="submit" class="btn active" [disabled]="!(this.userService.isBalanceMoreCommission$ | async)">
+        <button type="submit" class="btn active" [disabled]="!userService.isBalanceMoreCommission">
           {{'create_grant.form.apply' | transloco}}
         </button>
       </div>

@@ -5,7 +5,6 @@ import { catchError, tap } from 'rxjs/operators'
 import { EMPTY } from 'rxjs'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { UserService } from '@services/user/user.service'
 import { Router } from '@angular/router'
 
 @Injectable({
@@ -62,8 +61,6 @@ export class CommonContractService {
   }
 
   public addTask (taskName: string, link: string) {
-    // TODO: убрать
-    this.router.navigate(['/', 'add-reward', '6'])
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addTask',
@@ -81,8 +78,6 @@ export class CommonContractService {
           this.contractService.refresh()
           this.snackBar.open('Transaction is complete', translate('messages.ok'))
           console.log('---------addTask', e)
-          // FIXME: перестал работать
-          this.router.navigate(['/', 'add-reward', '6'])
         })
       )
   }

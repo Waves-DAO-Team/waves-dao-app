@@ -62,17 +62,18 @@ export class UserService {
       refCount()
     ).subscribe()
 
-  public readonly isBalanceMoreCommission$ = this.data
+  public isBalanceMoreCommission = false
+
+  private readonly isBalanceMoreCommission$ = this.data
     .pipe(
       map((e) => {
-        let result = false
+        this.isBalanceMoreCommission = false
         /* eslint-disable */
         if (e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005)) {
-          result = true
+          this.isBalanceMoreCommission = true
         }
-        return result
       })
-    )
+    ).subscribe()
 
   constructor (
     @Inject(API) private readonly api: AppApiInterface,

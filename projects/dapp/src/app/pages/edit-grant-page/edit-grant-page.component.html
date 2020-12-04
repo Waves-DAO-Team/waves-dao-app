@@ -23,7 +23,7 @@
       </div>
 
       <div class="btn-container full">
-        <button type="submit" class="btn active" [disabled]="!grantForm.valid && !(this.userService.isBalanceMoreCommission$ | async)">
+        <button type="submit" class="btn active" [disabled]="!grantForm.valid && !userService.isBalanceMoreCommission">
           {{'create_grant.form.apply' | transloco}}
         </button>
       </div>
