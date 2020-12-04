@@ -134,7 +134,16 @@
   "application": {
   },
   "master_setting": {
+    "management_settings": "Contract group management settings page. Allows you to add DAO members and Working group members",
     "setting": "Settings",
+    "group": "Group",
+    "dao_member": "DAO Member",
+    "work_group": "Work Group",
+    "working_group_member": "Working Group Member",
+    "dao_is": "is a member of the Waves Association, a whitelisted individual who can vote. For a decision to be passed, the DAO needs at least 50% of the votes.",
+    "wg_is": "is a member of the Waves Association’s working group, a whitelisted individual who is responsible for managing tasks, votes and",
+    "performers": "performers",
+    "address": "Address",
     "form": {
       "work_group": {
         "label": "Existing Work Group Members",
@@ -147,7 +156,14 @@
       "add": "Add member"
     }
   },
+  "members": {
+    "members": "Members",
+    "master": "Master",
+    "wg": "WG",
+    "dao": "DAO"
+  },
   "create_grant": {
+
     "form": {
       "name": {
         "label": "Grant name",
@@ -202,12 +218,13 @@
       },
       "apply": "Apply"
     }
-
   },
   "create": {
   },
-  "add_reward": {
-    "back": "Back"
+  "container": {
+    "back": "Back",
+    "loading_or_error_template": "Entity is not be loaded",
+    "loading": "Loading"
   },
   "about": {
     "waves_grant": "Waves grant",

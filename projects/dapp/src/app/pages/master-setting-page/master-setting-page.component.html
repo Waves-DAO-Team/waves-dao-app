@@ -1,33 +1,44 @@
 <div class="container master-setting">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
-      <img src="assets/icons/arr-left.svg">{{ 'app.navigation.back' | transloco }}
+      <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid">
     <h1 class="master-setting__title">
       {{'master_setting.setting' | transloco}}
     </h1>
-    <p class="master-setting__desc">Contract group management settings page. Allows you to add DAO members and Working group members</p>
+    <p class="master-setting__desc">
+      {{'master_setting.management_settings' | transloco}}
+    </p>
 
     <div class="master-setting__groups">
-      <h3 class="master-setting__groups-title">Group</h3>
+      <h3 class="master-setting__groups-title">
+        {{'master_setting.group' | transloco}}
+      </h3>
       <ul class="master-setting__groups-list tab-title">
-        <li [class.active]="activeTab === 'dao'" (click)="setTab('dao')">DAO Member</li>
-        <li [class.active]="activeTab === 'wg'" (click)="setTab('wg')">Work Group</li>
+        <li [class.active]="activeTab === 'dao'" (click)="setTab('dao')">
+          {{'master_setting.dao_member' | transloco}}
+        </li>
+        <li [class.active]="activeTab === 'wg'" (click)="setTab('wg')">
+          {{'master_setting.work_group' | transloco}}
+        </li>
       </ul>
 
       <div class="master-setting__groups-desc" *ngIf="activeTab === 'dao'">
-        <b>DAO Member</b> is a member of the Waves Association, a whitelisted individual who can vote. For a decision to be passed, the DAO needs at least 50% of the votes.
+        <b>{{'master_setting.dao_member' | transloco}}</b>
+        {{'master_setting.dao_is' | transloco}}
       </div>
 
       <div class="master-setting__groups-desc" *ngIf="activeTab === 'wg'">
-        <b>Working Group Member</b> is a member of the Waves Association’s working group, a whitelisted individual who is responsible for managing tasks, votes and <b>performers</b>.
+        <b>{{'master_setting.working_group_member' | transloco}}</b>
+        {{'master_setting.wg_is' | transloco}} <b>
+        {{'master_setting.performers' | transloco}}</b>.
       </div>
     </div>
 
     <div class="master-setting__address">
-      <h3 class="master-setting__address-title">Address:</h3>
+      <h3 class="master-setting__address-title">{{'master_setting.address' | transloco}}:</h3>
       <div class="master-setting__address-field" *ngIf="activeTab === 'dao'">
         <form [formGroup]="DAOMemberForm"(ngSubmit)="submitDAO()">
           <label>
@@ -63,7 +74,9 @@
             <input type="text" formControlName="workGroup" [placeholder]="'master_setting.form.work_group.placeholder' | transloco">
           </label>
           <div class="master-setting__address-submit btn-container full">
-            <button type="submit" class="btn active"[disabled]="!workGroupForm.valid && !userService.isBalanceMoreCommission" >{{'master_setting.form.add' | transloco}}</button>
+            <button type="submit" class="btn active"[disabled]="!workGroupForm.valid && !userService.isBalanceMoreCommission" >
+              {{'master_setting.form.add' | transloco}}
+            </button>
           </div>
         </form>
         <div class="grid master-setting__address-list">

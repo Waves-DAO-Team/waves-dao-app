@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
-      <img src="assets/icons/arr-left.svg">Back
+      <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid">
@@ -17,13 +17,12 @@
 
 <ng-template #loadingOrErrorTemplate>
   <ng-container *ngIf="entity.error$ | async; else loading">
-    Entity is not be loaded
-    <!-- <div class="listing__error"></div> -->
+    {{'container.loading_or_error_template' | transloco}}
   </ng-container>
 </ng-template>
 
 <ng-template #loading>
-  Loading...
+  {{'container.loading' | transloco}}...
   <!-- <div class="listing__loader"></div> -->
 </ng-template>
 

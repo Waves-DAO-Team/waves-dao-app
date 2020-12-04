@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
-      <img src="assets/icons/arr-left.svg">Back
+      <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid">
@@ -14,14 +14,6 @@
           <span class="floating-label">{{'create_grant.form.name.label' | transloco}}</span>
         </div>
       </div>
-
-<!--      <div class="input">-->
-<!--        <div class="input-wrp">-->
-<!--          <br/>-->
-<!--          <input type="text" formControlName="reward" rewardDirective class="inputText" required>-->
-<!--          <span class="floating-label">{{'create_grant.form.reward.label' | transloco}}</span>-->
-<!--        </div>-->
-<!--      </div>-->
 
       <div class="input">
         <div class="input-wrp">

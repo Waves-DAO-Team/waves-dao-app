@@ -1,23 +1,23 @@
 <div class="container">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
-      <img src="assets/icons/arr-left.svg">Back
+      <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid" *ngIf="user$ | async as user">
-    <h1>Members</h1>
+    <h1>{{'members.members' | transloco}}</h1>
     <p>{{user.masterAddress}}</p>
     <p>&nbsp;</p>
 
-    <h3>Master</h3>
+    <h3>{{'members.master' | transloco}}</h3>
     <ul>
       <li>{{user.masterAddress}}</li>
     </ul>
-    <h3>WG</h3>
+    <h3>{{'members.wg' | transloco}}</h3>
     <ul>
       <li *ngFor="let wg of userService?.data?.getValue().WorkGroupAddress">{{wg}}</li>
     </ul>
-    <h3>DAO</h3>
+    <h3>{{'members.dao' | transloco}}</h3>
     <ul>
       <li *ngFor="let dao of userService?.data?.getValue().DAOMemberAddress">{{dao}}</li>
     </ul>
