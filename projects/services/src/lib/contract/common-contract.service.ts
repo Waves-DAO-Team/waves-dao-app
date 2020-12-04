@@ -62,6 +62,7 @@ export class CommonContractService {
   }
 
   public addTask (taskName: string, link: string) {
+    // TODO: убрать
     this.router.navigate(['/', 'add-reward', '6'])
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
@@ -80,7 +81,7 @@ export class CommonContractService {
           this.contractService.refresh()
           this.snackBar.open('Transaction is complete', translate('messages.ok'))
           console.log('---------addTask', e)
-          // TODO: перестал работать
+          // FIXME: перестал работать
           this.router.navigate(['/', 'add-reward', '6'])
         })
       )

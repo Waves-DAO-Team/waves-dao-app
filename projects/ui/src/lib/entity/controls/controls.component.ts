@@ -34,7 +34,8 @@ export class ControlsComponent implements OnInit {
     private snackBar: MatSnackBar
   ) { }
 
-  ngOnInit () {}
+  ngOnInit () {
+  }
 
   finishVote () {
     this.disruptiveContractService.finishTaskProposalVoting(this.grantId as string)

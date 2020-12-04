@@ -3,7 +3,7 @@ import { RoleEnum, RoleRowInterface, UserDataInterface } from '@services/user/us
 import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { BehaviorSubject, combineLatest } from 'rxjs'
-import { publishReplay, refCount, tap } from 'rxjs/operators'
+import { map, publishReplay, refCount, tap } from 'rxjs/operators'
 import { ContractGrantRawModel } from '@services/contract/contract.model'
 import { PopupService } from '@services/popup/popup.service'
 import { API, AppApiInterface } from '@constants'
@@ -61,6 +61,18 @@ export class UserService {
       publishReplay(1),
       refCount()
     ).subscribe()
+
+  public readonly isBalanceMoreCommission$ = this.data
+    .pipe(
+      map((e) => {
+        let result = false
+        /* eslint-disable */
+        if (e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005)) {
+          result = true
+        }
+        return result
+      })
+    )
 
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
@@ -129,12 +141,4 @@ export class UserService {
     return result
   }
 
-  isBalanceMoreCommission (): boolean {
-    let result = false
-    /* eslint-disable */
-    if (this.data.getValue().balance.length > 0 && (parseInt(this.data.getValue().balance, 10) > 0.005)) {
-      result = true
-    }
-    return result
-  }
 }
