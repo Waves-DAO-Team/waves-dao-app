@@ -14,23 +14,12 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 export class CreateGrantPageComponent {
   public readonly grantForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    reward: new FormControl('', Validators.required),
     link: new FormControl('', Validators.required)
   })
 
   constructor (private disruptiveContractService: DisruptiveContractService, private location: Location, public userService: UserService) {}
 
   onSubmit () {
-    // TODO Делаем две формы. Убираем вознаграждение в этой форме
-    // let reward = this.grantForm.value.reward
-    // if (reward.length === 1) {
-    //   reward *= 100000000
-    // } else {
-    //   reward = reward.replace('.', '')
-    //   reward *= 1000000
-    // }
-    // console.log('reward: ', reward)
-
     this.disruptiveContractService.addTask(this.grantForm.value.name, this.grantForm.value.link)
   }
 

@@ -1,0 +1,15 @@
+@import 'const';
+@import 'container';
+@import 'mixins/elements/floating-label';
+
+.container {
+  @include container();
+
+  form {
+    //@include form;
+    .input {
+      @include floating-label();
+      margin-bottom: $padding * 2;
+    }
+  }
+}

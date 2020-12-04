@@ -73,6 +73,11 @@ const routes: Routes = [
         path: environment.routing.team,
         loadChildren: () => import('./pages/team-page/team-page-routing.module').then((m) => m.TeamPageRoutingModule),
         pathMatch: 'full'
+      },
+      {
+        path: environment.routing.addReward,
+        loadChildren: () => import('./pages/add-reward-page/add-reward-page.module').then((m) => m.AddRewardPageModule),
+        pathMatch: 'full'
       }
     ]
   },

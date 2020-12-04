@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img src="assets/icons/arr-left.svg">Back
+    </button>
+  </div>
+  <div class="container__mid">
+    <form [formGroup]="grantForm" (ngSubmit)="onSubmit()">
+
+      <div class="input">
+        <div class="input-wrp">
+          <br/>
+          <input type="text" formControlName="reward" rewardDirective class="inputText" required>
+          <span class="floating-label">{{'create_grant.form.reward.label' | transloco}}</span>
+        </div>
+      </div>
+
+      <div class="btn-container full">
+        <button type="submit" class="btn active" [disabled]="!grantForm.valid">
+          {{'create_grant.form.apply' | transloco}}
+        </button>
+      </div>
+
+    </form>
+  </div>
+  <div class="container__right">
+  </div>
+</div>

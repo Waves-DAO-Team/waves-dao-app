@@ -29,7 +29,8 @@ export const environment = {
     create: 'create',
     members: 'members',
     stylesheet: 'stylesheet',
-    team: 'team/:entityId'
+    team: 'team/:entityId',
+    addReward: 'add-reward/:entityId'
   },
 
   showDevTools: false

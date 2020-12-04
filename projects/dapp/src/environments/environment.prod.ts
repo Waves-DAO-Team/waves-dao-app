@@ -28,7 +28,8 @@ export const environment = {
     stylesheet: 'stylesheet',
     editGrant: 'edit-grant/:entityId',
     masterSetting: 'settings',
-    team: 'team/:entityId'
+    team: 'team/:entityId',
+    addReward: 'add-reward/:entityId'
   },
 
   showDevTools: false
