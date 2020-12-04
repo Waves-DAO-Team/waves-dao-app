@@ -2,7 +2,7 @@
 export const environment = {
   production: false,
   confirmations: 1,
-  grantsProgramLink: "https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+",
+  grantsProgramLink: 'https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+',
 
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',

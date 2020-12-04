@@ -18,7 +18,7 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 import { takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
-import {API, AppApiInterface} from "@constants";
+import {API, AppApiInterface} from '@constants';
 
 @Component({
   selector: 'ui-entity',
