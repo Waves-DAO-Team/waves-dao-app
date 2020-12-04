@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   confirmations: 1,
-  grantsProgramLink: "https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+",
+  grantsProgramLink: 'https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+',
 
   apis: {
     nodes: 'https://nodes.wavesnodes.com',
@@ -22,14 +22,11 @@ export const environment = {
     entity: 'entity/:entityId',
     application: 'entity/:entityId/application',
     about: 'about',
-    applyGrant: 'apply-grant/:entityId',
     createGrant: 'create-grant',
-    create: 'create',
     members: 'members',
     stylesheet: 'stylesheet',
     editGrant: 'edit-grant/:entityId',
     masterSetting: 'settings',
-    team: 'team/:entityId',
     addReward: 'add-reward/:entityId'
   },
 

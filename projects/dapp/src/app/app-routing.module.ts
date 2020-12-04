@@ -55,23 +55,8 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: environment.routing.applyGrant,
-        loadChildren: () => import('./pages/apply-grant-page/apply-grant-page.module').then((m) => m.ApplyGrantPageModule),
-        pathMatch: 'full'
-      },
-      {
-        path: environment.routing.create,
-        loadChildren: () => import('./pages/create-entity-page/create-entity-page.module').then((m) => m.CreateEntityPageModule),
-        pathMatch: 'full'
-      },
-      {
         path: environment.routing.stylesheet,
         loadChildren: () => import('./pages/stylesheet-page/stylesheet-page.module').then((m) => m.StylesheetPageModule),
-        pathMatch: 'full'
-      },
-      {
-        path: environment.routing.team,
-        loadChildren: () => import('./pages/team-page/team-page-routing.module').then((m) => m.TeamPageRoutingModule),
         pathMatch: 'full'
       },
       {

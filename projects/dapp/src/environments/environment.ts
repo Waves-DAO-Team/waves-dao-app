@@ -23,14 +23,11 @@ export const environment = {
     entity: 'entity/:entityId',
     application: 'entity/:entityId/application',
     about: 'about',
-    applyGrant: 'apply-grant/:entityId',
     createGrant: 'create-grant',
     editGrant: 'edit-grant/:entityId',
     masterSetting: 'settings',
-    create: 'create',
     members: 'members',
     stylesheet: 'stylesheet',
-    team: 'team/:entityId',
     addReward: 'add-reward/:entityId'
   },
 
