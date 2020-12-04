@@ -24,6 +24,10 @@
   &__mid {
     flex: 4.5;
     padding-bottom: 3rem;
+    a {
+      color: $color_waves_blue;
+      text-decoration: none;
+    }
   }
 
   &__left,
