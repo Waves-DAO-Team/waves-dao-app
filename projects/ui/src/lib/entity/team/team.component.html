@@ -1,5 +1,5 @@
 <div class="team" *ngIf="userService.data | async as user">
-  <h3>Teams</h3>
+  <h3>{{'entity.teams' | transloco}}</h3>
 
   <ul *ngIf="grant?.app?.length > 0">
     <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process">
@@ -17,18 +17,18 @@
             </div>
         </ng-container>
         <ng-container *ngSwitchDefault>
-            <div class="top">Votes</div>
+            <div class="top">{{'entity.votes' | transloco}}</div>
             <div class="bottom">{{app?.score?.value || 0}}</div>
         </ng-container>
       </div>
 
       <div class="mid">
         <div class="name">{{app?.name?.value}}</div>
-        <a class="link" [href]="app?.link?.value"> Learn more about the team <img src="assets/icons/link.svg"></a>
+        <a class="link" [href]="app?.link?.value"> {{'entity.learn_about_team' | transloco}} <img src="assets/icons/link.svg"></a>
       </div>
       <div class="right">
         <ng-container *ngIf="app.process">
-          <img src="assets/icons/winner.png">WINNER
+          <img src="assets/icons/winner.png">{{'entity.winner' | transloco}}
         </ng-container>
       </div>
     </li>

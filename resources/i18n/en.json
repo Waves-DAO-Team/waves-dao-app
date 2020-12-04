@@ -52,6 +52,14 @@
     "auth": "Authorized User"
   },
   "listing": {
+    "desc": {
+      "you_can_vote": "You can vote for grants from the community, vote for grant applicants, try to execute the grant yourself",
+      "select_category": "Select a category now"
+    },
+    "header": {
+      "view_github": "View grant on GitHub",
+      "waves": "WAVES"
+    },
     "status": {
       "proposed": "Open",
       "ready_to_apply": "Ready to apply",
@@ -66,14 +74,22 @@
       "need_vote": "Need vote",
       "vote_counted": "Your vote has been counted"
     },
-    "title": "Waves Association DAO"
+    "title": "Waves Association DAO",
+    "list_empty": "List is a empty",
+    "loading": "Loading"
   },
   "entity": {
     "reward": "Reward",
     "log_in_for_apply": "Log in for apply",
+    "insufficient_balance": "Insufficient balance",
     "apply": "Apply",
     "remove": "Remove",
     "edit": "Edit",
+    "reject": "Reject",
+    "teams": "Teams",
+    "votes": "Votes",
+    "winner": "WINNER",
+    "learn_about_team": "Learn more about the team",
     "add_reward": "Add reward",
     "finish_vote": "Finish vote",
     "finish_applicants_voting": "Finish applicants voting",
@@ -190,7 +206,13 @@
   },
   "create": {
   },
+  "add_reward": {
+    "back": "Back"
+  },
   "about": {
+    "waves_grant": "Waves grant",
+    "github": "GitHub",
+    "back": "Back"
   },
   "not-found": {
     "title": "Sorry!",

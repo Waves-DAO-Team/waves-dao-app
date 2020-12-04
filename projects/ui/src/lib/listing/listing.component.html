@@ -1,15 +1,12 @@
 <div class="container listing" *ngIf="user$ | async as user">
 
-<!--  <div class="container__left">-->
-
-<!--  </div>-->
   <div class="container__mid">
     <h1>
       {{'listing.title' | transloco}}
     </h1>
 
     <div class="top-desc">
-      You can vote for grants from the community, vote for grant applicants, try to execute the grant yourself. <span>Select a category now:</span>
+      {{'listing.desc.you_can_vote' | transloco}}. <span>{{'listing.desc.select_category' | transloco}}:</span>
     </div>
 
 
@@ -37,21 +34,15 @@
       </div>
       <ng-template #loadingOrErrorTemplate>
         <ng-container *ngIf="grants.error$ | async; else loading">
-          List is a empty
+          {{'listing.list_empty' | transloco}}
         </ng-container>
       </ng-template>
 
       <ng-template #loading>
-        Loading...
+        {{'listing.loading' | transloco}}...
       </ng-template>
 
 
     </div>
   </div>
-<!--  <div class="container__right">-->
-<!--  </div>-->
 </div>
-
-<!--<ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>-->
-
-

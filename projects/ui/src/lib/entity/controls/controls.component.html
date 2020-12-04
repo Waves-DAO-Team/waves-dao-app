@@ -23,11 +23,12 @@
   <ng-container *ngIf="status === grantStatusEnum.readyToApply">
     <ng-container *ngIf="userService.data.getValue().userRole !== userRoleEnum.unauthorized">
       <ng-container *ngIf="grantId && !userService.data.getValue().apply.includes(grantId)">
-<!--        <button [routerLink]="['/', 'apply-grant', grantId]">-->
         <button (click)="onOpenApplyModal()" [disabled]="!userService.isBalanceMoreCommission">
           {{'entity.apply' | transloco}}
         </button>
-        <p *ngIf="!userService.isBalanceMoreCommission">Insufficient balance</p>
+        <p *ngIf="!userService.isBalanceMoreCommission">
+          {{'entity.insufficient_balance' | transloco}}
+        </p>
       </ng-container>
       <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
         <button (click)="finishApplicantsVote()" [disabled]="!userService.isBalanceMoreCommission">
@@ -36,7 +37,9 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.unauthorized">
-      <button class="active" (click)="signup()">{{'entity.log_in_for_apply' | transloco}}</button>
+      <button class="active" (click)="signup()">
+        {{'entity.log_in_for_apply' | transloco}}
+      </button>
     </ng-container>
   </ng-container>
 
@@ -47,10 +50,14 @@
   <ng-container *ngIf="status === grantStatusEnum.teamChosen">
     <ng-container *ngIf="userService.data.getValue().userRole == userRoleEnum.workingGroup">
       <ng-container *ngIf="performer && userService.data.getValue().userAddress.includes(performer)">
-        <button class="active" (click)="startWork()" [disabled]="!userService.isBalanceMoreCommission">{{'entity.start_work' | transloco}}</button>
-        <p *ngIf="!userService.isBalanceMoreCommission">Insufficient balance</p>
+        <button class="active" (click)="startWork()" [disabled]="!userService.isBalanceMoreCommission">
+          {{'entity.start_work' | transloco}}
+        </button>
+        <p *ngIf="!userService.isBalanceMoreCommission">
+          {{'entity.insufficient_balance' | transloco}}
+        </p>
       </ng-container>
-      <button class="btn" (click)="reject()">Reject</button>
+      <button class="btn" (click)="reject()">{{'entity.reject' | transloco}}</button>
     </ng-container>
   </ng-container>
 
@@ -60,7 +67,9 @@
       <button (click)="acceptWorkResult()" class="btn" [disabled]="!userService.isBalanceMoreCommission">
         {{'entity.accept_work_result' | transloco}}
       </button>
-      <p *ngIf="!userService.isBalanceMoreCommission">Insufficient balance</p>
+      <p *ngIf="!userService.isBalanceMoreCommission">
+        {{'entity.insufficient_balance' | transloco}}
+      </p>
     </ng-container>
   </ng-container>
 
