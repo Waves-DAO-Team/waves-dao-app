@@ -17,13 +17,14 @@
   &__mid,
   &__left,
   &__right {
-    padding-left: $padding;
-    padding-right: $padding;
+    //padding-left: $padding;
+    //padding-right: $padding;
   }
 
   &__mid {
     flex: 4.5;
     padding-bottom: 3rem;
+
     a {
       color: $color_waves_blue;
       text-decoration: none;

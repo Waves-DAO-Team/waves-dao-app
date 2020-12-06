@@ -10,7 +10,7 @@ export const environment = {
     contractAddress: '3PBZs1dzpMoQwCZM1KNwxxQZVnmRU6wqC2e',
     contracts: {
       disruptive: '3PLAhMnipQdjzasGeh5B2EKxKP74dasHHqD',
-      dev: '3PB8KDpFJqiDbqhmu8crSmU8h7krxFt68Pd',
+      web3: '3PB8KDpFJqiDbqhmu8crSmU8h7krxFt68Pd',
       interhack: '3PBZs1dzpMoQwCZM1KNwxxQZVnmRU6wqC2e'
     }
   },
@@ -18,10 +18,9 @@ export const environment = {
   // Routing constants on page
   routing: {
     home: '',
-    listing: '',
-    entity: 'entity/:entityId',
-    application: 'entity/:entityId/application',
-    about: 'about',
+    listing: 'contract/:contractType',
+    about: 'contract/:contractType/about',
+    entity: 'contract/:contractType/:entityId',
     createGrant: 'create-grant',
     members: 'members',
     stylesheet: 'stylesheet',

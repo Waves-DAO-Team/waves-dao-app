@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Inject,
   OnDestroy,
@@ -20,8 +19,7 @@ import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
 import { ContractService } from '@services/contract/contract.service'
-import { PopupService } from '@services/popup/popup.service'
-import { take, takeUntil } from 'rxjs/operators'
+import { map, take, takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 
 @Component({
@@ -32,12 +30,18 @@ import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public readonly user$: Observable<SignerUser> = this.signerService.user
-  userRole = RoleEnum.unauthorized
-  RoleEnum = RoleEnum;
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   @DestroyedSubject() private readonly destroyed$!: Subject<null>;
+
+  public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => {
+    return data.userRole
+  }))
+
+  public readonly contractsList$ = this.contractService.getContactsList()
+
+  public readonly RoleEnum = RoleEnum;
 
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
@@ -46,15 +50,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public router: Router,
     public userService: UserService,
     public contractService: ContractService,
-    private location: Location,
-    private cdr: ChangeDetectorRef,
-    private popupService: PopupService
+    private location: Location
   ) {
   }
 
-  ngOnInit (): void {
-    this.subscribe()
-  }
+  ngOnInit (): void {}
 
   signupHandler () {
     this.signerService.login().subscribe(() => {
@@ -74,18 +74,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   goBack (): void {
     this.location.back()
-  }
-
-  private subscribe (): void {
-    this.userService.data
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((newData) => {
-        this.userRole = newData.userRole
-
-        // After change contract mark component as changed
-        // Repaint component an next tick
-        this.cdr.markForCheck()
-      })
   }
 
   ngOnDestroy () {}

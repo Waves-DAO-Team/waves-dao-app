@@ -1,10 +1,11 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject,
+  Input,
   OnDestroy,
   OnInit
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
-import { ContractGrantExtendedModel, ContractGrantModel } from '@services/contract/contract.model'
+import { ContractGrantExtendedModel, ContractGrantModel, GrantsVariationType } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
   API,
@@ -20,12 +21,7 @@ import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { translate } from '@ngneat/transloco'
 import { BehaviorSubject, combineLatest } from 'rxjs'
-export interface GrantsVariationType {
-  type: string,
-  img: string,
-  title: string,
-  desc: string
-}
+
 @Component({
   selector: 'ui-listing',
   templateUrl: './listing.component.html',
@@ -34,6 +30,8 @@ export interface GrantsVariationType {
   providers: GRANTS_PROVIDERS
 })
 export class ListingComponent implements OnInit, OnDestroy {
+  @Input() contract: GrantsVariationType | null = null;
+
   constructor (
     public cdr: ChangeDetectorRef,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
@@ -51,6 +49,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   public selectedTagName = ''
   public selectedTagName$ = new BehaviorSubject('')
   public listGrantStatuses: string[] = []
+
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
     tap(
       (grants) => {
@@ -67,27 +66,6 @@ export class ListingComponent implements OnInit, OnDestroy {
   ).subscribe()
 
   public readonly user$ = this.userService.data
-
-  public readonly grantsVariationsList: GrantsVariationType[] = [
-    {
-      type: this.api.contracts.disruptive,
-      img: 'assets/img/disruptive-type.png',
-      title: 'Disruptive Tech Grant',
-      desc: 'Disruptive Tech Grant is awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.'
-    },
-    {
-      type: this.api.contracts.dev,
-      img: 'assets/img/dev-type.png',
-      title: 'Web3.0 Dev Grant',
-      desc: 'Web 3.0 Development Grant is awarded for creating products based on the Waves protocol that resolves specific problems and foster mass adoption.'
-    },
-    {
-      type: this.api.contracts.interhack,
-      img: 'assets/img/interhack-type.png',
-      title: 'Interhack Grant',
-      desc: 'Interhack grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.'
-    }
-  ]
 
   public readonly otherGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
     .pipe(

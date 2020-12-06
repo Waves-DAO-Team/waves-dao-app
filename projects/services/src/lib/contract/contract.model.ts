@@ -95,3 +95,13 @@ export interface ContractDataModel {
   }
   tasks: {[s: string]: ContractGrantRawModel}
 }
+
+export interface GrantsVariationType {
+  type: string
+  name: string
+  preview: string
+  img: string
+  title: string
+  desc: string
+  navigation: string
+}

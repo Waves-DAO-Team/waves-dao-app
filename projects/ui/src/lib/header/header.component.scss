@@ -52,14 +52,9 @@
   }
 }
 
-hr {
-  border-bottom: 0;
-  border-top: 1px solid $color_light_gray;
-  padding: 0;
-  margin: 0 0 $padding * 4 0;
-}
-
 header {
+  border-bottom: 1px solid $color_light_gray;
+
   .container {
     //display: flex;
 

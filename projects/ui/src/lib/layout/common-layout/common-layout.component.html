@@ -7,6 +7,7 @@
 
   <header class="layout__header">
     <ng-container *ngxComponentOutlet="headerComponent"></ng-container>
+    <router-outlet name='contract-menu'></router-outlet>
   </header>
   <content class="layout__content" #content>
     <router-outlet (activate)="onActivateComponent($event)"></router-outlet>

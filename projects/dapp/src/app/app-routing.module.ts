@@ -15,19 +15,19 @@ const routes: Routes = [
     component: CommonLayoutComponent,
     children: [
       {
+        path: environment.routing.home,
+        loadChildren: () => import('./pages/home-page/home-page.module').then((m) => m.HomePageModule),
+        pathMatch: 'full'
+      },
+      {
         path: environment.routing.listing,
         loadChildren: () => import('./pages/listing-page/listing-page.module').then((m) => m.ListingPageModule),
         pathMatch: 'full'
       },
       {
-        path: environment.routing.entity,
-        loadChildren: () =>
-          import('./pages/entity-page/entity-page.module').then((m) => m.EntityPageModule)
-      },
-      {
-        path: environment.routing.application,
-        loadChildren: () =>
-          import('./pages/application-page/application-page.module').then((m) => m.ApplicationPageModule)
+        path: environment.routing.about,
+        loadChildren: () => import('./pages/about-page/about-page.module').then((m) => m.AboutPageModule),
+        pathMatch: 'full'
       },
       {
         path: environment.routing.masterSetting,
@@ -35,9 +35,9 @@ const routes: Routes = [
           import('./pages/master-setting-page/master-setting-page.module').then((m) => m.MasterSettingPageModule)
       },
       {
-        path: environment.routing.about,
-        loadChildren: () => import('./pages/about-page/about-page.module').then((m) => m.AboutPageModule),
-        pathMatch: 'full'
+        path: environment.routing.entity,
+        loadChildren: () =>
+          import('./pages/entity-page/entity-page.module').then((m) => m.EntityPageModule)
       },
       {
         path: environment.routing.members,
@@ -66,6 +66,7 @@ const routes: Routes = [
       }
     ]
   },
+
   {
     path: '**',
     loadChildren: () =>

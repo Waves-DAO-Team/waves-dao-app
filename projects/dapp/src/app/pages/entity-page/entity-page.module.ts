@@ -6,6 +6,8 @@ import { EntityPageComponent } from './entity-page.component'
 import { TranslocoModule } from '@ngneat/transloco'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { EntityModule } from '@ui/entity/entity.module'
+import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
+import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
 
 @NgModule({
   declarations: [EntityPageComponent],
@@ -14,7 +16,9 @@ import { EntityModule } from '@ui/entity/entity.module'
     EntityPageRoutingModule,
     TranslocoModule,
     PipesModule,
-    EntityModule
+    EntityModule,
+    NotFoundPageModule,
+    LoadingPageModule
   ]
 })
 export class EntityPageModule { }

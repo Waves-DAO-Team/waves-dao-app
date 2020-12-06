@@ -7,6 +7,9 @@ import { TranslocoModule } from '@ngneat/transloco'
 
 @NgModule({
   declarations: [NotFoundPageComponent],
+  exports: [
+    NotFoundPageComponent
+  ],
   imports: [
     CommonModule,
     NotFoundPageRoutingModule,

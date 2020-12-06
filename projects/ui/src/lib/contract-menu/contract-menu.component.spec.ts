@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ApplicationPageComponent } from './application-page.component'
+import { ContractMenuComponent } from './contract-menu.component'
 
-describe('ApplicationPageComponent', () => {
-  let component: ApplicationPageComponent
-  let fixture: ComponentFixture<ApplicationPageComponent>
+describe('ContractMenuComponent', () => {
+  let component: ContractMenuComponent
+  let fixture: ComponentFixture<ContractMenuComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ApplicationPageComponent]
+      declarations: [ContractMenuComponent]
     })
       .compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApplicationPageComponent)
+    fixture = TestBed.createComponent(ContractMenuComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

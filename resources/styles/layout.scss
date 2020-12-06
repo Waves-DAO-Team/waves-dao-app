@@ -1,6 +1,8 @@
 .layout {
-  //&__header {}
-  //
+  &__header {
+    margin: 0 0 56px;
+  }
+
   //&__content {}
   //
   //&__footer {}
@@ -9,6 +11,7 @@
 .grid {
   &__container {
     display: flex;
+
     &__col {
       flex: 1;
     }

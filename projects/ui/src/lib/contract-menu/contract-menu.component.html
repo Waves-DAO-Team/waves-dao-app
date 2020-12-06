@@ -1,0 +1,5 @@
+<div class="container contact-menu">
+    <a [routerLink]="constants.routes.about | route : (contractType | async)">
+        {{ 'app.header.about' | transloco }}
+    </a>
+</div>

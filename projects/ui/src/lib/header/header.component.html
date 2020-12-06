@@ -1,5 +1,5 @@
-<header>
-  <div class="container">
+<header >
+  <div class="container" *ngIf="userRole$ | async as userRole">
     <div class="logo" [routerLink]="['/']" >
       <img src="assets/icons/logo.png">
       <ul>
@@ -43,20 +43,15 @@
       </ul>
     </div>
     <ul class="nav">
-      <li [routerLink]="[constants.routes.home | route]" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
-        {{ 'app.header.home' | transloco }}
+
+      <li *ngFor="let contract of contractsList$ | async"
+          [routerLink]="[constants.routes.listing | route : contract.name ]"
+          routerLinkActive="active">
+        {{ contract.navigation }}
       </li>
-      <li [routerLink]="constants.routes.about | route" routerLinkActive="active">
-        {{ 'app.header.about' | transloco }}
-      </li>
-      <li [routerLink]="[constants.routes.masterSetting | route]" *ngIf="userRole === RoleEnum.master" routerLinkActive="active">
-        {{ 'app.header.setting' | transloco }}
-      </li>
-      <li [routerLink]="[constants.routes.createGrant | route]" *ngIf="userRole === RoleEnum.workingGroup" routerLinkActive="active">
-        {{ 'app.header.createGrant' | transloco }}
-      </li>
+
       <li [routerLink]="[constants.routes.members | route]" routerLinkActive="active">
-        Members
+        {{ 'app.header.members' | transloco }}
       </li>
 
       <li *ngIf="(user$ | async)?.name" class="profile">
@@ -97,6 +92,3 @@
     </ul>
   </div>
 </header>
-
-<hr>
-

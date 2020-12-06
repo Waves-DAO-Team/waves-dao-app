@@ -6,13 +6,6 @@
   @include container();
 }
 
-.listing-page {
-  &__intro {
-    margin: 0 0 56px;
-
-    img {
-      width: 100%;
-    }
-  }
-
+.contact-menu {
+  padding: 20px 0;
 }

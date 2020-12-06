@@ -2,124 +2,7 @@
 @import 'container';
 @import '~include-media/dist/_include-media.scss';
 
-.container {
-  @include container();
-}
-
 .listing {
-  //padding: $padding;
-
-  h1 {
-    font-size: $font_size_h1;
-    padding-bottom: $padding;
-  }
-
-  .top-desc {
-    color: $color_dark_gray;
-    font-size: $font_size_h4;
-    margin-bottom: $padding * 2;
-    max-width: 720px;
-
-    span {
-      color: $color_black;
-      font-weight: bold;
-    }
-  }
-
-  .grants-variation {
-    display: flex;
-    margin-bottom: $padding * 3;
-
-    .grant {
-      border: 1px solid $color_light_gray;
-      cursor: pointer;
-      flex: 1;
-      margin-right: $padding;
-      position: relative;
-      transition: 1s;
-
-      &::after {
-        background: $color_white;
-        bottom: 0;
-        content: '';
-        height: 5px;
-        left: 0;
-        position: absolute;
-        transition: 0.3s;
-        width: 100%;
-      }
-
-      &:nth-child(3) {
-        margin: 0;
-      }
-
-      img {
-        width: 100%;
-      }
-
-
-      .img {
-        background: $color_gray;
-
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 200px;
-        //background-size: 90%;
-        //&.disruptive {
-        //  background-image: url('~resources/assets/img/disruptive-type.png');
-        //  //background-position: center center;
-        //}
-
-      }
-
-      .content {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        //background: red;
-        min-height: 120px;
-        padding: $padding * 2 $padding;
-
-        .title {
-          font-size: 18px;
-          font-weight: 500;
-          margin-bottom: $padding / 2;
-          padding: 0;
-          text-align: center;
-        }
-
-        .desc {
-          color: $color_gray;
-          font-size: $font_size_h5;
-          margin: 0;
-          padding: 0;
-          text-align: center;
-        }
-      }
-
-      &.active {
-        box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
-
-        &::after {
-          background: $color_waves_blue;
-          bottom: 0;
-          content: '';
-          height: 5px;
-          left: 0;
-          position: absolute;
-          transition: 0.3s;
-          width: 100%;
-        }
-
-      }
-    }
-
-    .final {
-      display: none;
-    }
-  }
-
   .content {
     display: flex;
 
@@ -134,16 +17,6 @@
       margin-left: $padding/ 2;
     }
   }
-
-  //.listing-list {
-  //  &__title {
-  //    font-size: $font_size_h3;
-  //    font-weight: 500;
-  //    margin-bottom: $padding;
-  //    margin-top: 2em;
-  //  }
-  //}
-
 }
 
 
