@@ -47,8 +47,8 @@
     }
   },
   "role": {
-    "master": "Waves Association Member",
-    "wg": "Working Group Member",
+    "master": "Waves Association",
+    "wg": "Working Group",
     "dao": "DAO Owner",
     "auth": "Authorized User"
   },
@@ -245,27 +245,27 @@
   },
   "contracts": {
     "disruptive": {
-      "navigation": "Disruptive grant",
+      "navigation": "Disruptive grants",
       "preview": "assets/img/disruptive-type.png",
       "img": "assets/img/disruptive-type.png",
-      "title": "Disruptive Tech Grant",
+      "title": "Disruptive Tech Grants",
       "desc": "Disruptive Tech Grant is awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
       "banner": "Grants will be announced in Q1 2021. Stay tuned!",
       "about": "http://test.ru"
     },
     "web3" : {
-      "navigation": "Web 3.0 grant",
+      "navigation": "Web 3.0 grants",
       "preview": "assets/img/dev-type.png",
       "img": "assets/img/dev-type.png",
-      "title": "Web3.0 Dev Grant",
+      "title": "Web3.0 Dev Grants",
       "desc": "Web 3.0 Development Grant is awarded for creating products based on the Waves protocol that resolves specific problems and foster mass adoption.",
       "banner": "Apply with your project before 1st Feb 2021 to get a grant up to 100k WAVES."
     },
     "interhack": {
-      "navigation": "Interhack grant",
+      "navigation": "Interhack grants",
       "preview": "assets/img/interhack-type.png",
       "img": "assets/img/interhack-type.png",
-      "title": "Interhack Grant",
+      "title": "Interhack Grants",
       "desc": "Interhack grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
       "banner": "Join New Year Hackathon to participate in creating cross-chain tools and win one of the 12k WAVES prizes in the pool."
     }
