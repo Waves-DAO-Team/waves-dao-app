@@ -16,6 +16,25 @@
   &__social {
     a {
       margin-left: 20px;
+      color: $color_waves_blue;
+      text-decoration: none;
+    }
+  }
+}
+
+@include media('<=tablet') {
+  .footer {
+    flex-direction: column;
+
+
+    &__social {
+      margin-top: $padding;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      a {
+        margin: 0;
+      }
     }
   }
 }
