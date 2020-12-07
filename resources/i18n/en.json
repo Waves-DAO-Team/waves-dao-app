@@ -54,8 +54,8 @@
   },
   "listing": {
     "desc": {
-      "you_can_vote": "Using DAO you can observe and apply for grants sponsored by Waves Association, vote for team applications and see how the ecosystem is growing.",
-      "select_category": "Select a category now"
+      "you_can_vote": "Waves DAO is a tool that facilitates the application and distribution of grants provided by the Waves Association. Thanks to Waves DAO, members of the Waves Association and its working groups can manage the grant distribution process and transparently vote for applicants.",
+      "select_category": "Select a category to view grants."
     },
     "more": "Show more",
     "header": {
@@ -249,25 +249,25 @@
       "preview": "assets/img/disruptive-type.png",
       "img": "assets/img/disruptive-type.png",
       "title": "Disruptive Tech Grants",
-      "desc": "Disruptive Tech Grant is awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
-      "banner": "Grants will be announced in Q1 2021. Stay tuned!",
+      "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
+      "banner": "Call for applications will be announced in Q1 2021. Stay tuned!",
       "about": "http://test.ru"
     },
     "web3" : {
-      "navigation": "Web 3.0 grants",
+      "navigation": "Web3.0 grants",
       "preview": "assets/img/dev-type.png",
       "img": "assets/img/dev-type.png",
-      "title": "Web3.0 Dev Grants",
-      "desc": "Web 3.0 Development Grant is awarded for creating products based on the Waves protocol that resolves specific problems and foster mass adoption.",
-      "banner": "Apply with your project before 1st Feb 2021 to get a grant up to 100k WAVES."
+      "title": "Web 3.0 Dev Grants",
+      "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
+      "banner": "Apply with your project before Feb. 1, 2021 to receive a grant of up to 100k WAVES"
     },
     "interhack": {
       "navigation": "Interhack grants",
       "preview": "assets/img/interhack-type.png",
       "img": "assets/img/interhack-type.png",
       "title": "Interhack Grants",
-      "desc": "Interhack grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
-      "banner": "Join New Year Hackathon to participate in creating cross-chain tools and win one of the 12k WAVES prizes in the pool."
+      "desc": "Interhack Grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
+      "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool"
     }
   }
 }
