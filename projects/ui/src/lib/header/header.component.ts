@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public readonly contractsList$ = this.contractService.getContactsList()
 
   public readonly RoleEnum = RoleEnum;
+  isToggleMenuOpen: boolean = false;
 
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,

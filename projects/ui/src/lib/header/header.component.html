@@ -2,47 +2,19 @@
   <div class="container" *ngIf="userRole$ | async as userRole">
     <div class="logo" [routerLink]="['/']" >
       <img src="assets/icons/logo.png">
-      <ul>
-        <li *ngIf="(user$ | async)?.name" class="profile">
-          <div class="icon">
-            <img src="assets/icons/avatar/master.png" *ngIf="userService.data.getValue().userRole === RoleEnum.master">
-            <img src="assets/icons/avatar/dao.png" *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
-            <img src="assets/icons/avatar/wg.png"
-                 *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
-            <img src="assets/icons/avatar/auth.png"
-                 *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
-          </div>
-          <div class="content">
-            <div class="name">
-              {{(user$ | async)?.name}}
-            </div>
-            <div class="role">
-              <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.master">
-                {{ 'role.master' | transloco }}
-              </ng-container>
-              <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
-                {{ 'role.wg' | transloco }}
-              </ng-container>
-              <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
-                {{ 'role.dao' | transloco }}
-              </ng-container>
-              <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
-                {{ 'role.auth' | transloco }}
-              </ng-container>
-            </div>
-
-          </div>
-          <img src="assets/icons/logout.svg" (click)="logoutHandler()">
-        </li>
-<!--        <li *ngIf="userRole === RoleEnum.unauthorized">-->
-<!--          <button (click)="signupHandler()">-->
-<!--            {{ 'app.header.login' | transloco }}-->
-<!--            <img src="assets/icons/arr-right.svg">-->
-<!--          </button>-->
-<!--        </li>-->
-      </ul>
+      <div id="menu-toggle" [class.open]="isToggleMenuOpen" (click)="isToggleMenuOpen = !isToggleMenuOpen">
+        <div id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div id="cross">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     </div>
-    <ul class="nav">
+    <ul class="nav" [class.open]="isToggleMenuOpen">
 
       <li *ngFor="let contract of contractsList$ | async"
           [routerLink]="[constants.routes.listing | route : contract.name ]"
