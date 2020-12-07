@@ -12,13 +12,7 @@
     margin-bottom: 0;
   }
 
-  //&__controls {
-  //
-  //}
-
-
-
-  ul {
+  &__list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -27,19 +21,21 @@
       border: 1px solid $color_waves_blue;
     }
 
-    li {
+    &__li {
       display: flex;
       margin-bottom: $padding;
 
 
-      .left {
+      &__left {
         background: $color_light_gray;
         display: flex;
         flex-direction: column;
-        height: $padding * 7;
-        width: $padding * 7;
+        min-height: $padding * 7;
+        max-height: $padding * 7;
+        max-width: $padding * 7;
+        min-width: $padding * 7;
 
-        .top {
+        &__top {
           align-items: flex-end;
           color: $color_dark_gray;
           display: flex;
@@ -48,7 +44,7 @@
           justify-content: center;
         }
 
-        .bottom {
+        &__bottom {
           align-items: baseline;
           display: flex;
           flex: 1.2;
@@ -58,8 +54,8 @@
           line-height: 1;
         }
 
-        .up,
-        .down {
+        &__up,
+        &__down {
           align-items: center;
           display: flex;
           flex: 1;
@@ -75,7 +71,7 @@
           }
         }
 
-        .score {
+        &__score {
           align-items: center;
           display: flex;
           flex: 1;
@@ -85,26 +81,37 @@
 
       }
 
-      .mid {
+      &__mid {
+        flex: 1;
         align-items: flex-start;
         display: flex;
-        flex: 1;
+        //width: calc(100% - 155px);
         flex-direction: column;
         justify-content: center;
-
-        .name {
+        width : 20%;
+        padding-right: $padding;
+        &__name {
           font-size: $font_size_h4;
           font-weight: bold;
           padding-left: $padding;
+          width: 95%;
+          overflow:hidden;
+          display:inline-block;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
-        .link {
+        &__link {
           color: $color_waves_blue;
-          display: flex;
           font-size: $font_size_h5;
           justify-content: center;
           padding-left: $padding;
           text-decoration: none;
+          width: 95%;
+          overflow:hidden;
+          display:inline-block;
+          text-overflow: ellipsis;
+          white-space: nowrap;
 
           img {
             padding-left: $padding / 2;
@@ -112,14 +119,15 @@
         }
       }
 
-      .right {
+      &__right {
         align-items: center;
         color: $color_waves_blue;
         display: flex;
         font-size: $font_size_h4;
         justify-content: center;
         padding-right: $padding * 2;
-
+        max-width: 100px;
+        min-width: 100px;
         img {
           margin-right: $padding / 2;
         }

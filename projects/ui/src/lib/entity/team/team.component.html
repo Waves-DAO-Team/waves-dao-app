@@ -4,53 +4,59 @@
     <h3 class="team__title">{{'entity.teams' | transloco}}</h3>
 
     <div class="team__controls" *ngIf="grant?.status?.value === grantStatusEnum.readyToApply">
-        <button
-                class="active"
-                (click)="signup()"
-                *ngIf="user.roles.isUnauthorized"
-                routerLinkActive="active"
-        >
-            {{'entity.log_in_for_apply' | transloco}}
-        </button>
+      <button
+        class="active"
+        (click)="signup()"
+        *ngIf="user.roles.isUnauthorized"
+        routerLinkActive="active"
+      >
+        {{'entity.log_in_for_apply' | transloco}}
+      </button>
 
-        <button
-                class="active"
-                (click)="onOpenApplyModal()"
-                [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
-                *ngIf="user.roles.isAuth"
-                routerLinkActive="active"
-        >
-            {{'entity.apply' | transloco}}
-        </button>
+      <button
+        class="active"
+        (click)="onOpenApplyModal()"
+        [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
+        *ngIf="user.roles.isAuth"
+        routerLinkActive="active"
+      >
+        {{'entity.apply' | transloco}}
+      </button>
     </div>
   </div>
 
-    <ul *ngIf="grant?.app?.length > 0">
-    <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process">
+  <ul *ngIf="grant?.app?.length > 0" class="team__list">
+    <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process" class="team__list__li">
 
-      <div class="left" [ngSwitch]="user.roles.isDAO">
+      <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">
         <ng-container *ngSwitchCase="true">
-            <div class="up" [class.disabled]="!isReadyToApply()">
-              <img src="assets/icons/arr-up.svg" (click)="voteTeam( 'like', app.id.value)" *ngIf="!isReadyToApply() && user.roles.isDAO">
-              <img src="assets/icons/arr-up-blue.svg" (click)="voteTeam( 'like', app.id.value)" *ngIf="isReadyToApply() && user.roles.isDAO">
-            </div>
-            <div class="score">{{app?.score?.value || 0}}</div>
-            <div class="down" [class.disabled]="!isReadyToApply()">
-              <img src="assets/icons/arr-down.svg" (click)="voteTeam( 'dislike', app.id.value)" *ngIf="!isReadyToApply() && user.roles.isDAO">
-              <img src="assets/icons/arr-down-red.svg" (click)="voteTeam( 'like', app.id.value)" *ngIf="isReadyToApply() && user.roles.isDAO">
-            </div>
+          <div class="team__list__li__left__up" [class.disabled]="!isReadyToApply()">
+            <img src="assets/icons/arr-up.svg" (click)="voteTeam( 'like', app.id.value)"
+                 *ngIf="!isReadyToApply() && user.roles.isDAO">
+            <img src="assets/icons/arr-up-blue.svg" (click)="voteTeam( 'like', app.id.value)"
+                 *ngIf="isReadyToApply() && user.roles.isDAO">
+          </div>
+          <div class="team__list__li__left__score">{{app?.score?.value || 0}}</div>
+          <div class="team__list__li__left__down" [class.disabled]="!isReadyToApply()">
+            <img src="assets/icons/arr-down.svg" (click)="voteTeam( 'dislike', app.id.value)"
+                 *ngIf="!isReadyToApply() && user.roles.isDAO">
+            <img src="assets/icons/arr-down-red.svg" (click)="voteTeam( 'like', app.id.value)"
+                 *ngIf="isReadyToApply() && user.roles.isDAO">
+          </div>
         </ng-container>
         <ng-container *ngSwitchDefault>
-            <div class="top">{{'entity.votes' | transloco}}</div>
-            <div class="bottom">{{app?.score?.value || 0}}</div>
+          <div class="team__list__li__left__top">{{'entity.votes' | transloco}}</div>
+          <div class="team__list__li__left__bottom">{{app?.score?.value || 0}}</div>
         </ng-container>
       </div>
 
-      <div class="mid">
-        <div class="name">{{app?.name?.value}}</div>
-        <a class="link" [href]="app?.link?.value"> {{'entity.learn_about_team' | transloco}} <img src="assets/icons/link.svg"></a>
+      <div class="team__list__li__mid">
+        <div class="team__list__li__mid__name">{{app?.name?.value}}</div>
+        <a class="team__list__li__mid__link" [href]="app?.link?.value">
+          {{'entity.learn_about_team' | transloco}} <img src="assets/icons/link.svg">
+        </a>
       </div>
-      <div class="right">
+      <div class="team__list__li__right">
         <ng-container *ngIf="app.process">
           <img src="assets/icons/winner.png">{{'entity.winner' | transloco}}
         </ng-container>
