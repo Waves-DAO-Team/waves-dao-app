@@ -42,17 +42,19 @@ export class MasterSettingPageComponent implements OnInit, OnDestroy {
   submitDAO () {
     const DAOMemberAddress = this.DAOMemberForm.value.DAOMember
     this.commonContractService.addDAOMember(DAOMemberAddress)
-      .subscribe((data) => {
-        this.workGroupForm.reset()
-      })
+      .subscribe((data) => {})
+
+    // Reset form immediately
+    this.DAOMemberForm.reset()
   }
 
   submitWG () {
     const workGroupAddress = this.workGroupForm.value.workGroup
-
-    console.log('submitWG', workGroupAddress)
     this.commonContractService.addGroupMember(workGroupAddress)
-      .subscribe(() => { this.workGroupForm.reset() })
+      .subscribe(() => {})
+
+    // Reset form immediately
+    this.workGroupForm.reset()
   }
 
   goBack (): void {

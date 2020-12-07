@@ -11,14 +11,7 @@
         </div>
 
         <div class="listing-page__header">
-            <div class="listing-page__title-block">
-                <h1 class="listing-page__title">{{ info?.title }}</h1>
-                <div class="listing-page__address">
-                    <a class="a a--alt" [attr.href]="api.explorer + info?.type" target="_blank" rel="noopener nofollow noreferrer">
-                        {{ info?.type }}
-                    </a>
-                </div>
-            </div>
+            <h1 class="listing-page__title">{{ info?.title }}</h1>
 
             <div class="listing-page__controls" *ngIf="userService.data | async as user">
                 <button
@@ -38,6 +31,11 @@
                     {{ 'app.header.setting' | transloco }}
                 </button>
             </div>
+        </div>
+        <div class="listing-page__address">
+            <a class="a a--alt" [attr.href]="api.explorer + info?.type" target="_blank" rel="noopener nofollow noreferrer">
+                {{ info?.type }}
+            </a>
         </div>
 
         <div class="listing-page__description">
