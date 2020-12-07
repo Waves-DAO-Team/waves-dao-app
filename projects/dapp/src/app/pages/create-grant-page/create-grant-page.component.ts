@@ -10,6 +10,7 @@ import { CONTRACT, CREATE_GRANT_PAGE_PROVIDERS } from '@pages/create-grant-page/
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { route } from '@libs/pipes/routes.lib'
 import { take } from 'rxjs/operators'
+import { ContractService } from '@services/contract/contract.service'
 
 @Component({
   selector: 'app-create-grant-page',
@@ -29,6 +30,7 @@ export class CreateGrantPageComponent {
       private location: Location,
       public userService: UserService,
       private router: Router,
+      private contractService: ContractService,
       @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType>,
       @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
@@ -37,7 +39,12 @@ export class CreateGrantPageComponent {
     this.disruptiveContractService.addTask(this.grantForm.value.name, this.grantForm.value.link)
       .pipe(take(1))
       .subscribe((data) => {
-        this.goToEntity(data.id)
+        this.contractService.refresh().subscribe((update) => {
+          console.log('Contacts state', update)
+          setTimeout(() => {
+            this.goToEntity(data.id)
+          })
+        })
       })
     this.grantForm.reset()
   }

@@ -19,14 +19,14 @@ export const environment = {
   // Routing constants on page
   routing: {
     home: '',
-    listing: 'contract/:contractType',
-    about: 'contract/:contractType/about',
-    entity: 'contract/:contractType/:entityId',
-    createGrant: 'contract/:contractType/create-grant',
-    masterSetting: 'contract/:contractType/settings',
+    listing: 'grants/:contractType',
+    about: 'grants/:contractType/about',
+    entity: 'grants/:contractType/:entityId',
+    createGrant: 'grants/:contractType/create-grant',
+    masterSetting: 'grants/:contractType/settings',
     members: 'members',
     stylesheet: 'stylesheet',
-    addReward: 'contract/:contractType/add-reward/:entityId'
+    addReward: 'grants/:contractType/add-reward/:entityId'
   },
 
   showDevTools: false

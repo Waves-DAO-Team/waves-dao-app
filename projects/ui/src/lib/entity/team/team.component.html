@@ -1,6 +1,7 @@
 <div class="team" *ngIf="userService.data | async as user">
 
-  <div class="team__header">
+  <div class="team__header" *ngIf="grant?.isShowAppliers">
+
     <h3 class="team__title">{{'entity.teams' | transloco}}</h3>
 
     <div class="team__controls" *ngIf="grant?.status?.value === grantStatusEnum.readyToApply">
