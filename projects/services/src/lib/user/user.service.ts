@@ -5,8 +5,9 @@ import { ContractService } from '@services/contract/contract.service'
 import { BehaviorSubject, combineLatest } from 'rxjs'
 import { map, publishReplay, refCount, tap } from 'rxjs/operators'
 import { ContractGrantRawModel } from '@services/contract/contract.model'
-import { PopupService } from '@services/popup/popup.service'
 import { API, AppApiInterface } from '@constants'
+import {translate} from "@ngneat/transloco";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +56,8 @@ export class UserService {
         // if (JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
         this.data.next(newData)
         if (userAddressText !== this.lastAddress) {
-          this.popupService.add(userAddressText, 'Login')
+          // this.popupService.add(userAddressText, 'Login')
+          this.snackBar.open(`Login: ${userAddressText}`, "", {duration: 3000})
           this.lastAddress = userAddressText
         }
         console.log('user data: ', this.data.getValue())
@@ -76,7 +78,7 @@ export class UserService {
     @Inject(API) private readonly api: AppApiInterface,
     private signerService: SignerService,
     private contractService: ContractService,
-    private popupService: PopupService
+    private snackBar: MatSnackBar,
   ) {}
 
   private defineApply (userAddress: string, tasks: ContractGrantRawModel): string[] {

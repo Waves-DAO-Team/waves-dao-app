@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
 import { SignerService } from '@services/signer/signer.service'
-import { PopupService } from '@services/popup/popup.service'
 import { ContractService } from '@services/contract/contract.service'
 import { CommonContractService } from '@services/contract/common-contract.service'
 import { catchError, tap } from 'rxjs/operators'
@@ -19,8 +18,7 @@ export class DisruptiveContractService {
       private commonContractService: CommonContractService,
       private contractService: ContractService,
       private readonly signerService: SignerService,
-      private snackBar: MatSnackBar,
-      private popupService: PopupService
+      private snackBar: MatSnackBar
   ) {}
 
   public addDAOMember (member: string) {
@@ -49,17 +47,14 @@ export class DisruptiveContractService {
       { type: 'string', value: voteValue }
     ])
       .catch((res) => {
-        this.popupService.add(res, 'voteForTaskProposal this')
+        this.snackBar.open(`voteForTaskProposal catch: ${res}`, "", {duration: 3000})
       })
       .then((res) => {
       // @ts-ignore
         this.popupService.add(res.toString(), 'voteForTaskProposal then')
       })
       .finally(() => {
-        this.popupService.add('', 'voteForTaskProposal finally')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
+        this.snackBar.open(`voteForTaskProposal finally`, "", {duration: 3000})
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -69,18 +64,14 @@ export class DisruptiveContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        this.popupService.add(res, 'finishTaskProposalVoting')
+        this.snackBar.open(`finishTaskProposalVoting catch ${res}`, "", {duration: 3000})
       })
       .then((res) => {
-      // @ts-ignore
-        this.popupService.add(res.toString(), 'finishTaskProposalVoting then')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
+        this.snackBar.open(`finishTaskProposalVoting then ${JSON.stringify(res)}`, "", {duration: 3000})
         this.contractService.doRefreshTimeOut()
       })
       .finally(() => {
-        this.popupService.add('', 'finishTaskProposalVoting finally')
+        this.snackBar.open(`finishTaskProposalVoting finally`, "", {duration: 3000})
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -104,24 +95,19 @@ export class DisruptiveContractService {
   }
 
   public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: string) {
-    const text = `taskId:${taskId} teamIdentifier:${teamIdentifier} voteValue:${voteValue}`
-    this.popupService.add(text, '==========================================voteForApplicant')
     this.signerService.invoke(this.contractService.getAddress(), 'voteForApplicant', [
       { type: 'string', value: taskId },
       { type: 'string', value: teamIdentifier },
       { type: 'string', value: voteValue }
     ])
       .catch((res) => {
-        this.popupService.add(res, 'voteForApplicant catch')
+        this.snackBar.open(`voteForApplicant catch: ${res}`, "", {duration: 3000})
       })
       .then(res => {
-        this.popupService.add(JSON.stringify(res), 'voteForApplicant catch')
+        this.snackBar.open(`voteForApplicant then: ${JSON.stringify(res)}`, "", {duration: 3000})
       })
       .finally(() => {
-        this.popupService.add('', 'voteForApplicant finally')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
+        this.snackBar.open(`voteForApplicant finally`, "", {duration: 3000})
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -131,16 +117,13 @@ export class DisruptiveContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        this.popupService.add(res, 'finishApplicantsVoting catch')
+        this.snackBar.open(`finishApplicantsVoting catch: ${res}`, "", {duration: 3000})
       })
       .then((res) => {
-        this.popupService.add(JSON.stringify(res), 'finishApplicantsVoting then')
+        this.snackBar.open(`finishApplicantsVoting then: ${JSON.stringify(res)}`, "", {duration: 3000})
       })
       .finally(() => {
-        this.popupService.add('', 'finishApplicantsVoting finally')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
+        this.snackBar.open(`finishApplicantsVoting finally`, "", {duration: 3000})
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -150,16 +133,13 @@ export class DisruptiveContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        this.popupService.add(res, 'startWork catch')
+        this.snackBar.open(res, "", {duration: 3000})
       })
       .then((res) => {
-        this.popupService.add(JSON.stringify(res), 'startWork then')
+        this.snackBar.open(JSON.stringify(res), "", {duration: 3000})
       })
       .finally(() => {
-        this.popupService.add('', 'startWork finally')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
+        this.snackBar.open('startWork finally', "", {duration: 3000})
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -169,13 +149,13 @@ export class DisruptiveContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        this.popupService.add(res, 'rejectTask catch')
+        this.snackBar.open(`rejectTask catch: ${res}`, "", {duration: 3000})
       })
       .then((res) => {
-        this.popupService.add(JSON.stringify(res), 'rejectTask then')
+        this.snackBar.open(`rejectTask then: ${JSON.stringify(res)}`, "", {duration: 3000})
       })
       .finally(() => {
-        this.popupService.add('', 'rejectTask finally')
+        this.snackBar.open(`rejectTask finally`, "", {duration: 3000})
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -187,16 +167,13 @@ export class DisruptiveContractService {
       { type: 'string', value: reportLink }
     ])
       .catch((res) => {
-        this.popupService.add(res, 'acceptWorkResult catch')
+        this.snackBar.open(`acceptWorkResult catch: ${res}`, "", {duration: 3000})
       })
       .then((res) => {
-        this.popupService.add(JSON.stringify(res), 'acceptWorkResult then')
+        this.snackBar.open(`acceptWorkResult then: ${res}`, "", {duration: 3000})
       })
       .finally(() => {
-        this.popupService.add('', 'acceptWorkResult finally')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
+        this.snackBar.open(`acceptWorkResult finally`, "", {duration: 3000})
         this.contractService.doRefreshTimeOut()
       })
   }

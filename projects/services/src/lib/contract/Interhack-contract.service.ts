@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ContractService } from '@services/contract/contract.service'
 import { SignerService } from '@services/signer/signer.service'
-import { PopupService } from '@services/popup/popup.service'
 import { CommonContractService } from './common-contract.service'
 
 @Injectable({
@@ -13,9 +12,6 @@ export class InterhackContractService {
 
   constructor (
       private commonContractService: CommonContractService,
-      private contractService: ContractService,
-      private readonly signerService: SignerService,
-      private popupService: PopupService
   ) {}
 
   // Add DAO Members
