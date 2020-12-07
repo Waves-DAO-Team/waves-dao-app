@@ -38,23 +38,25 @@ export class UserService {
       tap(([userAddress, contract]) => {
         const WorkGroupAddress = Object.keys(contract?.working?.group?.member || {})
         const DAOMemberAddress = Object.keys(contract?.dao?.member || {})
-        const dr = this.defineRol(contract.address, userAddress.address, DAOMemberAddress, WorkGroupAddress)
+        const userAddressText = userAddress && userAddress.address ? userAddress.address : ''
+        const userBalanceText = userAddress && userAddress.balance ? userAddress.balance : '0'
+        const dr = this.defineRol(contract.address, userAddressText, DAOMemberAddress, WorkGroupAddress)
         const newData: UserDataInterface = {
           DAOMemberAddress,
           WorkGroupAddress,
           masterAddress: contract.address,
-          userAddress: userAddress.address,
+          userAddress: userAddressText,
           userRole: dr.mainRole,
           roles: dr.roles,
-          voted: this.defineVoted(userAddress.address, contract?.tasks || {}),
-          apply: this.defineApply(userAddress.address, contract?.tasks || {}),
-          balance: userAddress.balance
+          voted: this.defineVoted(userAddressText, contract?.tasks || {}),
+          apply: this.defineApply(userAddressText, contract?.tasks || {}),
+          balance: userBalanceText
         }
         // if (JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
         this.data.next(newData)
-        if (userAddress.address !== this.lastAddress) {
-          this.popupService.add(userAddress.address, 'Login')
-          this.lastAddress = userAddress.address
+        if (userAddressText !== this.lastAddress) {
+          this.popupService.add(userAddressText, 'Login')
+          this.lastAddress = userAddressText
         }
         console.log('user data: ', this.data.getValue())
         // }
