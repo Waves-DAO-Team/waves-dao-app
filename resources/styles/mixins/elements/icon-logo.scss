@@ -3,6 +3,7 @@
   height: $size;
   position: relative;
   width: $size;
+
   &::after {
     bottom: 0;
     content: '';
@@ -17,11 +18,13 @@
   }
   @if ($type == default) {
     background: $color_waves_blue;
+
     &::after {
       background: $color_white;
     }
   } @else if ($type == active) {
     background: $color_white;
+
     &::after {
       background: $color_waves_blue;
     }

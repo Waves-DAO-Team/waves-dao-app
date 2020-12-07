@@ -26,7 +26,7 @@
                 <button class=""
                     [routerLink]="[constants.routes.masterSetting | route: info?.name]"
                     *ngIf="user.roles.isMaster"
-                   routerLinkActive="active"
+                    routerLinkActive="active"
                 >
                     {{ 'app.header.setting' | transloco }}
                 </button>

@@ -230,7 +230,7 @@ func applyForTask(taskId: String, teamName: String, link: String) = {
         throw("This grant has not yet been approved")
     } else {
 
-         # this func also will operate with teamDesc, requestedReward, etc
+        # this func also will operate with teamDesc, requestedReward, etc
         let listKey = "tasks_"+taskId+"_applicants"
         let currentApplicantsList = tryGetString(listKey)
 

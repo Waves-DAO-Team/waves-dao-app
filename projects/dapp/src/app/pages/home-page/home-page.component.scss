@@ -31,8 +31,10 @@
     margin-bottom: $padding * 3;
     @include media('<=tablet') {
       flex-direction: column;
+
       a {
         margin-top: $padding;
+
         &:first-child {
           margin-top: 0;
         }

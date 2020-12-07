@@ -9,12 +9,12 @@
     border: 1px solid $gray-light;
     border-radius: 0 !important;
     cursor: pointer;
+    display: block;
     //font-weight: bold;
     margin-left: $padding / 4;
     outline: none;
     padding: $padding;
     transition: 0.2s;
-    display: block;
 
     &:hover {
       border: 1px solid #000;
@@ -72,8 +72,8 @@
       }
     }
   } @else if($type == center) {
-    text-align: center;
     margin: auto;
+    text-align: center;
 
     .btn {
       padding: $padding $padding * 2;

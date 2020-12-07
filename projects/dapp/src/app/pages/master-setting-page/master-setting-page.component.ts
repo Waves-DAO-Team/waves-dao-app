@@ -26,10 +26,11 @@ export class MasterSettingPageComponent implements OnInit, OnDestroy {
 
   public activeTab: 'dao' | 'wg' = 'dao';
 
-  constructor (public userService: UserService,
-               private commonContractService: CommonContractService,
-               private location: Location,
-               private cdr: ChangeDetectorRef
+  constructor (
+    public userService: UserService,
+    private commonContractService: CommonContractService,
+    private location: Location,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit (): void {
