@@ -246,7 +246,7 @@
   "contracts": {
     "disruptive": {
       "navigation": "Disruptive grants",
-      "preview": "assets/img/disruptive-type.png",
+      "preview": "assets/img/disruptive-type-preview.png",
       "img": "assets/img/disruptive-type.png",
       "title": "Disruptive Tech Grants",
       "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
@@ -255,15 +255,15 @@
     },
     "web3" : {
       "navigation": "Web3.0 grants",
-      "preview": "assets/img/dev-type.png",
-      "img": "assets/img/dev-type.png",
+      "preview": "assets/img/web3-type-preview.png",
+      "img": "assets/img/web3-type.png",
       "title": "Web 3.0 Dev Grants",
       "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
       "banner": "Apply with your project before Feb. 1, 2021 to receive a grant of up to 100k WAVES"
     },
     "interhack": {
       "navigation": "Interhack grants",
-      "preview": "assets/img/interhack-type.png",
+      "preview": "assets/img/interhack-type-preview.png",
       "img": "assets/img/interhack-type.png",
       "title": "Interhack Grants",
       "desc": "Interhack Grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
