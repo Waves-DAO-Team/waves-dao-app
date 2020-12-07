@@ -14,13 +14,17 @@
       margin-bottom: $padding * 4;
     }
   }
+  @media (max-width: 1210px) and (min-width: 1025px) {
+    &__mid,
+    &__left,
+    &__right {
+      padding-left: $padding;
+      padding-right: $padding;
+    }
 
-  &__mid,
-  &__left,
-  &__right {
-    //padding-left: $padding;
-    //padding-right: $padding;
   }
+
+
 
   &__mid {
     display: block;
