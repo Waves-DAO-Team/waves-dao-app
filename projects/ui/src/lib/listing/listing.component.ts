@@ -48,22 +48,23 @@ export class ListingComponent implements OnInit, OnDestroy {
   public readonly GrantStatusEnum = GrantStatusEnum
   public selectedTagName = ''
   public selectedTagName$ = new BehaviorSubject('')
-  public listGrantStatuses: string[] = []
 
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
-    tap(
-      (grants) => {
-        this.listGrantStatuses = []
-        this.listGrantStatuses.push('all')
-        grants.forEach((grant) => {
-          const status: string = grant.status?.value === undefined ? GrantStatusEnum.noStatus : grant.status?.value
-          if (!(this.listGrantStatuses.includes(status))) {
-            this.listGrantStatuses.push(status)
-          }
-        })
+    map((grants) => {
+      const list = Object.values(grants.reduce((origin, grant) => {
+        return {
+          ...origin,
+          ...(grant?.status?.value === undefined ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus } : { [grant?.status?.value]: grant?.status?.value })
+        }
+      }, {}))
+
+      if (list.length > 0) {
+        return ['all'].concat(list)
       }
-    )
-  ).subscribe()
+
+      return []
+    })
+  )
 
   public readonly user$ = this.userService.data
 

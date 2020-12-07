@@ -1,6 +1,6 @@
 <div class="listing">
     <div class="content">
-      <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
+      <ui-tag [tags]="listGrantStatuses$ | async" (selectedTag)="selectedTag($event)"></ui-tag>
 
       <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
         <ui-sub-list [contract]="contract" [isImportant]="true" title="Important grants" [grants]="(importantGrant$ | async)"></ui-sub-list>
