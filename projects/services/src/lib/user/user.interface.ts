@@ -12,6 +12,7 @@ export interface RolesInterface {
   isDAO: boolean
   isWG: boolean
   isAuth: boolean
+  isUnauthorized: boolean
 }
 
 export interface RoleRowInterface {

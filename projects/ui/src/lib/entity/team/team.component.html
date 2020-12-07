@@ -1,7 +1,31 @@
 <div class="team" *ngIf="userService.data | async as user">
-  <h3>{{'entity.teams' | transloco}}</h3>
 
-  <ul *ngIf="grant?.app?.length > 0">
+  <div class="team__header">
+    <h3 class="team__title">{{'entity.teams' | transloco}}</h3>
+
+    <div class="team__controls" *ngIf="grant?.status?.value === grantStatusEnum.readyToApply">
+        <button
+                class="active"
+                (click)="signup()"
+                *ngIf="user.roles.isUnauthorized"
+                routerLinkActive="active"
+        >
+            {{'entity.log_in_for_apply' | transloco}}
+        </button>
+
+        <button
+                class="active"
+                (click)="onOpenApplyModal()"
+                [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
+                *ngIf="user.roles.isAuth"
+                routerLinkActive="active"
+        >
+            {{'entity.apply' | transloco}}
+        </button>
+    </div>
+  </div>
+
+    <ul *ngIf="grant?.app?.length > 0">
     <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process">
 
       <div class="left" [ngSwitch]="user.roles.isDAO">

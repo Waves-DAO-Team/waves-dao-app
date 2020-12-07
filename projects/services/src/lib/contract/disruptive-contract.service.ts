@@ -3,6 +3,10 @@ import { SignerService } from '@services/signer/signer.service'
 import { PopupService } from '@services/popup/popup.service'
 import { ContractService } from '@services/contract/contract.service'
 import { CommonContractService } from '@services/contract/common-contract.service'
+import { catchError, tap } from 'rxjs/operators'
+import { translate } from '@ngneat/transloco'
+import { EMPTY } from 'rxjs'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +19,7 @@ export class DisruptiveContractService {
       private commonContractService: CommonContractService,
       private contractService: ContractService,
       private readonly signerService: SignerService,
+      private snackBar: MatSnackBar,
       private popupService: PopupService
   ) {}
 
@@ -80,26 +85,22 @@ export class DisruptiveContractService {
       })
   }
 
-  public applyForTask (taskId: string, teamName: string, link: string): void {
-    this.popupService.add(`${taskId} ${teamName} ${link}`, 'applyForTask')
-    this.signerService.invoke(this.contractService.getAddress(), 'applyForTask', [
+  public applyForTask (taskId: string, teamName: string, link: string) {
+    // this.popupService.add(`${taskId} ${teamName} ${link}`, 'applyForTask')
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'applyForTask', [
       { type: 'string', value: taskId },
       { type: 'string', value: teamName },
       { type: 'string', value: link }
-    ])
-      .then((res) => {
-        this.popupService.add(res.toString(), 'applyForTask then')
+    ]).pipe(
+      catchError((error) => {
+        this.snackBar.open(error.message, translate('messages.ok'))
+        return EMPTY
+      }),
+      tap((e) => {
+        this.contractService.refresh()
+        this.snackBar.open('Transaction is complete', translate('messages.ok'))
       })
-      .catch((res) => {
-        this.popupService.add(res, 'applyForTask catch')
-      })
-      .finally(() => {
-        this.popupService.add('', 'applyForTask finally')
-        // setTimeout(() => {
-        //   this.refresh()
-        // }, this.averageOperationSpeed)
-        this.contractService.doRefreshTimeOut()
-      })
+    )
   }
 
   public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: string) {

@@ -6,6 +6,7 @@
   display: flex;
   margin: 0 auto;
   max-width: var(--layout-width);
+
   @include media('<=tablet') {
     flex-direction: column;
 
@@ -22,12 +23,23 @@
   }
 
   &__mid {
+    display: block;
     flex: 4.5;
+
+    // Fixed width <code> DOM node on flex content
+    overflow: hidden;
     padding-bottom: 3rem;
+    padding-top: 0.5rem;
 
     a {
       color: $color_waves_blue;
       text-decoration: none;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      overflow: hidden;
     }
   }
 

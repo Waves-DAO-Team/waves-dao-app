@@ -1,0 +1,21 @@
+@import 'const';
+@import 'container';
+@import '~include-media/dist/_include-media.scss';
+@import 'mixins/elements/btn-container';
+
+.container {
+  @include container();
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px 0;
+}
+
+.footer {
+  &__social {
+    a {
+      margin-left: 20px;
+    }
+  }
+}

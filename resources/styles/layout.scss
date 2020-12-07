@@ -1,9 +1,15 @@
 .layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   &__header {
     margin: 0 0 56px;
   }
 
-  //&__content {}
+  &__content {
+    flex: 1 1 auto;
+  }
   //
   //&__footer {}
 }

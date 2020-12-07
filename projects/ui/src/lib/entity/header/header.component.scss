@@ -1,6 +1,6 @@
 @import 'const';
 
-.card__header__entity {
+.card-header-entity {
   &__top,
   &__bottom {
     color: $color_dark_gray;
@@ -25,11 +25,11 @@
     display: flex;
     margin-bottom: $padding;
 
-    &__left {
+    &-left {
       flex: 1;
     }
 
-    &__right {
+    &-right {
       flex: 1;
       text-align: right;
     }

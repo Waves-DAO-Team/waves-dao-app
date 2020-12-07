@@ -1,29 +1,10 @@
-<!--<div class="container listing" *ngIf="user$ | async as user">-->
-
-<!--  <div class="container__mid">-->
-
-
-<!--    <div class="grants-variation">-->
-<!--      <div class="grant"-->
-<!--           *ngFor="let grants of grantsVariationsList"-->
-<!--           [class.active]="user.masterAddress === grants.type"-->
-<!--           (click)="setEnv(grants.type)">-->
-<!--        <img [src]="grants.img">-->
-<!--        <div class="content">-->
-<!--          <div class="title">{{grants.title}}</div>-->
-<!--          <div class="desc">{{grants.desc}}-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="final"></div>-->
-<!--    </div>-->
 <div class="listing">
     <div class="content">
       <ui-tag [tags]="listGrantStatuses" (selectedTag)="selectedTag($event)"></ui-tag>
 
       <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
-        <ui-sub-list [isImportant]="true" title="Important grants" [grants]="(importantGrant$ | async)"></ui-sub-list>
-        <ui-sub-list [isImportant]="false" title="All grants" [grants]="(otherGrant$ | async)"></ui-sub-list>
+        <ui-sub-list [contract]="contract" [isImportant]="true" title="Important grants" [grants]="(importantGrant$ | async)"></ui-sub-list>
+        <ui-sub-list [contract]="contract" [isImportant]="false" title="All grants" [grants]="(otherGrant$ | async)"></ui-sub-list>
       </div>
       <ng-template #loadingOrErrorTemplate>
         <ng-container *ngIf="grants.error$ | async; else loading">

@@ -1,12 +1,18 @@
-import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core'
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  Inject
+} from '@angular/core'
 import { GrantStatusEnum } from '../../../../../services/src/interface'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
-import { translate } from '@ngneat/transloco'
-import { SignerService } from '@services/signer/signer.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { take } from 'rxjs/operators'
+import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import { GrantsVariationType } from '@services/contract/contract.model'
 
 @Component({
   selector: 'ui-controls',
@@ -18,20 +24,20 @@ export class ControlsComponent implements OnInit {
   grantStatusEnum = GrantStatusEnum
   userRoleEnum = RoleEnum
 
-  @Input() status: string | null = null
-  @Input() grantId: string | null = null
-  @Input() role: string | null = null
-  @Input() voted: string | null = null
-  @Input() performer: string | null = null
-  @Output() openApplyModal = new EventEmitter<boolean>()
+  @Input() public contract!: GrantsVariationType
+  @Input() public status: string | null = null
+  @Input() public grantId: string | null = null
+  @Input() public role: string | null = null
+  @Input() public voted: string | null = null
+  @Input() public performer: string | null = null
+  @Output() public openApplyModal = new EventEmitter<boolean>()
 
   reportLink = ''
 
   constructor (
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
-    private signerService: SignerService,
-    private snackBar: MatSnackBar
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) { }
 
   ngOnInit () {
@@ -39,14 +45,6 @@ export class ControlsComponent implements OnInit {
 
   finishVote () {
     this.disruptiveContractService.finishTaskProposalVoting(this.grantId as string)
-  }
-
-  signup () {
-    this.signerService.login()
-      .pipe(take(1))
-      .subscribe(() => {}, (error) => {
-        this.snackBar.open(error, translate('messages.ok'))
-      })
   }
 
   startWork () {
@@ -63,9 +61,5 @@ export class ControlsComponent implements OnInit {
 
   finishApplicantsVote () {
     this.disruptiveContractService.finishApplicantsVoting(this.grantId as string)
-  }
-
-  onOpenApplyModal () {
-    this.openApplyModal.emit(true)
   }
 }

@@ -35,11 +35,6 @@ const routes: Routes = [
           import('./pages/master-setting-page/master-setting-page.module').then((m) => m.MasterSettingPageModule)
       },
       {
-        path: environment.routing.entity,
-        loadChildren: () =>
-          import('./pages/entity-page/entity-page.module').then((m) => m.EntityPageModule)
-      },
-      {
         path: environment.routing.members,
         loadChildren: () => import('./pages/members-page/members-page.module').then((m) => m.MembersPageModule),
         pathMatch: 'full'
@@ -49,11 +44,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/create-grant-page/create-grant-page.module').then((m) => m.CreateGrantPageModule),
         pathMatch: 'full'
       },
-      {
-        path: environment.routing.editGrant,
-        loadChildren: () => import('./pages/edit-grant-page/edit-grant-page.module').then((m) => m.EditGrantPageModule),
-        pathMatch: 'full'
-      },
+      // {
+      //   path: environment.routing.editGrant,
+      //   loadChildren: () => import('./pages/edit-grant-page/edit-grant-page.module').then((m) => m.EditGrantPageModule),
+      //   pathMatch: 'full'
+      // },
       {
         path: environment.routing.stylesheet,
         loadChildren: () => import('./pages/stylesheet-page/stylesheet-page.module').then((m) => m.StylesheetPageModule),
@@ -63,6 +58,11 @@ const routes: Routes = [
         path: environment.routing.addReward,
         loadChildren: () => import('./pages/add-reward-page/add-reward-page.module').then((m) => m.AddRewardPageModule),
         pathMatch: 'full'
+      },
+      {
+        path: environment.routing.entity,
+        loadChildren: () =>
+          import('./pages/entity-page/entity-page.module').then((m) => m.EntityPageModule)
       }
     ]
   },

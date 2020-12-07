@@ -4,6 +4,7 @@ import { ControlsComponent } from './controls.component'
 import { RouterModule } from '@angular/router'
 import { TranslocoModule } from '@ngneat/transloco'
 import { FormsModule } from '@angular/forms'
+import { PipesModule } from '@libs/pipes/pipes.module'
 
 @NgModule({
   declarations: [ControlsComponent],
@@ -11,7 +12,8 @@ import { FormsModule } from '@angular/forms'
     RouterModule,
     CommonModule,
     TranslocoModule,
-    FormsModule
+    FormsModule,
+    PipesModule
   ],
   exports: [ControlsComponent]
 })

@@ -1,6 +1,23 @@
 @import 'const';
 
 .team {
+  &__header {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+  }
+
+  //&__controls {
+  //
+  //}
+
+
+
   ul {
     list-style: none;
     margin: 0;

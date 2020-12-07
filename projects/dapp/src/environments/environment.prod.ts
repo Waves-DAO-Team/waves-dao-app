@@ -21,12 +21,11 @@ export const environment = {
     listing: 'contract/:contractType',
     about: 'contract/:contractType/about',
     entity: 'contract/:contractType/:entityId',
-    createGrant: 'create-grant',
+    createGrant: 'contract/:contractType/create-grant',
+    masterSetting: 'contract/:contractType/settings',
     members: 'members',
     stylesheet: 'stylesheet',
-    editGrant: 'edit-grant/:entityId',
-    masterSetting: 'settings',
-    addReward: 'add-reward/:entityId'
+    addReward: 'contract/:contractType/add-reward/:entityId'
   },
 
   showDevTools: false

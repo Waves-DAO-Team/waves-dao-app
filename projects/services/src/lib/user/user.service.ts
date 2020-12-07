@@ -22,7 +22,8 @@ export class UserService {
       isMaster: false,
       isDAO: false,
       isWG: false,
-      isAuth: false
+      isAuth: false,
+      isUnauthorized: true
     },
     voted: [],
     apply: [],
@@ -62,18 +63,12 @@ export class UserService {
       refCount()
     ).subscribe()
 
-  public isBalanceMoreCommission = false
-
-  private readonly isBalanceMoreCommission$ = this.data
+  public readonly isBalanceMoreCommission$ = this.data
     .pipe(
       map((e) => {
-        this.isBalanceMoreCommission = false
-        /* eslint-disable */
-        if (e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005)) {
-          this.isBalanceMoreCommission = true
-        }
+        return e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005)
       })
-    ).subscribe()
+    )
 
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
@@ -120,26 +115,30 @@ export class UserService {
         isMaster: false,
         isDAO: false,
         isWG: false,
-        isAuth: false
+        isAuth: false,
+        isUnauthorized: true
       }
     }
     if (userAddress !== '') {
       result.mainRole = result.mainRole === RoleEnum.unauthorized ? RoleEnum.authorized : result.mainRole
       result.roles.isAuth = true
+      result.roles.isUnauthorized = false
     }
     if (DAOMemberAddress.includes(userAddress)) {
       result.mainRole = RoleEnum.DAOMember
       result.roles.isDAO = true
+      result.roles.isUnauthorized = false
     }
     if (WorkGroupAddress.includes(userAddress)) {
       result.mainRole = RoleEnum.workingGroup
       result.roles.isWG = true
+      result.roles.isUnauthorized = false
     }
     if (masterAddress === userAddress) {
       result.mainRole = RoleEnum.master
       result.roles.isMaster = true
+      result.roles.isUnauthorized = false
     }
     return result
   }
-
 }

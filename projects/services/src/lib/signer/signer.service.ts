@@ -97,8 +97,7 @@ export class SignerService {
     }).sign()).pipe(
       take(1),
       tap(() => {
-        this.snackBar.open('Мы отправили транзакцию в Waves блокчейн.\n' +
-            'Можно продолжить пользоваться приложением, мы сообщим когда транзакция будет подтверждена в Blockchain')
+        this.snackBar.open('We sent the transaction to Waves Blockchain.  You can continue using the application, we will inform you when the transaction is confirmed in Blockchain.')
       }),
       // @ts-ignore
       switchMap((tx) => {

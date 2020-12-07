@@ -12,8 +12,8 @@
   <content class="layout__content" #content>
     <router-outlet (activate)="onActivateComponent($event)"></router-outlet>
   </content>
-<!--  <footer class="layout__footer">-->
-<!--    <ng-container *ngTemplateOutlet="footerExtension"></ng-container>-->
-<!--    <ng-container *ngxComponentOutlet="footerComponent"></ng-container>-->
-<!--  </footer>-->
+  <footer class="layout__footer">
+    <ng-container *ngTemplateOutlet="footerExtension"></ng-container>
+    <ng-container *ngxComponentOutlet="footerComponent"></ng-container>
+  </footer>
 </div>

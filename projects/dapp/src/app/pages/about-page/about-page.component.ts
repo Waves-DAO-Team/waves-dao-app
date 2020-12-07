@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit
+} from '@angular/core'
 import { Location } from '@angular/common'
-import { LISTING_PAGE_PROVIDERS } from '@pages/listing-page/listing-page.providers'
-import { ABOUT_PAGE_PROVIDERS } from './about-page.provider'
+import { ABOUT_PAGE_PROVIDERS, CONTRACT } from './about-page.provider'
+import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
+import { GrantsVariationType } from '@services/contract/contract.model'
 
 @Component({
   selector: 'app-about-page',
@@ -10,12 +17,19 @@ import { ABOUT_PAGE_PROVIDERS } from './about-page.provider'
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: ABOUT_PAGE_PROVIDERS
 })
-export class AboutPageComponent implements OnInit {
+export class AboutPageComponent implements OnInit, OnDestroy {
+  constructor (
+      private readonly location: Location,
+      @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType>
+  ) {}
+
   ngOnInit (): void {}
-  constructor (private location: Location) {
-  }
 
   goBack (): void {
     this.location.back()
+  }
+
+  ngOnDestroy () {
+    this.contract.destroy()
   }
 }

@@ -1,97 +1,102 @@
 
   <div class="entity">
-    <!-- unauthorized --------------------------------------------------------------------------------------------------->
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.unauthorized">
+    <div class="card">
       <ui-header
         [status]="grant?.status?.value || 'no_status'"
         [title]="grant?.title?.value"
         [reward]="grant?.reward?.value"
         [link]="grant?.link?.value"
       ></ui-header>
+
+      <ui-controls
+              [contract]="contract"
+              [status]="grant?.status?.value"
+              [grantId]="grant?.id"
+              [role]="userService.data.getValue().userRole"
+              [voted]="grant?.voted"
+              [performer]="grant?.performer?.value"
+              (openApplyModal)="openApplyModal($event)"
+      ></ui-controls>
+
       <ui-body
         [md]="linkContentService.mdTextStream$ | async"
         [link]="grant?.link?.value"
         [grant]="grant"
       ></ui-body>
     </div>
-    <!-- unauthorized --------------------------------------------------------------------------------------------------->
 
-    <!-- authorized ----------------------------------------------------------------------------------------------------->
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.authorized">
-      <ui-header
-        [status]="grant?.status?.value || 'no_status'"
-        [title]="grant?.title?.value"
-        [reward]="grant?.reward?.value"
-        [link]="grant?.link?.value"
-      ></ui-header>
-      <ui-body
-        [md]="linkContentService.mdTextStream$ | async"
-        [link]="grant?.link?.value"
-        [grant]="grant"
-      ></ui-body>
-    </div>
-    <!-- authorized ----------------------------------------------------------------------------------------------------->
 
-    <!-- DAOMember ------------------------------------------------------------------------------------------------------>
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">
-      <ui-header
-        [status]="grant?.status?.value || 'no_status'"
-        [title]="grant?.title?.value"
-        [reward]="grant?.reward?.value"
-        [link]="grant?.link?.value"
-      ></ui-header>
-      <ui-body
-        [md]="linkContentService.mdTextStream$ | async"
-        [link]="grant?.link?.value"
-        [grant]="grant"
-      ></ui-body>
-    </div>
-    <!-- DAOMember ------------------------------------------------------------------------------------------------------>
+<!--    &lt;!&ndash; authorized -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.authorized">-->
+<!--      <ui-header-->
+<!--        [status]="grant?.status?.value || 'no_status'"-->
+<!--        [title]="grant?.title?.value"-->
+<!--        [reward]="grant?.reward?.value"-->
+<!--        [link]="grant?.link?.value"-->
+<!--      ></ui-header>-->
+<!--      <ui-body-->
+<!--        [md]="linkContentService.mdTextStream$ | async"-->
+<!--        [link]="grant?.link?.value"-->
+<!--        [grant]="grant"-->
+<!--      ></ui-body>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; authorized -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
 
-    <!-- workingGroup --------------------------------------------------------------------------------------------------->
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.workingGroup">
-      <ui-header
-        [status]="grant?.status?.value || 'no_status'"
-        [title]="grant?.title?.value"
-        [reward]="grant?.reward?.value"
-        [link]="grant?.link?.value"
-      ></ui-header>
-      <ui-body
-        [md]="linkContentService.mdTextStream$ | async"
-        [link]="grant?.link?.value"
-        [grant]="grant"
-      ></ui-body>
-    </div>
-    <!-- workingGroup --------------------------------------------------------------------------------------------------->
+<!--    &lt;!&ndash; DAOMember &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.DAOMember">-->
+<!--      <ui-header-->
+<!--        [status]="grant?.status?.value || 'no_status'"-->
+<!--        [title]="grant?.title?.value"-->
+<!--        [reward]="grant?.reward?.value"-->
+<!--        [link]="grant?.link?.value"-->
+<!--      ></ui-header>-->
+<!--      <ui-body-->
+<!--        [md]="linkContentService.mdTextStream$ | async"-->
+<!--        [link]="grant?.link?.value"-->
+<!--        [grant]="grant"-->
+<!--      ></ui-body>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; DAOMember &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
 
-    <!-- master --------------------------------------------------------------------------------------------------------->
-    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.master">
-      <ui-header
-        [status]="grant?.status?.value || 'no_status'"
-        [title]="grant?.title?.value"
-        [reward]="grant?.reward?.value"
-        [link]="grant?.link?.value"
-      ></ui-header>
-      <ui-body
-        [md]="linkContentService.mdTextStream$ | async"
-        [link]="grant?.link?.value"
-        [grant]="grant"
-      ></ui-body>
-    </div>
-    <!-- master --------------------------------------------------------------------------------------------------------->
+<!--    &lt;!&ndash; workingGroup -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.workingGroup">-->
+<!--      <ui-header-->
+<!--        [status]="grant?.status?.value || 'no_status'"-->
+<!--        [title]="grant?.title?.value"-->
+<!--        [reward]="grant?.reward?.value"-->
+<!--        [link]="grant?.link?.value"-->
+<!--      ></ui-header>-->
+<!--      <ui-body-->
+<!--        [md]="linkContentService.mdTextStream$ | async"-->
+<!--        [link]="grant?.link?.value"-->
+<!--        [grant]="grant"-->
+<!--      ></ui-body>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; workingGroup -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
 
-    <ui-controls
-      [status]="grant?.status?.value"
-      [grantId]="grant?.id"
-      [role]="userService.data.getValue().userRole"
-      [voted]="grant?.voted"
-      [performer]="grant?.performer?.value"
-      (openApplyModal)="openApplyModal($event)"
-    ></ui-controls>
+<!--    &lt;!&ndash; master -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--    <div class="card" *ngIf="(userService.data | async)?.userRole == userRoleEnum.master">-->
+<!--      <ui-header-->
+<!--        [status]="grant?.status?.value || 'no_status'"-->
+<!--        [title]="grant?.title?.value"-->
+<!--        [reward]="grant?.reward?.value"-->
+<!--        [link]="grant?.link?.value"-->
+<!--      ></ui-header>-->
+<!--      <ui-body-->
+<!--        [md]="linkContentService.mdTextStream$ | async"-->
+<!--        [link]="grant?.link?.value"-->
+<!--        [grant]="grant"-->
+<!--      ></ui-body>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; master -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+
 
     <!-- team ----------------------------------------------------------------------------------------------------------->
     <ui-team
+      *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"
       [grant]="grant"
+      (openApplyModal)="openApplyModal($event)"
     ></ui-team>
     <!-- team ----------------------------------------------------------------------------------------------------------->
 

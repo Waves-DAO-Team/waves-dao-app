@@ -77,7 +77,6 @@ export class CommonContractService {
         tap((e) => {
           this.contractService.refresh()
           this.snackBar.open('Transaction is complete', translate('messages.ok'))
-          console.log('---------addTask', e)
         })
       )
   }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { AboutPageComponent } from './about-page.component'
-import { ContractMenuComponent } from '@ui/contract-menu/contract-menu.component'
 
 const routes: Routes = [
   {
@@ -9,12 +8,12 @@ const routes: Routes = [
     component: AboutPageComponent,
     pathMatch: 'full',
     data: {}
-  },
-  {
-    path: '',
-    component: ContractMenuComponent,
-    outlet: 'contract-menu'
   }
+  // {
+  //   path: '',
+  //   component: ContractMenuComponent,
+  //   outlet: 'contract-menu'
+  // }
 ]
 
 @NgModule({

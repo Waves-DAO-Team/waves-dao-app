@@ -6,12 +6,11 @@
   </div>
   <div class="container__mid">
     <div class="entity-page" *ngIf="entity.data$ | async as grant; else loadingOrErrorTemplate">
-      <ui-entity [grant]="grant"></ui-entity>
+      <ui-entity [contract]="contract.data$ | async" [grant]="grant"></ui-entity>
     </div>
   </div>
   <div class="container__right">
   </div>
-
 </div>
 
 

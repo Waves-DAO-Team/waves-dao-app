@@ -1,5 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core'
-import { ContractGrantExtendedModel } from '@services/contract/contract.model'
+import {
+  ContractGrantExtendedModel,
+  GrantsVariationType
+} from '@services/contract/contract.model'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 
 @Component({
@@ -8,6 +11,7 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
   styleUrls: ['./sub-list.component.scss']
 })
 export class SubListComponent implements OnInit {
+  @Input() contract: GrantsVariationType | null = null;
   @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false
   @Input() title: string | null = null

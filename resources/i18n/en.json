@@ -54,9 +54,10 @@
   },
   "listing": {
     "desc": {
-      "you_can_vote": "You can vote for grants from the community, vote for grant applicants, try to execute the grant yourself",
+      "you_can_vote": "Using DAO you can observe and apply for grants sponsored by Waves Association, vote for team applications and see how the ecosystem is growing.",
       "select_category": "Select a category now"
     },
+    "more": "Show more",
     "header": {
       "view_github": "View grant on GitHub",
       "waves": "WAVES"
@@ -77,7 +78,8 @@
     },
     "title": "Waves Association DAO",
     "list_empty": "List is a empty",
-    "loading": "Loading"
+    "loading": "Loading",
+    "reward": "Reward"
   },
   "entity": {
     "reward": "Reward",
@@ -164,7 +166,7 @@
     "dao": "DAO"
   },
   "create_grant": {
-
+    "title": "Create grant",
     "form": {
       "name": {
         "label": "Grant name",
@@ -238,6 +240,9 @@
   "messages": {
     "ok": "OK"
   },
+  "add-reward": {
+    "title": "Add reward"
+  },
   "contracts": {
     "disruptive": {
       "navigation": "Disruptive grant",
@@ -245,7 +250,8 @@
       "img": "assets/img/disruptive-type.png",
       "title": "Disruptive Tech Grant",
       "desc": "Disruptive Tech Grant is awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
-      "banner": "Grants will be announced in Q1 2021. Stay tuned!"
+      "banner": "Grants will be announced in Q1 2021. Stay tuned!",
+      "about": "http://test.ru"
     },
     "web3" : {
       "navigation": "Web 3.0 grant",

@@ -16,6 +16,15 @@ import {
   tap
 } from 'rxjs/operators'
 import { Observable } from 'rxjs'
+import { InjectionToken } from '@angular/core'
+
+export function ContractProviderDefine (tokenName: InjectionToken<GrantsVariationType>) {
+  return {
+    provide: tokenName,
+    deps: [ContractService, TranslocoService, ActivatedRoute, Router, MatSnackBar],
+    useFactory: ContractProviderFactory
+  }
+}
 
 export function ContractProviderFactory (
   contractService: ContractService,

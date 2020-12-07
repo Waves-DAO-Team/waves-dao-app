@@ -1,8 +1,19 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component, EventEmitter,
+  Inject,
+  Input,
+  OnInit, Output
+} from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { GrantStatusEnum } from '../../../../../services/src/interface'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
+import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import { take } from 'rxjs/operators'
+import { translate } from '@ngneat/transloco'
+import { SignerService } from '@services/signer/signer.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'ui-team',
@@ -14,9 +25,15 @@ export class TeamComponent implements OnInit {
   grantStatusEnum = GrantStatusEnum
   @Input() grant: ContractGrantModel | null = null
 
+  @Output() openApplyModal = new EventEmitter<boolean>()
+
   constructor (
       public userService: UserService,
-      public disruptiveContractService: DisruptiveContractService) {
+      public disruptiveContractService: DisruptiveContractService,
+      public signerService: SignerService,
+      private snackBar: MatSnackBar,
+      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+  ) {
   }
 
   ngOnInit (): void {
@@ -34,5 +51,17 @@ export class TeamComponent implements OnInit {
 
   isDAO (): boolean {
     return this.userService.data.getValue().roles.isDAO
+  }
+
+  onOpenApplyModal () {
+    this.openApplyModal.emit(true)
+  }
+
+  signup () {
+    this.signerService.login()
+      .pipe(take(1))
+      .subscribe(() => {}, (error) => {
+        this.snackBar.open(error, translate('messages.ok'))
+      })
   }
 }

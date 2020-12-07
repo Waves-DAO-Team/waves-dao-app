@@ -104,4 +104,6 @@ export interface GrantsVariationType {
   title: string
   desc: string
   navigation: string
+  banner: string
+  about: string
 }

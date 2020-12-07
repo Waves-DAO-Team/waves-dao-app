@@ -6,6 +6,8 @@ import { ListingModule } from '@ui/listing/listing.module'
 import { TranslocoModule } from '@ngneat/transloco'
 import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
+import { PipesModule } from '@libs/pipes/pipes.module'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   declarations: [ListingPageComponent],
@@ -15,7 +17,9 @@ import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
     ListingModule,
     TranslocoModule,
     NotFoundPageModule,
-    LoadingPageModule
+    LoadingPageModule,
+    PipesModule,
+    RouterModule
   ]
 })
 export class ListingPageModule { }

@@ -4,7 +4,9 @@
       <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
-  <div class="container__mid">
+  <div class="container__mid" *ngIf="userService.data | async as user">
+
+    <h1>{{ 'create_grant.title' | transloco }}</h1>
 
     <form [formGroup]="grantForm" (ngSubmit)="onSubmit()">
       <div class="input">
@@ -24,7 +26,7 @@
       </div>
 
       <div class="btn-container full">
-        <button type="submit" class="btn active" [disabled]="!userService.isBalanceMoreCommission">
+        <button type="submit" class="btn active" [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
           {{'create_grant.form.apply' | transloco}}
         </button>
       </div>

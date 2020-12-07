@@ -1,18 +1,47 @@
 <div class="container listing-page"
-     *ngIf="contract.data$ | async as info; else loadingOrErrorTemplate">
+    *ngIf="contract.data$ | async as info; else loadingOrErrorTemplate">
     <div class="container__mid">
 
         <div class="listing-page__intro">
             <img [attr.src]="info?.img" width="100%" height="auto"/>
+
+            <h3 class="listing-page__banner">
+                {{ info?.banner }}
+            </h3>
         </div>
 
-        <h1>
-            {{ info?.title }}
-        </h1>
+        <div class="listing-page__header">
+            <h1 class="listing-page__title">{{ info?.title }}</h1>
 
-        <div class="top-desc">
-            {{'listing.desc.you_can_vote' | transloco}}.
-            <span>{{'listing.desc.select_category' | transloco}}:</span>
+            <div class="listing-page__controls" *ngIf="userService.data | async as user">
+                <button
+                        class="active"
+                        [routerLink]="[constants.routes.createGrant | route: info?.name]"
+                        *ngIf="user.roles.isWG"
+                        routerLinkActive="active"
+                >
+                    {{ 'app.header.createGrant' | transloco }}
+                </button>
+
+                <button class=""
+                    [routerLink]="[constants.routes.masterSetting | route: info?.name]"
+                    *ngIf="user.roles.isMaster"
+                   routerLinkActive="active"
+                >
+                    {{ 'app.header.setting' | transloco }}
+                </button>
+            </div>
+        </div>
+
+        <div class="listing-page__description">
+            <div>
+                {{ info.desc }}
+            </div>
+            <div class="listing-page__about" *ngIf="info?.about">
+                <a [routerLink]="constants.routes.about | route : (info.name)">
+                    {{ 'listing.more' | transloco }}
+                </a>
+            </div>
         </div>
 
         <ui-listing [contract]="info"></ui-listing>
