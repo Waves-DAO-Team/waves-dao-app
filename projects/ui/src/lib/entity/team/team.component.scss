@@ -24,7 +24,7 @@
     &__li {
       display: flex;
       margin-bottom: $padding;
-
+      border: 1px solid $color_light_gray;
 
       &__left {
         background: $color_light_gray;
