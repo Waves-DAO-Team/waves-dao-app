@@ -4,22 +4,36 @@
 @import 'mixins/elements/btn-container';
 
 .container {
+
   @include container();
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
 
   padding: 20px 0;
+
 }
 
 .footer {
-  &__social {
-    a {
-      margin-left: 20px;
-      color: $color_waves_blue;
-      text-decoration: none;
+
+
+  .container__mid {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+   .footer__social {
+     flex: 1;
+     display: flex;
+     justify-content: flex-end;
+      a {
+        margin-left: 20px;
+        color: $color_waves_blue;
+        text-decoration: none;
+      }
     }
   }
+
 }
 
 hr {
@@ -31,17 +45,18 @@ hr {
 
 @include media('<=tablet') {
   .footer {
-    flex-direction: column;
-
-
-    &__social {
-      margin-top: $padding;
-      display: flex;
+    .container__mid {
       flex-direction: column;
-      width: 100%;
-      a {
-        margin: 0;
+      .footer__social {
+        margin-top: $padding;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        a {
+          margin-left: 15px;
+        }
       }
     }
+
   }
 }
