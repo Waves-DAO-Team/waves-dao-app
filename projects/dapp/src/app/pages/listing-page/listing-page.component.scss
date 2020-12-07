@@ -23,15 +23,23 @@
     margin-bottom: 1rem;
     @media (max-width: 800px) {
       flex-direction: column;
+
       button {
         margin: $padding 0 !important;
       }
     }
   }
 
-  &__title {
+  &__title-block {
     flex: 1 1 auto;
+  }
+
+  &__title {
     margin-bottom: 0;
+  }
+
+  &__address {
+    font-size: 0.75em;
   }
 
   &__controls {

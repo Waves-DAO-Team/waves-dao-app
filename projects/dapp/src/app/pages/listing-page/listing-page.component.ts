@@ -6,7 +6,12 @@ import {
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import { GrantsVariationType } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
-import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import {
+  API,
+  APP_CONSTANTS,
+  AppApiInterface,
+  AppConstantsInterface
+} from '@constants'
 
 @Component({
   selector: 'app-listing-page',
@@ -19,6 +24,7 @@ export class ListingPageComponent implements OnInit, OnDestroy {
   constructor (
       @Inject(CONTRACT) public contract: LoadingWrapperModel<GrantsVariationType>,
       @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+      @Inject(API) public readonly api: AppApiInterface,
       public readonly userService: UserService
   ) {}
 

@@ -7,6 +7,7 @@ export const environment = {
     nodes: 'https://nodes-testnet.wavesnodes.com',
     signer: 'https://testnet.waves.exchange/signer/',
     rest: 'https://nodes-testnet.wavesnodes.com',
+    explorer: 'https://testnet.wavesexplorer.com/address/',
     contractAddress: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
     contracts: {
       disruptive: '3N71MDc3kPD6cnbdWp6iEuDY8ghgZ9DiVan',

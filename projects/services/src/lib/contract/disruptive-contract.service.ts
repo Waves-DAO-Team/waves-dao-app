@@ -47,14 +47,14 @@ export class DisruptiveContractService {
       { type: 'string', value: voteValue }
     ])
       .catch((res) => {
-        this.snackBar.open(`voteForTaskProposal catch: ${res}`, "", {duration: 3000})
+        this.snackBar.open(`voteForTaskProposal catch: ${res}`, '', { duration: 3000 })
       })
       .then((res) => {
       // @ts-ignore
         this.popupService.add(res.toString(), 'voteForTaskProposal then')
       })
       .finally(() => {
-        this.snackBar.open(`voteForTaskProposal finally`, "", {duration: 3000})
+        this.snackBar.open('voteForTaskProposal finally', '', { duration: 3000 })
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -64,14 +64,14 @@ export class DisruptiveContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        this.snackBar.open(`finishTaskProposalVoting catch ${res}`, "", {duration: 3000})
+        this.snackBar.open(`finishTaskProposalVoting catch ${res}`, '', { duration: 3000 })
       })
       .then((res) => {
-        this.snackBar.open(`finishTaskProposalVoting then ${JSON.stringify(res)}`, "", {duration: 3000})
+        this.snackBar.open(`finishTaskProposalVoting then ${JSON.stringify(res)}`, '', { duration: 3000 })
         this.contractService.doRefreshTimeOut()
       })
       .finally(() => {
-        this.snackBar.open(`finishTaskProposalVoting finally`, "", {duration: 3000})
+        this.snackBar.open('finishTaskProposalVoting finally', '', { duration: 3000 })
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -101,13 +101,13 @@ export class DisruptiveContractService {
       { type: 'string', value: voteValue }
     ])
       .catch((res) => {
-        this.snackBar.open(`voteForApplicant catch: ${res}`, "", {duration: 3000})
+        this.snackBar.open(`voteForApplicant catch: ${res}`, '', { duration: 3000 })
       })
       .then(res => {
-        this.snackBar.open(`voteForApplicant then: ${JSON.stringify(res)}`, "", {duration: 3000})
+        this.snackBar.open(`voteForApplicant then: ${JSON.stringify(res)}`, '', { duration: 3000 })
       })
       .finally(() => {
-        this.snackBar.open(`voteForApplicant finally`, "", {duration: 3000})
+        this.snackBar.open('voteForApplicant finally', '', { duration: 3000 })
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -117,13 +117,13 @@ export class DisruptiveContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        this.snackBar.open(`finishApplicantsVoting catch: ${res}`, "", {duration: 3000})
+        this.snackBar.open(`finishApplicantsVoting catch: ${res}`, '', { duration: 3000 })
       })
       .then((res) => {
-        this.snackBar.open(`finishApplicantsVoting then: ${JSON.stringify(res)}`, "", {duration: 3000})
+        this.snackBar.open(`finishApplicantsVoting then: ${JSON.stringify(res)}`, '', { duration: 3000 })
       })
       .finally(() => {
-        this.snackBar.open(`finishApplicantsVoting finally`, "", {duration: 3000})
+        this.snackBar.open('finishApplicantsVoting finally', '', { duration: 3000 })
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -133,13 +133,13 @@ export class DisruptiveContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        this.snackBar.open(res, "", {duration: 3000})
+        this.snackBar.open(res, '', { duration: 3000 })
       })
       .then((res) => {
-        this.snackBar.open(JSON.stringify(res), "", {duration: 3000})
+        this.snackBar.open(JSON.stringify(res), '', { duration: 3000 })
       })
       .finally(() => {
-        this.snackBar.open('startWork finally', "", {duration: 3000})
+        this.snackBar.open('startWork finally', '', { duration: 3000 })
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -149,13 +149,13 @@ export class DisruptiveContractService {
       { type: 'string', value: taskId }
     ])
       .catch((res) => {
-        this.snackBar.open(`rejectTask catch: ${res}`, "", {duration: 3000})
+        this.snackBar.open(`rejectTask catch: ${res}`, '', { duration: 3000 })
       })
       .then((res) => {
-        this.snackBar.open(`rejectTask then: ${JSON.stringify(res)}`, "", {duration: 3000})
+        this.snackBar.open(`rejectTask then: ${JSON.stringify(res)}`, '', { duration: 3000 })
       })
       .finally(() => {
-        this.snackBar.open(`rejectTask finally`, "", {duration: 3000})
+        this.snackBar.open('rejectTask finally', '', { duration: 3000 })
         this.contractService.doRefreshTimeOut()
       })
   }
@@ -167,13 +167,13 @@ export class DisruptiveContractService {
       { type: 'string', value: reportLink }
     ])
       .catch((res) => {
-        this.snackBar.open(`acceptWorkResult catch: ${res}`, "", {duration: 3000})
+        this.snackBar.open(`acceptWorkResult catch: ${res}`, '', { duration: 3000 })
       })
       .then((res) => {
-        this.snackBar.open(`acceptWorkResult then: ${res}`, "", {duration: 3000})
+        this.snackBar.open(`acceptWorkResult then: ${res}`, '', { duration: 3000 })
       })
       .finally(() => {
-        this.snackBar.open(`acceptWorkResult finally`, "", {duration: 3000})
+        this.snackBar.open('acceptWorkResult finally', '', { duration: 3000 })
         this.contractService.doRefreshTimeOut()
       })
   }
