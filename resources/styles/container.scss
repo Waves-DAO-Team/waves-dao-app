@@ -62,9 +62,10 @@
       font-size: $font_size_h4;
       font-weight: 100;
       outline: none;
-
+      padding: 0;
       img {
         margin-right: $padding;
+        padding-left: 0;
       }
     }
   }
