@@ -34,12 +34,12 @@
           </div>
           <img src="assets/icons/logout.svg" (click)="logoutHandler()">
         </li>
-        <li *ngIf="userRole === RoleEnum.unauthorized">
-          <button (click)="signupHandler()">
-            {{ 'app.header.login' | transloco }}
-            <img src="assets/icons/arr-right.svg">
-          </button>
-        </li>
+<!--        <li *ngIf="userRole === RoleEnum.unauthorized">-->
+<!--          <button (click)="signupHandler()">-->
+<!--            {{ 'app.header.login' | transloco }}-->
+<!--            <img src="assets/icons/arr-right.svg">-->
+<!--          </button>-->
+<!--        </li>-->
       </ul>
     </div>
     <ul class="nav">

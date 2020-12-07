@@ -9,6 +9,10 @@ export class StorageService {
     ? 'ZwPjcEZtNHD9TRVUUiyR'
     : 'contactAddress';
 
+  private userDataSession = this.constants.production
+    ? 'ZwPjcakdaYYHJ73snb'
+    : 'userData';
+
   private localStorage: { [s: string]: string } = {};
   private sessionStorage: { [s: string]: string } = {};
 
@@ -73,5 +77,24 @@ export class StorageService {
     }
 
     this.setLocal(this.currentContractAddress, value)
+  }
+
+  // Access token
+  public get userData (): object | null {
+    const data = this.getSession(this.userDataSession)
+    if (data) {
+      return JSON.parse(data)
+    }
+
+    return null
+  }
+
+  public set userData (value: object | null) {
+    if (!value) {
+      this.deleteSession(this.userDataSession)
+      return
+    }
+
+    this.setSession(this.userDataSession, JSON.stringify(value))
   }
 }

@@ -17,6 +17,7 @@ import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { StorageService } from '@services/storage/storage.service'
 
 @Injectable({
   providedIn: 'root'
@@ -26,19 +27,24 @@ export class SignerService {
 
   private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '', balance: '' })
 
-  public user: Observable<SignerUser> = this.user$.pipe(publishReplay(1), refCount())
+  public user: Observable<SignerUser> = this.user$.pipe(tap((data) => {
+    this.storageService.userData = data
+  }), publishReplay(1), refCount())
 
   constructor (
       @Inject(API) private readonly api: AppApiInterface,
       private readonly http: HttpClient,
       private readonly router: Router,
-      private snackBar: MatSnackBar
+      private snackBar: MatSnackBar,
+      private storageService: StorageService
   ) {
     this.signer = new Signer({
       // Specify URL of the node on Testnet
       NODE_URL: api.nodes
     })
     this.signer.setProvider(new Provider(api.signer))
+
+    this.user$.next(this.storageService.userData as SignerUser)
   }
 
   public login (): Observable<Observable<SignerUser>> {
