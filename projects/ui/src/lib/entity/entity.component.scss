@@ -9,30 +9,30 @@
   @include btn-container();
 }
 
-.team {
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-      border: 1px solid $gray-light;
-      display: flex;
-      margin: 0 0 10px;
-      padding: $padding;
-
-      .info {
-        flex: 1;
-      }
-
-      &:last-child {
-        margin: 0;
-      }
-    }
-
-  }
-
-}
+//.team {
+//  ul {
+//    list-style: none;
+//    margin: 0;
+//    padding: 0;
+//
+//    li {
+//      border: 1px solid $gray-light;
+//      display: flex;
+//      margin: 0 0 10px;
+//      padding: $padding;
+//
+//      .info {
+//        flex: 1;
+//      }
+//
+//      &:last-child {
+//        margin: 0;
+//      }
+//    }
+//
+//  }
+//
+//}
 
 .input {
   @include floating-label();
@@ -61,8 +61,7 @@
 //}
 
 ui-modal {
- @include modal-content
-}
+  @include modal-content; }
 
 .card {
   @include card; }

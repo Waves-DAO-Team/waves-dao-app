@@ -3,6 +3,7 @@ import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 import { take } from 'rxjs/operators'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { API, AppApiInterface } from '@constants'
 
 @Component({
   selector: 'ui-apply',
@@ -19,6 +20,7 @@ export class ApplyComponent implements OnInit {
 
   constructor (
     public disruptiveContractService: DisruptiveContractService,
+    @Inject(API) public readonly api: AppApiInterface,
     @Inject(DIALOG_DATA) public params: DialogParams) {
   }
 
@@ -35,10 +37,10 @@ export class ApplyComponent implements OnInit {
     //     .pipe(take(1))
     //     .subscribe((data) => {
     //       this.modalStep = 3
-    //       this.cdr.markForCheck()
+    //       // this.cdr.markForCheck()
     //     }, () => {
     //       this.modalStep = 3
-    //       this.cdr.markForCheck()
+    //       // this.cdr.markForCheck()
     //     })
     //
     //   this.modalGoTo('CLOSE')
