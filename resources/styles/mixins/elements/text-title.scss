@@ -7,16 +7,16 @@
     font-weight: 600;
     padding: 0;
   } @else if $type == h2 {
-    font-size: $font-size-large;
     color: $blue;
+    font-size: $font-size-large;
     padding: 0;
   } @else if $type == h3 {
-    padding: 0;
+    color: #000;
     font-size: $font-size-medium;
-    color: #000;
-  } @else if $type == h4 {
     padding: 0;
-    font-size: $font-size-small;
+  } @else if $type == h4 {
     color: #000;
+    font-size: $font-size-small;
+    padding: 0;
   }
 }

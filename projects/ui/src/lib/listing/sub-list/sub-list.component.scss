@@ -3,8 +3,12 @@
 @import 'mixins/elements/icon-logo';
 
 :host {
-  display: block;
+  display: none;
   padding-bottom: 3rem;
+
+  &.enable {
+    display: block;
+  }
 }
 
 .title {

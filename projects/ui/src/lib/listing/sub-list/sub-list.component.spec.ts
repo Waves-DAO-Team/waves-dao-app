@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { SubListComponent } from './sub-list.component'
 import { provideApi, provideAppConstants } from '@constants'
+import { PipesModule } from '@libs/pipes/pipes.module'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('CardComponent', () => {
   let component: SubListComponent
@@ -9,6 +11,7 @@ describe('CardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [PipesModule, getTranslocoModule()],
       declarations: [SubListComponent],
       providers: [
         provideAppConstants(),

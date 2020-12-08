@@ -20,9 +20,9 @@
   &__header {
     display: flex;
     flex-direction: row;
-    margin-bottom: 1rem;
     @media (max-width: 800px) {
       flex-direction: column;
+
       button {
         margin: $padding 0 !important;
       }
@@ -32,6 +32,11 @@
   &__title {
     flex: 1 1 auto;
     margin-bottom: 0;
+  }
+
+  &__address {
+    font-size: 0.75em;
+    margin-bottom: 1rem;
   }
 
   &__controls {

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { LoadingPageComponent } from './loading-page.component'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('LoadingPageComponent', () => {
   let component: LoadingPageComponent
@@ -8,6 +9,7 @@ describe('LoadingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [getTranslocoModule()],
       declarations: [LoadingPageComponent]
     })
       .compileComponents()

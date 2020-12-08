@@ -156,7 +156,11 @@ func voteForTaskProposal(taskId: String, voteValue: String) = {
                 throw("you need to vote like or dislike")
             } else {
                 func getValue(vote: String) = {
-                    if (vote == "like") then {1} else {-1}
+                    if (vote == "like") then {
+                        1
+                    } else {
+                        -1
+                    }
                 }
                 # Parsed in dAPP to tasks[id].voted[userId] -> integer
                 let voteKey = "tasks_"+taskId+"_voted_"+i.caller.toString()

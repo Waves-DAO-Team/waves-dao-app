@@ -12,8 +12,8 @@ describe('SignerService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule, MatSnackBarModule],
       providers: [
-        provideAppConstants(),
-        provideApi()
+        provideApi(),
+        provideAppConstants()
       ]
     })
     service = TestBed.inject(SignerService)

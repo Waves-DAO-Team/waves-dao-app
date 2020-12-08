@@ -16,11 +16,11 @@ import {
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '@services/../interface'
-import { map, tap } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { translate } from '@ngneat/transloco'
-import { BehaviorSubject, combineLatest } from 'rxjs'
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
 
 @Component({
   selector: 'ui-listing',
@@ -47,28 +47,36 @@ export class ListingComponent implements OnInit, OnDestroy {
   public readonly grantsVariationActive = '1'
   public readonly RoleEnum = RoleEnum
   public readonly GrantStatusEnum = GrantStatusEnum
-  public selectedTagName = ''
-  public selectedTagName$ = new BehaviorSubject('')
-  public listGrantStatuses: string[] = []
+  public selectedTagName$ = new BehaviorSubject('all')
 
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
-    tap(
-      (grants) => {
-        this.listGrantStatuses = []
-        this.listGrantStatuses.push('all')
-        grants.forEach((grant) => {
-          const status: string = grant.status?.value === undefined ? GrantStatusEnum.noStatus : grant.status?.value
-          if (!(this.listGrantStatuses.includes(status))) {
-            this.listGrantStatuses.push(status)
-          }
-        })
+    map((grants) => {
+      const list = Object.values(grants.reduce((origin, grant) => {
+        return {
+          ...origin,
+          ...(grant?.status?.value === undefined
+            ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus }
+            : { [grant?.status?.value]: grant?.status?.value })
+        }
+      }, {}))
+
+      if (list.length === 0) {
+        return []
       }
-    )
-  ).subscribe()
+
+      if (list.length > 1) {
+        return ['all'].concat(list as [])
+      }
+
+      return ['all']
+    })
+  )
 
   public readonly user$ = this.userService.data
 
-  public readonly otherGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
+  public readonly otherGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
+    [this.grants.data$, this.userService.data, this.selectedTagName$]
+  )
     .pipe(
       map(([grants, userServiceData, selectedTagName]) => {
         return { // all to one
@@ -124,13 +132,15 @@ export class ListingComponent implements OnInit, OnDestroy {
           })
         }
       }),
-      map((data): ContractGrantExtendedModel[] => {
-        return data.grants
+      map((data): ContractGrantExtendedModel[] | null => {
+        return data.grants.length ? data.grants : null
       })
       // tap((data) => console.log('otherGrant$', data))
     )
 
-  public readonly importantGrant$ = combineLatest([this.grants.data$, this.userService.data, this.selectedTagName$])
+  public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
+    [this.grants.data$, this.userService.data, this.selectedTagName$]
+  )
     .pipe(
       map(([grants, userServiceData, selectedTagName]) => {
         return { // all to one
@@ -171,8 +181,8 @@ export class ListingComponent implements OnInit, OnDestroy {
           })
         }
       }),
-      map((data): ContractGrantExtendedModel[] => {
-        return data.grants
+      map((data): ContractGrantExtendedModel[] | null => {
+        return data.grants.length ? data.grants : null
       })
       // tap((data) => console.log('importantGrant$', data))
     )
@@ -181,7 +191,6 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   selectedTag ($event: string) {
-    this.selectedTagName = $event
     this.selectedTagName$.next($event)
   }
 

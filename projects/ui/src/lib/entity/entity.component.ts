@@ -49,9 +49,9 @@ export class EntityComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit (): void {
-    if (this.grant?.link?.value) {
-      this.linkContentService.link$.next(this.grant.link.value)
-    }
+    // if (this.grant?.link?.value) {
+    //   this.linkContentService.link$.next(this.grant.link.value)
+    // }
   }
 
   vote (value: 'like' | 'dislike') {

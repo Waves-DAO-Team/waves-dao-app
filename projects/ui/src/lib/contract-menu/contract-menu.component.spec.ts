@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { ContractMenuComponent } from './contract-menu.component'
-import { provideApi, provideAppConstants } from '@constants'
-import { RouterTestingModule } from '@angular/router/testing'
-import { ActivatedRoute } from '@angular/router'
+import {ActivatedRoute} from "@angular/router";
+import {provideApi, provideAppConstants} from "@constants";
 
 describe('ContractMenuComponent', () => {
   let component: ContractMenuComponent
@@ -21,7 +20,7 @@ describe('ContractMenuComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ContractMenuComponent],
       imports: [{ provide: ActivatedRoute, useValue: activatedRouteMock }],
-      providers: [provideApi(), provideAppConstants()
+      providers: [     provideApi(), provideAppConstants()
 
       ]
     })

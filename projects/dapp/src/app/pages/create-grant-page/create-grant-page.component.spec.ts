@@ -7,6 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { getTranslocoModule } from '../../transloco-module.spec'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
+import { CONTRACT } from './create-grant-page.provider'
 
 describe('CreateGrantPageComponent', () => {
   let component: CreateGrantPageComponent
@@ -18,7 +20,8 @@ describe('CreateGrantPageComponent', () => {
       declarations: [CreateGrantPageComponent],
       providers: [
         provideAppConstants(),
-        provideApi()
+        provideApi(),
+        ContractProviderDefine(CONTRACT)
       ]
       // providers: [{
       //   provide: ContractService,

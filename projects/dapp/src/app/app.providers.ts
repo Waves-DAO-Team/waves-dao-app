@@ -10,6 +10,7 @@ export interface AppApiInterface {
   nodes: string
   signer: string
   rest: string
+  explorer: string
   contractAddress: string
   confirmations: number
   contracts: {

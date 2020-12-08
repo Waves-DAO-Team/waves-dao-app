@@ -1,0 +1,20 @@
+a,
+.a {
+  color: $color_waves_blue;
+  text-decoration: none;
+
+  &:hover {
+    color: $color_dark_gray;
+  }
+}
+
+.a--alt {
+  color: $color_dark_gray;
+  text-decoration: none;
+
+  &:hover {
+    color: $color_waves_blue;
+  }
+}
+
+

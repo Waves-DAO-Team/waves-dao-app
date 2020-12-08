@@ -26,11 +26,16 @@
                 <button class=""
                     [routerLink]="[constants.routes.masterSetting | route: info?.name]"
                     *ngIf="user.roles.isMaster"
-                   routerLinkActive="active"
+                    routerLinkActive="active"
                 >
                     {{ 'app.header.setting' | transloco }}
                 </button>
             </div>
+        </div>
+        <div class="listing-page__address">
+            <a class="a a--alt" [attr.href]="api.explorer + info?.type" target="_blank" rel="noopener nofollow noreferrer">
+                {{ info?.type }}
+            </a>
         </div>
 
         <div class="listing-page__description">

@@ -3,6 +3,8 @@
 @import 'mixins/elements/icon-logo';
 
 .logo {
+
+  margin-bottom: $padding * 2;
   //margin-bottom: $padding;
   text-align: center;
 
@@ -12,8 +14,6 @@
 
     text-align: center;
   }
-
-    margin-bottom: $padding * 2;
 
   //h3 {
   //  font-size: $font-size-big;

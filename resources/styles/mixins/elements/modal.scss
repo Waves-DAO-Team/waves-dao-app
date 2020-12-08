@@ -6,6 +6,7 @@
   top: 0;
   width: 100%;
   z-index: 9;
+
   &__container {
     bottom: 0;
     height: 300px;
@@ -33,19 +34,20 @@
 
     &__title {
       font-size: $font_size_h3;
-      margin-bottom: $padding;
       font-weight: 600;
+      margin-bottom: $padding;
     }
 
     &__text {
+      color: $color_black;
       font-size: $font_size_h4;
       margin-bottom: $padding * 2;
-      color: $color_black;
+
       &__center {
         font-size: $font_size_h3;
-        text-align: center;
-        margin: $padding * 2 auto;
         font-weight: bold;
+        margin: $padding * 2 auto;
+        text-align: center;
       }
     }
 
@@ -61,9 +63,9 @@
     }
 
     &__img {
+      display: block;
       margin: auto;
       text-align: center;
-      display: block;
     }
 
     a {

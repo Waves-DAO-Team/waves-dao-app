@@ -6,7 +6,9 @@
         </h1>
 
         <div class="home-page__desc">
-            {{'listing.desc.you_can_vote' | transloco}}. <span class="home-page__desc-span">{{'listing.desc.select_category' | transloco}}:</span>
+            {{'listing.desc.you_can_vote' | transloco}}. <span
+                class="home-page__desc-span">{{'listing.desc.select_category' | transloco}}
+            :</span>
         </div>
 
         <div class="home-page__grants">
@@ -14,7 +16,7 @@
                *ngFor="let grants of grantsVariationsList | async"
                [routerLink]="constants.routes.listing | route : grants?.name"
             >
-                <img class="home-page__grant-img" [src]="grants?.preview" />
+                <img class="home-page__grant-img" [src]="grants?.preview"/>
                 <span class="home-page__grant-content">
                     <span class="home-page__grant-title">{{grants?.title}}</span>
                     <span class="home-page__grant-desc">{{grants?.desc}}</span>

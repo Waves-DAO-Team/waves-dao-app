@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core'
+import { Component, HostBinding, Inject, Input, OnInit } from '@angular/core'
 import {
   ContractGrantExtendedModel,
   GrantsVariationType
@@ -12,13 +12,14 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 })
 export class SubListComponent implements OnInit {
   @Input() contract: GrantsVariationType | null = null;
-  @Input() grants: ContractGrantExtendedModel[] | null = null
+  @HostBinding('class.enable') @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false
   @Input() title: string | null = null
 
-  constructor (@Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface) {
+  constructor (
+      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+  ) {
   }
 
-  ngOnInit (): void {
-  }
+  ngOnInit (): void {}
 }

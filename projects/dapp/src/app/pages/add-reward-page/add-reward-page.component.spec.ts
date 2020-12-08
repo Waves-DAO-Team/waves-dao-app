@@ -6,6 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
+import { CONTRACT } from './add-reward-page.provider'
 
 describe('AddRewardPageComponent', () => {
   let component: AddRewardPageComponent
@@ -17,7 +19,8 @@ describe('AddRewardPageComponent', () => {
       declarations: [AddRewardPageComponent],
       providers: [
         provideAppConstants(),
-        provideApi()
+        provideApi(),
+        ContractProviderDefine(CONTRACT)
       ]
     })
       .compileComponents()

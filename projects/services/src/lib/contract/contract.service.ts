@@ -4,6 +4,7 @@ import {
   map,
   publishReplay,
   refCount,
+  skip,
   switchMap, take, withLatestFrom
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
@@ -19,6 +20,7 @@ import {
 } from './contract.model'
 import { StorageService } from '@services/storage/storage.service'
 import { TranslocoService } from '@ngneat/transloco'
+import { GrantStatusEnum } from '../../interface'
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +82,8 @@ export class ContractService {
   public refresh (address: string = this.getAddress()) {
     this.storageService.contactAddress = address
     this.contractAddress$.next(address)
+
+    return this.contractState.pipe(skip(1), take(1))
   }
 
   public switchContract (address: string) {
@@ -129,10 +133,12 @@ export class ContractService {
   public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
     return this.stream.pipe(
       map((data: ContractDataModel) => {
+        console.log('entityById', data)
         const grant: ContractGrantRawModel = data.tasks[entityId]
 
         return {
           ...grant,
+          isShowAppliers: !['', GrantStatusEnum.noStatus.toString(), GrantStatusEnum.proposed.toString()].includes(grant?.status?.value || ''),
           app: grant.app ? Object.keys(grant.app).map((appKey) => {
             return {
               ...grant?.app?.[appKey],
@@ -170,7 +176,6 @@ export class ContractService {
   getContactInfo (contactType: string): Observable<GrantsVariationType | null> {
     return this.getContactsList().pipe(
       map((contracts: GrantsVariationType[]) => {
-        console.log('>>>', contracts)
         return contracts.find((item) => item.name === contactType) || null
       })
     )
