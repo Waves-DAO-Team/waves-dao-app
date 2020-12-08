@@ -24,6 +24,7 @@ import { API, AppApiInterface } from '@constants'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { FooterComponent } from '@ui/footer/footer.component'
 import { MatDialog } from '@angular/material/dialog'
+import { ApplyComponent } from '@ui/modals/apply/apply.component'
 
 @Component({
   selector: 'ui-entity',
@@ -125,7 +126,7 @@ export class EntityComponent implements OnInit, OnDestroy {
 
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        component: FooterComponent,
+        component: ApplyComponent,
         params: {
           templateId: null
         }
