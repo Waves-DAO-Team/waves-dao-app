@@ -10,7 +10,6 @@ import { HeaderModule } from '@ui/entity/header/header.module'
 import { BodyModule } from '@ui/entity/body/body.module'
 import { ControlsModule } from '@ui/entity/controls/controls.module'
 import { TeamModule } from '@ui/entity/team/team.module'
-import { ModalModule } from '@ui/modal/modal.module'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -31,10 +30,8 @@ describe('EntityComponent', () => {
         BodyModule,
         ControlsModule,
         TeamModule,
-        ModalModule,
         MarkdownModule,
         ReactiveFormsModule,
-        LinkContentModule
       ],
       declarations: [EntityComponent],
       providers: [UserService, provideApi(), provideAppConstants(), MarkdownService, {
