@@ -9,6 +9,7 @@ import { HeaderModule } from '@ui/entity/header/header.module'
 import { BodyModule } from '@ui/entity/body/body.module'
 import { ControlsModule } from '@ui/entity/controls/controls.module'
 import { TeamModule } from '@ui/entity/team/team.module'
+import { LinkContentModule } from '@services/link-content/link-content.module'
 
 @NgModule({
   declarations: [EntityComponent],
@@ -22,7 +23,8 @@ import { TeamModule } from '@ui/entity/team/team.module'
     BodyModule,
     ControlsModule,
     TeamModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LinkContentModule
   ],
   exports: [EntityComponent]
 })

@@ -14,6 +14,7 @@ import { ModalModule } from '@ui/modal/modal.module'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
 import { ReactiveFormsModule } from '@angular/forms'
+import { LinkContentModule } from '@services/link-content/link-content.module'
 describe('EntityComponent', () => {
   let component: EntityComponent
   let fixture: ComponentFixture<EntityComponent>
@@ -31,7 +32,8 @@ describe('EntityComponent', () => {
         TeamModule,
         ModalModule,
         MarkdownModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        LinkContentModule
       ],
       declarations: [EntityComponent],
       providers: [UserService, provideApi(), provideAppConstants(), MarkdownService, {

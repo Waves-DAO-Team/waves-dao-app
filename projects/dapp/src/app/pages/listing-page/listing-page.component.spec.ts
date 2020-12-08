@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-
 import { ListingPageComponent } from './listing-page.component'
 import { ContractService } from '@services/contract/contract.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'

@@ -1,92 +1,33 @@
-<div class="container">
+<div class="container" *ngIf="contract.data$ | async as contract else loadingOrErrorTemplate">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
       <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid">
+
     <div class="logo">
       <div class="icon-logo"></div>
-      <h2>{{'about.waves_grant' | transloco}}</h2>
-      <a href="https://github.com/rieset/waves-grants">
+      <h2>{{ contract?.title }}</h2>
+      <a target="_blank" rel="noopener nofollow noreferrer" [attr.href]="contract.about">
         {{'about.github' | transloco}}
       </a>
     </div>
-    <h3>Waves Association inaugurates DAO</h3>
-    <p>One of the areas of activity for the Waves Association is distribution of grants for developing solutions that
-      help grow out the Waves ecosystem and foster mass adoption of blockchain-based solutions.</p>
-    <p>Over the last few months, the association’s Funding & Grants Working Group (FGWG) has been busy developing a tool
-      that would enable decision making in a structured and transparent form. A tool of this kind is especially vital
-      for avoiding association members’ possible opportunism in decisions on funding distribution.</p>
-    <p>Previous work in the area of decentralized autonomous organizations (DAO), analyzed in <a href="https://medium.com/wavesprotocol/dao-2020-whats-missing-b717c4c64232">my article “DAO-2020”,</a>  was
-      chosen as a basis for the creation of the association’s decision making tool. Analyzing the experience of earlier
-      projects, FGWG came up with a new concept of a DAO that will facilitate association members’ input in decision
-      making. In addition, the association’s DAO model employs the “Wisdom of the crowd” principle, under which
-      association members’ opinions are not just collected, but the expert value of them is used.</p>
 
-    <h3>DAO functionality</h3>
-    <p>To understand the DAO decision making process, let’s consider member roles.</p>
-    <p><strong>DAO Owner</strong> is the secretary in the Waves Association and DAO administrator.</p>
-    <p><strong>DAO Board</strong> consists of association board members, whitelisted individuals who have an additional opportunity to
-      validate a proposal.</p>
-    <p><strong>DAO Member</strong> is a member of the Waves Association, a whitelisted individual who can vote. For a decision to be
-      passed, the DAO needs at least 50% of the votes.</p>
-    <p><strong>Working Group Member</strong> is a member of the Waves Association’s working group, a whitelisted individual who is
-      responsible for managing tasks, votes and <strong>performers</strong>.</p>
-    <p><strong>Performer</strong> is an outside developer who implements a task funded by the DAO.</p>
-    <p>The Waves DAO is an example of a multi-layer DAO, in which participants are involved in the decision making flow
-      in different ways. Let’s consider the decision making flow on the example of the Disruptive Tech Grant.</p>
+    <markdown [data]="content$ | async"></markdown>
 
-    <h3>Decision-making flow</h3>
-    <p>The following individuals take part in making decisions on releasing Disruptive Tech Grants: DAO Owner (DO), DAO
-      Member (DM), DAO Board (DB), Working Group Member (WG) and Performer (PE).</p>
-    <p>The decision making logic looks like this:</p>
-    <p> Setting the DAO</p>
-    <ol>
-      <li>DO: sets the DM list (addDAOMember)</li>
-      <li>DO: sets the WG list (addGroupMember)</li>
-    </ol>
-    <p>Making funding decisions</p>
-    <ol>
-      <li>WG: proposes a task (addTask)</li>
-      <li>WG: adds the task description and reward amount (addTaskDetails)</li>
-      <li>DM: votes on whether the task is needed (voteForTaskProposal)</li>
-      <li>WG: finishes voting on the task (finishTaskProposalVoting)</li>
-      <li>PE: applies for performing the task (applyForTask)</li>
-      <li>DM: votes on task applicants to select the performer (voteForApplicant)</li>
-      <li>WG: finishes performer selection (finishApplicantsVoting)</li>
-      <li>PE: starts work on the task (startWork)</li>
-      <li>PE & WG: are involved in off-chain communication</li>
-      <li>WG: accepts a solution and pays a reward (acceptWorkResult)</li>
-    </ol>
-    <p>This step-by-step process allows Waves Association experts to make a decision on funding a specific project by
-      combining their opinions. Each expert’s vote is stored on the blockchain forever, which is a motivation for honest
-      voting. All applicants can observe the decision making process and be sure that their application was properly
-      considered. Overall, this transparent and reliable model enables all participants of the process to understand
-      their role, motivating them to be active. Meanwhile, the community can observe the entire picture of funding
-      distribution and the Waves ecosystem development strategy.</p>
-    <h3>DAO development prospects</h3>
-    <p>The first grant distribution round run through the DAO <a href="https://wavesassociation.org/grants">is scheduled for</a> November 2020. To lower the DAO entry
-      threshold, by that time, a user-friendly interface will be built. It will enable association members to
-      participate in the decision making process by voting, while any member will be able to see the transparency of the
-      funding distribution process. Currently, the DAO interface is available as <a href="https://waves-dapp.com/3MsJ87eiwhT5eUMCmwjVm7VqP74qs48RheF">an auto generated dApp UI</a>, which can’t
-      be used on a large scale.</p>
-    <p>The Waves DAO is expected to emerge as a platform where all grants available for application will be displayed,
-      as well implementation processes of funded projects and the association’s role.</p>
-    <p>Also, I would like to share my strategic vision of Waves DAO. By now, a high-quality enthusiast community has
-      been formed whose members really care about Waves. Potentially, it would be good to make the DAO a place where
-      various individuals interested in Waves’ progress, not necessarily association members, could have an impact on
-      decision making by voting.</p>
-    <p class="blockquote">Therefore, the main direction for the Waves Association DAO future development will be engaging the community and
-      raising its involvement in making decisions on strategic development and project funding.</p>
-    <p>...</p>
-    <p>The Waves Association DAO is an innovative decision making tool that can make governance processes not just
-      transparent, but much more efficient, combining the participants’ expertise.</p>
-    <p>As a decision making tool within the Waves Association, the DAO will ensure transparent and reliable distribution
-      of project funding, which, in turn, will speed up the development of the entire ecosystem and all of its
-      projects.</p>
-    <p>Check the source code and leave your feedback in the Waves DAO repository: <a href="https://github.com/vlzhr/WavesDAO">github.com/vlzhr/WavesDAO</a>.</p>
   </div>
   <div class="container__right">
   </div>
 </div>
+
+<ng-template #loadingOrErrorTemplate>
+  <ng-container *ngIf="contract.error$ | async; else loading">
+    <app-not-found-page></app-not-found-page>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <app-loading-page></app-loading-page>
+</ng-template>
+

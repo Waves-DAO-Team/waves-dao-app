@@ -19,7 +19,7 @@
       ></ui-controls>
 
       <ui-body
-        [md]="linkContentService.mdTextStream$ | async"
+        [md]="grant?.link?.value | linkContent | async"
         [link]="grant?.link?.value"
         [grant]="grant"
       ></ui-body>

@@ -9,6 +9,8 @@ import { Location } from '@angular/common'
 import { ABOUT_PAGE_PROVIDERS, CONTRACT } from './about-page.provider'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import { GrantsVariationType } from '@services/contract/contract.model'
+import { LinkContentService } from '@services/link-content/link-content.service'
+import { switchMap } from 'rxjs/operators'
 
 @Component({
   selector: 'app-about-page',
@@ -18,8 +20,16 @@ import { GrantsVariationType } from '@services/contract/contract.model'
   providers: ABOUT_PAGE_PROVIDERS
 })
 export class AboutPageComponent implements OnInit, OnDestroy {
+  public readonly content$ = this.contract.data$.pipe(
+    switchMap((contractInfo) => {
+      console.log('DATA', contractInfo)
+      return this.linkContentService.getContent(contractInfo.about)
+    })
+  )
+
   constructor (
       private readonly location: Location,
+      public linkContentService: LinkContentService,
       @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType>
   ) {}
 

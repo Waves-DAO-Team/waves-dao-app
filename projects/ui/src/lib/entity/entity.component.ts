@@ -18,7 +18,7 @@ import { ModalComponent } from '@ui/modal/modal.component'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { take, takeUntil } from 'rxjs/operators'
+import { take } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
@@ -44,11 +44,11 @@ export class EntityComponent implements OnInit, OnDestroy {
   @DestroyedSubject() private readonly destroyed$!: Subject<null>;
 
   reportLink = '';
-  mdText$ = this.linkContentService.mdText$
-    .pipe(takeUntil(this.destroyed$))
-    .subscribe(() => {
-      this.cdr.markForCheck()
-    })
+  // mdText$ = this.linkContentService.mdText$
+  //   .pipe(takeUntil(this.destroyed$))
+  //   .subscribe(() => {
+  //     this.cdr.markForCheck()
+  //   })
 
   modalStep: 1 | 2 | 3 = 1
 
@@ -66,9 +66,9 @@ export class EntityComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit (): void {
-    if (this.grant?.link?.value) {
-      this.linkContentService.link$.next(this.grant.link.value)
-    }
+    // if (this.grant?.link?.value) {
+    //   this.linkContentService.link$.next(this.grant.link.value)
+    // }
   }
 
   vote (value: 'like' | 'dislike') {
