@@ -27,8 +27,7 @@ import { DialogComponent } from '@ui/dialog/dialog.component'
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DialogComponent
+    AppComponent
   ],
   imports: [
     MatDialogModule,
