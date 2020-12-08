@@ -14,6 +14,9 @@ import { take } from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { ApplyComponent } from '@ui/modals/apply/apply.component'
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'ui-team',
@@ -28,6 +31,7 @@ export class TeamComponent implements OnInit {
   @Output() openApplyModal = new EventEmitter<boolean>()
 
   constructor (
+    private dialog: MatDialog,
       public userService: UserService,
       public disruptiveContractService: DisruptiveContractService,
       public signerService: SignerService,
@@ -54,7 +58,15 @@ export class TeamComponent implements OnInit {
   }
 
   onOpenApplyModal () {
-    this.openApplyModal.emit(true)
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        component: ApplyComponent,
+        params: {
+          templateId: null,
+          grant: this.grant
+        }
+      }
+    })
   }
 
   signup () {

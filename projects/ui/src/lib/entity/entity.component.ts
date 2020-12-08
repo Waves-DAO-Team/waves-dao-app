@@ -113,24 +113,4 @@ export class EntityComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy () {}
-
-  openAlertDialog () {
-    // const dialogRef = this.dialog.open(DialogComponent, {
-    //   data: {
-    //     message: 'HelloWorld',
-    //     buttonText: {
-    //       cancel: 'Done'
-    //     }
-    //   }
-    // })
-
-    const dialogRef = this.dialog.open(DialogComponent, {
-      data: {
-        component: ApplyComponent,
-        params: {
-          templateId: null
-        }
-      }
-    })
-  }
 }
