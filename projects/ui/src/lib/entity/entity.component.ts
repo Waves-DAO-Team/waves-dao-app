@@ -14,7 +14,6 @@ import {
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '../../../../services/src/interface'
-import { ModalComponent } from '@ui/modal/modal.component'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
@@ -22,6 +21,9 @@ import { take, takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { FooterComponent } from '@ui/footer/footer.component'
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'ui-entity',
@@ -37,7 +39,6 @@ export class EntityComponent implements OnInit, OnDestroy {
   public grantStatusEnum = GrantStatusEnum
   public userRoleEnum = RoleEnum
   public isDAOVote = false
-  @ViewChild(ModalComponent) public readonly modal?: ModalComponent
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
@@ -58,6 +59,7 @@ export class EntityComponent implements OnInit, OnDestroy {
   })
 
   constructor (
+    private dialog: MatDialog,
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
     public linkContentService: LinkContentService,
@@ -94,7 +96,7 @@ export class EntityComponent implements OnInit, OnDestroy {
   }
 
   openApplyModal ($event: boolean): void {
-    this.modal?.openModal()
+    // this.modal?.openModal()
     this.modalStep = 1
   }
 
@@ -110,4 +112,24 @@ export class EntityComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy () {}
+
+  openAlertDialog () {
+    // const dialogRef = this.dialog.open(DialogComponent, {
+    //   data: {
+    //     message: 'HelloWorld',
+    //     buttonText: {
+    //       cancel: 'Done'
+    //     }
+    //   }
+    // })
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        component: FooterComponent,
+        params: {
+          templateId: null
+        }
+      }
+    })
+  }
 }

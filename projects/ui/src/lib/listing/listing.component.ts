@@ -36,7 +36,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   @Input() contract: GrantsVariationType | null = null;
 
   constructor (
-    private dialog: MatDialog,
+
     public cdr: ChangeDetectorRef,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     @Inject(API) public readonly api: AppApiInterface,
@@ -209,25 +209,5 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy () {
     this.grants.destroy()
-  }
-
-  openAlertDialog () {
-    // const dialogRef = this.dialog.open(DialogComponent, {
-    //   data: {
-    //     message: 'HelloWorld',
-    //     buttonText: {
-    //       cancel: 'Done'
-    //     }
-    //   }
-    // })
-
-    const dialogRef = this.dialog.open(DialogComponent, {
-      data: {
-        component: FooterComponent,
-        params: {
-          templateId: null
-        }
-      }
-    })
   }
 }
