@@ -23,6 +23,7 @@ import { translate } from '@ngneat/transloco'
 import { BehaviorSubject, combineLatest } from 'rxjs'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { MatDialog } from '@angular/material/dialog'
+import { FooterComponent } from '@ui/footer/footer.component'
 
 @Component({
   selector: 'ui-listing',
@@ -211,11 +212,20 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   openAlertDialog () {
+    // const dialogRef = this.dialog.open(DialogComponent, {
+    //   data: {
+    //     message: 'HelloWorld',
+    //     buttonText: {
+    //       cancel: 'Done'
+    //     }
+    //   }
+    // })
+
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        message: 'HelloWorld',
-        buttonText: {
-          cancel: 'Done'
+        component: FooterComponent,
+        params: {
+          templateId: null
         }
       }
     })

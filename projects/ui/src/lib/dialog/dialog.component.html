@@ -1,6 +1,10 @@
 <h2 mat-dialog-title>Install Angular</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Develop across all platforms</h3>
+  <div class="dialog">
+    <mat-dialog-content>
+      <ng-container *ngComponentOutlet="component; injector: injectorData"></ng-container>
+    </mat-dialog-content>
+  </div>
 
   </mat-dialog-content>
 <mat-dialog-actions align="end">
