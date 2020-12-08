@@ -21,7 +21,5 @@ export class SubListComponent implements OnInit {
   ) {
   }
 
-  ngOnInit (): void {
-    console.log('grants', this.grants)
-  }
+  ngOnInit (): void {}
 }

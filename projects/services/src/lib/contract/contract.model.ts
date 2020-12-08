@@ -66,7 +66,7 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   vh?: ContractGrantRawModel;
   performer?: ContractRawDataString,
   link?: ContractRawDataString;
-  isShowAppliers: boolean
+  isShowAppliers?: boolean
 }
 
 export interface ContractGrantExtendedModel extends ContractGrantModel {
