@@ -58,11 +58,10 @@ export class TeamComponent implements OnInit {
   }
 
   onOpenApplyModal () {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
         params: {
-          templateId: null,
           grant: this.grant
         }
       }

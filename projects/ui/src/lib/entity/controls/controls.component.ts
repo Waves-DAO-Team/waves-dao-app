@@ -22,7 +22,6 @@ import { GrantsVariationType } from '@services/contract/contract.model'
 })
 export class ControlsComponent implements OnInit {
   grantStatusEnum = GrantStatusEnum
-  userRoleEnum = RoleEnum
 
   @Input() public contract!: GrantsVariationType
   @Input() public status: string | null = null
@@ -30,7 +29,6 @@ export class ControlsComponent implements OnInit {
   @Input() public role: string | null = null
   @Input() public voted: string | null = null
   @Input() public performer: string | null = null
-  @Output() public openApplyModal = new EventEmitter<boolean>()
 
   reportLink = ''
 

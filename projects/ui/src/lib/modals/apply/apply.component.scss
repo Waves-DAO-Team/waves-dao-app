@@ -16,3 +16,12 @@
   @include floating-label();
   margin-bottom: $padding * 2;
 }
+
+.modal-content__step {
+  max-width: 100%;
+  width: 400px;
+}
+
+form {
+  max-width: 400px;
+}
