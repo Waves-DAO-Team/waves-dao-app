@@ -21,6 +21,8 @@ import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { translate } from '@ngneat/transloco'
 import { BehaviorSubject, combineLatest } from 'rxjs'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'ui-listing',
@@ -33,6 +35,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   @Input() contract: GrantsVariationType | null = null;
 
   constructor (
+    private dialog: MatDialog,
     public cdr: ChangeDetectorRef,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     @Inject(API) public readonly api: AppApiInterface,
@@ -205,5 +208,16 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy () {
     this.grants.destroy()
+  }
+
+  openAlertDialog () {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        message: 'HelloWorld',
+        buttonText: {
+          cancel: 'Done'
+        }
+      }
+    })
   }
 }

@@ -22,12 +22,16 @@ import { PipesModule } from '@libs/pipes/pipes.module'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MarkdownModule } from 'ngx-markdown'
 import { ContractMenuModule } from '@ui/contract-menu/contract-menu.module'
+import { MatDialogModule } from '@angular/material/dialog'
+import { DialogComponent } from '@ui/dialog/dialog.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogComponent
   ],
   imports: [
+    MatDialogModule,
     BrowserModule,
     AppRoutingModule,
     NgProgressModule,

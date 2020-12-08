@@ -6,6 +6,7 @@ import { PipesModule } from '@libs/pipes/pipes.module'
 import { TranslocoModule } from '@ngneat/transloco'
 import { TagModule } from '@ui/tag/tag.module'
 import { SubListModule } from '@ui/listing/sub-list/sub-list.module'
+import { MatDialogModule } from '@angular/material/dialog'
 
 @NgModule({
   declarations: [ListingComponent],
@@ -15,7 +16,8 @@ import { SubListModule } from '@ui/listing/sub-list/sub-list.module'
     TranslocoModule,
     PipesModule,
     TagModule,
-    SubListModule
+    SubListModule,
+    MatDialogModule
   ],
   exports: [ListingComponent]
 })
