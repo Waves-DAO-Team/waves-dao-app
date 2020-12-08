@@ -1,6 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { ApplyComponent } from './apply.component'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideApi, provideAppConstants } from '@constants'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
+import { RouterTestingModule } from '@angular/router/testing'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('ApplyComponent', () => {
   let component: ApplyComponent
@@ -8,7 +14,12 @@ describe('ApplyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ApplyComponent]
+      declarations: [ApplyComponent],
+      imports: [HttpClientTestingModule, getTranslocoModule(), RouterTestingModule],
+      providers: [
+        provideAppConstants(),
+        provideApi()
+      ]
     })
       .compileComponents()
   })

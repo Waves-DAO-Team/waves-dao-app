@@ -9,9 +9,8 @@ import { HeaderModule } from '@ui/entity/header/header.module'
 import { BodyModule } from '@ui/entity/body/body.module'
 import { ControlsModule } from '@ui/entity/controls/controls.module'
 import { TeamModule } from '@ui/entity/team/team.module'
-import { ApplyModule } from '@ui/modals/apply/apply.module'
-import { ApplyComponent } from '@ui/modals/apply/apply.component'
 import { DialogModule } from '@ui/dialog/dialog.module'
+import { ApplyModule } from '@ui/modals/apply/apply.module'
 
 @NgModule({
   declarations: [EntityComponent],
@@ -25,7 +24,8 @@ import { DialogModule } from '@ui/dialog/dialog.module'
     ControlsModule,
     TeamModule,
     ReactiveFormsModule,
-    DialogModule
+    DialogModule,
+    ApplyModule
   ],
   exports: [EntityComponent]
 })

@@ -4,7 +4,6 @@ import { ApplyComponent } from './apply.component'
 
 import { ReactiveFormsModule } from '@angular/forms'
 import { TranslocoModule } from '@ngneat/transloco'
-import { DialogModule } from '@ui/dialog/dialog.module'
 
 @NgModule({
   declarations: [ApplyComponent],

@@ -4,6 +4,7 @@ import { FooterComponent } from './footer.component'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { provideApi, provideAppConstants } from '@constants'
 import { RouterTestingModule } from '@angular/router/testing'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('FooterComponent', () => {
   let component: FooterComponent
@@ -11,7 +12,7 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [getTranslocoModule(), HttpClientTestingModule, RouterTestingModule],
       declarations: [FooterComponent],
       providers: [
         provideAppConstants(),

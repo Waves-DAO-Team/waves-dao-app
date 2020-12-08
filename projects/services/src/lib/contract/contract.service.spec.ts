@@ -4,13 +4,14 @@ import { provideApi, provideAppConstants } from '@constants'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { StorageService } from '@services/storage/storage.service'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('ContractService', () => {
   let service: ContractService
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, getTranslocoModule()],
       providers: [
         StorageService,
         provideAppConstants(),

@@ -21,9 +21,6 @@ import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { translate } from '@ngneat/transloco'
 import { BehaviorSubject, combineLatest } from 'rxjs'
-import { DialogComponent } from '@ui/dialog/dialog.component'
-import { MatDialog } from '@angular/material/dialog'
-import { FooterComponent } from '@ui/footer/footer.component'
 
 @Component({
   selector: 'ui-listing',

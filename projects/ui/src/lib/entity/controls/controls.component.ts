@@ -2,14 +2,11 @@ import {
   Component,
   Input,
   OnInit,
-  Output,
-  EventEmitter,
   ChangeDetectionStrategy,
   Inject
 } from '@angular/core'
 import { GrantStatusEnum } from '../../../../../services/src/interface'
 import { UserService } from '@services/user/user.service'
-import { RoleEnum } from '@services/user/user.interface'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { GrantsVariationType } from '@services/contract/contract.model'

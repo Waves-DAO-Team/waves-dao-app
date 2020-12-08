@@ -4,8 +4,7 @@ import {
   Component, Inject,
   Input,
   OnDestroy,
-  OnInit,
-  ViewChild
+  OnInit
 } from '@angular/core'
 import {
   ContractGrantModel,
@@ -15,16 +14,10 @@ import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
 import { GrantStatusEnum } from '../../../../services/src/interface'
 import { LinkContentService } from '@services/link-content/link-content.service'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { take, takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
-import { DialogComponent } from '@ui/dialog/dialog.component'
-import { FooterComponent } from '@ui/footer/footer.component'
-import { MatDialog } from '@angular/material/dialog'
-import { ApplyComponent } from '@ui/modals/apply/apply.component'
 
 @Component({
   selector: 'ui-entity',

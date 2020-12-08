@@ -3,11 +3,11 @@ import {
   ComponentRef,
   EventEmitter,
   Inject,
-  Injector,
-  OnInit
+  Injector
 } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { DIALOG_DATA } from '@ui/dialog/dialog.tokens'
+import { ApplyComponent } from '@ui/modals/apply/apply.component'
 
 @Component({
   selector: 'ui-dialog',
@@ -15,26 +15,20 @@ import { DIALOG_DATA } from '@ui/dialog/dialog.tokens'
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent {
-  onConfirmClick (): void {
-    this.dialogRef.close(true)
-  }
-
   public close: EventEmitter<boolean> = new EventEmitter();
-
   public injectorData: Injector;
-  public component: ComponentRef<any> | undefined;
+  public component: ComponentRef<ApplyComponent> | undefined = undefined;
 
   constructor (
-      public dialogRef: MatDialogRef<DialogComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: {
-        component: ComponentRef<any>
-        params: {
-          templateId?: string
-        }
-      },
-      private injector: Injector
+    public dialogRef: MatDialogRef<DialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      component: ComponentRef<ApplyComponent>
+      params: {
+        templateId?: string
+      }
+    },
+    private injector: Injector
   ) {
-    console.log('data', data)
     this.component = data.component
     this.injectorData = Injector.create({
       providers: [
@@ -49,6 +43,4 @@ export class DialogComponent {
       parent: injector
     })
   }
-
-  ngOnInit (): void {}
 }

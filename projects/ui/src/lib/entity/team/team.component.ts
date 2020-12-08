@@ -32,11 +32,11 @@ export class TeamComponent implements OnInit {
 
   constructor (
     private dialog: MatDialog,
-      public userService: UserService,
-      public disruptiveContractService: DisruptiveContractService,
-      public signerService: SignerService,
-      private snackBar: MatSnackBar,
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    public userService: UserService,
+    public disruptiveContractService: DisruptiveContractService,
+    public signerService: SignerService,
+    private snackBar: MatSnackBar,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
   }
 
