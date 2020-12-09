@@ -7,6 +7,7 @@ import {CommunityContractService} from "@services/contract/community-contract.se
 export interface DialogParams {
   templateId?: string,
   title?: string,
+  submitBtnText?: string,
   grant?: ContractGrantModel,
   dialogRef: MatDialogRef<DialogComponent>
   contractService?: CommunityContractService

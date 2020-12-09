@@ -33,7 +33,8 @@ export class Web3TemplateComponent implements OnInit {
         component: ProposeGrantComponent,
         params: {
           title: "Web3TemplateComponent modal",
-          contractService: this.communityContractService
+          contractService: this.communityContractService,
+          submitBtnText: "Web3TemplateComponent Apply btn"
         }
       }
     })
