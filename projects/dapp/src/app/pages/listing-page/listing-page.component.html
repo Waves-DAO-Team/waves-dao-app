@@ -1,7 +1,6 @@
 <div class="container listing-page"
     *ngIf="contract.data$ | async as contract; else loadingOrErrorTemplate">
     <div class="container__mid" [ngSwitch]="contract.name">
-
         <!-- Example variant -->
          <ng-template ngSwitchCase="web3">
              <app-web3-template

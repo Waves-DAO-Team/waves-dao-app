@@ -5,16 +5,16 @@
         {{ contract?.banner }}
     </h3>
 </div>
-
 <div class="listing-page__header">
     <h1 class="listing-page__title">{{ contract?.title }}</h1>
 
     <div class="listing-page__controls">
+<!--      [routerLink]="[constants.routes.createGrant | route: contract?.name]"-->
         <button
                 class="active"
-                [routerLink]="[constants.routes.createGrant | route: contract?.name]"
                 *ngIf="contract.permissionCreateGrant"
                 routerLinkActive="active"
+                (click)="onProposeGrant()"
         >
             {{ 'app.controls.proposeGrant' | transloco }}
         </button>

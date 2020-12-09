@@ -1,12 +1,14 @@
-<!--<h2 mat-dialog-title>Install Angular</h2>-->
+<h2 mat-dialog-title *ngIf="data.params?.title">{{data.params.title}}</h2>
 <mat-dialog-content class="mat-typography">
+
   <div class="dialog">
     <mat-dialog-content>
+      <br *ngIf="data.params?.title">
       <ng-container *ngComponentOutlet="component; injector: injectorData"></ng-container>
     </mat-dialog-content>
   </div>
 
-  </mat-dialog-content>
+</mat-dialog-content>
 <!--<mat-dialog-actions align="end">-->
 <!--  <button mat-button mat-dialog-close>Cancel</button>-->
 <!--  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>-->

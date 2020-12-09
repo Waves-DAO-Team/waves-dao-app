@@ -1,0 +1,17 @@
+@import 'const';
+@import 'container';
+//@import 'mixins/elements/form';
+@import 'mixins/elements/floating-label';
+@import 'mixins/elements/btn-container';
+
+.btn-container.full {
+  @include btn-container(full);
+}
+
+form {
+  //@include form;
+  .input {
+    @include floating-label();
+    margin-bottom: $padding * 2;
+  }
+}

@@ -78,7 +78,7 @@ export class ContractService {
     @Inject(API) private readonly api: AppApiInterface
   ) {}
 
-  public refresh (address: string = this.getAddress()) {
+  public refresh (address: string = this.getAddress()): Observable<ContractDataModel> {
     this.storageService.contactAddress = address
     this.contractAddress$.next(address)
 

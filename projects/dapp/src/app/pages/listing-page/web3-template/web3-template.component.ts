@@ -1,7 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { UserDataInterface } from '@services/user/user.interface'
-import { GrantsVariationType } from '@services/contract/contract.model'
-import { AppApiInterface, AppConstantsInterface } from '@constants'
+import {Component, Input, OnInit} from '@angular/core'
+import {UserDataInterface} from '@services/user/user.interface'
+import {GrantsVariationType} from '@services/contract/contract.model'
+import {AppApiInterface, AppConstantsInterface} from '@constants'
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "@ui/dialog/dialog.component";
+import {ApplyComponent} from "@ui/modals/apply/apply.component";
+import {ProposeGrantComponent} from "@ui/modals/propose-grant/propose-grant.component";
+import {CommunityContractService} from "@services/contract/community-contract.service";
 
 @Component({
   selector: 'app-web3-template',
@@ -17,8 +22,22 @@ export class Web3TemplateComponent implements OnInit {
 
   @Input() public readonly api!: AppApiInterface;
 
-  constructor () { }
+  constructor(private dialog: MatDialog, public communityContractService: CommunityContractService) {
+  }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
+  }
+
+  onProposeGrant() {
+    // console.log('this.communityContractService', this.communityContractService.addTask())
+    this.dialog.open(DialogComponent, {
+      data: {
+        component: ProposeGrantComponent,
+        params: {
+          title: "Web3TemplateComponent modal",
+          contractService: this.communityContractService
+        }
+      }
+    })
   }
 }

@@ -5,9 +5,9 @@ import {
   Inject,
   Injector
 } from '@angular/core'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { DIALOG_DATA } from '@ui/dialog/dialog.tokens'
-import { ApplyComponent } from '@ui/modals/apply/apply.component'
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
+import {DIALOG_DATA} from '@ui/dialog/dialog.tokens'
+import {ApplyComponent} from '@ui/modals/apply/apply.component'
 
 @Component({
   selector: 'ui-dialog',
@@ -19,12 +19,13 @@ export class DialogComponent {
   public injectorData: Injector;
   public component: ComponentRef<ApplyComponent> | undefined = undefined;
 
-  constructor (
+  constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       component: ComponentRef<ApplyComponent>
       params: {
-        templateId?: string
+        templateId?: string,
+        title?: string
       }
     },
     private injector: Injector
