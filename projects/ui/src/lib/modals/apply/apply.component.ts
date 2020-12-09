@@ -37,15 +37,16 @@ export class ApplyComponent implements OnInit {
 
   onSubmitApplyGrantForm (): void {
     if (this.grant?.id && this.applyGrantForm?.value?.team && this.applyGrantForm?.value?.link) {
-      this.disruptiveContractService.applyForTask(this.grant?.id, this.applyGrantForm?.value?.team, this.applyGrantForm?.value?.link)
-        .pipe(take(1))
-        .subscribe((data) => {
-          this.modalStep = 3
-          // this.cdr.markForCheck()
-        }, () => {
-          this.modalStep = 3
-          // this.cdr.markForCheck()
+
+      if (this.params.submitCallBack){
+        this.params.submitCallBack( {
+          id: this.grant?.id,
+          team: this.applyGrantForm?.value?.team,
+          link: this.applyGrantForm?.value?.link
         })
+      }
+
+
       this.modalGoTo('CLOSE')
     }
   }

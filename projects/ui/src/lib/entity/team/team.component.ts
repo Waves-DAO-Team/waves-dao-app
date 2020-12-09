@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { ApplyComponent } from '@ui/modals/apply/apply.component'
 import { MatDialog } from '@angular/material/dialog'
+import {submitCallBackApplyArg} from "@ui/dialog/dialog.tokens";
 
 @Component({
   selector: 'ui-team',
@@ -29,7 +30,7 @@ export class TeamComponent implements OnInit {
 
   @Output() openApplyModal = new EventEmitter<boolean>()
 
-  constructor (
+  constructor(
     private dialog: MatDialog,
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
@@ -39,38 +40,44 @@ export class TeamComponent implements OnInit {
   ) {
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
   }
 
-  voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
+  voteTeam(voteValue: 'like' | 'dislike', teamIdentifier: string) {
     if (this.grant?.status?.value === this.grantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, teamIdentifier, voteValue)
     }
   }
 
-  isReadyToApply (): boolean {
+  isReadyToApply(): boolean {
     return this.grant?.status?.value === this.grantStatusEnum.readyToApply
   }
 
-  isDAO (): boolean {
+  isDAO(): boolean {
     return this.userService.data.getValue().roles.isDAO
   }
 
-  onOpenApplyModal () {
+  onOpenApplyModal() {
     this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
         params: {
-          grant: this.grant
+          grant: this.grant,
+          submitCallBack: (data: submitCallBackApplyArg) => {
+            this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
+              .pipe(take(1))
+              .subscribe()
+          }
         }
       }
     })
   }
 
-  signup () {
+  signup() {
     this.signerService.login()
       .pipe(take(1))
-      .subscribe(() => {}, (error) => {
+      .subscribe(() => {
+      }, (error) => {
         this.snackBar.open(error, translate('messages.ok'))
       })
   }

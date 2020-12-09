@@ -7,6 +7,7 @@ import {DialogComponent} from "@ui/dialog/dialog.component";
 import {ProposeGrantComponent} from "@ui/modals/propose-grant/propose-grant.component";
 import {CommunityContractService} from "@services/contract/community-contract.service";
 import {translate} from "@ngneat/transloco";
+import {submitCallBackProposeArg} from "@ui/dialog/dialog.tokens";
 
 @Component({
   selector: 'app-web3-template',
@@ -36,9 +37,9 @@ export class Web3TemplateComponent implements OnInit {
         params: {
           title: translate('modal.texts.propose_web_grant'),
           submitBtnText: translate('modal.btn.propose_grant'),
-          submitCallBack: (name: string, link: string) => {
-            console.log('communityContractService submitCallBack', name, link)
-            this.communityContractService.addTask(name, link)
+          submitCallBack: (data: submitCallBackProposeArg) => {
+            console.log('communityContractService submitCallBack', data.name, data.link)
+            this.communityContractService.addTask(data.name, data.link)
           }
         }
       }

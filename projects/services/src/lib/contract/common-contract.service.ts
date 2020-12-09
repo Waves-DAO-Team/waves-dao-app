@@ -61,25 +61,24 @@ export class CommonContractService {
   }
 
   public addTask (taskName: string, link: string) {
-    console.log('---ADD TASK')
-    // return this.signerService.invokeProcess(
-    //   this.contractService.getAddress(),
-    //   'addTask',
-    //   [
-    //     { type: 'string', value: taskName },
-    //     { type: 'string', value: link }
-    //   ]
-    // )
-    //   .pipe(
-    //     catchError((error) => {
-    //       this.snackBar.open(error.message, translate('messages.ok'))
-    //       return EMPTY
-    //     }),
-    //     tap((e) => {
-    //       this.contractService.refresh()
-    //       this.snackBar.open('Transaction is complete', translate('messages.ok'))
-    //     })
-    //   )
+    return this.signerService.invokeProcess(
+      this.contractService.getAddress(),
+      'addTask',
+      [
+        { type: 'string', value: taskName },
+        { type: 'string', value: link }
+      ]
+    )
+      .pipe(
+        catchError((error) => {
+          this.snackBar.open(error.message, translate('messages.ok'))
+          return EMPTY
+        }),
+        tap((e) => {
+          this.contractService.refresh()
+          this.snackBar.open('Transaction is complete', translate('messages.ok'))
+        })
+      )
   }
 
   public addReward (taskId: string, reward: string) {
