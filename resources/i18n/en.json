@@ -4,17 +4,21 @@
     "header": {
       "home": "Home",
       "about": "About",
-      "setting": "Setting",
-      "create": "Create",
       "stylesheet": "Stylesheet",
       "signup": "Signup",
       "login": "Log in",
       "logout": "Logout",
-      "createGrant": "Create grant",
       "members": "Members"
     },
     "navigation": {
       "back": "Back"
+    },
+    "controls": {
+      "createGrant": "Create grant",
+      "addReward": "Add reward",
+      "proposeGrant": "Propose a grant",
+      "finishProposeGrant": "Submit to vote",
+      "setting": "Setting"
     }
   },
   "modal": {

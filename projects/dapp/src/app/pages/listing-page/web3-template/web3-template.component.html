@@ -1,0 +1,48 @@
+<div class="listing-page__intro">
+    <img [attr.src]="contract?.img" width="100%" height="auto"/>
+
+    <h3 class="listing-page__banner">
+        {{ contract?.banner }}
+    </h3>
+</div>
+
+<div class="listing-page__header">
+    <h1 class="listing-page__title">{{ contract?.title }}</h1>
+
+    <div class="listing-page__controls">
+        <button
+                class="active"
+                [routerLink]="[constants.routes.createGrant | route: contract?.name]"
+                *ngIf="contract.permissionCreateGrant"
+                routerLinkActive="active"
+        >
+            {{ 'app.controls.proposeGrant' | transloco }}
+        </button>
+
+        <button
+                [routerLink]="[constants.routes.masterSetting | route: contract?.name]"
+                *ngIf="contract.permissionSettings"
+                routerLinkActive="active"
+        >
+            {{ 'app.listing.controls.setting' | transloco }}
+        </button>
+    </div>
+</div>
+<div class="listing-page__address">
+    <a class="a a--alt" [attr.href]="api.explorer + contract?.type" target="_blank" rel="noopener nofollow noreferrer">
+        {{ contract?.type }}
+    </a>
+</div>
+
+<div class="listing-page__description">
+    <div>
+        {{ contract.desc }}
+    </div>
+    <div class="listing-page__about" *ngIf="contract?.about">
+        <a [routerLink]="constants.routes.about | route : (contract.name)">
+            {{ 'listing.more' | transloco }}
+        </a>
+    </div>
+</div>
+
+<ui-listing [contract]="contract"></ui-listing>

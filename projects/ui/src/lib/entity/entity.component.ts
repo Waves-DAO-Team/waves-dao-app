@@ -8,11 +8,11 @@ import {
 } from '@angular/core'
 import {
   ContractGrantModel,
+  GrantStatusEnum,
   GrantsVariationType
 } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
-import { GrantStatusEnum } from '../../../../services/src/interface'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
@@ -31,7 +31,6 @@ export class EntityComponent implements OnInit, OnDestroy {
   @Input() public readonly contract!: GrantsVariationType
 
   public grantStatusEnum = GrantStatusEnum
-  public userRoleEnum = RoleEnum
   public isDAOVote = false
 
   // Subject activate if component destroyed

@@ -5,6 +5,12 @@ export type ContractRawDataTypeNumber = number
 
 export type ContractRawDataEntityId = string
 
+export enum GrantTypesEnum {
+  web3 = 'web3',
+  disruptive = 'disruptive',
+  interhack = 'interhack'
+}
+
 export interface ContractRawDataString {
   key: ContractRawDataKey
   value: ContractRawDataValue
@@ -98,7 +104,7 @@ export interface ContractDataModel {
 
 export interface GrantsVariationType {
   type: string
-  name: string
+  name: GrantTypesEnum
   preview: string
   img: string
   title: string
@@ -106,4 +112,19 @@ export interface GrantsVariationType {
   navigation: string
   banner: string
   about: string
+
+  permissionCreateGrant?: boolean
+  permissionFinishCreateGrant?: boolean
+  permissionVote?: boolean
+  permissionSettings?: boolean
+}
+
+export enum GrantStatusEnum {
+  proposed = 'proposed',
+  readyToApply = 'ready_to_apply',
+  rejected = 'rejected',
+  teamChosen = 'team_chosen',
+  workStarted = 'work_started',
+  workFinished = 'work_finished',
+  noStatus = 'no_status'
 }

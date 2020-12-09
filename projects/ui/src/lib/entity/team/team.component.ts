@@ -5,9 +5,8 @@ import {
   Input,
   OnInit, Output
 } from '@angular/core'
-import { ContractGrantModel } from '@services/contract/contract.model'
+import { ContractGrantModel, GrantStatusEnum } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
-import { GrantStatusEnum } from '../../../../../services/src/interface'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { take } from 'rxjs/operators'

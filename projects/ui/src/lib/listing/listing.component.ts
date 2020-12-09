@@ -5,7 +5,11 @@ import {
   OnInit
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
-import { ContractGrantExtendedModel, ContractGrantModel, GrantsVariationType } from '@services/contract/contract.model'
+import {
+  ContractGrantExtendedModel, ContractGrantModel,
+  GrantStatusEnum,
+  GrantsVariationType
+} from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
   API,
@@ -15,7 +19,6 @@ import {
 } from '@constants'
 import { UserService } from '@services/user/user.service'
 import { RoleEnum } from '@services/user/user.interface'
-import { GrantStatusEnum } from '@services/../interface'
 import { map } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'

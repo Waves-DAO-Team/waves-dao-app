@@ -11,12 +11,11 @@ import { ControlsModule } from '@ui/entity/controls/controls.module'
 import { TeamModule } from '@ui/entity/team/team.module'
 import { DialogModule } from '@ui/dialog/dialog.module'
 import { ApplyModule } from '@ui/modals/apply/apply.module'
-import {LinkContentModule} from "@services/link-content/link-content.module";
+import { LinkContentModule } from '@services/link-content/link-content.module'
 
 @NgModule({
   declarations: [EntityComponent],
   imports: [
-    LinkContentModule,
     CommonModule,
     TranslocoModule,
     RouterModule,
@@ -27,7 +26,8 @@ import {LinkContentModule} from "@services/link-content/link-content.module";
     TeamModule,
     ReactiveFormsModule,
     DialogModule,
-    ApplyModule
+    ApplyModule,
+    LinkContentModule
   ],
   exports: [EntityComponent]
 })
