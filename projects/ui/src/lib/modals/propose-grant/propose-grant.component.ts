@@ -27,7 +27,9 @@ export class ProposeGrantComponent implements OnInit {
 
   onSubmit() {
     if (this.params.submitCallBack){
-      this.params.submitCallBack(this.grantForm.value.name, this.grantForm.value.link)
+      this.params.submitCallBack({
+        name: this.grantForm.value.name, link: this.grantForm.value.link
+      })
     }
   }
 
