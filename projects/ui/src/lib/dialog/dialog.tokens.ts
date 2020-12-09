@@ -9,9 +9,8 @@ export interface DialogParams {
   title?: string,
   submitBtnText?: string,
   grant?: ContractGrantModel,
-  dialogRef: MatDialogRef<DialogComponent>
-  contractService?: CommunityContractService,
-  submitCallBack?: () => void,
+  dialogRef: MatDialogRef<DialogComponent>,
+  submitCallBack?: (name: string, link: string) => void,
 }
 
 export const DIALOG_DATA = new InjectionToken<DialogParams>('Dialog Data')

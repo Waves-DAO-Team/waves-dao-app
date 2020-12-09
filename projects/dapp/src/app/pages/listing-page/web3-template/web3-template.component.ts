@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "@ui/dialog/dialog.component";
 import {ProposeGrantComponent} from "@ui/modals/propose-grant/propose-grant.component";
 import {CommunityContractService} from "@services/contract/community-contract.service";
+import {translate} from "@ngneat/transloco";
 
 @Component({
   selector: 'app-web3-template',
@@ -28,15 +29,16 @@ export class Web3TemplateComponent implements OnInit {
   }
 
   onProposeGrant() {
+
     this.dialog.open(DialogComponent, {
       data: {
         component: ProposeGrantComponent,
         params: {
-          title: "Web3TemplateComponent modal",
-          contractService: this.communityContractService,
-          submitBtnText: "Web3TemplateComponent Apply btn",
-          submitCallBack: () => {
-            console.log('submitCallBack')
+          title: translate('modal.texts.propose_web_grant'),
+          submitBtnText: translate('modal.btn.propose_grant'),
+          submitCallBack: (name: string, link: string) => {
+            console.log('communityContractService submitCallBack', name, link)
+            this.communityContractService.addTask(name, link)
           }
         }
       }

@@ -23,6 +23,9 @@
   },
   "modal": {
     "texts": {
+      "propose_grant": "Propose a Grant",
+      "propose_web_grant": "Propose a Web 3.0 Dev Grant",
+      "link_to_description": "Link to grant description",
       "link_to_apply": "Link to apply form",
       "apply_on_githubt": "Apply form on GitHubt",
       "issue_on_githubt": "issue on GitHub",
@@ -39,6 +42,7 @@
       "3": "STEP 3"
     },
     "btn": {
+      "propose_grant": "Propose a grant",
       "apply": "APPLY",
       "apply_on_githubt": "APPLY ON GITHUB",
       "already_apply": "I ALREADY APPLIED",

@@ -16,18 +16,19 @@ export class ProposeGrantComponent implements OnInit {
     link: new FormControl('', Validators.required)
   })
 
-  constructor(public userService: UserService, @Inject(DIALOG_DATA) public params: DialogParams) {
+  constructor(
+    public userService: UserService,
+    @Inject(DIALOG_DATA) public params: DialogParams
+  ) {
   }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    if (this.params.contractService){
-      this.params.contractService.addTask(this.grantForm.value.name, this.grantForm.value.link)
-    }
     if (this.params.submitCallBack){
-      this.params.submitCallBack()
+      this.params.submitCallBack(this.grantForm.value.name, this.grantForm.value.link)
     }
   }
+
 }

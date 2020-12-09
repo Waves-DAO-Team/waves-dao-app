@@ -6,6 +6,7 @@ import {DialogComponent} from "@ui/dialog/dialog.component";
 import {ProposeGrantComponent} from "@ui/modals/propose-grant/propose-grant.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CommonContractService} from "@services/contract/common-contract.service";
+import {translate} from "@ngneat/transloco";
 
 @Component({
   selector: 'app-default-template',
@@ -31,8 +32,12 @@ export class DefaultTemplateComponent implements OnInit {
       data: {
         component: ProposeGrantComponent,
         params: {
-          title: "DefTemplateComponent modal",
-          contractService: this.commonContractService
+          title: translate('modal.texts.propose_grant'),
+          submitBtnText: translate('modal.btn.propose_grant'),
+          submitCallBack: (name: string, link: string) => {
+            console.log('commonContractService submitCallBack', name, link)
+            this.commonContractService.addTask(name, link)
+          }
         }
       }
     })
