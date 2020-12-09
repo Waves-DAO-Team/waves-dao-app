@@ -12,7 +12,7 @@
     <div class="listing-page__controls">
         <button
                 class="active"
-                [routerLink]="[constants.routes.createGrant | route: contract?.name]"
+                (click)="onProposeGrant()"
                 *ngIf="contract.permissionCreateGrant"
                 routerLinkActive="active"
         >

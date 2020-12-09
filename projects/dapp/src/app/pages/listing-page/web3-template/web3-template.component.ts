@@ -4,7 +4,6 @@ import {GrantsVariationType} from '@services/contract/contract.model'
 import {AppApiInterface, AppConstantsInterface} from '@constants'
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "@ui/dialog/dialog.component";
-import {ApplyComponent} from "@ui/modals/apply/apply.component";
 import {ProposeGrantComponent} from "@ui/modals/propose-grant/propose-grant.component";
 import {CommunityContractService} from "@services/contract/community-contract.service";
 
@@ -29,7 +28,6 @@ export class Web3TemplateComponent implements OnInit {
   }
 
   onProposeGrant() {
-    // console.log('this.communityContractService', this.communityContractService.addTask())
     this.dialog.open(DialogComponent, {
       data: {
         component: ProposeGrantComponent,
