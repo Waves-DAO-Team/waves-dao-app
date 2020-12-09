@@ -8,9 +8,11 @@ import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { RouterModule } from '@angular/router'
+import { DefaultTemplateComponent } from './default-template/default-template.component'
+import { Web3TemplateComponent } from './web3-template/web3-template.component'
 
 @NgModule({
-  declarations: [ListingPageComponent],
+  declarations: [ListingPageComponent, DefaultTemplateComponent, Web3TemplateComponent],
   imports: [
     CommonModule,
     ListingPageRoutingModule,

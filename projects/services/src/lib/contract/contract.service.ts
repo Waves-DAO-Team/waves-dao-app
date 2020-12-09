@@ -8,19 +8,18 @@ import {
   switchMap, take, withLatestFrom
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { BehaviorSubject, Observable, throwError } from 'rxjs'
 import {
   ContractDataModel, ContractGrantModel,
   ContractGrantRawModel,
   ContractRawData,
   ContractRawDataEntityId,
   ContractRawDataNumber,
-  ContractRawDataString,
+  ContractRawDataString, GrantStatusEnum,
   GrantsVariationType
 } from './contract.model'
 import { StorageService } from '@services/storage/storage.service'
 import { TranslocoService } from '@ngneat/transloco'
-import { GrantStatusEnum } from '../../interface'
 
 @Injectable({
   providedIn: 'root'
@@ -86,8 +85,13 @@ export class ContractService {
     return this.contractState.pipe(skip(1), take(1))
   }
 
-  public switchContract (address: string) {
-    this.refresh(address)
+  public switchContract (type: string) {
+    const contracts = this.api.contracts as { [s: string]: string }
+
+    if (!contracts[type]) {
+      throw new Error('ContractService::switchContract | Contract is not found ')
+    }
+    this.refresh(contracts[type])
   }
 
   doRefreshTimeOut () {

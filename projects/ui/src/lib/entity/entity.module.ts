@@ -11,6 +11,7 @@ import { ControlsModule } from '@ui/entity/controls/controls.module'
 import { TeamModule } from '@ui/entity/team/team.module'
 import { DialogModule } from '@ui/dialog/dialog.module'
 import { ApplyModule } from '@ui/modals/apply/apply.module'
+import { LinkContentModule } from '@services/link-content/link-content.module'
 
 @NgModule({
   declarations: [EntityComponent],
@@ -25,7 +26,8 @@ import { ApplyModule } from '@ui/modals/apply/apply.module'
     TeamModule,
     ReactiveFormsModule,
     DialogModule,
-    ApplyModule
+    ApplyModule,
+    LinkContentModule
   ],
   exports: [EntityComponent]
 })
