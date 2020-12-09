@@ -34,7 +34,10 @@ export class Web3TemplateComponent implements OnInit {
         params: {
           title: "Web3TemplateComponent modal",
           contractService: this.communityContractService,
-          submitBtnText: "Web3TemplateComponent Apply btn"
+          submitBtnText: "Web3TemplateComponent Apply btn",
+          submitCallBack: () => {
+            console.log('submitCallBack')
+          }
         }
       }
     })

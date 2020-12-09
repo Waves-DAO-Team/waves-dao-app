@@ -26,5 +26,8 @@ export class ProposeGrantComponent implements OnInit {
     if (this.params.contractService){
       this.params.contractService.addTask(this.grantForm.value.name, this.grantForm.value.link)
     }
+    if (this.params.submitCallBack){
+      this.params.submitCallBack()
+    }
   }
 }
