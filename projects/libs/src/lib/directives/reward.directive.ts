@@ -4,8 +4,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core'
   selector: '[rewardDirective]'
 })
 export class RewardDirective {
-  constructor (private el: ElementRef) {
-  }
+  constructor (private el: ElementRef) {}
 
   @HostListener('blur') blur () {
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)

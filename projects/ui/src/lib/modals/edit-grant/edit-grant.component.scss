@@ -8,16 +8,11 @@
   @include btn-container(full);
 }
 
-.container {
-  @include container();
 
-  form {
-    .input {
-      @include floating-label();
-      margin-bottom: $padding * 2;
-    }
+form {
+  .input {
+    @include floating-label();
+    margin-bottom: $padding * 2;
   }
-
-  &__right {
-    @include floating-label(); }
 }
+

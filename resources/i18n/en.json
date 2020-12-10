@@ -177,6 +177,12 @@
     "wg": "WG",
     "dao": "DAO"
   },
+  "edit_grant": {
+    "title": "Edit grant",
+    "btn": {
+      "edit": "Edit"
+    }
+  },
   "create_grant": {
     "title": "Create grant",
     "form": {

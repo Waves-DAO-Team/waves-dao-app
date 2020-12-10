@@ -6,6 +6,7 @@ import { TranslocoModule } from '@ngneat/transloco'
 import { FormsModule } from '@angular/forms'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import {AddRewardModule} from "@ui/modals/add-reward/add-reward.module";
+import {EditGrantModule} from "@ui/modals/edit-grant/edit-grant.module";
 
 @NgModule({
   declarations: [ControlsComponent],
@@ -15,7 +16,8 @@ import {AddRewardModule} from "@ui/modals/add-reward/add-reward.module";
     TranslocoModule,
     FormsModule,
     AddRewardModule,
-    PipesModule
+    PipesModule,
+    EditGrantModule
   ],
   exports: [ControlsComponent]
 })

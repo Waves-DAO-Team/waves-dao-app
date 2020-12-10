@@ -21,6 +21,7 @@ import {CommonContractService} from "@services/contract/common-contract.service"
 import {AddRewardComponent} from "@ui/modals/add-reward/add-reward.component";
 import {StaticService} from "@services/static/static.service";
 import {CommunityContractService} from "@services/contract/community-contract.service";
+import {EditGrantComponent} from "@ui/modals/edit-grant/edit-grant.component";
 
 @Component({
   selector: 'ui-controls',
@@ -90,6 +91,26 @@ export class ControlsComponent implements OnInit {
                   this.cdr.markForCheck()
                 })
             }
+          }
+        }
+      }
+    })
+  }
+
+  editGrant() {
+    const dialog = this.dialog.open(DialogComponent, {
+      data: {
+        component: EditGrantComponent,
+        params: {
+          title: translate('edit_grant.title'),
+          submitBtnText: translate('edit_grant.btn.edit'),
+          submitCallBack: (data: submitCallBackRewardArg) => {
+            // TODO: нужен метод, на https://waves-dapp.com/3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA нет
+              // this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
+                dialog.close()
+                this.cdr.markForCheck()
+              // })
+
           }
         }
       }
