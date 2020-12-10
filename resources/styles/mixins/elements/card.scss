@@ -85,6 +85,15 @@
         white-space: nowrap;
       }
 
+      &__address {
+        color: $gray;
+        cursor: pointer;
+        font-size: $font-size-small;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
       &__status {
         color: $gray;
         display: flex;
@@ -100,7 +109,12 @@
 
     .card__header__right-block {
       flex-direction: column;
+      opacity: 0.15;
       text-align: right;
+
+      &--active {
+        opacity: 1;
+      }
 
       &__text {
         color: $gray;

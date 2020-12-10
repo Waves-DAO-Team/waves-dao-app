@@ -3,13 +3,13 @@ import { switchMap, publishReplay, refCount, catchError } from 'rxjs/operators'
 import { ActivatedRoute } from '@angular/router'
 import { LoadingWrapper, LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
-  ContractGrantModel,
-  GrantsVariationType
+  ContractGrantModel
 } from '@services/contract/contract.model'
 import { ContractService } from '@services/contract/contract.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
+import { GrantsVariationType } from '@services/static/static.model'
 
 export const ENTITY = new InjectionToken<LoadingWrapperModel<ContractGrantModel>>(
   'A stream with current contract'

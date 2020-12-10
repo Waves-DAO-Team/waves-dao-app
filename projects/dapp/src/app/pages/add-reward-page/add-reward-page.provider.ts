@@ -2,11 +2,9 @@ import { InjectionToken, Provider } from '@angular/core'
 import {
   LoadingWrapperModel
 } from '@libs/loading-wrapper/loading-wrapper'
-import {
-  GrantsVariationType
-} from '@services/contract/contract.model'
 import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
 import { CurrencyPipe } from '@angular/common'
+import { GrantsVariationType } from '@services/static/static.model'
 
 export const CONTRACT = new InjectionToken<LoadingWrapperModel<GrantsVariationType>>(
   'A stream with contract'

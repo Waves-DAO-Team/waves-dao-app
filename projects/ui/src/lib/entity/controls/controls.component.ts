@@ -8,7 +8,10 @@ import {
 import { UserService } from '@services/user/user.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
-import { GrantStatusEnum, GrantsVariationType } from '@services/contract/contract.model'
+import {
+  GrantStatusEnum,
+  GrantsVariationType
+} from '@services/static/static.model'
 
 @Component({
   selector: 'ui-controls',

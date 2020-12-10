@@ -7,17 +7,15 @@ import {
   OnInit
 } from '@angular/core'
 import {
-  ContractGrantModel,
-  GrantStatusEnum,
-  GrantsVariationType
+  ContractGrantModel
 } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
-import { RoleEnum } from '@services/user/user.interface'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
+import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'ui-entity',

@@ -5,7 +5,7 @@ import {
   Input,
   OnInit, Output
 } from '@angular/core'
-import { ContractGrantModel, GrantStatusEnum } from '@services/contract/contract.model'
+import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
@@ -16,7 +16,8 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { ApplyComponent } from '@ui/modals/apply/apply.component'
 import { MatDialog } from '@angular/material/dialog'
-import {submitCallBackApplyArg} from "@ui/dialog/dialog.tokens";
+import { submitCallBackApplyArg } from '@ui/dialog/dialog.tokens'
+import { GrantStatusEnum } from '@services/static/static.model'
 
 @Component({
   selector: 'ui-team',
@@ -30,7 +31,7 @@ export class TeamComponent implements OnInit {
 
   @Output() openApplyModal = new EventEmitter<boolean>()
 
-  constructor(
+  constructor (
     private dialog: MatDialog,
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
@@ -40,24 +41,24 @@ export class TeamComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
-  voteTeam(voteValue: 'like' | 'dislike', teamIdentifier: string) {
+  voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
     if (this.grant?.status?.value === this.grantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, teamIdentifier, voteValue)
     }
   }
 
-  isReadyToApply(): boolean {
+  isReadyToApply (): boolean {
     return this.grant?.status?.value === this.grantStatusEnum.readyToApply
   }
 
-  isDAO(): boolean {
+  isDAO (): boolean {
     return this.userService.data.getValue().roles.isDAO
   }
 
-  onOpenApplyModal() {
+  onOpenApplyModal () {
     this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -73,7 +74,7 @@ export class TeamComponent implements OnInit {
     })
   }
 
-  signup() {
+  signup () {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {

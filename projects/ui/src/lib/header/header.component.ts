@@ -21,6 +21,7 @@ import { Location } from '@angular/common'
 import { ContractService } from '@services/contract/contract.service'
 import { map, take, takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
+import { StaticService } from '@services/static/static.service'
 
 @Component({
   selector: 'ui-header',
@@ -39,7 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return data.userRole
   }))
 
-  public readonly contractsList$ = this.contractService.getContactsList()
+  public readonly contractsList$ = this.staticService.getContactsList()
 
   public readonly RoleEnum = RoleEnum;
   isToggleMenuOpen = false;
@@ -51,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public router: Router,
     public userService: UserService,
     public contractService: ContractService,
+    private staticService: StaticService,
     private location: Location
   ) {
   }

@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core'
 import { ContractService } from '@services/contract/contract.service'
 import { SignerService } from '@services/signer/signer.service'
 import { catchError, tap } from 'rxjs/operators'
-import { EMPTY } from 'rxjs'
+import { EMPTY, Observable } from 'rxjs'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
+import { TransactionsSuccessResult } from '@services/signer/signer.model'
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class CommonContractService {
       public router: Router
   ) {}
 
-  public addDAOMember (members: string) {
+  public addDAOMember (members: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addDAOMember',
@@ -40,7 +41,7 @@ export class CommonContractService {
     )
   }
 
-  public addGroupMember (members: string) {
+  public addGroupMember (members: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addGroupMember',
@@ -60,7 +61,7 @@ export class CommonContractService {
       )
   }
 
-  public addTask (taskName: string, link: string) {
+  public addTask (taskName: string, link: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addTask',
@@ -76,13 +77,12 @@ export class CommonContractService {
         }),
         tap((e) => {
           this.contractService.refresh()
-          this.snackBar.open('Transaction is complete', translate('messages.ok'))
+          this.snackBar.open(translate('messages.addTask'), translate('messages.ok'))
         })
       )
   }
 
-  public addReward (taskId: string, reward: string) {
-    console.log('addReward', taskId, reward)
+  public addReward (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addReward',
@@ -100,7 +100,7 @@ export class CommonContractService {
         }),
         tap(() => {
           this.contractService.refresh()
-          this.snackBar.open('Transaction is complete', translate('messages.ok'))
+          this.snackBar.open(translate('messages.addReword'), translate('messages.ok'))
         })
       )
   }

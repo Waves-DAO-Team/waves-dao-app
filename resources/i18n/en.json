@@ -87,7 +87,11 @@
     "title": "Waves Association DAO",
     "list_empty": "List is a empty",
     "loading": "Loading",
-    "reward": "Reward"
+    "reward": "Reward",
+    "list": {
+      "grants": "Grants",
+      "important": "Open grants"
+    }
   },
   "entity": {
     "reward": "Reward",
@@ -246,7 +250,10 @@
     "description": "Page not found"
   },
   "messages": {
-    "ok": "OK"
+    "ok": "OK",
+    "addTask": "The proposal has been completed. The transaction is confirmed in the blockchain Waves",
+    "addReword": "The grant is now available for voting. The transaction is confirmed in the block list.",
+    "startTransaction": "We sent the transaction to Waves Blockchain.  You can continue using the application, we will inform you when the transaction is confirmed in Blockchain."
   },
   "add-reward": {
     "title": "Add reward"

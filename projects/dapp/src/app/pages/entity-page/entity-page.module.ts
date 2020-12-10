@@ -8,9 +8,10 @@ import { PipesModule } from '@libs/pipes/pipes.module'
 import { EntityModule } from '@ui/entity/entity.module'
 import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
+import { DefaultTemplateComponent } from './default-template/default-template.component'
 
 @NgModule({
-  declarations: [EntityPageComponent],
+  declarations: [EntityPageComponent, DefaultTemplateComponent],
   imports: [
     CommonModule,
     EntityPageRoutingModule,

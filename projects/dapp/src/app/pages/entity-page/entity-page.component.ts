@@ -3,10 +3,10 @@ import { CONTRACT, ENTITY, ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/enti
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
-  ContractGrantModel,
-  GrantsVariationType
+  ContractGrantModel
 } from '@services/contract/contract.model'
 import { Location } from '@angular/common'
+import { GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'app-entity-page',

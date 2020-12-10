@@ -8,18 +8,18 @@ import {
   switchMap, take, withLatestFrom
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, Observable, throwError } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import {
   ContractDataModel, ContractGrantModel,
   ContractGrantRawModel,
   ContractRawData,
   ContractRawDataEntityId,
   ContractRawDataNumber,
-  ContractRawDataString, GrantStatusEnum,
-  GrantsVariationType
+  ContractRawDataString
 } from './contract.model'
 import { StorageService } from '@services/storage/storage.service'
 import { TranslocoService } from '@ngneat/transloco'
+import { GrantStatusEnum } from '@services/static/static.model'
 
 @Injectable({
   providedIn: 'root'
@@ -157,31 +157,5 @@ export class ContractService {
 
   public getAddress (): string {
     return this.contractAddress$.getValue()
-  }
-
-  public getContactsList (): Observable<GrantsVariationType[]> {
-    const contracts = this.api.contracts as { [s: string]: string }
-
-    return this.translocoService.selectTranslateObject('contracts').pipe(
-      map((data: {[s: string]: GrantsVariationType}) => {
-        return Object.keys(data).map((key) => {
-          return {
-            ...data[key],
-            name: key,
-            type: contracts[key] || null
-          } as GrantsVariationType
-        })
-      }),
-      publishReplay(1),
-      refCount()
-    )
-  }
-
-  getContactInfo (contactType: string): Observable<GrantsVariationType | null> {
-    return this.getContactsList().pipe(
-      map((contracts: GrantsVariationType[]) => {
-        return contracts.find((item) => item.name === contactType) || null
-      })
-    )
   }
 }

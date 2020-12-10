@@ -5,12 +5,12 @@ import { UserService } from '@services/user/user.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { Router } from '@angular/router'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
-import { GrantsVariationType } from '@services/contract/contract.model'
 import { CONTRACT, CREATE_GRANT_PAGE_PROVIDERS } from '@pages/create-grant-page/create-grant-page.provider'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { route } from '@libs/pipes/routes.lib'
 import { take } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
+import { GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'app-create-grant-page',

@@ -1,9 +1,9 @@
 import { Component, HostBinding, Inject, Input, OnInit } from '@angular/core'
 import {
-  ContractGrantExtendedModel,
-  GrantsVariationType
+  ContractGrantExtendedModel
 } from '@services/contract/contract.model'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import { GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'ui-sub-list',

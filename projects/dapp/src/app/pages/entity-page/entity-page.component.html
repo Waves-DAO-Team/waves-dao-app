@@ -1,12 +1,21 @@
-<div class="container">
+<div class="container" *ngIf="contract.data$ | async as info; else loadingOrErrorTemplate" >
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
       <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid">
-    <div class="entity-page" *ngIf="entity.data$ | async as grant; else loadingOrErrorTemplate">
-      <ui-entity [contract]="contract.data$ | async" [grant]="grant"></ui-entity>
+    <div class="entity-page" [ngSwitch]="info.name">
+
+
+
+      <!-- Default template with content for listing -->
+      <ng-template ngSwitchDefault>
+        <app-default-template
+                [grant]="entity.data$ | async"
+                [contract]="info"
+        ></app-default-template>
+      </ng-template>
     </div>
   </div>
   <div class="container__right">

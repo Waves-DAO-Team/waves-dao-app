@@ -103,7 +103,7 @@ export class SignerService {
     }).sign()).pipe(
       take(1),
       tap(() => {
-        this.snackBar.open('We sent the transaction to Waves Blockchain.  You can continue using the application, we will inform you when the transaction is confirmed in Blockchain.')
+        this.snackBar.open(translate('messages.startTransaction'), translate('messages.ok'))
       }),
       // @ts-ignore
       switchMap((tx) => {

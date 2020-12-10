@@ -8,9 +8,9 @@ import {
 import { Location } from '@angular/common'
 import { ABOUT_PAGE_PROVIDERS, CONTRACT } from './about-page.provider'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
-import { GrantsVariationType } from '@services/contract/contract.model'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { switchMap } from 'rxjs/operators'
+import { GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'app-about-page',

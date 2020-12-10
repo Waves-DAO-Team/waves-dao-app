@@ -11,9 +11,9 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 import { take } from 'rxjs/operators'
 import { route } from '@libs/pipes/routes.lib'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
-import { GrantsVariationType } from '@services/contract/contract.model'
 import { ADD_REWARD_PAGE_PROVIDERS, CONTRACT } from './add-reward-page.provider'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import { GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'app-add-reward-page',

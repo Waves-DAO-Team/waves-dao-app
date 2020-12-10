@@ -6,9 +6,7 @@ import {
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import {
-  ContractGrantExtendedModel, ContractGrantModel,
-  GrantStatusEnum,
-  GrantsVariationType
+  ContractGrantExtendedModel, ContractGrantModel
 } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -22,8 +20,9 @@ import { RoleEnum } from '@services/user/user.interface'
 import { map } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
-import { translate } from '@ngneat/transloco'
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
+import { translate } from '@ngneat/transloco'
+import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'ui-listing',

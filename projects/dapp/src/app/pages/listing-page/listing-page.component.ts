@@ -4,7 +4,6 @@ import {
   LISTING_PAGE_PROVIDERS
 } from './listing-page.providers'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
-import { GrantsVariationType } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import {
   API,
@@ -12,6 +11,7 @@ import {
   AppApiInterface,
   AppConstantsInterface
 } from '@constants'
+import { GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'app-listing-page',
