@@ -39,11 +39,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/members-page/members-page.module').then((m) => m.MembersPageModule),
         pathMatch: 'full'
       },
-      {
-        path: environment.routing.createGrant,
-        loadChildren: () => import('./pages/create-grant-page/create-grant-page.module').then((m) => m.CreateGrantPageModule),
-        pathMatch: 'full'
-      },
+      // {
+      //   path: environment.routing.createGrant,
+      //   loadChildren: () => import('./pages/create-grant-page/create-grant-page.module').then((m) => m.CreateGrantPageModule),
+      //   pathMatch: 'full'
+      // },
       // {
       //   path: environment.routing.editGrant,
       //   loadChildren: () => import('./pages/edit-grant-page/edit-grant-page.module').then((m) => m.EditGrantPageModule),
