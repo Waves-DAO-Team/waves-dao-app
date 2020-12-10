@@ -4,7 +4,7 @@ import {
   Component, Inject,
   Input,
   OnDestroy,
-  OnInit
+  OnInit, Output
 } from '@angular/core'
 import {
   ContractGrantModel
@@ -16,6 +16,7 @@ import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import {EventEmitter} from '@angular/core' ;
 
 @Component({
   selector: 'ui-entity',
@@ -23,14 +24,14 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
   styleUrls: ['./entity.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntityComponent implements OnInit, OnDestroy {
+export class EntityComponent {
   @Input() public readonly grant: ContractGrantModel = {}
 
   @Input() public readonly contract!: GrantsVariationType
 
   public grantStatusEnum = GrantStatusEnum
   public isDAOVote = false
-
+  @Output() newVoteEvent = new EventEmitter<'like' | 'dislike'>();
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   @DestroyedSubject() private readonly destroyed$!: Subject<null>;
@@ -45,16 +46,9 @@ export class EntityComponent implements OnInit, OnDestroy {
     @Inject(API) public readonly api: AppApiInterface
   ) {}
 
-  ngOnInit (): void {
-    // if (this.grant?.link?.value) {
-    //   this.linkContentService.link$.next(this.grant.link.value)
-    // }
-  }
 
   vote (value: 'like' | 'dislike') {
-    const id = this.grant.id || ''
-    this.disruptiveContractService.voteForTaskProposal(id, value)
+    this.newVoteEvent.emit(value)
   }
 
-  ngOnDestroy () {}
 }

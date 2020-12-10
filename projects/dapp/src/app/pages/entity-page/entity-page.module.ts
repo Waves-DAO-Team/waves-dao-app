@@ -9,9 +9,10 @@ import { EntityModule } from '@ui/entity/entity.module'
 import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
 import { DefaultTemplateComponent } from './default-template/default-template.component'
+import {Web3TemplateComponent} from "@pages/entity-page/web3-template/web3-template.component";
 
 @NgModule({
-  declarations: [EntityPageComponent, DefaultTemplateComponent],
+  declarations: [EntityPageComponent, DefaultTemplateComponent, Web3TemplateComponent],
   imports: [
     CommonModule,
     EntityPageRoutingModule,

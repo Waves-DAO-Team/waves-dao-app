@@ -8,7 +8,12 @@
     <div class="entity-page" [ngSwitch]="info.name">
 
 
-
+      <ng-template ngSwitchCase="web3">
+        <app-web3-template
+          [grant]="entity.data$ | async"
+          [contract]="info"
+        ></app-web3-template>
+      </ng-template>
       <!-- Default template with content for listing -->
       <ng-template ngSwitchDefault>
         <app-default-template
