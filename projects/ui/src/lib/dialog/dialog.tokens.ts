@@ -12,14 +12,18 @@ export interface submitCallBackApplyArg {
 export interface submitCallBackProposeArg {
   name: string, link: string
 }
+export interface submitCallBackRewardArg {
+  reward: string
+}
 
 export interface DialogParams {
   templateId?: string,
   title?: string,
   submitBtnText?: string,
   grant?: ContractGrantModel,
+  grantId?: string,
   dialogRef: MatDialogRef<DialogComponent>,
-  submitCallBack?: (data: submitCallBackProposeArg | submitCallBackApplyArg) => void,
+  submitCallBack?: (data: submitCallBackProposeArg | submitCallBackApplyArg | submitCallBackRewardArg) => void,
 }
 
 export const DIALOG_DATA = new InjectionToken<DialogParams>('Dialog Data')

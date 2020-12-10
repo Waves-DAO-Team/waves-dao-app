@@ -19,6 +19,8 @@ export class StaticService {
       @Inject(API) private readonly api: AppApiInterface
   ) { }
 
+  public selectedContact: GrantTypesEnum = GrantTypesEnum.disruptive
+
   public getContactsList (): Observable<GrantsVariationType[]> {
     const contracts = this.api.contracts as { [s: string]: string }
 
@@ -45,8 +47,9 @@ export class StaticService {
     )
   }
 
-  getStaticContract (contractType: string) {
+  getStaticContract (contractType: GrantTypesEnum) {
     this.contractService.switchContract(contractType)
+    this.selectedContact = contractType
 
     return combineLatest([
       this.getContactInfo(contractType),

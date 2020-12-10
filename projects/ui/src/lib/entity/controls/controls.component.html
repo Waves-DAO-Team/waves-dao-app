@@ -1,8 +1,7 @@
 <div class="controls" *ngIf="userService.data | async as user">
 
   <ng-container *ngIf="!status && user.roles.isWG && grantId"> <!--no status-->
-    <button
-            [routerLink]="[constants.routes.addReward | route : contract?.name : grantId]"
+    <button (click)="addReward()"
             [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
     >
       {{'entity.add_reward' | transloco}}

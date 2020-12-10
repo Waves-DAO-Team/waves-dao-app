@@ -3,15 +3,24 @@ import {
   Input,
   OnInit,
   ChangeDetectionStrategy,
-  Inject
+  Inject, ChangeDetectorRef
 } from '@angular/core'
-import { UserService } from '@services/user/user.service'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import {UserService} from '@services/user/user.service'
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
+import {APP_CONSTANTS, AppConstantsInterface} from '@constants'
 import {
   GrantStatusEnum,
-  GrantsVariationType
+  GrantsVariationType, GrantTypesEnum
 } from '@services/static/static.model'
+import {DialogComponent} from "@ui/dialog/dialog.component";
+import {ProposeGrantComponent} from "@ui/modals/propose-grant/propose-grant.component";
+import {translate} from "@ngneat/transloco";
+import {submitCallBackProposeArg, submitCallBackRewardArg} from "@ui/dialog/dialog.tokens";
+import {MatDialog} from "@angular/material/dialog";
+import {CommonContractService} from "@services/contract/common-contract.service";
+import {AddRewardComponent} from "@ui/modals/add-reward/add-reward.component";
+import {StaticService} from "@services/static/static.service";
+import {CommunityContractService} from "@services/contract/community-contract.service";
 
 @Component({
   selector: 'ui-controls',
@@ -31,32 +40,59 @@ export class ControlsComponent implements OnInit {
 
   reportLink = ''
 
-  constructor (
+  constructor(
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
-  ) { }
-
-  ngOnInit () {
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    private dialog: MatDialog,
+    public commonContractService: CommonContractService,
+    private cdr: ChangeDetectorRef,
+    private staticService: StaticService,
+    public communityContractService: CommunityContractService,
+  ) {
   }
 
-  finishVote () {
+  ngOnInit() {
+  }
+
+  finishVote() {
     this.disruptiveContractService.finishTaskProposalVoting(this.grantId as string)
   }
 
-  startWork () {
+  startWork() {
     this.disruptiveContractService.startWork(this.grantId as string)
   }
 
-  reject () {
+  reject() {
     this.disruptiveContractService.rejectTask(this.grantId as string)
   }
 
-  acceptWorkResult () {
+  acceptWorkResult() {
     this.disruptiveContractService.acceptWorkResult(this.grantId as string, this.reportLink)
   }
 
-  finishApplicantsVote () {
+  finishApplicantsVote() {
     this.disruptiveContractService.finishApplicantsVoting(this.grantId as string)
+  }
+
+  addReward() {
+   const dialog = this.dialog.open(DialogComponent, {
+      data: {
+        component: AddRewardComponent,
+        params: {
+          title: translate('add-reward.title'),
+          submitBtnText: translate('modal.btn.propose_grant'),
+          grantId: this.grantId,
+          submitCallBack: (data: submitCallBackRewardArg) => {
+            if (this.grantId) {
+                this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
+                  dialog.close()
+                  this.cdr.markForCheck()
+                })
+            }
+          }
+        }
+      }
+    })
   }
 }

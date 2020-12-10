@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router'
 import { TranslocoModule } from '@ngneat/transloco'
 import { FormsModule } from '@angular/forms'
 import { PipesModule } from '@libs/pipes/pipes.module'
+import {AddRewardModule} from "@ui/modals/add-reward/add-reward.module";
 
 @NgModule({
   declarations: [ControlsComponent],
@@ -13,6 +14,7 @@ import { PipesModule } from '@libs/pipes/pipes.module'
     CommonModule,
     TranslocoModule,
     FormsModule,
+    AddRewardModule,
     PipesModule
   ],
   exports: [ControlsComponent]

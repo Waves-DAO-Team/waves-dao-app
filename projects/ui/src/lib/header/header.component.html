@@ -19,7 +19,7 @@
       <li *ngFor="let contract of contractsList$ | async"
           [routerLink]="[constants.routes.listing | route : contract.name ]"
           routerLinkActive="active">
-        {{ contract.navigation }}
+          {{ contract.navigation }}
       </li>
 
       <li [routerLink]="[constants.routes.members | route]" routerLinkActive="active">

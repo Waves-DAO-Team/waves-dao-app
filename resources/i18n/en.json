@@ -256,7 +256,8 @@
     "startTransaction": "We sent the transaction to Waves Blockchain.  You can continue using the application, we will inform you when the transaction is confirmed in Blockchain."
   },
   "add-reward": {
-    "title": "Add reward"
+    "title": "Add reward",
+    "disabled_submit_text": "Wait, processing is in progress!"
   },
   "contracts": {
     "disruptive": {
