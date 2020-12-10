@@ -54,11 +54,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/stylesheet-page/stylesheet-page.module').then((m) => m.StylesheetPageModule),
         pathMatch: 'full'
       },
-      {
-        path: environment.routing.addReward,
-        loadChildren: () => import('./pages/add-reward-page/add-reward-page.module').then((m) => m.AddRewardPageModule),
-        pathMatch: 'full'
-      },
+      // {
+      //   path: environment.routing.addReward,
+      //   loadChildren: () => import('./pages/add-reward-page/add-reward-page.module').then((m) => m.AddRewardPageModule),
+      //   pathMatch: 'full'
+      // },
       {
         path: environment.routing.entity,
         loadChildren: () =>

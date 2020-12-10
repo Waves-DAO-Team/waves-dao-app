@@ -1,14 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Location} from "@angular/common";
-import {DisruptiveContractService} from "@services/contract/disruptive-contract.service";
-import {CONTRACT} from "@pages/add-reward-page/add-reward-page.provider";
-import {LoadingWrapperModel} from "@libs/loading-wrapper/loading-wrapper";
-import {GrantsVariationType} from "@services/static/static.model";
 import {APP_CONSTANTS, AppConstantsInterface} from "@constants";
-import {take} from "rxjs/operators";
-import {route} from "@libs/pipes/routes.lib";
 import {DIALOG_DATA, DialogParams} from "@ui/dialog/dialog.tokens";
 
 @Component({
