@@ -18,6 +18,7 @@ import { ApplyComponent } from '@ui/modals/apply/apply.component'
 import { MatDialog } from '@angular/material/dialog'
 import { submitCallBackApplyArg } from '@ui/dialog/dialog.tokens'
 import { GrantStatusEnum } from '@services/static/static.model'
+import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
 
 @Component({
   selector: 'ui-team',
@@ -32,20 +33,16 @@ export class TeamComponent {
   @Output() openApplyModal = new EventEmitter<boolean>()
   @Output() newSignupEvent = new EventEmitter()
   @Output() newOpenApplyModalEvent = new EventEmitter()
+  @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
   constructor (
 
-    public disruptiveContractService: DisruptiveContractService,
     public userService: UserService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
   }
 
-  voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
-    if (this.grant?.status?.value === this.grantStatusEnum.readyToApply) {
-      this.disruptiveContractService.voteForApplicant(this.grant?.id as string, teamIdentifier, voteValue)
-    }
-  }
+
 
   isReadyToApply (): boolean {
     return this.grant?.status?.value === this.grantStatusEnum.readyToApply

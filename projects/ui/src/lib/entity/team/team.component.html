@@ -16,7 +16,7 @@
 
       <button
         class="active"
-        (click)="onOpenApplyModal()"
+        (click)="newOpenApplyModalEvent.emit()"
         [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
         *ngIf="user.roles.isAuth"
         routerLinkActive="active"
@@ -32,17 +32,24 @@
       <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">
         <ng-container *ngSwitchCase="true">
           <div class="team__list__li__left__up" [class.disabled]="!isReadyToApply()">
-            <img src="assets/icons/arr-up.svg" (click)="voteTeam( 'like', app.id.value)"
-                 *ngIf="!isReadyToApply() && user.roles.isDAO">
-            <img src="assets/icons/arr-up-blue.svg" (click)="voteTeam( 'like', app.id.value)"
-                 *ngIf="isReadyToApply() && user.roles.isDAO">
+            <img
+              src="assets/icons/arr-up.svg"
+              (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
+              *ngIf="!isReadyToApply() && user.roles.isDAO">
+            <img
+              src="assets/icons/arr-up-blue.svg"
+              (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
+              *ngIf="isReadyToApply() && user.roles.isDAO">
           </div>
           <div class="team__list__li__left__score">{{app?.score?.value || 0}}</div>
           <div class="team__list__li__left__down" [class.disabled]="!isReadyToApply()">
-            <img src="assets/icons/arr-down.svg" (click)="voteTeam( 'dislike', app.id.value)"
+            <img src="assets/icons/arr-down.svg"
+                 (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})"
                  *ngIf="!isReadyToApply() && user.roles.isDAO">
-            <img src="assets/icons/arr-down-red.svg" (click)="voteTeam( 'like', app.id.value)"
-                 *ngIf="isReadyToApply() && user.roles.isDAO">
+            <img
+              src="assets/icons/arr-down-red.svg"
+              (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
+              *ngIf="isReadyToApply() && user.roles.isDAO">
           </div>
         </ng-container>
         <ng-container *ngSwitchDefault>

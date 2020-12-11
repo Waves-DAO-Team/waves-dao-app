@@ -17,6 +17,7 @@ import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 import {EventEmitter} from '@angular/core' ;
+import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
 
 @Component({
   selector: 'ui-entity',
@@ -34,6 +35,7 @@ export class EntityComponent {
   @Output() newVoteEvent = new EventEmitter<'like' | 'dislike'>();
   @Output() newSignupEvent = new EventEmitter()
   @Output() newOpenApplyModalEvent = new EventEmitter()
+  @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)

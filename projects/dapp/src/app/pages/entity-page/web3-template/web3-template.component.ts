@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantsVariationType } from '@services/static/static.model'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {CommonContractService} from "@services/contract/common-contract.service";
 import {DisruptiveContractService} from "@services/contract/disruptive-contract.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -11,6 +11,7 @@ import {DialogComponent} from "@ui/dialog/dialog.component";
 import {ApplyComponent} from "@ui/modals/apply/apply.component";
 import {submitCallBackApplyArg} from "@ui/dialog/dialog.tokens";
 import {MatDialog} from "@angular/material/dialog";
+import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
 
 @Component({
   selector: 'app-web3-template',
@@ -57,6 +58,12 @@ export class Web3TemplateComponent {
         }
       }
     })
+  }
+
+  voteTeam ($event: VoteTeamEventInterface) {
+    if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
+      this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue)
+    }
   }
 
 }
