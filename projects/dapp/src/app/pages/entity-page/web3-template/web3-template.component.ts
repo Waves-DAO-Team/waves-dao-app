@@ -66,4 +66,8 @@ export class Web3TemplateComponent {
     }
   }
 
+  finishVote() {
+    this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string)
+  }
+
 }

@@ -66,4 +66,7 @@ export class DefaultTemplateComponent {
     }
   }
 
+  finishVote() {
+    this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string)
+  }
 }

@@ -1,71 +1,72 @@
-  <div class="entity">
-    <div class="card">
-      <ui-header
-        [status]="grant?.status?.value || 'no_status'"
-        [title]="grant?.title?.value"
-        [reward]="grant?.reward?.value"
-        [link]="grant?.link?.value"
-      ></ui-header>
+<div class="entity">
+  <div class="card">
+    <ui-header
+      [status]="grant?.status?.value || 'no_status'"
+      [title]="grant?.title?.value"
+      [reward]="grant?.reward?.value"
+      [link]="grant?.link?.value"
+    ></ui-header>
 
-      <ui-controls
-              [contract]="contract"
-              [status]="grant?.status?.value"
-              [grantId]="grant?.id"
-              [role]="userService.data.getValue().userRole"
-              [voted]="grant?.voted"
-              [performer]="grant?.performer?.value"
-      ></ui-controls>
+    <ui-controls
+      [contract]="contract"
+      [status]="grant?.status?.value"
+      [grantId]="grant?.id"
+      [role]="userService.data.getValue().userRole"
+      [voted]="grant?.voted"
+      [performer]="grant?.performer?.value"
+      (newFinishVoteEvent)="newFinishVoteEvent.emit()"
+    ></ui-controls>
 
-      <ui-body
-        [md]="grant?.link?.value | linkContent | async"
-        [link]="grant?.link?.value"
-        [grant]="grant"
-      ></ui-body>
-    </div>
-
-    <!-- team ----------------------------------------------------------------------------------------------------------->
-    <ui-team
-      *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"
+    <ui-body
+      [md]="grant?.link?.value | linkContent | async"
+      [link]="grant?.link?.value"
       [grant]="grant"
-      (newSignupEvent)="newSignupEvent.emit()"
-      (newOpenApplyModalEvent)="newOpenApplyModalEvent.emit()"
-      (newVoteTeamEvent)="newVoteTeamEvent.emit($event)"
-    ></ui-team>
-    <!-- team ----------------------------------------------------------------------------------------------------------->
+    ></ui-body>
+  </div>
 
-    <!-- vote ----------------------------------------------------------------------------------------------------------->
-    <!--   *ngIf="(userService.data | async)?.roles.isDAO && !(userService.data | async)?.voted.includes(grant.id)"-->
-    <div class="card"
-         *ngIf="(userService.data | async)?.roles.isDAO && grant?.status?.value === grantStatusEnum.proposed">
-      <div
-        class="card__info">
-        <div class="card__info__left">
-          <img src="assets/icons/vote.svg">
-        </div>
-        <div class="card__info__mid">
-          <ng-container *ngIf="(userService.data | async)?.voted.includes(grant.id)">
-            <div class="card__info__mid__subtext">
-              {{'entity.DAO.vote.true.subtext' | transloco}}
-            </div>
-            <div class="card__info__mid__text">
-              {{'entity.DAO.vote.true.text' | transloco}}
-            </div>
-          </ng-container>
-          <ng-container *ngIf="!(userService.data | async)?.voted.includes(grant.id)">
-            <div class="card__info__mid__subtext">
-              {{'entity.DAO.vote.false.text' | transloco}}
-            </div>
-            <div class="card__info__mid__text">
-              {{'entity.DAO.vote.false.text' | transloco}}
-            </div>
-          </ng-container>
-        </div>
-        <div class="card__info__right" *ngIf="!(userService.data | async)?.voted.includes(grant.id)">
-          <img (click)="vote('dislike')" src="assets/icons/vote-min.svg">
-          <img (click)="vote('like')" src="assets/icons/vote-plus.svg">
-        </div>
+  <!-- team ----------------------------------------------------------------------------------------------------------->
+  <ui-team
+    *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"
+    [grant]="grant"
+    (newSignupEvent)="newSignupEvent.emit()"
+    (newOpenApplyModalEvent)="newOpenApplyModalEvent.emit()"
+    (newVoteTeamEvent)="newVoteTeamEvent.emit($event)"
+  ></ui-team>
+  <!-- team ----------------------------------------------------------------------------------------------------------->
+
+  <!-- vote ----------------------------------------------------------------------------------------------------------->
+  <!--   *ngIf="(userService.data | async)?.roles.isDAO && !(userService.data | async)?.voted.includes(grant.id)"-->
+  <div class="card"
+       *ngIf="(userService.data | async)?.roles.isDAO && grant?.status?.value === grantStatusEnum.proposed">
+    <div
+      class="card__info">
+      <div class="card__info__left">
+        <img src="assets/icons/vote.svg">
+      </div>
+      <div class="card__info__mid">
+        <ng-container *ngIf="(userService.data | async)?.voted.includes(grant.id)">
+          <div class="card__info__mid__subtext">
+            {{'entity.DAO.vote.true.subtext' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.DAO.vote.true.text' | transloco}}
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!(userService.data | async)?.voted.includes(grant.id)">
+          <div class="card__info__mid__subtext">
+            {{'entity.DAO.vote.false.text' | transloco}}
+          </div>
+          <div class="card__info__mid__text">
+            {{'entity.DAO.vote.false.text' | transloco}}
+          </div>
+        </ng-container>
+      </div>
+      <div class="card__info__right" *ngIf="!(userService.data | async)?.voted.includes(grant.id)">
+        <img (click)="vote('dislike')" src="assets/icons/vote-min.svg">
+        <img (click)="vote('like')" src="assets/icons/vote-plus.svg">
       </div>
     </div>
-    <!-- vote ----------------------------------------------------------------------------------------------------------->
-
   </div>
+  <!-- vote ----------------------------------------------------------------------------------------------------------->
+
+</div>

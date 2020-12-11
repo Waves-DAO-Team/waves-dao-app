@@ -37,6 +37,8 @@ export class EntityComponent {
   @Output() newOpenApplyModalEvent = new EventEmitter()
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
+  @Output() newFinishVoteEvent = new EventEmitter()
+
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   @DestroyedSubject() private readonly destroyed$!: Subject<null>;

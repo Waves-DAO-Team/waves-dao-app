@@ -3,7 +3,7 @@ import {
   Input,
   OnInit,
   ChangeDetectionStrategy,
-  Inject, ChangeDetectorRef
+  Inject, ChangeDetectorRef, Output, EventEmitter
 } from '@angular/core'
 import {UserService} from '@services/user/user.service'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
@@ -29,7 +29,7 @@ import {EditGrantComponent} from "@ui/modals/edit-grant/edit-grant.component";
   styleUrls: ['./controls.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ControlsComponent implements OnInit {
+export class ControlsComponent {
   grantStatusEnum = GrantStatusEnum
 
   @Input() public contract!: GrantsVariationType
@@ -39,6 +39,8 @@ export class ControlsComponent implements OnInit {
   @Input() public voted: string | null = null
   @Input() public performer: string | null = null
 
+  @Output() newFinishVoteEvent = new EventEmitter()
+
   reportLink = ''
 
   constructor(
@@ -46,18 +48,9 @@ export class ControlsComponent implements OnInit {
     public disruptiveContractService: DisruptiveContractService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     private dialog: MatDialog,
-    public commonContractService: CommonContractService,
     private cdr: ChangeDetectorRef,
-    private staticService: StaticService,
     public communityContractService: CommunityContractService,
   ) {
-  }
-
-  ngOnInit() {
-  }
-
-  finishVote() {
-    this.disruptiveContractService.finishTaskProposalVoting(this.grantId as string)
   }
 
   startWork() {

@@ -11,8 +11,10 @@
       <button (click)="editGrant()">
         {{'entity.edit' | transloco}}
       </button>
-      <button *ngIf="voted" (click)="finishVote()"
-              [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
+      <button
+        *ngIf="voted"
+        (click)="newFinishVoteEvent.emit()"
+        [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
         {{'entity.finish_vote' | transloco}}
       </button>
     </ng-container>

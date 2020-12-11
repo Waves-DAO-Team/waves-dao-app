@@ -27,7 +27,9 @@ import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamComponent {
+
   grantStatusEnum = GrantStatusEnum
+
   @Input() grant: ContractGrantModel | null = null
 
   @Output() openApplyModal = new EventEmitter<boolean>()
@@ -36,20 +38,12 @@ export class TeamComponent {
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
   constructor (
-
     public userService: UserService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
-  ) {
-  }
-
-
+  ) {}
 
   isReadyToApply (): boolean {
     return this.grant?.status?.value === this.grantStatusEnum.readyToApply
-  }
-
-  isDAO (): boolean {
-    return this.userService.data.getValue().roles.isDAO
   }
 
 }

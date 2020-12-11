@@ -10,8 +10,8 @@
         (click)="newSignupEvent.emit()"
         *ngIf="user.roles.isUnauthorized"
         routerLinkActive="active"
-      ><!--        (click)="signup()"-->
-        ---{{'entity.log_in_for_apply' | transloco}}
+      >
+        {{'entity.log_in_for_apply' | transloco}}
       </button>
 
       <button
