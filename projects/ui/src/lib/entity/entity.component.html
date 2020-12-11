@@ -28,6 +28,7 @@
       *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"
       [grant]="grant"
       (newSignupEvent)="newSignupEvent.emit()"
+      (newOpenApplyModalEvent)="newOpenApplyModalEvent.emit()"
     ></ui-team>
     <!-- team ----------------------------------------------------------------------------------------------------------->
 

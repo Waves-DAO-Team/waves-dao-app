@@ -25,22 +25,20 @@ import { GrantStatusEnum } from '@services/static/static.model'
   styleUrls: ['./team.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeamComponent implements OnInit {
+export class TeamComponent {
   grantStatusEnum = GrantStatusEnum
   @Input() grant: ContractGrantModel | null = null
 
   @Output() openApplyModal = new EventEmitter<boolean>()
   @Output() newSignupEvent = new EventEmitter()
+  @Output() newOpenApplyModalEvent = new EventEmitter()
 
   constructor (
-    private dialog: MatDialog,
+
     public disruptiveContractService: DisruptiveContractService,
     public userService: UserService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
-  }
-
-  ngOnInit (): void {
   }
 
   voteTeam (voteValue: 'like' | 'dislike', teamIdentifier: string) {
@@ -56,22 +54,5 @@ export class TeamComponent implements OnInit {
   isDAO (): boolean {
     return this.userService.data.getValue().roles.isDAO
   }
-
-  onOpenApplyModal () {
-    this.dialog.open(DialogComponent, {
-      data: {
-        component: ApplyComponent,
-        params: {
-          grant: this.grant,
-          submitCallBack: (data: submitCallBackApplyArg) => {
-            this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
-              .pipe(take(1))
-              .subscribe()
-          }
-        }
-      }
-    })
-  }
-
 
 }

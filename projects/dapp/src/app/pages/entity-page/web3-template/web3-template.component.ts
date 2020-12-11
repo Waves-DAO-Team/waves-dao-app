@@ -7,6 +7,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SignerService} from "@services/signer/signer.service";
 import {take} from "rxjs/operators";
 import {translate} from "@ngneat/transloco";
+import {DialogComponent} from "@ui/dialog/dialog.component";
+import {ApplyComponent} from "@ui/modals/apply/apply.component";
+import {submitCallBackApplyArg} from "@ui/dialog/dialog.tokens";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-web3-template',
@@ -19,6 +23,7 @@ export class Web3TemplateComponent {
   @Input() public readonly contract!: GrantsVariationType
 
   constructor (
+    private dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
     private snackBar: MatSnackBar,
     public signerService: SignerService
@@ -36,6 +41,22 @@ export class Web3TemplateComponent {
       }, (error) => {
         this.snackBar.open(error, translate('messages.ok'))
       })
+  }
+
+  openApplyModal () {
+    this.dialog.open(DialogComponent, {
+      data: {
+        component: ApplyComponent,
+        params: {
+          grant: this.grant,
+          submitCallBack: (data: submitCallBackApplyArg) => {
+            this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
+              .pipe(take(1))
+              .subscribe()
+          }
+        }
+      }
+    })
   }
 
 }

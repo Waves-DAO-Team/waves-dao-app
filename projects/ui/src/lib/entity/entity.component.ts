@@ -25,13 +25,16 @@ import {EventEmitter} from '@angular/core' ;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntityComponent {
-  @Input() public readonly grant: ContractGrantModel = {}
 
+  @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
 
   public grantStatusEnum = GrantStatusEnum
+
   @Output() newVoteEvent = new EventEmitter<'like' | 'dislike'>();
   @Output() newSignupEvent = new EventEmitter()
+  @Output() newOpenApplyModalEvent = new EventEmitter()
+
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   @DestroyedSubject() private readonly destroyed$!: Subject<null>;
