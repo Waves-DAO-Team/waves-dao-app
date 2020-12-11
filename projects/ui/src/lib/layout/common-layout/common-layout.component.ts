@@ -22,7 +22,6 @@ import { Subject } from 'rxjs'
 @Component({
   selector: 'ui-common-layout',
   templateUrl: './common-layout.component.html',
-  styleUrls: ['./common-layout.component.scss'],
   // eslint-disable-next-line
   providers: [provideCommonLayout(CommonLayoutComponent)],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -193,14 +193,10 @@ header {
         &.active {
           color: $color_waves_blue;
         }
-
         &.profile {
           @include profile()
         }
-
-
       }
-
     }
   }
 
@@ -241,8 +237,6 @@ header {
         li {
           padding: $padding;
           margin: 0;
-
-          //color: #ffffff !important;
           border-bottom: 1px solid $color_light_gray;
           &:first-child{
             border-top: 1px solid $color_light_gray;
@@ -252,34 +246,8 @@ header {
           }
         }
       }
-
     }
   }
-  //@media (max-width: 600px) {
-  //  .container {
-  //
-  //    .nav {
-  //      flex-direction: column;
-  //      li {
-  //        justify-content: flex-start;
-  //      }
-  //    }
-  //  }
-  //}
-  //@media (max-width: 400px) {
-  //  .logo {
-  //    flex-direction: column;
-  //    >img {
-  //      padding: 0;
-  //      margin: $padding 0 !important;
-  //    }
-  //    //ul {
-  //    //  padding: 0;
-  //    //  margin: $padding 0 !important;
-  //    //}
-  //  }
-  //}
-
 }
 
 

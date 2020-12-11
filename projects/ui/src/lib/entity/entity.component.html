@@ -27,6 +27,7 @@
     <ui-team
       *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"
       [grant]="grant"
+      (newSignupEvent)="newSignupEvent.emit()"
     ></ui-team>
     <!-- team ----------------------------------------------------------------------------------------------------------->
 

@@ -2,11 +2,10 @@
 @import 'container';
 @import 'mixins/elements/floating-label';
 
-  form {
-    //@include form;
-    .input {
-      @include floating-label();
-      margin-bottom: $padding * 2;
-    }
+form {
+  .input {
+    @include floating-label();
+    margin-bottom: $padding * 2;
   }
+}
 

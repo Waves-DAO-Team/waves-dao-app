@@ -4,11 +4,8 @@
 @import 'mixins/elements/btn-container';
 
 .container {
-
   @include container();
-
   padding: 20px 0;
-
 }
 
 .footer {

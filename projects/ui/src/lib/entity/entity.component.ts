@@ -30,8 +30,8 @@ export class EntityComponent {
   @Input() public readonly contract!: GrantsVariationType
 
   public grantStatusEnum = GrantStatusEnum
-  public isDAOVote = false
   @Output() newVoteEvent = new EventEmitter<'like' | 'dislike'>();
+  @Output() newSignupEvent = new EventEmitter()
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   @DestroyedSubject() private readonly destroyed$!: Subject<null>;

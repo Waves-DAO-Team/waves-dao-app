@@ -7,11 +7,11 @@
     <div class="team__controls" *ngIf="grant?.status?.value === grantStatusEnum.readyToApply">
       <button
         class="active"
-        (click)="signup()"
+        (click)="newSignupEvent.emit()"
         *ngIf="user.roles.isUnauthorized"
         routerLinkActive="active"
-      >
-        {{'entity.log_in_for_apply' | transloco}}
+      ><!--        (click)="signup()"-->
+        ---{{'entity.log_in_for_apply' | transloco}}
       </button>
 
       <button

@@ -30,13 +30,12 @@ export class TeamComponent implements OnInit {
   @Input() grant: ContractGrantModel | null = null
 
   @Output() openApplyModal = new EventEmitter<boolean>()
+  @Output() newSignupEvent = new EventEmitter()
 
   constructor (
     private dialog: MatDialog,
-    public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
-    public signerService: SignerService,
-    private snackBar: MatSnackBar,
+    public userService: UserService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
   }
@@ -74,12 +73,5 @@ export class TeamComponent implements OnInit {
     })
   }
 
-  signup () {
-    this.signerService.login()
-      .pipe(take(1))
-      .subscribe(() => {
-      }, (error) => {
-        this.snackBar.open(error, translate('messages.ok'))
-      })
-  }
+
 }

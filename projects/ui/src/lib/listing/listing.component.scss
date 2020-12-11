@@ -5,14 +5,10 @@
 .listing {
   .content {
     display: flex;
-
     ui-tag {
       flex: 1;
-      //padding-right: $padding / 2;
     }
-
     .listing-list {
-      //padding-left: $padding / 4;
       flex: 5.5;
       margin-left: $padding/ 2;
     }
@@ -24,14 +20,12 @@
   .listing {
     .grants-variation {
       align-items: center;
-
       display: flex;
       flex-direction: row;
       margin-left: -40px;
       overflow: scroll;
       overflow-x: scroll;
       width: calc(100% + 60px);
-
       .grant {
         margin: 0 $padding 0 $padding * 2 !important;
         min-width: 300px;
@@ -40,25 +34,18 @@
           margin-left: 40px !important;
         }
       }
-
       .final {
         display: block;
         height: 1px;
-
         max-width: 10px;
         min-width: 10px;
-        //flex: 1;
-        //margin-right: $padding;
 
       }
-
       &::-webkit-scrollbar {
         height: 0;
         width: 0;
       }
-
     }
-
     .content {
       flex-direction: column;
 
