@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from "@services/contract/disruptive-contract.service";
@@ -10,15 +10,17 @@ import {SignerService} from "@services/signer/signer.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "@ui/dialog/dialog.component";
 import {ApplyComponent} from "@ui/modals/apply/apply.component";
-import {submitCallBackApplyArg} from "@ui/dialog/dialog.tokens";
-import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
+import {submitCallBackApplyArg, submitCallBackRewardArg} from "@ui/dialog/dialog.tokens";
+import {TemplateComponentAbstract, VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
+import {AddRewardComponent} from "@ui/modals/add-reward/add-reward.component";
+import {EditGrantComponent} from "@ui/modals/edit-grant/edit-grant.component";
 
 @Component({
   selector: 'app-default-template',
   templateUrl: './default-template.component.html',
   styleUrls: ['./default-template.component.scss']
 })
-export class DefaultTemplateComponent {
+export class DefaultTemplateComponent implements TemplateComponentAbstract{
 
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
@@ -28,6 +30,7 @@ export class DefaultTemplateComponent {
     public disruptiveContractService: DisruptiveContractService,
     private snackBar: MatSnackBar,
     public signerService: SignerService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   vote (value: 'like' | 'dislike') {
@@ -69,4 +72,61 @@ export class DefaultTemplateComponent {
   finishVote() {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string)
   }
+
+  startWork(): void {
+    this.disruptiveContractService.startWork(this.grant?.id as string)
+  }
+
+  reject(): void {
+    this.disruptiveContractService.rejectTask(this.grant?.id as string)
+  }
+
+  acceptWorkResult(reportLink: string): void {
+    this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, reportLink)
+  }
+
+  finishApplicantsVote(): void {
+    this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string)
+  }
+
+  addReward(): void {
+    const dialog = this.dialog.open(DialogComponent, {
+      data: {
+        component: AddRewardComponent,
+        params: {
+          title: translate('add-reward.title'),
+          submitBtnText: translate('modal.btn.propose_grant'),
+          grantId: this.grant?.id,
+          submitCallBack: (data: submitCallBackRewardArg) => {
+            if (this.grant?.id) {
+              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe((e)=>{
+                dialog.close()
+                this.cdr.markForCheck()
+              })
+            }
+          }
+        }
+      }
+    })
+  }
+
+  editGrant() {
+    const dialog = this.dialog.open(DialogComponent, {
+      data: {
+        component: EditGrantComponent,
+        params: {
+          title: translate('edit_grant.title'),
+          submitBtnText: translate('edit_grant.btn.edit'),
+          submitCallBack: (data: submitCallBackRewardArg) => {
+            // TODO: нужен метод, на https://waves-dapp.com/3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA нет
+            // this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
+            dialog.close()
+            this.cdr.markForCheck()
+            // })
+          }
+        }
+      }
+    })
+  }
+
 }

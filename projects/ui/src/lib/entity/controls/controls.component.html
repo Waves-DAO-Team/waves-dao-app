@@ -1,14 +1,14 @@
 <div class="controls" *ngIf="userService.data | async as user">
 
   <ng-container *ngIf="!status && user.roles.isWG && grantId"> <!--no status-->
-    <button (click)="addReward()" [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
+    <button (click)="newAddRewardEvent.emit()" [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
       {{'entity.add_reward' | transloco}}
     </button>
   </ng-container>
 
   <ng-container *ngIf="status === grantStatusEnum.proposed">
     <ng-container *ngIf="user.roles.isWG">
-      <button (click)="editGrant()">
+      <button (click)="newEditGrantEvent.emit()">
         {{'entity.edit' | transloco}}
       </button>
       <button
@@ -22,7 +22,7 @@
 
   <ng-container *ngIf="status === grantStatusEnum.readyToApply">
     <ng-container *ngIf="user.roles.isWG">
-      <button (click)="finishApplicantsVote()" [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
+      <button (click)="newFinishApplicantsVoteEvent.emit()" [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
         {{'entity.finish_applicants_voting' | transloco}}
       </button>
     </ng-container>
@@ -35,7 +35,7 @@
   <ng-container *ngIf="status === grantStatusEnum.teamChosen">
     <ng-container *ngIf="user.roles.isWG">
       <ng-container *ngIf="performer && user.userAddress.includes(performer)">
-        <button class="active" (click)="startWork()"
+        <button class="active" (click)="newStartWorkEvent.emit()"
                 [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
           {{'entity.start_work' | transloco}}
         </button>
@@ -43,15 +43,20 @@
           {{'entity.insufficient_balance' | transloco}}
         </p>
       </ng-container>
-      <button class="btn" (click)="reject()">{{'entity.reject' | transloco}}</button>
+      <button class="btn" (click)="newRejectEvent.emit()">{{'entity.reject' | transloco}}</button>
     </ng-container>
   </ng-container>
 
   <ng-container *ngIf="status === grantStatusEnum.workStarted">
     <ng-container *ngIf="user.roles.isWG">
-      <input type="text" [(ngModel)]="reportLink" placeholder="report link">
-      <button (click)="acceptWorkResult()" class="btn"
-              [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
+      <input
+        type="text"
+        [(ngModel)]="reportLink"
+        placeholder="report link">
+      <button
+        (click)="newAcceptWorkResultEvent.emit(reportLink)"
+        class="btn"
+        [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
         {{'entity.accept_work_result' | transloco}}
       </button>
       <p *ngIf="(userService.isBalanceMoreCommission$ | async) === false">

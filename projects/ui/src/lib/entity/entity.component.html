@@ -15,6 +15,12 @@
       [voted]="grant?.voted"
       [performer]="grant?.performer?.value"
       (newFinishVoteEvent)="newFinishVoteEvent.emit()"
+      (newStartWorkEvent)="newStartWorkEvent.emit()"
+      (newRejectEvent)="newRejectEvent.emit()"
+      (newAcceptWorkResultEvent)="newAcceptWorkResultEvent.emit($event)"
+      (newFinishApplicantsVoteEvent)="newFinishApplicantsVoteEvent.emit()"
+      (newAddRewardEvent)="newAddRewardEvent.emit()"
+      (newEditGrantEvent)="newEditGrantEvent.emit()"
     ></ui-controls>
 
     <ui-body

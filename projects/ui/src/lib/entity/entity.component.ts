@@ -25,7 +25,7 @@ import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
   styleUrls: ['./entity.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntityComponent {
+export class EntityComponent  {
 
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
@@ -38,6 +38,12 @@ export class EntityComponent {
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
   @Output() newFinishVoteEvent = new EventEmitter()
+  @Output() newStartWorkEvent = new EventEmitter()
+  @Output() newRejectEvent = new EventEmitter()
+  @Output() newAcceptWorkResultEvent = new EventEmitter<string>()
+  @Output() newFinishApplicantsVoteEvent = new EventEmitter()
+  @Output() newAddRewardEvent = new EventEmitter()
+  @Output() newEditGrantEvent = new EventEmitter()
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
@@ -53,9 +59,12 @@ export class EntityComponent {
     @Inject(API) public readonly api: AppApiInterface
   ) {}
 
-
   vote (value: 'like' | 'dislike') {
     this.newVoteEvent.emit(value)
+  }
+
+  startWork() {
+    this.disruptiveContractService.startWork(this.grant?.id as string)
   }
 
 }

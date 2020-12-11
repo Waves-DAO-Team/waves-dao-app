@@ -40,6 +40,12 @@ export class ControlsComponent {
   @Input() public performer: string | null = null
 
   @Output() newFinishVoteEvent = new EventEmitter()
+  @Output() newStartWorkEvent = new EventEmitter()
+  @Output() newRejectEvent = new EventEmitter()
+  @Output() newAcceptWorkResultEvent = new EventEmitter<string>()
+  @Output() newFinishApplicantsVoteEvent = new EventEmitter()
+  @Output() newAddRewardEvent = new EventEmitter()
+  @Output() newEditGrantEvent = new EventEmitter()
 
   reportLink = ''
 
@@ -53,60 +59,4 @@ export class ControlsComponent {
   ) {
   }
 
-  startWork() {
-    this.disruptiveContractService.startWork(this.grantId as string)
-  }
-
-  reject() {
-    this.disruptiveContractService.rejectTask(this.grantId as string)
-  }
-
-  acceptWorkResult() {
-    this.disruptiveContractService.acceptWorkResult(this.grantId as string, this.reportLink)
-  }
-
-  finishApplicantsVote() {
-    this.disruptiveContractService.finishApplicantsVoting(this.grantId as string)
-  }
-
-  addReward() {
-   const dialog = this.dialog.open(DialogComponent, {
-      data: {
-        component: AddRewardComponent,
-        params: {
-          title: translate('add-reward.title'),
-          submitBtnText: translate('modal.btn.propose_grant'),
-          grantId: this.grantId,
-          submitCallBack: (data: submitCallBackRewardArg) => {
-            if (this.grantId) {
-                this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
-                  dialog.close()
-                  this.cdr.markForCheck()
-                })
-            }
-          }
-        }
-      }
-    })
-  }
-
-  editGrant() {
-    const dialog = this.dialog.open(DialogComponent, {
-      data: {
-        component: EditGrantComponent,
-        params: {
-          title: translate('edit_grant.title'),
-          submitBtnText: translate('edit_grant.btn.edit'),
-          submitCallBack: (data: submitCallBackRewardArg) => {
-            // TODO: нужен метод, на https://waves-dapp.com/3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA нет
-              // this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
-                dialog.close()
-                this.cdr.markForCheck()
-              // })
-
-          }
-        }
-      }
-    })
-  }
 }
