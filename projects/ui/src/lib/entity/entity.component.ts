@@ -59,9 +59,6 @@ export class EntityComponent  {
     @Inject(API) public readonly api: AppApiInterface
   ) {}
 
-  vote (value: 'like' | 'dislike') {
-    this.newVoteEvent.emit(value)
-  }
 
   startWork() {
     this.disruptiveContractService.startWork(this.grant?.id as string)
