@@ -1,11 +1,10 @@
 <div class="container home-page">
 
     <div class="container__mid">
-        <h1 class="home-page__title">
+        <div class="home-page__title mat-h1">
             {{'listing.title' | transloco}}
-        </h1>
-
-        <div class="home-page__desc">
+        </div>
+        <div class="home-page__desc mat-display-2">
             {{'listing.desc.you_can_vote' | transloco}}.&nbsp;
             <span class="home-page__desc-span">{{'listing.desc.select_category' | transloco}}:</span>
         </div>
@@ -17,8 +16,8 @@
             >
                 <img class="home-page__grant-img" [src]="grants?.preview"/>
                 <span class="home-page__grant-content">
-                    <span class="home-page__grant-title">{{grants?.title}}</span>
-                    <span class="home-page__grant-desc">{{grants?.desc}}</span>
+                    <span class="home-page__grant-title mat-display-3">{{grants?.title}}</span>
+                    <span class="home-page__grant-desc mat-display-1">{{grants?.desc}}</span>
                 </span>
             </a>
             <div class="home-page__grant-final"></div>

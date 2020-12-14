@@ -8,13 +8,11 @@
 
 .home-page {
   &__title {
-    font-size: $font_size_h1;
     padding-bottom: $padding;
   }
 
   &__desc {
     color: $color_dark_gray;
-    font-size: $font_size_h4;
     margin-bottom: $padding * 2;
     max-width: 720px;
 
@@ -81,7 +79,6 @@
 
     &-title {
       display: block;
-      font-size: 18px;
       font-weight: 500;
       margin-bottom: $padding / 2;
       padding: 0;
@@ -91,7 +88,6 @@
     &-desc {
       color: $color_gray;
       display: block;
-      font-size: $font_size_h5;
       margin: 0;
       padding: 0;
       text-align: center;
