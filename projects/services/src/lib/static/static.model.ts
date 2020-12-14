@@ -28,5 +28,6 @@ export enum GrantStatusEnum {
   teamChosen = 'team_chosen',
   workStarted = 'work_started',
   workFinished = 'work_finished',
+  votingStarted = 'voting_started',
   noStatus = 'no_status'
 }
