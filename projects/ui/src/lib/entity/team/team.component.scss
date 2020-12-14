@@ -40,18 +40,19 @@
           color: $color_dark_gray;
           display: flex;
           flex: 1;
-          font-size: $font_size_h5;
           justify-content: center;
+          margin: auto;
+          width: 100%;
         }
 
         &__bottom {
           align-items: baseline;
           display: flex;
           flex: 1.2;
-          font-size: $font_size_h3;
           font-weight: bold;
           justify-content: center;
           line-height: 1;
+          margin: auto;
         }
 
         &__up,
@@ -75,7 +76,6 @@
           align-items: center;
           display: flex;
           flex: 1;
-          font-size: $font_size_h4;
           justify-content: center;
         }
 
@@ -93,19 +93,18 @@
 
         &__name {
           display: inline-block;
-          font-size: $font_size_h4;
           font-weight: bold;
           overflow: hidden;
           padding-left: $padding;
           text-overflow: ellipsis;
           white-space: nowrap;
           width: 95%;
+          margin: auto auto 0 auto;
         }
 
         &__link {
           color: $color_waves_blue;
           display: inline-block;
-          font-size: $font_size_h5;
           justify-content: center;
           overflow: hidden;
           padding-left: $padding;
@@ -113,6 +112,7 @@
           text-overflow: ellipsis;
           white-space: nowrap;
           width: 95%;
+          margin: 0 auto auto auto;
 
           img {
             padding-left: $padding / 2;
@@ -124,11 +124,11 @@
         align-items: center;
         color: $color_waves_blue;
         display: flex;
-        font-size: $font_size_h4;
         justify-content: center;
         max-width: 100px;
         min-width: 100px;
         padding-right: $padding * 2;
+        margin: 0;
 
         img {
           margin-right: $padding / 2;

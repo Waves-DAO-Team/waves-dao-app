@@ -4,7 +4,6 @@
   &__top,
   &__bottom {
     color: $color_dark_gray;
-    font-style: $font_size_h5;
     line-height: 1;
 
     span {
@@ -15,7 +14,6 @@
 
   &__mid {
     color: $color_black;
-    font-size: $font_size_h2;
     line-height: 1;
     margin-bottom: $padding * 2;
     margin-top: $padding * 2;

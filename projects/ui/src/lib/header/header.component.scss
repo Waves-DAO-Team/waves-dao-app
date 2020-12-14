@@ -15,20 +15,21 @@
     margin-right: $padding;
 
     .name {
-      font-size: $font_size_h4;
+      //font-size: $font_size_h4;
       color: $color_black;
+
+      margin: 0;
     }
 
     .role {
-      font-size: $font_size_h5;
       color: $color_dark_gray;
+      margin: 0;
     }
   }
 
   button {
     cursor: pointer;
     outline: none;
-    font-size: $font_size_h4;
     border: 1px solid $color_light_gray;
     color: $color_black;
     background: none;
@@ -184,7 +185,9 @@ header {
 
       li {
         padding-left: $padding * 3;
-        font-size: $font_size_h4;
+        //font-size: $font_size_h4;
+        //background: red;
+        margin: 0;
         color: $color_dark_gray;
         align-items: center;
         display: flex;

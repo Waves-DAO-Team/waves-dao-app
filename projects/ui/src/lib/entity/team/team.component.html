@@ -41,7 +41,7 @@
               (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
               *ngIf="isReadyToApply() && user.roles.isDAO">
           </div>
-          <div class="team__list__li__left__score">{{app?.score?.value || 0}}</div>
+          <div class="team__list__li__left__score mat-display-2">{{app?.score?.value || 0}}</div>
           <div class="team__list__li__left__down" [class.disabled]="!isReadyToApply()">
             <img src="assets/icons/arr-down.svg"
                  (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})"
@@ -53,18 +53,18 @@
           </div>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <div class="team__list__li__left__top">{{'entity.votes' | transloco}}</div>
-          <div class="team__list__li__left__bottom">{{app?.score?.value || 0}}</div>
+          <div class="team__list__li__left__top mat-display-1">{{'entity.votes' | transloco}}</div>
+          <div class="team__list__li__left__bottom mat-display-4">{{app?.score?.value || 0}}</div>
         </ng-container>
       </div>
 
       <div class="team__list__li__mid">
-        <div class="team__list__li__mid__name">{{app?.name?.value}}</div>
-        <a class="team__list__li__mid__link" [href]="app?.link?.value">
+        <div class="team__list__li__mid__name mat-display-2">{{app?.name?.value}}</div>
+        <a class="team__list__li__mid__link  mat-display-1" [href]="app?.link?.value">
           {{'entity.learn_about_team' | transloco}} <img src="assets/icons/link.svg">
         </a>
       </div>
-      <div class="team__list__li__right">
+      <div class="team__list__li__right mat-display-2">
         <ng-container *ngIf="app.process">
           <img src="assets/icons/winner.png">{{'entity.winner' | transloco}}
         </ng-container>
