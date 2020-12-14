@@ -15,9 +15,7 @@
     margin-right: $padding;
 
     .name {
-      //font-size: $font_size_h4;
       color: $color_black;
-
       margin: 0;
     }
 
@@ -185,8 +183,6 @@ header {
 
       li {
         padding-left: $padding * 3;
-        //font-size: $font_size_h4;
-        //background: red;
         margin: 0;
         color: $color_dark_gray;
         align-items: center;
