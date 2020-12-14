@@ -2,6 +2,9 @@
   <button (click)="addTaskDetails()" *ngIf="!grant?.status">
     {{ 'modal.btn.add_task_details' | transloco }}
   </button>
+  <button (click)="initTaskVoting()" *ngIf="!grant?.status && userService.data.getValue().roles.isWG">
+    {{ 'modal.btn.init_task_voting' | transloco }}
+  </button>
 </ng-template>
 
 <ui-entity

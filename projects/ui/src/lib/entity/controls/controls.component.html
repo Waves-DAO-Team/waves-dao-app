@@ -2,8 +2,6 @@
 
   <ng-container [ngTemplateOutlet]="controlsTemplate"></ng-container>
 
-
-
   <ng-container *ngIf="status === grantStatusEnum.proposed">
     <ng-container *ngIf="user.roles.isWG">
       <button (click)="newEditGrantEvent.emit()">

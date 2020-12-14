@@ -23,6 +23,29 @@ export class CommunityContractService {
     return this.commonContractService.addTask(taskName, link)
   }
 
+  public initTaskVoting (taskId: string): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(
+      this.contractService.getAddress(),
+      'initTaskVoting',
+      [
+        { type: 'string', value: taskId },
+      ],
+      [
+        // { assetId: 'WAVES', amount: 400000 }
+      ]
+    )
+      .pipe(
+        catchError((error) => {
+          this.snackBar.open(error.message, translate('messages.ok'))
+          return EMPTY
+        }),
+        tap((e) => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('messages.initTaskVoting'), translate('messages.ok'))
+        })
+      )
+  }
+
   public addTaskDetails (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),

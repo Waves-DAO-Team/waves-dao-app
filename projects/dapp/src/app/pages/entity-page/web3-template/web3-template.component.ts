@@ -16,6 +16,7 @@ import {AddRewardComponent} from "@ui/modals/add-reward/add-reward.component";
 import {EditGrantComponent} from "@ui/modals/edit-grant/edit-grant.component";
 import {AddTaskDetailsComponent} from "@ui/modals/add-task-details/add-task-details.component";
 import {CommunityContractService} from "@services/contract/community-contract.service";
+import {UserService} from "@services/user/user.service";
 
 @Component({
   selector: 'app-web3-template',
@@ -34,6 +35,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     private snackBar: MatSnackBar,
     public signerService: SignerService,
     private cdr: ChangeDetectorRef,
+    public userService: UserService
   ) {
   }
 
@@ -156,4 +158,12 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       }
     })
   }
+
+  initTaskVoting() {
+    if(this.grant.id)
+      this.communityContractService.initTaskVoting(this.grant.id).subscribe((e)=>{
+        this.cdr.markForCheck()
+      })
+  }
+
 }
