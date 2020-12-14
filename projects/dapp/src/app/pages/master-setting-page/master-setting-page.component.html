@@ -5,17 +5,17 @@
     </button>
   </div>
   <div class="container__mid">
-    <h1 class="master-setting__title">
+    <div class="master-setting__title mat-h1">
       {{'master_setting.setting' | transloco}}
-    </h1>
-    <p class="master-setting__desc">
+    </div>
+    <p class="master-setting__desc mat-display-2">
       {{'master_setting.management_settings' | transloco}}
     </p>
 
     <div class="master-setting__groups">
-      <h3 class="master-setting__groups-title">
+      <div class="master-setting__groups-title mat-h3">
         {{'master_setting.group' | transloco}}
-      </h3>
+      </div>
       <ul class="master-setting__groups-list tab-title">
         <li [class.active]="activeTab === 'dao'" (click)="setTab('dao')">
           {{'master_setting.dao_member' | transloco}}

@@ -3,30 +3,15 @@
 @import 'mixins/elements/icon-logo';
 
 .logo {
-
   margin-bottom: $padding * 2;
-  //margin-bottom: $padding;
   text-align: center;
 
   .icon-logo {
     @include icon-logo(90px);
     margin: $padding * 1 auto;
-
     text-align: center;
   }
-
-  //h3 {
-  //  font-size: $font-size-big;
-  //  margin: 0;
-  //  padding: 0;
-  //}
 }
-//
-//.title {
-//  font-size: $font-size-large;
-//  font-weight: bold;
-//}
-
 .container {
   @include container();
 
@@ -44,6 +29,4 @@
       width: 5px;
     }
   }
-
-
 }
