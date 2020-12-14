@@ -6,6 +6,9 @@
 @import 'mixins/elements/icon-logo';
 
 .master-setting {
+  .mat-display-4 {
+    margin: auto;
+  }
   &__title {
     padding-bottom: 0;
   }
@@ -31,6 +34,9 @@
   &__address {
     margin-bottom: 2rem;
 
+    &-title {
+      margin: auto;
+    }
     &-list {
       margin-top: $padding * 5;
       opacity: 0.4;

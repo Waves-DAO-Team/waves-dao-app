@@ -38,7 +38,7 @@
     </div>
 
     <div class="master-setting__address">
-      <h3 class="master-setting__address-title">{{'master_setting.address' | transloco}}:</h3>
+      <div class="master-setting__address-title mat-display-4">{{'master_setting.address' | transloco}}:</div>
       <div class="master-setting__address-field" *ngIf="activeTab === 'dao'">
         <form [formGroup]="DAOMemberForm"(ngSubmit)="submitDAO()">
           <label>
@@ -55,9 +55,9 @@
           <div class="grid__container">
             <div class="grid__container__col">
               <div class="dot-list">
-                <h3>
+                <div class="mat-display-4">
                   {{'master_setting.form.DAO_member.label' | transloco}}:
-                </h3>
+                </div>
                 <ul>
                   <li *ngFor="let dao of userService.data.getValue().DAOMemberAddress">{{dao}}</li>
                 </ul>
@@ -83,9 +83,9 @@
           <div class="grid__container">
             <div class="grid__container__col">
               <div class="dot-list">
-                <h3>
+                <div class="mat-display-4">
                   {{'master_setting.form.work_group.label' | transloco}}:
-                </h3>
+                </div>
                 <ul>
                   <li *ngFor="let wg of userService.data.getValue().WorkGroupAddress">{{wg}}</li>
                 </ul>

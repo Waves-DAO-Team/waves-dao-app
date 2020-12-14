@@ -5,19 +5,19 @@
     </button>
   </div>
   <div class="container__mid" *ngIf="user$ | async as user">
-    <h1>{{'members.members' | transloco}}</h1>
+    <div class="mat-h1">{{'members.members' | transloco}}</div>
     <p>{{user.masterAddress}}</p>
     <p>&nbsp;</p>
 
-    <h3>{{'members.master' | transloco}}</h3>
+    <div class="sub-title mat-display-4">{{'members.master' | transloco}}</div>
     <ul>
       <li>{{user.masterAddress}}</li>
     </ul>
-    <h3>{{'members.wg' | transloco}}</h3>
+    <div class="sub-title mat-display-4">{{'members.wg' | transloco}}</div>
     <ul>
       <li *ngFor="let wg of userService?.data?.getValue().WorkGroupAddress">{{wg}}</li>
     </ul>
-    <h3>{{'members.dao' | transloco}}</h3>
+    <div class="sub-title mat-display-4">{{'members.dao' | transloco}}</div>
     <ul>
       <li *ngFor="let dao of userService?.data?.getValue().DAOMemberAddress">{{dao}}</li>
     </ul>
