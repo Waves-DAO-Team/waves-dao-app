@@ -3,7 +3,7 @@ import {
   Input,
   OnInit,
   ChangeDetectionStrategy,
-  Inject, ChangeDetectorRef, Output, EventEmitter
+  Inject, ChangeDetectorRef, Output, EventEmitter, TemplateRef
 } from '@angular/core'
 import {UserService} from '@services/user/user.service'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
@@ -31,7 +31,7 @@ import {EditGrantComponent} from "@ui/modals/edit-grant/edit-grant.component";
 })
 export class ControlsComponent {
   grantStatusEnum = GrantStatusEnum
-
+  @Input() controlsTemplate: TemplateRef<any> | undefined;
   @Input() public contract!: GrantsVariationType
   @Input() public status: string | null = null
   @Input() public grantId: string | null = null

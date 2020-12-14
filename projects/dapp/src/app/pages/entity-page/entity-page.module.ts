@@ -10,6 +10,8 @@ import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
 import { DefaultTemplateComponent } from './default-template/default-template.component'
 import {Web3TemplateComponent} from "@pages/entity-page/web3-template/web3-template.component";
+import {AddTaskDetailsComponent} from "@ui/modals/add-task-details/add-task-details.component";
+import {AddTaskDetailsModule} from "@ui/modals/add-task-details/add-task-details.module";
 
 @NgModule({
   declarations: [EntityPageComponent, DefaultTemplateComponent, Web3TemplateComponent],
@@ -20,7 +22,7 @@ import {Web3TemplateComponent} from "@pages/entity-page/web3-template/web3-templ
     PipesModule,
     EntityModule,
     NotFoundPageModule,
-    LoadingPageModule
+    LoadingPageModule,
   ]
 })
 export class EntityPageModule { }

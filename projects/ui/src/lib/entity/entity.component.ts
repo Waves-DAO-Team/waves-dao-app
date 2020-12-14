@@ -4,7 +4,7 @@ import {
   Component, Inject,
   Input,
   OnDestroy,
-  OnInit, Output
+  OnInit, Output, TemplateRef
 } from '@angular/core'
 import {
   ContractGrantModel
@@ -29,6 +29,7 @@ export class EntityComponent  {
 
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
+  @Input() controlsTemplate: TemplateRef<any> | undefined;
 
   public grantStatusEnum = GrantStatusEnum
 

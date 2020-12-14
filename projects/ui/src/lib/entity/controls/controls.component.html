@@ -1,10 +1,8 @@
 <div class="controls" *ngIf="userService.data | async as user">
 
-  <ng-container *ngIf="!status && user.roles.isWG && grantId"> <!--no status-->
-    <button (click)="newAddRewardEvent.emit()" [disabled]="(userService.isBalanceMoreCommission$ | async) === false">
-      {{'entity.add_reward' | transloco}}
-    </button>
-  </ng-container>
+  <ng-container [ngTemplateOutlet]="controlsTemplate"></ng-container>
+
+
 
   <ng-container *ngIf="status === grantStatusEnum.proposed">
     <ng-container *ngIf="user.roles.isWG">

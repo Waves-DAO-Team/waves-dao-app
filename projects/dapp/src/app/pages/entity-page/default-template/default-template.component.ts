@@ -31,6 +31,7 @@ export class DefaultTemplateComponent implements TemplateComponentAbstract{
     private snackBar: MatSnackBar,
     public signerService: SignerService,
     private cdr: ChangeDetectorRef,
+    public userService: UserService
   ) {}
 
   vote (value: 'like' | 'dislike') {

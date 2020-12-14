@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core'
+import {ChangeDetectorRef, Component, Input, OnInit, TemplateRef} from '@angular/core'
 import {ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {CommonContractService} from "@services/contract/common-contract.service";
@@ -14,6 +14,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {TemplateComponentAbstract, VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
 import {AddRewardComponent} from "@ui/modals/add-reward/add-reward.component";
 import {EditGrantComponent} from "@ui/modals/edit-grant/edit-grant.component";
+import {AddTaskDetailsComponent} from "@ui/modals/add-task-details/add-task-details.component";
+import {CommunityContractService} from "@services/contract/community-contract.service";
 
 @Component({
   selector: 'app-web3-template',
@@ -28,6 +30,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   constructor(
     private dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
+    public communityContractService: CommunityContractService,
     private snackBar: MatSnackBar,
     public signerService: SignerService,
     private cdr: ChangeDetectorRef,
@@ -130,4 +133,27 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
+  addTaskDetails() {
+    const dialog = this.dialog.open(DialogComponent, {
+      data: {
+        component: AddTaskDetailsComponent,
+        params: {
+          title: translate('modal.texts.add_task_details'),
+          submitBtnText: translate('modal.btn.apply'),
+          submitCallBack: (data: submitCallBackRewardArg) => {
+            if(this.grant.id)
+              this.communityContractService.addTaskDetails(this.grant.id, data.reward).subscribe((e)=>{
+                dialog.close()
+                this.cdr.markForCheck()
+                // State check failed. Reason: Transaction sent from smart account.
+                // Requires 400000 extra fee.. Fee for InvokeScriptTransaction (500000 in WAVES)
+                // does not exceed minimal value of 900000 WAVES.
+
+                // { assetId: 'WAVES', amount: reward }
+              })
+          }
+        }
+      }
+    })
+  }
 }

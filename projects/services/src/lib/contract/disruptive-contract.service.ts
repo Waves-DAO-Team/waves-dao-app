@@ -77,8 +77,6 @@ export class DisruptiveContractService {
   }
 
   public applyForTask (taskId: string, teamName: string, link: string) {
-    console.log('applyForTask', taskId, teamName, link)
-    // this.popupService.add(`${taskId} ${teamName} ${link}`, 'applyForTask')
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'applyForTask', [
       { type: 'string', value: taskId },
       { type: 'string', value: teamName },
@@ -164,7 +162,6 @@ export class DisruptiveContractService {
   public acceptWorkResult (taskId: string, reportLink: string) {
     this.signerService.invoke(this.contractService.getAddress(), 'acceptWorkResult', [
       { type: 'string', value: taskId },
-      // { type: 'string', value: teamIdentifier }
       { type: 'string', value: reportLink }
     ])
       .catch((res) => {

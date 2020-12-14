@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import {AddRewardModule} from "@ui/modals/add-reward/add-reward.module";
 import {EditGrantModule} from "@ui/modals/edit-grant/edit-grant.module";
+import {AddTaskDetailsModule} from "@ui/modals/add-task-details/add-task-details.module";
 
 @NgModule({
   declarations: [ControlsComponent],
@@ -17,7 +18,8 @@ import {EditGrantModule} from "@ui/modals/edit-grant/edit-grant.module";
     FormsModule,
     AddRewardModule,
     PipesModule,
-    EditGrantModule
+    EditGrantModule,
+    AddTaskDetailsModule
   ],
   exports: [ControlsComponent]
 })

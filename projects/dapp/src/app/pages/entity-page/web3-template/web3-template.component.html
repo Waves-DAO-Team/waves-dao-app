@@ -1,3 +1,9 @@
+<ng-template #web3Btn>
+  <button (click)="addTaskDetails()" *ngIf="!grant?.status">
+    {{ 'modal.btn.add_task_details' | transloco }}
+  </button>
+</ng-template>
+
 <ui-entity
   (newVoteEvent)="vote($event)"
   [contract]="contract" [grant]="grant"
@@ -11,4 +17,5 @@
   (newFinishApplicantsVoteEvent)="finishApplicantsVote()"
   (newAddRewardEvent)="addReward()"
   (newEditGrantEvent)="editGrant()"
+  [controlsTemplate]="web3Btn"
 ></ui-entity>

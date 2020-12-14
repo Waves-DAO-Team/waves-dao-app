@@ -30,6 +30,9 @@ export class CommunityContractService {
       [
         { type: 'string', value: taskId },
         { type: 'string', value: reward }
+      ],
+      [
+        // { assetId: 'WAVES', amount: 400000 }
       ]
     )
       .pipe(
