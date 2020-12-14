@@ -5,6 +5,7 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { API, AppApiInterface } from '@constants'
 import { ContractGrantModel } from '@services/contract/contract.model'
+import {StaticService} from "@services/static/static.service";
 
 @Component({
   selector: 'ui-apply',
@@ -20,6 +21,7 @@ export class ApplyComponent implements OnInit {
   })
 
   constructor (
+    public staticService: StaticService,
     public disruptiveContractService: DisruptiveContractService,
     @Inject(API) public readonly api: AppApiInterface,
     @Inject(DIALOG_DATA) public params: DialogParams) {
@@ -56,7 +58,7 @@ export class ApplyComponent implements OnInit {
       this.modalStep = 3
     } else {
       if (com === 'NEED_APPLY') {
-        window.open('https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+', '_blank')
+        window.open(this.api.issues[this.staticService.selectedContact], '_blank')
       }
       this.modalStep = 2
     }

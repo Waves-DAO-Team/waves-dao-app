@@ -18,7 +18,12 @@ export interface AppApiInterface {
     dev: string,
     interhack: string
   },
-  grantsProgramLink: string
+  grantsProgramLink: string,
+  issues: {
+    disruptive: string,
+    web3: string,
+    interhack: string
+  }
 }
 
 export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Application constants')
