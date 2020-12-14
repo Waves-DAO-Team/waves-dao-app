@@ -39,14 +39,9 @@ body {
   background: rgba(var(--body-bg), 1);
   color: rgba(var(--body-color), 0.9);
   font-family: $font-family-base;
-  //font-size: var(--layout-font-size);
   font-size: $font_size_h4;
   height: 100%;
   margin: 0;
-
-  //h1 {
-  //  font-size: $font_size_h1;
-  //}
 
   h2 {
     font-size: $font_size_h2;
