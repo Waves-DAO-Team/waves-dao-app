@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core'
+import { ChangeDetectorRef, Component, Input } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
-import { CommonContractService } from '@services/contract/common-contract.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
@@ -14,8 +13,6 @@ import { MatDialog } from '@angular/material/dialog'
 import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
 import { EditGrantComponent } from '@ui/modals/edit-grant/edit-grant.component'
-import { AddTaskDetailsComponent } from '@ui/modals/add-task-details/add-task-details.component'
-import { CommunityContractService } from '@services/contract/community-contract.service'
 import { UserService } from '@services/user/user.service'
 
 @Component({
@@ -104,7 +101,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
           grantId: this.grant?.id,
           submitCallBack: (data: submitCallBackRewardArg) => {
             if (this.grant?.id) {
-              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe((e) => {
+              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe(() => {
                 dialog.close()
                 this.cdr.markForCheck()
               })
@@ -122,12 +119,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
         params: {
           title: translate('edit_grant.title'),
           submitBtnText: translate('edit_grant.btn.edit'),
-          submitCallBack: (data: submitCallBackRewardArg) => {
-            // TODO: нужен метод, на https://waves-dapp.com/3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA нет
-            // this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
+          submitCallBack: () => {
             dialog.close()
             this.cdr.markForCheck()
-            // })
           }
         }
       }
