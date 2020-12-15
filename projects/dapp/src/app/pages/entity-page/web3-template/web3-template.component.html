@@ -7,9 +7,17 @@
   </button>
 </ng-template>
 
+<ng-template #voteForTask>
+  <ui-vote-for-task
+    [grant]="grant"
+    (newVoteEvent)="vote($event)"
+  ></ui-vote-for-task>
+</ng-template>
+
 <ui-entity
   (newVoteEvent)="vote($event)"
-  [contract]="contract" [grant]="grant"
+  [contract]="contract"
+  [grant]="grant"
   (newSignupEvent)="signup()"
   (newOpenApplyModalEvent)="openApplyModal()"
   (newVoteTeamEvent)="voteTeam($event)"
@@ -21,4 +29,5 @@
   (newAddRewardEvent)="addReward()"
   (newEditGrantEvent)="editGrant()"
   [controlsTemplate]="web3Btn"
+  [voteForTaskTemplate]="voteForTask"
 ></ui-entity>

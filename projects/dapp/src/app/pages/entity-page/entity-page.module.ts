@@ -9,9 +9,10 @@ import { EntityModule } from '@ui/entity/entity.module'
 import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
 import { InterhackTemplateComponent } from './interhack-template/interhack-template.component'
-import {Web3TemplateComponent} from "@pages/entity-page/web3-template/web3-template.component";
-import {DisruptiveTemplateComponent} from "@pages/entity-page/disruptive-template/disruptive-template.component";
-import {TeamModule} from "@ui/team/team.module";
+import { Web3TemplateComponent } from '@pages/entity-page/web3-template/web3-template.component'
+import { DisruptiveTemplateComponent } from '@pages/entity-page/disruptive-template/disruptive-template.component'
+import { TeamModule } from '@ui/team/team.module'
+import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 
 @NgModule({
   declarations: [EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
@@ -23,7 +24,8 @@ import {TeamModule} from "@ui/team/team.module";
     EntityModule,
     NotFoundPageModule,
     LoadingPageModule,
-    TeamModule
+    TeamModule,
+    VoteForTaskModule
   ]
 })
 export class EntityPageModule { }

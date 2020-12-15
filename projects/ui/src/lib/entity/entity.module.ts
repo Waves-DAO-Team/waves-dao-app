@@ -12,6 +12,7 @@ import { TeamModule } from '@ui/team/team.module'
 import { DialogModule } from '@ui/dialog/dialog.module'
 import { ApplyModule } from '@ui/modals/apply/apply.module'
 import { LinkContentModule } from '@services/link-content/link-content.module'
+import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 
 @NgModule({
   declarations: [EntityComponent],
@@ -27,7 +28,8 @@ import { LinkContentModule } from '@services/link-content/link-content.module'
     ReactiveFormsModule,
     DialogModule,
     ApplyModule,
-    LinkContentModule
+    LinkContentModule,
+    VoteForTaskModule
   ],
   exports: [EntityComponent]
 })

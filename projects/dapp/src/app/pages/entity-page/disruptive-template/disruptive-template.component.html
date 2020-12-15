@@ -17,6 +17,13 @@
   ></ui-team>
 </ng-template>
 
+<ng-template #voteForTask>
+  <ui-vote-for-task
+    [grant]="grant"
+    (newVoteEvent)="vote($event)"
+  ></ui-vote-for-task>
+</ng-template>
+
 <ui-entity
   (newVoteEvent)="vote($event)"
   [contract]="contract" [grant]="grant"
@@ -32,4 +39,5 @@
   (newEditGrantEvent)="editGrant()"
   [controlsTemplate]="defaultBtn"
   [teamTemplate]="team"
+  [voteForTaskTemplate]="voteForTask"
 ></ui-entity>

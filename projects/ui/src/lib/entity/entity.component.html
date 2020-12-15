@@ -38,37 +38,39 @@
   <!-- team ----------------------------------------------------------------------------------------------------------->
 
   <!-- vote ----------------------------------------------------------------------------------------------------------->
-  <div class="card"
-       *ngIf="(userService.data | async)?.roles.isDAO && grant?.status?.value === grantStatusEnum.proposed">
-    <div
-      class="card__info">
-      <div class="card__info__left">
-        <img src="assets/icons/vote.svg">
-      </div>
-      <div class="card__info__mid">
-        <ng-container *ngIf="(userService.data | async)?.voted.includes(grant.id)">
-          <div class="card__info__mid__subtext">
-            {{'entity.DAO.vote.true.subtext' | transloco}}
-          </div>
-          <div class="card__info__mid__text">
-            {{'entity.DAO.vote.true.text' | transloco}}
-          </div>
-        </ng-container>
-        <ng-container *ngIf="!(userService.data | async)?.voted.includes(grant.id)">
-          <div class="card__info__mid__subtext">
-            {{'entity.DAO.vote.false.text' | transloco}}
-          </div>
-          <div class="card__info__mid__text">
-            {{'entity.DAO.vote.false.text' | transloco}}
-          </div>
-        </ng-container>
-      </div>
-      <div class="card__info__right" *ngIf="!(userService.data | async)?.voted.includes(grant.id)">
-        <img (click)="newVoteEvent.emit('dislike')" src="assets/icons/vote-min.svg">
-        <img (click)="newVoteEvent.emit('like')" src="assets/icons/vote-plus.svg">
-      </div>
-    </div>
-  </div>
+
+  <ng-container [ngTemplateOutlet]="voteForTaskTemplate"></ng-container>
+<!--  <div class="card"-->
+<!--       *ngIf="(userService.data | async)?.roles.isDAO && grant?.status?.value === grantStatusEnum.proposed">-->
+<!--    <div-->
+<!--      class="card__info">-->
+<!--      <div class="card__info__left">-->
+<!--        <img src="assets/icons/vote.svg">-->
+<!--      </div>-->
+<!--      <div class="card__info__mid">-->
+<!--        <ng-container *ngIf="(userService.data | async)?.voted.includes(grant.id)">-->
+<!--          <div class="card__info__mid__subtext">-->
+<!--            {{'entity.DAO.vote.true.subtext' | transloco}}-->
+<!--          </div>-->
+<!--          <div class="card__info__mid__text">-->
+<!--            {{'entity.DAO.vote.true.text' | transloco}}-->
+<!--          </div>-->
+<!--        </ng-container>-->
+<!--        <ng-container *ngIf="!(userService.data | async)?.voted.includes(grant.id)">-->
+<!--          <div class="card__info__mid__subtext">-->
+<!--            {{'entity.DAO.vote.false.text' | transloco}}-->
+<!--          </div>-->
+<!--          <div class="card__info__mid__text">-->
+<!--            {{'entity.DAO.vote.false.text' | transloco}}-->
+<!--          </div>-->
+<!--        </ng-container>-->
+<!--      </div>-->
+<!--      <div class="card__info__right" *ngIf="!(userService.data | async)?.voted.includes(grant.id)">-->
+<!--        <img (click)="newVoteEvent.emit('dislike')" src="assets/icons/vote-min.svg">-->
+<!--        <img (click)="newVoteEvent.emit('like')" src="assets/icons/vote-plus.svg">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
   <!-- vote ----------------------------------------------------------------------------------------------------------->
 
 </div>
