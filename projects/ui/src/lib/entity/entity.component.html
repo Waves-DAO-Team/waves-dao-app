@@ -32,13 +32,9 @@
   </div>
 
   <!-- team ----------------------------------------------------------------------------------------------------------->
-  <ui-team
-    *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"
-    [grant]="grant"
-    (newSignupEvent)="newSignupEvent.emit()"
-    (newOpenApplyModalEvent)="newOpenApplyModalEvent.emit()"
-    (newVoteTeamEvent)="newVoteTeamEvent.emit($event)"
-  ></ui-team>
+
+
+  <ng-container [ngTemplateOutlet]="teamTemplate"></ng-container>
   <!-- team ----------------------------------------------------------------------------------------------------------->
 
   <!-- vote ----------------------------------------------------------------------------------------------------------->

@@ -27,7 +27,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
-
+  grantStatusEnum = GrantStatusEnum
   constructor (
     private dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,

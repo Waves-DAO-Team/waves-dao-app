@@ -31,6 +31,7 @@ export class TeamComponent {
   grantStatusEnum = GrantStatusEnum
 
   @Input() grant: ContractGrantModel | null = null
+  @Input() title: string | null = null
 
   @Output() openApplyModal = new EventEmitter<boolean>()
   @Output() newSignupEvent = new EventEmitter()

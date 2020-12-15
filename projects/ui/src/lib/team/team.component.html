@@ -2,7 +2,7 @@
 
   <div class="team__header" *ngIf="grant?.isShowAppliers">
 
-    <div class="team__title mat-display-4">{{'entity.teams' | transloco}}</div>
+    <div class="team__title mat-display-4">{{title}}</div>
 
     <div class="team__controls" *ngIf="grant?.status?.value === grantStatusEnum.readyToApply">
       <button
