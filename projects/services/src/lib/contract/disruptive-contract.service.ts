@@ -83,7 +83,7 @@ export class DisruptiveContractService {
         this.snackBar.open(error.message, translate('messages.ok'))
         return EMPTY
       }),
-      tap((e) => {
+      tap(() => {
         this.contractService.refresh()
         this.snackBar.open('Transaction is complete', translate('messages.ok'))
       })
@@ -115,7 +115,7 @@ export class DisruptiveContractService {
         this.snackBar.open(error.message, translate('messages.ok'))
         return EMPTY
       }),
-      tap((e) => {
+      tap(() => {
         this.contractService.refresh()
         this.snackBar.open(translate('messages.finishApplicantsVoting'), translate('messages.ok'))
       })
@@ -130,7 +130,7 @@ export class DisruptiveContractService {
         this.snackBar.open(error.message, translate('messages.ok'))
         return EMPTY
       }),
-      tap((e) => {
+      tap(() => {
         this.contractService.refresh()
         this.snackBar.open(translate('messages.startWork'), translate('messages.ok'))
       })
@@ -145,7 +145,7 @@ export class DisruptiveContractService {
         this.snackBar.open(error.message, translate('messages.ok'))
         return EMPTY
       }),
-      tap((e) => {
+      tap(() => {
         this.contractService.refresh()
         this.snackBar.open(translate('messages.rejectTask'), translate('messages.ok'))
       })
@@ -161,7 +161,7 @@ export class DisruptiveContractService {
         this.snackBar.open(error.message, translate('messages.ok'))
         return EMPTY
       }),
-      tap((e) => {
+      tap(() => {
         this.contractService.refresh()
         this.snackBar.open(translate('messages.rejectTask'), translate('messages.ok'))
       })
