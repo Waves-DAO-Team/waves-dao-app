@@ -1,0 +1,22 @@
+<ng-template #defaultBtn>
+  <ng-container *ngIf="!grant?.status?.value && userService.data.getValue().roles.isWG && grant?.id"> <!--no status-->
+    <button (click)="addReward()">
+      {{'entity.add_reward' | transloco}}
+    </button>
+  </ng-container>
+</ng-template>
+<ui-entity
+  (newVoteEvent)="vote($event)"
+  [contract]="contract" [grant]="grant"
+  (newSignupEvent)="signup()"
+  (newOpenApplyModalEvent)="openApplyModal()"
+  (newVoteTeamEvent)="voteTeam($event)"
+  (newFinishVoteEvent)="finishVote()"
+  (newStartWorkEvent)="startWork()"
+  (newRejectEvent)="reject()"
+  (newAcceptWorkResultEvent)="acceptWorkResult($event)"
+  (newFinishApplicantsVoteEvent)="finishApplicantsVote()"
+  (newAddRewardEvent)="addReward()"
+  (newEditGrantEvent)="editGrant()"
+  [controlsTemplate]="defaultBtn"
+></ui-entity>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { DefaultTemplateComponent } from './default-template.component'
+import { InterhackTemplateComponent } from './interhack-template.component'
 
 describe('DefaultTemplateComponent', () => {
-  let component: DefaultTemplateComponent
-  let fixture: ComponentFixture<DefaultTemplateComponent>
+  let component: InterhackTemplateComponent
+  let fixture: ComponentFixture<InterhackTemplateComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DefaultTemplateComponent]
+      declarations: [InterhackTemplateComponent]
     })
       .compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DefaultTemplateComponent)
+    fixture = TestBed.createComponent(InterhackTemplateComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
