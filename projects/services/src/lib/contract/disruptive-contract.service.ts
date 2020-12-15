@@ -4,8 +4,9 @@ import { ContractService } from '@services/contract/contract.service'
 import { CommonContractService } from '@services/contract/common-contract.service'
 import { catchError, tap } from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
-import { EMPTY } from 'rxjs'
+import { EMPTY, Observable } from 'rxjs'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { TransactionsSuccessResult } from '@services/signer/signer.model'
 
 @Injectable({
   providedIn: 'root'
@@ -41,42 +42,38 @@ export class DisruptiveContractService {
     return this.commonContractService.addReward(taskId, reward)
   }
 
-  public voteForTaskProposal (taskId: string, voteValue: 'like' | 'dislike') {
-    this.signerService.invoke(this.contractService.getAddress(), 'voteForTaskProposal', [
+  public voteForTaskProposal (taskId: string, voteValue: 'like' | 'dislike'): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForTaskProposal', [
       { type: 'string', value: taskId },
       { type: 'string', value: voteValue }
-    ])
-      .catch((res) => {
-        this.snackBar.open(`voteForTaskProposal catch: ${res}`, '', { duration: 3000 })
+    ]).pipe(
+      catchError((error) => {
+        this.snackBar.open(error.message, translate('messages.ok'))
+        return EMPTY
+      }),
+      tap(() => {
+        this.contractService.refresh()
+        this.snackBar.open(translate('messages.voteForTaskProposal'), translate('messages.ok'))
       })
-      .then((res) => {
-      // @ts-ignore
-        this.popupService.add(res.toString(), 'voteForTaskProposal then')
-      })
-      .finally(() => {
-        this.snackBar.open('voteForTaskProposal finally', '', { duration: 3000 })
-        this.contractService.doRefreshTimeOut()
-      })
+    )
   }
 
-  public finishTaskProposalVoting (taskId: string) {
-    this.signerService.invoke(this.contractService.getAddress(), 'finishTaskProposalVoting', [
+  public finishTaskProposalVoting (taskId: string): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishTaskProposalVoting', [
       { type: 'string', value: taskId }
-    ])
-      .catch((res) => {
-        this.snackBar.open(`finishTaskProposalVoting catch ${res}`, '', { duration: 3000 })
+    ]).pipe(
+      catchError((error) => {
+        this.snackBar.open(error.message, translate('messages.ok'))
+        return EMPTY
+      }),
+      tap(() => {
+        this.contractService.refresh()
+        this.snackBar.open(translate('messages.finishTaskProposalVoting'), translate('messages.ok'))
       })
-      .then((res) => {
-        this.snackBar.open(`finishTaskProposalVoting then ${JSON.stringify(res)}`, '', { duration: 3000 })
-        this.contractService.doRefreshTimeOut()
-      })
-      .finally(() => {
-        this.snackBar.open('finishTaskProposalVoting finally', '', { duration: 3000 })
-        this.contractService.doRefreshTimeOut()
-      })
+    )
   }
 
-  public applyForTask (taskId: string, teamName: string, link: string) {
+  public applyForTask (taskId: string, teamName: string, link: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'applyForTask', [
       { type: 'string', value: taskId },
       { type: 'string', value: teamName },
@@ -93,86 +90,81 @@ export class DisruptiveContractService {
     )
   }
 
-  public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: string) {
-    this.signerService.invoke(this.contractService.getAddress(), 'voteForApplicant', [
+  public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: string): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForApplicant', [
       { type: 'string', value: taskId },
       { type: 'string', value: teamIdentifier },
       { type: 'string', value: voteValue }
-    ])
-      .catch((res) => {
-        this.snackBar.open(`voteForApplicant catch: ${res}`, '', { duration: 3000 })
+    ]).pipe(
+      catchError((error) => {
+        this.snackBar.open(error.message, translate('messages.ok'))
+        return EMPTY
+      }),
+      tap((e) => {
+        this.contractService.refresh()
+        this.snackBar.open(translate('messages.voteForApplicant'), translate('messages.ok'))
       })
-      .then(res => {
-        this.snackBar.open(`voteForApplicant then: ${JSON.stringify(res)}`, '', { duration: 3000 })
-      })
-      .finally(() => {
-        this.snackBar.open('voteForApplicant finally', '', { duration: 3000 })
-        this.contractService.doRefreshTimeOut()
-      })
+    )
   }
 
-  public finishApplicantsVoting (taskId: string) {
-    this.signerService.invoke(this.contractService.getAddress(), 'finishApplicantsVoting', [
+  public finishApplicantsVoting (taskId: string): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishApplicantsVoting', [
       { type: 'string', value: taskId }
-    ])
-      .catch((res) => {
-        this.snackBar.open(`finishApplicantsVoting catch: ${res}`, '', { duration: 3000 })
+    ]).pipe(
+      catchError((error) => {
+        this.snackBar.open(error.message, translate('messages.ok'))
+        return EMPTY
+      }),
+      tap((e) => {
+        this.contractService.refresh()
+        this.snackBar.open(translate('messages.finishApplicantsVoting'), translate('messages.ok'))
       })
-      .then((res) => {
-        this.snackBar.open(`finishApplicantsVoting then: ${JSON.stringify(res)}`, '', { duration: 3000 })
-      })
-      .finally(() => {
-        this.snackBar.open('finishApplicantsVoting finally', '', { duration: 3000 })
-        this.contractService.doRefreshTimeOut()
-      })
+    )
   }
 
-  public startWork (taskId: string) {
-    this.signerService.invoke(this.contractService.getAddress(), 'startWork', [
+  public startWork (taskId: string): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'startWork', [
       { type: 'string', value: taskId }
-    ])
-      .catch((res) => {
-        this.snackBar.open(res, '', { duration: 3000 })
+    ]).pipe(
+      catchError((error) => {
+        this.snackBar.open(error.message, translate('messages.ok'))
+        return EMPTY
+      }),
+      tap((e) => {
+        this.contractService.refresh()
+        this.snackBar.open(translate('messages.startWork'), translate('messages.ok'))
       })
-      .then((res) => {
-        this.snackBar.open(JSON.stringify(res), '', { duration: 3000 })
-      })
-      .finally(() => {
-        this.snackBar.open('startWork finally', '', { duration: 3000 })
-        this.contractService.doRefreshTimeOut()
-      })
+    )
   }
 
-  public rejectTask (taskId: string) {
-    this.signerService.invoke(this.contractService.getAddress(), 'rejectTask', [
+  public rejectTask (taskId: string): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'rejectTask', [
       { type: 'string', value: taskId }
-    ])
-      .catch((res) => {
-        this.snackBar.open(`rejectTask catch: ${res}`, '', { duration: 3000 })
+    ]).pipe(
+      catchError((error) => {
+        this.snackBar.open(error.message, translate('messages.ok'))
+        return EMPTY
+      }),
+      tap((e) => {
+        this.contractService.refresh()
+        this.snackBar.open(translate('messages.rejectTask'), translate('messages.ok'))
       })
-      .then((res) => {
-        this.snackBar.open(`rejectTask then: ${JSON.stringify(res)}`, '', { duration: 3000 })
-      })
-      .finally(() => {
-        this.snackBar.open('rejectTask finally', '', { duration: 3000 })
-        this.contractService.doRefreshTimeOut()
-      })
+    )
   }
 
-  public acceptWorkResult (taskId: string, reportLink: string) {
-    this.signerService.invoke(this.contractService.getAddress(), 'acceptWorkResult', [
+  public acceptWorkResult (taskId: string, reportLink: string): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'acceptWorkResult', [
       { type: 'string', value: taskId },
       { type: 'string', value: reportLink }
-    ])
-      .catch((res) => {
-        this.snackBar.open(`acceptWorkResult catch: ${res}`, '', { duration: 3000 })
+    ]).pipe(
+      catchError((error) => {
+        this.snackBar.open(error.message, translate('messages.ok'))
+        return EMPTY
+      }),
+      tap((e) => {
+        this.contractService.refresh()
+        this.snackBar.open(translate('messages.rejectTask'), translate('messages.ok'))
       })
-      .then((res) => {
-        this.snackBar.open(`acceptWorkResult then: ${res}`, '', { duration: 3000 })
-      })
-      .finally(() => {
-        this.snackBar.open('acceptWorkResult finally', '', { duration: 3000 })
-        this.contractService.doRefreshTimeOut()
-      })
+    )
   }
 }

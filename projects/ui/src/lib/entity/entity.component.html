@@ -38,7 +38,6 @@
   <!-- team ----------------------------------------------------------------------------------------------------------->
 
   <!-- vote ----------------------------------------------------------------------------------------------------------->
-  <!--   *ngIf="(userService.data | async)?.roles.isDAO && !(userService.data | async)?.voted.includes(grant.id)"-->
   <div class="card"
        *ngIf="(userService.data | async)?.roles.isDAO && grant?.status?.value === grantStatusEnum.proposed">
     <div

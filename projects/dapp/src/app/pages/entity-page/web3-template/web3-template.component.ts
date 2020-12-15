@@ -1,22 +1,22 @@
-import {ChangeDetectorRef, Component, Input, OnInit, TemplateRef} from '@angular/core'
-import {ContractGrantModel} from '@services/contract/contract.model'
-import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {CommonContractService} from "@services/contract/common-contract.service";
-import {DisruptiveContractService} from "@services/contract/disruptive-contract.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {SignerService} from "@services/signer/signer.service";
-import {take} from "rxjs/operators";
-import {translate} from "@ngneat/transloco";
-import {DialogComponent} from "@ui/dialog/dialog.component";
-import {ApplyComponent} from "@ui/modals/apply/apply.component";
-import {submitCallBackApplyArg, submitCallBackRewardArg} from "@ui/dialog/dialog.tokens";
-import {MatDialog} from "@angular/material/dialog";
-import {TemplateComponentAbstract, VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
-import {AddRewardComponent} from "@ui/modals/add-reward/add-reward.component";
-import {EditGrantComponent} from "@ui/modals/edit-grant/edit-grant.component";
-import {AddTaskDetailsComponent} from "@ui/modals/add-task-details/add-task-details.component";
-import {CommunityContractService} from "@services/contract/community-contract.service";
-import {UserService} from "@services/user/user.service";
+import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core'
+import { ContractGrantModel } from '@services/contract/contract.model'
+import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { CommonContractService } from '@services/contract/common-contract.service'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { SignerService } from '@services/signer/signer.service'
+import { take } from 'rxjs/operators'
+import { translate } from '@ngneat/transloco'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { ApplyComponent } from '@ui/modals/apply/apply.component'
+import { submitCallBackApplyArg, submitCallBackRewardArg } from '@ui/dialog/dialog.tokens'
+import { MatDialog } from '@angular/material/dialog'
+import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
+import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
+import { EditGrantComponent } from '@ui/modals/edit-grant/edit-grant.component'
+import { AddTaskDetailsComponent } from '@ui/modals/add-task-details/add-task-details.component'
+import { CommunityContractService } from '@services/contract/community-contract.service'
+import { UserService } from '@services/user/user.service'
 
 @Component({
   selector: 'app-web3-template',
@@ -24,11 +24,10 @@ import {UserService} from "@services/user/user.service";
   styleUrls: ['./web3-template.component.scss']
 })
 export class Web3TemplateComponent implements TemplateComponentAbstract {
-
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
 
-  constructor(
+  constructor (
     private dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
     public communityContractService: CommunityContractService,
@@ -39,12 +38,12 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   ) {
   }
 
-  vote(value: "like" | "dislike"): void {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
-    this.disruptiveContractService.voteForTaskProposal(id, value)
+    this.disruptiveContractService.voteForTaskProposal(id, value).subscribe()
   }
 
-  signup(): void {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -53,7 +52,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal(): void {
+  openApplyModal (): void {
     this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -69,33 +68,33 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface): void {
+  voteTeam ($event: VoteTeamEventInterface): void {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
-      this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue)
+      this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote(): void {
-    this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string)
+  finishVote (): void {
+    this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork(): void {
-    this.disruptiveContractService.startWork(this.grant?.id as string)
+  startWork (): void {
+    this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject(): void {
-    this.disruptiveContractService.rejectTask(this.grant?.id as string)
+  reject (): void {
+    this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult(reportLink: string): void {
-    this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, reportLink)
+  acceptWorkResult (reportLink: string): void {
+    this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, reportLink).subscribe()
   }
 
-  finishApplicantsVote(): void {
-    this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string)
+  finishApplicantsVote (): void {
+    this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward(): void {
+  addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddRewardComponent,
@@ -105,7 +104,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           grantId: this.grant?.id,
           submitCallBack: (data: submitCallBackRewardArg) => {
             if (this.grant?.id) {
-              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe((e)=>{
+              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe((e) => {
                 dialog.close()
                 this.cdr.markForCheck()
               })
@@ -116,7 +115,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  editGrant() {
+  editGrant () {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: EditGrantComponent,
@@ -135,7 +134,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  addTaskDetails() {
+  addTaskDetails () {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddTaskDetailsComponent,
@@ -143,27 +142,28 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           title: translate('modal.texts.add_task_details'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: submitCallBackRewardArg) => {
-            if(this.grant.id)
-              this.communityContractService.addTaskDetails(this.grant.id, data.reward).subscribe((e)=>{
+            if (this.grant.id) {
+              this.communityContractService.addTaskDetails(this.grant.id, data.reward).subscribe((e) => {
                 dialog.close()
                 this.cdr.markForCheck()
                 // State check failed. Reason: Transaction sent from smart account.
                 // Requires 400000 extra fee.. Fee for InvokeScriptTransaction (500000 in WAVES)
                 // does not exceed minimal value of 900000 WAVES.
 
-                // { assetId: 'WAVES', amount: reward }
+              // { assetId: 'WAVES', amount: reward }
               })
+            }
           }
         }
       }
     })
   }
 
-  initTaskVoting() {
-    if(this.grant.id)
-      this.communityContractService.initTaskVoting(this.grant.id).subscribe((e)=>{
+  initTaskVoting () {
+    if (this.grant.id) {
+      this.communityContractService.initTaskVoting(this.grant.id).subscribe((e) => {
         this.cdr.markForCheck()
       })
+    }
   }
-
 }

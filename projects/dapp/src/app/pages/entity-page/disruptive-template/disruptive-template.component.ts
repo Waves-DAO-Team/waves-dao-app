@@ -37,7 +37,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
-    this.disruptiveContractService.voteForTaskProposal(id, value)
+    this.disruptiveContractService.voteForTaskProposal(id, value).subscribe()
   }
 
   signup () {
@@ -67,28 +67,28 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   voteTeam ($event: VoteTeamEventInterface) {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
-      this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue)
+      this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
   finishVote () {
-    this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string)
+    this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
   startWork (): void {
-    this.disruptiveContractService.startWork(this.grant?.id as string)
+    this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
   reject (): void {
-    this.disruptiveContractService.rejectTask(this.grant?.id as string)
+    this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
   acceptWorkResult (reportLink: string): void {
-    this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, reportLink)
+    this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, reportLink).subscribe()
   }
 
   finishApplicantsVote (): void {
-    this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string)
+    this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
   addReward (): void {

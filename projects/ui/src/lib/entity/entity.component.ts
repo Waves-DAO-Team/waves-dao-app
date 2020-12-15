@@ -5,6 +5,7 @@ import {
   Input,
   OnDestroy,
   OnInit, Output, TemplateRef
+  , EventEmitter
 } from '@angular/core'
 import {
   ContractGrantModel
@@ -16,8 +17,8 @@ import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
-import {EventEmitter} from '@angular/core' ;
-import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
+
+import { VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 
 @Component({
   selector: 'ui-entity',
@@ -25,8 +26,7 @@ import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
   styleUrls: ['./entity.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntityComponent  {
-
+export class EntityComponent {
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
   @Input() controlsTemplate: TemplateRef<any> | undefined;
@@ -61,9 +61,7 @@ export class EntityComponent  {
     @Inject(API) public readonly api: AppApiInterface
   ) {}
 
-
-  startWork() {
-    this.disruptiveContractService.startWork(this.grant?.id as string)
+  startWork () {
+    this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
-
 }

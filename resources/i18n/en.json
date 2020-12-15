@@ -264,6 +264,14 @@
   "messages": {
     "ok": "OK",
     "addTask": "The proposal has been completed. The transaction is confirmed in the blockchain Waves",
+    "addTask": "The proposal has been completed. The transaction is confirmed in the blockchain Waves",
+    "voteForTaskProposal": "The vote has been completed. The transaction is confirmed in the blockchain Waves",
+    "finishTaskProposalVoting": "The finish has been completed. The transaction is confirmed in the blockchain Waves",
+    "voteForApplicant": "The vote has been completed. The transaction is confirmed in the blockchain Waves",
+    "finishApplicantsVoting": "The finish has been completed. The transaction is confirmed in the blockchain Waves",
+    "rejectTask": "The reject has been completed. The transaction is confirmed in the blockchain Waves",
+    "acceptWorkResult": "The accept work has been completed. The transaction is confirmed in the blockchain Waves",
+    "startWork": "The start work has been completed. The transaction is confirmed in the blockchain Waves",
     "initTaskVoting": "The init task has been completed. The transaction is confirmed in the blockchain Waves",
     "addReword": "The grant is now available for voting. The transaction is confirmed in the block list.",
     "startTransaction": "We sent the transaction to Waves Blockchain.  You can continue using the application, we will inform you when the transaction is confirmed in Blockchain."

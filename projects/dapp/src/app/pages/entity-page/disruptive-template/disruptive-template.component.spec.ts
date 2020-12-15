@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { InterhackTemplateComponent } from './interhack-template.component'
+import { DisruptiveTemplateComponent } from './disruptive-template.component'
 
 describe('DefaultTemplateComponent', () => {
-  let component: InterhackTemplateComponent
-  let fixture: ComponentFixture<InterhackTemplateComponent>
+  let component: DisruptiveTemplateComponent
+  let fixture: ComponentFixture<DisruptiveTemplateComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InterhackTemplateComponent]
+      declarations: [DisruptiveTemplateComponent]
     })
       .compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InterhackTemplateComponent)
+    fixture = TestBed.createComponent(DisruptiveTemplateComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
