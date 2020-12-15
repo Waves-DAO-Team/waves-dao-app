@@ -5,6 +5,18 @@
     </button>
   </ng-container>
 </ng-template>
+
+<ng-template #team>
+  <ui-team
+    *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"
+    [grant]="grant"
+    (newSignupEvent)="signup()"
+    (newOpenApplyModalEvent)="openApplyModal()"
+    (newVoteTeamEvent)="voteTeam($event)"
+    title="{{'entity.solutions' | transloco}}"
+  ></ui-team>
+</ng-template>
+
 <ui-entity
   (newVoteEvent)="vote($event)"
   [contract]="contract" [grant]="grant"
@@ -19,4 +31,5 @@
   (newAddRewardEvent)="addReward()"
   (newEditGrantEvent)="editGrant()"
   [controlsTemplate]="defaultBtn"
+  [teamTemplate]="team"
 ></ui-entity>
