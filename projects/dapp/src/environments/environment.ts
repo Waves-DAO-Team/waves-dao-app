@@ -35,5 +35,5 @@ export const environment = {
     addReward: 'grants/:contractType/add-reward/:entityId'
   },
 
-  showDevTools: true
+  showDevTools: false
 }

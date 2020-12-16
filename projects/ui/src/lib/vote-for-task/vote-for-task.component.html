@@ -5,7 +5,7 @@
       <img src="assets/icons/vote.svg">
     </div>
     <div class="card__info__mid">
-      <ng-container *ngIf="data.isVote">
+      <ng-container *ngIf="!data.isVote">
         <div class="card__info__mid__subtext">
           {{'entity.DAO.vote.true.subtext' | transloco}}
         </div>
@@ -13,7 +13,7 @@
           {{'entity.DAO.vote.true.text' | transloco}}
         </div>
       </ng-container>
-      <ng-container *ngIf="!data.isVote">
+      <ng-container *ngIf="data.isVote">
         <div class="card__info__mid__subtext">
           {{'entity.DAO.vote.false.text' | transloco}}
         </div>

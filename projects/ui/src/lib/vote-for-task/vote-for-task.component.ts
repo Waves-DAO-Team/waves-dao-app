@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import { UserService } from '@services/user/user.service'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { GrantStatusEnum } from '@services/static/static.model'
@@ -6,7 +6,8 @@ import { GrantStatusEnum } from '@services/static/static.model'
 @Component({
   selector: 'ui-vote-for-task',
   templateUrl: './vote-for-task.component.html',
-  styleUrls: ['./vote-for-task.component.scss']
+  styleUrls: ['./vote-for-task.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VoteForTaskComponent {
 
@@ -39,7 +40,7 @@ export class VoteForTaskComponent {
     } else {
       this.data.isShow = false
     }
-    if(grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+    if(grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
       this.data.isVote = true
     } else {
       this.data.isVote = false
