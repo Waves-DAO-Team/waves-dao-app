@@ -1,0 +1,24 @@
+@import "const";
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
+.mat-step-header .mat-step-icon {
+  display: none !important;
+}
+
+::ng-deep {
+  .mat-step-icon-content {
+    color: #ffffff
+  }
+  .mat-step-header .mat-step-icon {
+    background: $color_light_gray
+  }
+}
+
+.active {
+  ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: $blue;
+
+  }
+}

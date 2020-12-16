@@ -1,0 +1,8 @@
+<div class="stepper" [class.active]="stepId != null">
+  <mat-horizontal-stepper #stepper >
+    <mat-step *ngFor="let el of formalStatuses"  >
+      <ng-template matStepLabel >{{el.value}}</ng-template>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+

@@ -64,6 +64,14 @@
     "dao": "DAO Owner",
     "auth": "Authorized User"
   },
+  "stepper": {
+    "collecting_requests": "Collecting requests",
+    "collecting_solutions": "Collecting solutions",
+    "requests_selection_over": "Requests requests is over",
+    "solutions_selection_over": "Requests solutions is over",
+    "work_started": "Work started",
+    "work_finished": "Work finished"
+  },
   "listing": {
     "desc": {
       "you_can_vote": "Waves DAO is a tool that facilitates the application and distribution of grants provided by the Waves Association. Thanks to Waves DAO, members of the Waves Association and its working groups can manage the grant distribution process and transparently vote for applicants.",

@@ -7,6 +7,8 @@
       [link]="grant?.link?.value"
     ></ui-header>
 
+    <ui-stepper [status]="grant?.status?.value"></ui-stepper>
+
     <ui-controls
       [contract]="contract"
       [status]="grant?.status?.value"

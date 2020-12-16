@@ -13,6 +13,7 @@ import { DialogModule } from '@ui/dialog/dialog.module'
 import { ApplyModule } from '@ui/modals/apply/apply.module'
 import { LinkContentModule } from '@services/link-content/link-content.module'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
+import {StepperModule} from "@ui/stepper/stepper.module";
 
 @NgModule({
   declarations: [EntityComponent],
@@ -29,7 +30,8 @@ import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
     DialogModule,
     ApplyModule,
     LinkContentModule,
-    VoteForTaskModule
+    VoteForTaskModule,
+    StepperModule
   ],
   exports: [EntityComponent]
 })
