@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { ContractMenuComponent } from './contract-menu.component'
-import {ActivatedRoute} from "@angular/router";
-import {provideApi, provideAppConstants} from "@constants";
+import {ActivatedRoute} from '@angular/router';
+import {provideApi, provideAppConstants} from '@constants';
 
 describe('ContractMenuComponent', () => {
   let component: ContractMenuComponent

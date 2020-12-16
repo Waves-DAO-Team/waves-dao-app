@@ -1,4 +1,4 @@
-import { translate, TranslocoService } from '@ngneat/transloco'
+import { translate } from '@ngneat/transloco'
 import { ActivatedRoute, Router } from '@angular/router'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import {

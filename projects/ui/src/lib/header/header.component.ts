@@ -22,7 +22,6 @@ import { ContractService } from '@services/contract/contract.service'
 import { map, take, takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { StaticService } from '@services/static/static.service'
-import {GrantTypesEnum} from "@services/static/static.model";
 
 @Component({
   selector: 'ui-header',

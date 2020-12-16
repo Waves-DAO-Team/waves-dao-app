@@ -2,9 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component, Inject,
-  Input,
-  OnDestroy,
-  OnInit, Output, TemplateRef
+  Input, Output, TemplateRef
   , EventEmitter
 } from '@angular/core'
 import {

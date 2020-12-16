@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { DialogComponent } from './dialog.component'
-import { MatDialogModule } from '@angular/material/dialog'
 
 describe('DialogComponent', () => {
   let component: DialogComponent

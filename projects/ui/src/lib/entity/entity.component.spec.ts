@@ -13,7 +13,7 @@ import { TeamModule } from '@ui/team/team.module'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
 import { ReactiveFormsModule } from '@angular/forms'
-import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { MatDialogModule } from '@angular/material/dialog'
 describe('EntityComponent', () => {
   let component: EntityComponent
   let fixture: ComponentFixture<EntityComponent>

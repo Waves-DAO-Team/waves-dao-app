@@ -5,8 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { provideApi, provideAppConstants } from '@constants'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { RouterTestingModule } from '@angular/router/testing'
-import { MatDialogModule } from '@angular/material/dialog'
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar'
+import { MatSnackBarModule} from '@angular/material/snack-bar'
 
 describe('ApplyComponent', () => {
   let component: ApplyComponent

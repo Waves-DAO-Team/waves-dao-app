@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core'
 import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
-import { take } from 'rxjs/operators'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { API, AppApiInterface } from '@constants'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import {StaticService} from "@services/static/static.service";
+import {StaticService} from '@services/static/static.service';
 
 @Component({
   selector: 'ui-apply',

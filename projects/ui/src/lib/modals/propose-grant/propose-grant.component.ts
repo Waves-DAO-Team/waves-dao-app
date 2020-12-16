@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '@services/user/user.service'
-import { AppApiInterface } from '@constants'
 import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 
 @Component({

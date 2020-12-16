@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core'
+import { ChangeDetectorRef, Component, Input } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
-import { CommonContractService } from '@services/contract/common-contract.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
@@ -9,7 +8,7 @@ import { take } from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { ApplyComponent } from '@ui/modals/apply/apply.component'
-import { submitCallBackApplyArg, submitCallBackRewardArg } from '@ui/dialog/dialog.tokens'
+import { SubmitCallBackApplyArg, SubmitCallBackRewardArg } from '@ui/dialog/dialog.tokens'
 import { MatDialog } from '@angular/material/dialog'
 import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
@@ -58,7 +57,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
         component: ApplyComponent,
         params: {
           grant: this.grant,
-          submitCallBack: (data: submitCallBackApplyArg) => {
+          submitCallBack: (data: SubmitCallBackApplyArg) => {
             this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
               .pipe(take(1))
               .subscribe()
@@ -102,7 +101,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           title: translate('add-reward.title'),
           submitBtnText: translate('modal.btn.propose_grant'),
           grantId: this.grant?.id,
-          submitCallBack: (data: submitCallBackRewardArg) => {
+          submitCallBack: (data: SubmitCallBackRewardArg) => {
             if (this.grant?.id) {
               this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe((e) => {
                 dialog.close()
@@ -122,7 +121,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
         params: {
           title: translate('edit_grant.title'),
           submitBtnText: translate('edit_grant.btn.edit'),
-          submitCallBack: (data: submitCallBackRewardArg) => {
+          submitCallBack: (data: SubmitCallBackRewardArg) => {
             // TODO: нужен метод, на https://waves-dapp.com/3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA нет
             // this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
             dialog.close()
@@ -141,7 +140,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
         params: {
           title: translate('modal.texts.add_task_details'),
           submitBtnText: translate('modal.btn.apply'),
-          submitCallBack: (data: submitCallBackRewardArg) => {
+          submitCallBack: (data: SubmitCallBackRewardArg) => {
             if (this.grant.id) {
               this.communityContractService.addTaskDetails(this.grant.id, data.reward).subscribe((e) => {
                 dialog.close()

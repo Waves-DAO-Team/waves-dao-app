@@ -1,10 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {UserService} from "@services/user/user.service";
-import {ActivatedRoute} from "@angular/router";
-import {DisruptiveContractService} from "@services/contract/disruptive-contract.service";
-import {Location} from "@angular/common";
-import {DIALOG_DATA, DialogParams} from "@ui/dialog/dialog.tokens";
+import {Component, Inject} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {UserService} from '@services/user/user.service';
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service';
+import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens';
 
 @Component({
   selector: 'ui-edit-grant',

@@ -8,7 +8,7 @@ import { take } from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { ApplyComponent } from '@ui/modals/apply/apply.component'
-import { submitCallBackApplyArg, submitCallBackRewardArg } from '@ui/dialog/dialog.tokens'
+import { SubmitCallBackApplyArg, SubmitCallBackRewardArg } from '@ui/dialog/dialog.tokens'
 import { MatDialog } from '@angular/material/dialog'
 import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
@@ -55,7 +55,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
         component: ApplyComponent,
         params: {
           grant: this.grant,
-          submitCallBack: (data: submitCallBackApplyArg) => {
+          submitCallBack: (data: SubmitCallBackApplyArg) => {
             this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
               .pipe(take(1))
               .subscribe()
@@ -99,7 +99,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
           title: translate('add-reward.title'),
           submitBtnText: translate('modal.btn.propose_grant'),
           grantId: this.grant?.id,
-          submitCallBack: (data: submitCallBackRewardArg) => {
+          submitCallBack: (data: SubmitCallBackRewardArg) => {
             if (this.grant?.id) {
               this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe(() => {
                 dialog.close()

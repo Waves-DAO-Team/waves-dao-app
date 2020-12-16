@@ -19,7 +19,7 @@ export class DialogComponent {
   public injectorData: Injector;
   public component: ComponentRef<ApplyComponent> | undefined = undefined;
 
-  constructor(
+  constructor (
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       component: ComponentRef<ApplyComponent>

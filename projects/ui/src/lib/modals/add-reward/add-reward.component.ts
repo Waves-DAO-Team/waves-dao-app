@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {APP_CONSTANTS, AppConstantsInterface} from "@constants";
-import {DIALOG_DATA, DialogParams} from "@ui/dialog/dialog.tokens";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {APP_CONSTANTS, AppConstantsInterface} from '@constants';
+import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens';
 
 @Component({
   selector: 'ui-add-reward',
