@@ -13,6 +13,7 @@ import { Web3TemplateComponent } from '@pages/entity-page/web3-template/web3-tem
 import { DisruptiveTemplateComponent } from '@pages/entity-page/disruptive-template/disruptive-template.component'
 import { TeamModule } from '@ui/team/team.module'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
+import {StepperModule} from "@ui/stepper/stepper.module";
 
 @NgModule({
   declarations: [EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
@@ -25,7 +26,8 @@ import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
     NotFoundPageModule,
     LoadingPageModule,
     TeamModule,
-    VoteForTaskModule
+    VoteForTaskModule,
+    StepperModule
   ]
 })
 export class EntityPageModule { }

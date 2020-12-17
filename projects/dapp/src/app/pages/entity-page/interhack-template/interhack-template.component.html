@@ -24,6 +24,10 @@
   ></ui-vote-for-task>
 </ng-template>
 
+<ng-template #stepper>
+  <ui-stepper [status]="grant?.status?.value"></ui-stepper>
+</ng-template>
+
 <ui-entity
   (newVoteEvent)="vote($event)"
   [contract]="contract" [grant]="grant"
@@ -40,4 +44,5 @@
   [controlsTemplate]="defaultBtn"
   [teamTemplate]="team"
   [voteForTaskTemplate]="voteForTask"
+  [stepperTemplate]="stepper"
 ></ui-entity>

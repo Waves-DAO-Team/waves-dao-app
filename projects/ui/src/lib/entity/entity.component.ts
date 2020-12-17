@@ -28,6 +28,7 @@ export class EntityComponent {
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
   @Input() controlsTemplate: TemplateRef<any> | undefined;
+  @Input() stepperTemplate: TemplateRef<any> | undefined;
   @Input() teamTemplate: TemplateRef<any> | undefined;
   @Input() voteForTaskTemplate: TemplateRef<any> | undefined;
 
