@@ -1,10 +1,9 @@
 import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatStepper} from "@angular/material/stepper";
-import {GrantStatusEnum} from "@services/static/static.model";
-import {StepperService} from "@services/stepper/stepper.service";
-import {combineLatest, Subject} from "rxjs";
-import {tap} from "rxjs/operators";
+import {MatStepper} from '@angular/material/stepper';
+import {GrantStatusEnum} from '@services/static/static.model';
+import {StepperService} from '@services/stepper/stepper.service';
+import {combineLatest, Subject} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'ui-stepper',
@@ -20,42 +19,42 @@ export class StepperComponent implements OnInit, AfterViewInit {
   setId$ = new Subject();
   stepperInit$ = new Subject();
 
-  _status = ''
-  @Input() set status(data: string) {
+  GSstatus = ''
+  @Input() set status (data: string) {
     if (data) {
-      this._status = data
+      this.GSstatus = data
       this.stepId = this.stepperService.getActiveId(data)
       if (this.stepId) {
         this.setId$.next(this.stepId)
       }
     } else {
-      this._status = 'no_status'
+      this.GSstatus = 'no_status'
     }
-
+  }
+  get status (): string {
+    return this.GSstatus
   }
 
   step$ = combineLatest([this.setId$, this.stepperInit$]).pipe(
     tap(([id, init]) => {
-      if(id && typeof id === "number" && init && this.stepper) {
+      if (id && typeof id === 'number' && init && this.stepper) {
         this.stepper.selectedIndex = id
         this.cdr.markForCheck()
       }
     })
   ).subscribe()
 
-  get status(): string {
-    return this._status
-  }
+
 
   @ViewChild('stepper') stepper: MatStepper | undefined;
 
-  constructor(private cdr: ChangeDetectorRef, public stepperService: StepperService) {
+  constructor (private cdr: ChangeDetectorRef, public stepperService: StepperService) {
   }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit () {
     if (this.stepper) {
       this.stepper._getIndicatorType = () => 'number'
       this.stepperInit$.next(true)

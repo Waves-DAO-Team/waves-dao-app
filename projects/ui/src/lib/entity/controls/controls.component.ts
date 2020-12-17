@@ -23,7 +23,7 @@ import {CommunityContractService} from '@services/contract/community-contract.se
 export class ControlsComponent {
   grantStatusEnum = GrantStatusEnum
   // @ts-ignore
-  @Input() controlsTemplate: TemplateRef<any> | undefined;
+  @Input() controlsTemplate: TemplateRef<Component> | undefined;
   @Input() public contract!: GrantsVariationType
   @Input() public status: string | null = null
   @Input() public grantId: string | null = null
