@@ -5,8 +5,6 @@ import { CommonContractService } from './common-contract.service'
   providedIn: 'root'
 })
 export class InterhackContractService {
-  // ToDo change to waitTx function or else
-  private readonly averageOperationSpeed = 10000
 
   constructor (
       private commonContractService: CommonContractService

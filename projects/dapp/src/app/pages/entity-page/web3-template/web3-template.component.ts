@@ -123,7 +123,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           submitBtnText: translate('edit_grant.btn.edit'),
           submitCallBack: (data: SubmitCallBackRewardArg) => {
             // TODO: нужен метод, на https://waves-dapp.com/3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA нет
-            // this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
+            console.log('---- EditGrantComponent', data)
+            // this.disruptiveContractService.addReward(this.grant.id, data.reward).subscribe((e)=>{
             dialog.close()
             this.cdr.markForCheck()
             // })

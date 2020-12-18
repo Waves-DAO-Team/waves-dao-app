@@ -271,6 +271,8 @@
   },
   "messages": {
     "ok": "OK",
+    "error": "error",
+    "getBalanceError": "getBalance error",
     "addTask": "The proposal has been completed. The transaction is confirmed in the blockchain Waves",
     "voteForTaskProposal": "The vote has been completed. The transaction is confirmed in the blockchain Waves",
     "finishTaskProposalVoting": "The finish has been completed. The transaction is confirmed in the blockchain Waves",

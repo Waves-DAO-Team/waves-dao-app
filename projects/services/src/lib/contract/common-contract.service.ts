@@ -12,8 +12,6 @@ import { TransactionsSuccessResult } from '@services/signer/signer.model'
   providedIn: 'root'
 })
 export class CommonContractService {
-  // ToDo change to waitTx function or else
-  private readonly averageOperationSpeed = 10000
 
   constructor (
       private contractService: ContractService,
