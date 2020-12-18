@@ -70,22 +70,6 @@ export class SignerService {
     return from(this.signer.logout())
   }
 
-  // @ts-ignore
-  public invoke (contractAddress: string, command: string, args: SignerInvokeArgs[], payment: Array<IMoney> = []):
-    Promise<[IInvokeScriptTransaction<string | number> & IWithApiMixin]> {
-    const tx = this.signer.invoke({
-      payment,
-      // dApp: this.api.contractAddress,
-      dApp: contractAddress,
-      call: {
-        function: command,
-        // @ts-ignore
-        args
-      }
-    })
-    return tx.broadcast()
-  }
-
   public invokeProcess (
     contractAddress: string,
     command: string,
