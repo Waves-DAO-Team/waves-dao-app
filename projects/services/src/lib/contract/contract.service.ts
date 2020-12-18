@@ -94,19 +94,6 @@ export class ContractService {
     this.refresh(contracts[type])
   }
 
-  doRefreshTimeOut () {
-    this.refresh()
-    setTimeout(() => {
-      this.refresh()
-    }, 1000)
-    setTimeout(() => {
-      this.refresh()
-    }, 5000)
-    setTimeout(() => {
-      this.refresh()
-    }, 10000)
-  }
-
   private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
     // @ts-ignore
