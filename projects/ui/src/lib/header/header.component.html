@@ -1,7 +1,7 @@
 <header >
   <div class="container" *ngIf="userRole$ | async as userRole">
     <div class="logo" [routerLink]="['/']" >
-      <img src="assets/icons/logo.png">
+      <img alt="logo" src="assets/icons/logo.png">
       <div id="menu-toggle" [class.open]="isToggleMenuOpen" (click)="isToggleMenuOpen = !isToggleMenuOpen">
         <div id="hamburger">
           <span></span>
@@ -29,10 +29,10 @@
 
       <li *ngIf="(user$ | async)?.name" class="profile mat-display-2">
         <div class="icon">
-          <img src="assets/icons/avatar/master.png" *ngIf="userService.data.getValue().userRole === RoleEnum.master">
-          <img src="assets/icons/avatar/dao.png" *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
-          <img src="assets/icons/avatar/wg.png" *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
-          <img src="assets/icons/avatar/auth.png" *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
+          <img alt="avatar" src="assets/icons/avatar/master.png" *ngIf="userService.data.getValue().userRole === RoleEnum.master">
+          <img alt="avatar" src="assets/icons/avatar/dao.png" *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
+          <img alt="avatar" src="assets/icons/avatar/wg.png" *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
+          <img alt="avatar" src="assets/icons/avatar/auth.png" *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
         </div>
         <div class="content">
           <div class="name mat-display-2">
@@ -54,12 +54,12 @@
           </div>
 
         </div>
-        <img src="assets/icons/logout.svg" (click)="logoutHandler()">
+        <img alt="logout" src="assets/icons/logout.svg" (click)="logoutHandler()">
       </li>
       <li *ngIf="userRole === RoleEnum.unauthorized" class="profile mat-display-2">
         <button (click)="signupHandler()">
           {{ 'app.header.login' | transloco }}
-          <img src="assets/icons/arr-right.svg">
+          <img alt="logout" src="assets/icons/arr-right.svg">
         </button>
       </li>
     </ul>

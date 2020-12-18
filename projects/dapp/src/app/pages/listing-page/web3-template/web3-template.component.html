@@ -1,5 +1,5 @@
 <div class="listing-page__intro">
-    <img [attr.src]="contract?.img" width="100%" height="auto"/>
+    <img alt="promo" [attr.src]="contract?.img" width="100%" height="auto"/>
 
     <div class="listing-page__banner mat-display-4">
         {{ contract?.banner }}
@@ -9,7 +9,6 @@
     <h1 class="listing-page__title">{{ contract?.title }}</h1>
 
     <div class="listing-page__controls">
-<!--      [routerLink]="[constants.routes.createGrant | route: contract?.name]"-->
         <button
                 class="active"
                 *ngIf="contract.permissionCreateGrant"

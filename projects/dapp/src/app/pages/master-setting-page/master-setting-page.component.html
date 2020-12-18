@@ -1,7 +1,7 @@
 <div class="container master-setting">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
-      <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
+      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid">
@@ -26,14 +26,14 @@
       </ul>
 
       <div class="master-setting__groups-desc" *ngIf="activeTab === 'dao'">
-        <b>{{'master_setting.dao_member' | transloco}}</b>
+        <strong>{{'master_setting.dao_member' | transloco}}</strong>
         {{'master_setting.dao_is' | transloco}}
       </div>
 
       <div class="master-setting__groups-desc" *ngIf="activeTab === 'wg'">
-        <b>{{'master_setting.working_group_member' | transloco}}</b>
+        <strong>{{'master_setting.working_group_member' | transloco}}</strong>
         {{'master_setting.wg_is' | transloco}}<span>&nbsp;</span>
-        <b>{{'master_setting.performers' | transloco}}</b>.
+        <strong>{{'master_setting.performers' | transloco}}</strong>.
       </div>
     </div>
 

@@ -1,7 +1,7 @@
 <div class="container" *ngIf="contract.data$ | async as contract else loadingOrErrorTemplate">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
-      <img src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
+      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid">
