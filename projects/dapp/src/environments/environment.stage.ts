@@ -23,7 +23,10 @@ export const environment = {
     }
   },
 
-  workingGroup: {},
+  /* eslint-disable */
+  // @ts-ignore
+  workingGroup: $WORKING_GROUP || {},
+  /* eslint-enable */
 
   // Routing constants on page
   routing: {

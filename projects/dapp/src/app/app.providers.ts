@@ -25,7 +25,12 @@ export interface AppApiInterface {
     disruptive: string,
     web3: string,
     interhack: string
-  }
+  },
+  workingGroup: {[s: string]: {
+    name: string,
+    twitter?: string,
+    linkedin?: string
+  }}
 }
 
 export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Application constants')
@@ -39,7 +44,8 @@ export function provideApi (): Provider[] {
       useValue: {
         ...environment.apis,
         confirmations: environment.confirmations,
-        grantsProgramLink: environment.grantsProgramLink
+        grantsProgramLink: environment.grantsProgramLink,
+        workingGroup: environment.workingGroup
       }
     }
   ]
