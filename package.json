@@ -16,7 +16,10 @@
     "lint:all": "node ./lint-all.js",
     "commit": "lint-staged --allow-empty",
     "push": "run-s lint build e2e tests",
-    "heroku": "pm2-runtime start heroku.config.js"
+    "heroku": "pm2-runtime start heroku.config.js",
+    "heroku-prebuild": "run-p envsub:*",
+    "envsub:stage": "envsub ./projects/dapp/src/environments/environment.stage.ts ./projects/dapp/src/environments/environment.stage.ts",
+    "envsub:prod": "envsub ./projects/dapp/src/environments/environment.prod.ts ./projects/dapp/src/environments/environment.prod.ts"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +38,7 @@
     "@types/lodash": "^4.14.165",
     "@waves.exchange/provider-web": "^0.2.3",
     "@waves/signer": "^0.1.2",
+    "envsub": "^4.0.7",
     "include-media": "^1.4.9",
     "ngx-markdown": "^10.1.1",
     "ngx-mask": "^11.0.1",
