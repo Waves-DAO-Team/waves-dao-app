@@ -37,7 +37,6 @@ export class ControlsComponent {
   @Output() newAcceptWorkResultEvent = new EventEmitter<string>()
   @Output() newFinishApplicantsVoteEvent = new EventEmitter()
   @Output() newAddRewardEvent = new EventEmitter()
-  @Output() newEditGrantEvent = new EventEmitter()
 
   reportLink = ''
 

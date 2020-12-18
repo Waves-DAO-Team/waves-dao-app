@@ -39,7 +39,6 @@ export class EntityComponent {
   @Output() newAcceptWorkResultEvent = new EventEmitter<string>()
   @Output() newFinishApplicantsVoteEvent = new EventEmitter()
   @Output() newAddRewardEvent = new EventEmitter()
-  @Output() newEditGrantEvent = new EventEmitter()
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
