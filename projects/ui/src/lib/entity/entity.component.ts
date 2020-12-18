@@ -25,19 +25,13 @@ import { VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntityComponent {
+
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
   @Input() controlsTemplate: TemplateRef<Component> | undefined;
   @Input() stepperTemplate: TemplateRef<Component> | undefined;
   @Input() teamTemplate: TemplateRef<Component> | undefined;
   @Input() voteForTaskTemplate: TemplateRef<Component> | undefined;
-
-  public grantStatusEnum = GrantStatusEnum
-
-  @Output() newVoteEvent = new EventEmitter<'like' | 'dislike'>();
-  @Output() newSignupEvent = new EventEmitter()
-  @Output() newOpenApplyModalEvent = new EventEmitter()
-  @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
   @Output() newFinishVoteEvent = new EventEmitter()
   @Output() newStartWorkEvent = new EventEmitter()
@@ -51,6 +45,7 @@ export class EntityComponent {
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   @DestroyedSubject() private readonly destroyed$!: Subject<null>;
 
+  public grantStatusEnum = GrantStatusEnum
   reportLink = '';
 
   constructor (

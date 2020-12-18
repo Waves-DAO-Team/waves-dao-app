@@ -29,11 +29,7 @@
 </ng-template>
 
 <ui-entity
-  (newVoteEvent)="vote($event)"
   [contract]="contract" [grant]="grant"
-  (newSignupEvent)="signup()"
-  (newOpenApplyModalEvent)="openApplyModal()"
-  (newVoteTeamEvent)="voteTeam($event)"
   (newFinishVoteEvent)="finishVote()"
   (newStartWorkEvent)="startWork()"
   (newRejectEvent)="reject()"
