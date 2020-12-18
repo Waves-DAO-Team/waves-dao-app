@@ -1,6 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit
+} from '@angular/core'
 import { Location } from '@angular/common'
 import { UserService } from '@services/user/user.service'
+import { API, AppApiInterface } from '@constants'
 
 @Component({
   selector: 'app-members-page',
@@ -14,7 +21,8 @@ export class MembersPageComponent implements OnInit {
   constructor (
       private location: Location,
       public userService: UserService,
-      public cdr: ChangeDetectorRef
+      public cdr: ChangeDetectorRef,
+      @Inject(API) public readonly api: AppApiInterface
   ) {}
 
   goBack (): void {
