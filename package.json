@@ -17,7 +17,7 @@
     "commit": "lint-staged --allow-empty",
     "push": "run-s lint build e2e tests",
     "heroku": "pm2-runtime start heroku.config.js",
-    "heroku-prebuild": "run-p envsub:*",
+    "postinstall": "run-p envsub:*",
     "envsub:stage": "envsub ./projects/dapp/src/environments/environment.stage.ts ./projects/dapp/src/environments/environment.stage.ts",
     "envsub:prod": "envsub ./projects/dapp/src/environments/environment.prod.ts ./projects/dapp/src/environments/environment.prod.ts"
   },
