@@ -16,7 +16,7 @@
     </div>
 
     <pre>
-      {{ api.workingGroup }}
+      {{ api.workingGroup | json }}
     </pre>
 
     <div class="sub-title mat-display-4">{{'members.owner' | transloco}}</div>
@@ -26,11 +26,11 @@
 
     <div class="sub-title mat-display-4">{{'members.wg' | transloco}}</div>
     <ul>
-      <li *ngFor="let wg of userService?.data?.getValue().WorkGroupAddress">{{wg}}</li>
+      <li *ngFor="let wg of user.WorkGroupAddress">{{wg}}</li>
     </ul>
     <div class="sub-title mat-display-4">{{'members.dao' | transloco}}</div>
     <ul>
-      <li *ngFor="let dao of userService?.data?.getValue().DAOMemberAddress">{{dao}}</li>
+      <li *ngFor="let dao of user.DAOMemberAddress">{{dao}}</li>
     </ul>
   </div>
   <div class="container__right">
