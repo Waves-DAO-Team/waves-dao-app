@@ -1,5 +1,3 @@
-console.log('Environment')
-
 export const environment = {
   production: true,
   confirmations: 1,
@@ -26,7 +24,7 @@ export const environment = {
   },
 
   /* eslint-disable */
-  workingGroup: JSON.parse('${WORKING_GROUP}' || '{"data": {"name": "test"}}'),
+  workingGroup: JSON.parse('${WORKING_GROUP}' || '{}'),
   /* eslint-enable */
 
   // Routing constants on page

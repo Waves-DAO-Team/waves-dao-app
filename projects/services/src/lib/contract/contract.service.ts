@@ -26,7 +26,7 @@ import { MembershipService } from '@services/membership/membership.service'
   providedIn: 'root'
 })
 export class ContractService {
-  private contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.dev)
+  private contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
   public applicants: string[] = []
 
   private readonly contractState = this.contractAddress$.pipe(

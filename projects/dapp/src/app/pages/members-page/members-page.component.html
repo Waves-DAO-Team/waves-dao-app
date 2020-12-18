@@ -6,31 +6,51 @@
   </div>
   <div class="container__mid" *ngIf="user$ | async as user">
     <div class="mat-h1">{{'members.members' | transloco}}</div>
-    {{user.masterAddress}}
 
-    <div class="container__mid__user-contacts" *ngIf="false">
-      <div class="container__mid__user-contacts__name"> John Smith</div>
-      <a href="#"><img src="assets/icons/social/facebook.svg" alt="facebook"></a>
-      <a href="#"><img src="assets/icons/social/linkedin.svg" alt="linkedin"></a>
-      <a href="#"><img src="assets/icons/social/twitter.svg" alt="twitter"></a>
+    <div class="container__mid__user-contacts" *ngIf="api?.workingGroup[user.masterAddress] as master">
+      <div class="container__mid__user-contacts__name">{{ master.name }}</div>
+      <a *ngIf="master?.facebook" [attr.href]="master?.facebook"><img src="assets/icons/social/facebook.svg" alt="facebook"></a>
+      <a *ngIf="master?.linkedin" [attr.href]="master?.linkedin"><img src="assets/icons/social/linkedin.svg" alt="linkedin"></a>
+      <a *ngIf="master?.twitter" [attr.href]="master?.twitter"><img src="assets/icons/social/twitter.svg" alt="twitter"></a>
     </div>
-
-    <pre>
-      {{ api.workingGroup | json }}
-    </pre>
 
     <div class="sub-title mat-display-4">{{'members.owner' | transloco}}</div>
     <ul>
-      <li>{{user.owner}}</li>
+      <li>
+        <div>{{user.owner}}</div>
+        <div class="container__mid__user-contacts" *ngIf="api?.workingGroup[user.owner] as owner">
+          <div class="container__mid__user-contacts__name">{{ owner.name }}</div>
+          <a *ngIf="owner?.facebook" [attr.href]="owner?.facebook"><img src="assets/icons/social/facebook.svg" alt="facebook"></a>
+          <a *ngIf="owner?.linkedin" [attr.href]="owner?.linkedin"><img src="assets/icons/social/linkedin.svg" alt="linkedin"></a>
+          <a *ngIf="owner?.twitter" [attr.href]="owner?.twitter"><img src="assets/icons/social/twitter.svg" alt="twitter"></a>
+        </div>
+      </li>
     </ul>
 
     <div class="sub-title mat-display-4">{{'members.wg' | transloco}}</div>
     <ul>
-      <li *ngFor="let wg of user.WorkGroupAddress">{{wg}}</li>
+      <li *ngFor="let wg of user.WorkGroupAddress">
+
+        <div>{{wg}}</div>
+        <div class="container__mid__user-contacts" *ngIf="api?.workingGroup[wg] as owner">
+          <div class="container__mid__user-contacts__name">{{ owner.name }}</div>
+          <a *ngIf="owner?.facebook" [attr.href]="owner?.facebook"><img src="assets/icons/social/facebook.svg" alt="facebook"></a>
+          <a *ngIf="owner?.linkedin" [attr.href]="owner?.linkedin"><img src="assets/icons/social/linkedin.svg" alt="linkedin"></a>
+          <a *ngIf="owner?.twitter" [attr.href]="owner?.twitter"><img src="assets/icons/social/twitter.svg" alt="twitter"></a>
+        </div>
+      </li>
     </ul>
     <div class="sub-title mat-display-4">{{'members.dao' | transloco}}</div>
     <ul>
-      <li *ngFor="let dao of user.DAOMemberAddress">{{dao}}</li>
+      <li *ngFor="let dao of user.DAOMemberAddress">
+        <div>{{dao}}</div>
+        <div class="container__mid__user-contacts" *ngIf="api?.workingGroup[dao] as owner">
+          <div class="container__mid__user-contacts__name">{{ owner.name }}</div>
+          <a *ngIf="owner?.facebook" [attr.href]="owner?.facebook"><img src="assets/icons/social/facebook.svg" alt="facebook"></a>
+          <a *ngIf="owner?.linkedin" [attr.href]="owner?.linkedin"><img src="assets/icons/social/linkedin.svg" alt="linkedin"></a>
+          <a *ngIf="owner?.twitter" [attr.href]="owner?.twitter"><img src="assets/icons/social/twitter.svg" alt="twitter"></a>
+        </div>
+      </li>
     </ul>
   </div>
   <div class="container__right">
