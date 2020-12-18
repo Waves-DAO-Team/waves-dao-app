@@ -1,3 +1,13 @@
+let workingGroup = {}
+
+try {
+  /* eslint-disable */
+  workingGroup = JSON.parse('${WORKING_GROUP}')
+  /* eslint-enable */
+} catch (error) {
+  console.log('EnvSub is not replace environment')
+}
+
 export const environment = {
   production: true,
   confirmations: 1,
@@ -23,10 +33,7 @@ export const environment = {
     }
   },
 
-  /* eslint-disable */
-  // @ts-ignore
-  workingGroup: $WORKING_GROUP || {},
-  /* eslint-enable */
+  workingGroup: workingGroup,
 
   // Routing constants on page
   routing: {
