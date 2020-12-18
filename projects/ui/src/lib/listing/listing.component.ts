@@ -83,10 +83,9 @@ export class ListingComponent implements OnInit, OnDestroy {
       map(([grants, userServiceData, selectedTagName]) => {
         return { // all to one
           grants: grants.filter((e) => {
-            const status = (e.status && e.status.value) || null
+            const status = e.status && e.status.value ? e.status.value : null
             if (
-              status !== GrantStatusEnum.readyToApply
-              || selectedTagName === GrantStatusEnum.readyToApply && status === GrantStatusEnum.readyToApply) {
+              status !== GrantStatusEnum.readyToApply || (selectedTagName === GrantStatusEnum.readyToApply && status === selectedTagName)) {
               return true
             }
           }),
@@ -189,8 +188,7 @@ export class ListingComponent implements OnInit, OnDestroy {
       // tap((data) => console.log('importantGrant$', data))
     )
 
-  ngOnInit (): void {
-  }
+  ngOnInit (): void {}
 
   selectedTag ($event: string) {
     this.selectedTagName$.next($event)
@@ -205,10 +203,6 @@ export class ListingComponent implements OnInit, OnDestroy {
       return true
     }
     return false
-  }
-
-  setEnv (address: string) {
-    this.contractService.switchContract(address)
   }
 
   isAppliedForGrant (grantId: string): boolean {

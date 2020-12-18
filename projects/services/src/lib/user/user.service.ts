@@ -16,6 +16,7 @@ export class UserService {
     userRole: RoleEnum.unauthorized,
     userAddress: '',
     DAOMemberAddress: [],
+    owner: '',
     WorkGroupAddress: [],
     masterAddress: '',
     roles: {
@@ -44,6 +45,7 @@ export class UserService {
         const newData: UserDataInterface = {
           DAOMemberAddress,
           WorkGroupAddress,
+          owner: contract?.owner,
           masterAddress: contract.address,
           userAddress: userAddressText,
           userRole: dr.mainRole,

@@ -186,6 +186,7 @@
     }
   },
   "members": {
+    "owner": "DAO owner",
     "members": "Members",
     "master": "Master",
     "wg": "WG",

@@ -1,7 +1,29 @@
-# Waves Grants
+# Waves Association DAO
 
 [![Linter](https://github.com/rieset/waves-grants/workflows/Linter/badge.svg)](https://github.com/rieset/waves-grants/actions)
 [![Testing](https://github.com/rieset/waves-grants/workflows/Testing/badge.svg)](https://github.com/rieset/waves-grants/actions)
+
+## Original DAO Contracts
+
+- [Managment membership](https://github.com/vlzhr/WavesDAO/blob/master/dao-membership.ride)
+
+    Waves Association DAO member management
+
+- [Disruptive Tech Grants](https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grant.ride)
+
+    Disruptive Tech Grants are awarded to implement tasks dedicated to
+    developing solutions that meet the rapidly accelerating Waves ecosystem’s
+    needs.
+
+- [Interhack Grants](https://github.com/vlzhr/WavesDAO/blob/master/interhack-grant.ride)
+
+    Interhack Grants are awarded for building innovative solutions at
+    hackathons in accordance with assignments provided by the Waves Association.
+
+- [Web3 Community Development Grants](https://github.com/vlzhr/WavesDAO/blob/master/web3-grant.ride)
+
+    Web 3.0 Development Grants can be proposed by the community and are awarded
+    to the teams that foster mass adoption of blockchain technology.
 
 ## Modules
 

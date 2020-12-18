@@ -11,8 +11,10 @@ export interface AppApiInterface {
   signer: string
   rest: string
   explorer: string
-  contractAddress: string
   confirmations: number
+  management: {
+    membership: string,
+  },
   contracts: {
     disruptive: string,
     dev: string,

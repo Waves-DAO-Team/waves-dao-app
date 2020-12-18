@@ -9,10 +9,11 @@
     <p>{{user.masterAddress}}</p>
     <p>&nbsp;</p>
 
-    <div class="sub-title mat-display-4">{{'members.master' | transloco}}</div>
+    <div class="sub-title mat-display-4">{{'members.owner' | transloco}}</div>
     <ul>
-      <li>{{user.masterAddress}}</li>
+      <li>{{user.owner}}</li>
     </ul>
+
     <div class="sub-title mat-display-4">{{'members.wg' | transloco}}</div>
     <ul>
       <li *ngFor="let wg of userService?.data?.getValue().WorkGroupAddress">{{wg}}</li>

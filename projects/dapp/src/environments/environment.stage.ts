@@ -8,7 +8,9 @@ export const environment = {
     signer: 'https://testnet.waves.exchange/signer/',
     rest: 'https://nodes-testnet.wavesnodes.com',
     explorer: 'https://testnet.wavesexplorer.com/address/',
-    contractAddress: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
+    management: {
+      membership: '3NCGXdprrsBp9rzrGna68MmfJXQ7fcinF7o'
+    },
     contracts: {
       disruptive: '3N71MDc3kPD6cnbdWp6iEuDY8ghgZ9DiVan',
       web3: '3N6QtvE15KN8rsW1jkBe1kz8xJHdmhNsYnG',
@@ -20,6 +22,8 @@ export const environment = {
       interhack: 'https://github.com/vlzhr/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+'
     }
   },
+
+  workingGroup: {},
 
   // Routing constants on page
   routing: {
