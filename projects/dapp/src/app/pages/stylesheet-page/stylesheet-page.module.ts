@@ -4,7 +4,7 @@ import { StylesheetPageRoutingModule } from './stylesheet-page-routing.module'
 import { StylesheetPageComponent } from './stylesheet-page.component'
 
 @NgModule({
-  declarations: [StylesheetPageComponent],
+  // declarations: [StylesheetPageComponent],
   imports: [
     CommonModule,
     StylesheetPageRoutingModule
