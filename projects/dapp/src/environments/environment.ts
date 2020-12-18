@@ -25,10 +25,9 @@ export const environment = {
   },
 
   workingGroup: {
-    'address 1': {
+    '3MtsjR7qZQLRKfpkYHybo65f2p6GydDvn5X': {
       name: 'Name member',
-      twitter: 'Link to twitter',
-      linkedin: 'Link to linkedin'
+      twitter: 'Link to twitter'
     },
     'address 2': {
       name: 'Name member',
