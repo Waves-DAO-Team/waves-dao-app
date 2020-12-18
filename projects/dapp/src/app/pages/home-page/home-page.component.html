@@ -14,7 +14,7 @@
                  *ngFor="let grants of grantsVariationsList | async"
                 [routerLink]="constants.routes.listing | route : grants?.name"
             >
-                <img class="home-page__grant-img" [src]="grants?.preview"/>
+                <img alt="preview" class="home-page__grant-img" [src]="grants?.preview"/>
                 <span class="home-page__grant-content">
                     <span class="home-page__grant-title mat-display-3">{{grants?.title}}</span>
                     <span class="home-page__grant-desc mat-display-1">{{grants?.desc}}</span>

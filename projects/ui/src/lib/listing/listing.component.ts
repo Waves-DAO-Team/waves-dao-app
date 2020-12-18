@@ -84,9 +84,9 @@ export class ListingComponent implements OnInit, OnDestroy {
         return { // all to one
           grants: grants.filter((e) => {
             const status = (e.status && e.status.value) || null
-            if (status !== GrantStatusEnum.readyToApply) {
-              return true
-            } else if (selectedTagName === GrantStatusEnum.readyToApply && status === GrantStatusEnum.readyToApply) {
+            if (
+              status !== GrantStatusEnum.readyToApply
+              || selectedTagName === GrantStatusEnum.readyToApply && status === GrantStatusEnum.readyToApply) {
               return true
             }
           }),

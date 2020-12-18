@@ -46,7 +46,7 @@ export class DevGridComponent implements OnInit {
     return window.localStorage.getItem(name) || null
   }
 
-  private setLocal (name: string = this.storageKey, value: string): void {
+  private setLocal (value: string,name: string = this.storageKey): void {
     if (!this.enabled) {
       return
     }
@@ -90,7 +90,7 @@ export class DevGridComponent implements OnInit {
       this.isActive = false
     } else {
       this.renderer.addClass(this.html, this.cssClass)
-      this.setLocal(this.storageKey, 'true')
+      this.setLocal('true', this.storageKey)
       this.isActive = true
     }
   }
