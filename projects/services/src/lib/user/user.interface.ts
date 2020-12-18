@@ -31,7 +31,4 @@ export interface UserDataInterface {
   apply: string[]
   balance: string
   owner: string
-  // vote: {
-  //   votedFor: []
-  // }
 }

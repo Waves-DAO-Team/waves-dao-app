@@ -12,7 +12,6 @@ import { SubmitCallBackApplyArg, SubmitCallBackRewardArg } from '@ui/dialog/dial
 import { MatDialog } from '@angular/material/dialog'
 import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
-import { EditGrantComponent } from '@ui/modals/edit-grant/edit-grant.component'
 import { UserService } from '@services/user/user.service'
 
 @Component({
@@ -112,22 +111,4 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  editGrant () {
-    const dialog = this.dialog.open(DialogComponent, {
-      data: {
-        component: EditGrantComponent,
-        params: {
-          title: translate('edit_grant.title'),
-          submitBtnText: translate('edit_grant.btn.edit'),
-          submitCallBack: (data: SubmitCallBackRewardArg) => {
-            // TODO: нужен метод, на https://waves-dapp.com/3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA нет
-            // this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
-            dialog.close()
-            this.cdr.markForCheck()
-            // })
-          }
-        }
-      }
-    })
-  }
 }

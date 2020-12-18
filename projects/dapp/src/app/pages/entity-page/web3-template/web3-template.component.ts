@@ -12,7 +12,6 @@ import { SubmitCallBackApplyArg, SubmitCallBackRewardArg } from '@ui/dialog/dial
 import { MatDialog } from '@angular/material/dialog'
 import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
-import { EditGrantComponent } from '@ui/modals/edit-grant/edit-grant.component'
 import { AddTaskDetailsComponent } from '@ui/modals/add-task-details/add-task-details.component'
 import { CommunityContractService } from '@services/contract/community-contract.service'
 import { UserService } from '@services/user/user.service'
@@ -108,25 +107,6 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
                 this.cdr.markForCheck()
               })
             }
-          }
-        }
-      }
-    })
-  }
-
-  editGrant () {
-    const dialog = this.dialog.open(DialogComponent, {
-      data: {
-        component: EditGrantComponent,
-        params: {
-          title: translate('edit_grant.title'),
-          submitBtnText: translate('edit_grant.btn.edit'),
-          submitCallBack: (data: SubmitCallBackRewardArg) => {
-            // TODO: нужен метод, на https://waves-dapp.com/3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA нет
-            // this.disruptiveContractService.addReward(this.grantId, data.reward).subscribe((e)=>{
-            dialog.close()
-            this.cdr.markForCheck()
-            // })
           }
         }
       }

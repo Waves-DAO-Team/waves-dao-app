@@ -13,8 +13,6 @@ import { MembershipService } from '@services/membership/membership.service'
   providedIn: 'root'
 })
 export class CommonContractService {
-  // ToDo change to waitTx function or else
-  private readonly averageOperationSpeed = 10000
 
   constructor (
       private contractService: ContractService,
