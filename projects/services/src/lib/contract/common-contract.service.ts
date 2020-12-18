@@ -7,6 +7,7 @@ import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
 import { TransactionsSuccessResult } from '@services/signer/signer.model'
+import { MembershipService } from '@services/membership/membership.service'
 
 @Injectable({
   providedIn: 'root'
@@ -19,46 +20,16 @@ export class CommonContractService {
       private contractService: ContractService,
       private readonly signerService: SignerService,
       private snackBar: MatSnackBar,
-      public router: Router
+      public router: Router,
+      public membershipService: MembershipService
   ) {}
 
   public addDAOMember (members: string): Observable<TransactionsSuccessResult> {
-    return this.signerService.invokeProcess(
-      this.contractService.getAddress(),
-      'addDAOMember',
-      [
-        { type: 'string', value: members }
-      ]
-    ).pipe(
-      catchError((error) => {
-        this.snackBar.open(error.message, translate('messages.ok'))
-        return EMPTY
-      }),
-      tap(() => {
-        this.contractService.refresh()
-        this.snackBar.open('Transaction is complete', translate('messages.ok'))
-      })
-    )
+    return this.membershipService.addDAOMember(members)
   }
 
   public addGroupMember (members: string): Observable<TransactionsSuccessResult> {
-    return this.signerService.invokeProcess(
-      this.contractService.getAddress(),
-      'addGroupMember',
-      [
-        { type: 'string', value: members }
-      ]
-    )
-      .pipe(
-        catchError((error) => {
-          this.snackBar.open(error.message, translate('messages.ok'))
-          return EMPTY
-        }),
-        tap(() => {
-          this.contractService.refresh()
-          this.snackBar.open('Transaction is complete', translate('messages.ok'))
-        })
-      )
+    return this.membershipService.addGroupMember(members)
   }
 
   public addTask (taskName: string, link: string): Observable<TransactionsSuccessResult> {

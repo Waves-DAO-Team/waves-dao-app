@@ -20,42 +20,30 @@ import {
 import { StorageService } from '@services/storage/storage.service'
 import { TranslocoService } from '@ngneat/transloco'
 import { GrantStatusEnum } from '@services/static/static.model'
+import { MembershipService } from '@services/membership/membership.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-  private contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.storageService.contactAddress || this.api.contractAddress)
+  private contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.dev)
   public applicants: string[] = []
-  // @ts-ignore
-  private contractState$: BehaviorSubject<ContractDataModel> = new BehaviorSubject({})
 
   private readonly contractState = this.contractAddress$.pipe(
     // @ts-ignore
     switchMap((address) => {
-      const url = new URL('/addresses/data/' + address, this.api.rest)
-      return this.http.get<Observable<ContractRawData>>(url.href, {
-        headers: { accept: 'application/json; charset=utf-8' }
-      })
-    }),
-    map((data: ContractRawData) => {
-      return this.prepareData(data)
-    }),
-    switchMap((data: ContractDataModel) => {
-      this.contractState$.next(data)
-      return this.contractState$.pipe(take(1))
+      return this.getContractData(address)
     }),
     publishReplay(1),
     refCount()
   )
 
   public readonly stream: Observable<ContractDataModel> = this.contractState.pipe(
-    withLatestFrom(this.contractAddress$),
-    map(([data, address]) => {
+    withLatestFrom(this.membershipService.stream),
+    map(([data, members]) => {
       return {
         ...data,
-        // Pass current contract address in data stream
-        address
+        ...members
       }
     }),
     publishReplay(1),
@@ -75,8 +63,25 @@ export class ContractService {
     private readonly http: HttpClient,
     private storageService: StorageService,
     private translocoService: TranslocoService,
+    private membershipService: MembershipService,
     @Inject(API) private readonly api: AppApiInterface
   ) {}
+
+  public getContractData (address: string) {
+    const url = new URL('/addresses/data/' + address, this.api.rest)
+    return this.http.get<Observable<ContractRawData>>(url.href, {
+      headers: { accept: 'application/json; charset=utf-8' }
+    }).pipe(
+      // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
+      // @ts-ignore
+      map((data: ContractRawData) => {
+        return {
+          ...this.prepareData(data),
+          address: address
+        }
+      })
+    )
+  }
 
   public refresh (address: string = this.getAddress()): Observable<ContractDataModel> {
     this.storageService.contactAddress = address
@@ -92,19 +97,6 @@ export class ContractService {
       throw new Error('ContractService::switchContract | Contract is not found ')
     }
     this.refresh(contracts[type])
-  }
-
-  doRefreshTimeOut () {
-    this.refresh()
-    setTimeout(() => {
-      this.refresh()
-    }, 1000)
-    setTimeout(() => {
-      this.refresh()
-    }, 5000)
-    setTimeout(() => {
-      this.refresh()
-    }, 10000)
   }
 
   private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
@@ -137,7 +129,6 @@ export class ContractService {
   public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
     return this.stream.pipe(
       map((data: ContractDataModel) => {
-        console.log('entityById', data)
         const grant: ContractGrantRawModel = data.tasks[entityId]
 
         return {

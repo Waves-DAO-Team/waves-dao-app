@@ -77,6 +77,7 @@ export interface ContractGrantExtendedModel extends ContractGrantModel {
 
 export interface ContractDataModel {
   address: string,
+  owner: string,
   working: {
     group: {
       member: {[s: string]: {
