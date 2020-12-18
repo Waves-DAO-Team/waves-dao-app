@@ -1,7 +1,14 @@
-# Waves Grants
+# Waves Association DAO
 
 [![Linter](https://github.com/rieset/waves-grants/workflows/Linter/badge.svg)](https://github.com/rieset/waves-grants/actions)
 [![Testing](https://github.com/rieset/waves-grants/workflows/Testing/badge.svg)](https://github.com/rieset/waves-grants/actions)
+
+## Original DAO Contracts
+
+- [Managment membership](https://github.com/vlzhr/WavesDAO/blob/master/dao-membership.ride)
+- [Disruptive Tech Grants](https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grant.ride)
+- [Interhack Grants](https://github.com/vlzhr/WavesDAO/blob/master/interhack-grant.ride)
+- [Web3 Community Development Grants](https://github.com/vlzhr/WavesDAO/blob/master/web3-grant.ride)
 
 ## Modules
 
