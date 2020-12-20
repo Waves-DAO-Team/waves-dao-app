@@ -1,41 +1,15 @@
 @import 'const';
 @import 'container';
+@import 'mixins/elements/user-contacts';
 
 .container {
   @include container();
-  &__mid {
-    &__user-contacts {
-      display: flex;
-      align-items: center;
-      max-width: 325px;
-
-
-      &__name {
-        color: $color_dark_gray;
-        margin-right: 10px;
-      }
-      a {
-        img {
-          width: 13px;
-          height: 13px;
-          opacity: 0.5;
-          transition: 0.3s;
-          &:hover {
-            opacity: 1
-          }
-        }
-        margin-right: 5px;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-  }
-
 }
 
 .sub-title {
   margin: auto;
+}
+
+.user-contacts {
+ @include user-contacts
 }
