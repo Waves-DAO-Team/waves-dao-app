@@ -17,7 +17,7 @@ export interface AppApiInterface {
   },
   contracts: {
     disruptive: string,
-    dev: string,
+    web3: string,
     interhack: string
   },
   grantsProgramLink: string,
@@ -29,6 +29,7 @@ export interface AppApiInterface {
   workingGroup: {[s: string]: {
     name: string,
     twitter?: string,
+    facebook?: string,
     linkedin?: string
   }}
 }

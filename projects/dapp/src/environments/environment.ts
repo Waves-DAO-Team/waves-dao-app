@@ -25,15 +25,21 @@ export const environment = {
   },
 
   workingGroup: {
-    'address 1': {
-      name: 'Name member',
-      twitter: 'Link to twitter',
-      linkedin: 'Link to linkedin'
+    '3MtsjR7qZQLRKfpkYHybo65f2p6GydDvn5X': {
+      name: 'Sam I Am',
+      twitter: 'Link'
     },
-    'address 2': {
-      name: 'Name member',
-      twitter: 'Link to twitter',
-      linkedin: 'Link to linkedin'
+    '3MwRzi2BmqZZXWrCGCwcRQLsnic2Aod6zhS': {
+      name: 'Bohdan Stun',
+      twitter: 'Link'
+    },
+    '3N9eoi55zj9AzeDT415pMEm8dyeHiuz1wST': {
+      name: 'John Smith',
+      linkedin: 'Link'
+    },
+    '3N6XZgaswUMmihcHkUTXfBGAxekdkP541yT': {
+      name: 'Gregory Volandemort',
+      facebook: 'Link'
     }
   },
 
