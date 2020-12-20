@@ -1,6 +1,5 @@
 @import 'const';
 @import 'container';
-@import 'mixins/elements/user-contacts';
 
 .container {
   @include container();
@@ -8,8 +7,4 @@
 
 .sub-title {
   margin: auto;
-}
-
-.user-contacts {
- @include user-contacts
 }

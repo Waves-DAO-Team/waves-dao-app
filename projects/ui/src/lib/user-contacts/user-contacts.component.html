@@ -1,0 +1,12 @@
+<div class="user-contacts" >
+  <div class="user-contacts__name">{{ user.name }}</div>
+  <a class="user-contacts__link" *ngIf="user?.facebook" [attr.href]="user?.facebook">
+    <img class="user-contacts__icon" src="assets/icons/social/facebook.svg" alt="facebook">
+  </a>
+  <a class="user-contacts__link" *ngIf="user?.linkedin" [attr.href]="user?.linkedin">
+    <img class="user-contacts__icon" src="assets/icons/social/linkedin.svg" alt="linkedin">
+  </a>
+  <a class="user-contacts__link" *ngIf="user?.twitter" [attr.href]="user?.twitter">
+    <img class="user-contacts__icon" src="assets/icons/social/twitter.svg" alt="twitter">
+  </a>
+</div>
