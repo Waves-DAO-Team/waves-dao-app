@@ -46,7 +46,7 @@ export class DevGridComponent implements OnInit {
     return window.localStorage.getItem(name) || null
   }
 
-  private setLocal (value: string,name: string = this.storageKey): void {
+  private setLocal (value: string, name: string = this.storageKey): void {
     if (!this.enabled) {
       return
     }

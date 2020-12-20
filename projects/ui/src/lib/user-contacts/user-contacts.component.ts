@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UserInterface} from "@constants";
+import {UserInterface} from '@constants';
 
 @Component({
   selector: 'ui-user-contacts',
@@ -10,9 +10,9 @@ export class UserContactsComponent implements OnInit {
 
   @Input() user: UserInterface | null = null
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
 }

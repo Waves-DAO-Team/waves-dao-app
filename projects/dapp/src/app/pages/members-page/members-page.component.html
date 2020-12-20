@@ -7,19 +7,13 @@
   <div class="container__mid" *ngIf="user$ | async as user">
 
     <div class="mat-h1">{{'members.members' | transloco}}</div>
-    <ui-user-contacts
-      *ngIf="api?.workingGroup[user.masterAddress] as master"
-      [user]="master"
-    ></ui-user-contacts>
+    <ui-user-contacts *ngIf="api?.workingGroup[user.masterAddress] as master" [user]="master"></ui-user-contacts>
 
     <div class="sub-title mat-display-4">{{'members.owner' | transloco}}</div>
     <ul>
       <li>
         <div>{{user.owner}}</div>
-        <ui-user-contacts
-          *ngIf="api?.workingGroup[user.owner] as owner"
-          [user]="owner"
-        ></ui-user-contacts>
+        <ui-user-contacts *ngIf="api?.workingGroup[user.owner] as owner" [user]="owner"></ui-user-contacts>
       </li>
     </ul>
 
@@ -27,20 +21,14 @@
     <ul>
       <li *ngFor="let wg of user.WorkGroupAddress">
         <div>{{wg}}</div>
-        <ui-user-contacts
-          *ngIf="api?.workingGroup[wg] as owner"
-          [user]="owner"
-        ></ui-user-contacts>
+        <ui-user-contacts *ngIf="api?.workingGroup[wg] as owner" [user]="owner"></ui-user-contacts>
       </li>
     </ul>
     <div class="sub-title mat-display-4">{{'members.dao' | transloco}}</div>
     <ul>
       <li *ngFor="let dao of user.DAOMemberAddress">
         <div>{{dao}}</div>
-        <ui-user-contacts
-          *ngIf="api?.workingGroup[dao] as owner"
-          [user]="owner"
-        ></ui-user-contacts>
+        <ui-user-contacts *ngIf="api?.workingGroup[dao] as owner" [user]="owner"></ui-user-contacts>
       </li>
     </ul>
   </div>

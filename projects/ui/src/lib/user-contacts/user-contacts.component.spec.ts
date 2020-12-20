@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserContactsComponent } from './user-contacts.component';
+import {provideApi, provideAppConstants} from '@constants';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 describe('UserContactsComponent', () => {
   let component: UserContactsComponent;
@@ -8,7 +10,11 @@ describe('UserContactsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserContactsComponent ]
+      declarations: [MatSnackBarModule, UserContactsComponent ],
+      providers: [
+        provideAppConstants(),
+        provideApi()
+      ]
     })
     .compileComponents();
   });
