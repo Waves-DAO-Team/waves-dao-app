@@ -6,12 +6,18 @@
   </div>
   <div class="container__mid" *ngIf="user$ | async as user">
     <div class="mat-h1">{{'members.members' | transloco}}</div>
-
-    <div class="container__mid__user-contacts" *ngIf="api?.workingGroup[user.masterAddress] as master">
-      <div class="container__mid__user-contacts__name">{{ master.name }}</div>
-      <a *ngIf="master?.facebook" [attr.href]="master?.facebook"><img src="assets/icons/social/facebook.svg" alt="facebook"></a>
-      <a *ngIf="master?.linkedin" [attr.href]="master?.linkedin"><img src="assets/icons/social/linkedin.svg" alt="linkedin"></a>
-      <a *ngIf="master?.twitter" [attr.href]="master?.twitter"><img src="assets/icons/social/twitter.svg" alt="twitter"></a>
+    
+    <div class="user-contacts" *ngIf="api?.workingGroup[user.masterAddress] as master">
+      <div class="user-contacts__name">{{ master.name }}</div>
+      <a class="user-contacts__link" *ngIf="master?.facebook" [attr.href]="master?.facebook">
+        <img class="user-contacts__icon" src="assets/icons/social/facebook.svg" alt="facebook">
+      </a>
+      <a class="user-contacts__link" *ngIf="master?.linkedin" [attr.href]="master?.linkedin">
+        <img class="user-contacts__icon" src="assets/icons/social/linkedin.svg" alt="linkedin">
+      </a>
+      <a class="user-contacts__link" *ngIf="master?.twitter" [attr.href]="master?.twitter">
+        <img class="user-contacts__icon" src="assets/icons/social/twitter.svg" alt="twitter">
+      </a>
     </div>
 
     <div class="sub-title mat-display-4">{{'members.owner' | transloco}}</div>
