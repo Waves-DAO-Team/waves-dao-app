@@ -28,11 +28,11 @@
       </li>
 
       <li *ngIf="(user$ | async)?.name" class="profile mat-display-2">
-        <div class="icon">
-          <img alt="avatar" src="assets/icons/avatar/master.png" *ngIf="userService.data.getValue().userRole === RoleEnum.master">
-          <img alt="avatar" src="assets/icons/avatar/dao.png" *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
-          <img alt="avatar" src="assets/icons/avatar/wg.png" *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
-          <img alt="avatar" src="assets/icons/avatar/auth.png" *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
+        <div class="icon" *ngIf="userService.data.getValue().userRole as role">
+          <img alt="avatar" src="assets/icons/avatar/master.png" *ngIf="role === RoleEnum.master || role === RoleEnum.owner">
+          <img alt="avatar" src="assets/icons/avatar/dao.png" *ngIf="role === RoleEnum.DAOMember">
+          <img alt="avatar" src="assets/icons/avatar/wg.png" *ngIf="role === RoleEnum.workingGroup">
+          <img alt="avatar" src="assets/icons/avatar/auth.png" *ngIf="role === RoleEnum.authorized">
         </div>
         <div class="content">
           <div class="name mat-display-2">

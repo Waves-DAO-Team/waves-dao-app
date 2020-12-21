@@ -8,3 +8,9 @@
 .sub-title {
   margin: auto;
 }
+
+.controls {
+  margin-top: $padding * 3;
+  display: flex;
+  justify-content: flex-end
+}

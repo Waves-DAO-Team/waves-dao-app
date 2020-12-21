@@ -18,14 +18,6 @@
         >
             {{ 'app.controls.createGrant' | transloco }}
         </button>
-
-        <button class=""
-                [routerLink]="[constants.routes.masterSetting | route: contract?.name]"
-                *ngIf="contract.permissionSettings"
-                routerLinkActive="active"
-        >
-            {{ 'app.controls.setting' | transloco }}
-        </button>
     </div>
 </div>
 <div class="listing-page__address mat-display-1">

@@ -7,7 +7,8 @@ import {
 } from '@angular/core'
 import { Location } from '@angular/common'
 import { UserService } from '@services/user/user.service'
-import { API, AppApiInterface } from '@constants'
+import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
+import {StaticService} from "@services/static/static.service";
 
 @Component({
   selector: 'app-members-page',
@@ -21,8 +22,10 @@ export class MembersPageComponent implements OnInit {
   constructor (
       private location: Location,
       public userService: UserService,
+      public staticService: StaticService,
       public cdr: ChangeDetectorRef,
-      @Inject(API) public readonly api: AppApiInterface
+      @Inject(API) public readonly api: AppApiInterface,
+      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
   ) {}
 
   goBack (): void {

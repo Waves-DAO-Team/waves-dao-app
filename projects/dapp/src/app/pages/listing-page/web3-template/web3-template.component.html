@@ -17,14 +17,6 @@
         >
             {{ 'app.controls.proposeGrant' | transloco }}
         </button>
-
-        <button
-                [routerLink]="[constants.routes.masterSetting | route: contract?.name]"
-                *ngIf="contract.permissionSettings"
-                routerLinkActive="active"
-        >
-            {{ 'app.listing.controls.setting' | transloco }}
-        </button>
     </div>
 </div>
 <div class="listing-page__address mat-display-1">
