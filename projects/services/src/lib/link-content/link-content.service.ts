@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core'
+import { Injectable, isDevMode } from '@angular/core'
 import { MainResponseInterface, ReposResponseInterface } from '@services/link-content/link-content.interface'
-import { EMPTY, of } from 'rxjs'
+import { EMPTY, of, throwError } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map, switchMap, take } from 'rxjs/operators'
 
@@ -13,34 +13,40 @@ export class LinkContentService {
   getContent (link: string) {
     return of(link).pipe(
       map((url: string) => {
-        if (!url) {
-          throw new Error('Link to md file is not defined')
+        if (!url || typeof url !== 'string') {
+          return {}
         }
 
-        return {
-          isFile: /\.md$/.test(url),
-          isGH: url.includes('github.com'),
-          isIssues: url.includes('issues'),
-          separatorCounter: url.split('/').length,
-          url
+        try {
+          return {
+            isFile: /\.md$/.test(url),
+            isGH: url?.includes('github.com'),
+            isIssues: url?.includes('issues'),
+            separatorCounter: url?.split('/').length,
+            url: url ? (new URL(url)).pathname : ''
+          }
+        } catch (error) {
+          throw new Error('Analyzing url is failed')
         }
       }),
       switchMap((data) => {
-        console.log('DATA', data)
-        if (!(data.isGH && (data.isFile || data.isIssues || data.separatorCounter === 5))) {
-          throw new Error('Conditions is not equal a link')
+        if (data.url && !(data?.isGH && (data?.isFile || data?.isIssues || data?.separatorCounter === 5))) {
+          if (isDevMode()) {
+            throw new Error('Conditions is not equal a link')
+          }
         }
 
-        if (data.isGH && data.isIssues) {
-          return this.http.get<ReposResponseInterface>(`https://api.github.com/repos${(new URL(data.url)).pathname}`)
-        } else if (data.isFile) {
-          const path = (new URL(data.url)).pathname
-          return this.http.request('get', `https://raw.githubusercontent.com/${path.replace('/blob', '')}`, {
+        if (data.isGH && data.isIssues && data?.url) {
+          return this.http.get<ReposResponseInterface>(`https://api.github.com/repos${data?.url}`)
+        } else if (data.isFile && data?.url) {
+          return this.http.request('get', `https://raw.githubusercontent.com/${data?.url}`, {
             responseType: 'text'
           }).pipe(catchError((e) => of('')))
-        } else {
-          return this.http.get<MainResponseInterface>(`https://api.github.com/repos${(new URL(data.url)).pathname}/contents/README.md`)
+        } else if (data?.url) {
+          return this.http.get<MainResponseInterface>(`https://api.github.com/repos${data?.url}/contents/README.md`)
             .pipe(catchError((e) => of('')))
+        } else {
+          return of('')
         }
       }),
       map(

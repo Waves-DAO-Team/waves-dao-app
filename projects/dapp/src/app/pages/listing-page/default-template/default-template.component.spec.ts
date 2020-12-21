@@ -7,6 +7,7 @@ import { provideApi, provideAppConstants } from '@constants'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { ListingModule } from '@ui/listing/listing.module'
 
 describe('DefaultTemplateComponent', () => {
   let component: DefaultTemplateComponent
@@ -19,7 +20,8 @@ describe('DefaultTemplateComponent', () => {
         HttpClientTestingModule,
         getTranslocoModule(),
         RouterTestingModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        ListingModule
       ],
       providers: [
         provideAppConstants(),

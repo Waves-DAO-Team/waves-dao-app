@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core'
 import { combineLatest, Observable } from 'rxjs'
-import { map, publishReplay, refCount } from 'rxjs/operators'
+import { filter, map, publishReplay, refCount } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { UserService } from '@services/user/user.service'
 import { RolesInterface } from '@services/user/user.interface'
@@ -55,6 +55,7 @@ export class StaticService {
       this.getContactInfo(contractType),
       this.userService.data
     ]).pipe(
+      filter(([contract, user]) => !!contract && !!user),
       map(([contractInfo, user]) => {
         if (!contractInfo) {
           throw new Error('Contact is not found')

@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { provideApi, provideAppConstants } from '@constants'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { ListingModule } from '@ui/listing/listing.module'
 
 describe('Web3TemplateComponent', () => {
   let component: Web3TemplateComponent
@@ -14,7 +15,7 @@ describe('Web3TemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatDialogModule, HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, MatSnackBarModule],
+      imports: [MatDialogModule, HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, MatSnackBarModule, ListingModule],
       declarations: [Web3TemplateComponent],
       providers: [
         provideAppConstants(),

@@ -7,6 +7,7 @@ import {
 } from '@libs/loading-wrapper/loading-wrapper'
 import {
   catchError,
+  filter,
   publishReplay,
   refCount,
   switchMap
@@ -32,12 +33,14 @@ export function ContractProviderFactory (
 ): LoadingWrapperModel<GrantsVariationType> {
   return new LoadingWrapper(
     route.params.pipe(
+      filter(({ contractType }) => !!contractType),
       switchMap(({ contractType }): Observable<GrantsVariationType> => {
         return staticService.getStaticContract(contractType)
       }),
       catchError((error) => {
         // Todo обработать ошибки
         snackBar.open(error, translate('messages.ok'))
+        console.log('Error', error)
         throw new Error('Contract not found')
       }),
       publishReplay(1),

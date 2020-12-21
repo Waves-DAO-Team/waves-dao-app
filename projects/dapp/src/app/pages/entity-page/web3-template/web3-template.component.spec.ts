@@ -9,6 +9,10 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { EntityModule } from '@ui/entity/entity.module'
 import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
+import { TeamModule } from '@ui/team/team.module'
+import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
+import { StepperModule } from '@ui/stepper/stepper.module'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
 describe('Web3TemplateComponent', () => {
   let component: Web3TemplateComponent
@@ -16,7 +20,19 @@ describe('Web3TemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatDialogModule, HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, MatSnackBarModule, EntityModule, MarkdownModule],
+      imports: [
+        MatDialogModule,
+        HttpClientTestingModule,
+        getTranslocoModule(),
+        RouterTestingModule,
+        MatSnackBarModule,
+        EntityModule,
+        MarkdownModule,
+        TeamModule,
+        VoteForTaskModule,
+        StepperModule,
+        NoopAnimationsModule
+      ],
       declarations: [Web3TemplateComponent],
       providers: [
         provideAppConstants(),

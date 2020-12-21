@@ -92,11 +92,15 @@ export class ContractService {
     return this.contractState.pipe(skip(1), take(1))
   }
 
-  public switchContract (type: string) {
+  public switchContract (type: string | undefined) {
+    if (!type) {
+      return
+    }
+
     const contracts = this.api.contracts as { [s: string]: string }
 
     if (!contracts[type]) {
-      throw new Error('ContractService::switchContract | Contract is not found ')
+      throw new Error('ContractService::switchContract | Contract ' + type + ' is not found ')
     }
     this.refresh(contracts[type])
   }
