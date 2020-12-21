@@ -21,7 +21,6 @@ import { provideApi, provideAppConstants } from './app.providers'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MarkdownModule } from 'ngx-markdown'
-import { ContractMenuModule } from '@ui/contract-menu/contract-menu.module'
 import { MatDialogModule } from '@angular/material/dialog'
 
 @NgModule({
@@ -45,8 +44,7 @@ import { MatDialogModule } from '@angular/material/dialog'
     FooterModule,
     PipesModule,
     MatSnackBarModule,
-    MarkdownModule.forRoot(),
-    ContractMenuModule
+    MarkdownModule.forRoot()
   ],
   providers: [
     WINDOW_PROVIDERS,
