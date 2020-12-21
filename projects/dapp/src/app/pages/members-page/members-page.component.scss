@@ -10,7 +10,21 @@
 }
 
 .controls {
-  margin-top: $padding * 3;
   display: flex;
-  justify-content: flex-end
+  justify-content: flex-end;
+  margin-top: $padding * 3;
+}
+
+.members-page {
+  &__header {
+    align-items: center;
+    display: flex;
+  }
+
+  &__title {
+    flex: 1 1 auto;
+  }
+
+  //&__controls {}
+
 }
