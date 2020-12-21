@@ -2,8 +2,9 @@
 {-# CONTENT_TYPE DAPP #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
 
+let mainContract = addressFromStringValue("3MwRzi2BmqZZXWrCGCwcRQLsnic2Aod6zhS") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
 
-let QUORUM = 1  # 1% votes needed
+let QUORUM = 1  # 50% votes needed
 
 func tryGetInteger(key: String) = {
     let val = match getInteger(this, key) {
@@ -26,7 +27,7 @@ func isOwner(address: Address) = {
 }
 
 func getGroup() = {
-    let val = match getString(this, "working_group_members") {
+    let val = match getString(mainContract, "working_group_members") {
         case b:String => b
         case _ => ""
     }
@@ -34,82 +35,38 @@ func getGroup() = {
 }
 
 func getMembers() = {
-    let val = match getString(this, "dao_members") {
+    let val = match getString(mainContract, "dao_members") {
         case b:String => b
         case _ => ""
     }
     val
 }
 
+func getDAOSize() = {
+    let val = match getInteger(mainContract, "dao_size") {
+        case b:Int => b
+        case _ => 0
+    }
+    val
+}
+
 func isGroupMember(a: Address) = {
     # Grants & Funding group membership check
-    tryGetInteger("working_group_member_"+a.toString()+"_weight") > 0
+    let val = match getInteger(mainContract, "working_group_member_"+a.toString()+"_weight") {
+        case b:Int => b
+        case _ => 0
+    }
+    val > 0
 }
 
 
 func canMemberVote(i: Invocation) = {
-    # DAO membership check
-    tryGetInteger("dao_member_"+i.caller.toString()+"_weight") > 0
-}
-
-
-@Callable(i)
-func addDAOMember(memberAddress: String) = {
-    if (!isOwner(i.caller)) then {
-        throw("access only to the DAO owner")
-    } else {
-        if (tryGetInteger("dao_member_"+memberAddress+"_weight") == 1) then {
-            throw("This user already exists")
-        } else {
-            let group = getMembers()
-            let newGroup = group + ";" + memberAddress
-
-            let groupSize = tryGetInteger("dao_size")
-            let newGroupSize = groupSize + 1
-
-            WriteSet([
-                # Parsed in dAPP to dao.members -> list (separator ;)
-                DataEntry("dao_members", newGroup),
-
-                # Parsed in dAPP to dao.size
-                DataEntry("dao_size", newGroupSize),
-
-                # Parsed in dAPP to dao.member[id].weight
-                DataEntry("dao_member_"+memberAddress+"_weight", 1)
-            ])
-        }
+    let val = match getInteger(mainContract, "dao_member_"+i.caller.toString()+"_weight") {
+        case b:Int => b
+        case _ => 0
     }
+    val > 0
 }
-
-
-@Callable(i)
-func addGroupMember(memberAddress: String) = {
-    if (!isOwner(i.caller)) then {
-        throw("access only to the DAO owner")
-    } else {
-        if (tryGetInteger("working_group_member_"+memberAddress+"_weight") == 1) then {
-            throw("This user already exists")
-        } else {
-            let group = getGroup()
-            let newGroup = group + ";" + memberAddress
-
-            let groupSize = tryGetInteger("working_group_size")
-            let newGroupSize = groupSize + 1
-
-            WriteSet([
-                # Parsed in dAPP to working.group.members -> list (separator ;)
-                DataEntry("working_group_members", newGroup),
-
-                # Parsed in dAPP to working.group.size
-                DataEntry("working_group_size", newGroupSize),
-
-                # Parsed in dAPP to working.group.member[id].weight
-                DataEntry("working_group_member_"+memberAddress+"_weight", 1)
-            ])
-        }
-    }
-}
-
 
 @Callable(i)
 func addTask(title: String, link: String) = {
@@ -126,7 +83,7 @@ func addTask(title: String, link: String) = {
 
 
 @Callable(i)
-func addTaskDetails(taskId: String, detailsLink: String) = {
+func addReward(taskId: String) = {
     # will also contain task description / requirements / reward payment model
     if (!(isGroupMember(i.caller))) then {
         throw("grants working group access only")
@@ -135,9 +92,6 @@ func addTaskDetails(taskId: String, detailsLink: String) = {
         WriteSet([
             # Parsed in dAPP to tasks[id].reward
             DataEntry("tasks_"+taskId+"_reward", reward),
-
-            # Parsed in dAPP to tasks[id].details
-            DataEntry("tasks_"+taskId+"_details", detailsLink),
 
             # Parsed in dAPP to tasks[id].status
             DataEntry("tasks_"+taskId+"_status", "proposed")
@@ -194,7 +148,7 @@ func voteForTaskProposal(taskId: String, voteValue: Int) = {
 
 @Callable(i)
 func finishTaskProposalVoting(taskId: String) = {
-    if ((tryGetInteger("tasks_"+taskId+"_voting_amount") * 100) / tryGetInteger("dao_size") < QUORUM) then {
+    if ((tryGetInteger("tasks_"+taskId+"_voting_amount") * 100) / getDAOSize() < QUORUM) then {
         throw("more than " + QUORUM.toString() + "% members have to vote before finishing the voting")
     } else {
         if (!(isGroupMember(i.caller))) then {
@@ -258,7 +212,6 @@ func applyForTask(taskId: String, teamName: String, link: String) = {
 
 @Callable(i)
 func voteForApplicant(taskId: String, teamIdentifier: String, voteValue: Int) = {
-    # eevery DAO member can vote for task applicant with +1 or -1
     if (!canMemberVote(i)) then {
         throw("you can't vote")
     } else {
@@ -362,23 +315,10 @@ func startWork(taskId: String) = {
     }
 }
 
-@Callable(i)
-func rejectTask(taskId: String) = {
-    # called by Working Group Member to undo the task
-    # only in extraordinary cases
-    if (!isGroupMember(i.caller)) then {
-        throw("grants working group access only")
-    } else {
-        let teamIdentifier = this.getStringValue("tasks_"+taskId+"_performer")
-        WriteSet([
-            DataEntry("tasks_"+taskId+"_status", "rejected"),
-            DataEntry("tasks_"+taskId+"_app_"+teamIdentifier+"_process", "rejected")
-        ])
-    }
-}
 
 @Callable(i)
-func acceptWorkResult(taskId: String, reportLink: String) = {
+func acceptWorkResult(taskId: String) = {
+    # TO DISCUSS ::: WHO CAN CONFIRM THE WORK RESULT ?
     if (!isGroupMember(i.caller)) then {
         throw("grants working group access only")
     } else {
@@ -391,10 +331,7 @@ func acceptWorkResult(taskId: String, reportLink: String) = {
                 DataEntry("tasks_"+taskId+"_status", "work_finished"),
 
                 # Parsed in dAPP to tasks[id].app[teamId].process -> string
-                DataEntry("tasks_"+taskId+"_app_"+teamIdentifier+"_process", "work_finished"),
-
-                # report is created by Working Group and stored into SC
-                DataEntry("tasks_"+taskId+"_app_"+teamIdentifier+"_report", reportLink)
+                DataEntry("tasks_"+taskId+"_app_"+teamIdentifier+"_process", "work_finished")
             ]),
             TransferSet([
                 ScriptTransfer(teamAddress.addressFromStringValue(), rewardAmount, unit)

@@ -7,6 +7,7 @@ import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { ContractService } from '@services/contract/contract.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { PipesModule } from '@libs/pipes/pipes.module'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent
@@ -14,7 +15,13 @@ describe('HomePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, PipesModule],
+      imports: [
+        HttpClientTestingModule,
+        getTranslocoModule(),
+        RouterTestingModule,
+        PipesModule,
+        MatSnackBarModule
+      ],
       declarations: [HomePageComponent],
       providers: [
         provideAppConstants(),

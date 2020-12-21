@@ -3,7 +3,8 @@ import {
   ChangeDetectorRef,
   Component, Inject,
   Input, Output, TemplateRef
-  , EventEmitter
+  , EventEmitter,
+  OnDestroy
 } from '@angular/core'
 import {
   ContractGrantModel
@@ -22,8 +23,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
   styleUrls: ['./entity.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntityComponent {
-
+export class EntityComponent implements OnDestroy {
   @Input() public readonly grant: ContractGrantModel = {}
   @Input() public readonly contract!: GrantsVariationType
   @Input() controlsTemplate: TemplateRef<Component> | undefined;
@@ -56,4 +56,6 @@ export class EntityComponent {
   startWork () {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
+
+  ngOnDestroy () {}
 }

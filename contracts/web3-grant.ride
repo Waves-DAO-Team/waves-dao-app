@@ -23,10 +23,6 @@ func tryGetString(key: String) = {
 
 let mainContract = addressFromStringValue("3NCsqf4pFGtECs3vM4j1nKqL6VA3HdiNGeZ") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
 
-func isOwner(address: Address) = {
-    address == this
-}
-
 func getGroup() = {
     let val = match getString(mainContract, "working_group_members") {
         case b:String => b
@@ -104,21 +100,23 @@ func addTask(title: String, link: String) = {
 
 
 @Callable(i)
-func addTaskDetails(taskId: String, reward: Int) = {
-    let teamIdentifier = this.getStringValue("tasks_"+taskId+"_performer")
-    if (i.caller.toString() != this.getStringValue("tasks_"+taskId+"_leader")) then {
-        throw("team leader only")
+func addReward(taskId: String, reward: Int) = {
+    if (tryGetString("tasks_" + taskId + "_status") != "") then {
+        throw("voting was already started, so the reward amount cannot be changed")
     } else {
-      WriteSet([
-          DataEntry("tasks_"+taskId+"_requestedreward", reward)  # reward counted in WAVES
-      ])
+        if (i.caller.toString() != tryGetString("tasks_"+taskId+"_leader")) then {
+            throw("team leader only")
+        } else {
+        WriteSet([
+            DataEntry("tasks_"+taskId+"_reward", reward)  # reward counted in WAVES
+        ])
+        }
     }
 }
 
 
 @Callable(i)
 func initTaskVoting(taskId: String) = {
-    # will also contain task description / requirements / reward payment model
     if (!(isGroupMember(i.caller))) then {
         throw("grants working group access only")
     } else {
@@ -224,7 +222,7 @@ func acceptWorkResult(taskId: String, reportLink: String) = {
     if (!isGroupMember(i.caller)) then {
         throw("grants working group access only")
     } else {
-        let rewardAmount = tryGetInteger("tasks_"+taskId+"_requestedreward")
+        let rewardAmount = tryGetInteger("tasks_"+taskId+"_reward")
         let teamIdentifier = this.getStringValue("tasks_"+taskId+"_performer")
         let teamAddress = this.getStringValue("tasks_"+taskId+"_leader")
         ScriptResult(

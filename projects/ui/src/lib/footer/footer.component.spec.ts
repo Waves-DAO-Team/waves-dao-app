@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { provideApi, provideAppConstants } from '@constants'
 import { RouterTestingModule } from '@angular/router/testing'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('FooterComponent', () => {
   let component: FooterComponent
@@ -12,7 +13,7 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [getTranslocoModule(), HttpClientTestingModule, RouterTestingModule],
+      imports: [getTranslocoModule(), HttpClientTestingModule, RouterTestingModule, MatSnackBarModule],
       declarations: [FooterComponent],
       providers: [
         provideAppConstants(),

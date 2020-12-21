@@ -9,11 +9,6 @@ const routes: Routes = [
     pathMatch: 'full',
     data: {}
   }
-  // {
-  //   path: '',
-  //   component: ContractMenuComponent,
-  //   outlet: 'contract-menu'
-  // }
 ]
 
 @NgModule({

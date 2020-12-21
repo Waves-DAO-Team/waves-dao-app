@@ -11,5 +11,6 @@ export const CONTRACT = new InjectionToken<LoadingWrapperModel<ContractGrantMode
 
 // По этому токену будет идти стрим с необходимой компоненту информацией:
 export const LISTING_PAGE_PROVIDERS: Provider[] = [
+
   ContractProviderDefine(CONTRACT)
 ]

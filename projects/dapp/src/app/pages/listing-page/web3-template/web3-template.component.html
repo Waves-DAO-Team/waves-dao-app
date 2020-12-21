@@ -11,7 +11,7 @@
     <div class="listing-page__controls">
         <button
                 class="active"
-                *ngIf="contract.permissionCreateGrant"
+                *ngIf="contract?.permissionCreateGrant"
                 routerLinkActive="active"
                 (click)="onProposeGrant()"
         >
@@ -20,17 +20,17 @@
     </div>
 </div>
 <div class="listing-page__address mat-display-1">
-    <a class="a a--alt" [attr.href]="api.explorer + contract?.type" target="_blank" rel="noopener nofollow noreferrer">
+    <a class="a a--alt" [attr.href]="api?.explorer + contract?.type" target="_blank" rel="noopener nofollow noreferrer">
         {{ contract?.type }}
     </a>
 </div>
 
 <div class="listing-page__description">
     <div>
-        {{ contract.desc }}
+        {{ contract?.desc }}
     </div>
     <div class="listing-page__about" *ngIf="contract?.about">
-        <a [routerLink]="constants.routes.about | route : (contract.name)">
+        <a [routerLink]="constants?.routes?.about | route : (contract?.name)">
             {{ 'listing.more' | transloco }}
         </a>
     </div>

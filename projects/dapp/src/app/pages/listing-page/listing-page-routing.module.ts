@@ -8,11 +8,6 @@ const routes: Routes = [
     component: ListingPageComponent,
     pathMatch: 'full'
   }
-  // {
-  //   path: '',
-  //   component: ContractMenuComponent,
-  //   outlet: 'contract-menu'
-  // }
 ]
 
 @NgModule({
