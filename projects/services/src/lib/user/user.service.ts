@@ -114,7 +114,13 @@ export class UserService {
     return result
   }
 
-  private defineRol (ownerAddress: string, masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleRowInterface {
+  private defineRol (
+    ownerAddress: string,
+    masterAddress: string,
+    userAddress: string,
+    DAOMemberAddress: string[],
+    WorkGroupAddress: string[]
+  ): RoleRowInterface {
     const result: RoleRowInterface = {
       mainRole: RoleEnum.unauthorized,
       roles: {

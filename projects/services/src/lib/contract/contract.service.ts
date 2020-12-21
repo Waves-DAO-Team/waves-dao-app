@@ -5,10 +5,10 @@ import {
   publishReplay,
   refCount,
   skip,
-  switchMap, take, takeUntil, tap, withLatestFrom
+  switchMap, take, tap
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs'
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
 import {
   ContractDataModel, ContractGrantModel,
   ContractGrantRawModel,
