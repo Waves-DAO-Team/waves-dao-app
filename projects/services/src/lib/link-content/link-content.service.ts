@@ -1,6 +1,6 @@
 import { Injectable, isDevMode } from '@angular/core'
 import { MainResponseInterface, ReposResponseInterface } from '@services/link-content/link-content.interface'
-import { EMPTY, of, throwError } from 'rxjs'
+import { EMPTY, of } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map, switchMap, take } from 'rxjs/operators'
 
