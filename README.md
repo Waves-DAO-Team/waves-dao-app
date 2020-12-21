@@ -30,6 +30,11 @@ and transparently vote for applicants.
 
 ## Architecture
 
+Structure diagram:
+![structure](https://raw.githubusercontent.com/rieset/waves-grants/dev/contracts/structure-diagram.png?token=AE6NWSYPSYPVIIKCQB6S7YC75HOLE)
+
+Waves DAO is a client-server application using smart contacts blockchain technology. Angular, Angular material and Signer are used for the frontend.
+
 File structure applications are:
 
 - /pages - here are the main pages of the application
@@ -48,10 +53,10 @@ Main application services:
 ## Starting project
 
 ```bash
-git clone https://github.com/rieset/waves-grants.git
-cd waves-grants
-npm i
-ng serve
+    git clone https://github.com/rieset/waves-grants.git
+    cd waves-grants
+    npm i
+    ng serve
 ```
 
 ## Adding modules
@@ -100,6 +105,6 @@ To run the tests under Node you will need tap installed (it's listed as a
 `devDependencies` so `npm install` from the checkout should be enough), then do
 
 ```bash
-ng lint
-npm tests
+    ng lint
+    npm tests
 ```
