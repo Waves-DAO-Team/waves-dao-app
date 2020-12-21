@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { AddTaskDetailsComponent } from './add-task-details.component'
 import { provideApi, provideAppConstants } from '@constants'
-import { ContractService } from '@services/contract/contract.service'
 import { DIALOG_DATA } from '@ui/dialog/dialog.tokens'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'

@@ -15,7 +15,7 @@ export class RewardDirective {
     if (res === 'NaN') {
       res = parseFloat('0').toFixed(2).toString()
     }
-    if(res.length >= 5) {
+    if (res.length >= 5) {
       return parseFloat(res.substr(0, 5)).toFixed(2).toString()
     }
     return res
