@@ -5,7 +5,7 @@ import {
   publishReplay,
   refCount,
   skip,
-  switchMap, take, takeUntil, withLatestFrom
+  switchMap, take, takeUntil, tap, withLatestFrom
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs'
@@ -44,6 +44,9 @@ export class ContractService {
         ...data,
         ...members
       }
+    }),
+    tap((data) => {
+      console.log('CONTRACT DATA', data)
     }),
     publishReplay(1),
     refCount()

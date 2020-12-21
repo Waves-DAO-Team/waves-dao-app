@@ -28,7 +28,7 @@ export class CommunityContractService {
       this.contractService.getAddress(),
       'initTaskVoting',
       [
-        { type: 'string', value: taskId },
+        { type: 'string', value: taskId }
       ],
       [
         // { assetId: 'WAVES', amount: 400000 }
@@ -47,15 +47,17 @@ export class CommunityContractService {
   }
 
   public addTaskDetails (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
+    console.log('types', typeof reward)
+
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addTaskDetails',
       [
         { type: 'string', value: taskId },
-        { type: 'string', value: reward }
+        { type: 'integer', value: parseFloat(reward) }
       ],
       [
-        // { assetId: 'WAVES', amount: 400000 }
+        { assetId: 'WAVES', amount: 500000 }
       ]
     )
       .pipe(
