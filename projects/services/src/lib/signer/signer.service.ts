@@ -12,8 +12,6 @@ import {
 import {BehaviorSubject, from, Observable} from 'rxjs'
 import {publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take} from 'rxjs/operators'
 import {
-  IWithApiMixin,
-  IInvokeScriptTransaction,
   TTransactionFromAPI
 } from '@waves/ts-types'
 import {
@@ -37,7 +35,7 @@ export class SignerService {
     this.storageService.userData = data
   }), publishReplay(1), refCount())
 
-  constructor(
+  constructor (
     @Inject(API) private readonly api: AppApiInterface,
     private readonly http: HttpClient,
     private readonly router: Router,
@@ -53,7 +51,7 @@ export class SignerService {
     this.user$.next(this.storageService.userData as SignerUser)
   }
 
-  public login(): Observable<Observable<SignerUser>> {
+  public login (): Observable<Observable<SignerUser>> {
     return from(
       this.signer.login()
         .then((user: IUserData) => {
@@ -74,13 +72,13 @@ export class SignerService {
     )
   }
 
-  public logout(): Observable<void> {
+  public logout (): Observable<void> {
     this.user$.next({name: '', address: '', publicKey: '', balance: ''})
     this.router.navigate(['/'])
     return from(this.signer.logout())
   }
 
-  public invokeProcess(
+  public invokeProcess (
     contractAddress: string,
     command: string,
     args: SignerInvokeArgs[],
@@ -112,7 +110,7 @@ export class SignerService {
     )
   }
 
-  status(tx: string): Observable<TransactionsSuccessResult> {
+  status (tx: string): Observable<TransactionsSuccessResult> {
     const url = new URL('/transactions/status/', this.api.rest)
     return this.http.get<TransactionRawState>(url.href, {
       params: {

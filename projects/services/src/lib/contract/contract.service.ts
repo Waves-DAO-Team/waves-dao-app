@@ -76,7 +76,7 @@ export class ContractService {
       map((data: ContractRawData) => {
         return {
           ...this.prepareData(data),
-          address: address
+          address
         }
       })
     )

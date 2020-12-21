@@ -1,0 +1,32 @@
+@import "const";
+
+.user-contacts {
+  display: flex;
+  align-items: center;
+  max-width: 325px;
+
+  &__name {
+    color: $color_dark_gray;
+    margin-right: 10px;
+  }
+
+  &__link {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon {
+    width: 13px;
+    height: 13px;
+    opacity: 0.5;
+    transition: 0.3s;
+
+    &:hover {
+      opacity: 1
+    }
+  }
+}

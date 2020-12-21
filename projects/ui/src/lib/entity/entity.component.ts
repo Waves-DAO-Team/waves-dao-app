@@ -16,8 +16,6 @@ import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 
-import { VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
-
 @Component({
   selector: 'ui-entity',
   templateUrl: './entity.component.html',

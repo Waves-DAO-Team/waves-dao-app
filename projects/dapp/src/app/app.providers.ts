@@ -6,6 +6,13 @@ export interface AppConstantsInterface {
   routes: {[s: string]: string | string[]}
 }
 
+export interface UserInterface {
+  name: string,
+  twitter?: string,
+  facebook?: string,
+  linkedin?: string
+}
+
 export interface AppApiInterface {
   nodes: string
   signer: string
