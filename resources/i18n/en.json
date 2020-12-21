@@ -59,7 +59,7 @@
     }
   },
   "role": {
-    "master": "Waves Association",
+    "owner": "Waves Association",
     "wg": "Working Group",
     "dao": "DAO Owner",
     "auth": "Authorized User"

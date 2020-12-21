@@ -9,7 +9,7 @@ implements CanActivate {
   constructor (private userService: UserService, public router: Router) {}
 
   canActivate (): boolean {
-    if (this.userService.data.getValue().userRole === RoleEnum.master) {
+    if (this.userService.data.getValue().userRole === RoleEnum.owner) {
       return true
     } else {
       this.router.navigate(['/'])

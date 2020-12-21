@@ -39,8 +39,8 @@
             {{(user$ | async)?.name}}
           </div>
           <div class="role mat-display-1">
-            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.master">
-              {{ 'role.master' | transloco }}
+            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.owner">
+              {{ 'role.owner' | transloco }}
             </ng-container>
             <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
               {{ 'role.wg' | transloco }}

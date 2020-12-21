@@ -29,9 +29,7 @@ export class MembershipService {
 
   private address = this.api.management.membership;
 
-  private membershipState$ = this.getContractData(this.address).pipe(
-    repeatWhen(() => this.refresh$)
-  )
+  private membershipState$ = this.getContractData(this.address)
 
   public stream = this.membershipState$.pipe(
     publishReplay(1),
@@ -52,8 +50,12 @@ export class MembershipService {
     return this.http.get<Observable<ContractRawData>>(url.href, {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
+      tap((data) => {
+        console.log('GET members data', data)
+      }),
       // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
       // @ts-ignore
+      repeatWhen(() => this.refresh$),
       map((data: ContractRawData) => {
         return {
           ...this.prepareData(data),
@@ -131,7 +133,6 @@ export class MembershipService {
 
   refresh () {
     console.log('Refresh memberships')
-
     this.refresh$.next(null)
   }
 }

@@ -72,7 +72,7 @@ export class StaticService {
   }
 
   checkPermissionSettings (contractType: string, roles: RolesInterface): boolean {
-    return roles.isMaster
+    return roles.isOwner
   }
 
   checkPermissionCreateGrant (contractType: string, roles: RolesInterface): boolean {

@@ -5,10 +5,10 @@ import {
   publishReplay,
   refCount,
   skip,
-  switchMap, take, withLatestFrom
+  switchMap, take, takeUntil, withLatestFrom
 } from 'rxjs/operators'
 import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs'
 import {
   ContractDataModel, ContractGrantModel,
   ContractGrantRawModel,
@@ -38,8 +38,7 @@ export class ContractService {
     refCount()
   )
 
-  public readonly stream: Observable<ContractDataModel> = this.contractState.pipe(
-    withLatestFrom(this.membershipService.stream),
+  public readonly stream: Observable<ContractDataModel> = combineLatest([this.contractState, this.membershipService.stream]).pipe(
     map(([data, members]) => {
       return {
         ...data,

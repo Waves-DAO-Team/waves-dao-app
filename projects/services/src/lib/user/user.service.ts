@@ -23,6 +23,7 @@ export class UserService {
       isMaster: false,
       isDAO: false,
       isWG: false,
+      isOwner: false,
       isAuth: false,
       isUnauthorized: true
     },
@@ -41,7 +42,7 @@ export class UserService {
         const DAOMemberAddress = Object.keys(contract?.dao?.member || {})
         const userAddressText = userAddress && userAddress.address ? userAddress.address : ''
         const userBalanceText = userAddress && userAddress.balance ? userAddress.balance : '0'
-        const dr = this.defineRol(contract.address, userAddressText, DAOMemberAddress, WorkGroupAddress)
+        const dr = this.defineRol(contract?.owner, contract.address, userAddressText, DAOMemberAddress, WorkGroupAddress)
         const newData: UserDataInterface = {
           DAOMemberAddress,
           WorkGroupAddress,
@@ -113,7 +114,7 @@ export class UserService {
     return result
   }
 
-  private defineRol (masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleRowInterface {
+  private defineRol (ownerAddress: string, masterAddress: string, userAddress: string, DAOMemberAddress: string[], WorkGroupAddress: string[]): RoleRowInterface {
     const result: RoleRowInterface = {
       mainRole: RoleEnum.unauthorized,
       roles: {
@@ -121,6 +122,7 @@ export class UserService {
         isDAO: false,
         isWG: false,
         isAuth: false,
+        isOwner: false,
         isUnauthorized: true
       }
     }
@@ -142,6 +144,11 @@ export class UserService {
     if (masterAddress === userAddress) {
       result.mainRole = RoleEnum.master
       result.roles.isMaster = true
+      result.roles.isUnauthorized = false
+    }
+    if (ownerAddress === userAddress) {
+      result.mainRole = RoleEnum.owner
+      result.roles.isOwner = true
       result.roles.isUnauthorized = false
     }
     return result
