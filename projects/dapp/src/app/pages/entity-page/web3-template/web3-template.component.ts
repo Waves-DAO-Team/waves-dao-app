@@ -92,28 +92,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward (): void {
-    const dialog = this.dialog.open(DialogComponent, {
-      data: {
-        component: AddRewardComponent,
-        params: {
-          title: translate('add-reward.title'),
-          submitBtnText: translate('modal.btn.propose_grant'),
-          grantId: this.grant?.id,
-          submitCallBack: (data: SubmitCallBackRewardArg) => {
-            if (this.grant?.id) {
-              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe((e) => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
-            }
-          }
-        }
-      }
-    })
-  }
-
-  addTaskDetails () {
+  addReward () {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddTaskDetailsComponent,
@@ -122,14 +101,9 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackRewardArg) => {
             if (this.grant.id) {
-              this.communityContractService.addTaskDetails(this.grant.id, data.reward).subscribe((e) => {
+              this.communityContractService.addReward(this.grant.id, data.reward).subscribe((e) => {
                 dialog.close()
                 this.cdr.markForCheck()
-                // State check failed. Reason: Transaction sent from smart account.
-                // Requires 400000 extra fee.. Fee for InvokeScriptTransaction (500000 in WAVES)
-                // does not exceed minimal value of 900000 WAVES.
-
-              // { assetId: 'WAVES', amount: reward }
               })
             }
           }

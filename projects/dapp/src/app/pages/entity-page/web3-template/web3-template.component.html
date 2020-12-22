@@ -1,5 +1,9 @@
 <ng-template #web3Btn>
-  <button (click)="addTaskDetails()" *ngIf="!grant?.status">
+  <button (click)="addReward()" *ngIf="
+    !(grant?.status)
+    && grant?.leader?.value === userService.data.getValue().userAddress
+    && !(grant?.reward?.value)
+  ">
     {{ 'modal.btn.add_task_details' | transloco }}
   </button>
   <button (click)="initTaskVoting()" *ngIf="!grant?.status && userService.data.getValue().roles.isWG">
