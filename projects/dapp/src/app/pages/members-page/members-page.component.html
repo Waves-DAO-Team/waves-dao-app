@@ -14,31 +14,31 @@
         </button>
       </div>
     </div>
-
-    <ui-user-contacts *ngIf="api?.workingGroup[user.masterAddress] as user" [user]="user"></ui-user-contacts>
+    <ui-user-contacts *ngIf="api?.workingGroup[user.masterAddress] as userObj" [address]="user.masterAddress" [user]="userObj"></ui-user-contacts>
 
     <div class="sub-title mat-display-4">{{'members.owner' | transloco}}</div>
     <ul>
       <li>
-        <div>{{user.owner}}</div>
-        <ui-user-contacts *ngIf="api?.workingGroup[user.owner] as user" [user]="user"></ui-user-contacts>
+        <ui-user-contacts *ngIf="api?.workingGroup[user.owner] as userObj" [address]="user.owner" [user]="userObj"></ui-user-contacts>
       </li>
     </ul>
 
     <div class="sub-title mat-display-4">{{'members.wg' | transloco}}</div>
     <ul>
       <li *ngFor="let wg of user.WorkGroupAddress">
-        <div>{{wg}}</div>
-        <ui-user-contacts *ngIf="api?.workingGroup[wg] as user" [user]="user"></ui-user-contacts>
+        <ui-user-contacts [address]="wg" [user]="api?.workingGroup[wg]"></ui-user-contacts>
       </li>
     </ul>
+
     <div class="sub-title mat-display-4">{{'members.dao' | transloco}}</div>
     <ul>
-      <li *ngFor="let dao of user.DAOMemberAddress">
-        <div>{{dao}}</div>
-        <ui-user-contacts *ngIf="api?.workingGroup[dao] as user" [user]="user"></ui-user-contacts>
-      </li>
+      <ng-container *ngFor="let dao of user.DAOMemberAddress">
+        <li *ngIf="api?.workingGroup[dao] as user">
+          <ui-user-contacts [address]="dao" [user]="user"></ui-user-contacts>
+        </li>
+      </ng-container>
     </ul>
+
   </div>
   <div class="container__right">
   </div>

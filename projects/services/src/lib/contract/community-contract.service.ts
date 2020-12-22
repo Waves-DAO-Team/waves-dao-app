@@ -20,6 +20,10 @@ export class CommunityContractService {
   ) {
   }
 
+  streamContractService() {
+    return this.contractService.stream
+  }
+
   public addTask(taskName: string, link: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addTask(taskName, link)
   }

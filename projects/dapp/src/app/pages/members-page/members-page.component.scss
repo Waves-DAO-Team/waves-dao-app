@@ -6,7 +6,7 @@
 }
 
 .sub-title {
-  margin: auto;
+  margin: $padding * 2 auto auto auto;
 }
 
 .controls {
@@ -25,6 +25,8 @@
     flex: 1 1 auto;
   }
 
-  //&__controls {}
+  ul {
+    margin-top: 12px;
+  }
 
 }

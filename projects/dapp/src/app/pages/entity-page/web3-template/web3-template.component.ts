@@ -52,12 +52,16 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     private snackBar: MatSnackBar,
     public signerService: SignerService,
     private cdr: ChangeDetectorRef,
-    public userService: UserService
+    public userService: UserService,
   ) {
   }
 
   private prepareVoteForTaskData(grant: ContractGrantModel) {
-    if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
+    console.log("--------------------------")
+    console.log('this.userService.data.getValue().roles.isDAO', this.userService.data.getValue().roles.isDAO)
+    console.log('grant.status?.value === this.grantStatusEnum.proposed', grant?.status?.value === this.grantStatusEnum.proposed)
+    console.log("--------------------------")
+    if (this.userService.data.getValue().roles.isDAO && grant?.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
       this.voteForTaskData.isShow = false
