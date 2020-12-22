@@ -96,9 +96,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   }
 
   voteTeam ($event: VoteTeamEventInterface) {
-    if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
+    // if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
-    }
+    // }
   }
 
   finishVote () {
