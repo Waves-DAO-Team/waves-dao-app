@@ -1,12 +1,53 @@
 @import 'const';
-@import 'mixins/elements/btn-container';
-@import 'mixins/elements/card';
-@import 'mixins/elements/icon-logo';
-@import 'mixins/elements/modal';
+//@import 'mixins/elements/btn-container';
+//@import 'mixins/elements/card';
+//@import 'mixins/elements/icon-logo';
+//@import 'mixins/elements/modal';
 
-.btn-container {
-  @include btn-container();
-}
+//.btn-container {
+//  @include btn-container();
+//}
+//
+//.card {
+//  @include card; }
+
 
 .card {
-  @include card; }
+  display: grid;
+  grid-template-columns: 98px 1fr 128px;
+  grid-template-rows: 1fr;
+  gap: 0px 22px;
+  border: 1px solid $gray-light;
+  height: 98px;
+  &__logo {
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    //border-right: 1px solid $gray-light;
+  }
+  &__content {
+    display: grid;
+    &-subtext {
+      align-self: end;
+      margin: 0 0 3px 0;
+      color: $color_dark_gray;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    &-text {
+      margin: 0;
+      font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  &__controls {
+    align-self: center;
+    text-align: center;
+    img {
+      margin: 5px
+    }
+  }
+}
