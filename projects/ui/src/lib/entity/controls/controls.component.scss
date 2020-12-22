@@ -6,7 +6,15 @@
   margin-top: $padding * 3;
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+
   button {
     margin-left: $padding;
+    margin-bottom: $padding;
+  }
+
+  input {
+    margin-left: $padding;
+    height: 35px
   }
 }

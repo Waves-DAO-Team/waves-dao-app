@@ -1,14 +1,32 @@
+<!--<ng-template #defaultBtn>-->
+<!--  <ng-container *ngIf="!grant?.status?.value && userService.data.getValue().roles.isWG && grant?.id"> &lt;!&ndash;no status&ndash;&gt;-->
+<!--    <button (click)="addReward()">-->
+<!--      {{'entity.add_reward' | transloco}}-->
+<!--    </button>-->
+<!--  </ng-container>-->
+<!--</ng-template>-->
+
 <ng-template #defaultBtn>
-  <ng-container *ngIf="!grant?.status?.value && userService.data.getValue().roles.isWG && grant?.id"> <!--no status-->
+  <ng-container> <!--no status-->
     <button (click)="addReward()">
       {{'entity.add_reward' | transloco}}
     </button>
   </ng-container>
 </ng-template>
 
+<!--<ng-template #team>-->
+<!--  <ui-team-->
+<!--    *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"-->
+<!--    [grant]="grant"-->
+<!--    (newSignupEvent)="signup()"-->
+<!--    (newOpenApplyModalEvent)="openApplyModal()"-->
+<!--    (newVoteTeamEvent)="voteTeam($event)"-->
+<!--    title="{{'entity.solutions' | transloco}}"-->
+<!--  ></ui-team>-->
+<!--</ng-template>-->
+
 <ng-template #team>
   <ui-team
-    *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"
     [grant]="grant"
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"

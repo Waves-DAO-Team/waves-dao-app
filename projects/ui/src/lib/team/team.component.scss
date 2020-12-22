@@ -1,6 +1,7 @@
 @import 'const';
 
 .team {
+  margin-bottom: $padding;
   &__header {
     align-items: center;
     display: flex;
