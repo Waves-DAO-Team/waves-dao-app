@@ -20,9 +20,26 @@ import {UserService} from '@services/user/user.service'
   styleUrls: ['./disruptive-template.component.scss']
 })
 export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
+
   grantStatusEnum = GrantStatusEnum
 
-  @Input() public readonly grant: ContractGrantModel = {}
+  voteForTaskData = {
+    isShow: false,
+    isVote: false
+  }
+
+  GSgrant: ContractGrantModel = {}
+  @Input() set grant (data: ContractGrantModel) {
+    if (data !== this.GSgrant) {
+      this.GSgrant = data
+      this.prepareVoteForTaskData(data)
+    }
+  }
+
+  get grant () {
+    return this.GSgrant
+  }
+
   @Input() public readonly contract!: GrantsVariationType
 
   constructor (
@@ -33,6 +50,19 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     private cdr: ChangeDetectorRef,
     public userService: UserService
   ) {
+  }
+
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
+    if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
+      this.voteForTaskData.isShow = true
+    } else {
+      this.voteForTaskData.isShow = false
+    }
+    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+      this.voteForTaskData.isVote = true
+    } else {
+      this.voteForTaskData.isVote = false
+    }
   }
 
   vote (value: 'like' | 'dislike') {

@@ -13,7 +13,8 @@
 
 <ng-template #voteForTask>
   <ui-vote-for-task
-    [grant]="grant"
+    [isShow]="voteForTaskData.isShow"
+    [isVote]="voteForTaskData.isVote"
     (newVoteEvent)="vote($event)"
   ></ui-vote-for-task>
 </ng-template>

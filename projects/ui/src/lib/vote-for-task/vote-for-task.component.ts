@@ -11,39 +11,10 @@ import { GrantStatusEnum } from '@services/static/static.model'
 })
 export class VoteForTaskComponent {
 
-  grantStatusEnum = GrantStatusEnum
-
-  data = {
-    isShow: false,
-    isVote: false
-  }
-
-  GSgrant: ContractGrantModel = {}
-  @Input() set grant (data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
-      this.prepareData(data)
-    }
-  }
-
-  get grant () {
-    return this.GSgrant
-  }
+  @Input() isShow = false
+  @Input() isVote = false
 
   @Output() newVoteEvent = new EventEmitter<'like' | 'dislike'>();
 
-  constructor (public userService: UserService) { }
-
-  private prepareData (grant: ContractGrantModel) {
-    if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
-      this.data.isShow = true
-    } else {
-      this.data.isShow = false
-    }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
-      this.data.isVote = true
-    } else {
-      this.data.isVote = false
-    }
-  }
+  constructor () {}
 }

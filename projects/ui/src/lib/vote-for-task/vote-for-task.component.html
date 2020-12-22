@@ -1,11 +1,11 @@
-<div class="card" *ngIf="data.isShow">
+<div class="card" *ngIf="isShow">
   <div
     class="card__info">
     <div class="card__info__left">
       <img alt="vote" src="assets/icons/vote.svg">
     </div>
     <div class="card__info__mid">
-      <ng-container *ngIf="!data.isVote">
+      <ng-container *ngIf="!isVote">
         <div class="card__info__mid__subtext">
           {{'entity.DAO.vote.true.subtext' | transloco}}
         </div>
@@ -13,7 +13,7 @@
           {{'entity.DAO.vote.true.text' | transloco}}
         </div>
       </ng-container>
-      <ng-container *ngIf="data.isVote">
+      <ng-container *ngIf="isVote">
         <div class="card__info__mid__subtext">
           {{'entity.DAO.vote.false.text' | transloco}}
         </div>
@@ -22,7 +22,7 @@
         </div>
       </ng-container>
     </div>
-    <div class="card__info__right" *ngIf="!data.isVote">
+    <div class="card__info__right" *ngIf="!isVote">
       <img alt="vote" (click)="newVoteEvent.emit('dislike')" src="assets/icons/vote-min.svg">
       <img alt="vote" (click)="newVoteEvent.emit('like')" src="assets/icons/vote-plus.svg">
     </div>
