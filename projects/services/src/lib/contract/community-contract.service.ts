@@ -58,12 +58,8 @@ export class CommunityContractService {
       [
         { type: 'string', value: taskId },
         { type: 'integer', value: parseFloat(reward) }
-      ],
-      [
-        { assetId: 'WAVES', amount: reward }
       ]
-    )
-      .pipe(
+    ).pipe(
         catchError((error) => {
           this.snackBar.open(error.message, translate('messages.ok'))
           return EMPTY
