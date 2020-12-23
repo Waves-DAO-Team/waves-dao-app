@@ -277,6 +277,7 @@
   "messages": {
     "ok": "OK",
     "error": "error",
+    "transaction_rejected": "The transaction was rejected",
     "getBalanceError": "getBalance error",
     "addTask": "The proposal has been completed. The transaction is confirmed in the blockchain Waves",
     "voteForTaskProposal": "The vote has been completed. The transaction is confirmed in the blockchain Waves",

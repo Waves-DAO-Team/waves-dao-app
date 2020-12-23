@@ -42,7 +42,7 @@ export class CommonContractService {
     )
       .pipe(
         catchError((error) => {
-          this.snackBar.open(error.message, translate('messages.ok'))
+          this.snackBar.open(translate('messages.transaction_rejected'))
           return EMPTY
         }),
         tap((e) => {
@@ -65,7 +65,7 @@ export class CommonContractService {
     )
       .pipe(
         catchError((error) => {
-          this.snackBar.open(error.message, translate('messages.ok'))
+          this.snackBar.open(translate('messages.transaction_rejected'))
           return EMPTY
         }),
         tap(() => {
