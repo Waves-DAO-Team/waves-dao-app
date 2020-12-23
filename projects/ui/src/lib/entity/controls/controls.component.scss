@@ -2,14 +2,16 @@
 @import 'const';
 
 .controls {
-  margin-bottom: $padding * 3;
-  margin-top: $padding * 3;
+  //margin-bottom: $padding * 3;
+  //margin-top: $padding * 3;
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
 
   button {
-    margin-left: $padding;
-    margin-bottom: $padding;
+    //margin-left: $padding;
+    //margin-bottom: $padding !important;
   }
+
+
 }

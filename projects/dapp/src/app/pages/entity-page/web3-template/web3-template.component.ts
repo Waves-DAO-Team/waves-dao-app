@@ -70,7 +70,6 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           let isWG = user.roles.isWG
           let isStatusMatch = !grant?.status?.value
           let isReward = grant?.reward?.value
-
           return isReward && isWG && isStatusMatch
         } else {
           return false

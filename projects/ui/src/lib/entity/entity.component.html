@@ -11,21 +11,7 @@
 
     <ng-container [ngTemplateOutlet]="stepperTemplate"></ng-container>
 
-    <ui-controls
-      [contract]="contract"
-      [status]="grant?.status?.value"
-      [grantId]="grant?.id"
-      [role]="userService.data.getValue().userRole"
-      [voted]="grant?.voted"
-      [performer]="grant?.performer?.value"
-      (newFinishVoteEvent)="newFinishVoteEvent.emit()"
-      (newStartWorkEvent)="newStartWorkEvent.emit()"
-      (newRejectEvent)="newRejectEvent.emit()"
-      (newAcceptWorkResultEvent)="newAcceptWorkResultEvent.emit($event)"
-      (newFinishApplicantsVoteEvent)="newFinishApplicantsVoteEvent.emit()"
-      (newAddRewardEvent)="newAddRewardEvent.emit()"
-      [controlsTemplate]="controlsTemplate"
-    ></ui-controls>
+    <ui-controls [controlsTemplate]="controlsTemplate"></ui-controls>
 
     <ui-body
       [md]="grant?.link?.value | linkContent | async"

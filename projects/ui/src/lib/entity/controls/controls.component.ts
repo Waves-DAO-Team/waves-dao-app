@@ -21,28 +21,11 @@ import {CommunityContractService} from '@services/contract/community-contract.se
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlsComponent {
-  grantStatusEnum = GrantStatusEnum
-  // @ts-ignore
-  @Input() controlsTemplate: TemplateRef<Component> | undefined;
-  @Input() public contract!: GrantsVariationType
-  @Input() public status: string | null = null
-  @Input() public grantId: string | null = null
-  @Input() public role: string | null = null
-  @Input() public voted: string | null = null
-  @Input() public performer: string | null = null
 
-  @Output() newFinishVoteEvent = new EventEmitter()
-  @Output() newStartWorkEvent = new EventEmitter()
-  @Output() newRejectEvent = new EventEmitter()
-  @Output() newAcceptWorkResultEvent = new EventEmitter()
-  @Output() newFinishApplicantsVoteEvent = new EventEmitter()
-  @Output() newAddRewardEvent = new EventEmitter()
+  @Input() controlsTemplate: TemplateRef<Component> | undefined;
 
   constructor (
-    public userService: UserService,
-    public disruptiveContractService: DisruptiveContractService,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    public communityContractService: CommunityContractService,
+    public userService: UserService
   ) {
   }
 
