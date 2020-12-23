@@ -1,7 +1,7 @@
-import {Inject, Injectable} from '@angular/core'
-import {Signer, IUserData} from '@waves/signer/'
+import { Inject, Injectable } from '@angular/core'
+import { Signer, IUserData } from '@waves/signer/'
 import Provider from '@waves.exchange/provider-web'
-import {API, AppApiInterface} from '@constants'
+import { API, AppApiInterface } from '@constants'
 import {
   SignerUser,
   SignerInvokeArgs,
@@ -9,19 +9,18 @@ import {
   TransactionState,
   TransactionsSuccessResult
 } from './signer.model'
-import {BehaviorSubject, from, Observable} from 'rxjs'
-import {publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take} from 'rxjs/operators'
+import { BehaviorSubject, from, Observable } from 'rxjs'
+import { publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take } from 'rxjs/operators'
 import {
   TTransactionFromAPI
 } from '@waves/ts-types'
 import {
   IMoney, TLong
 } from '@waves/signer/cjs/interface'
-import {Router} from '@angular/router'
-import {HttpClient} from '@angular/common/http'
-import {translate} from '@ngneat/transloco'
-import {MatSnackBar} from '@angular/material/snack-bar'
-import {StorageService} from '@services/storage/storage.service'
+import { HttpClient } from '@angular/common/http'
+import { translate } from '@ngneat/transloco'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { StorageService } from '@services/storage/storage.service'
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +28,7 @@ import {StorageService} from '@services/storage/storage.service'
 export class SignerService {
   public readonly signer!: Signer
 
-  private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({name: '', address: '', publicKey: '', balance: ''})
+  private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '', balance: '' })
 
   public user: Observable<SignerUser> = this.user$.pipe(tap((data) => {
     this.storageService.userData = data
@@ -38,7 +37,6 @@ export class SignerService {
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
     private readonly http: HttpClient,
-    private readonly router: Router,
     private snackBar: MatSnackBar,
     private storageService: StorageService
   ) {
@@ -73,8 +71,7 @@ export class SignerService {
   }
 
   public logout (): Observable<void> {
-    this.user$.next({name: '', address: '', publicKey: '', balance: ''})
-    this.router.navigate(['/'])
+    this.user$.next({ name: '', address: '', publicKey: '', balance: '' })
     return from(this.signer.logout())
   }
 
@@ -116,7 +113,7 @@ export class SignerService {
       params: {
         id: tx
       },
-      headers: {accept: 'application/json; charset=utf-8'}
+      headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
       map((data: TransactionState[]) => {
         const confirmation = data.find((state: TransactionState) => {

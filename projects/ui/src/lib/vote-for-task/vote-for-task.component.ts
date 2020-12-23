@@ -1,7 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core'
-import { UserService } from '@services/user/user.service'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum } from '@services/static/static.model'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 
 @Component({
   selector: 'ui-vote-for-task',
@@ -10,7 +7,6 @@ import { GrantStatusEnum } from '@services/static/static.model'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VoteForTaskComponent {
-
   @Input() isShow = false
   @Input() isVote = false
 

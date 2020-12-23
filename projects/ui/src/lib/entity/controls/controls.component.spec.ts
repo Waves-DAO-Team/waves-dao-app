@@ -6,7 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
-import { ReactiveFormsModule } from '@angular/forms'
 import { MatDialogModule } from '@angular/material/dialog'
 
 describe('ControlsComponent', () => {
@@ -20,7 +19,6 @@ describe('ControlsComponent', () => {
         HttpClientTestingModule,
         MatSnackBarModule,
         getTranslocoModule(),
-        ReactiveFormsModule,
         MatDialogModule
       ],
       declarations: [ControlsComponent],
