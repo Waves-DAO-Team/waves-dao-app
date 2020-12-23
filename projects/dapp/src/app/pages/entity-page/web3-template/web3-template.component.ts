@@ -35,6 +35,75 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   }
 
   grant$ = new Subject<ContractGrantModel>();
+
+  isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          let isTL = grant.leader?.value === user.userAddress
+          let isStatusMatch = grant.status?.value === this.grantStatusEnum.approved
+          return isTL && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isFinishVoteBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          let isAmount = grant?.voting?.amount
+          let isStatusMatch = grant?.status?.value === this.grantStatusEnum.votingStarted
+          let isWG = user.roles.isWG
+          return isAmount && isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isInitTaskVotingtBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          let isWG = user.roles.isWG
+          let isStatusMatch = !grant?.status?.value
+          let isReward = grant?.reward?.value
+
+          return isReward && isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isAcceptWorkResultBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          let isWG = user.roles.isWG
+          let isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          let isWG = user.roles.isWG
+          let isStatusMatch = grant?.status?.value !== this.grantStatusEnum.workFinished
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
   isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
       map(([user, grant]) => {
@@ -76,7 +145,10 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   }
 
   private prepareVoteForTaskData(grant: ContractGrantModel) {
-    if (this.userService.data.getValue().roles.isDAO && grant?.status?.value === this.grantStatusEnum.proposed) {
+    if (
+      this.userService.data.getValue().roles.isDAO
+      && grant?.status?.value === this.grantStatusEnum.votingStarted
+    ) {
       this.voteForTaskData.isShow = true
     } else {
       this.voteForTaskData.isShow = false

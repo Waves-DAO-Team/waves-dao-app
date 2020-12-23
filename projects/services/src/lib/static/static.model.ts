@@ -24,6 +24,7 @@ export interface GrantsVariationType {
 export enum GrantStatusEnum {
   proposed = 'proposed',
   readyToApply = 'ready_to_apply',
+  approved = 'approved',
   rejected = 'rejected',
   teamChosen = 'team_chosen',
   workStarted = 'work_started',

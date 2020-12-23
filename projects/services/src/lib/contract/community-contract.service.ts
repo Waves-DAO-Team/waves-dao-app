@@ -32,9 +32,7 @@ export class CommunityContractService {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'initTaskVoting',
-      [
-        {type: 'string', value: taskId}
-      ]
+      [{type: 'string', value: taskId}]
     )
       .pipe(
         catchError((error) => {
