@@ -76,8 +76,6 @@ export class CommunityContractService {
   }
 
   public addTaskDetails (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
-    console.log('types', typeof reward)
-
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addTaskDetails',
