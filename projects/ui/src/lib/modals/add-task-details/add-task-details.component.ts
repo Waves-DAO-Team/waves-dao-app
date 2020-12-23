@@ -9,6 +9,9 @@ import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
   styleUrls: ['./add-task-details.component.scss']
 })
 export class AddTaskDetailsComponent {
+
+  isSubmit = false
+
   taskDetailsForm = new FormGroup({
     reward: new FormControl('')
   })

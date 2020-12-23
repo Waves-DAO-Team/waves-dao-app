@@ -7,9 +7,10 @@
 <!--</ng-template>-->
 
 <ng-template #defaultBtn>
-  <ng-container> <!--no status-->
+  <ng-container *ngIf="isShowAddRewardBtn$ | async">
     <button (click)="addReward()">
-      {{'entity.add_reward' | transloco}}
+      <span *ngIf="!grant?.status?.value; else hasReward">{{'entity.add_reward' | transloco}}</span>
+      <ng-template #hasReward>{{'entity.edit_task_details' | transloco}}</ng-template>
     </button>
   </ng-container>
 </ng-template>

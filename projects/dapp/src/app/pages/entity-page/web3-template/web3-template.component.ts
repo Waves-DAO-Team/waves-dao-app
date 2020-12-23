@@ -4,7 +4,7 @@ import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.mode
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
-import {take} from 'rxjs/operators'
+import {map, take} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
@@ -19,6 +19,7 @@ import {AddTaskDetailsComponent} from '@ui/modals/add-task-details/add-task-deta
 import {CommunityContractService} from '@services/contract/community-contract.service'
 import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from "@ui/modals/accept-work-result/accept-work-result.component";
+import {combineLatest, Subject} from "rxjs";
 
 @Component({
   selector: 'app-web3-template',
@@ -33,6 +34,23 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     isVote: false
   }
 
+  grant$ = new Subject<ContractGrantModel>();
+  isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          let isWG = user.roles.isWG
+          let isStatusMatch = !grant?.status?.value
+            || grant?.status?.value === this.grantStatusEnum.proposed
+            || grant?.status?.value === this.grantStatusEnum.readyToApply
+            || grant?.status?.value === this.grantStatusEnum.teamChosen
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
   GSgrant: ContractGrantModel = {}
 
   @Input() set grant(data: ContractGrantModel) {
@@ -40,6 +58,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       this.GSgrant = data
       this.prepareVoteForTaskData(data)
     }
+    this.grant$.next(data)
   }
 
   get grant() {
@@ -148,15 +167,14 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       data: {
         component: AddTaskDetailsComponent,
         params: {
-          title: translate('modal.texts.add_task_details'),
+          title: !this.grant?.status?.value ? translate('entity.add_reward') : translate('entity.edit_task_details'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackRewardArg) => {
-            if (this.grant.id) {
-              this.communityContractService.addReward(this.grant.id, data.reward).subscribe((e) => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+            if (this.grant?.id) {
+              this.communityContractService.addReward(this.grant?.id, data.reward).subscribe(() => {})
             }
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }

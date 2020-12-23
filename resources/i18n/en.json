@@ -111,6 +111,7 @@
   "entity": {
     "reward": "Reward",
     "log_in_for_apply": "Log in for apply",
+    "edit_task_details": "EDIT TASK DETAILS",
     "insufficient_balance": "Insufficient balance",
     "apply": "Apply",
     "remove": "Remove",

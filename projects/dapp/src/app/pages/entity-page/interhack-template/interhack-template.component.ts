@@ -4,7 +4,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
-import { take } from 'rxjs/operators'
+import {map, take} from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { ApplyComponent } from '@ui/modals/apply/apply.component'
@@ -18,6 +18,7 @@ import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity
 import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
 import { UserService } from '@services/user/user.service'
 import {AcceptWorkResultComponent} from "@ui/modals/accept-work-result/accept-work-result.component";
+import {combineLatest, Subject} from "rxjs";
 
 @Component({
   selector: 'app-interhack-template',
@@ -32,6 +33,23 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     isVote: false
   }
 
+  grant$ = new Subject<ContractGrantModel>();
+  isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          let isWG = user.roles.isWG
+          let isStatusMatch = !grant?.status?.value
+            || grant?.status?.value === this.grantStatusEnum.proposed
+            || grant?.status?.value === this.grantStatusEnum.readyToApply
+            || grant?.status?.value === this.grantStatusEnum.teamChosen
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
   GSgrant: ContractGrantModel = {}
 
   @Input() set grant (data: ContractGrantModel) {
@@ -39,6 +57,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       this.GSgrant = data
       this.prepareVoteForTaskData(data)
     }
+    this.grant$.next(data)
   }
 
   get grant () {
@@ -146,16 +165,15 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       data: {
         component: AddRewardComponent,
         params: {
-          title: translate('add-reward.title'),
+          title: !this.grant?.status?.value ? translate('entity.add_reward') : translate('entity.edit_task_details'),
           submitBtnText: translate('modal.btn.propose_grant'),
           grantId: this.grant?.id,
           submitCallBack: (data: SubmitCallBackRewardArg) => {
             if (this.grant?.id) {
-              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe((e) => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe(() => {})
             }
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }
