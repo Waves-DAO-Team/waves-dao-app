@@ -35,6 +35,10 @@
   ></ui-vote-for-task>
 </ng-template>
 
+<ng-template #stepper>
+  <ui-stepper [status]="grant?.status?.value"></ui-stepper>
+</ng-template>
+
 <ui-entity
   [contract]="contract"
   [grant]="grant"
@@ -46,5 +50,6 @@
   (newAddRewardEvent)="addReward()"
   [controlsTemplate]="web3Btn"
   [voteForTaskTemplate]="voteForTask"
+  [stepperTemplate]="stepper"
 ></ui-entity>
 

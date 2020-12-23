@@ -67,8 +67,11 @@
   },
   "stepper": {
     "collecting_requests": "Collecting requests",
-    "collecting_solutions": "Collecting solutions",
-    "requests_selection_over": "Requests requests is over",
+    "preparing": "Preparing",
+    "voting_has_started": "Voting has started",
+    "requests_selection_over": "Requests selection is over",
+    "work_begun": "The work has begun",
+    "requests_selection_start": "Requests requests is start",
     "solutions_selection_over": "Requests solutions is over",
     "work_started": "Work started",
     "work_finished": "Work finished"

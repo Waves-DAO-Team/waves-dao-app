@@ -6,7 +6,7 @@ import {translate} from '@ngneat/transloco';
 })
 export class StepperService {
 
-  grantType: 'disruptive' | 'interhack' = 'disruptive'
+  grantType: 'disruptive' | 'interhack' | 'web3' = 'disruptive'
 
   disruptiveFormalStatuses = [
     {
@@ -30,7 +30,7 @@ export class StepperService {
   interhackFormalStatuses = [
     {
       key: 'ready_to_apply',
-      value: translate('stepper.collecting_solutions'),
+      value: translate('stepper.requests_selection_start'),
     },
     {
       key: 'team_chosen',
@@ -46,19 +46,54 @@ export class StepperService {
     }
   ]
 
-  public setType (type: 'disruptive' | 'interhack'): void{
+
+  // no_status        Подготовка            Preparing
+  // voting_started   Начато голосование    Voting has started
+  // approved         Работа начата         The work has begun
+  // work_started     Работа начата         The work has begun
+  // work_finished    Завершен              Finished
+
+  dev3FormalStatuses = [
+    {
+      key: 'no_status',
+      value: translate('stepper.preparing'),
+    },
+    {
+      key: 'voting_started',
+      value: translate('stepper.voting_has_started'),
+    },
+    {
+      key: 'approved|work_started',
+      value: translate('stepper.work_begun'),
+    },
+    {
+      key: 'work_finished',
+      value: translate('stepper.work_finished'),
+    },
+  ]
+
+
+  public setType (type: 'disruptive' | 'interhack' | 'web3'): void{
     this.grantType = type
   }
 
   public getFormalStatuses () {
-    return this.grantType === 'disruptive' ? this.disruptiveFormalStatuses : this.interhackFormalStatuses
+    switch (this.grantType) {
+      case 'disruptive':
+        return this.disruptiveFormalStatuses
+      case "web3":
+        return this.dev3FormalStatuses
+      case 'interhack':
+        return this.interhackFormalStatuses
+    }
   }
 
   public getActiveId (status: string): number | null {
-    const grant = 'disruptive' ? this.disruptiveFormalStatuses : this.interhackFormalStatuses
+    const grant = this.getFormalStatuses()
+    console.log('grant', grant)
     let res = null
     for (let i = 0; i < grant.length; i++) {
-      if (grant[i].key === status) {
+      if (grant[i].key.includes(status)) {
         res = i
       }
     }

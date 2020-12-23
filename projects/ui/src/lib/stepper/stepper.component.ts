@@ -21,14 +21,18 @@ export class StepperComponent implements OnInit, AfterViewInit {
 
   GSstatus = ''
   @Input() set status (data: string) {
+    console.log('------', data)
     if (data) {
       this.GSstatus = data
       this.stepId = this.stepperService.getActiveId(data)
+      console.log('stepId', this.stepId)
       if (this.stepId) {
         this.setId$.next(this.stepId)
       }
     } else {
       this.GSstatus = 'no_status'
+      this.stepId = this.stepperService.getActiveId('no_status')
+      this.setId$.next(0)
     }
   }
   get status (): string {
@@ -38,6 +42,7 @@ export class StepperComponent implements OnInit, AfterViewInit {
   step$ = combineLatest([this.setId$, this.stepperInit$]).pipe(
     tap(([id, init]) => {
       if (id && typeof id === 'number' && init && this.stepper) {
+        console.log('id', id)
         this.stepper.selectedIndex = id
         this.cdr.markForCheck()
       }
@@ -49,6 +54,8 @@ export class StepperComponent implements OnInit, AfterViewInit {
   @ViewChild('stepper') stepper: MatStepper | undefined;
 
   constructor (private cdr: ChangeDetectorRef, public stepperService: StepperService) {
+    stepperService.setType('web3')
+    this.formalStatuses = this.stepperService.getFormalStatuses()
   }
 
   ngOnInit () {
