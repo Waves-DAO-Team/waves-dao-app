@@ -99,7 +99,8 @@ export class MembershipService {
       [{ type: 'string', value: members }]
     ).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap(() => {
@@ -117,7 +118,8 @@ export class MembershipService {
     )
       .pipe(
         catchError((error) => {
-          this.snackBar.open(translate('messages.transaction_rejected'))
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
           return EMPTY
         }),
         tap(() => {

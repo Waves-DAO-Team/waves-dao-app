@@ -41,9 +41,6 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
         if (grant) {
           let isWG = user.roles.isWG
           let isStatusMatch = !grant?.status?.value
-            || grant?.status?.value === this.grantStatusEnum.proposed
-            || grant?.status?.value === this.grantStatusEnum.readyToApply
-            || grant?.status?.value === this.grantStatusEnum.teamChosen
           return isWG && isStatusMatch
         } else {
           return false

@@ -42,7 +42,8 @@ export class CommonContractService {
     )
       .pipe(
         catchError((error) => {
-          this.snackBar.open(translate('messages.transaction_rejected'))
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
           return EMPTY
         }),
         tap((e) => {
@@ -59,13 +60,12 @@ export class CommonContractService {
       [
         {type: 'string', value: taskId}
       ],
-      [
-        {assetId: 'WAVES', amount: reward}
-      ]
+      [{assetId: 'WAVES', amount: reward}]
     )
       .pipe(
         catchError((error) => {
-          this.snackBar.open(translate('messages.transaction_rejected'))
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
           return EMPTY
         }),
         tap(() => {

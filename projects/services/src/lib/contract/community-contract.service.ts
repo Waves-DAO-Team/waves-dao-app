@@ -38,7 +38,8 @@ export class CommunityContractService {
     )
       .pipe(
         catchError((error) => {
-          this.snackBar.open(translate('messages.transaction_rejected'))
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
           return EMPTY
         }),
         tap((e) => {
@@ -58,7 +59,8 @@ export class CommunityContractService {
       ]
     ).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap(() => {
@@ -82,7 +84,8 @@ export class CommunityContractService {
     )
       .pipe(
         catchError((error) => {
-          this.snackBar.open(translate('messages.transaction_rejected'))
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
           return EMPTY
         }),
         tap((e) => {

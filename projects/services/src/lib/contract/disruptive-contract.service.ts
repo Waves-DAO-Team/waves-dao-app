@@ -47,7 +47,8 @@ export class DisruptiveContractService {
       {type: 'string', value: voteValue}
     ]).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap(() => {
@@ -62,7 +63,8 @@ export class DisruptiveContractService {
       {type: 'string', value: taskId}
     ]).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap(() => {
@@ -79,7 +81,8 @@ export class DisruptiveContractService {
       {type: 'string', value: link}
     ]).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap(() => {
@@ -96,7 +99,8 @@ export class DisruptiveContractService {
       {type: 'string', value: voteValue}
     ]).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap((e) => {
@@ -111,7 +115,8 @@ export class DisruptiveContractService {
       {type: 'string', value: taskId}
     ]).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap(() => {
@@ -126,7 +131,8 @@ export class DisruptiveContractService {
       {type: 'string', value: taskId}
     ]).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap(() => {
@@ -141,7 +147,8 @@ export class DisruptiveContractService {
       {type: 'string', value: taskId}
     ]).pipe(
       catchError((error) => {
-        this.snackBar.open(translate('messages.transaction_rejected'))
+        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(mes)
         return EMPTY
       }),
       tap(() => {
@@ -156,7 +163,8 @@ export class DisruptiveContractService {
       [{type: 'string', value: taskId}, {type: 'string', value: reportLink}])
       .pipe(
         catchError((error) => {
-          this.snackBar.open(translate('messages.transaction_rejected'))
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
           return EMPTY
         }),
         tap(() => {
