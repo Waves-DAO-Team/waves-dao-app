@@ -25,6 +25,7 @@
     "texts": {
       "add_reward": "Add reward",
       "add_task_details": "Add task details",
+      "accept_work_result": "Accept work result",
       "propose_grant": "Propose a Grant",
       "propose_web_grant": "Propose a Web 3.0 Dev Grant",
       "link_to_description": "Link to grant description",
@@ -124,6 +125,7 @@
     "finish_vote": "Finish vote",
     "finish_applicants_voting": "Finish applicants voting",
     "accept_work_result": "Accept work result",
+    "accept_work_result_report_link": "Report link",
     "start_work": "Start work",
     "link": "Link",
     "empty_link": "link empty",

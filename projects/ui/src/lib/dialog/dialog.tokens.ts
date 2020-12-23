@@ -14,6 +14,9 @@ export interface SubmitCallBackProposeArg {
 export interface SubmitCallBackRewardArg {
   reward: string
 }
+export interface SubmitCallBackAcceptWorkResultArg {
+  reportLink: string
+}
 
 export interface DialogParams {
   templateId?: string,
@@ -22,7 +25,7 @@ export interface DialogParams {
   grant?: ContractGrantModel,
   grantId?: string,
   dialogRef: MatDialogRef<DialogComponent>,
-  submitCallBack?: (data: SubmitCallBackProposeArg | SubmitCallBackApplyArg | SubmitCallBackRewardArg) => void,
+  submitCallBack?: (data: SubmitCallBackProposeArg | SubmitCallBackApplyArg | SubmitCallBackRewardArg | SubmitCallBackAcceptWorkResultArg) => void,
 }
 
 export const DIALOG_DATA = new InjectionToken<DialogParams>('Dialog Data')

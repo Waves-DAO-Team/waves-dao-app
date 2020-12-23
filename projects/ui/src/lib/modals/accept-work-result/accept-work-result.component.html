@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="input">
+    <div class="input-wrp">
+      <br/>
+      <input type="text" formControlName="reportLink" class="inputText" required>
+      <span class="floating-label">{{'entity.accept_work_result_report_link' | transloco}}</span>
+    </div>
+  </div>
+
+  <div class="btn-container full">
+    <button type="submit" class="btn active" [disabled]="!form.valid">
+      {{'create_grant.form.apply' | transloco}}
+    </button>
+  </div>
+
+</form>

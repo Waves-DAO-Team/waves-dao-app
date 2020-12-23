@@ -14,6 +14,7 @@ import { ApplyModule } from '@ui/modals/apply/apply.module'
 import { LinkContentModule } from '@services/link-content/link-content.module'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import {StepperModule} from '@ui/stepper/stepper.module';
+import {AcceptWorkResultModule} from "@ui/modals/accept-work-result/accept-work-result.module";
 
 @NgModule({
   declarations: [EntityComponent],
@@ -31,7 +32,8 @@ import {StepperModule} from '@ui/stepper/stepper.module';
     ApplyModule,
     LinkContentModule,
     VoteForTaskModule,
-    StepperModule
+    StepperModule,
+    AcceptWorkResultModule
   ],
   exports: [EntityComponent]
 })

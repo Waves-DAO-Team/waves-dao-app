@@ -8,11 +8,16 @@ import {take} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
-import {SubmitCallBackApplyArg, SubmitCallBackRewardArg} from '@ui/dialog/dialog.tokens'
+import {
+  SubmitCallBackAcceptWorkResultArg,
+  SubmitCallBackApplyArg,
+  SubmitCallBackRewardArg
+} from '@ui/dialog/dialog.tokens'
 import {MatDialog} from '@angular/material/dialog'
 import {TemplateComponentAbstract, VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
+import {AcceptWorkResultComponent} from "@ui/modals/accept-work-result/accept-work-result.component";
 
 @Component({
   selector: 'app-disruptive-template',
@@ -113,8 +118,23 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult (reportLink: string): void {
-    this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, reportLink).subscribe()
+  acceptWorkResult(): void {
+    const dialog = this.dialog.open(DialogComponent, {
+      data: {
+        component: AcceptWorkResultComponent,
+        params: {
+          title: translate('modal.texts.accept_work_result'),
+          submitBtnText: translate('modal.btn.apply'),
+          submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
+            this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
+              .subscribe(() => {
+                dialog.close()
+                this.cdr.markForCheck()
+              })
+          }
+        }
+      }
+    })
   }
 
   finishApplicantsVote (): void {

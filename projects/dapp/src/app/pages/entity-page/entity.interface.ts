@@ -11,7 +11,7 @@ export abstract class TemplateComponentAbstract {
   public abstract finishVote (): void
   public abstract startWork (): void
   public abstract reject (): void
-  public abstract acceptWorkResult (reportLink: string): void
+  public abstract acceptWorkResult (): void
   public abstract finishApplicantsVote (): void
   public abstract addReward (): void
 }

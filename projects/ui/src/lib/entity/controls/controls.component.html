@@ -87,11 +87,7 @@
 
   <ng-container>
     <ng-container>
-      <input
-        type="text"
-        [(ngModel)]="reportLink"
-        placeholder="report link">
-      <button (click)="newAcceptWorkResultEvent.emit(reportLink)" class="btn">
+      <button (click)="newAcceptWorkResultEvent.emit()" class="btn">
         {{'entity.accept_work_result' | transloco}}
       </button>
     </ng-container>

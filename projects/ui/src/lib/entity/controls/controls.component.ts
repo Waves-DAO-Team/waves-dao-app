@@ -34,18 +34,14 @@ export class ControlsComponent {
   @Output() newFinishVoteEvent = new EventEmitter()
   @Output() newStartWorkEvent = new EventEmitter()
   @Output() newRejectEvent = new EventEmitter()
-  @Output() newAcceptWorkResultEvent = new EventEmitter<string>()
+  @Output() newAcceptWorkResultEvent = new EventEmitter()
   @Output() newFinishApplicantsVoteEvent = new EventEmitter()
   @Output() newAddRewardEvent = new EventEmitter()
-
-  reportLink = ''
 
   constructor (
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    private dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
     public communityContractService: CommunityContractService,
   ) {
   }

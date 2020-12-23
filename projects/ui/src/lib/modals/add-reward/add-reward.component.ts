@@ -24,7 +24,6 @@ export class AddRewardComponent {
 
 
   onSubmit () {
-
     if (this.params.submitCallBack){
       this.isInProcess = true
       this.params.submitCallBack( {
