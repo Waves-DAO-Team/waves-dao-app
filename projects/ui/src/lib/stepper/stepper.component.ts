@@ -10,7 +10,7 @@ import {tap} from 'rxjs/operators';
   templateUrl: './stepper.component.html',
   styleUrls: ['./stepper.component.scss']
 })
-export class StepperComponent implements OnInit, AfterViewInit {
+export class StepperComponent implements AfterViewInit {
 
   grantStatusEnum = GrantStatusEnum
   grantStatus: string[] = []
@@ -19,9 +19,13 @@ export class StepperComponent implements OnInit, AfterViewInit {
   setId$ = new Subject();
   stepperInit$ = new Subject();
 
+  @Input() set setType(type: 'disruptive' | 'interhack' | 'web3') {
+    this.stepperService.setType(type)
+    this.formalStatuses = this.stepperService.getFormalStatuses()
+  }
+
   GSstatus = ''
   @Input() set status (data: string) {
-    console.log('------', data)
     if (data) {
       this.GSstatus = data
       this.stepId = this.stepperService.getActiveId(data)
@@ -42,23 +46,16 @@ export class StepperComponent implements OnInit, AfterViewInit {
   step$ = combineLatest([this.setId$, this.stepperInit$]).pipe(
     tap(([id, init]) => {
       if (id && typeof id === 'number' && init && this.stepper) {
-        console.log('id', id)
         this.stepper.selectedIndex = id
         this.cdr.markForCheck()
       }
     })
   ).subscribe()
 
-
-
   @ViewChild('stepper') stepper: MatStepper | undefined;
 
   constructor (private cdr: ChangeDetectorRef, public stepperService: StepperService) {
-    stepperService.setType('web3')
-    this.formalStatuses = this.stepperService.getFormalStatuses()
-  }
 
-  ngOnInit () {
   }
 
   ngAfterViewInit () {
