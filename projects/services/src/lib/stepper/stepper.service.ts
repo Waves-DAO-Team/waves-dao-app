@@ -1,51 +1,49 @@
-import {Injectable} from '@angular/core';
-import {translate} from '@ngneat/transloco';
+import { Injectable } from '@angular/core'
+import { translate } from '@ngneat/transloco'
 
 @Injectable({
   providedIn: 'root'
 })
 export class StepperService {
-
   grantType: 'disruptive' | 'interhack' | 'web3' = 'disruptive'
 
   disruptiveFormalStatuses = [
     {
       key: 'ready_to_apply',
-      value: translate('stepper.collecting_requests'),
+      value: translate('stepper.collecting_requests')
     },
     {
       key: 'team_chosen',
-      value: translate('stepper.requests_selection_over'),
+      value: translate('stepper.requests_selection_over')
     },
     {
       key: 'work_started',
-      value: translate('stepper.work_started'),
+      value: translate('stepper.work_started')
     },
     {
       key: 'work_finished',
-      value: translate('stepper.work_finished'),
+      value: translate('stepper.work_finished')
     }
   ]
 
   interhackFormalStatuses = [
     {
       key: 'ready_to_apply',
-      value: translate('stepper.requests_selection_start'),
+      value: translate('stepper.requests_selection_start')
     },
     {
       key: 'team_chosen',
-      value: translate('stepper.solutions_selection_over'),
+      value: translate('stepper.solutions_selection_over')
     },
     {
       key: 'work_started',
-      value: translate('stepper.work_started'),
+      value: translate('stepper.work_started')
     },
     {
       key: 'work_finished',
-      value: translate('stepper.work_finished'),
+      value: translate('stepper.work_finished')
     }
   ]
-
 
   // no_status        Подготовка            Preparing
   // voting_started   Начато голосование    Voting has started
@@ -56,22 +54,21 @@ export class StepperService {
   dev3FormalStatuses = [
     {
       key: 'no_status',
-      value: translate('stepper.preparing'),
+      value: translate('stepper.preparing')
     },
     {
       key: 'voting_started',
-      value: translate('stepper.voting_has_started'),
+      value: translate('stepper.voting_has_started')
     },
     {
       key: 'approved|work_started',
-      value: translate('stepper.work_begun'),
+      value: translate('stepper.work_begun')
     },
     {
       key: 'work_finished',
-      value: translate('stepper.work_finished'),
-    },
+      value: translate('stepper.work_finished')
+    }
   ]
-
 
   public setType (type: 'disruptive' | 'interhack' | 'web3'): void{
     this.grantType = type
@@ -81,7 +78,7 @@ export class StepperService {
     switch (this.grantType) {
       case 'disruptive':
         return this.disruptiveFormalStatuses
-      case "web3":
+      case 'web3':
         return this.dev3FormalStatuses
       case 'interhack':
         return this.interhackFormalStatuses
@@ -98,5 +95,4 @@ export class StepperService {
     }
     return res
   }
-
 }

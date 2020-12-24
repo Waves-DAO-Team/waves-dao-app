@@ -1,18 +1,16 @@
-import { AcceptWorkResultComponent } from './accept-work-result.component';
+import { AcceptWorkResultComponent } from './accept-work-result.component'
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule } from '@angular/forms'
-import {TranslocoModule} from "@ngneat/transloco";
+import { TranslocoModule } from '@ngneat/transloco'
 
 @NgModule({
   declarations: [AcceptWorkResultComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    TranslocoModule,
+    TranslocoModule
   ],
   exports: [AcceptWorkResultComponent]
 })
 export class AcceptWorkResultModule { }
-
-

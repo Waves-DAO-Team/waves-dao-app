@@ -3,7 +3,6 @@ import { MatDialogRef } from '@angular/material/dialog'
 import { DialogComponent } from './dialog.component'
 import { ContractGrantModel } from '@services/contract/contract.model'
 
-
 export interface SubmitCallBackApplyArg {
   id: string, team: string, link: string
 }
@@ -25,7 +24,12 @@ export interface DialogParams {
   grant?: ContractGrantModel,
   grantId?: string,
   dialogRef: MatDialogRef<DialogComponent>,
-  submitCallBack?: (data: SubmitCallBackProposeArg | SubmitCallBackApplyArg | SubmitCallBackRewardArg | SubmitCallBackAcceptWorkResultArg) => void,
+  submitCallBack?: (data:
+                        SubmitCallBackProposeArg |
+                        SubmitCallBackApplyArg |
+                        SubmitCallBackRewardArg |
+                        SubmitCallBackAcceptWorkResultArg
+  ) => void,
 }
 
 export const DIALOG_DATA = new InjectionToken<DialogParams>('Dialog Data')

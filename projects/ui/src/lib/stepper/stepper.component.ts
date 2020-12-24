@@ -1,9 +1,9 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {MatStepper} from '@angular/material/stepper';
-import {GrantStatusEnum} from '@services/static/static.model';
-import {StepperService} from '@services/stepper/stepper.service';
-import {combineLatest, Subject} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core'
+import { MatStepper } from '@angular/material/stepper'
+import { GrantStatusEnum } from '@services/static/static.model'
+import { StepperService } from '@services/stepper/stepper.service'
+import { combineLatest, Subject } from 'rxjs'
+import { tap } from 'rxjs/operators'
 
 @Component({
   selector: 'ui-stepper',
@@ -11,7 +11,6 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./stepper.component.scss']
 })
 export class StepperComponent implements AfterViewInit {
-
   grantStatusEnum = GrantStatusEnum
   grantStatus: string[] = []
   stepId: null | number = null
@@ -19,7 +18,7 @@ export class StepperComponent implements AfterViewInit {
   setId$ = new Subject();
   stepperInit$ = new Subject();
 
-  @Input() set setType(type: 'disruptive' | 'interhack' | 'web3') {
+  @Input() set setType (type: 'disruptive' | 'interhack' | 'web3') {
     this.stepperService.setType(type)
     this.formalStatuses = this.stepperService.getFormalStatuses()
   }
@@ -39,6 +38,7 @@ export class StepperComponent implements AfterViewInit {
       this.setId$.next(0)
     }
   }
+
   get status (): string {
     return this.GSstatus
   }
@@ -64,5 +64,4 @@ export class StepperComponent implements AfterViewInit {
       this.stepperInit$.next(true)
     }
   }
-
 }

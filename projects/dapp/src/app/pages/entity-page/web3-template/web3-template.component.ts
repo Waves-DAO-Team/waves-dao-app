@@ -1,25 +1,25 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core'
-import {ContractGrantModel} from '@services/contract/contract.model'
-import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
-import {MatSnackBar} from '@angular/material/snack-bar'
-import {SignerService} from '@services/signer/signer.service'
-import {map, take} from 'rxjs/operators'
-import {translate} from '@ngneat/transloco'
-import {DialogComponent} from '@ui/dialog/dialog.component'
-import {ApplyComponent} from '@ui/modals/apply/apply.component'
+import { ChangeDetectorRef, Component, Input } from '@angular/core'
+import { ContractGrantModel } from '@services/contract/contract.model'
+import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { SignerService } from '@services/signer/signer.service'
+import { map, take } from 'rxjs/operators'
+import { translate } from '@ngneat/transloco'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { ApplyComponent } from '@ui/modals/apply/apply.component'
 import {
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
   SubmitCallBackRewardArg
 } from '@ui/dialog/dialog.tokens'
-import {MatDialog} from '@angular/material/dialog'
-import {TemplateComponentAbstract, VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
-import {AddTaskDetailsComponent} from '@ui/modals/add-task-details/add-task-details.component'
-import {CommunityContractService} from '@services/contract/community-contract.service'
-import {UserService} from '@services/user/user.service'
-import {AcceptWorkResultComponent} from "@ui/modals/accept-work-result/accept-work-result.component";
-import {combineLatest, Subject} from "rxjs";
+import { MatDialog } from '@angular/material/dialog'
+import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
+import { AddTaskDetailsComponent } from '@ui/modals/add-task-details/add-task-details.component'
+import { CommunityContractService } from '@services/contract/community-contract.service'
+import { UserService } from '@services/user/user.service'
+import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
+import { combineLatest, Subject } from 'rxjs'
 
 @Component({
   selector: 'app-web3-template',
@@ -40,8 +40,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
-          let isTL = grant.leader?.value === user.userAddress
-          let isStatusMatch = grant.status?.value === this.grantStatusEnum.approved
+          const isTL = grant.leader?.value === user.userAddress
+          const isStatusMatch = grant.status?.value === this.grantStatusEnum.approved
           return isTL && isStatusMatch
         } else {
           return false
@@ -53,9 +53,9 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
-          let isAmount = grant?.voting?.amount
-          let isStatusMatch = grant?.status?.value === this.grantStatusEnum.votingStarted
-          let isWG = user.roles.isWG
+          const isAmount = grant?.voting?.amount
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.votingStarted
+          const isWG = user.roles.isWG
           return isAmount && isWG && isStatusMatch
         } else {
           return false
@@ -67,9 +67,9 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
-          let isWG = user.roles.isWG
-          let isStatusMatch = !grant?.status?.value
-          let isReward = grant?.reward?.value
+          const isWG = user.roles.isWG
+          const isStatusMatch = !grant?.status?.value
+          const isReward = grant?.reward?.value
           return isReward && isWG && isStatusMatch
         } else {
           return false
@@ -81,8 +81,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
-          let isWG = user.roles.isWG
-          let isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+          const isWG = user.roles.isWG
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
           return isWG && isStatusMatch
         } else {
           return false
@@ -94,8 +94,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
-          let isWG = user.roles.isWG
-          let isStatusMatch = grant?.status?.value !== this.grantStatusEnum.workFinished
+          const isWG = user.roles.isWG
+          const isStatusMatch = grant?.status?.value !== this.grantStatusEnum.workFinished
           return isWG && isStatusMatch
         } else {
           return false
@@ -107,8 +107,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
-          let isWG = user.roles.isWG
-          let isStatusMatch = !grant?.status?.value
+          const isWG = user.roles.isWG
+          const isStatusMatch = !grant?.status?.value
           return isWG && isStatusMatch
         } else {
           return false
@@ -118,7 +118,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   GSgrant: ContractGrantModel = {}
 
-  @Input() set grant(data: ContractGrantModel) {
+  @Input() set grant (data: ContractGrantModel) {
     if (data !== this.GSgrant) {
       this.GSgrant = data
       this.prepareVoteForTaskData(data)
@@ -126,13 +126,13 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     this.grant$.next(data)
   }
 
-  get grant() {
+  get grant () {
     return this.GSgrant
   }
 
   @Input() public readonly contract!: GrantsVariationType
 
-  constructor(
+  constructor (
     private dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
     public communityContractService: CommunityContractService,
@@ -143,10 +143,10 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   ) {
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
     if (
-      this.userService.data.getValue().roles.isDAO
-      && grant?.status?.value === this.grantStatusEnum.votingStarted
+      this.userService.data.getValue().roles.isDAO &&
+      grant?.status?.value === this.grantStatusEnum.votingStarted
     ) {
       this.voteForTaskData.isShow = true
     } else {
@@ -159,12 +159,12 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     }
   }
 
-  vote(value: 'like' | 'dislike'): void {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe()
   }
 
-  signup(): void {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -173,7 +173,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal(): void {
+  openApplyModal (): void {
     this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -189,25 +189,25 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface): void {
+  voteTeam ($event: VoteTeamEventInterface): void {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote(): void {
+  finishVote (): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork(): void {
+  startWork (): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject(): void {
+  reject (): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult(): void {
+  acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AcceptWorkResultComponent,
@@ -226,11 +226,11 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  finishApplicantsVote(): void {
+  finishApplicantsVote (): void {
     this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward() {
+  addReward () {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddTaskDetailsComponent,
@@ -249,7 +249,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  initTaskVoting() {
+  initTaskVoting () {
     if (this.grant.id) {
       this.communityContractService.initTaskVoting(this.grant.id).subscribe((e) => {
         this.cdr.markForCheck()
