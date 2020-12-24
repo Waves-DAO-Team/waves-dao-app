@@ -30,6 +30,7 @@ export class EntityComponent implements OnDestroy {
   @Input() stepperTemplate: TemplateRef<Component> | undefined;
   @Input() teamTemplate: TemplateRef<Component> | undefined;
   @Input() voteForTaskTemplate: TemplateRef<Component> | undefined;
+  @Input() headerControlsTemplate: TemplateRef<Component> | undefined;
 
   @Output() newFinishVoteEvent = new EventEmitter()
   @Output() newStartWorkEvent = new EventEmitter()

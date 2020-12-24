@@ -17,6 +17,12 @@
     line-height: 1;
     margin-bottom: $padding * 2;
     margin-top: $padding * 2;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    &-controls {
+      display: grid;
+      justify-items: end;
+    }
   }
 
   &__bottom {

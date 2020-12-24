@@ -5,7 +5,10 @@
   </div>
 
   <div class="card-header-entity__mid mat-h2">
-    {{title}}
+    <div class="card-header-entity__mid-title">{{title}}</div>
+    <div class="card-header-entity__mid-controls">
+      <ng-container [ngTemplateOutlet]="headerControlsTemplate"></ng-container>
+    </div>
   </div>
 
   <div class="card-header-entity__bottom">
