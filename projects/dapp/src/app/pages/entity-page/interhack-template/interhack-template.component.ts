@@ -4,7 +4,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
-import {map, take} from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { ApplyComponent } from '@ui/modals/apply/apply.component'
@@ -17,8 +17,8 @@ import { MatDialog } from '@angular/material/dialog'
 import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
 import { UserService } from '@services/user/user.service'
-import {AcceptWorkResultComponent} from "@ui/modals/accept-work-result/accept-work-result.component";
-import {combineLatest, Subject} from "rxjs";
+import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
+import { combineLatest, Subject } from 'rxjs'
 
 @Component({
   selector: 'app-interhack-template',
@@ -38,11 +38,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
-          let isWG = user.roles.isWG
-          let isStatusMatch = !grant?.status?.value
-            || grant?.status?.value === this.grantStatusEnum.proposed
-            || grant?.status?.value === this.grantStatusEnum.readyToApply
-            || grant?.status?.value === this.grantStatusEnum.teamChosen
+          const isWG = user.roles.isWG
+          const isStatusMatch = !grant?.status?.value ||
+            grant?.status?.value === this.grantStatusEnum.proposed ||
+            grant?.status?.value === this.grantStatusEnum.readyToApply ||
+            grant?.status?.value === this.grantStatusEnum.teamChosen
           return isWG && isStatusMatch
         } else {
           return false
@@ -137,7 +137,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult(): void {
+  acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AcceptWorkResultComponent,

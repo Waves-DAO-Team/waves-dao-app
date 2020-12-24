@@ -99,7 +99,7 @@ export class MembershipService {
       [{ type: 'string', value: members }]
     ).pipe(
       catchError((error) => {
-        let mes = error.message ? error.message : translate('messages.transaction_rejected')
+        const mes = error.message ? error.message : translate('messages.transaction_rejected')
         this.snackBar.open(mes)
         return EMPTY
       }),
@@ -118,7 +118,7 @@ export class MembershipService {
     )
       .pipe(
         catchError((error) => {
-          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          const mes = error.message ? error.message : translate('messages.transaction_rejected')
           this.snackBar.open(mes)
           return EMPTY
         }),
