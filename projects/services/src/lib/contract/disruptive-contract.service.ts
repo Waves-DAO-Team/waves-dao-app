@@ -110,6 +110,24 @@ export class DisruptiveContractService {
     )
   }
 
+  public enableSubmissions(taskId: string, juryList: string = ""): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(
+      this.contractService.getAddress(),
+      'enableSubmissions',
+      [{type: 'string', value: taskId}, {type: 'string', value: juryList}])
+      .pipe(
+        catchError((error) => {
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
+          return EMPTY
+        }),
+        tap(() => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('messages.enable_submissions'), translate('messages.ok'))
+        })
+      )
+  }
+
   public finishApplicantsVoting(taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishApplicantsVoting', [
       {type: 'string', value: taskId}
@@ -170,6 +188,64 @@ export class DisruptiveContractService {
         tap(() => {
           this.contractService.refresh()
           this.snackBar.open(translate('messages.rejectTask'), translate('messages.ok'))
+        })
+      )
+  }
+
+  submitSolution(taskId: string, solutionLink: string = "123") {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'submitSolution',
+      [{type: 'string', value: taskId}, {type: 'string', value: solutionLink}],
+      // [{assetId: 'WAVES', amount: 900001}]
+    )
+      .pipe(
+        catchError((error) => {
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
+          return EMPTY
+        }),
+        tap(() => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('messages.submit_solution'), translate('messages.ok'))
+        })
+      )
+  }
+
+  voteForSolution(taskId: string, teamIdentifier: string, voteValue: 1 | -1) {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'submitSolution',
+      [
+        {type: 'string', value: taskId},
+        {type: 'string', value: teamIdentifier},
+        {type: 'integer', value: voteValue},
+      ]
+    )
+      .pipe(
+        catchError((error) => {
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
+          return EMPTY
+        }),
+        tap(() => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('messages.vote_for_solution'), translate('messages.ok'))
+        })
+      )
+  }
+
+  stopSubmissions(taskId: string) {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'stopSubmissions',
+      [
+        {type: 'string', value: taskId},
+      ]
+    )
+      .pipe(
+        catchError((error) => {
+          let mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
+          return EMPTY
+        }),
+        tap(() => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('messages.stop_submissions'), translate('messages.ok'))
         })
       )
   }

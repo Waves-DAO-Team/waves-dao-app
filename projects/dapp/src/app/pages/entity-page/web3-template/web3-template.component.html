@@ -1,4 +1,4 @@
-<ng-template #web3Btn>
+<ng-template #controlsBtn>
 
   <button class="marginTB" (click)="initTaskVoting()" *ngIf="isInitTaskVotingtBtn$ | async">
     {{ 'modal.btn.init_task_voting' | transloco }}
@@ -52,7 +52,7 @@
   (newAcceptWorkResultEvent)="acceptWorkResult()"
   (newFinishApplicantsVoteEvent)="finishApplicantsVote()"
   (newAddRewardEvent)="addReward()"
-  [controlsTemplate]="web3Btn"
+  [controlsTemplate]="controlsBtn"
   [headerControlsTemplate]="headerControlsTemplate"
   [voteForTaskTemplate]="voteForTask"
   [stepperTemplate]="stepper"
