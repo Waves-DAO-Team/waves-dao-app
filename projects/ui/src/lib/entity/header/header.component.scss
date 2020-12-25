@@ -18,10 +18,11 @@
     margin-bottom: $padding * 2;
     margin-top: $padding * 2;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: calc(100% - 200px) 190px;
     &-controls {
       display: grid;
       justify-items: end;
+      align-items: center;
     }
   }
 

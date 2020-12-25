@@ -2,5 +2,10 @@
 
 button {
   margin-left: $padding;
-  margin-bottom: $padding;
+  //margin-bottom: $padding;
+  height: 42px;
+}
+.marginTB {
+  margin-bottom: $padding ;
+  margin-top: $padding;
 }
