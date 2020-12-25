@@ -37,7 +37,6 @@ export class EntityComponent implements OnDestroy {
   @Output() newStartWorkEvent = new EventEmitter()
   @Output() newRejectEvent = new EventEmitter()
   @Output() newAcceptWorkResultEvent = new EventEmitter<string>()
-  @Output() newFinishApplicantsVoteEvent = new EventEmitter()
   @Output() newAddRewardEvent = new EventEmitter()
 
   // Subject activate if component destroyed

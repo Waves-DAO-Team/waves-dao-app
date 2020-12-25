@@ -6,12 +6,22 @@
     {{'entity.add_reward' | transloco}}
   </button>
 
+
+
 </ng-template>
 
 <ng-template #controlsTemplate>
 
   <button (click)="finishVote()" *ngIf="isFinishVoteBtn$ | async">
     {{'entity.finish_vote' | transloco}}
+  </button>
+
+  <button (click)="finishApplicantsVote()">
+    {{'entity.finish_vote' | transloco}}
+  </button>
+
+  <button class="active" (click)="startWork()">
+    {{'entity.start_work' | transloco}}
   </button>
 
 </ng-template>
@@ -23,12 +33,14 @@
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"
     (newVoteTeamEvent)="voteTeam($event)"
-    title="{{'entity.teams' | transloco}}"
+    titleText="{{'entity.teams' | transloco}}"
+    applyBtnText="{{'entity.apply' | transloco}}"
   ></ui-team>
 </ng-template>
 
 <ng-template #voteForTask>
   <ui-vote-for-task
+    *ngIf="voteForTaskData.isShow"
     [isShow]="voteForTaskData.isShow"
     [isVote]="voteForTaskData.isVote"
     (newVoteEvent)="vote($event)"
@@ -45,7 +57,6 @@
   (newStartWorkEvent)="startWork()"
   (newRejectEvent)="reject()"
   (newAcceptWorkResultEvent)="acceptWorkResult()"
-  (newFinishApplicantsVoteEvent)="finishApplicantsVote()"
   [teamTemplate]="team"
   [voteForTaskTemplate]="voteForTask"
   [stepperTemplate]="stepper"
