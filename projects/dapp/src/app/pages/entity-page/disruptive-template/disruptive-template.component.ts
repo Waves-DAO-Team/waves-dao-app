@@ -47,6 +47,19 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
       })
     )
 
+  isFinishVoteBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.proposed
+          const isWG = user.roles.isWG
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
   voteForTaskData = {
     isShow: false,
     isVote: false
@@ -171,6 +184,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
           submitBtnText: translate('modal.btn.propose_grant'),
           grantId: this.grant?.id,
           submitCallBack: (data: SubmitCallBackRewardArg) => {
+            console.log('data', data)
             if (this.grant?.id) {
               this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe(() => {})
             }

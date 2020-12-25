@@ -11,7 +11,7 @@
         *ngIf="user.roles.isUnauthorized"
         routerLinkActive="active"
       >
-        {{'entity.log_in_for_apply' | transloco}}
+       {{'entity.log_in_for_apply' | transloco}}
       </button>
 
       <button
@@ -66,7 +66,7 @@
     </li>
   </ul>
 
-  <div class="card__body" *ngIf="grant?.app?.length === 0 && grant?.isShowAppliers">
-    {{'entity.no_applied_teams' | transloco}}
-  </div>
+<!--  <div class="card__body" *ngIf="grant?.app?.length === 0 && grant?.isShowAppliers">-->
+<!--    {{'entity.no_applied_teams' | transloco}}-->
+<!--  </div>-->
 </div>

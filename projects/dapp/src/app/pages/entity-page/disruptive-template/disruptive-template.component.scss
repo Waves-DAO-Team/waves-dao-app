@@ -4,6 +4,7 @@ button {
   margin-left: $padding;
   //margin-bottom: $padding;
   height: 42px;
+ flex-wrap: nowrap;
 }
 .marginTB {
   margin-bottom: $padding ;

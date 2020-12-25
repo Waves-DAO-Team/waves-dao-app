@@ -8,6 +8,14 @@
 
 </ng-template>
 
+<ng-template #controlsTemplate>
+
+  <button (click)="finishVote()" *ngIf="isFinishVoteBtn$ | async">
+    {{'entity.finish_vote' | transloco}}
+  </button>
+
+</ng-template>
+
 
 <ng-template #team>
   <ui-team
@@ -42,4 +50,5 @@
   [voteForTaskTemplate]="voteForTask"
   [stepperTemplate]="stepper"
   [headerControlsTemplate]="headerControlsTemplate"
+  [controlsTemplate]="controlsTemplate"
 ></ui-entity>
