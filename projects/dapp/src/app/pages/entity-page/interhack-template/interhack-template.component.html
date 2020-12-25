@@ -1,9 +1,5 @@
 <ng-template #controlsBtn>
 
-<!--  <button class="marginTB" (click)="initTaskVoting()" *ngIf="isInitTaskVotingtBtn$ | async">-->
-<!--    {{ 'modal.btn.init_task_voting' | transloco }}-->
-<!--  </button>-->
-
   <button class="marginTB" (click)="enableSubmissions()" *ngIf="isEnableSubmissionsBtn$ | async">
     enableSubmissions
   </button>
@@ -11,6 +7,7 @@
   <button class="marginTB" (click)="stopSubmissions()">
     {{'entity.stop_submissions' | transloco}}
   </button>
+
   <button class="marginTB" (click)="acceptWorkResult()">
     {{'entity.accept_work_result' | transloco}}
   </button>
@@ -23,10 +20,6 @@
     {{'entity.finish_vote' | transloco}}
   </button>
 
-<!--  <button (click)="acceptWorkResult()" class="marginTB" *ngIf="isAcceptWorkResultBtn$ | async">-->
-<!--    {{'entity.accept_work_result' | transloco}}-->
-<!--  </button>-->
-
   <button class="marginTB" *ngIf="isRejectBtn$ | async" (click)="reject()">
     {{'entity.reject' | transloco}}
   </button>
@@ -36,8 +29,7 @@
 <ng-template #headerControlsTemplate>
 
   <button class="active" (click)="addReward()" *ngIf="isShowAddRewardBtn$ | async">
-    <span *ngIf="!grant?.reward?.value; else hasReward">{{'entity.add_reward' | transloco}}</span>
-    <ng-template #hasReward>{{'entity.edit_task_details' | transloco}}</ng-template>
+    {{'entity.add_reward' | transloco}}
   </button>
 
   <button class="active" (click)="startWork()" *ngIf="isStartWorkBtn$ | async">
@@ -88,7 +80,6 @@
   (newRejectEvent)="reject()"
   (newAcceptWorkResultEvent)="acceptWorkResult()"
   (newFinishApplicantsVoteEvent)="finishApplicantsVote()"
-  (newAddRewardEvent)="addReward()"
   [controlsTemplate]="controlsBtn"
   [headerControlsTemplate]="headerControlsTemplate"
   [solutionsTemplate]="solutionsTemplate"

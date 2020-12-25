@@ -34,11 +34,13 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
       map(([user, grant]) => {
         if (grant) {
           const isWG = user.roles.isWG
-          const isStatusMatch = !grant?.status?.value ||
-            grant?.status?.value === this.grantStatusEnum.proposed ||
-            grant?.status?.value === this.grantStatusEnum.readyToApply ||
-            grant?.status?.value === this.grantStatusEnum.teamChosen
-          return isWG && isStatusMatch
+          const isNoReward = !grant?.reward?.value
+          const isStatusMatch =
+            !grant?.status?.value
+            || grant?.status?.value === this.grantStatusEnum.proposed
+            || grant?.status?.value === this.grantStatusEnum.readyToApply
+            || grant?.status?.value === this.grantStatusEnum.teamChosen
+          return isNoReward && isWG && isStatusMatch
         } else {
           return false
         }

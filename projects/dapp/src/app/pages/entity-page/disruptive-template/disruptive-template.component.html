@@ -1,30 +1,13 @@
-<!--<ng-template #defaultBtn>-->
-<!--  <ng-container *ngIf="!grant?.status?.value && userService.data.getValue().roles.isWG && grant?.id"> &lt;!&ndash;no status&ndash;&gt;-->
-<!--    <button (click)="addReward()">-->
-<!--      {{'entity.add_reward' | transloco}}-->
-<!--    </button>-->
-<!--  </ng-container>-->
-<!--</ng-template>-->
 
-<ng-template #defaultBtn>
-  <ng-container *ngIf="isShowAddRewardBtn$ | async">
-      <button (click)="addReward()">
-        <span *ngIf="!grant?.status?.value; else hasReward">{{'entity.add_reward' | transloco}}</span>
-        <ng-template #hasReward>{{'entity.edit_task_details' | transloco}}</ng-template>
-      </button>
-  </ng-container>
+
+<ng-template #headerControlsTemplate>
+
+  <button class="active" (click)="addReward()" *ngIf="isShowAddRewardBtn$ | async">
+    {{'entity.add_reward' | transloco}}
+  </button>
+
 </ng-template>
 
-<!--<ng-template #team>-->
-<!--  <ui-team-->
-<!--    *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"-->
-<!--    [grant]="grant"-->
-<!--    (newSignupEvent)="signup()"-->
-<!--    (newOpenApplyModalEvent)="openApplyModal()"-->
-<!--    (newVoteTeamEvent)="voteTeam($event)"-->
-<!--    title="{{'entity.teams' | transloco}}"-->
-<!--  ></ui-team>-->
-<!--</ng-template>-->
 
 <ng-template #team>
   <ui-team
@@ -55,9 +38,8 @@
   (newRejectEvent)="reject()"
   (newAcceptWorkResultEvent)="acceptWorkResult()"
   (newFinishApplicantsVoteEvent)="finishApplicantsVote()"
-  (newAddRewardEvent)="addReward()"
-  [controlsTemplate]="defaultBtn"
   [teamTemplate]="team"
   [voteForTaskTemplate]="voteForTask"
   [stepperTemplate]="stepper"
+  [headerControlsTemplate]="headerControlsTemplate"
 ></ui-entity>

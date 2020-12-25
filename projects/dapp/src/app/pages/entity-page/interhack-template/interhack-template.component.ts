@@ -131,12 +131,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
+          // !grant?.reward?.value
           const isWG = user.roles.isWG
+          const isNoReward = !grant?.reward?.value
           const isStatusMatch = !grant?.status?.value ||
             grant?.status?.value === this.grantStatusEnum.proposed ||
             grant?.status?.value === this.grantStatusEnum.readyToApply ||
             grant?.status?.value === this.grantStatusEnum.teamChosen
-          return isWG && isStatusMatch
+          return isNoReward && isWG && isStatusMatch
         } else {
           return false
         }
