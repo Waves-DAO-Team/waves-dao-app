@@ -107,9 +107,9 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant) {
-          const isWG = user.roles.isWG
+          const isRole = grant.leader?.value === user.userAddress
           const isStatusMatch = !grant?.status?.value
-          return isWG && isStatusMatch
+          return isRole && isStatusMatch
         } else {
           return false
         }

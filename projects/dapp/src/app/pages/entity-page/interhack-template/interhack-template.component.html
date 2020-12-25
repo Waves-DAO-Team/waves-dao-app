@@ -1,30 +1,50 @@
-<!--<ng-template #defaultBtn>-->
-<!--  <ng-container *ngIf="!grant?.status?.value && userService.data.getValue().roles.isWG && grant?.id"> &lt;!&ndash;no status&ndash;&gt;-->
-<!--    <button (click)="addReward()">-->
-<!--      {{'entity.add_reward' | transloco}}-->
-<!--    </button>-->
-<!--  </ng-container>-->
-<!--</ng-template>-->
+<ng-template #controlsBtn>
 
-<ng-template #defaultBtn>
-  <ng-container *ngIf="isShowAddRewardBtn$ | async">
-    <button (click)="addReward()">
-      <span *ngIf="!grant?.status?.value; else hasReward">{{'entity.add_reward' | transloco}}</span>
-      <ng-template #hasReward>{{'entity.edit_task_details' | transloco}}</ng-template>
-    </button>
-  </ng-container>
+<!--  <button class="marginTB" (click)="initTaskVoting()" *ngIf="isInitTaskVotingtBtn$ | async">-->
+<!--    {{ 'modal.btn.init_task_voting' | transloco }}-->
+<!--  </button>-->
+
+  <button class="marginTB" (click)="enableSubmissions()" *ngIf="isEnableSubmissionsBtn$ | async">
+    enableSubmissions
+  </button>
+
+  <button class="marginTB" (click)="stopSubmissions()">
+    {{'entity.stop_submissions' | transloco}}
+  </button>
+  <button class="marginTB" (click)="acceptWorkResult()">
+    {{'entity.accept_work_result' | transloco}}
+  </button>
+
+  <button class="marginTB" (click)="submitSolution()" *ngIf="isSubmitSolutionBtn$ | async">
+    {{'entity.submit_solution' | transloco}}
+  </button>
+
+  <button class="marginTB" (click)="finishVote()" *ngIf="isFinishVoteBtn$ | async">
+    {{'entity.finish_vote' | transloco}}
+  </button>
+
+<!--  <button (click)="acceptWorkResult()" class="marginTB" *ngIf="isAcceptWorkResultBtn$ | async">-->
+<!--    {{'entity.accept_work_result' | transloco}}-->
+<!--  </button>-->
+
+  <button class="marginTB" *ngIf="isRejectBtn$ | async" (click)="reject()">
+    {{'entity.reject' | transloco}}
+  </button>
+
 </ng-template>
 
-<!--<ng-template #team>-->
-<!--  <ui-team-->
-<!--    *ngIf="grant?.status?.value !== grantStatusEnum.proposed && grant?.status?.value !== grantStatusEnum.noStatus"-->
-<!--    [grant]="grant"-->
-<!--    (newSignupEvent)="signup()"-->
-<!--    (newOpenApplyModalEvent)="openApplyModal()"-->
-<!--    (newVoteTeamEvent)="voteTeam($event)"-->
-<!--    title="{{'entity.solutions' | transloco}}"-->
-<!--  ></ui-team>-->
-<!--</ng-template>-->
+<ng-template #headerControlsTemplate>
+
+  <button class="active" (click)="addReward()" *ngIf="isShowAddRewardBtn$ | async">
+    <span *ngIf="!grant?.reward?.value; else hasReward">{{'entity.add_reward' | transloco}}</span>
+    <ng-template #hasReward>{{'entity.edit_task_details' | transloco}}</ng-template>
+  </button>
+
+  <button class="active" (click)="startWork()" *ngIf="isStartWorkBtn$ | async">
+    {{'entity.start_work' | transloco}}
+  </button>
+
+</ng-template>
 
 <ng-template #team>
   <ui-team
@@ -32,12 +52,25 @@
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"
     (newVoteTeamEvent)="voteTeam($event)"
-    title="{{'entity.solutions' | transloco}}"
+    titleText="{{'entity.teams' | transloco}}"
+    applyBtnText="{{'entity.apply' | transloco}}"
+  ></ui-team>
+</ng-template>
+
+<ng-template #solutionsTemplate>
+  <ui-team
+    [grant]="grant"
+    (newSignupEvent)="signup()"
+    (newOpenApplyModalEvent)="openApplyModal()"
+    (newVoteTeamEvent)="voteTeam($event)"
+    titleText="{{'entity.solutions' | transloco}}"
+    applyBtnText="{{'entity.propose_solution' | transloco}}"
   ></ui-team>
 </ng-template>
 
 <ng-template #voteForTask>
   <ui-vote-for-task
+    *ngIf="voteForTaskData.isShow"
     [isShow]="voteForTaskData.isShow"
     [isVote]="voteForTaskData.isVote"
     (newVoteEvent)="vote($event)"
@@ -56,7 +89,9 @@
   (newAcceptWorkResultEvent)="acceptWorkResult()"
   (newFinishApplicantsVoteEvent)="finishApplicantsVote()"
   (newAddRewardEvent)="addReward()"
-  [controlsTemplate]="defaultBtn"
+  [controlsTemplate]="controlsBtn"
+  [headerControlsTemplate]="headerControlsTemplate"
+  [solutionsTemplate]="solutionsTemplate"
   [teamTemplate]="team"
   [voteForTaskTemplate]="voteForTask"
   [stepperTemplate]="stepper"

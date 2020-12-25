@@ -34,6 +34,99 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   grant$ = new Subject<ContractGrantModel>();
+
+  isVoteForTaskTemplate$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isTL = grant.leader?.value === user.userAddress
+          const isStatusMatch = grant.status?.value === this.grantStatusEnum.approved
+          return isTL && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isTL = grant.leader?.value === user.userAddress
+          const isStatusMatch = grant.status?.value === this.grantStatusEnum.approved
+          return isTL && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isFinishVoteBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isAmount = grant?.voting?.amount
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.proposed
+          const isWG = user.roles.isWG
+          return isAmount && isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isEnableSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isRole = user.roles.isDAO
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
+          return isRole && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isSubmitSolutionBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isRole = user.roles.isDAO
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+          return isRole && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isAcceptWorkResultBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isWG = user.roles.isWG
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isWG = user.roles.isWG
+          const isStatusMatch = grant?.status?.value !== this.grantStatusEnum.workFinished
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
   isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
       map(([user, grant]) => {
@@ -77,7 +170,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   private prepareVoteForTaskData (grant: ContractGrantModel) {
-    if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
+    if (
+      this.userService.data.getValue().roles.isDAO &&
+      grant?.status?.value === this.grantStatusEnum.proposed &&
+      grant?.reward?.value
+    ) {
       this.voteForTaskData.isShow = true
     } else {
       this.voteForTaskData.isShow = false
@@ -104,7 +201,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   openApplyModal () {
-    this.dialog.open(DialogComponent, {
+    const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
         params: {
@@ -112,7 +209,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           submitCallBack: (data: SubmitCallBackApplyArg) => {
             this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
               .pipe(take(1))
-              .subscribe()
+              .subscribe(() => {
+                dialog.close()
+                this.cdr.markForCheck()
+              })
           }
         }
       }
@@ -170,7 +270,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           grantId: this.grant?.id,
           submitCallBack: (data: SubmitCallBackRewardArg) => {
             if (this.grant?.id) {
-              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe(() => {})
+              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe(() => {
+              })
             }
             dialog.close()
             this.cdr.markForCheck()
@@ -178,5 +279,30 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
         }
       }
     })
+  }
+
+  enableSubmissions () {
+    if (this.grant?.id) {
+      this.disruptiveContractService.enableSubmissions(this.grant?.id, '').subscribe(() => {
+      })
+    }
+  }
+
+  submitSolution () {
+    if (this.grant?.id) {
+      this.disruptiveContractService.submitSolution(this.grant?.id).subscribe(() => {
+      })
+    }
+  }
+
+  voteForSolution () {
+    if (this.grant?.id) {
+      this.disruptiveContractService.voteForSolution(this.grant?.id, '', 1).subscribe(() => {
+      })
+    }
+  }
+
+  stopSubmissions () {
+    if (this.grant?.id) { this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe(() => {}) }
   }
 }
