@@ -19,7 +19,7 @@
     <div class="sub-title mat-display-4">{{'members.owner' | transloco}}</div>
     <ul>
       <li>
-        <ui-user-contacts *ngIf="api?.workingGroup[user.owner] as userObj" [address]="user.owner" [user]="userObj"></ui-user-contacts>
+        <ui-user-contacts [address]="user.owner" [user]="api?.workingGroup[user.owner]"></ui-user-contacts>
       </li>
     </ul>
 

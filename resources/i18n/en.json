@@ -174,7 +174,7 @@
     "setting": "Settings",
     "group": "Group",
     "dao_member": "DAO Member",
-    "work_group": "Work Group",
+    "work_group": "Working Group",
     "working_group_member": "Working Group Member",
     "dao_is": "is a member of the Waves Association, a whitelisted individual who can vote. For a decision to be passed, the DAO needs at least 50% of the votes.",
     "wg_is": "is a member of the Waves Association’s working group, a whitelisted individual who is responsible for managing tasks, votes and",
@@ -326,5 +326,6 @@
       "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool",
       "about": "https://github.com/Waves-Association/grants-program/blob/main/.github/ISSUE_TEMPLATE/track-3--interhack-grant.md"
     }
-  }
+  },
+  "State check failed. Reason: Accounts balance errors": "State check failed. Reason: Accounts balance errors. You need to have at least 0.01 WAVES on your balance to send a transaction"
 }

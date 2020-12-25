@@ -19,7 +19,10 @@ import { NgProgressModule } from 'ngx-progressbar'
 import { NgProgressHttpModule } from 'ngx-progressbar/http'
 import { provideApi, provideAppConstants } from './app.providers'
 import { PipesModule } from '@libs/pipes/pipes.module'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
+import {
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+  MatSnackBarModule
+} from '@angular/material/snack-bar'
 import { MarkdownModule } from 'ngx-markdown'
 import { MatDialogModule } from '@angular/material/dialog'
 
@@ -52,7 +55,8 @@ import { MatDialogModule } from '@angular/material/dialog'
     provideCommonLayoutHeader(HeaderComponent),
     provideCommonLayoutFooter(FooterComponent),
     provideAppConstants(),
-    provideApi()
+    provideApi(),
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } }
   ],
   bootstrap: [AppComponent]
 })

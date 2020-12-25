@@ -8,7 +8,7 @@ import { UserInterface } from '@constants'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserContactsComponent implements OnInit {
-  GSaddress: string | null = null
+  private GSaddress: string | null = null
 
   @Input() set address (address: string) {
     this.GSaddress = address

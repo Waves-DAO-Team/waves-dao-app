@@ -40,7 +40,6 @@ export function ContractProviderFactory (
       catchError((error) => {
         // Todo обработать ошибки
         snackBar.open(error, translate('messages.ok'))
-        console.log('Error', error)
         throw new Error('Contract not found')
       }),
       publishReplay(1),
