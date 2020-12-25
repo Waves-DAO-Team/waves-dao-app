@@ -4,11 +4,12 @@
     margin-top: -20px;
     position: relative;
     width: 100%;
+    overflow: hidden
   }
 
   .input-wrp .inputText {
     border: 0;
-    border-bottom: 1px solid #777;
+    border-bottom: 2px solid #777;
     box-shadow: none !important;
     font-size: $font_size_h4;
     font-weight: 100;
