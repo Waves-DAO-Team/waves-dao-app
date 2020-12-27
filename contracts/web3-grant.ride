@@ -86,11 +86,11 @@ func getVoteValue(s: String) = {
 }
 
 func initTaskVotingConditions(taskId: String, address: Address) = {
-    if ((!isGroupMember(address))) then {
+    if (!isGroupMember(address)) then {
         throw("grants working group access only")
 
-    # } else if (tryGetString("tasks_" + taskId + "_status") != "") then {
-    #     throw("task is not new")
+    } else if (tryGetString("tasks_" + taskId + "_status") != "") then {
+        throw("task is not new")
 
     } else true
 }
