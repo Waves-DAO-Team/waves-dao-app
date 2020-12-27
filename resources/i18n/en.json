@@ -213,7 +213,7 @@
   "accept_work_result": {
     "form": {
       "send": "Send"
-    },
+    }
   },
   "create_grant": {
     "title": "Create grant",
@@ -339,5 +339,5 @@
       "about": "https://github.com/Waves-Association/grants-program/blob/main/.github/ISSUE_TEMPLATE/track-3--interhack-grant.md"
     }
   },
-  "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account",
+  "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
 }

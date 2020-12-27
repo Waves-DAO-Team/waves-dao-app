@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
+import { UserContactsModule } from '@ui/user-contacts/user-contacts.module'
 
 describe('MembersPageComponent', () => {
   let component: MembersPageComponent
@@ -14,7 +15,11 @@ describe('MembersPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule, HttpClientTestingModule, MatSnackBarModule, getTranslocoModule()
+        RouterTestingModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        getTranslocoModule(),
+        UserContactsModule
       ],
       declarations: [MembersPageComponent],
       providers: [
