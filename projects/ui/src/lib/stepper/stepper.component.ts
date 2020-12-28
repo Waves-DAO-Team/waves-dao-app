@@ -13,7 +13,7 @@ import { tap } from 'rxjs/operators'
 export class StepperComponent implements AfterViewInit {
   grantStatusEnum = GrantStatusEnum
   grantStatus: string[] = []
-  stepId: null | number = null
+  stepId: number = 0
   formalStatuses = this.stepperService.getFormalStatuses()
   setId$ = new Subject();
   stepperInit$ = new Subject();
@@ -28,7 +28,6 @@ export class StepperComponent implements AfterViewInit {
     if (data) {
       this.GSstatus = data
       this.stepId = this.stepperService.getActiveId(data)
-      console.log('stepId', this.stepId)
       if (this.stepId) {
         this.setId$.next(this.stepId)
       }

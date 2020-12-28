@@ -85,9 +85,9 @@ export class StepperService {
     }
   }
 
-  public getActiveId (status: string): number | null {
+  public getActiveId (status: string): number {
     const grant = this.getFormalStatuses()
-    let res = null
+    let res = 0
     for (let i = 0; i < grant.length; i++) {
       if (grant[i].key.includes(status)) {
         res = i
