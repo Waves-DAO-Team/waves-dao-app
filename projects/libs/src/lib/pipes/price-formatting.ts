@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core'
-import * as _ from 'lodash'
-import { ContractGrantAppModel } from '@services/contract/contract.model'
 
 @Pipe({ name: 'PriceFormatting' })
 export class PriceFormattingPipe implements PipeTransform {
-  transform (value: string ): string {
+  transform (value: string | number): string {
+    value = value.toString()
     value = this.numberWithSpaces(value)
     return value
   }
