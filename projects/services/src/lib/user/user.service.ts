@@ -55,15 +55,11 @@ export class UserService {
           apply: this.defineApply(userAddressText, contract?.tasks || {}),
           balance: userBalanceText
         }
-        // if (JSON.stringify(this.data.getValue()) !== JSON.stringify(newData)) {
         this.data.next(newData)
         if (userAddressText !== this.lastAddress) {
-          // this.popupService.add(userAddressText, 'Login')
-          this.snackBar.open(`Login: ${userAddressText}`, '', { duration: 3000 })
           this.lastAddress = userAddressText
         }
         console.log('user data: ', this.data.getValue())
-        // }
       }),
       publishReplay(1),
       refCount()
@@ -102,7 +98,6 @@ export class UserService {
     if (tasks) {
       // @ts-ignore
       for (const key of Object.keys(tasks)) {
-        // for (const key in tasks) {
         // @ts-ignore
         const grant = tasks[key]
         if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
