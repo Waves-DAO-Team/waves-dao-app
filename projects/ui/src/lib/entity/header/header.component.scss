@@ -18,11 +18,10 @@
     margin-bottom: $padding * 2;
     margin-top: $padding * 2;
     display: grid;
-    grid-template-columns: minmax( 300px, 100%) 300px;
+    grid-template-columns: minmax( 300px, 100%) 400px;
     &-controls {
-      display: grid;
-      justify-items: end;
-      align-items: center;
+      display: flex;
+      justify-content: flex-end;
     }
     @media (max-width: 1100px) {
       grid-template-columns: 100% 100%;
@@ -30,6 +29,7 @@
         grid-column: 1 / 2;
       }
       &-controls {
+        margin-top: $padding;
         grid-column: 2 /  1;
       }
     }

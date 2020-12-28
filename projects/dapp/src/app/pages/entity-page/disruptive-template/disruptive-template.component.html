@@ -6,7 +6,9 @@
     {{'entity.add_reward' | transloco}}
   </button>
 
-
+  <button class="active" (click)="startWork()">
+    {{'entity.start_work' | transloco}}
+  </button>
 
 </ng-template>
 
@@ -20,9 +22,7 @@
     {{'entity.finish_vote' | transloco}}
   </button>
 
-  <button class="active" (click)="startWork()">
-    {{'entity.start_work' | transloco}}
-  </button>
+
 
   <button (click)="acceptWorkResult()">
     {{'entity.accept_work_result' | transloco}}
