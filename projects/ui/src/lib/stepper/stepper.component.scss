@@ -26,3 +26,10 @@
 :host ::ng-deep .mat-horizontal-content-container {
   padding:0 !important;
 }
+
+::ng-deep .mat-completed-step {
+  opacity: 0.3;
+  .mat-step-icon {
+    background: $color_waves_blue;
+  }
+}
