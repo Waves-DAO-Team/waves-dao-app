@@ -57,11 +57,11 @@ export class StepperService {
       value: translate('stepper.preparing')
     },
     {
-      key: 'voting_started',
+      key: 'voting_started|approved',
       value: translate('stepper.voting_has_started')
     },
     {
-      key: 'approved|work_started',
+      key: 'work_started',
       value: translate('stepper.work_begun')
     },
     {
