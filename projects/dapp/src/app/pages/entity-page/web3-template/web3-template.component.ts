@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
 import { map, take } from 'rxjs/operators'
@@ -134,7 +133,6 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   constructor (
     private dialog: MatDialog,
-    public disruptiveContractService: DisruptiveContractService,
     public communityContractService: CommunityContractService,
     private snackBar: MatSnackBar,
     public signerService: SignerService,
@@ -161,7 +159,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
-    this.disruptiveContractService.voteForTaskProposal(id, value).subscribe()
+    this.communityContractService.voteForTaskProposal(id, value).subscribe()
   }
 
   signup (): void {
@@ -180,9 +178,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
         params: {
           grant: this.grant,
           submitCallBack: (data: SubmitCallBackApplyArg) => {
-            this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
-              .pipe(take(1))
-              .subscribe()
+            this.communityContractService.applyForTask(data.id, data.team, data.link).pipe(take(1)).subscribe()
           }
         }
       }
@@ -191,20 +187,20 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   voteTeam ($event: VoteTeamEventInterface): void {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
-      this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
+      this.communityContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
   finishVote (): void {
-    this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
+    this.communityContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
   startWork (): void {
-    this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
+    this.communityContractService.startWork(this.grant?.id as string).subscribe()
   }
 
   reject (): void {
-    this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
+    this.communityContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
   acceptWorkResult (): void {
@@ -215,7 +211,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
+            this.communityContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
               .subscribe(() => {
                 dialog.close()
                 this.cdr.markForCheck()
@@ -227,7 +223,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   }
 
   finishApplicantsVote (): void {
-    this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
+    this.communityContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
   addReward () {
@@ -239,7 +235,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackRewardArg) => {
             if (this.grant?.id) {
-              this.communityContractService.addReward(this.grant?.id, data.reward).subscribe(() => {})
+              this.communityContractService.addReward(this.grant?.id, parseInt(data.reward).toString()).subscribe(() => {})
             }
             dialog.close()
             this.cdr.markForCheck()

@@ -272,7 +272,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           grantId: this.grant?.id,
           submitCallBack: (data: SubmitCallBackRewardArg) => {
             if (this.grant?.id) {
-              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe(() => {
+              this.disruptiveContractService.addReward(this.grant?.id, parseInt(data.reward).toString()).subscribe(() => {
               })
             }
             dialog.close()

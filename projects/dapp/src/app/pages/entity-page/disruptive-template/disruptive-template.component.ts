@@ -184,9 +184,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
           submitBtnText: translate('modal.btn.propose_grant'),
           grantId: this.grant?.id,
           submitCallBack: (data: SubmitCallBackRewardArg) => {
-            console.log('data', data)
             if (this.grant?.id) {
-              this.disruptiveContractService.addReward(this.grant?.id, data.reward).subscribe(() => {})
+              this.disruptiveContractService.addReward(this.grant?.id, parseInt(data.reward).toString()).subscribe(() => {})
             }
             dialog.close()
             this.cdr.markForCheck()
