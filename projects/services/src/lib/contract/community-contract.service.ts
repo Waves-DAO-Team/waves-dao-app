@@ -12,7 +12,7 @@ import {TransactionsSuccessResult} from '@services/signer/signer.model'
   providedIn: 'root'
 })
 export class CommunityContractService {
-  constructor(
+  constructor (
     private commonContractService: CommonContractService,
     private contractService: ContractService,
     private readonly signerService: SignerService,
@@ -20,15 +20,15 @@ export class CommunityContractService {
   ) {
   }
 
-  streamContractService() {
+  streamContractService () {
     return this.contractService.stream
   }
 
-  public addTask(taskName: string, link: string): Observable<TransactionsSuccessResult> {
+  public addTask (taskName: string, link: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addTask(taskName, link)
   }
 
-  public initTaskVoting(taskId: string): Observable<TransactionsSuccessResult> {
+  public initTaskVoting (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'initTaskVoting',
@@ -47,7 +47,7 @@ export class CommunityContractService {
       )
   }
 
-  public addReward(taskId: string, reward: string) {
+  public addReward (taskId: string, reward: string) {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addReward',
@@ -68,7 +68,7 @@ export class CommunityContractService {
     )
   }
 
-  public voteForTaskProposal(taskId: string, voteValue: 'like' | 'dislike'): Observable<TransactionsSuccessResult> {
+  public voteForTaskProposal (taskId: string, voteValue: 'like' | 'dislike'): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForTaskProposal', [
       {type: 'string', value: taskId},
       {type: 'string', value: voteValue}
@@ -85,7 +85,7 @@ export class CommunityContractService {
     )
   }
 
-  public applyForTask(taskId: string, teamName: string, link: string): Observable<TransactionsSuccessResult> {
+  public applyForTask (taskId: string, teamName: string, link: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'applyForTask', [
       {type: 'string', value: taskId},
       {type: 'string', value: teamName},
@@ -103,7 +103,7 @@ export class CommunityContractService {
     )
   }
 
-  public voteForApplicant(taskId: string, teamIdentifier: string, voteValue: string): Observable<TransactionsSuccessResult> {
+  public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForApplicant', [
       {type: 'string', value: taskId},
       {type: 'string', value: teamIdentifier},
@@ -121,7 +121,7 @@ export class CommunityContractService {
     )
   }
 
-  public finishTaskProposalVoting(taskId: string): Observable<TransactionsSuccessResult> {
+  public finishTaskProposalVoting (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishTaskProposalVoting', [
       {type: 'string', value: taskId}
     ]).pipe(
@@ -137,7 +137,7 @@ export class CommunityContractService {
     )
   }
 
-  public startWork(taskId: string): Observable<TransactionsSuccessResult> {
+  public startWork (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'startWork', [
       {type: 'string', value: taskId}
     ]).pipe(
@@ -153,7 +153,7 @@ export class CommunityContractService {
     )
   }
 
-  public rejectTask(taskId: string): Observable<TransactionsSuccessResult> {
+  public rejectTask (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'rejectTask', [
       {type: 'string', value: taskId}
     ]).pipe(
@@ -169,7 +169,7 @@ export class CommunityContractService {
     )
   }
 
-  public acceptWorkResult(taskId: string, reportLink: string): Observable<TransactionsSuccessResult> {
+  public acceptWorkResult (taskId: string, reportLink: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'acceptWorkResult',
       [{type: 'string', value: taskId}, {type: 'string', value: reportLink}])
       .pipe(
@@ -185,7 +185,7 @@ export class CommunityContractService {
       )
   }
 
-  public finishApplicantsVoting(taskId: string): Observable<TransactionsSuccessResult> {
+  public finishApplicantsVoting (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishApplicantsVoting', [
       {type: 'string', value: taskId}
     ]).pipe(

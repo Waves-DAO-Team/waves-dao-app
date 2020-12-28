@@ -236,8 +236,10 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
           title: !this.grant?.status?.value ? translate('entity.add_reward') : translate('entity.edit_task_details'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackRewardArg) => {
-            if (this.grant?.id) {
-              this.communityContractService.addReward(this.grant?.id, parseInt(data.reward).toString()).subscribe(() => {})
+            const id = this.grant?.id
+            const reward = parseInt(data.reward, 10).toString()
+            if (id) {
+              this.communityContractService.addReward(id, reward).subscribe()
             }
             dialog.close()
             this.cdr.markForCheck()

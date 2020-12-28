@@ -273,9 +273,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           submitBtnText: translate('modal.btn.propose_grant'),
           grantId: this.grant?.id,
           submitCallBack: (data: SubmitCallBackRewardArg) => {
-            if (this.grant?.id) {
-              this.disruptiveContractService.addReward(this.grant?.id, parseInt(data.reward).toString()).subscribe(() => {
-              })
+            const id = this.grant?.id
+            const reward = parseInt(data.reward, 10).toString()
+            if (id) {
+              this.disruptiveContractService.addReward(id, reward).subscribe()
             }
             dialog.close()
             this.cdr.markForCheck()
