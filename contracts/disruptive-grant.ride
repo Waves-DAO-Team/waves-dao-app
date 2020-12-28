@@ -409,18 +409,18 @@ func voteForApplicant(taskId: String, teamIdentifier: String, voteValue: String)
 # }
 @Callable(i)
 func finishApplicantsVoting(taskId: String) = {
-    func hasMoreVotes(aid: Int, aid2: Int) = {
+    func hasMoreScore(aid: Int, aid2: Int) = {
         let listKey = "tasks_"+taskId+"_applicants"
         let applicantsList = getStringValue(this, listKey).split(";")
-        let teamIdentifier = applicantsList[aid]
-        let teamVotesAmountKey = "tasks_"+taskId+"_app_"+teamIdentifier+"_votes"
-        let teamVotesAmount = tryGetInteger(teamVotesAmountKey)
+        let teamIdentifier = drop(applicantsList[aid], 10)
+        let teamVotesScoreKey = "tasks_"+taskId+"_app_"+teamIdentifier+"_score"
+        let teamVotesScore = tryGetInteger(teamVotesScoreKey)
 
-        let team2Identifier = applicantsList[aid2]
-        let team2VotesAmountKey = "tasks_"+taskId+"_app_"+team2Identifier+"_votes"
-        let team2VotesAmount = tryGetInteger(team2VotesAmountKey)
+        let team2Identifier = drop(applicantsList[aid2], 10)
+        let team2VotesScoreKey = "tasks_"+taskId+"_app_"+team2Identifier+"_score"
+        let team2VotesScore = tryGetInteger(team2VotesScoreKey)
 
-        if (teamVotesAmount > team2VotesAmount) then {
+        if (teamVotesScore > team2VotesScore) then {
             aid
         } else {
             aid2
@@ -431,7 +431,7 @@ func finishApplicantsVoting(taskId: String) = {
     let applicantsList = listKeys.split(";")
 
     if (finishApplicantsVotingConditions(i.caller, taskId, applicantsList)) then {
-        let chosenTeamId = FOLD<2>([0,1], 0, hasMoreVotes)
+        let chosenTeamId = FOLD<2>([0,1], 0, hasMoreScore)
 
             let teamIdentifier = drop(applicantsList[chosenTeamId], 10)
             WriteSet([
