@@ -1,24 +1,24 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { SignerService } from '@services/signer/signer.service'
-import { map, take } from 'rxjs/operators'
-import { translate } from '@ngneat/transloco'
-import { DialogComponent } from '@ui/dialog/dialog.component'
-import { ApplyComponent } from '@ui/modals/apply/apply.component'
+import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ContractGrantModel} from '@services/contract/contract.model'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
+import {MatSnackBar} from '@angular/material/snack-bar'
+import {SignerService} from '@services/signer/signer.service'
+import {filter, map, take, tap} from 'rxjs/operators'
+import {translate} from '@ngneat/transloco'
+import {DialogComponent} from '@ui/dialog/dialog.component'
+import {ApplyComponent} from '@ui/modals/apply/apply.component'
 import {
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
   SubmitCallBackRewardArg, SubmitCallBackSubmitSolutionResultArg
 } from '@ui/dialog/dialog.tokens'
-import { MatDialog } from '@angular/material/dialog'
-import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
-import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
-import { UserService } from '@services/user/user.service'
-import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
-import { combineLatest, Subject } from 'rxjs'
+import {MatDialog} from '@angular/material/dialog'
+import {TemplateComponentAbstract, VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
+import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
+import {UserService} from '@services/user/user.service'
+import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
+import {combineLatest, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from "@ui/modals/submit-solution/submit-solution.component";
 
 @Component({
@@ -36,18 +36,30 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   grant$ = new Subject<ContractGrantModel>();
 
-  isVoteForTaskTemplate$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      map(([user, grant]) => {
-        if (grant) {
-          const isTL = grant.leader?.value === user.userAddress
-          const isStatusMatch = grant.status?.value === this.grantStatusEnum.approved
-          return isTL && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+  winnerIdentifier: string | null = null
+  winnerIdentifier$ = this.grant$.pipe(
+    filter(d => d !== null),
+    map(d => d.app),
+    map(d => {
+      let res = {
+        id: '',
+        vote: 0
+      }
+      if (d) {
+        d.forEach((e) => {
+          if (e.votes && e.votes.solution && e.votes.solution.value && e.key) {
+            const solution = +e.votes.solution.value
+            if (solution > res.vote) {
+              res.vote = solution
+              res.id = e.key
+            }
+          }
+        })
+      }
+      return res.vote > 0 ? res.id : null
+    }),
+    tap((d) => this.winnerIdentifier = d)
+  ).subscribe()
 
   isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -150,7 +162,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   GSgrant: ContractGrantModel = {}
 
-  @Input() set grant (data: ContractGrantModel) {
+  @Input() set grant(data: ContractGrantModel) {
     if (data !== this.GSgrant) {
       this.GSgrant = data
       this.prepareVoteForTaskData(data)
@@ -158,13 +170,13 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     this.grant$.next(data)
   }
 
-  get grant () {
+  get grant() {
     return this.GSgrant
   }
 
   @Input() public readonly contract!: GrantsVariationType
 
-  constructor (
+  constructor(
     private dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
     private snackBar: MatSnackBar,
@@ -174,7 +186,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   ) {
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
+  private prepareVoteForTaskData(grant: ContractGrantModel) {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === this.grantStatusEnum.proposed &&
@@ -191,12 +203,12 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     }
   }
 
-  vote (value: 'like' | 'dislike') {
+  vote(value: 'like' | 'dislike') {
     const id = this.grant.id || ''
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe()
   }
 
-  signup () {
+  signup() {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -205,7 +217,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal () {
+  openApplyModal() {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -224,25 +236,25 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface) {
+  voteTeam($event: VoteTeamEventInterface) {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote () {
+  finishVote() {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork (): void {
+  startWork(): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject (): void {
+  reject(): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult (): void {
+  acceptWorkResult(): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AcceptWorkResultComponent,
@@ -250,22 +262,27 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
-              .subscribe(() => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+            if (this.grant?.id && this.winnerIdentifier)
+              this.disruptiveContractService.acceptWorkResult(
+                this.grant?.id as string,
+                this.winnerIdentifier,
+                data.reportLink
+              )
+                .subscribe(() => {
+                  dialog.close()
+                  this.cdr.markForCheck()
+                })
           }
         }
       }
     })
   }
 
-  finishApplicantsVote (): void {
+  finishApplicantsVote(): void {
     this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward (): void {
+  addReward(): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddRewardComponent,
@@ -287,14 +304,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  enableSubmissions () {
+  enableSubmissions() {
     if (this.grant?.id) {
       this.disruptiveContractService.enableSubmissions(this.grant?.id, '').subscribe(() => {
       })
     }
   }
 
-  submitSolution () {
+  submitSolution() {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: SubmitSolutionComponent,
@@ -317,15 +334,16 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteForSolution ($event: VoteTeamEventInterface) {
-    console.log('---------------$event', $event)
+  voteForSolution($event: VoteTeamEventInterface) {
     if (this.grant?.id) {
       this.disruptiveContractService.voteForSolution(
         this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  stopSubmissions () {
-    if (this.grant?.id) { this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe(() => {}) }
+  stopSubmissions() {
+    if (this.grant?.id) {
+      this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe()
+    }
   }
 }

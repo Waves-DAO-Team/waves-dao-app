@@ -40,12 +40,12 @@
       <li
         [class.winner]="app?.process"
         [class.disabled-team]="
-           (
-            !(grant?.status?.value === grantStatusEnum.readyToApply)
-            || !(grant?.status?.value === grantStatusEnum.proposed)
-            || !(grant?.status?.value === grantStatusEnum.noStatus)
-           )
-           && (!(app?.votes?.applicant?.value) || app?.votes?.applicant?.value < 0)
+           // (
+           //  !(grant?.status?.value === grantStatusEnum.readyToApply)
+           //  || !(grant?.status?.value === grantStatusEnum.proposed)
+           //  || !(grant?.status?.value === grantStatusEnum.noStatus)
+           // )
+           // && (!(app?.votes?.applicant?.value) || app?.votes?.applicant?.value < 0)
         "
         class="team__list__li"
       >

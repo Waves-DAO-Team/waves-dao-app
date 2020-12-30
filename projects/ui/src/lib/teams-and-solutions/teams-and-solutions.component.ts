@@ -10,7 +10,7 @@ import {APP_CONSTANTS, AppConstantsInterface} from "@constants";
   templateUrl: './teams-and-solutions.component.html',
   styleUrls: ['./teams-and-solutions.component.scss']
 })
-export class TeamsAndSolutionsComponent implements OnChanges {
+export class TeamsAndSolutionsComponent {
 
   grantStatusEnum = GrantStatusEnum
   templateConditions = {
@@ -69,11 +69,6 @@ export class TeamsAndSolutionsComponent implements OnChanges {
     public userService: UserService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.grant && this.grant.app?.length)
-      console.log('--- grant ---', this.grant?.app)
   }
 
   isReadyToApply(): boolean {
