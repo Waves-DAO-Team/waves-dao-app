@@ -19,7 +19,7 @@ export interface SubmitCallBackAcceptWorkResultArg {
 }
 
 export interface SubmitCallBackSubmitSolutionResultArg {
-  reportLink: string
+  solutionLink: string
 }
 
 export interface DialogParams {

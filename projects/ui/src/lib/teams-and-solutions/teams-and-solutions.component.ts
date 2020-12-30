@@ -13,8 +13,48 @@ import {APP_CONSTANTS, AppConstantsInterface} from "@constants";
 export class TeamsAndSolutionsComponent implements OnChanges {
 
   grantStatusEnum = GrantStatusEnum
+  templateConditions = {
+    grantStatus: this.grantStatusEnum.noStatus.toString(),
+    voteType: 'team',
+    isApplyBtn: false,
+    isSubmitSolutionBtn: false,
 
-  @Input() grant: ContractGrantModel | null = null
+  }
+
+
+  GSgrant: ContractGrantModel | null = null
+
+  @Input() set grant(grant: ContractGrantModel | null) {
+    this.GSgrant = grant
+    if (grant && grant.status && grant.status.value) {
+      this.templateConditions.grantStatus = grant.status.value.toString()
+      if (
+        grant.status.value === this.grantStatusEnum.workStarted
+        || grant.status.value === this.grantStatusEnum.proposed
+        || grant.status.value === this.grantStatusEnum.readyToApply
+        || grant.status.value === this.grantStatusEnum.workStarted
+      ) {
+        this.templateConditions.voteType = 'team'
+      } else {
+        this.templateConditions.voteType = 'solution'
+      }
+      if (grant.status.value === this.grantStatusEnum.readyToApply) {
+        this.templateConditions.isApplyBtn = true
+      } else {
+        this.templateConditions.isApplyBtn = false
+      }
+      if (grant.status.value === this.grantStatusEnum.workStarted) {
+        this.templateConditions.isSubmitSolutionBtn = true
+      } else {
+        this.templateConditions.isSubmitSolutionBtn = false
+      }
+    }
+  }
+
+  get grant() {
+    return this.GSgrant
+  }
+
   @Input() titleText: string | null = null
   @Input() applyBtnText: string | null = null
 
@@ -23,6 +63,7 @@ export class TeamsAndSolutionsComponent implements OnChanges {
   @Output() newSubmitSolutionEvent = new EventEmitter()
   @Output() newOpenApplyModalEvent = new EventEmitter()
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
+  @Output() newVoteForSolutionEvent = new EventEmitter<VoteTeamEventInterface>()
 
   constructor(
     public userService: UserService,

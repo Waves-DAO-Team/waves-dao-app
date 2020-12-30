@@ -209,16 +209,17 @@ export class DisruptiveContractService {
       )
   }
 
-  voteForSolution (taskId: string, teamIdentifier: string, voteValue: 1 | -1) {
-    return this.signerService.invokeProcess(this.contractService.getAddress(), 'submitSolution',
+  voteForSolution (taskId: string, teamIdentifier: string, voteValue: string) {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForSolution',
       [
         {type: 'string', value: taskId},
         {type: 'string', value: teamIdentifier},
-        {type: 'integer', value: voteValue}
+        {type: 'string', value: voteValue}
       ]
     )
       .pipe(
         catchError((error) => {
+          console.log('-------------error', error)
           const mes = error.message ? error.message : translate('messages.transaction_rejected')
           this.snackBar.open(translate(mes))
           return EMPTY

@@ -24,7 +24,7 @@ export class SubmitSolutionComponent {
   onSubmit () {
     if (this.params.submitCallBack) {
       this.params.submitCallBack({
-        reward: this.form.value.solution
+        solutionLink: this.form.value.solution
       })
     }
   }

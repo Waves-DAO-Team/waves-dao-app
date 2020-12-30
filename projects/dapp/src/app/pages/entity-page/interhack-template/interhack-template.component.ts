@@ -295,12 +295,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   submitSolution () {
-    console.log('1111')
-    // if (this.grant?.id) {
-    //   this.disruptiveContractService.submitSolution(this.grant?.id).subscribe(() => {
-    //   })
-    // }
-
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: SubmitSolutionComponent,
@@ -310,11 +304,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           grantId: this.grant?.id,
           submitCallBack: (data: SubmitCallBackSubmitSolutionResultArg) => {
             console.log('data:', data)
-            // const id = this.grant?.id
+            const id = this.grant?.id
             // const reward = parseInt(data.reward, 10).toString()
-            // if (id) {
-            //   this.disruptiveContractService.addReward(id, reward).subscribe()
-            // }
+            if (id) {
+              this.disruptiveContractService.submitSolution(id, data.solutionLink).subscribe()
+            }
             dialog.close()
             this.cdr.markForCheck()
           }
@@ -323,10 +317,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteForSolution () {
+  voteForSolution ($event: VoteTeamEventInterface) {
+    console.log('---------------$event', $event)
     if (this.grant?.id) {
-      this.disruptiveContractService.voteForSolution(this.grant?.id, '', 1).subscribe(() => {
-      })
+      this.disruptiveContractService.voteForSolution(
+        this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
