@@ -9,7 +9,8 @@ import {TranslocoModule} from "@ngneat/transloco";
   declarations: [TeamsAndSolutionsComponent],
   imports: [
     CommonModule,
-    TranslocoModule
+    TranslocoModule,
+
   ],
   exports: [TeamsAndSolutionsComponent]
 })

@@ -15,6 +15,8 @@ import { TeamModule } from '@ui/team/team.module'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import {StepperModule} from '@ui/stepper/stepper.module';
 import {TeamsAndSolutionsModule} from "@ui/teams-and-solutions/teams-and-solutions.module";
+import {AddTaskDetailsComponent} from "@ui/modals/add-task-details/add-task-details.component";
+import {SubmitSolutionModule} from "@ui/modals/submit-solution/submit-solution.module";
 
 @NgModule({
   declarations: [EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
@@ -29,6 +31,7 @@ import {TeamsAndSolutionsModule} from "@ui/teams-and-solutions/teams-and-solutio
     TeamModule,
     VoteForTaskModule,
     TeamsAndSolutionsModule,
+    SubmitSolutionModule,
     StepperModule
   ]
 })

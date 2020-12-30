@@ -11,7 +11,7 @@ import { ApplyComponent } from '@ui/modals/apply/apply.component'
 import {
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
-  SubmitCallBackRewardArg
+  SubmitCallBackRewardArg, SubmitCallBackSubmitSolutionResultArg
 } from '@ui/dialog/dialog.tokens'
 import { MatDialog } from '@angular/material/dialog'
 import { TemplateComponentAbstract, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
@@ -19,6 +19,7 @@ import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
 import { UserService } from '@services/user/user.service'
 import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
 import { combineLatest, Subject } from 'rxjs'
+import {SubmitSolutionComponent} from "@ui/modals/submit-solution/submit-solution.component";
 
 @Component({
   selector: 'app-interhack-template',
@@ -294,10 +295,32 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   submitSolution () {
-    if (this.grant?.id) {
-      this.disruptiveContractService.submitSolution(this.grant?.id).subscribe(() => {
-      })
-    }
+    console.log('1111')
+    // if (this.grant?.id) {
+    //   this.disruptiveContractService.submitSolution(this.grant?.id).subscribe(() => {
+    //   })
+    // }
+
+    const dialog = this.dialog.open(DialogComponent, {
+      data: {
+        component: SubmitSolutionComponent,
+        params: {
+          title: translate('entity.submit_solution'),
+          submitBtnText: translate('modal.btn.propose_grant'),
+          grantId: this.grant?.id,
+          submitCallBack: (data: SubmitCallBackSubmitSolutionResultArg) => {
+            console.log('data:', data)
+            // const id = this.grant?.id
+            // const reward = parseInt(data.reward, 10).toString()
+            // if (id) {
+            //   this.disruptiveContractService.addReward(id, reward).subscribe()
+            // }
+            dialog.close()
+            this.cdr.markForCheck()
+          }
+        }
+      }
+    })
   }
 
   voteForSolution () {

@@ -16,6 +16,12 @@
       </button>
 
       <button
+        class="active" (click)="newSubmitSolutionEvent.emit()" *ngIf="user.roles.isAuth" routerLinkActive="active"
+      >
+        {{ 'entity.submit_solution' | transloco }}
+      </button>
+
+      <button
         class="active"
         (click)="newOpenApplyModalEvent.emit()"
         [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
@@ -40,7 +46,7 @@
           </div>
 
           <div class="team__list__li__left__score mat-display-2">
-            {{app?.votes.applicant.value || 0}}
+            {{app?.votes?.applicant?.value || 0}}
           </div>
           <div class="team__list__li__left__down">
             <img
@@ -64,15 +70,9 @@
           </a>
           <a class="team__solution-link mat-display-1" *ngIf="app?.solution?.value" [href]="app?.solution?.value">
             {{'entity.learn_about_solution' | transloco}}
+            <img alt="link" src="assets/icons/link.svg">
           </a>
         </div>
-        <!--        <div class="team__list__li__mid__name mat-display-2">{{app?.name?.value}}</div>-->
-        <!--        <a class="team__list__li__mid__link  mat-display-1" [href]="app?.link?.value">-->
-        <!--          {{'entity.learn_about_team' | transloco}} <img alt="link" src="assets/icons/link.svg">-->
-        <!--        </a>-->
-        <!--        <a class="team__solution-link" [href]="app?.solution?.value" *ngIf="app?.solution?.value">-->
-        <!--          {{app?.solution?.value}}-->
-        <!--        </a>-->
       </div>
       <div class="team__list__li__right mat-display-2">
         <ng-container *ngIf="app.process">

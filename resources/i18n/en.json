@@ -242,6 +242,14 @@
       "apply": "Apply"
     }
   },
+  "submit_solution": {
+    "form": {
+      "solution": {
+        "label": "Solution link",
+        "placeholder": "Solution link"
+      }
+    }
+  },
   "apply_grant": {
     "title": "Apply for grant",
     "form": {
@@ -321,7 +329,7 @@
       "banner": "Call for applications will be announced in Q1 2021. Stay tuned!",
       "about": "https://github.com/Waves-Association/grants-program/blob/main/.github/ISSUE_TEMPLATE/track-1--disruptive-tech-grant.md"
     },
-    "web3" : {
+    "web3": {
       "navigation": "Web3.0 grants",
       "preview": "assets/img/web3-type-preview.png",
       "img": "assets/img/web3-type.png",

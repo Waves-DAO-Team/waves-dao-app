@@ -20,6 +20,7 @@ export class TeamsAndSolutionsComponent implements OnChanges {
 
   @Output() openApplyModal = new EventEmitter<boolean>()
   @Output() newSignupEvent = new EventEmitter()
+  @Output() newSubmitSolutionEvent = new EventEmitter()
   @Output() newOpenApplyModalEvent = new EventEmitter()
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
@@ -30,11 +31,11 @@ export class TeamsAndSolutionsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.grant && this.grant.app?.length)
-        console.log('--- grant ---', this.grant?.app)
-    }
+    if (this.grant && this.grant.app?.length)
+      console.log('--- grant ---', this.grant?.app)
+  }
 
-  isReadyToApply (): boolean {
+  isReadyToApply(): boolean {
     return this.grant?.status?.value === this.grantStatusEnum.readyToApply
   }
 

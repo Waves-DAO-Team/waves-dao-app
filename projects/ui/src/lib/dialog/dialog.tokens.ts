@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core'
 import { MatDialogRef } from '@angular/material/dialog'
 import { DialogComponent } from './dialog.component'
 import { ContractGrantModel } from '@services/contract/contract.model'
+import {SubmitSolutionComponent} from "@ui/modals/submit-solution/submit-solution.component";
 
 export interface SubmitCallBackApplyArg {
   id: string, team: string, link: string
@@ -17,6 +18,10 @@ export interface SubmitCallBackAcceptWorkResultArg {
   reportLink: string
 }
 
+export interface SubmitCallBackSubmitSolutionResultArg {
+  reportLink: string
+}
+
 export interface DialogParams {
   templateId?: string,
   title?: string,
@@ -28,7 +33,8 @@ export interface DialogParams {
                         SubmitCallBackProposeArg |
                         SubmitCallBackApplyArg |
                         SubmitCallBackRewardArg |
-                        SubmitCallBackAcceptWorkResultArg
+                        SubmitCallBackAcceptWorkResultArg |
+                        SubmitCallBackSubmitSolutionResultArg
   ) => void,
 }
 
