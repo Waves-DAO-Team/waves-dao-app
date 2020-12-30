@@ -40,6 +40,18 @@ export interface ContractGrantAppModel {
     type: string
     value: string
   }
+  solution?: {
+    key: string
+    type: string
+    value: string
+  }
+  votes?: {
+    applicant?: {
+      key: string
+      type: string
+      value: string
+    }
+  }
 }
 
 export interface ContractGrantCommonModel {

@@ -39,25 +39,34 @@
 </ng-template>
 
 <ng-template #team>
-  <ui-team
+  <ui-teams-and-solutions
     [grant]="grant"
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"
     (newVoteTeamEvent)="voteTeam($event)"
     titleText="{{'entity.teams' | transloco}}"
     applyBtnText="{{'entity.apply' | transloco}}"
-  ></ui-team>
+  ></ui-teams-and-solutions>
+
+<!--  <ui-team-->
+<!--    [grant]="grant"-->
+<!--    (newSignupEvent)="signup()"-->
+<!--    (newOpenApplyModalEvent)="openApplyModal()"-->
+<!--    (newVoteTeamEvent)="voteTeam($event)"-->
+<!--    titleText="{{'entity.teams' | transloco}}"-->
+<!--    applyBtnText="{{'entity.apply' | transloco}}"-->
+<!--  ></ui-team>-->
 </ng-template>
 
 <ng-template #solutionsTemplate>
-  <ui-team
-    [grant]="grant"
-    (newSignupEvent)="signup()"
-    (newOpenApplyModalEvent)="openApplyModal()"
-    (newVoteTeamEvent)="voteTeam($event)"
-    titleText="{{'entity.solutions' | transloco}}"
-    applyBtnText="{{'entity.propose_solution' | transloco}}"
-  ></ui-team>
+<!--  <ui-team-->
+<!--    [grant]="grant"-->
+<!--    (newSignupEvent)="signup()"-->
+<!--    (newOpenApplyModalEvent)="openApplyModal()"-->
+<!--    (newVoteTeamEvent)="voteTeam($event)"-->
+<!--    titleText="{{'entity.solutions' | transloco}}"-->
+<!--    applyBtnText="{{'entity.propose_solution' | transloco}}"-->
+<!--  ></ui-team>-->
 </ng-template>
 
 <ng-template #voteForTask>
