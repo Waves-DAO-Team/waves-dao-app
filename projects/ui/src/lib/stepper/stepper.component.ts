@@ -13,7 +13,7 @@ import { tap } from 'rxjs/operators'
 export class StepperComponent implements AfterViewInit {
   grantStatusEnum = GrantStatusEnum
   grantStatus: string[] = []
-  stepId: number = 0
+  stepId = 0
   formalStatuses = this.stepperService.getFormalStatuses()
   setId$ = new Subject();
   stepperInit$ = new Subject();

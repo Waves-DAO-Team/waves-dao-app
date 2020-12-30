@@ -1,7 +1,7 @@
 <ng-template #controlsBtn>
 
   <button class="marginTB" (click)="enableSubmissions()" *ngIf="isEnableSubmissionsBtn$ | async">
-    enableSubmissions
+    {{'entity.enable_submissions' | transloco}}
   </button>
 
   <button class="marginTB" (click)="stopSubmissions()" *ngIf="isStopSubmissionsBtn$ | async">

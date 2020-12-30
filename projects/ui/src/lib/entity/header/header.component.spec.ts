@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { HeaderComponent } from './header.component'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
-import {PipesModule} from "@libs/pipes/pipes.module";
+import { PipesModule } from '@libs/pipes/pipes.module'
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent
@@ -10,7 +10,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [getTranslocoModule(),  PipesModule,],
+      imports: [getTranslocoModule(), PipesModule],
       declarations: [HeaderComponent]
     })
       .compileComponents()
