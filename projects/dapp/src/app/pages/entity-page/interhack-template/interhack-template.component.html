@@ -4,11 +4,11 @@
     enableSubmissions
   </button>
 
-  <button class="marginTB" (click)="stopSubmissions()">
+  <button class="marginTB" (click)="stopSubmissions()" *ngIf="isStopSubmissionsBtn$ | async">
     {{'entity.stop_submissions' | transloco}}
   </button>
 
-  <button class="marginTB" (click)="acceptWorkResult()">
+  <button class="marginTB" (click)="acceptWorkResult()" *ngIf="isAcceptWorkResultBtn$ | async">
     {{'entity.accept_work_result' | transloco}}
   </button>
 

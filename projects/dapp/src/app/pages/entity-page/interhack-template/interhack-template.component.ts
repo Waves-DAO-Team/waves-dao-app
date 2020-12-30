@@ -61,6 +61,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     tap((d) => this.winnerIdentifier = d)
   ).subscribe()
 
+  isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+        const isWG = user.roles.isWG
+        return isWG && isStatusMatch
+      })
+    )
   isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
       map(([user, grant]) => {
@@ -119,7 +127,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       map(([user, grant]) => {
         if (grant) {
           const isWG = user.roles.isWG
-          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workFinished
           return isWG && isStatusMatch
         } else {
           return false
