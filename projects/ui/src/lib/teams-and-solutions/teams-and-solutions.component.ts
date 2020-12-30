@@ -18,7 +18,7 @@ export class TeamsAndSolutionsComponent {
     voteType: 'team',
     isApplyBtn: false,
     isSubmitSolutionBtn: false,
-
+    isShowAllTeam: true
   }
 
 
@@ -47,6 +47,15 @@ export class TeamsAndSolutionsComponent {
         this.templateConditions.isSubmitSolutionBtn = true
       } else {
         this.templateConditions.isSubmitSolutionBtn = false
+      }
+      if(
+        grant.status.value === this.grantStatusEnum.noStatus
+        || grant.status.value === this.grantStatusEnum.proposed
+        || grant.status.value === this.grantStatusEnum.readyToApply
+      ) {
+        this.templateConditions.isShowAllTeam = true
+      } else {
+        this.templateConditions.isShowAllTeam = false
       }
     }
   }

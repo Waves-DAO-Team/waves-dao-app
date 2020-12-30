@@ -87,6 +87,7 @@
       "waves": "WAVES"
     },
     "status": {
+      "team_choosen": "Solution selected",
       "proposed": "Open",
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
