@@ -1,7 +1,5 @@
 <div class="team" *ngIf="userService.data | async as user">
 
-  {{ templateConditions | json}}
-
   <div class="team__header" *ngIf="grant?.isShowAppliers">
 
     <div class="team__title mat-display-4">{{titleText}}</div>
