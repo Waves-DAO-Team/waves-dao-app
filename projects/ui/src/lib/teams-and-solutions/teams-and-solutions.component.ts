@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {GrantStatusEnum} from "@services/static/static.model";
 import {ContractGrantModel} from "@services/contract/contract.model";
-import {VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
+import {TeamsAndSolutionsControlsInterface, VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
 import {UserService} from "@services/user/user.service";
 import {APP_CONSTANTS, AppConstantsInterface} from "@constants";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'ui-teams-and-solutions',
@@ -12,51 +13,53 @@ import {APP_CONSTANTS, AppConstantsInterface} from "@constants";
 })
 export class TeamsAndSolutionsComponent {
 
+  @Input() teamsAndSolutionsControls: TeamsAndSolutionsControlsInterface | undefined
+
   grantStatusEnum = GrantStatusEnum
-  templateConditions = {
-    grantStatus: this.grantStatusEnum.noStatus.toString(),
-    voteType: 'team',
-    isApplyBtn: false,
-    isSubmitSolutionBtn: false,
-    isShowAllTeam: true
-  }
+  // templateConditions = {
+  //   grantStatus: this.grantStatusEnum.noStatus.toString(),
+  //   voteType: 'team',
+  //   isApplyBtn: false,
+  //   isSubmitSolutionBtn: false,
+  //   isShowAllTeam: true
+  // }
 
   GSgrant: ContractGrantModel | null = null
 
   @Input() set grant(grant: ContractGrantModel | null) {
     this.GSgrant = grant
-    if (grant && grant.status && grant.status.value) {
-      this.templateConditions.grantStatus = grant.status.value.toString()
-      if (
-        grant.status.value === this.grantStatusEnum.workStarted
-        || grant.status.value === this.grantStatusEnum.proposed
-        || grant.status.value === this.grantStatusEnum.readyToApply
-        || grant.status.value === this.grantStatusEnum.workStarted
-      ) {
-        this.templateConditions.voteType = 'team'
-      } else {
-        this.templateConditions.voteType = 'solution'
-      }
-      if (grant.status.value === this.grantStatusEnum.readyToApply) {
-        this.templateConditions.isApplyBtn = true
-      } else {
-        this.templateConditions.isApplyBtn = false
-      }
-      if (grant.status.value === this.grantStatusEnum.workStarted) {
-        this.templateConditions.isSubmitSolutionBtn = true
-      } else {
-        this.templateConditions.isSubmitSolutionBtn = false
-      }
-      if(
-        grant.status.value === this.grantStatusEnum.noStatus
-        || grant.status.value === this.grantStatusEnum.proposed
-        || grant.status.value === this.grantStatusEnum.readyToApply
-      ) {
-        this.templateConditions.isShowAllTeam = true
-      } else {
-        this.templateConditions.isShowAllTeam = false
-      }
-    }
+    // if (grant && grant.status && grant.status.value) {
+      // this.templateConditions.grantStatus = grant.status.value.toString()
+      // if (
+      //   grant.status.value === this.grantStatusEnum.workStarted
+      //   || grant.status.value === this.grantStatusEnum.proposed
+      //   || grant.status.value === this.grantStatusEnum.readyToApply
+      //   || grant.status.value === this.grantStatusEnum.workStarted
+      // ) {
+      //   this.templateConditions.voteType = 'team'
+      // } else {
+      //   this.templateConditions.voteType = 'solution'
+      // }
+      // if (grant.status.value === this.grantStatusEnum.readyToApply) {
+      //   this.templateConditions.isApplyBtn = true
+      // } else {
+      //   this.templateConditions.isApplyBtn = false
+      // }
+      // if (grant.status.value === this.grantStatusEnum.workStarted) {
+      //   this.templateConditions.isSubmitSolutionBtn = true
+      // } else {
+      //   this.templateConditions.isSubmitSolutionBtn = false
+      // }
+      // if(
+      //   grant.status.value === this.grantStatusEnum.noStatus
+      //   || grant.status.value === this.grantStatusEnum.proposed
+      //   || grant.status.value === this.grantStatusEnum.readyToApply
+      // ) {
+      //   this.templateConditions.isShowAllTeam = true
+      // } else {
+      //   this.templateConditions.isShowAllTeam = false
+      // }
+    // }
   }
 
   get grant() {

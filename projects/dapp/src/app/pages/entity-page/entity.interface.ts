@@ -19,3 +19,13 @@ export abstract class TemplateComponentAbstract {
   public abstract finishApplicantsVote (): void
   public abstract addReward (): void
 }
+
+
+export interface TeamsAndSolutionsControlsInterface {
+  isShowSolutionControls: boolean,
+  stepType: string,
+  isApplyBtn: boolean,
+  isSubmitSolutionBtn: boolean,
+  isShowAllTeam: boolean,
+  teamVoteKeys: string[],
+}

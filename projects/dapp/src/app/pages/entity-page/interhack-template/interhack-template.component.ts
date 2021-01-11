@@ -4,7 +4,7 @@ import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.mode
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
-import {filter, map, take, tap} from 'rxjs/operators'
+import {filter, map, skipWhile, take, tap} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
@@ -14,11 +14,15 @@ import {
   SubmitCallBackRewardArg, SubmitCallBackSubmitSolutionResultArg
 } from '@ui/dialog/dialog.tokens'
 import {MatDialog} from '@angular/material/dialog'
-import {TemplateComponentAbstract, VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
+import {
+  TeamsAndSolutionsControlsInterface,
+  TemplateComponentAbstract,
+  VoteTeamEventInterface
+} from '@pages/entity-page/entity.interface'
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
-import {combineLatest, Subject} from 'rxjs'
+import {combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from "@ui/modals/submit-solution/submit-solution.component";
 
 @Component({
@@ -35,6 +39,99 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   grant$ = new Subject<ContractGrantModel>();
+
+  // app - тут команды
+
+  // 35 / 25 / 15
+
+  teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      // skipWhile(v => !v),
+      tap(([user, solution]) => {
+        let userKey = user.userAddress.slice(-15)
+        let teamKeys: string[] = []
+        let teamExistKeys: string[] = []
+        if(solution && solution.app)
+          solution.app.forEach((e)=>{
+            if(e.key)
+              teamKeys.push(userKey + e.key)
+          })
+        teamKeys.forEach((key) => {
+          // @ts-ignore
+          if(solution.vh[key]) {
+            teamExistKeys.push(key)
+          }
+        })
+
+        // console.log('+++', user, solution, teamKeys, teamExistKeys)
+        console.log('+++', teamExistKeys)
+      }),
+      // isShowSolutionControls
+      map(([user, grant]) => {
+        let result: TeamsAndSolutionsControlsInterface = {
+          isShowSolutionControls: true,
+          stepType: 'team',
+          isApplyBtn: false,
+          isSubmitSolutionBtn: false,
+          isShowAllTeam: false,
+          teamVoteKeys: []
+        }
+        if(grant && grant.status && grant.status.value) {
+          // isShowSolutionControls
+          const status = grant.status.value
+          if (status === this.grantStatusEnum.solutionChosen) {
+            result.isShowSolutionControls = false
+          }
+          // stepType
+          if ((status === this.grantStatusEnum.workStarted
+            || status === this.grantStatusEnum.proposed
+            || status === this.grantStatusEnum.readyToApply
+            || status === this.grantStatusEnum.workStarted)
+          ) {
+            result.stepType = 'team'
+          } else {
+            result.stepType = 'solution'
+          }
+          // isApplyBtn
+          if (user.roles.isAuth && status === this.grantStatusEnum.readyToApply) {
+            result.isApplyBtn = true
+          } else {
+            result.isApplyBtn = false
+          }
+          // isSubmitSolutionBtn
+          if (user.roles.isAuth && status === this.grantStatusEnum.workStarted) {
+            result.isSubmitSolutionBtn = true
+          } else {
+            result.isSubmitSolutionBtn = false
+          }
+          // isShowAllTeam
+          if(
+            status === this.grantStatusEnum.noStatus
+            || status === this.grantStatusEnum.proposed
+            || status === this.grantStatusEnum.readyToApply
+          ) {
+            result.isShowAllTeam = true
+          } else {
+            result.isShowAllTeam = false
+          }
+          // teamVoteKeys
+          let userKey = user.userAddress.slice(-15)
+          let teamKeys: string[] = []
+          if(grant && grant.app)
+            grant.app.forEach((e)=>{
+              if(e.key)
+                teamKeys.push(userKey + e.key)
+            })
+          teamKeys.forEach((key) => {
+            // @ts-ignore
+            if(grant.vh[key]) {
+              result.teamVoteKeys.push(key.slice(-25))
+            }
+          })
+        }
+        return result
+      })
+    )
 
   winnerIdentifier: string | null = null
   winnerIdentifier$ = this.grant$.pipe(

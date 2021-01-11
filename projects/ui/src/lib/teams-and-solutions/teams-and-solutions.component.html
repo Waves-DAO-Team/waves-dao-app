@@ -1,6 +1,7 @@
 
+<!--{{teamsAndSolutionsControls | json}}-->
 
-<div class="team" *ngIf="userService.data | async as user">
+<div class="team" *ngIf="userService.data | async as user  ">
 
   <div class="team__header" *ngIf="grant?.isShowAppliers">
 
@@ -19,7 +20,7 @@
       <button
         class="active"
         (click)="newSubmitSolutionEvent.emit()"
-        *ngIf="user.roles.isAuth && templateConditions.isSubmitSolutionBtn"
+        *ngIf="teamsAndSolutionsControls.isSubmitSolutionBtn"
       >
         {{ 'entity.submit_solution' | transloco }}
       </button>
@@ -28,7 +29,7 @@
         class="active"
         (click)="newOpenApplyModalEvent.emit()"
         [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
-        *ngIf="user.roles.isAuth && templateConditions.isApplyBtn"
+        *ngIf="teamsAndSolutionsControls.isApplyBtn"
       >
         {{ applyBtnText }}
       </button>
@@ -40,7 +41,7 @@
       <li
         [class.winner]="app?.process"
         [class.disabled-team]="
-           !templateConditions.isShowAllTeam
+           !teamsAndSolutionsControls.isShowAllTeam
            && (!(app?.votes?.applicant?.value) || app?.votes?.applicant?.value < 0)
         "
         class="team__list__li"
@@ -48,23 +49,19 @@
 
         <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">
 
-
           <ng-container *ngSwitchCase="true">
             <div class="team__list__li__left__up">
               <img
                 alt="vote"
                 src="assets/icons/arr-up-blue.svg"
-                *ngIf="
-                  templateConditions.voteType === 'team'
-                "
+                [class.disabled]="teamsAndSolutionsControls.teamVoteKeys.includes(app.key)"
+                *ngIf="teamsAndSolutionsControls.stepType === 'team'"
                 (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
               >
               <img
-                *ngIf="
-                  templateConditions.voteType !== 'team'
-                  && grant?.status?.value != grantStatusEnum.teamChosen
-                "
+                *ngIf="teamsAndSolutionsControls.stepType !== 'team' && teamsAndSolutionsControls.isShowSolutionControls"
                 alt="vote"
+
                 src="assets/icons/arr-up-blue.svg"
                 (click)="newVoteForSolutionEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
               >
@@ -72,7 +69,7 @@
 
             <div class="team__list__li__left__score mat-display-2">
               <!-- team -->
-              <ng-container *ngIf="templateConditions.voteType === 'team'; else solutionRes">
+              <ng-container *ngIf="teamsAndSolutionsControls.stepType === 'team'; else solutionRes">
                 t: {{app?.votes?.applicant?.value || 0}}
               </ng-container>
               <!-- solution -->
@@ -80,14 +77,15 @@
             </div>
             <div class="team__list__li__left__down">
               <img
-                *ngIf="templateConditions.voteType === 'team'"
+                *ngIf="teamsAndSolutionsControls.stepType === 'team'"
                 alt="vote"
+                [class.disabled]="teamsAndSolutionsControls.teamVoteKeys.includes(app.key)"
                 src="assets/icons/arr-down-red.svg"
                 (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
               <img
                 *ngIf="
-                  templateConditions.voteType !== 'team'
-                  && grant?.status?.value != grantStatusEnum.teamChosen
+                  teamsAndSolutionsControls.stepType !== 'team'
+                  && teamsAndSolutionsControls.isShowSolutionControls
                 "
                 alt="vote"
                 src="assets/icons/arr-down-red.svg"
@@ -101,7 +99,7 @@
         </div>
 
         <div class="team__mid-container">
-          <div class="team__name">{{app?.name?.value}}</div>
+          <div class="team__name">{{app?.name?.value}} -- {{app.key}}</div>
           <div class="team__mid-container-bottom">
             <a class="team__link mat-display-1" [href]="app?.link?.value">
               {{'entity.learn_about_team' | transloco}}
