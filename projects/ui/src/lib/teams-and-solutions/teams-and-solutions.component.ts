@@ -21,7 +21,6 @@ export class TeamsAndSolutionsComponent {
     isShowAllTeam: true
   }
 
-
   GSgrant: ContractGrantModel | null = null
 
   @Input() set grant(grant: ContractGrantModel | null) {

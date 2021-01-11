@@ -32,16 +32,16 @@ export class StepperService {
       value: translate('stepper.requests_selection_start')
     },
     {
-      key: 'team_chosen',
-      value: translate('stepper.solutions_selection_over')
-    },
-    {
       key: 'work_started',
       value: translate('stepper.work_started')
     },
     {
       key: 'work_finished',
       value: translate('stepper.work_finished')
+    },
+    {
+      key: 'solution_chosen',
+      value: translate('stepper.solutions_selection_over')
     }
   ]
 

@@ -168,13 +168,17 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       })
     )
 
+  userServiceData$ = this.userService.data.subscribe(() => {
+    this.prepareVoteForTaskData()
+  })
+
   GSgrant: ContractGrantModel = {}
 
   @Input() set grant(data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
-      this.prepareVoteForTaskData(data)
-    }
+    // if (data !== this.GSgrant) {
+    this.GSgrant = data
+    this.prepareVoteForTaskData(data)
+    // }
     this.grant$.next(data)
   }
 
@@ -194,7 +198,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   ) {
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel) {
+  private prepareVoteForTaskData(grant: ContractGrantModel = this.GSgrant) {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === this.grantStatusEnum.proposed &&
@@ -270,6 +274,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
+            console.log('acceptWorkResult', this.grant?.id, this.winnerIdentifier)
             if (this.grant?.id && this.winnerIdentifier)
               this.disruptiveContractService.acceptWorkResult(
                 this.grant?.id as string,
