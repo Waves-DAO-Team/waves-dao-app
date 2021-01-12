@@ -222,10 +222,16 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   isAcceptWorkResultBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
       map(([user, grant]) => {
-        if (grant) {
+        if (grant && grant.app) {
           const isWG = user.roles.isWG
+          let isVote = false
+          grant.app.forEach((app)=>{
+            if(app.voted.solution && app.voted.solution.value) {
+              isVote = true
+            }
+          })
           const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workFinished
-          return isWG && isStatusMatch
+          return isVote && isWG && isStatusMatch
         } else {
           return false
         }
