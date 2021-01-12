@@ -1,127 +1,128 @@
-<div class="team" *ngIf="teamsAndSolutionsControls && teamsAndSolutionsControls.isShow && userService.data | async as user  ">
+<ng-container *ngIf="teamsAndSolutionsControls && teamsAndSolutionsControls.isShow ">
+  <div class="team" *ngIf="userService.data | async as user  ">
 
-  <div class="team__header" *ngIf="grant?.isShowAppliers">
+    <div class="team__header" *ngIf="grant?.isShowAppliers">
 
-    <div class="team__title mat-display-4">{{titleText}}</div>
+      <div class="team__title mat-display-4">{{titleText}}</div>
 
-    <div class="team__controls" *ngIf="teamsAndSolutionsControls">
-      <button
-        class="active"
-        (click)="newSignupEvent.emit()"
-        *ngIf="user.roles.isUnauthorized"
-      >
-        {{'entity.log_in_for_apply' | transloco}}
-      </button>
+      <div class="team__controls" *ngIf="teamsAndSolutionsControls">
+        <button
+          class="active"
+          (click)="newSignupEvent.emit()"
+          *ngIf="user.roles.isUnauthorized"
+        >
+          {{'entity.log_in_for_apply' | transloco}}
+        </button>
 
-      <button
-        class="active"
-        (click)="newSubmitSolutionEvent.emit()"
-        *ngIf="teamsAndSolutionsControls.isSubmitSolutionBtn"
-      >
-        {{ 'entity.submit_solution' | transloco }}
-      </button>
+        <button
+          class="active"
+          (click)="newSubmitSolutionEvent.emit()"
+          *ngIf="teamsAndSolutionsControls.isSubmitSolutionBtn"
+        >
+          {{ 'entity.submit_solution' | transloco }}
+        </button>
 
-      <button
-        class="active"
-        (click)="newOpenApplyModalEvent.emit()"
-        [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
-        *ngIf="teamsAndSolutionsControls.isApplyBtn && !teamsAndSolutionsControls.leaderIds.includes(userService.data.getValue().userAddress)"
-      >
-        {{ applyBtnText }}
-      </button>
+        <button
+          class="active"
+          (click)="newOpenApplyModalEvent.emit()"
+          [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
+          *ngIf="teamsAndSolutionsControls.isApplyBtn && !teamsAndSolutionsControls.leaderIds.includes(userService.data.getValue().userAddress)"
+        >
+          {{ applyBtnText }}
+        </button>
+      </div>
     </div>
-  </div>
 
-  <ul *ngIf="grant?.app?.length > 0 && teamsAndSolutionsControls" class="team__list">
-    <ng-container *ngFor="let app of grant?.app">
+    <ul *ngIf="grant?.app?.length > 0 && teamsAndSolutionsControls" class="team__list">
+      <ng-container *ngFor="let app of grant?.app">
 
-      <li
-        [class.winner]="app?.process"
-        [class.disabled-team]="
+        <li
+          [class.winner]="app?.process"
+          [class.disabled-team]="
            !teamsAndSolutionsControls.isShowAllTeam
            && (!(app?.votes?.applicant?.value) || app?.votes?.applicant?.value < 0)
         "
-        class="team__list__li"
-      >
+          class="team__list__li"
+        >
 
-        <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">
+          <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">
 
-          <ng-container *ngSwitchCase="true">
-            <div class="team__list__li__left__up">
-              <img
-                alt="vote"
-                src="assets/icons/arr-up-blue.svg"
-                [class.disabled]="teamsAndSolutionsControls.teamVoteKeys.includes(app.key) || grantStatusEnum.readyToApply !== grant.status.value"
-                *ngIf="teamsAndSolutionsControls.stepType === 'team'"
-                (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
-              >
-              <img
-                *ngIf="teamsAndSolutionsControls.stepType !== 'team' && teamsAndSolutionsControls.isShowSolutionControls"
-                alt="vote"
-                [class.disabled]="app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)"
-                src="assets/icons/arr-up-blue.svg"
-                (click)="newVoteForSolutionEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
-              >
-            </div>
+            <ng-container *ngSwitchCase="true">
+              <div class="team__list__li__left__up">
+                <img
+                  alt="vote"
+                  src="assets/icons/arr-up-blue.svg"
+                  [class.disabled]="teamsAndSolutionsControls.teamVoteKeys.includes(app.key) || grantStatusEnum.readyToApply !== grant?.status?.value"
+                  *ngIf="teamsAndSolutionsControls.stepType === 'team'"
+                  (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
+                >
+                <img
+                  *ngIf="teamsAndSolutionsControls.stepType !== 'team' && teamsAndSolutionsControls.isShowSolutionControls"
+                  alt="vote"
+                  [class.disabled]="app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)"
+                  src="assets/icons/arr-up-blue.svg"
+                  (click)="newVoteForSolutionEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
+                >
+              </div>
 
-            <div class="team__list__li__left__score mat-display-2">
-              <!-- team -->
-              <ng-container *ngIf="teamsAndSolutionsControls.stepType === 'team'; else solutionRes">
-                t: {{app?.votes?.applicant?.value || 0}}
-              </ng-container>
-              <!-- solution -->
-              <ng-template #solutionRes> s: {{app?.votes?.solution?.value || 0}}</ng-template>
-            </div>
-            <div class="team__list__li__left__down">
+              <div class="team__list__li__left__score mat-display-2">
+                <!-- team -->
+                <ng-container *ngIf="teamsAndSolutionsControls.stepType === 'team'; else solutionRes">
+                  t: {{app?.votes?.applicant?.value || 0}}
+                </ng-container>
+                <!-- solution -->
+                <ng-template #solutionRes> s: {{app?.votes?.solution?.value || 0}}</ng-template>
+              </div>
+              <div class="team__list__li__left__down">
 
-              <img
-                *ngIf="teamsAndSolutionsControls.stepType === 'team'"
-                alt="vote"
-                [class.disabled]="
+                <img
+                  *ngIf="teamsAndSolutionsControls.stepType === 'team'"
+                  alt="vote"
+                  [class.disabled]="
                   teamsAndSolutionsControls.teamVoteKeys.includes(app.key)
-                  || grantStatusEnum.readyToApply !== grant.status.value
+                  || grantStatusEnum.readyToApply !== grant?.status?.value
                 "
-                src="assets/icons/arr-down-red.svg"
-                (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
-              <img
-                *ngIf="
+                  src="assets/icons/arr-down-red.svg"
+                  (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
+                <img
+                  *ngIf="
                   teamsAndSolutionsControls.stepType !== 'team'
                   && teamsAndSolutionsControls.isShowSolutionControls
                 "
-                [class.disabled]="app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)"
-                alt="vote"
-                src="assets/icons/arr-down-red.svg"
-                (click)="newVoteForSolutionEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
-            </div>
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            <div class="team__list__li__left__top mat-display-1">{{'entity.votes' | transloco}}</div>
-            <div class="team__list__li__left__bottom mat-display-4">{{app?.score?.value || 0}}</div>
-          </ng-container>
-        </div>
-
-        <div class="team__mid-container">
-          <div class="team__name">{{app?.name?.value}}</div>
-          <div class="team__mid-container-bottom">
-            <a class="team__link mat-display-1" [href]="app?.link?.value">
-              {{'entity.learn_about_team' | transloco}}
-              <img alt="link" src="assets/icons/link.svg">
-            </a>
-            <a class="team__solution-link mat-display-1" *ngIf="app?.solution?.value" [href]="app?.solution?.value">
-              {{'entity.learn_about_solution' | transloco}}
-              <img alt="link" src="assets/icons/link.svg">
-            </a>
+                  [class.disabled]="app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)"
+                  alt="vote"
+                  src="assets/icons/arr-down-red.svg"
+                  (click)="newVoteForSolutionEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <div class="team__list__li__left__top mat-display-1">{{'entity.votes' | transloco}}</div>
+              <div class="team__list__li__left__bottom mat-display-4">{{app?.score?.value || 0}}</div>
+            </ng-container>
           </div>
-        </div>
-        <div class="team__list__li__right mat-display-2">
-          <ng-container *ngIf="app.process && grant?.status.value === grantStatusEnum.workStarted">
-            <img alt="winner" src="assets/icons/winner.png">{{'entity.approved' | transloco}}
-          </ng-container>
-        </div>
-      </li>
-    </ng-container>
 
-  </ul>
+          <div class="team__mid-container">
+            <div class="team__name">{{app?.name?.value}}</div>
+            <div class="team__mid-container-bottom">
+              <a class="team__link mat-display-1" [href]="app?.link?.value">
+                {{'entity.learn_about_team' | transloco}}
+                <img alt="link" src="assets/icons/link.svg">
+              </a>
+              <a class="team__solution-link mat-display-1" *ngIf="app?.solution?.value" [href]="app?.solution?.value">
+                {{'entity.learn_about_solution' | transloco}}
+                <img alt="link" src="assets/icons/link.svg">
+              </a>
+            </div>
+          </div>
+          <div class="team__list__li__right mat-display-2">
+            <ng-container *ngIf="app.process && grant?.status.value === grantStatusEnum.workStarted">
+              <img alt="winner" src="assets/icons/winner.png">{{'entity.approved' | transloco}}
+            </ng-container>
+          </div>
+        </li>
+      </ng-container>
 
-</div>
+    </ul>
 
+  </div>
+</ng-container>
