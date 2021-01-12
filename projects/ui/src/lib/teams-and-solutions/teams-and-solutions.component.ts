@@ -13,59 +13,10 @@ import {Subject} from "rxjs";
 })
 export class TeamsAndSolutionsComponent {
 
-  @Input() teamsAndSolutionsControls: TeamsAndSolutionsControlsInterface | undefined
-
   grantStatusEnum = GrantStatusEnum
-  // templateConditions = {
-  //   grantStatus: this.grantStatusEnum.noStatus.toString(),
-  //   voteType: 'team',
-  //   isApplyBtn: false,
-  //   isSubmitSolutionBtn: false,
-  //   isShowAllTeam: true
-  // }
 
-  GSgrant: ContractGrantModel | null = null
-
-  @Input() set grant(grant: ContractGrantModel | null) {
-    this.GSgrant = grant
-    // if (grant && grant.status && grant.status.value) {
-      // this.templateConditions.grantStatus = grant.status.value.toString()
-      // if (
-      //   grant.status.value === this.grantStatusEnum.workStarted
-      //   || grant.status.value === this.grantStatusEnum.proposed
-      //   || grant.status.value === this.grantStatusEnum.readyToApply
-      //   || grant.status.value === this.grantStatusEnum.workStarted
-      // ) {
-      //   this.templateConditions.voteType = 'team'
-      // } else {
-      //   this.templateConditions.voteType = 'solution'
-      // }
-      // if (grant.status.value === this.grantStatusEnum.readyToApply) {
-      //   this.templateConditions.isApplyBtn = true
-      // } else {
-      //   this.templateConditions.isApplyBtn = false
-      // }
-      // if (grant.status.value === this.grantStatusEnum.workStarted) {
-      //   this.templateConditions.isSubmitSolutionBtn = true
-      // } else {
-      //   this.templateConditions.isSubmitSolutionBtn = false
-      // }
-      // if(
-      //   grant.status.value === this.grantStatusEnum.noStatus
-      //   || grant.status.value === this.grantStatusEnum.proposed
-      //   || grant.status.value === this.grantStatusEnum.readyToApply
-      // ) {
-      //   this.templateConditions.isShowAllTeam = true
-      // } else {
-      //   this.templateConditions.isShowAllTeam = false
-      // }
-    // }
-  }
-
-  get grant() {
-    return this.GSgrant
-  }
-
+  @Input() teamsAndSolutionsControls: TeamsAndSolutionsControlsInterface | undefined
+  @Input() grant: ContractGrantModel | null = null
   @Input() titleText: string | null = null
   @Input() applyBtnText: string | null = null
 
@@ -80,10 +31,6 @@ export class TeamsAndSolutionsComponent {
     public userService: UserService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
-  }
-
-  isReadyToApply(): boolean {
-    return this.grant?.status?.value === this.grantStatusEnum.readyToApply
   }
 
 }

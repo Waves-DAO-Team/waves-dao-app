@@ -30,4 +30,5 @@ export interface TeamsAndSolutionsControlsInterface {
   teamVoteKeys: string[],
   solutionVoteKeys: string[],
   leaderIds: string[],
+  isShow: boolean,
 }

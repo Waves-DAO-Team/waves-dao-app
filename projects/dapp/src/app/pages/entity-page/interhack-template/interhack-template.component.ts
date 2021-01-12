@@ -40,10 +40,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   grant$ = new Subject<ContractGrantModel>();
 
-  // app - тут команды
-
-  // 35 / 25 / 15
-
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest([this.userService.data, this.grant$])
     .pipe(
       tap(([user, grant]) => console.log(user, grant)),
@@ -57,7 +53,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           isShowAllTeam: false,
           teamVoteKeys: [],
           solutionVoteKeys: [],
-          leaderIds: []
+          leaderIds: [],
+          isShow: true
         }
         if(grant && grant.status && grant.status.value && grant.app) {
           // isShowSolutionControls
@@ -126,7 +123,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           grant.app.forEach((app) => {
             result.leaderIds.push(app.leader.value)
           })
-
+          // isShow
+          if(grant.status.value === this.grantStatusEnum.rejected && grant.app.length === 0) {
+            result.isShow = false
+          }
         }
         return result
       })

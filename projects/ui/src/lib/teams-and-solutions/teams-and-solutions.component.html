@@ -1,4 +1,4 @@
-<div class="team" *ngIf="userService.data | async as user  ">
+<div class="team" *ngIf="teamsAndSolutionsControls && teamsAndSolutionsControls.isShow && userService.data | async as user  ">
 
   <div class="team__header" *ngIf="grant?.isShowAppliers">
 
@@ -32,8 +32,6 @@
       </button>
     </div>
   </div>
-
-
 
   <ul *ngIf="grant?.app?.length > 0 && teamsAndSolutionsControls" class="team__list">
     <ng-container *ngFor="let app of grant?.app">
