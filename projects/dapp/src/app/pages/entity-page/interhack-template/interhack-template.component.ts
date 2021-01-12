@@ -195,10 +195,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   isEnableSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
       map(([user, grant]) => {
-        if (grant) {
+        if (grant && grant.app) {
+          const isTeamApply = grant.app.length > 0 ? true : false
           const isRole = user.roles.isDAO
           const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
-          return isRole && isStatusMatch
+          return isTeamApply && isRole && isStatusMatch
         } else {
           return false
         }
