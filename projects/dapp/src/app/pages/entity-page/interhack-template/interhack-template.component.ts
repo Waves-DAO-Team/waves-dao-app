@@ -84,6 +84,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           // isSubmitSolutionBtn
           if (user.roles.isAuth && status === this.grantStatusEnum.workStarted) {
             result.isSubmitSolutionBtn = true
+            grant.app.forEach((app) => {
+              if(app.solution && app.solution.key.includes(user.userAddress.slice(-15))) {
+                result.isSubmitSolutionBtn = false
+              }
+            })
           } else {
             result.isSubmitSolutionBtn = false
           }
@@ -193,19 +198,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
         if (grant) {
           const isRole = user.roles.isDAO
           const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
-          return isRole && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
-
-  isSubmitSolutionBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      map(([user, grant]) => {
-        if (grant) {
-          const isRole = user.roles.isDAO
-          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
           return isRole && isStatusMatch
         } else {
           return false
