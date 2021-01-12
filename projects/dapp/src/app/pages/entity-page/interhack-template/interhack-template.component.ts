@@ -57,6 +57,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           isShowAllTeam: false,
           teamVoteKeys: [],
           solutionVoteKeys: [],
+          leaderIds: []
         }
         if(grant && grant.status && grant.status.value && grant.app) {
           // isShowSolutionControls
@@ -116,6 +117,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
               result.solutionVoteKeys = app.voted.solution.value.split(';').filter(x => x) || []
           })
           userKey = user.userAddress
+          // leaderIds
+          grant.app.forEach((app) => {
+            result.leaderIds.push(app.leader.value)
+          })
+
         }
         return result
       })
@@ -359,7 +365,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            console.log('acceptWorkResult', this.grant?.id, this.winnerIdentifier)
             if (this.grant?.id && this.winnerIdentifier)
               this.disruptiveContractService.acceptWorkResult(
                 this.grant?.id as string,

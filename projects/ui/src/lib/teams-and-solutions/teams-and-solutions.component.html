@@ -4,7 +4,7 @@
 
     <div class="team__title mat-display-4">{{titleText}}</div>
 
-    <div class="team__controls">
+    <div class="team__controls" *ngIf="teamsAndSolutionsControls">
       <button
         class="active"
         (click)="newSignupEvent.emit()"
@@ -26,7 +26,7 @@
         class="active"
         (click)="newOpenApplyModalEvent.emit()"
         [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
-        *ngIf="teamsAndSolutionsControls.isApplyBtn"
+        *ngIf="teamsAndSolutionsControls.isApplyBtn && !teamsAndSolutionsControls.leaderIds.includes(userService.data.getValue().userAddress)"
       >
         {{ applyBtnText }}
       </button>
@@ -35,7 +35,7 @@
 
 
 
-  <ul *ngIf="grant?.app?.length > 0" class="team__list">
+  <ul *ngIf="grant?.app?.length > 0 && teamsAndSolutionsControls" class="team__list">
     <ng-container *ngFor="let app of grant?.app">
 
       <li
