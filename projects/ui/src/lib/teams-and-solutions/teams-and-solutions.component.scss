@@ -1,0 +1,175 @@
+@import 'const';
+
+@mixin link($color: $color_waves_blue, $fontWeight: 500) {
+  font-weight: $fontWeight;
+  overflow: hidden;
+  padding-left: $padding;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 95%;
+  //margin: auto auto 0 auto;
+  color: $color;
+  img {
+    padding-left: $padding / 2;
+  }
+}
+
+@mixin mid() {
+  &__mid-container {
+    display: grid;
+    width: calc(100% - 155px);
+  }
+  &__name {
+    @include link($color: #000000, $fontWeight: 900);
+    display: flex;
+    align-items: flex-end;
+    min-height: 50px;
+    max-height: 50px;
+  }
+  &__mid-container-bottom {
+    min-height: 45px;
+    max-height: 45px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__solution-link {
+    @include link();
+    margin: 0;
+    line-height: 1;
+  }
+  &__link {
+    @include link();
+    margin: 0;
+    line-height: 1;
+  }
+}
+
+.team {
+  margin-bottom: $padding;
+
+  &__header {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: row;
+    button {
+      margin-left: $padding;
+    }
+  }
+
+  &__title {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+  }
+
+  @include mid();
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .winner {
+      border: 1px solid $color_waves_blue;
+    }
+
+    &__li {
+      border: 1px solid $color_light_gray;
+      display: flex;
+      margin-bottom: $padding;
+
+      &__left {
+        background: $color_light_gray;
+        display: flex;
+        flex-direction: column;
+        max-height: $padding * 7;
+        max-width: $padding * 7;
+        min-height: $padding * 7;
+        min-width: $padding * 7;
+
+        &__top {
+          align-items: flex-end;
+          color: $color_dark_gray;
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          margin: auto;
+          width: 100%;
+        }
+
+        &__bottom {
+          align-items: baseline;
+          display: flex;
+          flex: 1.2;
+          font-weight: bold;
+          justify-content: center;
+          line-height: 1;
+          margin: auto;
+        }
+
+        &__up,
+        &__down {
+          align-items: center;
+          display: flex;
+          flex: 1;
+          justify-content: center;
+
+          .disabled {
+            opacity: 0.5;
+          }
+
+          img {
+            cursor: pointer;
+            height: 15px;
+          }
+        }
+
+        &__score {
+          align-items: center;
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          margin: auto;
+        }
+
+      }
+
+      &__mid {
+        align-items: flex-start;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: $padding;
+        width: 20%;
+      }
+
+      &__right {
+        align-items: center;
+        color: $color_waves_blue;
+        display: flex;
+        justify-content: center;
+        max-width: 100px;
+        min-width: 100px;
+        padding-right: $padding * 2;
+        margin: 0;
+
+        img {
+          margin-right: $padding / 2;
+        }
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.disabled-team {
+  display: none;
+}

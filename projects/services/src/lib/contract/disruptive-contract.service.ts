@@ -175,9 +175,9 @@ export class DisruptiveContractService {
     )
   }
 
-  public acceptWorkResult (taskId: string, reportLink: string): Observable<TransactionsSuccessResult> {
+  public acceptWorkResult (taskId: string, winnerIdentifier: string, reportLink: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'acceptWorkResult',
-      [{type: 'string', value: taskId}, {type: 'string', value: reportLink}])
+      [{type: 'string', value: taskId}, {type: 'string', value: winnerIdentifier}, {type: 'string', value: reportLink}])
       .pipe(
         catchError((error) => {
           const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -209,16 +209,17 @@ export class DisruptiveContractService {
       )
   }
 
-  voteForSolution (taskId: string, teamIdentifier: string, voteValue: 1 | -1) {
-    return this.signerService.invokeProcess(this.contractService.getAddress(), 'submitSolution',
+  voteForSolution (taskId: string, teamIdentifier: string, voteValue: string) {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForSolution',
       [
         {type: 'string', value: taskId},
         {type: 'string', value: teamIdentifier},
-        {type: 'integer', value: voteValue}
+        {type: 'string', value: voteValue}
       ]
     )
       .pipe(
         catchError((error) => {
+          console.log('-------------error', error)
           const mes = error.message ? error.message : translate('messages.transaction_rejected')
           this.snackBar.open(translate(mes))
           return EMPTY

@@ -160,11 +160,12 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
-              .subscribe(() => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+            alert('нужно поправить этот метод в контракте')
+            // this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
+            //   .subscribe(() => {
+            dialog.close()
+            //     this.cdr.markForCheck()
+            //   })
           }
         }
       }

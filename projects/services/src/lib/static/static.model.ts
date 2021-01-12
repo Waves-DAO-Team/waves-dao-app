@@ -27,6 +27,7 @@ export enum GrantStatusEnum {
   approved = 'approved',
   rejected = 'rejected',
   teamChosen = 'team_chosen',
+  solutionChosen = 'solution_chosen',
   workStarted = 'work_started',
   workFinished = 'work_finished',
   votingStarted = 'voting_started',

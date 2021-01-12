@@ -4,16 +4,12 @@
     {{'entity.enable_submissions' | transloco}}
   </button>
 
-  <button class="marginTB" (click)="stopSubmissions()">
+  <button class="marginTB" (click)="stopSubmissions()" *ngIf="isStopSubmissionsBtn$ | async">
     {{'entity.stop_submissions' | transloco}}
   </button>
 
-  <button class="marginTB" (click)="acceptWorkResult()">
+  <button class="marginTB" (click)="acceptWorkResult()" *ngIf="isAcceptWorkResultBtn$ | async">
     {{'entity.accept_work_result' | transloco}}
-  </button>
-
-  <button class="marginTB" (click)="submitSolution()" *ngIf="isSubmitSolutionBtn$ | async">
-    {{'entity.submit_solution' | transloco}}
   </button>
 
   <button class="marginTB" (click)="finishVote()" *ngIf="isFinishVoteBtn$ | async">
@@ -39,25 +35,20 @@
 </ng-template>
 
 <ng-template #team>
-  <ui-team
+  <ui-teams-and-solutions
     [grant]="grant"
+    [teamsAndSolutionsControls]="teamsAndSolutionsControls$ | async"
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"
     (newVoteTeamEvent)="voteTeam($event)"
+    (newVoteForSolutionEvent)="voteForSolution($event)"
+    (newSubmitSolutionEvent)="submitSolution()"
     titleText="{{'entity.teams' | transloco}}"
     applyBtnText="{{'entity.apply' | transloco}}"
-  ></ui-team>
+  ></ui-teams-and-solutions>
 </ng-template>
 
 <ng-template #solutionsTemplate>
-  <ui-team
-    [grant]="grant"
-    (newSignupEvent)="signup()"
-    (newOpenApplyModalEvent)="openApplyModal()"
-    (newVoteTeamEvent)="voteTeam($event)"
-    titleText="{{'entity.solutions' | transloco}}"
-    applyBtnText="{{'entity.propose_solution' | transloco}}"
-  ></ui-team>
 </ng-template>
 
 <ng-template #voteForTask>
@@ -70,7 +61,11 @@
 </ng-template>
 
 <ng-template #stepper>
-  <ui-stepper [status]="grant?.status?.value"></ui-stepper>
+  <ui-stepper
+    *ngIf="grant?.status?.value != grantStatusEnum.rejected"
+    [status]="grant?.status?.value"
+    [setType]="'interhack'"
+  ></ui-stepper>
 </ng-template>
 
 <ui-entity

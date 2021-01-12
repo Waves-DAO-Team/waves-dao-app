@@ -50,10 +50,10 @@ export class MembershipService {
     return this.http.get<Observable<ContractRawData>>(url.href, {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
-      tap((data) => {
-        console.log('GET members data', data)
-      }),
-      // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
+      // tap((data) => {
+      //   console.log('GET members data', data)
+      // }),
+      // // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
       // @ts-ignore
       repeatWhen(() => this.refresh$),
       map((data: ContractRawData) => {

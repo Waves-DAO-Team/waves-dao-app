@@ -9,13 +9,13 @@ import {
 import {
   ContractGrantModel
 } from '@services/contract/contract.model'
-import { UserService } from '@services/user/user.service'
-import { LinkContentService } from '@services/link-content/link-content.service'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
-import { Subject } from 'rxjs'
-import { API, AppApiInterface } from '@constants'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import {UserService} from '@services/user/user.service'
+import {LinkContentService} from '@services/link-content/link-content.service'
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
+import {DestroyedSubject} from '@libs/decorators/destroyed-subject.decorator'
+import {Subject} from 'rxjs'
+import {API, AppApiInterface} from '@constants'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 
 @Component({
   selector: 'ui-entity',
@@ -52,11 +52,13 @@ export class EntityComponent implements OnDestroy {
     public linkContentService: LinkContentService,
     public cdr: ChangeDetectorRef,
     @Inject(API) public readonly api: AppApiInterface
-  ) {}
+  ) {
+  }
 
   startWork () {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  ngOnDestroy () {}
+  ngOnDestroy () {
+  }
 }

@@ -17,6 +17,10 @@ export interface SubmitCallBackAcceptWorkResultArg {
   reportLink: string
 }
 
+export interface SubmitCallBackSubmitSolutionResultArg {
+  solutionLink: string
+}
+
 export interface DialogParams {
   templateId?: string,
   title?: string,
@@ -28,7 +32,8 @@ export interface DialogParams {
                         SubmitCallBackProposeArg |
                         SubmitCallBackApplyArg |
                         SubmitCallBackRewardArg |
-                        SubmitCallBackAcceptWorkResultArg
+                        SubmitCallBackAcceptWorkResultArg |
+                        SubmitCallBackSubmitSolutionResultArg
   ) => void,
 }
 
