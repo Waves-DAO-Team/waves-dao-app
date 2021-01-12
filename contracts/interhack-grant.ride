@@ -182,7 +182,7 @@ func acceptWorkResultConditions(address: Address, taskId: String, winnerIdentifi
     } else if (tryGetString("tasks_"+taskId+"_status") != "work_finished") then {
         throw("work is not finished")
 
-    } else if (tryGetInteger("tasks_"+taskId+"_app_"+winnerIdentifier+"_score_solution") > 1) then {
+    } else if (tryGetInteger("tasks_"+taskId+"_app_"+winnerIdentifier+"_score_solution") < 1) then {
         throw("negative assessment")
 
     } else true
@@ -711,7 +711,7 @@ func voteForSolution(taskId: String, teamIdentifier: String, voteValue: String) 
 }
 
 
-# Set status -> team_choosen
+# Set status -> solution_chosen
 # [taskId]: {
 #   title,
 #   link,
@@ -757,7 +757,7 @@ func acceptWorkResult(taskId: String, winnerIdentifier: String, reportLink: Stri
         let teamAddress = this.getStringValue("tasks_"+taskId+"_app_"+winnerIdentifier+"_leader")
         ScriptResult(
             WriteSet([
-                DataEntry("tasks_"+taskId+"_status", "team_choosen"),
+                DataEntry("tasks_"+taskId+"_status", "solution_chosen"),
                 DataEntry("tasks_"+taskId+"_app_"+winnerIdentifier+"_process", "winner"),
                 # report is created by Working Group and stored into SC
                 DataEntry("tasks_"+taskId+"_report", reportLink)
