@@ -46,26 +46,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest([this.userService.data, this.grant$])
     .pipe(
-      // skipWhile(v => !v),
-      tap(([user, solution]) => {
-        let userKey = user.userAddress.slice(-15)
-        let teamKeys: string[] = []
-        let teamExistKeys: string[] = []
-        if(solution && solution.app)
-          solution.app.forEach((e)=>{
-            if(e.key)
-              teamKeys.push(userKey + e.key)
-          })
-        teamKeys.forEach((key) => {
-          // @ts-ignore
-          if(solution.vh[key]) {
-            teamExistKeys.push(key)
-          }
-        })
-
-        // console.log('+++', user, solution, teamKeys, teamExistKeys)
-        console.log('+++', teamExistKeys)
-      }),
+      tap(([user, grant]) => console.log(user, grant)),
       // isShowSolutionControls
       map(([user, grant]) => {
         let result: TeamsAndSolutionsControlsInterface = {
@@ -74,9 +55,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           isApplyBtn: false,
           isSubmitSolutionBtn: false,
           isShowAllTeam: false,
-          teamVoteKeys: []
+          teamVoteKeys: [],
+          solutionVoteKeys: [],
         }
-        if(grant && grant.status && grant.status.value) {
+        if(grant && grant.status && grant.status.value && grant.app) {
           // isShowSolutionControls
           const status = grant.status.value
           if (status === this.grantStatusEnum.solutionChosen) {
@@ -124,10 +106,16 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
             })
           teamKeys.forEach((key) => {
             // @ts-ignore
-            if(grant.vh[key]) {
+            if(grant.vh && grant.vh[key]) {
               result.teamVoteKeys.push(key.slice(-25))
             }
           })
+          // solutionVoteKeys
+          grant.app.forEach((app) => {
+            if(app.voted && app.voted.solution)
+              result.solutionVoteKeys = app.voted.solution.value.split(';').filter(x => x) || []
+          })
+          userKey = user.userAddress
         }
         return result
       })

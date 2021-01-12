@@ -28,4 +28,5 @@ export interface TeamsAndSolutionsControlsInterface {
   isSubmitSolutionBtn: boolean,
   isShowAllTeam: boolean,
   teamVoteKeys: string[],
+  solutionVoteKeys: string[],
 }

@@ -1,6 +1,3 @@
-
-<!--{{teamsAndSolutionsControls | json}}-->
-
 <div class="team" *ngIf="userService.data | async as user  ">
 
   <div class="team__header" *ngIf="grant?.isShowAppliers">
@@ -36,8 +33,11 @@
     </div>
   </div>
 
+
+
   <ul *ngIf="grant?.app?.length > 0" class="team__list">
     <ng-container *ngFor="let app of grant?.app">
+
       <li
         [class.winner]="app?.process"
         [class.disabled-team]="
@@ -54,14 +54,14 @@
               <img
                 alt="vote"
                 src="assets/icons/arr-up-blue.svg"
-                [class.disabled]="teamsAndSolutionsControls.teamVoteKeys.includes(app.key)"
+                [class.disabled]="teamsAndSolutionsControls.teamVoteKeys.includes(app.key) || grantStatusEnum.readyToApply !== grant.status.value"
                 *ngIf="teamsAndSolutionsControls.stepType === 'team'"
                 (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
               >
               <img
                 *ngIf="teamsAndSolutionsControls.stepType !== 'team' && teamsAndSolutionsControls.isShowSolutionControls"
                 alt="vote"
-
+                [class.disabled]="app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)"
                 src="assets/icons/arr-up-blue.svg"
                 (click)="newVoteForSolutionEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
               >
@@ -76,10 +76,14 @@
               <ng-template #solutionRes> s: {{app?.votes?.solution?.value || 0}}</ng-template>
             </div>
             <div class="team__list__li__left__down">
+
               <img
                 *ngIf="teamsAndSolutionsControls.stepType === 'team'"
                 alt="vote"
-                [class.disabled]="teamsAndSolutionsControls.teamVoteKeys.includes(app.key)"
+                [class.disabled]="
+                  teamsAndSolutionsControls.teamVoteKeys.includes(app.key)
+                  || grantStatusEnum.readyToApply !== grant.status.value
+                "
                 src="assets/icons/arr-down-red.svg"
                 (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
               <img
@@ -87,6 +91,7 @@
                   teamsAndSolutionsControls.stepType !== 'team'
                   && teamsAndSolutionsControls.isShowSolutionControls
                 "
+                [class.disabled]="app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)"
                 alt="vote"
                 src="assets/icons/arr-down-red.svg"
                 (click)="newVoteForSolutionEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
@@ -99,7 +104,7 @@
         </div>
 
         <div class="team__mid-container">
-          <div class="team__name">{{app?.name?.value}} -- {{app.key}}</div>
+          <div class="team__name">{{app?.name?.value}}</div>
           <div class="team__mid-container-bottom">
             <a class="team__link mat-display-1" [href]="app?.link?.value">
               {{'entity.learn_about_team' | transloco}}

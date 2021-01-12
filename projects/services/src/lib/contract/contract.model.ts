@@ -39,6 +39,11 @@ export interface ContractGrantAppModel {
     key: string
     type: string
     value: string
+    solution?: {
+      key: string
+      type: string
+      value: string
+    }
   }
   solution?: {
     key: string
