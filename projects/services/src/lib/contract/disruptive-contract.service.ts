@@ -175,7 +175,7 @@ export class DisruptiveContractService {
     )
   }
 
-  public acceptWorkResult (taskId: string, winnerIdentifier:string, reportLink: string): Observable<TransactionsSuccessResult> {
+  public acceptWorkResult (taskId: string, winnerIdentifier: string, reportLink: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'acceptWorkResult',
       [{type: 'string', value: taskId}, {type: 'string', value: winnerIdentifier}, {type: 'string', value: reportLink}])
       .pipe(

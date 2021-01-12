@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {UserService} from "@services/user/user.service";
-import {DIALOG_DATA, DialogParams} from "@ui/dialog/dialog.tokens";
+import {Component, Inject} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {UserService} from '@services/user/user.service';
+import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens';
 
 @Component({
   selector: 'ui-submit-solution',

@@ -1,10 +1,10 @@
-import {ContractGrantModel} from "@services/contract/contract.model";
-import {UserDataInterface} from "@services/user/user.interface";
+import {ContractGrantModel} from '@services/contract/contract.model';
+import {UserDataInterface} from '@services/user/user.interface';
 import {GrantStatusEnum} from '@services/static/static.model'
-import {TeamsAndSolutionsControlsInterface} from "@pages/entity-page/entity.interface";
+import {TeamsAndSolutionsControlsInterface} from '@pages/entity-page/entity.interface';
 
-export function teamsAndSolutionsControls(user: UserDataInterface, grant: ContractGrantModel): TeamsAndSolutionsControlsInterface {
-  let result: TeamsAndSolutionsControlsInterface = {
+export function teamsAndSolutionsControls (user: UserDataInterface, grant: ContractGrantModel): TeamsAndSolutionsControlsInterface {
+  const result: TeamsAndSolutionsControlsInterface = {
     isShowSolutionControls: true,
     stepType: 'team',
     isApplyBtn: false,
@@ -15,7 +15,7 @@ export function teamsAndSolutionsControls(user: UserDataInterface, grant: Contra
     leaderIds: [],
     isShow: true
   }
-  if(grant && grant.status && grant.status.value && grant.app) {
+  if (grant && grant.status && grant.status.value && grant.app) {
     // isShowSolutionControls
     const status = grant.status.value
     if (
@@ -44,7 +44,7 @@ export function teamsAndSolutionsControls(user: UserDataInterface, grant: Contra
     if (user.roles.isAuth && status === GrantStatusEnum.workStarted) {
       result.isSubmitSolutionBtn = true
       grant.app.forEach((app) => {
-        if(app.solution && app.solution.key.includes(user.userAddress.slice(-15))) {
+        if (app.solution && app.solution.key.includes(user.userAddress.slice(-15))) {
           result.isSubmitSolutionBtn = false
         }
       })
@@ -52,7 +52,7 @@ export function teamsAndSolutionsControls(user: UserDataInterface, grant: Contra
       result.isSubmitSolutionBtn = false
     }
     // isShowAllTeam
-    if(
+    if (
       status === GrantStatusEnum.noStatus
       || status === GrantStatusEnum.proposed
       || status === GrantStatusEnum.readyToApply
@@ -63,22 +63,25 @@ export function teamsAndSolutionsControls(user: UserDataInterface, grant: Contra
     }
     // teamVoteKeys
     let userKey = user.userAddress.slice(-15)
-    let teamKeys: string[] = []
-    if(grant && grant.app)
-      grant.app.forEach((e)=>{
-        if(e.key)
+    const teamKeys: string[] = []
+    if (grant && grant.app) {
+      grant.app.forEach((e) => {
+        if (e.key) {
           teamKeys.push(userKey + e.key)
+        }
       })
+    }
     teamKeys.forEach((key) => {
       // @ts-ignore
-      if(grant.vh && grant.vh[key]) {
+      if (grant.vh && grant.vh[key]) {
         result.teamVoteKeys.push(key.slice(-25))
       }
     })
     // solutionVoteKeys
     grant.app.forEach((app) => {
-      if(app.voted && app.voted.solution)
+      if (app.voted && app.voted.solution) {
         result.solutionVoteKeys = app.voted.solution.value.split(';').filter(x => x) || []
+      }
     })
     userKey = user.userAddress
     // leaderIds
@@ -86,7 +89,7 @@ export function teamsAndSolutionsControls(user: UserDataInterface, grant: Contra
       result.leaderIds.push(app.leader.value)
     })
     // isShow
-    if(grant.status.value === GrantStatusEnum.rejected && grant.app.length === 0) {
+    if (grant.status.value === GrantStatusEnum.rejected && grant.app.length === 0) {
       result.isShow = false
     }
   }

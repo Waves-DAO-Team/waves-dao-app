@@ -163,7 +163,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
             alert('нужно поправить этот метод в контракте')
             // this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
             //   .subscribe(() => {
-            //     dialog.close()
+            dialog.close()
             //     this.cdr.markForCheck()
             //   })
           }

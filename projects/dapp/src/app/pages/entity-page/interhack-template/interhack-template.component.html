@@ -62,7 +62,7 @@
 
 <ng-template #stepper>
   <ui-stepper
-    *ngIf="grant.status.value != grantStatusEnum.rejected"
+    *ngIf="grant?.status?.value != grantStatusEnum.rejected"
     [status]="grant?.status?.value"
     [setType]="'interhack'"
   ></ui-stepper>

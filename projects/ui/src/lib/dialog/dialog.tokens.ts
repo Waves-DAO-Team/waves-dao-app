@@ -2,7 +2,6 @@ import { InjectionToken } from '@angular/core'
 import { MatDialogRef } from '@angular/material/dialog'
 import { DialogComponent } from './dialog.component'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import {SubmitSolutionComponent} from "@ui/modals/submit-solution/submit-solution.component";
 
 export interface SubmitCallBackApplyArg {
   id: string, team: string, link: string

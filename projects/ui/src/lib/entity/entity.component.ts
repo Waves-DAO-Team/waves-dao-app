@@ -46,7 +46,7 @@ export class EntityComponent implements OnDestroy {
   public grantStatusEnum = GrantStatusEnum
   reportLink = '';
 
-  constructor(
+  constructor (
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
     public linkContentService: LinkContentService,
@@ -55,10 +55,10 @@ export class EntityComponent implements OnDestroy {
   ) {
   }
 
-  startWork() {
+  startWork () {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
   }
 }
