@@ -18,7 +18,10 @@ export function teamsAndSolutionsControls(user: UserDataInterface, grant: Contra
   if(grant && grant.status && grant.status.value && grant.app) {
     // isShowSolutionControls
     const status = grant.status.value
-    if (status === GrantStatusEnum.solutionChosen) {
+    if (
+      status === GrantStatusEnum.solutionChosen
+      || status === GrantStatusEnum.rejected
+    ) {
       result.isShowSolutionControls = false
     }
     // stepType

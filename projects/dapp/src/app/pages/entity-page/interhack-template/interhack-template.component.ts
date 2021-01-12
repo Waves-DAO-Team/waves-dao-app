@@ -139,7 +139,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           const isWG = user.roles.isWG
           let isVote = false
           grant.app.forEach((app)=>{
-            if(app.voted.solution && app.voted.solution.value) {
+            if(app.voted && app.voted.solution && app.voted.solution.value) {
               isVote = true
             }
           })
@@ -156,9 +156,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       map(([user, grant]) => {
         if (grant) {
           const isWG = user.roles.isWG
-          const isStatusMatch =
-            grant?.status?.value !== this.grantStatusEnum.workFinished
-            && grant?.status?.value !== this.grantStatusEnum.rejected
+          const isStatusMatch = grant?.status?.value !== this.grantStatusEnum.rejected
           return isWG && isStatusMatch
         } else {
           return false
