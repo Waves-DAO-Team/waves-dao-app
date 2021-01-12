@@ -196,10 +196,16 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     .pipe(
       map(([user, grant]) => {
         if (grant && grant.app) {
+          let isVoteForTeam = false
+          grant.app.forEach((app) => {
+            if(app && app.voted && app.votes) {
+              isVoteForTeam = true
+            }
+          })
           const isTeamApply = grant.app.length > 0 ? true : false
           const isRole = user.roles.isDAO
           const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
-          return isTeamApply && isRole && isStatusMatch
+          return isVoteForTeam && isTeamApply && isRole && isStatusMatch
         } else {
           return false
         }
