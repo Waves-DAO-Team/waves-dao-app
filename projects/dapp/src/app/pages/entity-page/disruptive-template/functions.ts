@@ -1,6 +1,7 @@
 import {UserDataInterface} from "@services/user/user.interface";
 import {ContractGrantModel} from "@services/contract/contract.model";
 import {GrantStatusEnum} from '@services/static/static.model'
+import {TeamsControlsInterface} from "@pages/entity-page/entity.interface";
 
 export function isFinishApplicantsVoteBtn(user: UserDataInterface, grant: ContractGrantModel): boolean {
   if (grant && grant.app) {
@@ -34,4 +35,22 @@ export function getWinnerTeamId(grant: ContractGrantModel): string {
       }
     })
   return res.key
+}
+
+export function teamsControls(user: UserDataInterface, grant: ContractGrantModel): TeamsControlsInterface {
+  let result: TeamsControlsInterface = {
+    isApplyBtn: false
+  }
+  // isApplyBtn
+  if (user.roles.isAuth && grant && grant.app && grant.status && grant.status.value) {
+    const status = grant.status.value
+    if (GrantStatusEnum.readyToApply === status) {
+      result.isApplyBtn = true
+    }
+    grant.app.forEach((app) => {
+      if(app.leader.value === user.userAddress)
+        result.isApplyBtn = false
+    })
+  }
+  return result
 }

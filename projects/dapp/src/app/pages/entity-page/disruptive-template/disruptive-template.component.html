@@ -32,6 +32,7 @@
 <ng-template #team>
   <ui-team
     [grant]="grant"
+    [teamsControls]="teamsControls$ | async"
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"
     (newVoteTeamEvent)="voteTeam($event)"

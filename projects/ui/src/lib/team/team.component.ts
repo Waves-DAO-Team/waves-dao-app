@@ -8,7 +8,7 @@ import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { GrantStatusEnum } from '@services/static/static.model'
-import {VoteTeamEventInterface} from '@pages/entity-page/entity.interface';
+import {TeamsControlsInterface, VoteTeamEventInterface} from '@pages/entity-page/entity.interface';
 
 @Component({
   selector: 'ui-team',
@@ -23,6 +23,7 @@ export class TeamComponent {
   @Input() grant: ContractGrantModel | null = null
   @Input() titleText: string | null = null
   @Input() applyBtnText: string | null = null
+  @Input() teamsControls: TeamsControlsInterface | null = null
 
   @Output() openApplyModal = new EventEmitter<boolean>()
   @Output() newSignupEvent = new EventEmitter()

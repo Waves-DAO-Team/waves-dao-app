@@ -32,3 +32,7 @@ export interface TeamsAndSolutionsControlsInterface {
   leaderIds: string[],
   isShow: boolean,
 }
+
+export interface TeamsControlsInterface {
+  isApplyBtn: boolean
+}

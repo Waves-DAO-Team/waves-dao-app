@@ -4,7 +4,7 @@ import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.mode
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
-import {map, take} from 'rxjs/operators'
+import {map, take, tap} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
@@ -14,12 +14,20 @@ import {
   SubmitCallBackRewardArg
 } from '@ui/dialog/dialog.tokens'
 import {MatDialog} from '@angular/material/dialog'
-import {TemplateComponentAbstract, VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
+import {
+  TeamsControlsInterface,
+  TemplateComponentAbstract,
+  VoteTeamEventInterface
+} from '@pages/entity-page/entity.interface'
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
-import {combineLatest, Subject} from 'rxjs'
-import {getWinnerTeamId, isFinishApplicantsVoteBtn} from "@pages/entity-page/disruptive-template/functions";
+import {combineLatest, Observable, Subject} from 'rxjs'
+import {
+  getWinnerTeamId,
+  isFinishApplicantsVoteBtn,
+  teamsControls
+} from "@pages/entity-page/disruptive-template/functions";
 
 @Component({
   selector: 'app-disruptive-template',
@@ -47,6 +55,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
         }
       })
     )
+
+  teamsControls$: Observable<TeamsControlsInterface> = combineLatest([this.userService.data, this.grant$])
+    .pipe(map(([user, grant]) => teamsControls(user, grant)))
 
   isFinishApplicantsVoteBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isFinishApplicantsVoteBtn(user, grant)))
