@@ -127,9 +127,10 @@ export class DisruptiveContractService {
       )
   }
 
-  public finishApplicantsVoting (taskId: string): Observable<TransactionsSuccessResult> {
+  public finishApplicantsVoting (taskId: string, winId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishApplicantsVoting', [
-      {type: 'string', value: taskId}
+      {type: 'string', value: taskId},
+      {type: 'string', value: winId},
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')

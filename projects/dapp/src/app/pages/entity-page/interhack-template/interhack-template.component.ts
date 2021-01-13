@@ -25,6 +25,7 @@ import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-wo
 import {combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component';
 import {teamsAndSolutionsControls} from './functions'
+import {InterhackContractService} from "@services/contract/Interhack-contract.service";
 
 @Component({
   selector: 'app-interhack-template',
@@ -206,6 +207,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   constructor (
     private dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
+    public interhackContractService: InterhackContractService,
     private snackBar: MatSnackBar,
     public signerService: SignerService,
     private cdr: ChangeDetectorRef,
@@ -307,7 +309,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   finishApplicantsVote (): void {
-    this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
+    this.interhackContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
+    // this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
   addReward (): void {
