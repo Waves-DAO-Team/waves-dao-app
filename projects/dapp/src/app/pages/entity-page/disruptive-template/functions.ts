@@ -83,7 +83,6 @@ export function teamsControls(user: UserDataInterface, grant: ContractGrantModel
   } else {
     result.isVoteControls = 'hidden'
   }
-  console.log('+++', result, user.userAddress)
   return result
 }
 
@@ -125,10 +124,11 @@ export function isShowAddRewardBtn(user: UserDataInterface, grant: ContractGrant
 }
 
 export function isFinishVoteBtn(user: UserDataInterface, grant: ContractGrantModel): boolean {
-  if (grant) {
+  if (grant && grant.app) {
+    let isVoted = grant.voted ? true : false
     const isStatusMatch = grant?.status?.value === GrantStatusEnum.proposed
     const isWG = user.roles.isWG
-    return isWG && isStatusMatch
+    return isVoted && isWG && isStatusMatch
   } else {
     return false
   }
