@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core'
 import { CommonContractService } from './common-contract.service'
-import {EMPTY, Observable} from "rxjs";
-import {TransactionsSuccessResult} from "@services/signer/signer.model";
-import {catchError, tap} from "rxjs/operators";
-import {translate} from "@ngneat/transloco";
-import {SignerService} from "@services/signer/signer.service";
-import {ContractService} from "@services/contract/contract.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {EMPTY, Observable} from 'rxjs';
+import {TransactionsSuccessResult} from '@services/signer/signer.model';
+import {catchError, tap} from 'rxjs/operators';
+import {translate} from '@ngneat/transloco';
+import {SignerService} from '@services/signer/signer.service';
+import {ContractService} from '@services/contract/contract.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'

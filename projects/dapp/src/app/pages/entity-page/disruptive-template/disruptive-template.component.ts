@@ -4,7 +4,7 @@ import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.mode
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
-import {map, take, tap} from 'rxjs/operators'
+import {map, take} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
@@ -27,7 +27,7 @@ import {
   getWinnerTeamId, isAcceptWorkResultBtn,
   isFinishApplicantsVoteBtn, isFinishVoteBtn, isShowAddRewardBtn, isStartWorkBtn,
   teamsControls
-} from "@pages/entity-page/disruptive-template/functions";
+} from '@pages/entity-page/disruptive-template/functions';
 
 @Component({
   selector: 'app-disruptive-template',
@@ -65,7 +65,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   GSgrant: ContractGrantModel = {}
 
-  @Input() set grant(data: ContractGrantModel) {
+  @Input() set grant (data: ContractGrantModel) {
     if (data !== this.GSgrant) {
       this.GSgrant = data
       this.prepareVoteForTaskData(data)
@@ -73,13 +73,13 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     this.grant$.next(data)
   }
 
-  get grant() {
+  get grant () {
     return this.GSgrant
   }
 
   @Input() public readonly contract!: GrantsVariationType
 
-  constructor(
+  constructor (
     private dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
     private snackBar: MatSnackBar,
@@ -89,7 +89,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   ) {
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
@@ -102,12 +102,12 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     }
   }
 
-  vote(value: 'like' | 'dislike') {
+  vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe()
   }
 
-  signup() {
+  signup () {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -116,7 +116,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal() {
+  openApplyModal () {
    const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -135,24 +135,26 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface) {
-    const id = this.grant?.id as string, teamId = $event.teamIdentifier, vote = $event.voteValue
+  voteTeam ($event: VoteTeamEventInterface) {
+    const id = this.grant?.id as string
+    const teamId = $event.teamIdentifier
+    const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote() {
+  finishVote () {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork(): void {
+  startWork (): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject(): void {
+  reject (): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult(): void {
+  acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AcceptWorkResultComponent,
@@ -171,13 +173,14 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  finishApplicantsVote(): void {
+  finishApplicantsVote (): void {
     const id = this.grant.id as string
-    if (id)
+    if (id) {
       this.disruptiveContractService.finishApplicantsVoting(id, getWinnerTeamId(this.grant)).subscribe()
+    }
   }
 
-  addReward(): void {
+  addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddRewardComponent,

@@ -28,7 +28,7 @@
   </div>
 
   <ul *ngIf="grant?.app?.length > 0" class="team__list">
-    
+
     <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process" class="team__list__li">
 
       <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">

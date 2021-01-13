@@ -25,7 +25,7 @@ import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-wo
 import {combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component';
 import {teamsAndSolutionsControls} from './functions'
-import {InterhackContractService} from "@services/contract/Interhack-contract.service";
+import {InterhackContractService} from '@services/contract/Interhack-contract.service';
 
 @Component({
   selector: 'app-interhack-template',
