@@ -1,6 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TeamsAndSolutionsComponent } from './teams-and-solutions.component';
+import {UserService} from "@services/user/user.service";
+import {provideApi, provideAppConstants} from "@constants";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {getTranslocoModule} from "@dapp/src/app/transloco-module.spec";
+import {RouterTestingModule} from "@angular/router/testing";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {NotFoundPageModule} from "@pages/not-found-page/not-found-page.module";
+import {LoadingPageModule} from "@pages/loading-page/loading-page.module";
 
 describe('TeamsAndSolutionsComponent', () => {
   let component: TeamsAndSolutionsComponent;
@@ -8,7 +16,18 @@ describe('TeamsAndSolutionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeamsAndSolutionsComponent ]
+      imports: [
+        HttpClientTestingModule,
+        getTranslocoModule(),
+        RouterTestingModule,
+        MatSnackBarModule,
+      ],
+      declarations: [ TeamsAndSolutionsComponent ],
+      providers: [
+        provideAppConstants(),
+        provideApi(),
+        UserService,
+        provideApi()]
     })
     .compileComponents();
   });
