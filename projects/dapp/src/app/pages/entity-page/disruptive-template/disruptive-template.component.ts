@@ -24,7 +24,7 @@ import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
 import {combineLatest, Observable, Subject} from 'rxjs'
 import {
-  getWinnerTeamId,
+  getWinnerTeamId, isAcceptWorkResultBtn,
   isFinishApplicantsVoteBtn, isStartWorkBtn,
   teamsControls
 } from "@pages/entity-page/disruptive-template/functions";
@@ -59,12 +59,14 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   teamsControls$: Observable<TeamsControlsInterface> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => teamsControls(user, grant)))
 
-  isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
+  isStartWorkBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isStartWorkBtn(user, grant)))
 
-  isFinishApplicantsVoteBtn$ = combineLatest([this.userService.data, this.grant$])
+  isFinishApplicantsVoteBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isFinishApplicantsVoteBtn(user, grant)))
 
+  isAcceptWorkResultBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
+    .pipe(map(([user, grant]) => isAcceptWorkResultBtn(user, grant)))
 
   isFinishVoteBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -154,9 +156,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   }
 
   voteTeam($event: VoteTeamEventInterface) {
-    // if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
-    this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
-    // }
+    const id = this.grant?.id as string, teamId = $event.teamIdentifier, vote = $event.voteValue
+    this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
   finishVote() {
@@ -179,12 +180,11 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            alert('нужно поправить этот метод в контракте')
-            // this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
-            //   .subscribe(() => {
-            dialog.close()
-            //     this.cdr.markForCheck()
-            //   })
+            this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
+              .subscribe(() => {
+                dialog.close()
+                this.cdr.markForCheck()
+              })
           }
         }
       }

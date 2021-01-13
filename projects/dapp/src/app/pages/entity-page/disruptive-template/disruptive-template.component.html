@@ -22,7 +22,7 @@
     {{'entity.finish_vote' | transloco}}
   </button>
 
-  <button (click)="acceptWorkResult()">
+  <button (click)="acceptWorkResult()" *ngIf="isAcceptWorkResultBtn$ | async">
     {{'entity.accept_work_result' | transloco}}
   </button>
 

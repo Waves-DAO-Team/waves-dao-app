@@ -37,6 +37,23 @@ export function getWinnerTeamId(grant: ContractGrantModel): string {
   return res.key
 }
 
+export function isAcceptWorkResultBtn(user: UserDataInterface, grant: ContractGrantModel): boolean {
+  let result = false
+  if(grant && grant.app && grant.status && grant.status.value === GrantStatusEnum.workStarted) {
+    let isPerformer = false
+    grant.app.forEach((app) => {
+      if(
+        app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted
+        && app.leader.value === user.userAddress
+      ) {
+        isPerformer = true
+      }
+    })
+    result = isPerformer
+  }
+  return result
+}
+
 export function teamsControls(user: UserDataInterface, grant: ContractGrantModel): TeamsControlsInterface {
   let result: TeamsControlsInterface = {
     isApplyBtn: false

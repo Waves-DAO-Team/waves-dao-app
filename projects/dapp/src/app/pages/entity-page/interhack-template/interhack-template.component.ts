@@ -292,7 +292,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
             if (this.grant?.id && this.winnerIdentifier) {
-              this.disruptiveContractService.acceptWorkResult(
+              this.interhackContractService.acceptWorkResult(
                 this.grant?.id as string,
                 this.winnerIdentifier,
                 data.reportLink
