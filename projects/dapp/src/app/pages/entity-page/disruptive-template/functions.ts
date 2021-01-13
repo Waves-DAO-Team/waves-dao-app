@@ -8,7 +8,7 @@ export function isFinishApplicantsVoteBtn(user: UserDataInterface, grant: Contra
     const isWG = user.roles.isWG
     let isVote = false
     grant.app.forEach((app) => {
-      if(app.voted) {
+      if (app.voted) {
         isVote = true
       }
     })
@@ -16,4 +16,22 @@ export function isFinishApplicantsVoteBtn(user: UserDataInterface, grant: Contra
   } else {
     return false
   }
+}
+
+export function getWinnerTeamId(grant: ContractGrantModel): string {
+  let res = {
+    key: '',
+    score: 0
+  }
+  if (grant.app)
+    grant.app.forEach((app) => {
+      if (app.key && app.score && app.score.value){
+        const score = parseInt(app.score.value)
+        if (res.score <= score) {
+          res.key = app.key
+          res.score = score
+        }
+      }
+    })
+  return res.key
 }

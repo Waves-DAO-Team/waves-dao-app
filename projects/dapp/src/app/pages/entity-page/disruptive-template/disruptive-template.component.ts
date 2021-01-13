@@ -19,7 +19,7 @@ import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
 import {combineLatest, Subject} from 'rxjs'
-import {isFinishApplicantsVoteBtn} from "@pages/entity-page/disruptive-template/functions";
+import {getWinnerTeamId, isFinishApplicantsVoteBtn} from "@pages/entity-page/disruptive-template/functions";
 
 @Component({
   selector: 'app-disruptive-template',
@@ -178,8 +178,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   }
 
   finishApplicantsVote(): void {
-    alert()
-    // this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string, 'LRKfpkYHybo65f2p6GydDvn5X').subscribe()
+    const id = this.grant.id as string
+    if (id)
+      this.disruptiveContractService.finishApplicantsVoting(id, getWinnerTeamId(this.grant)).subscribe()
   }
 
   addReward(): void {
