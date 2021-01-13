@@ -54,3 +54,25 @@ export function teamsControls(user: UserDataInterface, grant: ContractGrantModel
   }
   return result
 }
+
+export function isStartWorkBtn(user: UserDataInterface, grant: ContractGrantModel): boolean {
+  let result = false
+  let temp = {
+    leader: '',
+    score: 0
+  }
+  if (grant && grant.app)
+    grant.app.forEach((app) => {
+      if (app.leader && app.score && app.score.value){
+        const score = parseInt(app.score.value)
+        if (temp.score <= score) {
+          temp.leader = app.leader.value
+          temp.score = score
+        }
+      }
+    })
+  if(grant && grant.status && grant.status.value === GrantStatusEnum.teamChosen && temp.leader === user.userAddress) {
+    result = true
+  }
+  return result
+}

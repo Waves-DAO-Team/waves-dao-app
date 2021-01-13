@@ -6,7 +6,7 @@
     {{'entity.add_reward' | transloco}}
   </button>
 
-  <button class="active" (click)="startWork()">
+  <button class="active" (click)="startWork()" *ngIf="isStartWorkBtn$ | async">
     {{'entity.start_work' | transloco}}
   </button>
 

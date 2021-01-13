@@ -25,7 +25,7 @@ import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-wo
 import {combineLatest, Observable, Subject} from 'rxjs'
 import {
   getWinnerTeamId,
-  isFinishApplicantsVoteBtn,
+  isFinishApplicantsVoteBtn, isStartWorkBtn,
   teamsControls
 } from "@pages/entity-page/disruptive-template/functions";
 
@@ -58,6 +58,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   teamsControls$: Observable<TeamsControlsInterface> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => teamsControls(user, grant)))
+
+  isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(map(([user, grant]) => isStartWorkBtn(user, grant)))
 
   isFinishApplicantsVoteBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isFinishApplicantsVoteBtn(user, grant)))
