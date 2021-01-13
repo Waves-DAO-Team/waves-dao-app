@@ -26,7 +26,7 @@ export function getWinnerTeamId(grant: ContractGrantModel): string {
   }
   if (grant.app)
     grant.app.forEach((app) => {
-      if (app.key && app.score && app.score.value){
+      if (app.key && app.score && app.score.value) {
         const score = parseInt(app.score.value)
         if (res.score <= score) {
           res.key = app.key
@@ -39,10 +39,10 @@ export function getWinnerTeamId(grant: ContractGrantModel): string {
 
 export function isAcceptWorkResultBtn(user: UserDataInterface, grant: ContractGrantModel): boolean {
   let result = false
-  if(grant && grant.app && grant.status && grant.status.value === GrantStatusEnum.workStarted) {
+  if (grant && grant.app && grant.status && grant.status.value === GrantStatusEnum.workStarted) {
     let isPerformer = false
     grant.app.forEach((app) => {
-      if(
+      if (
         app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted
         && app.leader.value === user.userAddress
       ) {
@@ -56,6 +56,8 @@ export function isAcceptWorkResultBtn(user: UserDataInterface, grant: ContractGr
 
 export function teamsControls(user: UserDataInterface, grant: ContractGrantModel): TeamsControlsInterface {
   let result: TeamsControlsInterface = {
+    isVoteControls: 'show',
+    voteFor: [],
     isApplyBtn: false
   }
   // isApplyBtn
@@ -65,10 +67,23 @@ export function teamsControls(user: UserDataInterface, grant: ContractGrantModel
       result.isApplyBtn = true
     }
     grant.app.forEach((app) => {
-      if(app.leader.value === user.userAddress)
+      if (app.leader.value === user.userAddress)
         result.isApplyBtn = false
     })
   }
+  // isVoteControls
+  if (grant.app)
+    grant.app.forEach((app) => {
+      if(app.key && app.voted.value.includes(user.userAddress)){
+        result.voteFor.push(app.key)
+      }
+    })
+  if (grant && grant.status && grant.status.value && grant.status.value === GrantStatusEnum.readyToApply) {
+    result.isVoteControls = 'show'
+  } else {
+    result.isVoteControls = 'hidden'
+  }
+  console.log('+++', result, user.userAddress)
   return result
 }
 
@@ -80,7 +95,7 @@ export function isStartWorkBtn(user: UserDataInterface, grant: ContractGrantMode
   }
   if (grant && grant.app)
     grant.app.forEach((app) => {
-      if (app.leader && app.score && app.score.value){
+      if (app.leader && app.score && app.score.value) {
         const score = parseInt(app.score.value)
         if (temp.score <= score) {
           temp.leader = app.leader.value
@@ -88,8 +103,33 @@ export function isStartWorkBtn(user: UserDataInterface, grant: ContractGrantMode
         }
       }
     })
-  if(grant && grant.status && grant.status.value === GrantStatusEnum.teamChosen && temp.leader === user.userAddress) {
+  if (grant && grant.status && grant.status.value === GrantStatusEnum.teamChosen && temp.leader === user.userAddress) {
     result = true
   }
   return result
+}
+
+export function isShowAddRewardBtn(user: UserDataInterface, grant: ContractGrantModel): boolean {
+  if (grant) {
+    const isWG = user.roles.isWG
+    const isNoReward = !grant?.reward?.value
+    const isStatusMatch =
+      !grant?.status?.value
+      || grant?.status?.value === GrantStatusEnum.proposed
+      || grant?.status?.value === GrantStatusEnum.readyToApply
+      || grant?.status?.value === GrantStatusEnum.teamChosen
+    return isNoReward && isWG && isStatusMatch
+  } else {
+    return false
+  }
+}
+
+export function isFinishVoteBtn(user: UserDataInterface, grant: ContractGrantModel): boolean {
+  if (grant) {
+    const isStatusMatch = grant?.status?.value === GrantStatusEnum.proposed
+    const isWG = user.roles.isWG
+    return isWG && isStatusMatch
+  } else {
+    return false
+  }
 }

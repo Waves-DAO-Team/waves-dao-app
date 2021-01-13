@@ -34,5 +34,7 @@ export interface TeamsAndSolutionsControlsInterface {
 }
 
 export interface TeamsControlsInterface {
-  isApplyBtn: boolean
+  isApplyBtn: boolean,
+  voteFor: string[],
+  isVoteControls: 'show' | 'hidden'
 }

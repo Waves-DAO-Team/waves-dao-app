@@ -35,6 +35,8 @@
             <img
               alt="vote"
               src="assets/icons/arr-up-blue.svg"
+              [class.disabled]="teamsControls.voteFor.includes(user.userAddress)"
+              *ngIf="!(teamsControls.isVoteControls === 'hidden')"
               (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
              >
           </div>
@@ -43,6 +45,8 @@
             <img
               alt="vote"
               src="assets/icons/arr-down-red.svg"
+              [class.disabled]="teamsControls.voteFor.includes(user.userAddress)"
+              *ngIf="!(teamsControls.isVoteControls === 'hidden')"
               (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
           </div>
         </ng-container>

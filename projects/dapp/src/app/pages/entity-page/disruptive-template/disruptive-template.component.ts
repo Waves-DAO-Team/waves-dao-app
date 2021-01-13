@@ -25,7 +25,7 @@ import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-wo
 import {combineLatest, Observable, Subject} from 'rxjs'
 import {
   getWinnerTeamId, isAcceptWorkResultBtn,
-  isFinishApplicantsVoteBtn, isStartWorkBtn,
+  isFinishApplicantsVoteBtn, isFinishVoteBtn, isShowAddRewardBtn, isStartWorkBtn,
   teamsControls
 } from "@pages/entity-page/disruptive-template/functions";
 
@@ -35,26 +35,13 @@ import {
   styleUrls: ['./disruptive-template.component.scss']
 })
 export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
+
   grantStatusEnum = GrantStatusEnum
 
   grant$ = new Subject<ContractGrantModel>();
-  isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      map(([user, grant]) => {
-        if (grant) {
-          const isWG = user.roles.isWG
-          const isNoReward = !grant?.reward?.value
-          const isStatusMatch =
-            !grant?.status?.value
-            || grant?.status?.value === this.grantStatusEnum.proposed
-            || grant?.status?.value === this.grantStatusEnum.readyToApply
-            || grant?.status?.value === this.grantStatusEnum.teamChosen
-          return isNoReward && isWG && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+
+  isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
+    .pipe(map(([user, grant]) => isShowAddRewardBtn(user, grant)))
 
   teamsControls$: Observable<TeamsControlsInterface> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => teamsControls(user, grant)))
@@ -68,18 +55,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   isAcceptWorkResultBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isAcceptWorkResultBtn(user, grant)))
 
-  isFinishVoteBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      map(([user, grant]) => {
-        if (grant) {
-          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.proposed
-          const isWG = user.roles.isWG
-          return isWG && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+  isFinishVoteBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
+    .pipe(map(([user, grant]) => isFinishVoteBtn(user, grant)))
 
   voteForTaskData = {
     isShow: false,
