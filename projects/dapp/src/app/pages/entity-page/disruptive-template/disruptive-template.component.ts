@@ -117,7 +117,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   }
 
   openApplyModal() {
-    this.dialog.open(DialogComponent, {
+   const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
         params: {
@@ -125,7 +125,10 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
           submitCallBack: (data: SubmitCallBackApplyArg) => {
             this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
               .pipe(take(1))
-              .subscribe()
+              .subscribe(() => {
+                dialog.close()
+                this.cdr.markForCheck()
+              })
           }
         }
       }

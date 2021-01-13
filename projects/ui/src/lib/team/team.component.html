@@ -1,5 +1,6 @@
 <div class="team" *ngIf="userService.data | async as user">
 
+
   <div class="team__header" *ngIf="grant?.isShowAppliers">
 
     <div class="team__title mat-display-4">{{titleText}}</div>
@@ -27,6 +28,7 @@
   </div>
 
   <ul *ngIf="grant?.app?.length > 0" class="team__list">
+    
     <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process" class="team__list__li">
 
       <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">
@@ -35,8 +37,8 @@
             <img
               alt="vote"
               src="assets/icons/arr-up-blue.svg"
-              [class.disabled]="teamsControls.voteFor.includes(user.userAddress)"
-              *ngIf="!(teamsControls.isVoteControls === 'hidden')"
+              [class.disabled]="teamsControls?.voteFor.includes(app.id.value)"
+              *ngIf="!(teamsControls?.isVoteControls === 'hidden')"
               (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
              >
           </div>
@@ -45,8 +47,8 @@
             <img
               alt="vote"
               src="assets/icons/arr-down-red.svg"
-              [class.disabled]="teamsControls.voteFor.includes(user.userAddress)"
-              *ngIf="!(teamsControls.isVoteControls === 'hidden')"
+              [class.disabled]="teamsControls?.voteFor.includes(app.id.value)"
+              *ngIf="!(teamsControls?.isVoteControls === 'hidden')"
               (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
           </div>
         </ng-container>
