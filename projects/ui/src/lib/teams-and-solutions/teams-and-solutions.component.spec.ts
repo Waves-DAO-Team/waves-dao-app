@@ -1,18 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { TeamsAndSolutionsComponent } from './teams-and-solutions.component';
-import {UserService} from "@services/user/user.service";
-import {provideApi, provideAppConstants} from "@constants";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {getTranslocoModule} from "@dapp/src/app/transloco-module.spec";
-import {RouterTestingModule} from "@angular/router/testing";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {NotFoundPageModule} from "@pages/not-found-page/not-found-page.module";
-import {LoadingPageModule} from "@pages/loading-page/loading-page.module";
+import { TeamsAndSolutionsComponent } from './teams-and-solutions.component'
+import { UserService } from '@services/user/user.service'
+import { provideApi, provideAppConstants } from '@constants'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
+import { RouterTestingModule } from '@angular/router/testing'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('TeamsAndSolutionsComponent', () => {
-  let component: TeamsAndSolutionsComponent;
-  let fixture: ComponentFixture<TeamsAndSolutionsComponent>;
+  let component: TeamsAndSolutionsComponent
+  let fixture: ComponentFixture<TeamsAndSolutionsComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,25 +18,25 @@ describe('TeamsAndSolutionsComponent', () => {
         HttpClientTestingModule,
         getTranslocoModule(),
         RouterTestingModule,
-        MatSnackBarModule,
+        MatSnackBarModule
       ],
-      declarations: [ TeamsAndSolutionsComponent ],
+      declarations: [TeamsAndSolutionsComponent],
       providers: [
         provideAppConstants(),
         provideApi(),
         UserService,
         provideApi()]
     })
-    .compileComponents();
-  });
+      .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TeamsAndSolutionsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(TeamsAndSolutionsComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})
