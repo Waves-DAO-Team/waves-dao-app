@@ -22,7 +22,6 @@ import { GrantsVariationType } from '@services/static/static.model'
 export class AboutPageComponent implements OnInit, OnDestroy {
   public readonly content$ = this.contract.data$.pipe(
     switchMap((contractInfo) => {
-      console.log('DATA', contractInfo)
       return this.linkContentService.getContent(contractInfo.about)
     })
   )

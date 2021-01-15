@@ -18,9 +18,9 @@ export const environment = {
       interhack: '3MutoJzdTrUrDBhCu1qU6FRgAADLadZEL9D'
     },
     issues: {
-      disruptive: 'https://github.com/vlzhr/grants-program/issues/new?assignees=KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
-      web3: 'https://github.com/vlzhr/grants-program/issues/new?assignees=KardanovIR&labels=Web3.0+Development+Grant&template=track-2--web3-0-development-grant.md&title=%5BTrack+2.+Web3.0+Development+Grant%5D+',
-      interhack: 'https://github.com/vlzhr/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+'
+      disruptive: 'https://github.com/Waves-Association/grants-program/blob/main/README.md',
+      web3: 'https://github.com/Waves-Association/grants-program/blob/main/README.md',
+      interhack: 'https://github.com/Waves-Association/grants-program/blob/main/README.md'
     }
   },
 

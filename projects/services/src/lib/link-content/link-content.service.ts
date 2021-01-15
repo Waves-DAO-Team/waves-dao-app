@@ -39,7 +39,7 @@ export class LinkContentService {
         if (data.isGH && data.isIssues && data?.url) {
           return this.http.get<ReposResponseInterface>(`https://api.github.com/repos${data?.url}`)
         } else if (data.isFile && data?.url) {
-          return this.http.request('get', `https://raw.githubusercontent.com/${data?.url}`, {
+          return this.http.request('get', `https://raw.githubusercontent.com/${data?.url.replace('blob/', '')}`, {
             responseType: 'text'
           }).pipe(catchError((e) => of('')))
         } else if (data?.url) {

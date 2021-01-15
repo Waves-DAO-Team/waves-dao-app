@@ -330,7 +330,7 @@
       "title": "Disruptive Tech Grants",
       "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
       "banner": "Call for applications will be announced in Q1 2021. Stay tuned!",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/.github/ISSUE_TEMPLATE/track-1--disruptive-tech-grant.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
     },
     "web3": {
       "navigation": "Web3.0 grants",
@@ -339,7 +339,7 @@
       "title": "Web 3.0 Dev Grants",
       "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
       "banner": "Apply with your project before Feb. 1, 2021 to receive a grant of up to 100k WAVES",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/.github/ISSUE_TEMPLATE/track-2--web3-0-development-grant.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
     },
     "interhack": {
       "navigation": "Interhack grants",
@@ -348,7 +348,7 @@
       "title": "Interhack Grants",
       "desc": "Interhack Grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
       "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/.github/ISSUE_TEMPLATE/track-3--interhack-grant.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
     }
   },
   "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
