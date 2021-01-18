@@ -24,15 +24,31 @@
 
   &__grants {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin-bottom: $padding * 3;
     @include media('<=tablet') {
       flex-direction: column;
+      justify-content: flex-start;
 
       a {
         margin-top: $padding;
 
         &:first-child {
           margin-top: 0;
+        }
+
+        &:nth-child(2) {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+    }
+    @include media('<=phone') {
+      a {
+        &:nth-child(2) {
+          margin-left: 0;
+          margin-right: 0;
         }
       }
     }
@@ -43,13 +59,11 @@
     cursor: pointer;
     display: block;
     flex: 1;
-    margin-right: $padding;
+    //margin-right: $padding;
     position: relative;
     transition: 1s;
 
-    @include media('<=phone') {
-      margin-right: 0;
-    }
+
 
     &::after {
       background: $color_white;
@@ -62,8 +76,9 @@
       width: 100%;
     }
 
-    &:nth-child(3) {
-      margin: 0;
+    &:nth-child(2) {
+      margin-left: $padding;
+      margin-right: $padding;
     }
 
     &-img {
