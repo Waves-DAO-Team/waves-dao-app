@@ -31,10 +31,10 @@
     border: 1px solid $color_light_gray;
     color: $color_black;
     background: none;
-    padding: $padding $padding * 2;
+    padding: $padding $padding + 4;
     text-transform: uppercase;
     transition: 0.3s;
-    height: 48px;
+    //height: 48px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -47,6 +47,7 @@
 
     &:hover {
       border: 1px solid $color_waves_blue;
+      box-shadow: 0 0 0 1px rgba(0, 85, 255, 1);
     }
   }
 }

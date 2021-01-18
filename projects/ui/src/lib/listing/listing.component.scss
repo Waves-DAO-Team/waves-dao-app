@@ -5,16 +5,17 @@
 .listing {
   .content {
     display: flex;
+
     ui-tag {
       flex: 1;
     }
+
     .listing-list {
       flex: 5.5;
-      margin-left: $padding/ 2;
+      //margin-left: $padding/ 2;
     }
   }
 }
-
 
 @include media('<=tablet') {
   .listing {
@@ -26,6 +27,7 @@
       overflow: scroll;
       overflow-x: scroll;
       width: calc(100% + 60px);
+
       .grant {
         margin: 0 $padding 0 $padding * 2 !important;
         min-width: 300px;
@@ -34,6 +36,7 @@
           margin-left: 40px !important;
         }
       }
+
       .final {
         display: block;
         height: 1px;
@@ -41,11 +44,13 @@
         min-width: 10px;
 
       }
+
       &::-webkit-scrollbar {
         height: 0;
         width: 0;
       }
     }
+
     .content {
       flex-direction: column;
 

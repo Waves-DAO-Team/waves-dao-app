@@ -18,8 +18,8 @@
     &__mid,
     &__left,
     &__right {
-      padding-left: $padding;
-      padding-right: $padding;
+      padding-left: $padding * 3;
+      padding-right: $padding * 3;
     }
 
   }

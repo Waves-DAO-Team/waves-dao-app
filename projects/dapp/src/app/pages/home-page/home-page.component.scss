@@ -14,16 +14,14 @@
   &__desc {
     color: $color_dark_gray;
     margin-bottom: $padding * 2;
-    max-width: 720px;
+    max-width: 45em; //720px;
 
     &-span {
       color: $color_black;
       font-weight: bold;
     }
   }
-}
 
-.home-page {
   &__grants {
     display: flex;
     margin-bottom: $padding * 3;
@@ -48,6 +46,10 @@
     margin-right: $padding;
     position: relative;
     transition: 1s;
+
+    @include media('<=phone') {
+      margin-right: 0;
+    }
 
     &::after {
       background: $color_white;
