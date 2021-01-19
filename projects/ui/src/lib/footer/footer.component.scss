@@ -24,8 +24,36 @@
       justify-content: flex-end;
 
       a {
+        display: inline-block;
         margin-left: 20px;
       }
+
+      &-icons {
+        display: flex;
+        flex-direction: row;
+      }
+
+      &-facebook {
+        background: url('/assets/icons/social/facebook-logo.svg') center no-repeat;
+        background-size: 100% 100%;
+        height: 24px;
+        width: 24px;
+      }
+
+      &-medium {
+        background: url('/assets/icons/social/medium-logo.svg') center no-repeat;
+        background-size: 100% 100%;
+        height: 24px;
+        width: 24px;
+      }
+
+      &-twitter {
+        background: url('/assets/icons/social/twitter-logo-outlined.svg') center no-repeat;
+        background-size: 100% 100%;
+        height: 24px;
+        width: 24px;
+      }
+
     }
   }
 
@@ -41,16 +69,23 @@ hr {
 @include media('<=tablet') {
   .footer {
     .container__mid {
-      flex-direction: column;
+      flex-direction: column-reverse;
 
       .footer__social {
+        align-items: center;
         display: flex;
-        flex-direction: column;
-        margin-top: $padding;
+        flex-direction: column-reverse;
+        margin: $padding auto;
+        //margin-top: $padding;
         width: 100%;
 
         a {
           margin-left: 15px;
+        }
+
+        &-icons {
+          flex-direction: row;
+          margin-bottom: $padding;
         }
       }
     }

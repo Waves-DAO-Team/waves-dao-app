@@ -76,6 +76,20 @@
       width: 100%;
     }
 
+    &:hover {
+      box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
+      /*&::after {
+        background: $color_waves_blue;
+        bottom: 0;
+        content: '';
+        height: 5px;
+        left: 0;
+        position: absolute;
+        transition: 0.3s;
+        width: 100%;
+      }*/
+    }
+
     &:nth-child(2) {
       margin-left: $padding;
       margin-right: $padding;
