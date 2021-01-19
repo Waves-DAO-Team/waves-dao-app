@@ -78,6 +78,7 @@
 
     &:hover {
       box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
+      transform: translate(0, -1px);
       /*&::after {
         background: $color_waves_blue;
         bottom: 0;
@@ -109,11 +110,18 @@
     }
 
     &-title {
+      color: $color_black;
       display: block;
-      font-weight: 500;
+      font-family: 'Montserrat', 'sans-serif';
+      font-style: normal;
+      font-weight: 600;
       margin-bottom: $padding / 2;
       padding: 0;
       text-align: center;
+
+      &:hover {
+        color: $color_waves_blue;
+      }
     }
 
     &-desc {
