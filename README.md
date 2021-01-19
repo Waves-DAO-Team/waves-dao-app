@@ -12,27 +12,27 @@ Waves DAO is a tool that facilitates the application and distribution of grants
 provided by the Waves Association.
 
 Thanks to Waves DAO, members of the Waves Association and its working groups can
-manage the grant distribution process and transparently vote for applicants.
+manage the grant distribution process and transparently vote for the applicants.
 
 ## Original DAO Contracts
 
-- [Managment membership](https://github.com/vlzhr/WavesDAO/blob/master/dao-membership.ride)
+- [Management membership](https://github.com/vlzhr/WavesDAO/blob/master/dao-membership.ride)
 
   Waves Association DAO member management
 
 - [Disruptive Tech Grants](https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grant.ride)
 
-  Disruptive Tech Grants are awarded to implement tasks dedicated to developing
+  Disruptive Tech Grants awarded to implement tasks dedicated to developing
   solutions that meet the rapidly accelerating Waves ecosystem’s needs.
 
 - [Interhack Grants](https://github.com/vlzhr/WavesDAO/blob/master/interhack-grant.ride)
 
-  Interhack Grants are awarded for building innovative solutions at hackathons
+  Interhack Grants awarded for building innovative solutions at hackathons
   in accordance with assignments provided by the Waves Association.
 
 - [Web3 Community Development Grants](https://github.com/vlzhr/WavesDAO/blob/master/web3-grant.ride)
 
-  Web 3.0 Development Grants can be proposed by the community and are awarded to
+  Web 3.0 Development Grants can be proposed by the community and awarded to
   the teams that foster mass adoption of blockchain technology.
 
 ## Architecture
@@ -40,22 +40,22 @@ manage the grant distribution process and transparently vote for applicants.
 Structure diagram:
 ![structure](https://raw.githubusercontent.com/rieset/waves-grants/dev/contracts/structure-diagram.png?token=AE6NWSYPSYPVIIKCQB6S7YC75HOLE)
 
-Waves DAO is a client-server application using smart contacts blockchain
-technology. Angular, Angular material and Signer are used for the frontend.
+Waves DAO is a client-server application using blockchain technology
+based on smart contacts. Frontend uses Angular, Angular material and Signer.
 
 File structure applications are:
 
-- /pages - here are the main pages of the application
-- /ui - ui elements are located here
-- /services - application services are located here
-- /libs - this is where application libraries, pipes, decorators, directives,
+- /pages - directory with the main pages of the application
+- /ui - ui elements located here
+- /services - application services located here
+- /libs - directory where application libraries, pipes, decorators, directives
 and more are located.
 
 Main application services:
 
 - ContractService - this service is responsible for interacting with contracts.
-This service receives data, prepares and
-  formats it, and switches between contracts.
+This service receives data, prepares and formats it,
+as well as switches between contracts.
 - InterhackContractService, CommunityContractService, CommonContractService -
 services responsible for working with different types of contracts.
 CommonContractService combines common contract methods.
