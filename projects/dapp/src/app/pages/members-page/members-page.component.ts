@@ -2,21 +2,18 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Inject,
-  OnInit
+  Inject
 } from '@angular/core'
 import {Location} from '@angular/common'
 import {UserService} from '@services/user/user.service'
 import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
 import {StaticService} from '@services/static/static.service'
-import {DialogComponent} from "@ui/dialog/dialog.component";
-import {ApplyComponent} from "@ui/modals/apply/apply.component";
-import {SubmitCallBackAddMemberArg, SubmitCallBackApplyArg} from "@ui/dialog/dialog.tokens";
-import {take} from "rxjs/operators";
-import {MatDialog} from "@angular/material/dialog";
-import {AddMemberComponent} from "@ui/modals/add-member/add-member.component";
-import {translate} from "@ngneat/transloco";
-import {CommonContractService} from "@services/contract/common-contract.service";
+import {DialogComponent} from '@ui/dialog/dialog.component';
+import {SubmitCallBackAddMemberArg} from '@ui/dialog/dialog.tokens';
+import {MatDialog} from '@angular/material/dialog';
+import {AddMemberComponent} from '@ui/modals/add-member/add-member.component';
+import {translate} from '@ngneat/transloco';
+import {CommonContractService} from '@services/contract/common-contract.service';
 
 @Component({
   selector: 'app-members-page',
@@ -52,7 +49,7 @@ export class MembersPageComponent {
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.commonContractService.addDAOMember(data.address)
-              .subscribe((data) => {
+              .subscribe(() => {
                 dialog.close()
               })
           }
@@ -70,7 +67,7 @@ export class MembersPageComponent {
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.commonContractService.addGroupMember(data.address)
-              .subscribe((data) => {
+              .subscribe(() => {
                 dialog.close()
               })
           }

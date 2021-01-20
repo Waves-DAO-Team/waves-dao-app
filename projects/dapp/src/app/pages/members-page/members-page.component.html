@@ -8,12 +8,6 @@
 
     <div class="members-page__header">
       <div class="members-page__title mat-h1">{{'members.members' | transloco}}</div>
-      <div class="members-page__controls">
-        <button
-          *ngIf="userService.data.getValue().roles.isOwner"
-          [routerLink]="['/', 'grants', staticService.selectedContact, 'settings']"
-        >{{ 'app.controls.setting' | transloco }}</button>
-      </div>
     </div>
 
     <!--master-->
