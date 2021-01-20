@@ -46,6 +46,7 @@
     <button
       *ngIf="userService.data.getValue().roles.isOwner"
       class="members-page__add-btn"
+      (click)="openAddWGModal()"
     >{{'master_setting.form.add' | transloco}}</button>
     <!--wg-->
 
@@ -64,6 +65,7 @@
     <button
       *ngIf="userService.data.getValue().roles.isOwner"
       class="members-page__add-btn"
+      (click)="openAddDAOModal()"
     >{{'master_setting.form.add' | transloco}}</button>
     <!--dao-->
 
