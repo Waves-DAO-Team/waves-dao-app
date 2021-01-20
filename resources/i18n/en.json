@@ -16,7 +16,7 @@
     "controls": {
       "createGrant": "Create grant",
       "addReward": "Add reward",
-      "proposeGrant": "Request a grant",
+      "proposeGrant": "Request grant",
       "finishProposeGrant": "Submit to vote",
       "setting": "Setting"
     }
@@ -26,11 +26,11 @@
       "add_reward": "Add reward",
       "add_task_details": "Add task details",
       "accept_work_result": "Accept work result",
-      "propose_grant": "Request a grant",
+      "propose_grant": "Request grant",
       "propose_web_grant": "Propose a Web 3.0 Dev Grant",
       "link_to_description": "Link to grant description",
       "link_to_apply": "Link to apply form",
-      "apply_on_githubt": "Apply form on GitHubt",
+      "apply_on_githubt": "Apply form on GitHub",
       "issue_on_githubt": "issue on GitHub",
       "please_submit": "Please submit the form using",
       "successfully_applied": {
@@ -47,7 +47,7 @@
     "btn": {
       "add_task_details": "Add task details",
       "init_task_voting": "Init task voting",
-      "propose_grant": "Propose a grant",
+      "propose_grant": "Propose grant",
       "apply": "APPLY",
       "apply_on_githubt": "APPLY ON GITHUB",
       "already_apply": "I ALREADY APPLIED",
@@ -79,7 +79,7 @@
   "listing": {
     "desc": {
       "you_can_vote": "Waves DAO is a tool that facilitates the application and distribution of grants provided by the Waves Association. Thanks to Waves DAO, members of the Waves Association and its working groups can manage the grant distribution process and transparently vote for applicants.",
-      "select_category": "Select a category to view grants."
+      "select_category": "Select a category to view grants"
     },
     "more": "Show more",
     "header": {
@@ -110,12 +110,12 @@
     "reward": "Reward",
     "list": {
       "grants": "Grants",
-      "important": "Open grants"
+      "important": "Important grants"
     }
   },
   "entity": {
     "reward": "Reward",
-    "log_in_for_apply": "Log in for apply",
+    "log_in_for_apply": "Log in to apply",
     "edit_task_details": "EDIT TASK DETAILS",
     "insufficient_balance": "Insufficient balance",
     "apply": "Apply",

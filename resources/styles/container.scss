@@ -6,6 +6,7 @@
   display: flex;
   margin: 0 auto;
   max-width: var(--layout-width);
+  padding: $padding * 4 auto 0;
 
   @include media('<=tablet') {
     flex-direction: column;
@@ -57,6 +58,8 @@
       font-weight: 100;
       outline: none;
       padding: 0;
+      position: sticky;
+      top: $padding * 9;
 
       img {
         margin-right: $padding;
