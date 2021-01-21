@@ -1,0 +1,14 @@
+@import '../../const';
+
+@mixin btn-prime-white {
+  width: 100%;
+  margin-top: -1px;
+  text-align: center;
+  display: block;
+  color: $color_waves_blue;
+  transition: 0.3s;
+  &:hover {
+    color: $color_white;
+    background: $color_waves_blue;
+  }
+}

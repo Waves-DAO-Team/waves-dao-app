@@ -8,16 +8,9 @@ import { UserInterface } from '@constants'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserContactsComponent implements OnInit {
-  private GSaddress: string | null = null
 
-  @Input() set address (address: string) {
-    this.GSaddress = address
-  }
-
-  get address (): string {
-    return this.GSaddress ? this.GSaddress : ''
-  }
-
+  @Input() isList: boolean | null = null
+  @Input() address: string | null = null
   @Input() user: UserInterface | null = null
 
   constructor () { }
