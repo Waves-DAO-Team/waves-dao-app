@@ -8,36 +8,60 @@
 
     <div class="members-page__header">
       <div class="members-page__title mat-h1">{{'members.members' | transloco}}</div>
-      <div class="members-page__controls">
-        <button *ngIf="userService.data.getValue().roles.isOwner" [routerLink]="['/', 'grants', staticService.selectedContact, 'settings']">
-          {{ 'app.controls.setting' | transloco }}
-        </button>
-      </div>
     </div>
-    <ui-user-contacts *ngIf="api?.workingGroup[user.masterAddress] as userObj" [address]="user.masterAddress" [user]="userObj"></ui-user-contacts>
 
-    <div class="sub-title mat-display-4">{{'members.owner' | transloco}}</div>
-    <ul>
-      <li>
-        <ui-user-contacts [address]="user.owner" [user]="api?.workingGroup[user.owner]"></ui-user-contacts>
-      </li>
-    </ul>
+    <!--master-->
+    <div class="sub-title mat-display-4">
+      <img src="assets/icons/avatar/master.png" alt="master">
+      {{'members.owner' | transloco}}
+    </div>
+    <div class="members-page__contract-block">
+      <ui-user-contacts
+        [isList]='false'
+        [address]="[user.owner]"
+        [user]="api?.workingGroup[user.owner]"
+      ></ui-user-contacts>
+    </div>
+    <!--master-->
 
-    <div class="sub-title mat-display-4">{{'members.wg' | transloco}}</div>
-    <ul>
-      <li *ngFor="let wg of user.WorkGroupAddress">
-        <ui-user-contacts [address]="wg" [user]="api?.workingGroup[wg]"></ui-user-contacts>
-      </li>
-    </ul>
+    <!--wg-->
+    <div class="sub-title mat-display-4">
+      <img src="assets/icons/avatar/wg.png" alt="wg">
+      {{'members.wg' | transloco}}
+    </div>
+    <div class="members-page__contract-block">
+      <ui-user-contacts
+        *ngFor="let wg of user.WorkGroupAddress; let i = index"
+        [isList]='i + 1  < user.WorkGroupAddress.length ? true : false'
+        [address]="wg"
+        [user]="api?.workingGroup[wg]"
+      ></ui-user-contacts>
+    </div>
+    <button
+      *ngIf="userService.data.getValue().roles.isOwner"
+      class="members-page__add-btn"
+      (click)="openAddWGModal()"
+    >{{'master_setting.form.add' | transloco}}</button>
+    <!--wg-->
 
-    <div class="sub-title mat-display-4">{{'members.dao' | transloco}}</div>
-    <ul>
-      <ng-container *ngFor="let dao of user.DAOMemberAddress">
-        <li>
-          <ui-user-contacts [address]="dao" [user]="api?.workingGroup[dao]"></ui-user-contacts>
-        </li>
-      </ng-container>
-    </ul>
+    <!--dao-->
+    <div class="sub-title mat-display-4">
+      <img src="assets/icons/avatar/dao.png" alt="dao">
+      {{'members.dao' | transloco}}
+    </div>
+    <div class="members-page__contract-block">
+      <ui-user-contacts
+        *ngFor="let dao of user.DAOMemberAddress; let i = index"
+        [address]="dao"
+        [isList]='i + 1  < user.DAOMemberAddress.length ? true : false'
+        [user]="api?.workingGroup[dao]"></ui-user-contacts>
+    </div>
+    <button
+      *ngIf="userService.data.getValue().roles.isOwner"
+      class="members-page__add-btn"
+      (click)="openAddDAOModal()"
+    >{{'master_setting.form.add' | transloco}}</button>
+    <!--dao-->
 
   </div>
   <div class="container__right">

@@ -77,6 +77,14 @@
 
     .btn {
       padding: $padding $padding * 2;
+
+    }
+  }  @else if($type == one-line) {
+    .btn {
+      flex: 1;
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
 }

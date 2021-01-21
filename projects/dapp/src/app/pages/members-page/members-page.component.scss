@@ -1,12 +1,18 @@
 @import 'const';
 @import 'container';
+@import 'mixins/elements/btn';
 
 .container {
   @include container();
 }
 
 .sub-title {
-  margin: $padding * 2 auto auto auto;
+  margin: $padding * 3 auto $padding auto;
+  display: flex;
+  item-align: center;
+  img {
+    margin-right: $padding;
+  }
 }
 
 .controls {
@@ -27,6 +33,15 @@
 
   ul {
     margin-top: 12px;
+  }
+
+  &__contract-block {
+    border: 1px solid $color_light_gray;
+    padding: $padding * 1.5 $padding * 2
+  }
+
+  &__add-btn {
+    @include btn-prime-white();
   }
 
 }
