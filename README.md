@@ -2,11 +2,6 @@
 
 [![Linter](https://github.com/rieset/waves-grants/workflows/Linter/badge.svg)](https://github.com/rieset/waves-grants/actions)
 [![Testing](https://github.com/rieset/waves-grants/workflows/Testing/badge.svg)](https://github.com/rieset/waves-grants/actions)
-[![Reliability Rating](https://sonarqube.wvservices.com/api/project_badges/measure?project=waves-grants&metric=reliability_rating)](https://sonarqube.wvservices.com/dashboard?id=waves-grants)
-[![Security Rating](https://sonarqube.wvservices.com/api/project_badges/measure?project=waves-grants&metric=security_rating)](https://sonarqube.wvservices.com/dashboard?id=waves-grants)
-[![Technical Debt](https://sonarqube.wvservices.com/api/project_badges/measure?project=waves-grants&metric=sqale_index)](https://sonarqube.wvservices.com/dashboard?id=waves-grants)
-[![Vulnerabilities](https://sonarqube.wvservices.com/api/project_badges/measure?project=waves-grants&metric=vulnerabilities)](https://sonarqube.wvservices.com/dashboard?id=waves-grants)
-[![Quality Gate Status](https://sonarqube.wvservices.com/api/project_badges/measure?project=waves-grants&metric=alert_status)](https://sonarqube.wvservices.com/dashboard?id=waves-grants)
 
 Waves DAO is a tool that facilitates the application and distribution of grants
 provided by the Waves Association.
