@@ -9,13 +9,23 @@ type VoteStatus = 'like' | 'dislike';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VoteForTaskComponent {
+  public _isVoteInProcess = false;
   voteStatus: VoteStatus | null = null;
   buttonClicked = false;
   @Input() isShow = false
   @Input() isVote = false
+  @Input() set isVoteInProcess (value: boolean) {
+    this._isVoteInProcess = value
+  }
+
+  get isVoteInProcess () {
+    return this._isVoteInProcess
+  }
 
   @Output() newVoteEvent = new EventEmitter<VoteStatus>();
-  constructor () { }
+  constructor (
+  ) { }
+
   vote (event: VoteStatus) {
     this.voteStatus = event
     this.newVoteEvent.emit(event)

@@ -10,8 +10,11 @@
     .mat-button-wrapper {
       align-items: center;
       display: flex;
+      white-space: nowrap;
 
       .mat-icon {
+        flex: 0 0 auto;
+
         &:first-child {
           margin-right: 4px;
         }
