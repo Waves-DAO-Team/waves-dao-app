@@ -1,22 +1,22 @@
-import {Injectable} from '@angular/core'
-import {catchError, tap} from 'rxjs/operators'
-import {translate} from '@ngneat/transloco'
-import {EMPTY, Observable} from 'rxjs'
-import {CommonContractService} from '@services/contract/common-contract.service'
-import {ContractService} from '@services/contract/contract.service'
-import {SignerService} from '@services/signer/signer.service'
-import {MatSnackBar} from '@angular/material/snack-bar'
-import {TransactionsSuccessResult} from '@services/signer/signer.model'
+import { Injectable } from '@angular/core'
+import { catchError, tap } from 'rxjs/operators'
+import { translate } from '@ngneat/transloco'
+import { EMPTY, Observable } from 'rxjs'
+import { CommonContractService } from '@services/contract/common-contract.service'
+import { ContractService } from '@services/contract/contract.service'
+import { SignerService } from '@services/signer/signer.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { TransactionsSuccessResult } from '@services/signer/signer.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunityContractService {
   constructor (
-    private commonContractService: CommonContractService,
-    private contractService: ContractService,
+    private readonly commonContractService: CommonContractService,
+    private readonly contractService: ContractService,
     private readonly signerService: SignerService,
-    private snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar
   ) {
   }
 
@@ -32,7 +32,7 @@ export class CommunityContractService {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'initTaskVoting',
-      [{type: 'string', value: taskId}]
+      [{ type: 'string', value: taskId }]
     )
       .pipe(
         catchError((error) => {
@@ -52,8 +52,8 @@ export class CommunityContractService {
       this.contractService.getAddress(),
       'addReward',
       [
-        {type: 'string', value: taskId},
-        {type: 'integer', value: parseFloat(reward)}
+        { type: 'string', value: taskId },
+        { type: 'integer', value: parseFloat(reward) }
       ]
     ).pipe(
       catchError((error) => {
@@ -70,8 +70,8 @@ export class CommunityContractService {
 
   public voteForTaskProposal (taskId: string, voteValue: 'like' | 'dislike'): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForTaskProposal', [
-      {type: 'string', value: taskId},
-      {type: 'string', value: voteValue}
+      { type: 'string', value: taskId },
+      { type: 'string', value: voteValue }
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -87,9 +87,9 @@ export class CommunityContractService {
 
   public applyForTask (taskId: string, teamName: string, link: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'applyForTask', [
-      {type: 'string', value: taskId},
-      {type: 'string', value: teamName},
-      {type: 'string', value: link}
+      { type: 'string', value: taskId },
+      { type: 'string', value: teamName },
+      { type: 'string', value: link }
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -105,9 +105,9 @@ export class CommunityContractService {
 
   public voteForApplicant (taskId: string, teamIdentifier: string, voteValue: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForApplicant', [
-      {type: 'string', value: taskId},
-      {type: 'string', value: teamIdentifier},
-      {type: 'string', value: voteValue}
+      { type: 'string', value: taskId },
+      { type: 'string', value: teamIdentifier },
+      { type: 'string', value: voteValue }
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -123,7 +123,7 @@ export class CommunityContractService {
 
   public finishTaskProposalVoting (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishTaskProposalVoting', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -139,7 +139,7 @@ export class CommunityContractService {
 
   public startWork (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'startWork', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -155,7 +155,7 @@ export class CommunityContractService {
 
   public rejectTask (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'rejectTask', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -171,7 +171,7 @@ export class CommunityContractService {
 
   public acceptWorkResult (taskId: string, reportLink: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'acceptWorkResult',
-      [{type: 'string', value: taskId}, {type: 'string', value: reportLink}])
+      [{ type: 'string', value: taskId }, { type: 'string', value: reportLink }])
       .pipe(
         catchError((error) => {
           const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -187,7 +187,7 @@ export class CommunityContractService {
 
   public finishApplicantsVoting (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishApplicantsVoting', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -200,5 +200,4 @@ export class CommunityContractService {
       })
     )
   }
-
 }

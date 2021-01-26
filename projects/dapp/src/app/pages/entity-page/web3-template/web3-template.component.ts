@@ -26,6 +26,19 @@ import { combineLatest, Subject } from 'rxjs'
   styleUrls: ['./web3-template.component.scss']
 })
 export class Web3TemplateComponent implements TemplateComponentAbstract {
+
+  private GSgrant: ContractGrantModel = {}
+
+  @Input() set grant (data: ContractGrantModel) {
+    if (data !== this.GSgrant) {
+      this.GSgrant = data
+      this.prepareVoteForTaskData(data)
+    }
+    this.grant$.next(data)
+  }
+
+  @Input() public readonly contract!: GrantsVariationType
+
   grantStatusEnum = GrantStatusEnum
 
   voteForTaskData = {
@@ -34,7 +47,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
-  grant$ = new Subject<ContractGrantModel>();
+  grant$ = new Subject<ContractGrantModel>()
 
   isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -118,28 +131,16 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       })
     )
 
-  GSgrant: ContractGrantModel = {}
-
-  @Input() set grant (data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
-      this.prepareVoteForTaskData(data)
-    }
-    this.grant$.next(data)
-  }
-
   get grant () {
     return this.GSgrant
   }
 
-  @Input() public readonly contract!: GrantsVariationType
-
   constructor (
-    private dialog: MatDialog,
+    private readonly dialog: MatDialog,
     public communityContractService: CommunityContractService,
-    private snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar,
     public signerService: SignerService,
-    private cdr: ChangeDetectorRef,
+    private readonly cdr: ChangeDetectorRef,
     public userService: UserService
   ) {
   }

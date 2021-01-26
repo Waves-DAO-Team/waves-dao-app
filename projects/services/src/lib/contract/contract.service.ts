@@ -26,25 +26,21 @@ import { MembershipService } from '@services/membership/membership.service'
   providedIn: 'root'
 })
 export class ContractService {
-  private contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
+  private readonly contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
   public applicants: string[] = []
 
   private readonly contractState = this.contractAddress$.pipe(
-    // @ts-ignore
-    switchMap((address) => {
-      return this.getContractData(address)
-    }),
+    // @ts-expect-error
+    switchMap((address) => this.getContractData(address)),
     publishReplay(1),
     refCount()
   )
 
   public readonly stream: Observable<ContractDataModel> = combineLatest([this.contractState, this.membershipService.stream]).pipe(
-    map(([data, members]) => {
-      return {
-        ...data,
-        ...members
-      }
-    }),
+    map(([data, members]) => ({
+      ...data,
+      ...members
+    })),
     tap((data) => {
       console.log('CONTRACT DATA', data)
     }),
@@ -52,20 +48,16 @@ export class ContractService {
     refCount()
   )
 
-  public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.contractState.pipe(map((contract) => {
-    return Object.keys(contract?.tasks || {}).map((entityKey: string) => {
-      return {
-        ...contract?.tasks[entityKey],
-        id: entityKey
-      }
-    })
-  }))
+  public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.contractState.pipe(map((contract) => Object.keys(contract?.tasks || {}).map((entityKey: string) => ({
+    ...contract?.tasks[entityKey],
+    id: entityKey
+  }))))
 
   constructor (
     private readonly http: HttpClient,
     private storageService: StorageService,
-    private translocoService: TranslocoService,
-    private membershipService: MembershipService,
+    private readonly translocoService: TranslocoService,
+    private readonly membershipService: MembershipService,
     @Inject(API) private readonly api: AppApiInterface
   ) {}
 
@@ -75,13 +67,11 @@ export class ContractService {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
       // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-      // @ts-ignore
-      map((data: ContractRawData) => {
-        return {
-          ...this.prepareData(data),
-          address
-        }
-      })
+      // @ts-expect-error
+      map((data: ContractRawData) => ({
+        ...this.prepareData(data),
+        address
+      }))
     )
   }
 
@@ -107,7 +97,7 @@ export class ContractService {
 
   private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
+    // @ts-expect-error
     const key: string = keys.shift()
     if (!key) {
       return
@@ -118,13 +108,13 @@ export class ContractService {
     }
 
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
+    // @ts-expect-error
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
+    // @ts-expect-error
     return data.reduce((orig, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
@@ -140,12 +130,10 @@ export class ContractService {
         return {
           ...grant,
           isShowAppliers: !['', GrantStatusEnum.noStatus.toString(), GrantStatusEnum.proposed.toString()].includes(grant?.status?.value || ''),
-          app: grant.app ? Object.keys(grant.app).map((appKey) => {
-            return {
-              ...grant?.app?.[appKey],
-              key: appKey
-            }
-          }) : [],
+          app: grant.app ? Object.keys(grant.app).map((appKey) => ({
+            ...grant?.app?.[appKey],
+            key: appKey
+          })) : [],
           id: entityId
         } as ContractGrantModel
       })

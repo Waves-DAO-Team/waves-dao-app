@@ -24,14 +24,14 @@ export class DevGridComponent implements OnInit {
   public storageKey = 'dev-grid'
   public isShow = false
   public isActive = false
-  private cssClass = 'dev-mode'
+  private readonly cssClass = 'dev-mode'
 
   private readonly html: HTMLElement
 
   constructor (
     public renderer: Renderer2,
     @Inject(DOCUMENT) document: Document,
-    @Inject(PLATFORM_ID) private platformId: PlatformRef,
+    @Inject(PLATFORM_ID) private readonly platformId: PlatformRef,
     public cdr: ChangeDetectorRef
   ) {
     this.html = document.documentElement

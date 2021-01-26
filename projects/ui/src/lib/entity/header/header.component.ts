@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef} from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core'
 
 @Component({
   selector: 'ui-header',
@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   @Input() title = ''
   @Input() link = ''
   @Input() reward = 0
-  @Input() headerControlsTemplate: TemplateRef<Component> | undefined;
+  @Input() headerControlsTemplate: TemplateRef<Component> | undefined
 
   constructor () { }
 

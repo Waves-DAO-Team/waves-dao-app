@@ -8,11 +8,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 })
 export class TagComponent implements OnInit {
   @Input() tags: string[] = []
-  @Output() selectedTag = new EventEmitter<string>();
+  @Output() selectedTag = new EventEmitter<string>()
   lastTag = ''
-
-  constructor () {
-  }
 
   ngOnInit (): void {
     this.select('all')

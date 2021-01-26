@@ -8,7 +8,7 @@ import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { GrantStatusEnum } from '@services/static/static.model'
-import {TeamsControlsInterface, VoteTeamEventInterface} from '@pages/entity-page/entity.interface';
+import { TeamsControlsInterface, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 
 @Component({
   selector: 'ui-team',
@@ -17,9 +17,6 @@ import {TeamsControlsInterface, VoteTeamEventInterface} from '@pages/entity-page
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamComponent {
-
-  grantStatusEnum = GrantStatusEnum
-
   @Input() grant: ContractGrantModel | null = null
   @Input() titleText: string | null = null
   @Input() applyBtnText: string | null = null
@@ -30,6 +27,8 @@ export class TeamComponent {
   @Output() newOpenApplyModalEvent = new EventEmitter()
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
+  public grantStatusEnum = GrantStatusEnum
+
   constructor (
     public userService: UserService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
@@ -38,5 +37,4 @@ export class TeamComponent {
   isReadyToApply (): boolean {
     return this.grant?.status?.value === this.grantStatusEnum.readyToApply
   }
-
 }

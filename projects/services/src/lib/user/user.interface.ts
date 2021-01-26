@@ -23,11 +23,11 @@ export interface RoleRowInterface {
 }
 
 export interface UserDataInterface {
-  userRole: RoleEnum,
-  userAddress: string,
-  DAOMemberAddress: string[],
-  WorkGroupAddress: string[],
-  masterAddress: string,
+  userRole: RoleEnum
+  userAddress: string
+  DAOMemberAddress: string[]
+  WorkGroupAddress: string[]
+  masterAddress: string
   roles: RolesInterface
   voted: string[]
   apply: string[]

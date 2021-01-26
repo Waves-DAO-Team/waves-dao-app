@@ -22,18 +22,18 @@ import { GrantsVariationType } from '@services/static/static.model'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Web3TemplateComponent implements OnInit {
-  @Input() public readonly user!: UserDataInterface;
+  @Input() public readonly user!: UserDataInterface
 
-  @Input() public readonly contract!: GrantsVariationType;
+  @Input() public readonly contract!: GrantsVariationType
 
-  @Input() public readonly constants!: AppConstantsInterface;
+  @Input() public readonly constants!: AppConstantsInterface
 
-  @Input() public readonly api!: AppApiInterface;
+  @Input() public readonly api!: AppApiInterface
 
   constructor (
-      private dialog: MatDialog,
-      public communityContractService: CommunityContractService,
-      private cdr: ChangeDetectorRef
+    private readonly dialog: MatDialog,
+    public communityContractService: CommunityContractService,
+    private readonly cdr: ChangeDetectorRef
   ) {
   }
 

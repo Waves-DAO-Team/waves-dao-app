@@ -11,13 +11,13 @@ import { GrantsVariationType } from '@services/static/static.model'
   styleUrls: ['./sub-list.component.scss']
 })
 export class SubListComponent implements OnInit {
-  @Input() contract: GrantsVariationType | null = null;
+  @Input() contract: GrantsVariationType | null = null
   @HostBinding('class.enable') @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false
   @Input() title: string | null = null
 
   constructor (
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
   }
 

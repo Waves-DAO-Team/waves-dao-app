@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-export const destroyQueue = (target: object, func: () => void) => {
+export const destroyQueue = (target: {}, func: () => void) => {
   const METADATA_PROPERTY_KEY = 'ngOnDestroy'
   const METADATA_KEY = 'queue'
 
@@ -14,22 +14,20 @@ export const destroyQueue = (target: object, func: () => void) => {
 
   Reflect.defineMetadata(METADATA_KEY, (metadata || []).concat([func]), target, METADATA_PROPERTY_KEY)
 
-  // @ts-ignore
+  // @ts-expect-error
   if (target.constructor && target.constructor.ɵcmp) {
     Reflect.set(
-      // @ts-ignore
+      // @ts-expect-error
       target.constructor.ɵcmp,
       'onDestroy',
-      function (...args: (() => void)[]) {
+      function (...args: Array<() => void>) {
         if (typeof originalDestroy === 'function') {
-          // @ts-ignore
+          // @ts-expect-error
           originalDestroy.apply(this, args)
         }
 
         Reflect.getMetadata(METADATA_KEY, target, METADATA_PROPERTY_KEY)
-          .reduce((orig: null, fn: () => void) => {
-            return fn()
-          }, null)
+          .reduce((orig: null, fn: () => void) => fn(), null)
       }.bind(target)
     )
   }

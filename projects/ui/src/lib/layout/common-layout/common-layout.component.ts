@@ -31,12 +31,12 @@ export class CommonLayoutComponent implements OnInit, OnDestroy, CommonLayoutInt
   public singlePageLayout = false
   public secondLevelOnNavigation = false
 
-  @ViewChild('content', { read: ElementRef, static: true }) private layoutContentRef: ElementRef<HTMLElement> | null = null
+  @ViewChild('content', { read: ElementRef, static: true }) private readonly layoutContentRef: ElementRef<HTMLElement> | null = null
 
-  private destroyed$ = new Subject()
+  private readonly destroyed$ = new Subject()
 
   constructor (
-    private router: Router,
+    private readonly router: Router,
     @Inject(COMMON_LAYOUT_HEADER) public headerComponent: Type<CommonLayoutComponentModel>,
     @Inject(COMMON_LAYOUT_FOOTER) public footerComponent: Type<CommonLayoutComponentModel>
   ) {}

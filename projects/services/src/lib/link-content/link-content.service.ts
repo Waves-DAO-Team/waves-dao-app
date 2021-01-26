@@ -4,6 +4,14 @@ import { EMPTY, of } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map, switchMap, take } from 'rxjs/operators'
 
+interface LinkDataModel {
+  isFile: boolean
+  isGH: boolean
+  isIssues: boolean
+  separatorCounter: number
+  url: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +37,7 @@ export class LinkContentService {
           throw new Error('Analyzing url is failed')
         }
       }),
-      switchMap((data) => {
+      switchMap((data: LinkDataModel) => {
         if (data.url && !(data?.isGH && (data?.isFile || data?.isIssues || data?.separatorCounter === 5))) {
           if (isDevMode()) {
             throw new Error('Conditions is not equal a link')
@@ -41,10 +49,10 @@ export class LinkContentService {
         } else if (data.isFile && data?.url) {
           return this.http.request('get', `https://raw.githubusercontent.com/${data?.url.replace('blob/', '')}`, {
             responseType: 'text'
-          }).pipe(catchError((e) => of('')))
+          }).pipe(catchError((e: Error) => of('')))
         } else if (data?.url) {
           return this.http.get<MainResponseInterface>(`https://api.github.com/repos${data?.url}/contents/README.md`)
-            .pipe(catchError((e) => of('')))
+            .pipe(catchError((e: Error) => of('')))
         } else {
           return of('')
         }
@@ -63,7 +71,7 @@ export class LinkContentService {
         }
       ),
       take(1),
-      catchError((error) => {
+      catchError((error: Error) => {
         console.log('File by link ' + link + ' is not be a parsed', error)
         return EMPTY
       })
@@ -72,9 +80,7 @@ export class LinkContentService {
 
   getPrepareContent (link: string) {
     return this.getContent(link).pipe(
-      map((content) => {
-        return content?.replace(/^# .+\n/g, '')
-      })
+      map((content: string) => content?.replace(/^# .+\n/g, ''))
     )
   }
 }

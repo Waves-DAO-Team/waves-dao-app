@@ -17,7 +17,7 @@ import { GrantsVariationType } from '@services/static/static.model'
 })
 export class EntityPageComponent implements OnInit, OnDestroy {
   constructor (
-    private location: Location,
+    private readonly location: Location,
     @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType>,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     @Inject(ENTITY) public entity: LoadingWrapperModel<ContractGrantModel>

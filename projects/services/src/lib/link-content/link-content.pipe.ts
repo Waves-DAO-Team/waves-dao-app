@@ -8,7 +8,7 @@ import { Observable } from 'rxjs'
 
 @Pipe({ name: 'linkContent' })
 export class LinkContentPipe implements PipeTransform {
-  constructor (private linkContentService: LinkContentService) {}
+  constructor (private readonly linkContentService: LinkContentService) {}
 
   transform (value: string): Observable<string | undefined> {
     return this.linkContentService.getPrepareContent(value)

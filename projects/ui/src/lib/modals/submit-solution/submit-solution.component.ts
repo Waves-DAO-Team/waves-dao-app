@@ -1,7 +1,7 @@
-import {Component, Inject} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {UserService} from '@services/user/user.service';
-import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens';
+import { Component, Inject } from '@angular/core'
+import { FormControl, FormGroup } from '@angular/forms'
+import { UserService } from '@services/user/user.service'
+import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 
 @Component({
   selector: 'ui-submit-solution',
@@ -9,7 +9,6 @@ import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens';
   styleUrls: ['./submit-solution.component.scss']
 })
 export class SubmitSolutionComponent {
-
   isSubmit = false
 
   form = new FormGroup({
@@ -28,5 +27,4 @@ export class SubmitSolutionComponent {
       })
     }
   }
-
 }

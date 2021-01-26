@@ -8,13 +8,9 @@ import { UserInterface } from '@constants'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserContactsComponent implements OnInit {
-
   @Input() isList: boolean | null = null
   @Input() address: string | null = null
   @Input() user: UserInterface | null = null
 
-  constructor () { }
-
-  ngOnInit (): void {
-  }
+  ngOnInit (): void {}
 }

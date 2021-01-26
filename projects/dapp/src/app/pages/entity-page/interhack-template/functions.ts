@@ -1,9 +1,9 @@
-import {ContractGrantModel} from '@services/contract/contract.model';
-import {UserDataInterface} from '@services/user/user.interface';
-import {GrantStatusEnum} from '@services/static/static.model'
-import {TeamsAndSolutionsControlsInterface} from '@pages/entity-page/entity.interface';
+import { ContractGrantModel } from '@services/contract/contract.model'
+import { UserDataInterface } from '@services/user/user.interface'
+import { GrantStatusEnum } from '@services/static/static.model'
+import { TeamsAndSolutionsControlsInterface } from '@pages/entity-page/entity.interface'
 
-export function teamsAndSolutionsControls (user: UserDataInterface, grant: ContractGrantModel): TeamsAndSolutionsControlsInterface {
+export const teamsAndSolutionsControls = (user: UserDataInterface, grant: ContractGrantModel): TeamsAndSolutionsControlsInterface => {
   const result: TeamsAndSolutionsControlsInterface = {
     isShowSolutionControls: true,
     stepType: 'team',
@@ -19,16 +19,16 @@ export function teamsAndSolutionsControls (user: UserDataInterface, grant: Contr
     // isShowSolutionControls
     const status = grant.status.value
     if (
-      status === GrantStatusEnum.solutionChosen
-      || status === GrantStatusEnum.rejected
+      status === GrantStatusEnum.solutionChosen ||
+      status === GrantStatusEnum.rejected
     ) {
       result.isShowSolutionControls = false
     }
     // stepType
-    if ((status === GrantStatusEnum.workStarted
-      || status === GrantStatusEnum.proposed
-      || status === GrantStatusEnum.readyToApply
-      || status === GrantStatusEnum.workStarted)
+    if ((status === GrantStatusEnum.workStarted ||
+      status === GrantStatusEnum.proposed ||
+      status === GrantStatusEnum.readyToApply ||
+      status === GrantStatusEnum.workStarted)
     ) {
       result.stepType = 'team'
     } else {
@@ -53,9 +53,9 @@ export function teamsAndSolutionsControls (user: UserDataInterface, grant: Contr
     }
     // isShowAllTeam
     if (
-      status === GrantStatusEnum.noStatus
-      || status === GrantStatusEnum.proposed
-      || status === GrantStatusEnum.readyToApply
+      status === GrantStatusEnum.noStatus ||
+      status === GrantStatusEnum.proposed ||
+      status === GrantStatusEnum.readyToApply
     ) {
       result.isShowAllTeam = true
     } else {
@@ -64,7 +64,7 @@ export function teamsAndSolutionsControls (user: UserDataInterface, grant: Contr
     // teamVoteKeys
     let userKey = user.userAddress.slice(-15)
     const teamKeys: string[] = []
-    if (grant && grant.app) {
+    if (!!grant && grant.app) {
       grant.app.forEach((e) => {
         if (e.key) {
           teamKeys.push(userKey + e.key)
@@ -72,7 +72,7 @@ export function teamsAndSolutionsControls (user: UserDataInterface, grant: Contr
       })
     }
     teamKeys.forEach((key) => {
-      // @ts-ignore
+      // @ts-expect-error
       if (grant.vh && grant.vh[key]) {
         result.teamVoteKeys.push(key.slice(-25))
       }

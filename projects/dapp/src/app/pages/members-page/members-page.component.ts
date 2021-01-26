@@ -22,12 +22,12 @@ import { CommonContractService } from '@services/contract/common-contract.servic
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MembersPageComponent {
-  public readonly user$ = this.userService.data;
+  public readonly user$ = this.userService.data
 
   constructor (
-    private commonContractService: CommonContractService,
-    private dialog: MatDialog,
-    private location: Location,
+    private readonly commonContractService: CommonContractService,
+    private readonly dialog: MatDialog,
+    private readonly location: Location,
     public userService: UserService,
     public staticService: StaticService,
     public cdr: ChangeDetectorRef,

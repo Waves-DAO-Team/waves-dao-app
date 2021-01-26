@@ -22,10 +22,10 @@ import { GrantsVariationType } from '@services/static/static.model'
 })
 export class ListingPageComponent implements OnInit, OnDestroy {
   constructor (
-      @Inject(CONTRACT) public contract: LoadingWrapperModel<GrantsVariationType>,
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-      @Inject(API) public readonly api: AppApiInterface,
-      public readonly userService: UserService
+    @Inject(CONTRACT) public contract: LoadingWrapperModel<GrantsVariationType>,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(API) public readonly api: AppApiInterface,
+    public readonly userService: UserService
   ) {}
 
   ngOnInit (): void {

@@ -35,9 +35,20 @@ import {
   styleUrls: ['./disruptive-template.component.scss']
 })
 export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
+
+  @Input() public readonly contract!: GrantsVariationType
+
+  @Input() set grant (data: ContractGrantModel) {
+    if (data !== this.GSgrant) {
+      this.GSgrant = data
+      this.prepareVoteForTaskData(data)
+    }
+    this.grant$.next(data)
+  }
+
   grantStatusEnum = GrantStatusEnum
 
-  grant$ = new Subject<ContractGrantModel>();
+  grant$ = new Subject<ContractGrantModel>()
 
   isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isShowAddRewardBtn(user, grant)))
@@ -65,26 +76,16 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   GSgrant: ContractGrantModel = {}
 
-  @Input() set grant (data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
-      this.prepareVoteForTaskData(data)
-    }
-    this.grant$.next(data)
-  }
-
   get grant () {
     return this.GSgrant
   }
 
-  @Input() public readonly contract!: GrantsVariationType
-
   constructor (
-    private dialog: MatDialog,
+    private readonly dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
-    private snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar,
     public signerService: SignerService,
-    private cdr: ChangeDetectorRef,
+    private readonly cdr: ChangeDetectorRef,
     public userService: UserService
   ) {
   }

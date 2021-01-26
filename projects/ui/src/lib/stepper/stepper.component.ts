@@ -15,35 +15,35 @@ export class StepperComponent implements AfterViewInit {
   grantStatus: string[] = []
   stepId = 0
   formalStatuses = this.stepperService.getFormalStatuses()
-  setId$ = new Subject();
-  stepperInit$ = new Subject();
+  setId$ = new Subject()
+  stepperInit$ = new Subject()
 
   @Input() set setType (type: 'disruptive' | 'interhack' | 'web3') {
     this.stepperService.setType(type)
     this.formalStatuses = this.stepperService.getFormalStatuses()
   }
 
-  GSstatus = ''
+  private statusInput = ''
   @Input() set status (data: string) {
     if (data) {
-      this.GSstatus = data
+      this.statusInput = data
       this.stepId = this.stepperService.getActiveId(data)
       if (this.stepId) {
         this.setId$.next(this.stepId)
       }
     } else {
-      this.GSstatus = 'no_status'
+      this.statusInput = 'no_status'
       this.stepId = this.stepperService.getActiveId('no_status')
       this.setId$.next(0)
     }
   }
 
   get status (): string {
-    return this.GSstatus
+    return this.statusInput
   }
 
   step$ = combineLatest([this.setId$, this.stepperInit$]).pipe(
-    tap(([id, init]) => {
+    tap(([id, init]: [string, ]) => {
       if (id && typeof id === 'number' && init && this.stepper) {
         this.stepper.selectedIndex = id
         this.cdr.markForCheck()
@@ -51,9 +51,9 @@ export class StepperComponent implements AfterViewInit {
     })
   ).subscribe()
 
-  @ViewChild('stepper') stepper: MatStepper | undefined;
+  @ViewChild('stepper') stepper: MatStepper | undefined
 
-  constructor (private cdr: ChangeDetectorRef, public stepperService: StepperService) {
+  constructor (private readonly cdr: ChangeDetectorRef, public stepperService: StepperService) {
 
   }
 

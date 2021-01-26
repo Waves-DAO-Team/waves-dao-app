@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment'
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
-  constructor (private http: HttpClient) {}
+  constructor (private readonly http: HttpClient) {}
 
   getTranslation (lang: string) {
     return this.http.get<Translation>(`/assets/i18n/${lang}.json`)

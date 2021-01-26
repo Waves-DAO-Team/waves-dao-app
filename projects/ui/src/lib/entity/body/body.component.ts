@@ -10,8 +10,8 @@ import { ContractGrantModel } from '@services/contract/contract.model'
 })
 export class BodyComponent implements OnInit {
   environment: {
-    showDevTools: boolean;
-  } = environment;
+    showDevTools: boolean
+  } = environment
 
   mdTemp: string | null = null
   @Input() set md (value: string | null) {

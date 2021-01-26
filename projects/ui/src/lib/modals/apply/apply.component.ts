@@ -4,7 +4,7 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { API, AppApiInterface } from '@constants'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import {StaticService} from '@services/static/static.service';
+import { StaticService } from '@services/static/static.service'
 
 @Component({
   selector: 'ui-apply',
@@ -38,15 +38,13 @@ export class ApplyComponent implements OnInit {
 
   onSubmitApplyGrantForm (): void {
     if (this.grant?.id && this.applyGrantForm?.value?.team && this.applyGrantForm?.value?.link) {
-
-      if (this.params.submitCallBack){
-        this.params.submitCallBack( {
+      if (this.params.submitCallBack) {
+        this.params.submitCallBack({
           id: this.grant?.id,
           team: this.applyGrantForm?.value?.team,
           link: this.applyGrantForm?.value?.link
         })
       }
-
 
       this.modalGoTo('CLOSE')
     }

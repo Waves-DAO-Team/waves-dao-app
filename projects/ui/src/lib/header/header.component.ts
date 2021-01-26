@@ -34,26 +34,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
-  @DestroyedSubject() private readonly destroyed$!: Subject<null>;
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
-  public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => {
-    return data.userRole
-  }))
+  public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => data.userRole))
 
   public readonly contractsList$ = this.staticService.getContactsList()
 
-  public readonly RoleEnum = RoleEnum;
-  isToggleMenuOpen = false;
+  public readonly RoleEnum = RoleEnum
+  isToggleMenuOpen = false
 
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    private signerService: SignerService,
-    private snackBar: MatSnackBar,
+    private readonly signerService: SignerService,
+    private readonly snackBar: MatSnackBar,
     public router: Router,
     public userService: UserService,
     public contractService: ContractService,
-    private staticService: StaticService,
-    private location: Location
+    private readonly staticService: StaticService,
+    private readonly location: Location
   ) {
   }
 
@@ -80,5 +78,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy () {}
-
 }

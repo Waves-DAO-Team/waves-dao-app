@@ -15,18 +15,18 @@ import { GrantsVariationType } from '@services/static/static.model'
   styleUrls: ['./default-template.component.scss']
 })
 export class DefaultTemplateComponent implements OnInit {
-  @Input() public readonly user!: UserDataInterface;
+  @Input() public readonly user!: UserDataInterface
 
-  @Input() public readonly contract!: GrantsVariationType;
+  @Input() public readonly contract!: GrantsVariationType
 
-  @Input() public readonly constants!: AppConstantsInterface;
+  @Input() public readonly constants!: AppConstantsInterface
 
-  @Input() public readonly api!: AppApiInterface;
+  @Input() public readonly api!: AppApiInterface
 
   constructor (
-      private dialog: MatDialog,
-      public commonContractService: CommonContractService,
-      private cdr: ChangeDetectorRef
+    private readonly dialog: MatDialog,
+    public commonContractService: CommonContractService,
+    private readonly cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit (): void {

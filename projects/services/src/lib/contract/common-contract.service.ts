@@ -14,9 +14,9 @@ import { MembershipService } from '@services/membership/membership.service'
 })
 export class CommonContractService {
   constructor (
-    private contractService: ContractService,
+    private readonly contractService: ContractService,
     private readonly signerService: SignerService,
-    private snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar,
     public router: Router,
     public membershipService: MembershipService
   ) {

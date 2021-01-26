@@ -7,9 +7,9 @@ export interface AppConstantsInterface {
 }
 
 export interface UserInterface {
-  name: string,
-  twitter?: string,
-  facebook?: string,
+  name: string
+  twitter?: string
+  facebook?: string
   linkedin?: string
 }
 
@@ -20,23 +20,23 @@ export interface AppApiInterface {
   explorer: string
   confirmations: number
   management: {
-    membership: string,
-  },
+    membership: string
+  }
   contracts: {
-    disruptive: string,
-    web3: string,
+    disruptive: string
+    web3: string
     interhack: string
-  },
-  grantsProgramLink: string,
+  }
+  grantsProgramLink: string
   issues: {
-    disruptive: string,
-    web3: string,
+    disruptive: string
+    web3: string
     interhack: string
-  },
+  }
   workingGroup: {[s: string]: {
-    name: string,
-    twitter?: string,
-    facebook?: string,
+    name: string
+    twitter?: string
+    facebook?: string
     linkedin?: string
   }}
 }
@@ -45,7 +45,7 @@ export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Ap
 
 export const API = new InjectionToken<Type<AppApiInterface>>('Application api constants')
 
-export function provideApi (): Provider[] {
+export const provideApi = (): Provider[] => {
   return [
     {
       provide: API,
@@ -59,7 +59,7 @@ export function provideApi (): Provider[] {
   ]
 }
 
-export function provideAppConstants (): Provider[] {
+export const provideAppConstants = (): Provider[] => {
   return [
     {
       provide: APP_CONSTANTS,

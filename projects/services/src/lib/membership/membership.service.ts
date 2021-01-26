@@ -25,11 +25,11 @@ import {
   providedIn: 'root'
 })
 export class MembershipService {
-  private refresh$ = new Subject();
+  private readonly refresh$ = new Subject()
 
-  private address = this.api.management.membership;
+  private readonly address = this.api.management.membership
 
-  private membershipState$ = this.getContractData(this.address)
+  private readonly membershipState$ = this.getContractData(this.address)
 
   public stream = this.membershipState$.pipe(
     publishReplay(1),
@@ -37,11 +37,11 @@ export class MembershipService {
   )
 
   constructor (
-      private readonly signerService: SignerService,
-      private snackBar: MatSnackBar,
-      private readonly http: HttpClient,
-      private storageService: StorageService,
-      @Inject(API) private readonly api: AppApiInterface
+    private readonly signerService: SignerService,
+    private readonly snackBar: MatSnackBar,
+    private readonly http: HttpClient,
+    private readonly storageService: StorageService,
+    @Inject(API) private readonly api: AppApiInterface
   ) {}
 
   // ToDo избавится от дублирования фуекций из contract Service
@@ -54,20 +54,18 @@ export class MembershipService {
       //   console.log('GET members data', data)
       // }),
       // // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-      // @ts-ignore
+      // @ts-expect-error
       repeatWhen(() => this.refresh$),
-      map((data: ContractRawData) => {
-        return {
-          ...this.prepareData(data),
-          owner: address
-        }
-      })
+      map((data: ContractRawData) => ({
+        ...this.prepareData(data),
+        owner: address
+      }))
     )
   }
 
   private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
+    // @ts-expect-error
     const key: string = keys.shift()
     if (!key) {
       return
@@ -78,13 +76,13 @@ export class MembershipService {
     }
 
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
+    // @ts-expect-error
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
+    // @ts-expect-error
     return data.reduce((orig, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)

@@ -5,8 +5,9 @@ import { destroyQueue } from './common.decorator'
 
 // https://habr.com/ru/post/494668/
 // http://typescript-lang.ru/docs/Decorators.html
-export function Async<PropertyDecorator> (): (target: object, propertyKey: string) => void {
-  return (target: object, propName: string) => {
+// eslint-disable-next-line
+export function Async<PropertyDecorator> (): (target: <T>, propertyKey: string) => void {
+  return (target: <T>, propName: string) => {
     const name = '_async_prop_' + propName
     const stream = '_async_stream_' + propName
 
@@ -17,29 +18,29 @@ export function Async<PropertyDecorator> (): (target: object, propertyKey: strin
     })
 
     // Create stream subject with destroy
-    Reflect.defineProperty(target as object, stream, {
-      // @ts-ignore
+    Reflect.defineProperty(target, stream, {
+      // @ts-expect-error
       value: target[name].pipe(publishReplay(1), refCount()),
       writable: true
     })
 
     Reflect.defineProperty(target, propName, {
       set (item): void {
-        // @ts-ignore
+        // @ts-expect-error
         target[name].next(item)
       },
       get () {
-        // @ts-ignore
+        // @ts-expect-error
         return target[stream]
       }
     })
 
     destroyQueue(
       target,
-      function () {
-        // @ts-ignore
+      () => {
+        // @ts-expect-error
         this[name].complete()
-      }.bind(target)
+      }
     )
   }
 }

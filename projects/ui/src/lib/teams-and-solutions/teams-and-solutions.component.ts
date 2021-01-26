@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
-import {GrantStatusEnum} from '@services/static/static.model';
-import {ContractGrantModel} from '@services/contract/contract.model';
-import {TeamsAndSolutionsControlsInterface, VoteTeamEventInterface} from '@pages/entity-page/entity.interface';
-import {UserService} from '@services/user/user.service';
-import {APP_CONSTANTS, AppConstantsInterface} from '@constants';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core'
+import { GrantStatusEnum } from '@services/static/static.model'
+import { ContractGrantModel } from '@services/contract/contract.model'
+import { TeamsAndSolutionsControlsInterface, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
+import { UserService } from '@services/user/user.service'
+import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 
 @Component({
   selector: 'ui-teams-and-solutions',
@@ -11,9 +11,6 @@ import {APP_CONSTANTS, AppConstantsInterface} from '@constants';
   styleUrls: ['./teams-and-solutions.component.scss']
 })
 export class TeamsAndSolutionsComponent {
-
-  grantStatusEnum = GrantStatusEnum
-
   @Input() teamsAndSolutionsControls: TeamsAndSolutionsControlsInterface | undefined
   @Input() grant: ContractGrantModel | null = null
   @Input() titleText: string | null = null
@@ -26,10 +23,11 @@ export class TeamsAndSolutionsComponent {
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
   @Output() newVoteForSolutionEvent = new EventEmitter<VoteTeamEventInterface>()
 
+  grantStatusEnum = GrantStatusEnum
+
   constructor (
     public userService: UserService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
   }
-
 }

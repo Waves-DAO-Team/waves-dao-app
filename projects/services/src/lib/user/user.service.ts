@@ -34,7 +34,7 @@ export class UserService {
 
   lastAddress = ''
 
-  // @ts-ignore
+  // @ts-expect-error
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
@@ -67,23 +67,21 @@ export class UserService {
 
   public readonly isBalanceMoreCommission$ = this.data
     .pipe(
-      map((e) => {
-        return e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005)
-      })
+      map((e) => e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005))
     )
 
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
-    private signerService: SignerService,
-    private contractService: ContractService,
-    private snackBar: MatSnackBar
+    private readonly signerService: SignerService,
+    private readonly contractService: ContractService,
+    private readonly snackBar: MatSnackBar
   ) {}
 
   private defineApply (userAddress: string, tasks: ContractGrantRawModel): string[] {
     const result: string[] = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
-        // @ts-ignore
+        // @ts-expect-error
         if (userAddress && tasks[key]?.applicants?.value.includes(userAddress)) {
           result.push(key)
         }
@@ -96,9 +94,9 @@ export class UserService {
   private defineVoted (userAddress: string, tasks: ContractGrantRawModel): string[] {
     const result = []
     if (tasks) {
-      // @ts-ignore
+      // @ts-expect-error
       for (const key of Object.keys(tasks)) {
-        // @ts-ignore
+        // @ts-expect-error
         const grant = tasks[key]
         if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
           result.push(key)

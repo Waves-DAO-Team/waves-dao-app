@@ -5,7 +5,7 @@ export const COMMON_LAYOUT_HEADER = new InjectionToken<Type<Component>>('Common 
 export const COMMON_LAYOUT_FOOTER = new InjectionToken<Type<Component>>('Common Layout Footer Component')
 export const COMMON_LAYOUT = new InjectionToken<CommonLayoutInterface>('Common Layout Provider')
 
-export function provideCommonLayout (component: Type<CommonLayoutInterface>): Provider[] {
+export const provideCommonLayout = (component: Type<CommonLayoutInterface>): Provider[] => {
   return [
     {
       provide: COMMON_LAYOUT,
@@ -14,7 +14,7 @@ export function provideCommonLayout (component: Type<CommonLayoutInterface>): Pr
   ]
 }
 
-export function provideCommonLayoutHeader (component: Type<CommonLayoutComponentModel>): Provider[] {
+export const provideCommonLayoutHeader = (component: Type<CommonLayoutComponentModel>): Provider[] => {
   return [
     {
       provide: COMMON_LAYOUT_HEADER,
@@ -23,7 +23,7 @@ export function provideCommonLayoutHeader (component: Type<CommonLayoutComponent
   ]
 }
 
-export function provideCommonLayoutFooter (component: Type<CommonLayoutComponentModel>): Provider[] {
+export const provideCommonLayoutFooter = (component: Type<CommonLayoutComponentModel>): Provider[] => {
   return [
     {
       provide: COMMON_LAYOUT_FOOTER,

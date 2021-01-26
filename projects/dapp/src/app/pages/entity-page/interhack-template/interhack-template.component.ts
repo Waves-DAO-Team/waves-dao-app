@@ -33,6 +33,17 @@ import { InterhackContractService } from '@services/contract/Interhack-contract.
   styleUrls: ['./interhack-template.component.scss']
 })
 export class InterhackTemplateComponent implements TemplateComponentAbstract {
+
+  @Input() public readonly contract!: GrantsVariationType
+
+  @Input() set grant (data: ContractGrantModel) {
+    // if (data !== this.GSgrant) {
+    this.GSgrant = data
+    this.prepareVoteForTaskData(data)
+    // }
+    this.grant$.next(data)
+  }
+
   grantStatusEnum = GrantStatusEnum
 
   voteForTaskData = {
@@ -41,7 +52,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
-  grant$ = new Subject<ContractGrantModel>();
+  grant$ = new Subject<ContractGrantModel>()
 
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
@@ -194,27 +205,18 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   GSgrant: ContractGrantModel = {}
 
-  @Input() set grant (data: ContractGrantModel) {
-    // if (data !== this.GSgrant) {
-    this.GSgrant = data
-    this.prepareVoteForTaskData(data)
-    // }
-    this.grant$.next(data)
-  }
-
   get grant () {
     return this.GSgrant
   }
 
-  @Input() public readonly contract!: GrantsVariationType
 
   constructor (
-    private dialog: MatDialog,
+    private readonly dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
     public interhackContractService: InterhackContractService,
-    private snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar,
     public signerService: SignerService,
-    private cdr: ChangeDetectorRef,
+    private readonly cdr: ChangeDetectorRef,
     public userService: UserService
   ) {
   }
@@ -303,7 +305,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
             if (this.grant?.id && this.winnerIdentifier) {
               this.interhackContractService.acceptWorkResult(
-                this.grant?.id as string,
+                this.grant?.id,
                 this.winnerIdentifier,
                 data.reportLink
               )

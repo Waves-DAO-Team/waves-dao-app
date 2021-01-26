@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core'
 import { CommonContractService } from './common-contract.service'
-import {EMPTY, Observable} from 'rxjs';
-import {TransactionsSuccessResult} from '@services/signer/signer.model';
-import {catchError, tap} from 'rxjs/operators';
-import {translate} from '@ngneat/transloco';
-import {SignerService} from '@services/signer/signer.service';
-import {ContractService} from '@services/contract/contract.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { EMPTY, Observable } from 'rxjs'
+import { TransactionsSuccessResult } from '@services/signer/signer.model'
+import { catchError, tap } from 'rxjs/operators'
+import { translate } from '@ngneat/transloco'
+import { SignerService } from '@services/signer/signer.service'
+import { ContractService } from '@services/contract/contract.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterhackContractService {
-
   constructor (
-    private commonContractService: CommonContractService,
-    private contractService: ContractService,
+    private readonly commonContractService: CommonContractService,
+    private readonly contractService: ContractService,
     private readonly signerService: SignerService,
-    private snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar
   ) {}
 
   // Add DAO Members
@@ -44,7 +43,7 @@ export class InterhackContractService {
 
   public finishApplicantsVoting (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'finishApplicantsVoting', [
-      {type: 'string', value: taskId}
+      { type: 'string', value: taskId }
     ]).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -60,7 +59,7 @@ export class InterhackContractService {
 
   public acceptWorkResult (taskId: string, winnerIdentifier: string, reportLink: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'acceptWorkResult',
-      [{type: 'string', value: taskId}, {type: 'string', value: winnerIdentifier}, {type: 'string', value: reportLink}])
+      [{ type: 'string', value: taskId }, { type: 'string', value: winnerIdentifier }, { type: 'string', value: reportLink }])
       .pipe(
         catchError((error) => {
           const mes = error.message ? error.message : translate('messages.transaction_rejected')

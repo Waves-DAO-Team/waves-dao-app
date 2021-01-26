@@ -5,19 +5,19 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
   providedIn: 'root'
 })
 export class StorageService {
-  private currentContractAddress = this.constants.production
+  private readonly currentContractAddress = this.constants.production
     ? 'ZwPjcEZtNHD9TRVUUiyR'
-    : 'contactAddress';
+    : 'contactAddress'
 
-  private userDataSession = this.constants.production
+  private readonly userDataSession = this.constants.production
     ? 'ZwPjcakdaYYHJ73snb'
-    : 'userData';
+    : 'userData'
 
-  private localStorage: { [s: string]: string } = {};
-  private sessionStorage: { [s: string]: string } = {};
+  private localStorage: { [s: string]: string } = {}
+  private sessionStorage: { [s: string]: string } = {}
 
   constructor (
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
 
   // Storage

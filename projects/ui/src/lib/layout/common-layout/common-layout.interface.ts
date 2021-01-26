@@ -5,7 +5,7 @@ export interface CommonLayoutComponentModel extends Component {
 }
 
 export interface CommonLayoutInterface {
-  hasLayoutContent (): boolean
+  hasLayoutContent: () => boolean
 }
 
 export interface CommonLayoutFooterExtensionInterface {

@@ -20,21 +20,20 @@ export abstract class TemplateComponentAbstract {
   public abstract addReward (): void
 }
 
-
 export interface TeamsAndSolutionsControlsInterface {
-  isShowSolutionControls: boolean,
-  stepType: string,
-  isApplyBtn: boolean,
-  isSubmitSolutionBtn: boolean,
-  isShowAllTeam: boolean,
-  teamVoteKeys: string[],
-  solutionVoteKeys: string[],
-  leaderIds: string[],
-  isShow: boolean,
+  isShowSolutionControls: boolean
+  stepType: string
+  isApplyBtn: boolean
+  isSubmitSolutionBtn: boolean
+  isShowAllTeam: boolean
+  teamVoteKeys: string[]
+  solutionVoteKeys: string[]
+  leaderIds: string[]
+  isShow: boolean
 }
 
 export interface TeamsControlsInterface {
-  isApplyBtn: boolean,
-  voteFor: string[],
+  isApplyBtn: boolean
+  voteFor: string[]
   isVoteControls: 'show' | 'hidden'
 }

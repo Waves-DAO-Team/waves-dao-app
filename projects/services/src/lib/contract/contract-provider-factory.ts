@@ -34,9 +34,7 @@ export function ContractProviderFactory (
   return new LoadingWrapper(
     route.params.pipe(
       filter(({ contractType }) => !!contractType),
-      switchMap(({ contractType }): Observable<GrantsVariationType> => {
-        return staticService.getStaticContract(contractType)
-      }),
+      switchMap(({ contractType }): Observable<GrantsVariationType> => staticService.getStaticContract(contractType)),
       catchError((error) => {
         // Todo обработать ошибки
         snackBar.open(error, translate('messages.ok'))

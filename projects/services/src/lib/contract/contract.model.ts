@@ -29,7 +29,7 @@ export interface ContractGrantAppModel {
     key: string
     type: string
     value: string
-  },
+  }
   score?: {
     key: string
     type: string
@@ -55,7 +55,7 @@ export interface ContractGrantAppModel {
       key: string
       type: string
       value: string
-    },
+    }
     solution?: {
       key: string
       type: string
@@ -84,23 +84,23 @@ export interface ContractGrantRawModel extends ContractGrantCommonModel {
 
 export interface ContractGrantModel extends ContractGrantCommonModel {
   app?: ContractGrantAppModel[]
-  id?: ContractRawDataEntityId;
-  vh?: ContractGrantRawModel;
-  performer?: ContractRawDataString,
-  link?: ContractRawDataString;
-  leader?: ContractRawDataString;
+  id?: ContractRawDataEntityId
+  vh?: ContractGrantRawModel
+  performer?: ContractRawDataString
+  link?: ContractRawDataString
+  leader?: ContractRawDataString
   isShowAppliers?: boolean
 }
 
 export interface ContractGrantExtendedModel extends ContractGrantModel {
-  voteText?: string;
-  statusText?: string;
-  rewardText?: string;
+  voteText?: string
+  statusText?: string
+  rewardText?: string
 }
 
 export interface ContractDataModel {
-  address: string,
-  owner: string,
+  address: string
+  owner: string
   working: {
     group: {
       member: {[s: string]: {
@@ -112,8 +112,8 @@ export interface ContractDataModel {
   }
   dao: {
     member: {[s: string]: {
-        weight: ContractRawDataString
-      }},
+      weight: ContractRawDataString
+    }}
     members: ContractRawDataString
     size: ContractRawDataNumber
   }

@@ -13,10 +13,10 @@ import { API, AppApiInterface } from '@constants'
 })
 export class StaticService {
   constructor (
-      private contractService: ContractService,
-      private userService: UserService,
-      private translocoService: TranslocoService,
-      @Inject(API) private readonly api: AppApiInterface
+    private readonly contractService: ContractService,
+    private readonly userService: UserService,
+    private readonly translocoService: TranslocoService,
+    @Inject(API) private readonly api: AppApiInterface
   ) { }
 
   public selectedContact: GrantTypesEnum = GrantTypesEnum.disruptive
@@ -25,15 +25,11 @@ export class StaticService {
     const contracts = this.api.contracts as { [s: string]: string }
 
     return this.translocoService.selectTranslateObject('contracts').pipe(
-      map((data: {[s: string]: GrantsVariationType}) => {
-        return Object.keys(data).map((key) => {
-          return {
-            ...data[key],
-            name: key,
-            type: contracts[key] || null
-          } as GrantsVariationType
-        })
-      }),
+      map((data: {[s: string]: GrantsVariationType}) => Object.keys(data).map((key) => ({
+        ...data[key],
+        name: key,
+        type: contracts[key] || null
+      } as GrantsVariationType))),
       publishReplay(1),
       refCount()
     )
@@ -41,9 +37,7 @@ export class StaticService {
 
   getContactInfo (contactType: string): Observable<GrantsVariationType | null> {
     return this.getContactsList().pipe(
-      map((contracts: GrantsVariationType[]) => {
-        return contracts.find((item) => item.name === contactType) || null
-      })
+      map((contracts: GrantsVariationType[]) => contracts.find((item) => item.name === contactType) || null)
     )
   }
 

@@ -9,12 +9,11 @@ export class RewardDirective {
   maxVal = 1000000
   lastSelectionStart = 0
 
-  constructor (private el: ElementRef) {}
-
-  // @HostListener('blur') blur () {
   @HostListener('keyup') blur () {
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)
   }
+
+  constructor (private readonly el: ElementRef) {}
 
   format (str: string) {
     this.lastSelectionStart = this.el.nativeElement.selectionStart

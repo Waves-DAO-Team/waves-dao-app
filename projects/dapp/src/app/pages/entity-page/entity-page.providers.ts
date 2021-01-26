@@ -19,33 +19,30 @@ export const CONTRACT = new InjectionToken<GrantsVariationType>(
   'A stream with contract info'
 )
 
+export const entityFactory = (
+    contactService: ContractService,
+    route: ActivatedRoute,
+    snackBar: MatSnackBar
+): LoadingWrapperModel<ContractGrantModel> => new LoadingWrapper(
+    route.params.pipe(
+        switchMap(({ entityId }) => contactService.entityById(entityId)),
+        catchError((error) => {
+          // Todo обработать ошибки
+          snackBar.open(error, translate('messages.ok'))
+          throw new Error('Entity not found')
+        }),
+        publishReplay(1),
+        refCount()
+    )
+)
+
 // По этому токену будет идти стрим с необходимой компоненту информацией:
 export const ENTITY_PAGE_PROVIDERS: Provider[] = [
   {
     provide: ENTITY,
     deps: [ContractService, ActivatedRoute, MatSnackBar],
-    useFactory: EntityFactory
+    useFactory: entityFactory
   },
   ContractProviderDefine(CONTRACT)
 ]
 
-export function EntityFactory (
-  contactService: ContractService,
-  route: ActivatedRoute,
-  snackBar: MatSnackBar
-): LoadingWrapperModel<ContractGrantModel> {
-  return new LoadingWrapper(
-    route.params.pipe(
-      switchMap(({ entityId }) => {
-        return contactService.entityById(entityId)
-      }),
-      catchError((error) => {
-        // Todo обработать ошибки
-        snackBar.open(error, translate('messages.ok'))
-        throw new Error('Entity not found')
-      }),
-      publishReplay(1),
-      refCount()
-    )
-  )
-}

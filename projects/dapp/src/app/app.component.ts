@@ -7,7 +7,7 @@ import { IconService } from '@services/icon-service/icon-service.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor (private iconService: IconService) {
+  constructor (private readonly iconService: IconService) {
   }
 
   ngOnInit () {

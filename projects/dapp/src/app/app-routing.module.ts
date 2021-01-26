@@ -16,22 +16,22 @@ const routes: Routes = [
     children: [
       {
         path: environment.routing.home,
-        loadChildren: () => import('./pages/home-page/home-page.module').then((m) => m.HomePageModule),
+        loadChildren: async () => await import('./pages/home-page/home-page.module').then((m) => m.HomePageModule),
         pathMatch: 'full'
       },
       {
         path: environment.routing.listing,
-        loadChildren: () => import('./pages/listing-page/listing-page.module').then((m) => m.ListingPageModule),
+        loadChildren: async () => await import('./pages/listing-page/listing-page.module').then((m) => m.ListingPageModule),
         pathMatch: 'full'
       },
       {
         path: environment.routing.about,
-        loadChildren: () => import('./pages/about-page/about-page.module').then((m) => m.AboutPageModule),
+        loadChildren: async () => await import('./pages/about-page/about-page.module').then((m) => m.AboutPageModule),
         pathMatch: 'full'
       },
       {
         path: environment.routing.members,
-        loadChildren: () => import('./pages/members-page/members-page.module').then((m) => m.MembersPageModule),
+        loadChildren: async () => await import('./pages/members-page/members-page.module').then((m) => m.MembersPageModule),
         pathMatch: 'full'
       },
       // {
@@ -46,7 +46,7 @@ const routes: Routes = [
       // },
       {
         path: environment.routing.stylesheet,
-        loadChildren: () => import('./pages/stylesheet-page/stylesheet-page.module').then((m) => m.StylesheetPageModule),
+        loadChildren: async () => await import('./pages/stylesheet-page/stylesheet-page.module').then((m) => m.StylesheetPageModule),
         pathMatch: 'full'
       },
       // {
@@ -56,16 +56,16 @@ const routes: Routes = [
       // },
       {
         path: environment.routing.entity,
-        loadChildren: () =>
-          import('./pages/entity-page/entity-page.module').then((m) => m.EntityPageModule)
+        loadChildren: async () =>
+          await import('./pages/entity-page/entity-page.module').then((m) => m.EntityPageModule)
       }
     ]
   },
 
   {
     path: '**',
-    loadChildren: () =>
-      import('./pages/not-found-page/not-found-page.module').then((m) => m.NotFoundPageModule)
+    loadChildren: async () =>
+      await import('./pages/not-found-page/not-found-page.module').then((m) => m.NotFoundPageModule)
   }
 ]
 
