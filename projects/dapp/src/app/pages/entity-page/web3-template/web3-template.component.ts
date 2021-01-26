@@ -30,7 +30,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   voteForTaskData = {
     isShow: false,
-    isVote: false
+    isVote: false,
+    isVoteInProcess: false
   }
 
   grant$ = new Subject<ContractGrantModel>();
@@ -95,8 +96,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
         if (grant) {
           const isWG = user.roles.isWG
           const isStatusMatch =
-            grant?.status?.value !== this.grantStatusEnum.workFinished
-            && grant?.status?.value !== this.grantStatusEnum.rejected
+            grant?.status?.value !== this.grantStatusEnum.workFinished &&
+            grant?.status?.value !== this.grantStatusEnum.rejected
           return isWG && isStatusMatch
         } else {
           return false
@@ -161,7 +162,13 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
-    this.communityContractService.voteForTaskProposal(id, value).subscribe()
+    this.voteForTaskData.isVoteInProcess = true
+    this.communityContractService.voteForTaskProposal(id, value).subscribe({
+      complete: () => {
+        this.voteForTaskData.isVoteInProcess = false
+        this.cdr.markForCheck()
+      }
+    })
   }
 
   signup (): void {

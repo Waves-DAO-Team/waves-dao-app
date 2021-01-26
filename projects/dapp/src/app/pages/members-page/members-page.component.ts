@@ -4,16 +4,16 @@ import {
   Component,
   Inject
 } from '@angular/core'
-import {Location} from '@angular/common'
-import {UserService} from '@services/user/user.service'
-import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
-import {StaticService} from '@services/static/static.service'
-import {DialogComponent} from '@ui/dialog/dialog.component';
-import {SubmitCallBackAddMemberArg} from '@ui/dialog/dialog.tokens';
-import {MatDialog} from '@angular/material/dialog';
-import {AddMemberComponent} from '@ui/modals/add-member/add-member.component';
-import {translate} from '@ngneat/transloco';
-import {CommonContractService} from '@services/contract/common-contract.service';
+import { Location } from '@angular/common'
+import { UserService } from '@services/user/user.service'
+import { API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface } from '@constants'
+import { StaticService } from '@services/static/static.service'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { SubmitCallBackAddMemberArg } from '@ui/dialog/dialog.tokens'
+import { MatDialog } from '@angular/material/dialog'
+import { AddMemberComponent } from '@ui/modals/add-member/add-member.component'
+import { translate } from '@ngneat/transloco'
+import { CommonContractService } from '@services/contract/common-contract.service'
 
 @Component({
   selector: 'app-members-page',
@@ -24,7 +24,7 @@ import {CommonContractService} from '@services/contract/common-contract.service'
 export class MembersPageComponent {
   public readonly user$ = this.userService.data;
 
-  constructor(
+  constructor (
     private commonContractService: CommonContractService,
     private dialog: MatDialog,
     private location: Location,
@@ -36,11 +36,11 @@ export class MembersPageComponent {
   ) {
   }
 
-  goBack(): void {
+  goBack (): void {
     this.location.back()
   }
 
-  openAddDAOModal(): void {
+  openAddDAOModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddMemberComponent,
@@ -58,7 +58,7 @@ export class MembersPageComponent {
     })
   }
 
-  openAddWGModal() {
+  openAddWGModal () {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddMemberComponent,

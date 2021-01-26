@@ -1,33 +1,33 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core'
-import {ContractGrantModel} from '@services/contract/contract.model'
-import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
-import {MatSnackBar} from '@angular/material/snack-bar'
-import {SignerService} from '@services/signer/signer.service'
-import {map, take} from 'rxjs/operators'
-import {translate} from '@ngneat/transloco'
-import {DialogComponent} from '@ui/dialog/dialog.component'
-import {ApplyComponent} from '@ui/modals/apply/apply.component'
+import { ChangeDetectorRef, Component, Input } from '@angular/core'
+import { ContractGrantModel } from '@services/contract/contract.model'
+import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { SignerService } from '@services/signer/signer.service'
+import { map, take } from 'rxjs/operators'
+import { translate } from '@ngneat/transloco'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { ApplyComponent } from '@ui/modals/apply/apply.component'
 import {
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
   SubmitCallBackRewardArg
 } from '@ui/dialog/dialog.tokens'
-import {MatDialog} from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog'
 import {
   TeamsControlsInterface,
   TemplateComponentAbstract,
   VoteTeamEventInterface
 } from '@pages/entity-page/entity.interface'
-import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
-import {UserService} from '@services/user/user.service'
-import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
-import {combineLatest, Observable, Subject} from 'rxjs'
+import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
+import { UserService } from '@services/user/user.service'
+import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
+import { combineLatest, Observable, Subject } from 'rxjs'
 import {
   getWinnerTeamId, isAcceptWorkResultBtn,
   isFinishApplicantsVoteBtn, isFinishVoteBtn, isShowAddRewardBtn, isStartWorkBtn,
   teamsControls
-} from '@pages/entity-page/disruptive-template/functions';
+} from '@pages/entity-page/disruptive-template/functions'
 
 @Component({
   selector: 'app-disruptive-template',
@@ -35,7 +35,6 @@ import {
   styleUrls: ['./disruptive-template.component.scss']
 })
 export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
-
   grantStatusEnum = GrantStatusEnum
 
   grant$ = new Subject<ContractGrantModel>();
@@ -60,7 +59,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   voteForTaskData = {
     isShow: false,
-    isVote: false
+    isVote: false,
+    isVoteInProcess: false
   }
 
   GSgrant: ContractGrantModel = {}
@@ -104,7 +104,13 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
-    this.disruptiveContractService.voteForTaskProposal(id, value).subscribe()
+    this.voteForTaskData.isVoteInProcess = true
+    this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
+      complete: () => {
+        this.voteForTaskData.isVoteInProcess = false
+        this.cdr.markForCheck()
+      }
+    })
   }
 
   signup () {
@@ -117,7 +123,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   }
 
   openApplyModal () {
-   const dialog = this.dialog.open(DialogComponent, {
+    const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
         params: {
