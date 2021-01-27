@@ -14,9 +14,10 @@ export const destroyQueue = (target: {}, func: () => void) => {
 
   Reflect.defineMetadata(METADATA_KEY, (metadata || []).concat([func]), target, METADATA_PROPERTY_KEY)
 
+  // @ts-ignore
   if (target.constructor && target.constructor.ɵcmp) {
     Reflect.set(
-
+      // @ts-ignore
       target.constructor.ɵcmp,
       'onDestroy',
       function (...args: Array<() => void>) {

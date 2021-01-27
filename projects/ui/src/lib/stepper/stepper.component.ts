@@ -43,7 +43,7 @@ export class StepperComponent implements AfterViewInit {
   }
 
   step$ = combineLatest([this.setId$, this.stepperInit$]).pipe(
-    tap(([id, init]: [string, ]) => {
+    tap(([id, init]) => {
       if (id && typeof id === 'number' && init && this.stepper) {
         this.stepper.selectedIndex = id
         this.cdr.markForCheck()
