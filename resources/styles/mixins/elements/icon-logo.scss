@@ -1,4 +1,4 @@
-@mixin icon-logo($size: 21px, $type: default) {
+@mixin icon-logo($size: 21px, $type: any) {
   border-radius: 50%;
   height: $size;
   position: relative;

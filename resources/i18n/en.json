@@ -94,6 +94,9 @@
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
       "team_chosen": "Looking for a team",
+
+      "team_choosen": "Looking for team",
+
       "solution_chosen": "Solution selected",
       "work_started": "In work",
       "work_finished": "Finished",
