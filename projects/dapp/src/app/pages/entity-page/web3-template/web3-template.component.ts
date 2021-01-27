@@ -27,16 +27,6 @@ import { combineLatest, Subject } from 'rxjs'
 })
 export class Web3TemplateComponent implements TemplateComponentAbstract {
 
-  private GSgrant: ContractGrantModel = {}
-
-  @Input() set grant (data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
-      this.prepareVoteForTaskData(data)
-    }
-    this.grant$.next(data)
-  }
-
   @Input() public readonly contract!: GrantsVariationType
 
   grantStatusEnum = GrantStatusEnum
@@ -135,6 +125,16 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     return this.GSgrant
   }
 
+  private GSgrant: ContractGrantModel = {}
+
+  @Input() set grant (data: ContractGrantModel) {
+    if (data !== this.GSgrant) {
+      this.GSgrant = data
+      this.prepareVoteForTaskData(data)
+    }
+    this.grant$.next(data)
+  }
+
   constructor (
     private readonly dialog: MatDialog,
     public communityContractService: CommunityContractService,
@@ -143,22 +143,6 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     private readonly cdr: ChangeDetectorRef,
     public userService: UserService
   ) {
-  }
-
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
-    if (
-      this.userService.data.getValue().roles.isDAO &&
-      grant?.status?.value === this.grantStatusEnum.votingStarted
-    ) {
-      this.voteForTaskData.isShow = true
-    } else {
-      this.voteForTaskData.isShow = false
-    }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
-      this.voteForTaskData.isVote = true
-    } else {
-      this.voteForTaskData.isVote = false
-    }
   }
 
   vote (value: 'like' | 'dislike'): void {
@@ -262,6 +246,22 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       this.communityContractService.initTaskVoting(this.grant.id).subscribe((e) => {
         this.cdr.markForCheck()
       })
+    }
+  }
+
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
+    if (
+        this.userService.data.getValue().roles.isDAO &&
+        grant?.status?.value === this.grantStatusEnum.votingStarted
+    ) {
+      this.voteForTaskData.isShow = true
+    } else {
+      this.voteForTaskData.isShow = false
+    }
+    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+      this.voteForTaskData.isVote = true
+    } else {
+      this.voteForTaskData.isVote = false
     }
   }
 }

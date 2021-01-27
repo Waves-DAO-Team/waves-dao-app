@@ -94,9 +94,9 @@ export class ListingComponent implements OnInit, OnDestroy {
             if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
-              // @ts-expect-error
+
               e.reward = {}
-              // @ts-expect-error
+
               e.reward.value = '0.00'
             }
             return e
@@ -153,9 +153,9 @@ export class ListingComponent implements OnInit, OnDestroy {
             if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
-              // @ts-expect-error
+
               e.reward = {}
-              // @ts-expect-error
+
               e.reward.value = '0.00'
             }
             return e

@@ -34,7 +34,7 @@ export class UserService {
 
   lastAddress = ''
 
-  // @ts-expect-error
+
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
@@ -81,8 +81,7 @@ export class UserService {
     const result: string[] = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
-        // @ts-expect-error
-        if (userAddress && tasks[key]?.applicants?.value.includes(userAddress)) {
+        if (userAddress && !!tasks[key] && tasks[key]?.applicants?.value.includes(userAddress)) {
           result.push(key)
         }
       }
@@ -94,9 +93,7 @@ export class UserService {
   private defineVoted (userAddress: string, tasks: ContractGrantRawModel): string[] {
     const result = []
     if (tasks) {
-      // @ts-expect-error
       for (const key of Object.keys(tasks)) {
-        // @ts-expect-error
         const grant = tasks[key]
         if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
           result.push(key)

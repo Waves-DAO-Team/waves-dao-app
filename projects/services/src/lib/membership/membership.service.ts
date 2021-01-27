@@ -54,7 +54,7 @@ export class MembershipService {
       //   console.log('GET members data', data)
       // }),
       // // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-      // @ts-expect-error
+
       repeatWhen(() => this.refresh$),
       map((data: ContractRawData) => ({
         ...this.prepareData(data),
@@ -65,7 +65,7 @@ export class MembershipService {
 
   private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-expect-error
+
     const key: string = keys.shift()
     if (!key) {
       return
@@ -76,13 +76,13 @@ export class MembershipService {
     }
 
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-expect-error
+
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-expect-error
+
     return data.reduce((orig, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)

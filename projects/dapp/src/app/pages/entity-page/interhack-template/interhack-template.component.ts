@@ -218,25 +218,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     public signerService: SignerService,
     private readonly cdr: ChangeDetectorRef,
     public userService: UserService
-  ) {
-  }
-
-  private prepareVoteForTaskData (grant: ContractGrantModel = this.GSgrant) {
-    if (
-      this.userService.data.getValue().roles.isDAO &&
-      grant?.status?.value === this.grantStatusEnum.proposed &&
-      grant?.reward?.value
-    ) {
-      this.voteForTaskData.isShow = true
-    } else {
-      this.voteForTaskData.isShow = false
-    }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
-      this.voteForTaskData.isVote = true
-    } else {
-      this.voteForTaskData.isVote = false
-    }
-  }
+  ) {}
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
@@ -385,6 +367,23 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   stopSubmissions () {
     if (this.grant?.id) {
       this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe()
+    }
+  }
+
+  private prepareVoteForTaskData (grant: ContractGrantModel = this.GSgrant) {
+    if (
+        this.userService.data.getValue().roles.isDAO &&
+        grant?.status?.value === this.grantStatusEnum.proposed &&
+        grant?.reward?.value
+    ) {
+      this.voteForTaskData.isShow = true
+    } else {
+      this.voteForTaskData.isShow = false
+    }
+    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+      this.voteForTaskData.isVote = true
+    } else {
+      this.voteForTaskData.isVote = false
     }
   }
 }

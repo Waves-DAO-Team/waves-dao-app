@@ -90,19 +90,6 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   ) {
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
-    if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
-      this.voteForTaskData.isShow = true
-    } else {
-      this.voteForTaskData.isShow = false
-    }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
-      this.voteForTaskData.isVote = true
-    } else {
-      this.voteForTaskData.isVote = false
-    }
-  }
-
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
@@ -207,5 +194,18 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
         }
       }
     })
+  }
+
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
+    if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
+      this.voteForTaskData.isShow = true
+    } else {
+      this.voteForTaskData.isShow = false
+    }
+    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+      this.voteForTaskData.isVote = true
+    } else {
+      this.voteForTaskData.isVote = false
+    }
   }
 }

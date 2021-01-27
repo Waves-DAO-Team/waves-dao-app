@@ -20,7 +20,7 @@ export class LinkContentService {
 
   getContent (link: string) {
     return of(link).pipe(
-      map((url: string) => {
+      map((url: string | undefined) => {
         if (!url || typeof url !== 'string') {
           return {}
         }

@@ -45,8 +45,7 @@ export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Ap
 
 export const API = new InjectionToken<Type<AppApiInterface>>('Application api constants')
 
-export const provideApi = (): Provider[] => {
-  return [
+export const provideApi = (): Provider[] => [
     {
       provide: API,
       useValue: {
@@ -57,10 +56,8 @@ export const provideApi = (): Provider[] => {
       }
     }
   ]
-}
 
-export const provideAppConstants = (): Provider[] => {
-  return [
+export const provideAppConstants = (): Provider[] => [
     {
       provide: APP_CONSTANTS,
       useValue: {
@@ -69,4 +66,3 @@ export const provideAppConstants = (): Provider[] => {
       }
     }
   ]
-}

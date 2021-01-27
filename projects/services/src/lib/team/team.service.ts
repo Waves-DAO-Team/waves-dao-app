@@ -27,7 +27,6 @@ export class TeamService {
     const tasks = data.tasks
     if (tasks) {
       for (const key of Object.keys(tasks)) {
-        // @ts-expect-error
         const grant = tasks[key]
         if (grant.app) {
           const app = grant.app
