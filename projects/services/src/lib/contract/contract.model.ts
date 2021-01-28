@@ -82,7 +82,7 @@ export interface ContractGrantCommonModel {
 }
 
 export interface ContractDataIterationModel {
-  [s: string]: ContractGrantAppModel | ContractRawDataString | {}
+  [s: string]: any // eslint-disable-line
 }
 
 export interface ContractGrantRawModel extends ContractGrantCommonModel {

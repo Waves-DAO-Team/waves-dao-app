@@ -1,8 +1,6 @@
 import 'reflect-metadata'
 import { Subject } from 'rxjs'
 import { destroyQueue } from '@libs/decorators/common.decorator'
-import { Type } from '@angular/core'
-import { TemplateComponentAbstract } from '@pages/entity-page/entity.interface'
 
 // https://habr.com/ru/post/494668/
 export function DestroyedSubject<PropertyDecorator> (): (target: any, propertyKey: string) => void { // eslint-disable-line
@@ -14,10 +12,8 @@ export function DestroyedSubject<PropertyDecorator> (): (target: any, propertyKe
     destroyQueue(
       target,
       function () {
-        // @ts-expect-error
-        this[propName].next()
-        // @ts-expect-error
-        this[propName].complete()
+        target?.[propName].next()
+        target?.[propName].complete()
       }.bind(target)
     )
   }

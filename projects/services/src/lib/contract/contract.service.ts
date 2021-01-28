@@ -93,11 +93,9 @@ export class ContractService {
 
   public getContractData (address: string) {
     const url = new URL('/addresses/data/' + address, this.api.rest)
-    return this.http.get<Observable<ContractRawData>>(url.href, {
+    return this.http.get<ContractRawData>(url.href, {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
-      // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-      // @ts-expect-error
       map((data: ContractRawData) => ({
         ...this.prepareData(data),
         address
@@ -128,32 +126,24 @@ export class ContractService {
   private group (
     keys: string[],
     context: ContractDataIterationModel,
-    value: ContractRawDataString | ContractRawDataNumber
-  ):
-    void {
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-expect-error
-    const key: string = keys.shift()
+    value: ContractRawDataString
+  ): ContractDataIterationModel | undefined {
+    const key: string | undefined = keys.shift()
     if (!key) {
-      return
+      return undefined
     }
 
     if (!context[key]) {
       context[key] = keys.length === 0 ? value : {}
     }
-
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-expect-error
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-expect-error
     return data.reduce((orig, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig
-    }, {})
+    }, {}) as ContractDataModel
   }
 }

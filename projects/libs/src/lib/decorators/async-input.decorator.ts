@@ -19,18 +19,18 @@ export function Async<PropertyDecorator> (): (target: any, propertyKey: string) 
 
     // Create stream subject with destroy
     Reflect.defineProperty(target, stream, {
-      // @ts-expect-error
+
       value: target[name].pipe(publishReplay(1), refCount()),
       writable: true
     })
 
     Reflect.defineProperty(target, propName, {
       set: (item): void => {
-        // @ts-expect-error
+
         target[name].next(item)
       },
       get: () =>
-        // @ts-expect-error
+
         target[stream]
 
     })
@@ -38,7 +38,7 @@ export function Async<PropertyDecorator> (): (target: any, propertyKey: string) 
     destroyQueue(
       target,
       () => {
-        // @ts-expect-error
+
         this[name].complete()
       }
     )

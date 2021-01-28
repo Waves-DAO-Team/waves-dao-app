@@ -7,6 +7,11 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { UserContactsModule } from '@ui/user-contacts/user-contacts.module'
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 describe('MembersPageComponent', () => {
   let component: MembersPageComponent
@@ -19,12 +24,15 @@ describe('MembersPageComponent', () => {
         HttpClientTestingModule,
         MatSnackBarModule,
         getTranslocoModule(),
-        UserContactsModule
+        UserContactsModule,
+        MatDialogModule,
       ],
       declarations: [MembersPageComponent],
       providers: [
         provideAppConstants(),
-        provideApi()
+        provideApi(),
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
       ]
     })
       .compileComponents()

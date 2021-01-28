@@ -58,8 +58,6 @@ export class MembershipService {
   }
 
   private group (keys: string[], context: ContractDataIterationModel, value: ContractRawDataString | ContractRawDataNumber): void {
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-
     const key: string | undefined = keys.shift()
     if (!key) {
       return
@@ -69,20 +67,15 @@ export class MembershipService {
       context[key] = keys.length === 0 ? value : {}
     }
 
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-expect-error
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-
-    // @ts-expect-error
     return data.reduce((orig: {} | ContractDataIterationModel, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig
-    }, {})
+    }, {}) as ContractDataModel
   }
 
   public addDAOMember (members: string): Observable<TransactionsSuccessResult> {

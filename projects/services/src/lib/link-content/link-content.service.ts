@@ -1,6 +1,6 @@
 import { Injectable, isDevMode } from '@angular/core'
 import { MainResponseInterface, ReposResponseInterface } from '@services/link-content/link-content.interface'
-import { EMPTY, of } from 'rxjs'
+import {EMPTY, Observable, of} from 'rxjs';
 import { HttpClient } from '@angular/common/http'
 import { catchError, filter, map, switchMap, take } from 'rxjs/operators'
 
@@ -19,7 +19,7 @@ export class LinkContentService {
   constructor (private readonly http: HttpClient) {
   }
 
-  getContent (link: string) {
+  getContent (link: string): Observable<string | undefined> {
     return of(link).pipe(
       filter(el => el !== null && el !== undefined),
       map((url: string) => {
@@ -79,8 +79,7 @@ export class LinkContentService {
   getPrepareContent (link: string) {
     return this.getContent(link)
       .pipe(
-        // @ts-expect-error
-        filter(el => el !== null && el !== undefined),
+        map((el: string | undefined) => el || ''),
         map((content: string) => content?.replace(/^# .+\n/g, ''))
       )
   }

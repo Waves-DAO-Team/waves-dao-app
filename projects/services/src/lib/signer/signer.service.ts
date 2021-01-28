@@ -12,15 +12,17 @@ import {
 import { BehaviorSubject, from, Observable } from 'rxjs'
 import { publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take } from 'rxjs/operators'
 import {
-  TTransactionFromAPI
-} from '@waves/ts-types'
+  TTransactionFromAPI, TTransactionFromAPIMap,
+} from '@waves/ts-types';
 import {
-  IMoney, TLong
-} from '@waves/signer/cjs/interface'
+  IInvoke, IInvokeWithType,
+  IMoney, TLong, TParamsToApi, TParamsToSign,
+} from '@waves/signer/cjs/interface';
 import { HttpClient } from '@angular/common/http'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { StorageService } from '@services/storage/storage.service'
+import {TTransactionsApi1} from '@waves/signer/cjs/api';
 
 @Injectable({
   providedIn: 'root'
@@ -86,17 +88,16 @@ export class SignerService {
       dApp: contractAddress,
       call: {
         function: command,
-        // @ts-expect-error
         args
       }
-    }).sign()).pipe(
+    } as IInvoke).sign()).pipe(
       take(1),
       tap(() => {
         this.snackBar.open(translate('messages.startTransaction'), translate('messages.ok'))
       }),
-      // @ts-expect-error
-      switchMap((tx) => from(this.signer.broadcast(tx))),
-      switchMap((data: TTransactionFromAPI<TLong>) => this.status(data.id)),
+      switchMap((tx: TParamsToSign<IInvokeWithType>) => from(this.signer.broadcast(tx))),
+      // @ts-ignore
+      switchMap((data) => this.status(data?.id)),
       tap(() => {
         this.snackBar.open('Transaction is complete', translate('messages.ok'))
       })
