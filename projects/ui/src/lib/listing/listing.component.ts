@@ -33,9 +33,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
 })
 export class ListingComponent implements OnInit, OnDestroy {
   @Input() contract: GrantsVariationType | null = null
-
   public readonly grantsVariationActive = '1'
-  public readonly RoleEnum = RoleEnum
   public readonly GrantStatusEnum = GrantStatusEnum
   public selectedTagName$ = new BehaviorSubject('all')
 

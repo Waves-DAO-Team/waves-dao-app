@@ -24,6 +24,14 @@ export class DevGridComponent implements OnInit {
   public storageKey = 'dev-grid'
   public isShow = false
   public isActive = false
+  public deleteLocal (name: string = this.storageKey): void {
+    if (!this.enabled) {
+      return
+    }
+    if (this.getLocal(name)) {
+      window.localStorage.removeItem(name)
+    }
+  }
   private readonly cssClass = 'dev-mode'
 
   private readonly html: HTMLElement
@@ -53,14 +61,7 @@ export class DevGridComponent implements OnInit {
     window.localStorage.setItem(name, value)
   }
 
-  public deleteLocal (name: string = this.storageKey): void {
-    if (!this.enabled) {
-      return
-    }
-    if (this.getLocal(name)) {
-      window.localStorage.removeItem(name)
-    }
-  }
+
 
   ngOnInit () {
     this.devPageMode = isDevMode()

@@ -35,9 +35,11 @@ import {
   styleUrls: ['./disruptive-template.component.scss']
 })
 export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
+  grantStatusEnum = GrantStatusEnum
 
   @Input() public readonly contract!: GrantsVariationType
 
+  private inputGrant: ContractGrantModel = {}
   @Input() set grant (data: ContractGrantModel) {
     if (data !== this.inputGrant) {
       this.inputGrant = data
@@ -45,8 +47,10 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     }
     this.grant$.next(data)
   }
+  get grant () {
+    return this.inputGrant
+  }
 
-  grantStatusEnum = GrantStatusEnum
 
   grant$ = new Subject<ContractGrantModel>()
 
@@ -74,11 +78,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
-  private inputGrant: ContractGrantModel = {}
 
-  get grant () {
-    return this.inputGrant
-  }
+
+
 
   constructor (
     private readonly dialog: MatDialog,

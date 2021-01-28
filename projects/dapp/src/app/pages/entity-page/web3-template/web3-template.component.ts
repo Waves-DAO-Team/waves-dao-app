@@ -121,9 +121,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       })
     )
 
-  get grant () {
-    return this.inputGrant
-  }
+
 
   private inputGrant: ContractGrantModel = {}
 
@@ -133,6 +131,9 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       this.prepareVoteForTaskData(data)
     }
     this.grant$.next(data)
+  }
+  get grant () {
+    return this.inputGrant
   }
 
   constructor (

@@ -9,6 +9,9 @@ import { ContractGrantModel } from '@services/contract/contract.model'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyComponent implements OnInit {
+  @Input() link: string | null = null
+  @Input() grant: ContractGrantModel | null = null
+
   environment: {
     showDevTools: boolean
   } = environment
@@ -23,8 +26,7 @@ export class BodyComponent implements OnInit {
     return this.mdTemp
   }
 
-  @Input() link: string | null = null
-  @Input() grant: ContractGrantModel | null = null
+
 
   constructor (public cdr: ChangeDetectorRef) {}
 

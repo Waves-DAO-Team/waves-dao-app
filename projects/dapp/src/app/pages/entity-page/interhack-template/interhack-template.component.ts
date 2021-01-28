@@ -1,31 +1,31 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { SignerService } from '@services/signer/signer.service'
-import { filter, map, take, tap } from 'rxjs/operators'
-import { translate } from '@ngneat/transloco'
-import { DialogComponent } from '@ui/dialog/dialog.component'
-import { ApplyComponent } from '@ui/modals/apply/apply.component'
+import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ContractGrantModel} from '@services/contract/contract.model'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
+import {MatSnackBar} from '@angular/material/snack-bar'
+import {SignerService} from '@services/signer/signer.service'
+import {filter, map, take, tap} from 'rxjs/operators'
+import {translate} from '@ngneat/transloco'
+import {DialogComponent} from '@ui/dialog/dialog.component'
+import {ApplyComponent} from '@ui/modals/apply/apply.component'
 import {
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
   SubmitCallBackRewardArg, SubmitCallBackSubmitSolutionResultArg
 } from '@ui/dialog/dialog.tokens'
-import { MatDialog } from '@angular/material/dialog'
+import {MatDialog} from '@angular/material/dialog'
 import {
   TeamsAndSolutionsControlsInterface,
   TemplateComponentAbstract,
   VoteTeamEventInterface
 } from '@pages/entity-page/entity.interface'
-import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
-import { UserService } from '@services/user/user.service'
-import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
-import { combineLatest, Observable, Subject } from 'rxjs'
-import { SubmitSolutionComponent } from '@ui/modals/submit-solution/submit-solution.component'
-import { teamsAndSolutionsControls } from './functions'
-import { InterhackContractService } from '@services/contract/Interhack-contract.service'
+import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
+import {UserService} from '@services/user/user.service'
+import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
+import {combineLatest, Observable, Subject} from 'rxjs'
+import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
+import {teamsAndSolutionsControls} from './functions'
+import {InterhackContractService} from '@services/contract/Interhack-contract.service'
 
 @Component({
   selector: 'app-interhack-template',
@@ -36,15 +36,20 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   @Input() public readonly contract!: GrantsVariationType
 
+  grantStatusEnum = GrantStatusEnum
+
   @Input() set grant (data: ContractGrantModel) {
     // if (data !== this.GSgrant) {
-    this.GSgrant = data
+    this.inputGrant = data
     this.prepareVoteForTaskData(data)
     // }
     this.grant$.next(data)
   }
 
-  grantStatusEnum = GrantStatusEnum
+  get grant () {
+    return this.inputGrant
+  }
+
 
   voteForTaskData = {
     isShow: false,
@@ -203,11 +208,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     this.prepareVoteForTaskData()
   })
 
-  GSgrant: ContractGrantModel = {}
-
-  get grant () {
-    return this.GSgrant
-  }
+  private inputGrant: ContractGrantModel = {}
 
 
   constructor (
@@ -218,7 +219,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     public signerService: SignerService,
     private readonly cdr: ChangeDetectorRef,
     public userService: UserService
-  ) {}
+  ) {
+  }
 
   vote (value: 'like' | 'dislike') {
     const id = this.grant.id || ''
@@ -370,11 +372,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     }
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel = this.GSgrant) {
+  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant) {
     if (
-        this.userService.data.getValue().roles.isDAO &&
-        grant?.status?.value === this.grantStatusEnum.proposed &&
-        grant?.reward?.value
+      this.userService.data.getValue().roles.isDAO &&
+      grant?.status?.value === this.grantStatusEnum.proposed &&
+      grant?.reward?.value
     ) {
       this.voteForTaskData.isShow = true
     } else {
