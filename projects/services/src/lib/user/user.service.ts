@@ -4,7 +4,7 @@ import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { BehaviorSubject, combineLatest } from 'rxjs'
 import { map, publishReplay, refCount, tap } from 'rxjs/operators'
-import {ContractGrantCommonModel, ContractGrantRawModel} from '@services/contract/contract.model'
+import {ContractGrantCommonModel, ContractGrantModel, ContractGrantRawModel} from '@services/contract/contract.model'
 import { API, AppApiInterface } from '@constants'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
@@ -73,15 +73,18 @@ export class UserService {
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
     private readonly signerService: SignerService,
-    private readonly contractService: ContractService,
-    private readonly snackBar: MatSnackBar
+    private readonly contractService: ContractService
   ) {}
 
-  private defineApply (userAddress: string, tasks: ContractGrantRawModel): string[] {
+  private defineApply (userAddress: string, tasks: {[index: string]: ContractGrantModel}): string[] {
     const result: string[] = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
-        if (userAddress && !!tasks[key] && tasks[key]?.applicants?.value.includes(userAddress)) {
+        if (
+          userAddress
+          && tasks
+          && tasks[key]?.applicants?.value.includes(userAddress)
+        ) {
           result.push(key)
         }
       }
