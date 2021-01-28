@@ -4,7 +4,7 @@ import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { BehaviorSubject, combineLatest } from 'rxjs'
 import { map, publishReplay, refCount, tap } from 'rxjs/operators'
-import { ContractGrantRawModel } from '@services/contract/contract.model'
+import {ContractGrantCommonModel, ContractGrantRawModel} from '@services/contract/contract.model'
 import { API, AppApiInterface } from '@constants'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
@@ -90,14 +90,14 @@ export class UserService {
     return result
   }
 
-  private defineVoted (userAddress: string, tasks: ContractGrantRawModel): string[] {
+  private defineVoted (userAddress: string, tasks: {[s: string]: ContractGrantRawModel}): string[] {
     const result = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
-        const grant = tasks[key]
-        if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
-          result.push(key)
-        }
+          const grant: ContractGrantRawModel = tasks[key]
+          if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
+            result.push(key)
+          }
       }
     }
 
