@@ -39,8 +39,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   @Input() public readonly contract!: GrantsVariationType
 
   @Input() set grant (data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
+    if (data !== this.inputGrant) {
+      this.inputGrant = data
       this.prepareVoteForTaskData(data)
     }
     this.grant$.next(data)
@@ -74,10 +74,10 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
-  GSgrant: ContractGrantModel = {}
+  private inputGrant: ContractGrantModel = {}
 
   get grant () {
-    return this.GSgrant
+    return this.inputGrant
   }
 
   constructor (

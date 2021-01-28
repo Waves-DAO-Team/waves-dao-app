@@ -122,14 +122,14 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     )
 
   get grant () {
-    return this.GSgrant
+    return this.inputGrant
   }
 
-  private GSgrant: ContractGrantModel = {}
+  private inputGrant: ContractGrantModel = {}
 
   @Input() set grant (data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
+    if (data !== this.inputGrant) {
+      this.inputGrant = data
       this.prepareVoteForTaskData(data)
     }
     this.grant$.next(data)

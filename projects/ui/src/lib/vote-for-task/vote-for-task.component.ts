@@ -11,14 +11,14 @@ type VoteStatus = 'like' | 'dislike'
 export class VoteForTaskComponent {
   @Input() isShow = false
   @Input() isVote = false
+  voteStatus: VoteStatus | null = null
+  buttonClicked = false
+
+  public isVoteInProcessInput = false
   @Input() set isVoteInProcess (value: boolean) {
     this.isVoteInProcessInput = value
   }
-
-  public isVoteInProcessInput = false
-  voteStatus: VoteStatus | null = null
-  buttonClicked = false
-  get isVoteInProcess () {
+  get isVoteInProcess (): boolean {
     return this.isVoteInProcessInput
   }
 

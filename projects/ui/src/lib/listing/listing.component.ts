@@ -94,8 +94,8 @@ export class ListingComponent implements OnInit, OnDestroy {
             if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
-              let newData: ContractRawDataNumber = {
-                key: "", type: 0, value: "0.00"
+              const newData: ContractRawDataNumber = {
+                key: '', type: 0, value: '0.00'
               }
               e.reward = newData
             }
@@ -154,8 +154,8 @@ export class ListingComponent implements OnInit, OnDestroy {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
 
-              let newData: ContractRawDataNumber = {
-                key: "", type: 0, value: "0.00"
+              const newData: ContractRawDataNumber = {
+                key: '', type: 0, value: '0.00'
 
               }
               e.reward = newData

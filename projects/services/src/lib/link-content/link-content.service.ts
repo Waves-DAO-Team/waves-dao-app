@@ -16,10 +16,10 @@ interface LinkDataModel {
   providedIn: 'root'
 })
 export class LinkContentService {
-  constructor(private readonly http: HttpClient) {
+  constructor (private readonly http: HttpClient) {
   }
 
-  getContent(link: string) {
+  getContent (link: string) {
     return of(link).pipe(
       filter(el => el !== null && el !== undefined),
       map((url: string) => {
@@ -76,7 +76,7 @@ export class LinkContentService {
     )
   }
 
-  getPrepareContent(link: string) {
+  getPrepareContent (link: string) {
 
     return this.getContent(link)
       .pipe(

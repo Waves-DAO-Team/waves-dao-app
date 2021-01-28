@@ -9,4 +9,3 @@ export const getTranslocoModule = (options: TranslocoTestingOptions = {}) => Tra
   },
   ...options
 })
-// TS2732: Cannot find module '../../../../resources/i18n/en.json'. Consider using '--resolveJsonModule' to import module with '.json' extension
