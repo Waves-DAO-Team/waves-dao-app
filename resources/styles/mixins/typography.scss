@@ -12,18 +12,26 @@ $font-weight-base: 400;
 $headings-font-weight: 400;
 $headings-line-height: 1.1;
 
+// font size
+$font_size_h1: 48px;
+$font_size_h2: 42px;
+$font_size_h3: 26px;
+$font_size_h4: 16px;
+$font_size_h5: 12px;
+
 // Typography
 $font-family: $font-family-base;
-$display-4: mat-typography-level(rem(112), 1, $headings-font-weight, $letter-spacing: -0.05em);
-$display-3: mat-typography-level(rem(56), 1, $headings-font-weight, $letter-spacing: -0.02em);
-$display-2: mat-typography-level(rem(45), 1, $headings-font-weight, $letter-spacing: -0.005em);
-$display-1: mat-typography-level(rem(34), 1, $headings-font-weight);
+$display-4: mat-typography-level($font_size_h3, 1.5, $headings-font-weight, $letter-spacing: -0.05em);
+$display-3: mat-typography-level(18px, 1.5, $headings-font-weight, $letter-spacing: -0.02em);
+$display-2: mat-typography-level($font_size_h4, 1.5, $headings-font-weight, $letter-spacing: -0.005em);
+$display-1: mat-typography-level($font_size_h5, 1.5, $headings-font-weight);
 
-$header-h1: mat-typography-level(rem(46), $headings-line-height, $headings-font-weight);
-$header-h2: mat-typography-level(rem(40), $headings-line-height, $headings-font-weight);
-$header-h3: mat-typography-level(rem(30), $line-height-base, $font-weight-base);
+$header-h1: mat-typography-level($font_size_h1, $headings-line-height, $headings-font-weight);
+$header-h2: mat-typography-level($font_size_h2, $headings-line-height, $headings-font-weight);
+$header-h3: mat-typography-level(31px, $line-height-base, $font-weight-base);
 $header-h4: mat-typography-level(rem($font-size-base), $line-height-base, $font-weight-base);
 $header-h5: mat-typography-level(rem(14), $line-height-base, $font-weight-base);
+
 $caption: mat-typography-level(rem(12), $line-height-base, $font-weight-base);
 $button: mat-typography-level(rem($font-size-base), $line-height-base, $font-weight-base);
 $input: mat-typography-level(rem($font-size-base), 1.125, $font-weight-base);
@@ -42,4 +50,5 @@ $app-config: (
   caption:        $caption,
   button:         $button,
   input:          $input,
+  header-h1:      $header-h1,
 );

@@ -1,0 +1,145 @@
+@import 'const';
+
+.team {
+  margin-bottom: $padding;
+  &__header {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .winner {
+      border: 1px solid $color_waves_blue;
+    }
+
+    &__li {
+      border: 1px solid $color_light_gray;
+      display: flex;
+      margin-bottom: $padding;
+
+      &__left {
+        background: $color_light_gray;
+        display: flex;
+        flex-direction: column;
+        max-height: $padding * 7;
+        max-width: $padding * 7;
+        min-height: $padding * 7;
+        min-width: $padding * 7;
+
+        &__top {
+          align-items: flex-end;
+          color: $color_dark_gray;
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          margin: auto;
+          width: 100%;
+        }
+
+        &__bottom {
+          align-items: baseline;
+          display: flex;
+          flex: 1.2;
+          font-weight: bold;
+          justify-content: center;
+          line-height: 1;
+          margin: auto;
+        }
+
+        &__up,
+        &__down {
+          align-items: center;
+          display: flex;
+          flex: 1;
+          justify-content: center;
+
+          &.disabled, .disabled {
+            opacity: 0.5;
+          }
+
+          img {
+            cursor: pointer;
+            height: 15px;
+          }
+        }
+
+        &__score {
+          align-items: center;
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          margin: auto;
+        }
+
+      }
+
+      &__mid {
+        align-items: flex-start;
+        display: flex;
+        flex: 1;
+        //width: calc(100% - 155px);
+        flex-direction: column;
+        justify-content: center;
+        padding-right: $padding;
+        width: 20%;
+
+        &__name {
+          display: inline-block;
+          font-weight: bold;
+          overflow: hidden;
+          padding-left: $padding;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 95%;
+          margin: auto auto 0 auto;
+        }
+
+        &__link {
+          color: $color_waves_blue;
+          display: inline-block;
+          justify-content: center;
+          overflow: hidden;
+          padding-left: $padding;
+          text-decoration: none;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 95%;
+          margin: 0 auto auto auto;
+
+          img {
+            padding-left: $padding / 2;
+          }
+        }
+      }
+
+      &__right {
+        align-items: center;
+        color: $color_waves_blue;
+        display: flex;
+        justify-content: center;
+        max-width: 100px;
+        min-width: 100px;
+        padding-right: $padding * 2;
+        margin: 0;
+
+        img {
+          margin-right: $padding / 2;
+        }
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

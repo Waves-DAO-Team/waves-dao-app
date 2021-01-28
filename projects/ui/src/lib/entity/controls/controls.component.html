@@ -1,0 +1,5 @@
+<div class="controls" *ngIf="userService.data | async as user " >
+  <ng-container [ngTemplateOutlet]="controlsTemplate"></ng-container>
+</div>
+
+

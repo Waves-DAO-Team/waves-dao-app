@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core'
-import { ENTITY, ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/entity-page.providers'
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core'
+import { CONTRACT, ENTITY, ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/entity-page.providers'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { UserService } from '@services/user/user.service'
+import {
+  ContractGrantModel
+} from '@services/contract/contract.model'
+import { Location } from '@angular/common'
+import { GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'app-entity-page',
@@ -12,13 +15,21 @@ import { UserService } from '@services/user/user.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: ENTITY_PAGE_PROVIDERS
 })
-export class EntityPageComponent implements OnInit {
+export class EntityPageComponent implements OnInit, OnDestroy {
   constructor (
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-      @Inject(ENTITY) public readonly entity: LoadingWrapperModel<ContractGrantModel>
-  ) {
+    private location: Location,
+    @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType>,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(ENTITY) public entity: LoadingWrapperModel<ContractGrantModel>
+  ) {}
+
+  ngOnInit (): void {}
+
+  goBack (): void {
+    this.location.back()
   }
 
-  ngOnInit (): void {
+  ngOnDestroy () {
+    this.entity.destroy()
   }
 }

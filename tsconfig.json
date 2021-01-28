@@ -21,7 +21,8 @@
       "@constants": ["projects/dapp/src/app/app.providers"],
       "@services/*": ["projects/services/src/lib/*"],
       "@libs/*": ["projects/libs/src/lib/*"],
-      "@ui/*": ["projects/ui/src/lib/*"]
+      "@ui/*": ["projects/ui/src/lib/*"],
+      "@dapp/*": ["projects/dapp/*"]
     }
   },
   "angularCompilerOptions": {

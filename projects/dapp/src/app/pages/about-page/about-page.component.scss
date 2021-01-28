@@ -1,0 +1,32 @@
+@import 'const';
+@import 'container';
+@import 'mixins/elements/icon-logo';
+
+.logo {
+  margin-bottom: $padding * 2;
+  text-align: center;
+
+  .icon-logo {
+    @include icon-logo(90px);
+    margin: $padding * 1 auto;
+    text-align: center;
+  }
+}
+.container {
+  @include container();
+
+  .blockquote {
+    position: relative;
+
+    &::before {
+      background: #000;
+      content: '';
+      display: block;
+      height: 100%;
+      left: -10px;
+      position: absolute;
+      top: 0;
+      width: 5px;
+    }
+  }
+}

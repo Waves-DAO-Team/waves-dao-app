@@ -13,19 +13,25 @@ import { HttpClientModule } from '@angular/common/http'
 import { TranslocoRootModule } from './transloco/transloco-root.module'
 import { HeaderModule } from '@ui/header/header.module'
 import { TagModule } from '@ui/tag/tag.module'
-import { ModalModule } from '@ui/modal/modal.module'
+
 import { FooterModule } from '@ui/footer/footer.module'
 import { NgProgressModule } from 'ngx-progressbar'
 import { NgProgressHttpModule } from 'ngx-progressbar/http'
 import { provideApi, provideAppConstants } from './app.providers'
 import { PipesModule } from '@libs/pipes/pipes.module'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
+import {
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+  MatSnackBarModule
+} from '@angular/material/snack-bar'
+import { MarkdownModule } from 'ngx-markdown'
+import { MatDialogModule } from '@angular/material/dialog'
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    MatDialogModule,
     BrowserModule,
     AppRoutingModule,
     NgProgressModule,
@@ -37,10 +43,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     TranslocoRootModule,
     HeaderModule,
     TagModule,
-    ModalModule,
+
     FooterModule,
     PipesModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MarkdownModule.forRoot()
   ],
   providers: [
     WINDOW_PROVIDERS,
@@ -48,7 +55,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     provideCommonLayoutHeader(HeaderComponent),
     provideCommonLayoutFooter(FooterComponent),
     provideAppConstants(),
-    provideApi()
+    provideApi(),
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } }
   ],
   bootstrap: [AppComponent]
 })

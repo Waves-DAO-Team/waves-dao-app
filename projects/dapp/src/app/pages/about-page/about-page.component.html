@@ -1,3 +1,33 @@
-<div class="container">
-    <p>about-page works!</p>
+<div class="container" *ngIf="contract.data$ | async as contract else loadingOrErrorTemplate">
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
+    </button>
+  </div>
+  <div class="container__mid">
+
+    <div class="logo">
+      <div class="icon-logo"></div>
+      <div class="mat-h2">{{ contract?.title }}</div>
+      <a target="_blank" rel="noopener nofollow noreferrer" [attr.href]="contract.about">
+        {{'about.github' | transloco}}
+      </a>
+    </div>
+
+    <markdown [data]="content$ | async"></markdown>
+
+  </div>
+  <div class="container__right">
+  </div>
 </div>
+
+<ng-template #loadingOrErrorTemplate>
+  <ng-container *ngIf="contract.error$ | async; else loading">
+    <app-not-found-page></app-not-found-page>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <app-loading-page></app-loading-page>
+</ng-template>
+

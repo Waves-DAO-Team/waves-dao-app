@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ContractService } from '@services/contract/contract.service'
 
 @Component({
   selector: 'ui-footer',
@@ -7,5 +8,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent implements OnInit {
+  constructor (public contractService: ContractService) {}
+
   ngOnInit (): void {}
 }

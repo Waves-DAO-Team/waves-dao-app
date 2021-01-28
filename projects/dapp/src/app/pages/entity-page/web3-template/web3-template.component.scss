@@ -1,0 +1,11 @@
+@import "const";
+
+button {
+  margin-left: $padding;
+  height: 42px;
+}
+
+.marginTB {
+  margin-bottom: $padding ;
+  margin-top: $padding;
+}

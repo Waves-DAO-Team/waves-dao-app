@@ -1,33 +1,50 @@
-@import 'variables';
+@import 'const';
 
 ul {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
   margin: 0;
   padding: 0;
 
   li {
-    border: 1px solid $gray-light;
-    border-radius: 20px;
+    color: $color_gray;
     cursor: pointer;
-    font-size: $font-size-small;
-    margin-bottom: $padding;
-    margin-right: $padding / 4;
-    padding: $padding / 3 $padding;
-    transition: 0.2s;
-    white-space: nowrap;
+    font-weight: 300;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    position: relative;
+    transition: padding-left 0.3s;
+
+    &::after {
+      background: $color_waves_blue;
+      bottom: 0;
+      content: '';
+      height: 2px;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      width: 0;
+    }
 
     &:hover {
-      background: $blue;
-      border: 1px solid $blue;
-      color: #fff;
+      color: $color_black;
+      padding-left: $padding * 4;
+
+      &::after {
+        transition: 0.5s;
+        width: $padding * 3;
+      }
     }
   }
 
   .active {
-    background: $blue;
-    border: 1px solid $blue;
-    color: #fff;
+    color: $color_black;
+    font-weight: 600;
+    padding-left: $padding * 4;
+
+    &::after {
+      transition: 0.5s;
+      width: $padding * 3;
+    }
   }
 }

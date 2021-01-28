@@ -1,0 +1,26 @@
+<div class="container home-page">
+
+    <div class="container__mid">
+        <div class="home-page__title mat-h1">
+            {{'listing.title' | transloco}}
+        </div>
+        <div class="home-page__desc mat-display-2">
+            {{'listing.desc.you_can_vote' | transloco}}.&nbsp;
+            <span class="home-page__desc-span">{{'listing.desc.select_category' | transloco}}:</span>
+        </div>
+
+        <div class="home-page__grants">
+            <a class="home-page__grant"
+                 *ngFor="let grants of grantsVariationsList | async"
+                [routerLink]="constants.routes.listing | route : grants?.name"
+            >
+                <img alt="preview" class="home-page__grant-img" [src]="grants?.preview"/>
+                <span class="home-page__grant-content">
+                    <span class="home-page__grant-title mat-display-3">{{grants?.title}}</span>
+                    <span class="home-page__grant-desc mat-display-1">{{grants?.desc}}</span>
+                </span>
+            </a>
+            <div class="home-page__grant-final"></div>
+        </div>
+    </div>
+</div>

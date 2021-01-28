@@ -1,0 +1,79 @@
+@mixin modal {
+  background: rgba(41, 44, 48, 0.4);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9;
+
+  &__container {
+    bottom: 0;
+    height: 300px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 440px;
+
+    &__inner-container {
+      background: #fff;
+      padding: $padding * 3 $padding * 2;
+
+    }
+  }
+}
+
+@mixin modal-content {
+  .modal-content {
+    &__step {
+      color: $color_waves_blue;
+      margin-bottom: $padding;
+    }
+
+    &__title {
+      font-size: $font_size_h3;
+      font-weight: 600;
+      margin-bottom: $padding;
+    }
+
+    &__text {
+      color: $color_black;
+      font-size: $font_size_h4;
+      margin-bottom: $padding * 2;
+
+      &__center {
+        font-size: $font_size_h3;
+        font-weight: bold;
+        margin: $padding * 2 auto;
+        text-align: center;
+      }
+    }
+
+
+    &__btn {
+      &.center {
+        justify-content: center;
+      }
+    }
+
+    &__form {
+      margin-top: $padding * 2;
+    }
+
+    &__img {
+      display: block;
+      margin: auto;
+      text-align: center;
+    }
+
+    a {
+      color: $color_waves_blue;
+      text-decoration: none;
+    }
+  }
+
+}
+
+

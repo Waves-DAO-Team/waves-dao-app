@@ -1,0 +1,30 @@
+<form [formGroup]="grantForm" (ngSubmit)="onSubmit()">
+
+  <div class="input">
+    <div class="input-wrp">
+      <br/>
+      <input type="text" class="inputText" formControlName="name" required/>
+      <span class="floating-label">{{'create_grant.form.name.label' | transloco}}</span>
+    </div>
+  </div>
+
+  <div class="input">
+    <div class="input-wrp">
+      <br/>
+      <input type="text" class="inputText" formControlName="link" required/>
+      <span class="floating-label">{{'modal.texts.link_to_description' | transloco}}</span>
+    </div>
+  </div>
+
+  <div class="btn-container full">
+    <button type="submit" class="btn active" *ngIf="params?.submitBtnText; else defSubmit">
+      {{ params.submitBtnText }}
+    </button>
+    <ng-template #defSubmit>
+      <button type="submit" class="btn active">
+        {{'create_grant.form.apply' | transloco}}
+      </button>
+    </ng-template>
+  </div>
+
+</form>

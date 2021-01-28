@@ -7,3 +7,12 @@
     url('../assets/fonts/Montserrat-Regular.woff') format('woff'),
     url('../assets/fonts/Montserrat-Regular.ttf') format('truetype');
 }
+
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: bold;
+  font-weight: 700;
+  src: local('Montserrat Bold'), local('Montserrat-Bold'),
+    url('../assets/fonts/Montserrat-Bold.ttf') format('truetype');
+}

@@ -1,7 +1,15 @@
 .layout {
-  //&__header {}
-  //
-  //&__content {}
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__header {
+    margin: $padding * 5;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+  }
   //
   //&__footer {}
 }
@@ -9,6 +17,7 @@
 .grid {
   &__container {
     display: flex;
+
     &__col {
       flex: 1;
     }

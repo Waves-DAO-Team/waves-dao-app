@@ -1,5 +1,7 @@
 <ul>
-  <li *ngFor="let tag of tags" (click)="select(tag)" [class.active]="tag === lastTag">
-    {{'listing.status.' + tag | transloco}}
-  </li>
+  <ng-container *ngFor="let tag of tags">
+    <li class="mat-display-2" (click)="select(tag)" [class.active]="tag === lastTag" *ngIf="tag !== 'team_chosen'">
+      {{'listing.status.' + tag | transloco}}
+    </li>
+  </ng-container>
 </ul>

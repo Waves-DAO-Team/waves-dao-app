@@ -1,19 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core'
-
-const getRoutes = (value: string | string[], args: string[]) => {
-  const params = args.slice()
-  return (
-    (typeof value === 'string') ? value.split('/') as string[] : value as string[]
-  )
-    .map((path) => path.indexOf(':') === 0 ? params.shift() || path : path)
-}
+import { relativeRoute, route } from './routes.lib'
 
 @Pipe({
   name: 'route'
 })
 export class RoutePipe implements PipeTransform {
   transform (value: string | string[], ...args: string[]) {
-    return '/' + getRoutes(value, args).join('/')
+    return route(value, args)
   }
 }
 
@@ -22,7 +15,7 @@ export class RoutePipe implements PipeTransform {
 })
 export class RoutesPipe implements PipeTransform {
   transform (value: string | string[], ...args: string[]) {
-    return getRoutes(value, args)
+    return route(value, args)
   }
 }
 
@@ -31,6 +24,6 @@ export class RoutesPipe implements PipeTransform {
 })
 export class RelativeRoutePipe implements PipeTransform {
   transform (value: string | string[], ...args: string[]) {
-    return getRoutes(value, args).join('/')
+    return relativeRoute(value, args)
   }
 }

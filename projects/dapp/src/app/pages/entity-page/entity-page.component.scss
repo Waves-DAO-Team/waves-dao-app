@@ -1,12 +1,6 @@
-//@import '../../resources/styles/index';
-//@import '../../../../../resources/styles/index';
-@import "variables";
+@import 'const';
+@import 'container';
 
-//.a-router-link{
-//  background: red;
-//}
-
-.icon-arrow-back {
-  @include icon-arrow(left, $blue);
-  margin-bottom: 2px;
+.container {
+  @include container();
 }

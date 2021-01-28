@@ -1,8 +1,72 @@
-.container {
+
+
+@import '~include-media/dist/_include-media.scss';
+
+@mixin container {
+  display: flex;
   margin: 0 auto;
   max-width: var(--layout-width);
+  padding: $padding * 4 auto 0;
 
-  &--grid {
-    @include layout();
+  @include media('<=tablet') {
+    flex-direction: column;
+
+    &__left {
+      margin-bottom: $padding * 4;
+    }
   }
+  @media (max-width: 1210px) and (min-width: 1025px) {
+    &__mid,
+    &__left,
+    &__right {
+      padding-left: $padding * 3;
+      padding-right: $padding * 3;
+    }
+
+  }
+
+
+
+  &__mid {
+    display: block;
+    flex: 4.5;
+
+    // Fixed width <code> DOM node on flex content
+    overflow: hidden;
+    padding-bottom: 3rem;
+    padding-top: 0.5rem;
+
+    &::after {
+      content: '';
+      display: block;
+      overflow: hidden;
+    }
+  }
+
+  &__left,
+  &__right {
+    flex: 1;
+    //padding-left: $padding;
+  }
+
+  &__left {
+    &__back-btn {
+      background: transparent;
+      border: 0;
+      color: $color_black;
+      cursor: pointer;
+      font-weight: 100;
+      outline: none;
+      padding: 0;
+      position: sticky;
+      top: $padding * 9;
+
+      img {
+        margin-right: $padding;
+        padding-left: 0;
+      }
+    }
+  }
+
 }
+

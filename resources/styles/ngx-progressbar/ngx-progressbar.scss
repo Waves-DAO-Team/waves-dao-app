@@ -11,10 +11,10 @@ ng-progress {
     }
 
     .ng-bar {
-      background-color: var(--color-primary) !important;
+      background-color: #05f !important;
       // the actual bar that translates with when the progress increments
       .ng-meteor {
-        box-shadow: var(--color-primary) 0 0 10px, var(--color-primary) 0 0 5px !important;
+        box-shadow: #05f 0 0 10px, #05f 0 0 5px !important;
       }
     }
 

@@ -1,0 +1,21 @@
+@import 'const';
+@import 'mixins/elements/card';
+@import 'mixins/elements/icon-logo';
+
+:host {
+  display: none;
+  padding-bottom: 3rem;
+
+  &.enable {
+    display: block;
+  }
+}
+
+.title {
+  font-weight: 500;
+  margin-bottom: $padding;
+}
+
+.card {
+  @include card;
+}

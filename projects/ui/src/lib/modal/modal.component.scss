@@ -1,8 +1,0 @@
-//@import './../../resources/styles/index';
-@import 'variables';
-@import 'mixins/elements';
-
-.btn-container {
-  @include btn-container();
-  padding: 0;
-}

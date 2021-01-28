@@ -1,18 +1,43 @@
-<div class="container">
-  <div class="entity-page" *ngIf="entity.data$ | async as grant; else loadingOrErrorTemplate">
-    <ui-entity [grant]="grant"></ui-entity>
+<div class="container" *ngIf="contract.data$ | async as info; else loadingOrErrorTemplate" >
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
+    </button>
+  </div>
+  <div class="container__mid">
+    <div class="entity-page" [ngSwitch]="info.name">
+      <ng-template ngSwitchCase="web3">
+        <app-web3-template
+          [grant]="entity.data$ | async"
+          [contract]="info"
+        ></app-web3-template>
+      </ng-template>
+      <ng-template ngSwitchCase="interhack">
+        <app-interhack-template
+          [grant]="entity.data$ | async"
+          [contract]="info"
+        ></app-interhack-template>
+      </ng-template>
+      <ng-template ngSwitchCase="disruptive">
+        <app-disruptive-template
+          [grant]="entity.data$ | async"
+          [contract]="info"
+        ></app-disruptive-template>
+      </ng-template>
+    </div>
+  </div>
+  <div class="container__right">
   </div>
 </div>
 
+
 <ng-template #loadingOrErrorTemplate>
   <ng-container *ngIf="entity.error$ | async; else loading">
-    Entity is not be loaded
-    <!-- <div class="listing__error"></div> -->
+    <app-not-found-page></app-not-found-page>
   </ng-container>
 </ng-template>
 
 <ng-template #loading>
-  Loading...
-  <!-- <div class="listing__loader"></div> -->
+  <app-loading-page></app-loading-page>
 </ng-template>
 

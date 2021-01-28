@@ -1,0 +1,22 @@
+@mixin text-title($type: h1) {
+  line-height: 1;
+  margin: 0;
+  @if $type == h1 {
+    color: #000;
+    font-size: $font-size-big;
+    font-weight: 600;
+    padding: 0;
+  } @else if $type == h2 {
+    color: $blue;
+    font-size: $font-size-large;
+    padding: 0;
+  } @else if $type == h3 {
+    color: #000;
+    font-size: $font-size-medium;
+    padding: 0;
+  } @else if $type == h4 {
+    color: #000;
+    font-size: $font-size-small;
+    padding: 0;
+  }
+}

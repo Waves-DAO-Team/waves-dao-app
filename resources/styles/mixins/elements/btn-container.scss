@@ -1,0 +1,90 @@
+@mixin btn-container($type: default) {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  text-align: right;
+
+  .btn {
+    background: none;
+    border: 1px solid $gray-light;
+    border-radius: 0 !important;
+    cursor: pointer;
+    display: block;
+    //font-weight: bold;
+    margin-left: $padding / 4;
+    outline: none;
+    padding: $padding;
+    transition: 0.2s;
+
+    &:hover {
+      border: 1px solid #000;
+      border-radius: 0;
+      color: #000;
+    }
+
+    &.active {
+      background: $blue;
+      border: 1px solid $blue;
+      border-radius: 0;
+      color: #fff;
+
+      &:disabled,
+      &:hover:disabled {
+        background: $blue;
+        border: 1px solid $blue;
+        color: rgba(255, 255, 255, 0.5);
+        cursor: default;
+        filter: grayscale(0.8);
+        opacity: 0.3 !important;
+      }
+    }
+
+    >:disabled {
+      filter: grayscale(0.3);
+      opacity: 0.5 !important;
+    }
+
+    &.active:hover {
+      background: transparent;
+      border: 1px solid $blue;
+      color: $blue;
+    }
+
+    &:disabled,
+    &:hover:disabled {
+      border: 1px solid $gray-light;
+      cursor: default;
+      filter: grayscale(0.3);
+      opacity: 0.5 !important;
+    }
+  }
+
+  @if ($type == full) {
+    flex-direction: column;
+
+    .btn {
+      margin: 0;
+      margin-bottom: $padding / 2;
+      width: 100%;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  } @else if($type == center) {
+    margin: auto;
+    text-align: center;
+
+    .btn {
+      padding: $padding $padding * 2;
+
+    }
+  }  @else if($type == one-line) {
+    .btn {
+      flex: 1;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}

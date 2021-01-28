@@ -1,0 +1,66 @@
+<ng-template #headerControlsTemplate>
+
+  <button class="active" (click)="addReward()" *ngIf="isShowAddRewardBtn$ | async">
+    {{'entity.add_reward' | transloco}}
+  </button>
+
+  <button class="active" (click)="startWork()" *ngIf="isStartWorkBtn$ | async">
+    {{'entity.start_work' | transloco}}
+  </button>
+
+</ng-template>
+
+<ng-template #controlsTemplate>
+
+  <button (click)="finishVote()" *ngIf="isFinishVoteBtn$ | async">
+    {{'entity.finish_vote' | transloco}}
+  </button>
+
+  <button (click)="finishApplicantsVote()" *ngIf="isFinishApplicantsVoteBtn$ | async">
+    {{'entity.finish_vote' | transloco}}
+  </button>
+
+  <button (click)="acceptWorkResult()" *ngIf="isAcceptWorkResultBtn$ | async">
+    {{'entity.accept_work_result' | transloco}}
+  </button>
+
+</ng-template>
+
+
+<ng-template #team>
+  <ui-team
+    [grant]="grant"
+    [teamsControls]="teamsControls$ | async"
+    (newSignupEvent)="signup()"
+    (newOpenApplyModalEvent)="openApplyModal()"
+    (newVoteTeamEvent)="voteTeam($event)"
+    titleText="{{'entity.teams' | transloco}}"
+    applyBtnText="{{'entity.apply' | transloco}}"
+  ></ui-team>
+</ng-template>
+
+<ng-template #voteForTask>
+  <ui-vote-for-task
+    *ngIf="voteForTaskData.isShow"
+    [isShow]="voteForTaskData.isShow"
+    [isVote]="voteForTaskData.isVote"
+    (newVoteEvent)="vote($event)"
+  ></ui-vote-for-task>
+</ng-template>
+
+<ng-template #stepper>
+  <ui-stepper [status]="grant?.status?.value"></ui-stepper>
+</ng-template>
+
+<ui-entity
+  [contract]="contract" [grant]="grant"
+  (newFinishVoteEvent)="finishVote()"
+  (newStartWorkEvent)="startWork()"
+  (newRejectEvent)="reject()"
+  (newAcceptWorkResultEvent)="acceptWorkResult()"
+  [teamTemplate]="team"
+  [voteForTaskTemplate]="voteForTask"
+  [stepperTemplate]="stepper"
+  [headerControlsTemplate]="headerControlsTemplate"
+  [controlsTemplate]="controlsTemplate"
+></ui-entity>

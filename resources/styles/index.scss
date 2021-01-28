@@ -11,6 +11,12 @@
 // Fonts
 @import 'fonts';
 
+// Buttons
+@import 'button';
+
+// links
+@import 'links';
+
 //// Elements
 //@import 'mixins/elements';
 
@@ -29,18 +35,18 @@
 //html,
 //body {}
 html,
-body { font-size: var(--layout-font-size);
-  height: 100%;}
-
-body { font-family: $font-family-base;
-  margin: 0;}
-
 body {
   background: rgba(var(--body-bg), 1);
   color: rgba(var(--body-color), 0.9);
+  font-family: $font-family-base;
+  font-size: $font_size_h4;
+  height: 100%;
+  margin: 0;
 }
 
 // Global components
 @import 'layout';
 @import 'container';
 @import 'ngx-progressbar/ngx-progressbar';
+@import 'markdown';
+

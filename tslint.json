@@ -1,6 +1,8 @@
 {
-  "extends": "tslint:recommended",
+  "extends": ["tslint:recommended", "tslint-etc"],
   "rules": {
+    "no-unused-declaration": true,
+    "camelcase": [2, {"properties": "always"}],
     "align": {
       "options": [
         "parameters",
@@ -19,8 +21,7 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
-      "camelCase"
+      "app"
     ],
     "component-selector": [
       true,
@@ -140,5 +141,12 @@
   },
   "rulesDirectory": [
     "codelyzer"
-  ]
+  ],
+  "linterOptions": {
+    "exclude": [
+      "*.json",
+      "**/*.json",
+      "*.e2e-spec.ts"
+    ]
+  }
 }

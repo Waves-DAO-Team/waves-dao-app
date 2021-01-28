@@ -1,58 +1,64 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { UserService } from '@services/user/user.service'
-import { RoleEnum } from '@services/user/user.interface'
-import { GrantStatusEnum } from '../../../../services/src/interface'
-import { ModalComponent } from '@ui/modal/modal.component'
-import { SignerService } from '@services/signer/signer.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { translate } from '@ngneat/transloco'
-import { ContractService } from '@services/contract/contract.service'
-import { ActivatedRoute } from '@angular/router'
-import { tap } from 'rxjs/operators'
-import { environment } from '../../../../dapp/src/environments/environment'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component, Inject,
+  Input, Output, TemplateRef
+  , EventEmitter,
+  OnDestroy
+} from '@angular/core'
+import {
+  ContractGrantModel
+} from '@services/contract/contract.model'
+import {UserService} from '@services/user/user.service'
+import {LinkContentService} from '@services/link-content/link-content.service'
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
+import {DestroyedSubject} from '@libs/decorators/destroyed-subject.decorator'
+import {Subject} from 'rxjs'
+import {API, AppApiInterface} from '@constants'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 
 @Component({
   selector: 'ui-entity',
   templateUrl: './entity.component.html',
-  styleUrls: ['./entity.component.scss']
+  styleUrls: ['./entity.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntityComponent {
+export class EntityComponent implements OnDestroy {
   @Input() public readonly grant: ContractGrantModel = {}
-  grantStatusEnum = GrantStatusEnum
-  userRoleEnum = RoleEnum
-  isDAOVote = false
-  @ViewChild(ModalComponent) modal?: ModalComponent
-  environment: {
-    showDevTools: boolean;
-  } = environment;
+  @Input() public readonly contract!: GrantsVariationType
+  @Input() controlsTemplate: TemplateRef<Component> | undefined;
+  @Input() stepperTemplate: TemplateRef<Component> | undefined;
+  @Input() teamTemplate: TemplateRef<Component> | undefined;
+  @Input() voteForTaskTemplate: TemplateRef<Component> | undefined;
+  @Input() headerControlsTemplate: TemplateRef<Component> | undefined;
+  @Input() solutionsTemplate: TemplateRef<Component> | undefined;
+
+  @Output() newFinishVoteEvent = new EventEmitter()
+  @Output() newStartWorkEvent = new EventEmitter()
+  @Output() newRejectEvent = new EventEmitter()
+  @Output() newAcceptWorkResultEvent = new EventEmitter<string>()
+  @Output() newAddRewardEvent = new EventEmitter()
+
+  // Subject activate if component destroyed
+  // And unsubscribe all subscribers used takeUntil(this.destroyed$)
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>;
+
+  public grantStatusEnum = GrantStatusEnum
+  reportLink = '';
 
   constructor (
-    private route: ActivatedRoute,
     public userService: UserService,
-    private signerService: SignerService,
-    private snackBar: MatSnackBar,
-    public contractService: ContractService
+    public disruptiveContractService: DisruptiveContractService,
+    public linkContentService: LinkContentService,
+    public cdr: ChangeDetectorRef,
+    @Inject(API) public readonly api: AppApiInterface
   ) {
   }
 
-  vote (value: number) {
-    // this.isDAOVote = true
-
-    // this.contractService.voteForApplicant(
-    const id = this.grant.id || ''
-    // console.info('vote', id, value)
-    this.contractService.voteForTaskProposal(id, value)
+  startWork () {
+    this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  public signup (): void {
-    this.signerService.login().subscribe(() => {
-    }, (error) => {
-      this.snackBar.open(error, translate('messages.ok'))
-    })
-  }
-
-  finishVote () {
-    this.contractService.finishTaskProposalVoting(this.grant.id as string)
+  ngOnDestroy () {
   }
 }

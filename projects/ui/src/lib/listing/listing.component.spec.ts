@@ -6,7 +6,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ContractService } from '@services/contract/contract.service'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { TagModule } from '@ui/tag/tag.module'
-import { TranslocoModule } from '@ngneat/transloco'
+import { RouterTestingModule } from '@angular/router/testing'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('ListingComponent', () => {
   let component: ListingComponent
@@ -14,7 +15,7 @@ describe('ListingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatSnackBarModule, TagModule, TranslocoModule],
+      imports: [HttpClientTestingModule, MatSnackBarModule, TagModule, getTranslocoModule(), RouterTestingModule],
       declarations: [ListingComponent],
       providers: [
         provideAppConstants(),

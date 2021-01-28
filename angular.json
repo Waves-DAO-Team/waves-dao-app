@@ -10,7 +10,7 @@
       "prefix": "",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/libs/tsconfig.lib.json",
             "project": "projects/libs/ng-package.json"
@@ -50,7 +50,7 @@
       "prefix": "",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/services/tsconfig.lib.json",
             "project": "projects/services/ng-package.json"
@@ -90,7 +90,7 @@
       "prefix": "ui",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ui/tsconfig.lib.json",
             "project": "projects/ui/ng-package.json",
@@ -172,14 +172,15 @@
             "styles": [
               "resources/styles/index.scss"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/emoji-toolkit/lib/js/joypixels.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"
               ]
             },
             "allowedCommonJsDependencies": [
-              "@waves/signer"
+              "@waves/signer",
+              "lodash"
             ]
           },
           "configurations": {
@@ -193,7 +194,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": true,
@@ -202,12 +202,39 @@
                 {
                   "type": "initial",
                   "maximumWarning": "5000kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "100kb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "5000kb"
+                }
+              ]
+            },
+            "stage": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/dapp/src/environments/environment.ts",
+                  "with": "projects/dapp/src/environments/environment.stage.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5000kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "500kb",
+                  "maximumError": "5000kb"
                 }
               ]
             }
@@ -253,7 +280,7 @@
             "styles": [
               "resources/styles/index.scss"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/emoji-toolkit/lib/js/joypixels.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"

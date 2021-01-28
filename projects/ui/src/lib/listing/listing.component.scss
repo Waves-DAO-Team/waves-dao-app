@@ -1,5 +1,62 @@
-@import "variables";
+@import 'const';
+@import 'container';
+@import '~include-media/dist/_include-media.scss';
 
-h1 {
-  padding-bottom: $padding;
+.listing {
+  .content {
+    display: flex;
+
+    ui-tag {
+      flex: 1;
+    }
+
+    .listing-list {
+      flex: 5.5;
+      //margin-left: $padding/ 2;
+    }
+  }
+}
+
+@include media('<=tablet') {
+  .listing {
+    .grants-variation {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      margin-left: -40px;
+      overflow: scroll;
+      overflow-x: scroll;
+      width: calc(100% + 60px);
+
+      .grant {
+        margin: 0 $padding 0 $padding * 2 !important;
+        min-width: 300px;
+
+        &:first-child {
+          margin-left: 40px !important;
+        }
+      }
+
+      .final {
+        display: block;
+        height: 1px;
+        max-width: 10px;
+        min-width: 10px;
+
+      }
+
+      &::-webkit-scrollbar {
+        height: 0;
+        width: 0;
+      }
+    }
+
+    .content {
+      flex-direction: column;
+
+      ui-tag {
+        margin: 0 0 $padding * 3 0;
+      }
+    }
+  }
 }

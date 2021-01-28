@@ -4,10 +4,10 @@ import { HeaderComponent } from './header.component'
 import { provideApi, provideAppConstants } from '@constants'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { PipesModule } from '@libs/pipes/pipes.module'
-import { TranslocoModule } from '@ngneat/transloco'
 import { RouterTestingModule } from '@angular/router/testing'
 import { UserService } from '@services/user/user.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent
@@ -15,7 +15,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatSnackBarModule, PipesModule, TranslocoModule, RouterTestingModule, HttpClientTestingModule],
+      imports: [MatSnackBarModule, PipesModule, getTranslocoModule(), RouterTestingModule, HttpClientTestingModule],
       declarations: [HeaderComponent],
       providers: [
         provideAppConstants(),

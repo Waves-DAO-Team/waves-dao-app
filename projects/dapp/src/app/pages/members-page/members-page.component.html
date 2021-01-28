@@ -1,0 +1,69 @@
+<div class="members-page container">
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
+    </button>
+  </div>
+  <div class="container__mid" *ngIf="user$ | async as user">
+
+    <div class="members-page__header">
+      <div class="members-page__title mat-h1">{{'members.members' | transloco}}</div>
+    </div>
+
+    <!--master-->
+    <div class="sub-title mat-display-4">
+      <img src="assets/icons/avatar/master.png" alt="master">
+      {{'members.owner' | transloco}}
+    </div>
+    <div class="members-page__contract-block">
+      <ui-user-contacts
+        [isList]='false'
+        [address]="[user.owner]"
+        [user]="api?.workingGroup[user.owner]"
+      ></ui-user-contacts>
+    </div>
+    <!--master-->
+
+    <!--wg-->
+    <div class="sub-title mat-display-4">
+      <img src="assets/icons/avatar/wg.png" alt="wg">
+      {{'members.wg' | transloco}}
+    </div>
+    <div class="members-page__contract-block">
+      <ui-user-contacts
+        *ngFor="let wg of user.WorkGroupAddress; let i = index"
+        [isList]='i + 1  < user.WorkGroupAddress.length ? true : false'
+        [address]="wg"
+        [user]="api?.workingGroup[wg]"
+      ></ui-user-contacts>
+    </div>
+    <button
+      *ngIf="userService.data.getValue().roles.isOwner"
+      class="members-page__add-btn"
+      (click)="openAddWGModal()"
+    >{{'master_setting.form.add' | transloco}}</button>
+    <!--wg-->
+
+    <!--dao-->
+    <div class="sub-title mat-display-4">
+      <img src="assets/icons/avatar/dao.png" alt="dao">
+      {{'members.dao' | transloco}}
+    </div>
+    <div class="members-page__contract-block">
+      <ui-user-contacts
+        *ngFor="let dao of user.DAOMemberAddress; let i = index"
+        [address]="dao"
+        [isList]='i + 1  < user.DAOMemberAddress.length ? true : false'
+        [user]="api?.workingGroup[dao]"></ui-user-contacts>
+    </div>
+    <button
+      *ngIf="userService.data.getValue().roles.isOwner"
+      class="members-page__add-btn"
+      (click)="openAddDAOModal()"
+    >{{'master_setting.form.add' | transloco}}</button>
+    <!--dao-->
+
+  </div>
+  <div class="container__right">
+  </div>
+</div>

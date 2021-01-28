@@ -1,68 +1,11 @@
-$gray-light: #e7e7eb;
-$gray: #aaa;
-$gray-dark: #717781;
-$blue: #05f;
-
-$padding: 14px;
-
-$font-size-small: 12px;
-$font-size-medium: 16px;
-$font-size-large: 20px;
-$font-size-big: 28px;
-
-@mixin btn-container($type: default) {
-  display: flex;
-  justify-content: flex-end;
-  text-align: right;
-  padding: 0;
-
-  .btn {
-    background: none;
-    border: 1px solid $gray-light;
-    border-radius: 0 !important;
-    cursor: pointer;
-    font-weight: bold;
-    margin-left: $padding / 4;
-    outline: none;
-    padding: $padding;
-    transition: 0.2s;
-  }
-
-  .btn:hover {
-    border: 1px solid #000;
-    border-radius: 0;
-    color: #000;
-  }
-
-  .active {
-    background: $blue;
-    border: 1px solid $blue;
-    border-radius: 0;
-    color: #fff;
-  }
-  >:disabled {
-    opacity: 0.5 !important;
-  }
-
-  .active:hover {
-    background: transparent;
-    border: 1px solid $blue;
-    color: $blue;
-  }
-  @if ($type == full) {
-    //padding: $padding  0;
-    .btn {
-      margin: 0;
-      width: 100%;
-    }
-  }
-}
+@import '../const';
+@import 'elements/btn-container';
 
 $dot-list-li-size: 16px;
 
 .dot-list {
-  padding: 0;
   margin-bottom: $padding;
+  padding: 0;
 
   .title {
     font-weight: bold;
@@ -96,11 +39,11 @@ $dot-list-li-size: 16px;
     border-radius: 50%;
     content: '';
     display: inline-block;
-    min-height: $dot-list-li-size;
-    max-height: $dot-list-li-size;
-    min-width: $dot-list-li-size;
-    max-width: $dot-list-li-size;
     left: 0;
+    max-height: $dot-list-li-size;
+    max-width: $dot-list-li-size;
+    min-height: $dot-list-li-size;
+    min-width: $dot-list-li-size;
     position: absolute;
     top: 2px;
     vertical-align: middle;
@@ -139,88 +82,17 @@ $dot-list-li-size: 16px;
   }
 }
 
-@mixin icon-logo() {
-  background: $blue;
-  border-radius: 50%;
-  height: 21px;
-  position: relative;
-  width: 21px;
-
-  &::after {
-    background: #fff;
-    content: '';
-    height: 7px;
-    left: 7px;
-    position: absolute;
-    top: 7px;
-    transform: rotate(45deg);
-    width: 7px;
-  }
-}
+@import 'elements/icon-logo';
 
 .text-bold {
   font-weight: bold;
 }
 
 
-@mixin text-title($type: h1) {
-  line-height: 1;
-  margin: 0;
-  @if $type == h1 {
-    color: #000;
-    font-size: $font-size-big;
-    font-weight: 600;
-    padding: 0;
-  } @else if $type == h2 {
-    font-size: $font-size-large;
-    color: $blue;
-    padding: 0;
-  } @else if $type == h3 {
-    padding: 0;
-    font-size: $font-size-medium;
-    color: #000;
-  } @else if $type == h4 {
-    padding: 0;
-    font-size: $font-size-small;
-    color: #000;
-  }
-}
+@import 'elements/text-title';
+@import 'elements/form';
 
-@mixin form() {
-  color: $gray;
-  display: flex;
-  flex-direction: column;
-  font-size: $font-size-small;
-  >:not(:last-child) {
-    margin-bottom: $padding;
-  }
-  label {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-    margin: 0;
-    padding: 0;
-  }
-  input,
-  textarea {
-    border-bottom: 1px solid #000;
-    border-left: 0;
-    border-right: 0;
-    border-top: 0;
-    font-family: 'Montserrat', 'sans-serif';
-    font-size: $font-size-large;
-    margin: 0;
-    outline: none;
-    padding: 0;
-  }
-  input:focus,
-  textarea:focus {
-    border-bottom: 1px solid $blue;
-  }
-  button:disabled {
-    opacity: 0.5;
-  }
-}
+
 
 
 .br1 {
@@ -241,164 +113,65 @@ $dot-list-li-size: 16px;
   text-decoration: none;
 }
 
-.card {
-  color: #000;
-  display: flex;
-  flex-direction: column;
-  margin-top: 0;
-  text-decoration: none;
-  margin-bottom: $padding;
 
-  > :not(:last-child) {
-    margin-bottom: $padding;
-  }
 
-  &__info {
-    align-items: center;
-    border: 1px solid $gray-light;
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    padding: $padding;
+//.modal {
+//  background: rgba(41, 44, 48,0.4);
+//  height: 100%;
+//  left: 0;
+//  position: fixed;
+//  top: 0;
+//  width: 100%;
+//  z-index: 9;
+//
+//  .title {
+//    font-size: $font_size_h3;
+//    margin-bottom: $padding;
+//  }
+//
+//  .step {
+//    color: $color_waves_blue;
+//    margin-bottom: $padding;
+//  }
+//
+//  .text {
+//    margin-bottom: $padding;
+//
+//    a {
+//      color: $color_waves_blue;
+//      text-decoration: none;
+//    }
+//  }
+//
+//  &__container {
+//    bottom: 0;
+//    height: 300px;
+//    left: 0;
+//    margin: auto;
+//    position: absolute;
+//    right: 0;
+//    top: 0;
+//    width: 440px;
+//
+//    &__inner-container {
+//      background: #fff;
+//      padding: $padding * 3 $padding * 2;
+//
+//      &__title {
+//        @include text-title(h2);
+//        color: #000;
+//        font-weight: bold;
+//        padding-bottom: $padding;
+//      }
+//
+//      &__text {
+//        @include text-title(h4);
+//        padding-bottom: $padding;
+//      }
+//    }
+//  }
+//}
 
-    &__right {
-      align-items: center;
-      display: flex;
-      flex: 1;
-      justify-content: flex-end;
-
-      img {
-        cursor: pointer;
-        height: 32px;
-        margin-left: $padding / 2;
-        opacity: 0.5;
-        transition: 0.3s;
-        width: 32px;
-
-        &:hover {
-          opacity: 1;
-        }
-      }
-    }
-
-    &__left {
-      display: flex;
-      justify-content: center;
-    }
-
-    &__mid {
-      align-items: center;
-      padding-left: $padding;
-
-      &__subtext {
-        color: $gray;
-        font-size: $font-size-small;
-      }
-
-      &__text {
-        color: $blue;
-        cursor: pointer;
-        font-size: $font-size-medium;
-        font-weight: bold;
-      }
-    }
-  }
-
-  &__header {
-    border: 1px solid $gray-light;
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    padding: $padding;
-
-    &__left-block {
-      flex: 1;
-      flex-direction: column;
-
-      &__title {
-        color: #000;
-        cursor: pointer;
-        font-size: $font-size-medium;
-        font-weight: bold;
-      }
-
-      &__status {
-        color: $gray;
-        display: flex;
-        font-size: $font-size-small;
-
-        &__role-text {
-          color: $blue;
-          font-style: italic;
-          margin-left: $padding;
-        }
-      }
-    }
-
-    .card__header__right-block {
-      flex-direction: column;
-      text-align: right;
-
-      &__text {
-        color: $gray;
-        font-size: $font-size-small;
-      }
-
-      &__price {
-        color: #000;
-        display: flex;
-        font-size: $font-size-medium;
-        font-weight: bold;
-
-        .icon-logo {
-          @include icon-logo;
-          margin-left: 5px;
-        }
-      }
-    }
-  }
-
-  &__body {
-    border: 1px solid $gray-light;
-    padding: $padding;
-    overflow: hidden;
-  }
-}
-
-.modal {
-  background: rgba(196, 196, 196, 0.7);
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9;
-
-  &__container {
-    bottom: 0;
-    height: 300px;
-    left: 0;
-    margin: auto;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 300px;
-
-    &__inner-container {
-      background: #fff;
-      padding: $padding;
-
-      &__title {
-        @include text-title(h2);
-        color: #000;
-        font-weight: bold;
-        padding-bottom: $padding;
-      }
-
-      &__text {
-        @include text-title(h4);
-        padding-bottom: $padding;
-      }
-    }
-  }
+.btn-container.full {
+  @include btn-container(full);
 }

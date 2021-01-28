@@ -1,0 +1,150 @@
+@import 'const';
+@import 'container';
+@import '~include-media/dist/_include-media.scss';
+
+.container {
+  @include container();
+}
+
+.home-page {
+  &__title {
+    padding-bottom: $padding;
+  }
+
+  &__desc {
+    color: $color_dark_gray;
+    margin-bottom: $padding * 2;
+    max-width: 45em; //720px;
+
+    &-span {
+      color: $color_black;
+      font-weight: bold;
+    }
+  }
+
+  &__grants {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: $padding * 3;
+    @include media('<=tablet') {
+      flex-direction: column;
+      justify-content: flex-start;
+
+      a {
+        margin-top: $padding;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:nth-child(2) {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+    }
+    @include media('<=phone') {
+      a {
+        &:nth-child(2) {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  &__grant {
+    border: 1px solid $color_light_gray;
+    cursor: pointer;
+    display: block;
+    flex: 1;
+    //margin-right: $padding;
+    position: relative;
+    transition: 1s;
+
+
+
+    &::after {
+      background: $color_white;
+      bottom: 0;
+      content: '';
+      height: 5px;
+      left: 0;
+      position: absolute;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    &:hover {
+      box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
+      transform: translate(0, -1px);
+      /*&::after {
+        background: $color_waves_blue;
+        bottom: 0;
+        content: '';
+        height: 5px;
+        left: 0;
+        position: absolute;
+        transition: 0.3s;
+        width: 100%;
+      }*/
+    }
+
+    &:nth-child(2) {
+      margin-left: $padding;
+      margin-right: $padding;
+    }
+
+    &-img {
+      width: 100%;
+    }
+
+    &-content {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 120px;
+      padding: $padding * 2 $padding;
+    }
+
+    &-title {
+      color: $color_black;
+      display: block;
+      font-family: 'Montserrat', 'sans-serif';
+      font-style: normal;
+      font-weight: 600;
+      margin-bottom: $padding / 2;
+      padding: 0;
+      text-align: center;
+
+      &:hover {
+        color: $color_waves_blue;
+      }
+    }
+
+    &-desc {
+      color: $color_gray;
+      display: block;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    &--active {
+      box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
+
+      &::after {
+        background: $color_waves_blue;
+        bottom: 0;
+        content: '';
+        height: 5px;
+        left: 0;
+        position: absolute;
+        transition: 0.3s;
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,3 +1,35 @@
-<div class="container">
-    <ui-listing></ui-listing>
+<div class="container listing-page"
+    *ngIf="contract.data$ | async as contract; else loadingOrErrorTemplate">
+    <div class="container__mid" [ngSwitch]="contract.name">
+        <!-- Example variant -->
+         <ng-template ngSwitchCase="web3">
+             <app-web3-template
+                     [user]="userService.data | async"
+                     [contract]="contract"
+                     [constants]="constants"
+                     [api]="api"
+             ></app-web3-template>
+         </ng-template>
+
+        <!-- Default template with content for listing -->
+        <ng-template ngSwitchDefault>
+            <app-default-template
+                    [user]="userService.data | async"
+                    [contract]="contract"
+                    [constants]="constants"
+                    [api]="api"
+            ></app-default-template>
+        </ng-template>
+    </div>
 </div>
+
+
+<ng-template #loadingOrErrorTemplate>
+    <ng-container *ngIf="contract.error$ | async; else loading">
+        <app-not-found-page></app-not-found-page>
+    </ng-container>
+</ng-template>
+
+<ng-template #loading>
+    <app-loading-page></app-loading-page>
+</ng-template>

@@ -1,6 +1,21 @@
-@import 'variables';
-@import 'mixins/elements';
+@import 'const';
+@import 'mixins/elements/btn-container';
+@import 'mixins/elements/floating-label';
+@import 'mixins/elements/card';
+@import 'mixins/elements/icon-logo';
+@import 'mixins/elements/modal';
 
 .btn-container {
   @include btn-container();
 }
+
+.input {
+  @include floating-label();
+  margin-bottom: $padding * 2;
+}
+
+ui-modal {
+  @include modal-content; }
+
+.card {
+  @include card; }

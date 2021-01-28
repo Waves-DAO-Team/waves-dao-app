@@ -1,0 +1,83 @@
+<ng-template #controlsBtn>
+
+  <button class="marginTB" (click)="enableSubmissions()" *ngIf="isEnableSubmissionsBtn$ | async">
+    {{'entity.enable_submissions' | transloco}}
+  </button>
+
+  <button class="marginTB" (click)="stopSubmissions()" *ngIf="isStopSubmissionsBtn$ | async">
+    {{'entity.stop_submissions' | transloco}}
+  </button>
+
+  <button class="marginTB" (click)="acceptWorkResult()" *ngIf="isAcceptWorkResultBtn$ | async">
+    {{'entity.accept_work_result' | transloco}}
+  </button>
+
+  <button class="marginTB" (click)="finishVote()" *ngIf="isFinishVoteBtn$ | async">
+    {{'entity.finish_vote' | transloco}}
+  </button>
+
+  <button class="marginTB" *ngIf="isRejectBtn$ | async" (click)="reject()">
+    {{'entity.reject' | transloco}}
+  </button>
+
+</ng-template>
+
+<ng-template #headerControlsTemplate>
+
+  <button class="active" (click)="addReward()" *ngIf="isShowAddRewardBtn$ | async">
+    {{'entity.add_reward' | transloco}}
+  </button>
+
+  <button class="active" (click)="startWork()" *ngIf="isStartWorkBtn$ | async">
+    {{'entity.start_work' | transloco}}
+  </button>
+
+</ng-template>
+
+<ng-template #team>
+  <ui-teams-and-solutions
+    [grant]="grant"
+    [teamsAndSolutionsControls]="teamsAndSolutionsControls$ | async"
+    (newSignupEvent)="signup()"
+    (newOpenApplyModalEvent)="openApplyModal()"
+    (newVoteTeamEvent)="voteTeam($event)"
+    (newVoteForSolutionEvent)="voteForSolution($event)"
+    (newSubmitSolutionEvent)="submitSolution()"
+    titleText="{{'entity.teams' | transloco}}"
+    applyBtnText="{{'entity.apply' | transloco}}"
+  ></ui-teams-and-solutions>
+</ng-template>
+
+<ng-template #solutionsTemplate>
+</ng-template>
+
+<ng-template #voteForTask>
+  <ui-vote-for-task
+    *ngIf="voteForTaskData.isShow"
+    [isShow]="voteForTaskData.isShow"
+    [isVote]="voteForTaskData.isVote"
+    (newVoteEvent)="vote($event)"
+  ></ui-vote-for-task>
+</ng-template>
+
+<ng-template #stepper>
+  <ui-stepper
+    *ngIf="grant?.status?.value != grantStatusEnum.rejected"
+    [status]="grant?.status?.value"
+    [setType]="'interhack'"
+  ></ui-stepper>
+</ng-template>
+
+<ui-entity
+  [contract]="contract" [grant]="grant"
+  (newFinishVoteEvent)="finishVote()"
+  (newStartWorkEvent)="startWork()"
+  (newRejectEvent)="reject()"
+  (newAcceptWorkResultEvent)="acceptWorkResult()"
+  [controlsTemplate]="controlsBtn"
+  [headerControlsTemplate]="headerControlsTemplate"
+  [solutionsTemplate]="solutionsTemplate"
+  [teamTemplate]="team"
+  [voteForTaskTemplate]="voteForTask"
+  [stepperTemplate]="stepper"
+></ui-entity>

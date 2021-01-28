@@ -4,46 +4,150 @@
     "header": {
       "home": "Home",
       "about": "About",
-      "setting": "Setting",
-      "create": "Create",
       "stylesheet": "Stylesheet",
       "signup": "Signup",
+      "login": "Log in",
       "logout": "Logout",
-      "createGrant": "Create grant"
+      "members": "Members"
     },
     "navigation": {
       "back": "Back"
+    },
+    "controls": {
+      "createGrant": "Create grant",
+      "addReward": "Add reward",
+      "proposeGrant": "Request grant",
+      "finishProposeGrant": "Submit to vote",
+      "setting": "Setting"
     }
   },
   "modal": {
-    "apply": "Apply",
-    "cancel": "Cancel"
+    "texts": {
+      "add_reward": "Add reward",
+      "add_task_details": "Add task details",
+      "add_member": "Add member",
+      "members_address": "Member’s address",
+      "accept_work_result": "Accept work result",
+      "propose_grant": "Request grant",
+      "propose_web_grant": "Propose a Web 3.0 Dev Grant",
+      "link_to_description": "Link to grant description",
+      "link_to_apply": "Link to apply form",
+      "apply_on_githubt": "Apply form on GitHub",
+      "issue_on_githubt": "issue on GitHub",
+      "please_submit": "Please submit the form using",
+      "successfully_applied": {
+        "successfully": "Successfully ",
+        "applied": "applied"
+      },
+      "paste_link": "and paste the link to it above"
+    },
+    "steps": {
+      "1": "STEP 1",
+      "2": "STEP 2",
+      "3": "STEP 3"
+    },
+    "btn": {
+      "add": "Add",
+      "add_task_details": "Add task details",
+      "init_task_voting": "Init task voting",
+      "propose_grant": "Propose grant",
+      "apply": "APPLY",
+      "apply_on_githubt": "APPLY ON GITHUB",
+      "already_apply": "I ALREADY APPLIED",
+      "back_to_grant": "BACK TO GRANT",
+      "cancel": "CANCEL"
+    },
+    "form": {
+      "link": "Link to document",
+      "team": "Team name"
+    }
+  },
+  "role": {
+    "owner": "DAO Owner",
+    "wg": "Working Group",
+    "dao": "Waves Association",
+    "auth": "Authorized User"
+  },
+  "stepper": {
+    "collecting_requests": "Collecting requests",
+    "preparing": "Preparing",
+    "voting_has_started": "Voting has started",
+    "requests_selection_over": "Requests selection is over",
+    "work_begun": "The work has begun",
+    "requests_selection_start": "Requests requests is start",
+    "solutions_selection_over": "Requests solutions is over",
+    "work_started": "Work started",
+    "work_finished": "Work finished"
   },
   "listing": {
+    "desc": {
+      "you_can_vote": "Waves DAO is a tool that facilitates the application and distribution of grants provided by the Waves Association. Thanks to Waves DAO, members of the Waves Association and its working groups can manage the grant distribution process and transparently vote for applicants.",
+      "select_category": "Select a category to view grants"
+    },
+    "more": "Show more",
+    "header": {
+      "view_github": "View grant on GitHub",
+      "waves": "WAVES"
+    },
     "status": {
-      "proposed": "Open. In processing",
-      "ready_to_apply": "Open. Ready to apply",
-      "rejected": "Closed to apply. Rejected",
-      "team_chosen": "Open. Looking for a team",
-      "work_started": "Closed to apply. In work",
-      "work_finished": "Closed to apply. Finished",
-      "no_status": "No status"
+      "proposed": "Open",
+      "ready_to_apply": "Ready to apply",
+      "rejected": "Rejected",
+      "team_chosen": "Looking for a team",
+      "solution_chosen": "Solution selected",
+      "work_started": "In work",
+      "work_finished": "Finished",
+      "voting_started": "Voting started",
+      "no_status": "No status",
+      "ready_to_submit": "Ready to submit",
+      "approved": "Grant Approved",
+      "all": "All"
     },
     "DAO_subtext": {
       "need_vote": "Need vote",
       "vote_counted": "Your vote has been counted"
     },
-    "title": "Waves official grants"
+    "title": "Waves Association DAO",
+    "list_empty": "List is a empty",
+    "loading": "Loading",
+    "reward": "Reward",
+    "list": {
+      "grants": "Grants",
+      "important": "Important grants"
+    }
   },
   "entity": {
     "reward": "Reward",
-    "log_in_for_apply": "Log in for apply",
+    "log_in_for_apply": "Log in to apply",
+    "edit_task_details": "EDIT TASK DETAILS",
+    "insufficient_balance": "Insufficient balance",
     "apply": "Apply",
+    "propose_solution": "Propose a solution",
     "remove": "Remove",
     "edit": "Edit",
+    "reject": "Reject",
+    "teams": "Teams",
+    "solutions": "Solutions",
+    "votes": "Votes",
+    "winner": "WINNER",
+    "approved": "APPROVED",
+    "learn_about_team": "Learn more about the team",
+    "learn_about_solution": "Learn more about the solution",
+    "add_reward": "Add reward",
     "finish_vote": "Finish vote",
+    "vote_for_solution": "Vote for solution",
+    "enable_submissions": "Enable submissions",
+    "submit_solution": "Submit solution",
+    "stop_submissions": "Stop submissions",
+    "accept_work_result": "Accept work result",
+    "finish_applicants_voting": "Finish applicants voting",
+    "accept_work_result_report_link": "Report link",
+    "start_work": "Start work",
     "link": "Link",
     "empty_link": "link empty",
+    "already_voted": "you have already voted for this team",
+    "this_your_team": "this is your team",
+    "no_applied_teams": "no teams have applied for this grant",
     "DAO": {
       "vote": {
         "true": {
@@ -78,20 +182,48 @@
   "application": {
   },
   "master_setting": {
-    "setting": "Setting",
+    "management_settings": "Contract group management settings page. Allows you to add DAO members and Working group members",
+    "setting": "Settings",
+    "group": "Group",
+    "dao_member": "DAO Member",
+    "work_group": "Working Group",
+    "working_group_member": "Working Group Member",
+    "dao_is": "is a member of the Waves Association, a whitelisted individual who can vote. For a decision to be passed, the DAO needs at least 50% of the votes.",
+    "wg_is": "is a member of the Waves Association’s working group, a whitelisted individual who is responsible for managing tasks, votes and",
+    "performers": "performers",
+    "address": "Address",
     "form": {
       "work_group": {
-        "label": "Work group",
+        "label": "Existing Work Group Members",
         "placeholder": "Enter the working groups"
       },
       "DAO_member": {
-        "label": "DAO member",
+        "label": "Existing DAO Members",
         "placeholder": "Enter the DAO member"
       },
-      "apply": "Apply"
+      "add": "Add member"
+    }
+  },
+  "members": {
+    "owner": "DAO owner",
+    "members": "Members",
+    "master": "Master",
+    "wg": "WG",
+    "dao": "DAO"
+  },
+  "edit_grant": {
+    "title": "Edit grant",
+    "btn": {
+      "edit": "Edit"
+    }
+  },
+  "accept_work_result": {
+    "form": {
+      "send": "Send"
     }
   },
   "create_grant": {
+    "title": "Create grant",
     "form": {
       "name": {
         "label": "Grant name",
@@ -99,7 +231,7 @@
       },
       "reward": {
         "label": "Reward",
-        "placeholder": "200.00"
+        "placeholder": "2.00"
       },
       "tags": {
         "label": "Tags",
@@ -114,6 +246,14 @@
         "placeholder": "Please provide a description of the grant"
       },
       "apply": "Apply"
+    }
+  },
+  "submit_solution": {
+    "form": {
+      "solution": {
+        "label": "Solution link",
+        "placeholder": "Solution link"
+      }
     }
   },
   "apply_grant": {
@@ -146,17 +286,73 @@
       },
       "apply": "Apply"
     }
-
   },
   "create": {
   },
+  "container": {
+    "back": "Back",
+    "loading": "Loading…"
+  },
   "about": {
+    "waves_grant": "Waves grant",
+    "github": "GitHub",
+    "back": "Back"
   },
   "not-found": {
     "title": "Sorry!",
     "description": "Page not found"
   },
   "messages": {
-    "ok": "OK"
-  }
+    "ok": "OK",
+    "error": "error",
+    "transaction_rejected": "The transaction was rejected",
+    "enable_submissions": "Enable submissions",
+    "getBalanceError": "getBalance error",
+    "submit_solution": "Submit solution",
+    "addTask": "The proposal has been completed. The transaction is confirmed in the blockchain Waves",
+    "voteForTaskProposal": "The vote has been completed. The transaction is confirmed in the blockchain Waves",
+    "finishTaskProposalVoting": "The finish has been completed. The transaction is confirmed in the blockchain Waves",
+    "voteForApplicant": "The vote has been completed. The transaction is confirmed in the blockchain Waves",
+    "finishApplicantsVoting": "The finish has been completed. The transaction is confirmed in the blockchain Waves",
+    "rejectTask": "The reject has been completed. The transaction is confirmed in the blockchain Waves",
+    "acceptWorkResult": "The accept work has been completed. The transaction is confirmed in the blockchain Waves",
+    "startWork": "The start work has been completed. The transaction is confirmed in the blockchain Waves",
+    "initTaskVoting": "The init task has been completed. The transaction is confirmed in the blockchain Waves",
+    "addReword": "The grant is now available for voting. The transaction is confirmed in the block list.",
+    "startTransaction": "We sent the transaction to Waves Blockchain.  You can continue using the application, we will inform you when the transaction is confirmed in Blockchain."
+  },
+  "add-reward": {
+    "title": "Add reward",
+    "disabled_submit_text": "Wait, processing is in progress!"
+  },
+  "contracts": {
+    "disruptive": {
+      "navigation": "Disruptive grants",
+      "preview": "assets/img/disruptive-type-preview.png",
+      "img": "assets/img/disruptive-type.png",
+      "title": "Disruptive Tech Grants",
+      "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
+      "banner": "Call for applications will be announced in Q1 2021. Stay tuned!",
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+    },
+    "web3": {
+      "navigation": "Web3.0 grants",
+      "preview": "assets/img/web3-type-preview.png",
+      "img": "assets/img/web3-type.png",
+      "title": "Web 3.0 Dev Grants",
+      "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
+      "banner": "Apply with your project before Feb. 1, 2021 to receive a grant of up to 100k WAVES",
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+    },
+    "interhack": {
+      "navigation": "Interhack grants",
+      "preview": "assets/img/interhack-type-preview.png",
+      "img": "assets/img/interhack-type.png",
+      "title": "Interhack Grants",
+      "desc": "Interhack Grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
+      "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool",
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+    }
+  },
+  "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
 }

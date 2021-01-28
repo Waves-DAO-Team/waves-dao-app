@@ -1,0 +1,23 @@
+<div class="card-header-entity">
+
+  <div class="card-header-entity__top">
+<!--    {{status}} <br>-->
+    {{'listing.status.' + status | transloco}}
+  </div>
+
+  <div class="card-header-entity__mid mat-h2">
+    <div class="card-header-entity__mid-title">{{title}}</div>
+    <div class="card-header-entity__mid-controls">
+      <ng-container [ngTemplateOutlet]="headerControlsTemplate"></ng-container>
+    </div>
+  </div>
+
+  <div class="card-header-entity__bottom">
+    <div class="card-header-entity__bottom-left">
+      {{'entity.reward' | transloco}}: <span>{{reward / 100000000 | PriceFormatting}} {{'listing.header.waves' | transloco}} </span>
+    </div>
+    <div class="card-header-entity__bottom-right">
+      <a class="link" target="_blank" [href]="link"> {{'listing.header.view_github' | transloco}} <img alt="link" src="assets/icons/link.svg"></a>
+    </div>
+  </div>
+</div>

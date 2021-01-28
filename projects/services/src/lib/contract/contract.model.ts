@@ -24,7 +24,44 @@ export interface ContractGrantAppModel {
   leader: ContractRawDataString
   name: ContractRawDataString
   link: ContractRawDataString
-  key?: string;
+  key?: string
+  process?: {
+    key: string
+    type: string
+    value: string
+  },
+  score?: {
+    key: string
+    type: string
+    value: string
+  }
+  voted: {
+    key: string
+    type: string
+    value: string
+    solution?: {
+      key: string
+      type: string
+      value: string
+    }
+  }
+  solution?: {
+    key: string
+    type: string
+    value: string
+  }
+  votes?: {
+    applicant?: {
+      key: string
+      type: string
+      value: string
+    },
+    solution?: {
+      key: string
+      type: string
+      value: string
+    }
+  }
 }
 
 export interface ContractGrantCommonModel {
@@ -48,12 +85,22 @@ export interface ContractGrantRawModel extends ContractGrantCommonModel {
 export interface ContractGrantModel extends ContractGrantCommonModel {
   app?: ContractGrantAppModel[]
   id?: ContractRawDataEntityId;
-  link?: ContractRawDataEntityId | {
-    value: string
-  };
+  vh?: ContractGrantRawModel;
+  performer?: ContractRawDataString,
+  link?: ContractRawDataString;
+  leader?: ContractRawDataString;
+  isShowAppliers?: boolean
+}
+
+export interface ContractGrantExtendedModel extends ContractGrantModel {
+  voteText?: string;
+  statusText?: string;
+  rewardText?: string;
 }
 
 export interface ContractDataModel {
+  address: string,
+  owner: string,
   working: {
     group: {
       member: {[s: string]: {

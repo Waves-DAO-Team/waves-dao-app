@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-
 import { StylesheetPageRoutingModule } from './stylesheet-page-routing.module'
-import { StylesheetPageComponent } from './stylesheet-page.component'
+// import { StylesheetPageComponent } from './stylesheet-page.component'
 
 @NgModule({
-  declarations: [StylesheetPageComponent],
+  // declarations: [StylesheetPageComponent],
   imports: [
     CommonModule,
     StylesheetPageRoutingModule
