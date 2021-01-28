@@ -1,5 +1,5 @@
-import {Inject, Injectable} from '@angular/core'
-import {HttpClient} from '@angular/common/http'
+import { Inject, Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
 import {
   map,
   publishReplay,
@@ -7,9 +7,10 @@ import {
   skip,
   switchMap, take, tap
 } from 'rxjs/operators'
-import {API, AppApiInterface} from '@constants'
-import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
+import { API, AppApiInterface } from '@constants'
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
 import {
+  ContractDataIterationModel,
   ContractDataModel, ContractGrantModel,
   ContractGrantRawModel,
   ContractRawData,
@@ -17,27 +18,24 @@ import {
   ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
-import {StorageService} from '@services/storage/storage.service'
-import {TranslocoService} from '@ngneat/transloco'
-import {GrantStatusEnum} from '@services/static/static.model'
-import {MembershipService} from '@services/membership/membership.service'
-
-type EmptyObject = {
-  [K in string]: never
-}
+import { StorageService } from '@services/storage/storage.service'
+import { TranslocoService } from '@ngneat/transloco'
+import { GrantStatusEnum } from '@services/static/static.model'
+import { MembershipService } from '@services/membership/membership.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-
   private readonly contractAddress$: BehaviorSubject<string> =
-    new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
+  new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
+
   private readonly contractState = this.contractAddress$.pipe(
     switchMap((address) => this.getContractData(address)),
     publishReplay(1),
     refCount()
   )
+
   public readonly stream: Observable<ContractDataModel> = combineLatest([this.contractState, this.membershipService.stream]).pipe(
     map(([data, members]) => ({
       ...data,
@@ -49,6 +47,7 @@ export class ContractService {
     publishReplay(1),
     refCount()
   )
+
   public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.contractState.pipe(map((contract) =>
     Object.keys(contract?.tasks || {}).map((entityKey: string) => ({
       ...contract?.tasks[entityKey],
@@ -83,7 +82,6 @@ export class ContractService {
 
   public applicants: string[] = []
 
-
   constructor (
     private readonly http: HttpClient,
     private storageService: StorageService,
@@ -96,10 +94,10 @@ export class ContractService {
   public getContractData (address: string) {
     const url = new URL('/addresses/data/' + address, this.api.rest)
     return this.http.get<Observable<ContractRawData>>(url.href, {
-      headers: {accept: 'application/json; charset=utf-8'}
+      headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
       // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-// @ts-ignore
+      // @ts-expect-error
       map((data: ContractRawData) => ({
         ...this.prepareData(data),
         address
@@ -129,12 +127,12 @@ export class ContractService {
 
   private group (
     keys: string[],
-    context: { [s: string]: EmptyObject },
+    context: ContractDataIterationModel,
     value: ContractRawDataString | ContractRawDataNumber
   ):
     void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-// @ts-ignore
+    // @ts-expect-error
     const key: string = keys.shift()
     if (!key) {
       return
@@ -145,20 +143,17 @@ export class ContractService {
     }
 
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-// @ts-ignore
+    // @ts-expect-error
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-// @ts-ignore
+    // @ts-expect-error
     return data.reduce((orig, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig
     }, {})
   }
-
-
 }
-

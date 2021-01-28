@@ -20,20 +20,20 @@ export const CONTRACT = new InjectionToken<GrantsVariationType>(
 )
 
 export const entityFactory = (
-    contactService: ContractService,
-    route: ActivatedRoute,
-    snackBar: MatSnackBar
+  contactService: ContractService,
+  route: ActivatedRoute,
+  snackBar: MatSnackBar
 ): LoadingWrapperModel<ContractGrantModel> => new LoadingWrapper(
-    route.params.pipe(
-        switchMap(({ entityId }) => contactService.entityById(entityId)),
-        catchError((error) => {
-          // Todo обработать ошибки
-          snackBar.open(error, translate('messages.ok'))
-          throw new Error('Entity not found')
-        }),
-        publishReplay(1),
-        refCount()
-    )
+  route.params.pipe(
+    switchMap(({ entityId }) => contactService.entityById(entityId)),
+    catchError((error) => {
+      // Todo обработать ошибки
+      snackBar.open(error, translate('messages.ok'))
+      throw new Error('Entity not found')
+    }),
+    publishReplay(1),
+    refCount()
+  )
 )
 
 // По этому токену будет идти стрим с необходимой компоненту информацией:
@@ -45,4 +45,3 @@ export const ENTITY_PAGE_PROVIDERS: Provider[] = [
   },
   ContractProviderDefine(CONTRACT)
 ]
-

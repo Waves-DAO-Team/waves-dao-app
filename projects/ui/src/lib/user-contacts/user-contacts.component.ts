@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { UserInterface } from '@constants'
 
 @Component({
@@ -7,10 +7,8 @@ import { UserInterface } from '@constants'
   styleUrls: ['./user-contacts.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserContactsComponent implements OnInit {
+export class UserContactsComponent {
   @Input() isList: boolean | null = null
   @Input() address: string | null = null
   @Input() user: UserInterface | null = null
-
-  ngOnInit (): void {}
 }

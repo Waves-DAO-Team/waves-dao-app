@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup} from '@angular/forms'
 import { UserService } from '@services/user/user.service'
 import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 
@@ -11,7 +11,7 @@ import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 export class SubmitSolutionComponent {
   isSubmit = false
 
-  form = new FormGroup({
+  public form: FormGroup  = new FormGroup({
     solution: new FormControl('')
   })
 
@@ -20,10 +20,12 @@ export class SubmitSolutionComponent {
     @Inject(DIALOG_DATA) public params: DialogParams
   ) {}
 
-  onSubmit () {
+  onSubmit (): void {
+    const value = this.form.get('solution')?.value
+
     if (this.params.submitCallBack) {
       this.params.submitCallBack({
-        solutionLink: this.form.value.solution
+        solutionLink: typeof value === 'string' ? value : '' as string
       })
     }
   }

@@ -27,7 +27,6 @@ import { Subject } from 'rxjs'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonLayoutComponent implements OnInit, OnDestroy, CommonLayoutInterface {
-
   @ViewChild('content', { read: ElementRef, static: true }) private readonly layoutContentRef: ElementRef<HTMLElement> | null = null
 
   public footerExtension?: TemplateRef<CommonLayoutComponentModel>

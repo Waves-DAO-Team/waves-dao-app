@@ -46,23 +46,23 @@ export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Ap
 export const API = new InjectionToken<Type<AppApiInterface>>('Application api constants')
 
 export const provideApi = (): Provider[] => [
-    {
-      provide: API,
-      useValue: {
-        ...environment.apis,
-        confirmations: environment.confirmations,
-        grantsProgramLink: environment.grantsProgramLink,
-        workingGroup: environment.workingGroup
-      }
+  {
+    provide: API,
+    useValue: {
+      ...environment.apis,
+      confirmations: environment.confirmations,
+      grantsProgramLink: environment.grantsProgramLink,
+      workingGroup: environment.workingGroup
     }
-  ]
+  }
+]
 
 export const provideAppConstants = (): Provider[] => [
-    {
-      provide: APP_CONSTANTS,
-      useValue: {
-        routes: environment.routing,
-        production: environment.production
-      }
+  {
+    provide: APP_CONSTANTS,
+    useValue: {
+      routes: environment.routing,
+      production: environment.production
     }
-  ]
+  }
+]

@@ -8,7 +8,7 @@ export type ContractRawDataEntityId = string
 export interface ContractRawDataString {
   key: ContractRawDataKey
   value: ContractRawDataValue
-  type: ContractRawDataTypeString
+  type: ContractRawDataTypeString | ContractRawDataTypeNumber
 }
 
 export interface ContractRawDataNumber {
@@ -66,16 +66,23 @@ export interface ContractGrantAppModel {
 
 export interface ContractGrantCommonModel {
   id?: ContractRawDataEntityId
+  app?: {[s: string]: ContractGrantAppModel} | ContractGrantAppModel[]
+
+  applicants?: ContractRawDataString
+  link?: ContractRawDataString
+  reward?: ContractRawDataString
   status?: ContractRawDataString
   title?: ContractRawDataString
-  reward?: ContractRawDataNumber
+  vh?: {[s: string]: ContractRawDataString}
+  voted?: {[s: string]: ContractRawDataString}
   voting?: {
     amount?: ContractRawDataNumber
     state?: ContractRawDataNumber
   }
-  applicants?: ContractRawDataString
-  voted?: {[s: string]: ContractRawDataNumber}
-  app?: {[s: string]: ContractGrantAppModel} | ContractGrantAppModel[]
+}
+
+export interface ContractDataIterationModel {
+  [s: string]: ContractGrantAppModel | ContractRawDataString | {}
 }
 
 export interface ContractGrantRawModel extends ContractGrantCommonModel {
@@ -85,7 +92,6 @@ export interface ContractGrantRawModel extends ContractGrantCommonModel {
 export interface ContractGrantModel extends ContractGrantCommonModel {
   app?: ContractGrantAppModel[]
   id?: ContractRawDataEntityId
-  vh?: ContractGrantRawModel
   performer?: ContractRawDataString
   link?: ContractRawDataString
   leader?: ContractRawDataString

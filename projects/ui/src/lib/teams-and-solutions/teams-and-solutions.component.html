@@ -80,7 +80,7 @@
                   alt="vote"
                   [class.disabled]="
                   teamsAndSolutionsControls.teamVoteKeys.includes(app.key)
-                  || grantStatusEnum.readyToApply !== grant?.status?.value
+                  || GrantStatusEnum.readyToApply !== grant?.status?.value
                 "
                   src="assets/icons/arr-down-red.svg"
                   (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
@@ -115,7 +115,7 @@
             </div>
           </div>
           <div class="team__list__li__right mat-display-2">
-            <ng-container *ngIf="app.process && grant?.status.value === grantStatusEnum.workStarted">
+            <ng-container *ngIf="app.process && grant?.status.value === GrantStatusEnum.workStarted">
               <img alt="winner" src="assets/icons/winner.png">{{'entity.approved' | transloco}}
             </ng-container>
           </div>

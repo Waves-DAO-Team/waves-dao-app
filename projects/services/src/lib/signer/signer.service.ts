@@ -86,7 +86,7 @@ export class SignerService {
       dApp: contractAddress,
       call: {
         function: command,
-        // @ts-ignore
+        // @ts-expect-error
         args
       }
     }).sign()).pipe(
@@ -94,7 +94,7 @@ export class SignerService {
       tap(() => {
         this.snackBar.open(translate('messages.startTransaction'), translate('messages.ok'))
       }),
-      // @ts-ignore
+      // @ts-expect-error
       switchMap((tx) => from(this.signer.broadcast(tx))),
       switchMap((data: TTransactionFromAPI<TLong>) => this.status(data.id)),
       tap(() => {

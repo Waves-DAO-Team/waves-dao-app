@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core'
 import { MatStepper } from '@angular/material/stepper'
-import { grantStatusEnum } from '@services/static/static.model'
+import { GrantStatusEnum } from '@services/static/static.model'
 import { StepperService } from '@services/stepper/stepper.service'
 import { combineLatest, Subject } from 'rxjs'
 import { tap } from 'rxjs/operators'
@@ -12,7 +12,7 @@ import { tap } from 'rxjs/operators'
 })
 export class StepperComponent implements AfterViewInit {
   @ViewChild('stepper') stepper: MatStepper | undefined
-  grantStatusEnum = grantStatusEnum
+  grantStatusEnum = GrantStatusEnum
   grantStatus: string[] = []
   stepId = 0
   formalStatuses = this.stepperService.getFormalStatuses()
@@ -51,12 +51,11 @@ export class StepperComponent implements AfterViewInit {
     return this.statusInput
   }
 
-
   constructor (private readonly cdr: ChangeDetectorRef, public stepperService: StepperService) {
 
   }
 
-  ngAfterViewInit () {
+  ngAfterViewInit (): void {
     if (this.stepper) {
       // TODO проверить нужно ли переопределять приватный метод он может изменится
       // eslint-disable-next-line

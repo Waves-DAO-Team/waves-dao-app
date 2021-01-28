@@ -29,7 +29,6 @@ export class DevGridComponent implements OnInit {
   private readonly html: HTMLElement
   private readonly cssClass = 'dev-mode'
 
-
   constructor (
     public renderer: Renderer2,
     @Inject(DOCUMENT) document: Document,
@@ -72,7 +71,6 @@ export class DevGridComponent implements OnInit {
       this.isActive = true
     }
   }
-
 
   public deleteLocal (name: string = this.storageKey): void {
     if (!this.enabled) {

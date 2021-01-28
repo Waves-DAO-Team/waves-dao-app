@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 
 type VoteStatus = 'like' | 'dislike'
 
@@ -25,10 +25,7 @@ export class VoteForTaskComponent {
     return this.isVoteInProcessInput
   }
 
-  constructor () {
-  }
-
-  vote (event: VoteStatus) {
+  vote (event: VoteStatus): void {
     this.voteStatus = event
     this.newVoteEvent.emit(event)
     this.buttonClicked = true

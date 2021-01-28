@@ -26,8 +26,6 @@ export class BodyComponent implements OnInit {
     return this.mdTemp
   }
 
-
-
   constructor (public cdr: ChangeDetectorRef) {}
 
   ngOnInit (): void {

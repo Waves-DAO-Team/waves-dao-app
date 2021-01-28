@@ -3,12 +3,10 @@ import { ClassProvider, FactoryProvider, InjectionToken, PLATFORM_ID } from '@an
 
 /* Create a new injection token for injecting the window into a component. */
 export const WINDOW = new InjectionToken('WindowToken')
-type EmptyObject = {
-  [K in string]: never
-}
+
 /* Define abstract class for obtaining reference to the global window object. */
 export abstract class WindowRef {
-  get nativeWindow (): Window | EmptyObject {
+  get nativeWindow (): Window {
     throw new Error('Not implemented.')
   }
 }
@@ -16,13 +14,13 @@ export abstract class WindowRef {
 /* Define class that implements the abstract class
 and returns the native window object. */
 export class BrowserWindowRef extends WindowRef {
-  get nativeWindow (): Window | EmptyObject {
+  get nativeWindow (): Window {
     return window
   }
 }
 
 /* Create an factory function that returns the native window object. */
-export const windowFactory = (browserWindowRef: BrowserWindowRef, platformId: EmptyObject): Window | EmptyObject => {
+export const windowFactory = (browserWindowRef: BrowserWindowRef, platformId: object): Window | {} => {
   if (isPlatformBrowser(platformId)) {
     return browserWindowRef.nativeWindow
   }

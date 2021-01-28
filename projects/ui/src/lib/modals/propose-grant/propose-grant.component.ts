@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '@services/user/user.service'
 import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
@@ -8,7 +8,7 @@ import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
   templateUrl: './propose-grant.component.html',
   styleUrls: ['./propose-grant.component.scss']
 })
-export class ProposeGrantComponent implements OnInit {
+export class ProposeGrantComponent {
   public readonly grantForm = new FormGroup({
     name: new FormControl('', Validators.required),
     link: new FormControl('', Validators.required)
@@ -20,10 +20,7 @@ export class ProposeGrantComponent implements OnInit {
   ) {
   }
 
-  ngOnInit (): void {
-  }
-
-  onSubmit () {
+  onSubmit (): void {
     this.params.dialogRef.close()
 
     if (this.params.submitCallBack) {

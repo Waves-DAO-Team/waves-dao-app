@@ -1,7 +1,6 @@
 import 'reflect-metadata'
-import {Component} from '@angular/core'
 
-export const destroyQueue = (target: Component, func: () => void) => {
+export const destroyQueue = (target: any, func: () => void) => { // eslint-disable-line
   const METADATA_PROPERTY_KEY = 'ngOnDestroy'
   const METADATA_KEY = 'queue'
 
@@ -15,15 +14,15 @@ export const destroyQueue = (target: Component, func: () => void) => {
 
   Reflect.defineMetadata(METADATA_KEY, (metadata || []).concat([func]), target, METADATA_PROPERTY_KEY)
 
-  // @ts-ignore
+  // @ts-expect-error
   if (target.constructor && target.constructor.ɵcmp) {
     Reflect.set(
-      // @ts-ignore
+      // @ts-expect-error
       target.constructor.ɵcmp,
       'onDestroy',
       function (...args: Array<() => void>) {
         if (typeof originalDestroy === 'function') {
-          // @ts-ignore
+          // @ts-expect-error
           originalDestroy.apply(this, args)
         }
 

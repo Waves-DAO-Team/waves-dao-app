@@ -15,7 +15,7 @@ import { DisruptiveContractService } from '@services/contract/disruptive-contrac
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
 import { API, AppApiInterface } from '@constants'
-import { grantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'ui-entity',
@@ -43,7 +43,7 @@ export class EntityComponent implements OnDestroy {
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
-  public grantStatusEnum = grantStatusEnum
+  public grantStatusEnum = GrantStatusEnum
   reportLink = ''
 
   constructor (

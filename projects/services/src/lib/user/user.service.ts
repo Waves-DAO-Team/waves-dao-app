@@ -1,20 +1,18 @@
 import { Inject, Injectable } from '@angular/core'
-import { roleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
+import { RoleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
 import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { BehaviorSubject, combineLatest } from 'rxjs'
 import { map, publishReplay, refCount, tap } from 'rxjs/operators'
-import {ContractGrantCommonModel, ContractGrantModel, ContractGrantRawModel} from '@services/contract/contract.model'
+import { ContractGrantRawModel } from '@services/contract/contract.model'
 import { API, AppApiInterface } from '@constants'
-import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   public data: BehaviorSubject<UserDataInterface> = new BehaviorSubject<UserDataInterface>({
-    userRole: roleEnum.unauthorized,
+    userRole: RoleEnum.unauthorized,
     userAddress: '',
     addressDAOMember: [],
     owner: '',
@@ -70,7 +68,6 @@ export class UserService {
       refCount()
     ).subscribe()
 
-
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
     private readonly signerService: SignerService,
@@ -82,9 +79,9 @@ export class UserService {
     if (tasks) {
       for (const key of Object.keys(tasks)) {
         if (
-          userAddress
-          && tasks
-          && tasks[key]?.applicants?.value.includes(userAddress)
+          userAddress &&
+          tasks &&
+          tasks[key]?.applicants?.value.includes(userAddress)
         ) {
           result.push(key)
         }
@@ -98,10 +95,10 @@ export class UserService {
     const result = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
-          const grant: ContractGrantRawModel = tasks[key]
-          if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
-            result.push(key)
-          }
+        const grant: ContractGrantRawModel = tasks[key]
+        if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
+          result.push(key)
+        }
       }
     }
 
@@ -116,7 +113,7 @@ export class UserService {
     addressWorkGroup: string[]
   ): RoleRowInterface {
     const result: RoleRowInterface = {
-      mainRole: roleEnum.unauthorized,
+      mainRole: RoleEnum.unauthorized,
       roles: {
         isMaster: false,
         isDAO: false,
@@ -127,27 +124,27 @@ export class UserService {
       }
     }
     if (userAddress !== '') {
-      result.mainRole = result.mainRole === roleEnum.unauthorized ? roleEnum.authorized : result.mainRole
+      result.mainRole = result.mainRole === RoleEnum.unauthorized ? RoleEnum.authorized : result.mainRole
       result.roles.isAuth = true
       result.roles.isUnauthorized = false
     }
     if (addressDAOMember.includes(userAddress)) {
-      result.mainRole = roleEnum.daoMember
+      result.mainRole = RoleEnum.daoMember
       result.roles.isDAO = true
       result.roles.isUnauthorized = false
     }
     if (addressWorkGroup.includes(userAddress)) {
-      result.mainRole = roleEnum.workingGroup
+      result.mainRole = RoleEnum.workingGroup
       result.roles.isWG = true
       result.roles.isUnauthorized = false
     }
     if (masterAddress === userAddress) {
-      result.mainRole = roleEnum.master
+      result.mainRole = RoleEnum.master
       result.roles.isMaster = true
       result.roles.isUnauthorized = false
     }
     if (ownerAddress === userAddress) {
-      result.mainRole = roleEnum.owner
+      result.mainRole = RoleEnum.owner
       result.roles.isOwner = true
       result.roles.isUnauthorized = false
     }

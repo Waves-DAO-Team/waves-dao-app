@@ -66,7 +66,6 @@ export class RewardDirective {
     return num.replace(/[^\d.]/ig, '').replace(/\s/g, '')
   }
 
-
   private maxValGuard (num: string): string {
     if (parseFloat(num) > this.maxVal) {
       return this.maxVal.toFixed(2).toString()

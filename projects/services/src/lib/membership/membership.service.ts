@@ -16,18 +16,15 @@ import { API, AppApiInterface } from '@constants'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import {
+  ContractDataIterationModel,
   ContractDataModel,
   ContractRawData, ContractRawDataNumber,
   ContractRawDataString
 } from '@services/contract/contract.model'
-type EmptyObject = {
-  [K in string]: never
-}
 @Injectable({
   providedIn: 'root'
 })
 export class MembershipService {
-
   private readonly address = this.api.management.membership
   private readonly membershipState$ = this.getContractData(this.address)
   private readonly refresh$ = new Subject()
@@ -49,14 +46,9 @@ export class MembershipService {
   public getContractData (address: string) {
     const url = new URL('/addresses/data/' + address, this.api.rest)
 
-    return this.http.get<Observable<ContractRawData>>(url.href, {
+    return this.http.get<ContractRawData>(url.href, {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
-      // tap((data) => {
-      //   console.log('GET members data', data)
-      // }),
-      // // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-      // @ts-ignore
       repeatWhen(() => this.refresh$),
       map((data: ContractRawData) => ({
         ...this.prepareData(data),
@@ -65,7 +57,7 @@ export class MembershipService {
     )
   }
 
-  private group (keys: string[], context: { [s: string]: EmptyObject }, value: ContractRawDataString | ContractRawDataNumber): void {
+  private group (keys: string[], context: ContractDataIterationModel, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
 
     const key: string | undefined = keys.shift()
@@ -78,15 +70,15 @@ export class MembershipService {
     }
 
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-// @ts-ignore
+    // @ts-expect-error
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
 
-    // @ts-ignore
-    return data.reduce((orig, item) => {
+    // @ts-expect-error
+    return data.reduce((orig: {} | ContractDataIterationModel, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig

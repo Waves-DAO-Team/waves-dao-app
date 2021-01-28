@@ -20,10 +20,10 @@ export class AddTaskDetailsComponent {
     @Inject(DIALOG_DATA) public params: DialogParams
   ) {}
 
-  onSubmit () {
+  onSubmit (): void {
     if (this.params.submitCallBack) {
       this.params.submitCallBack({
-        reward: (this.taskDetailsForm.value.reward * 100000000).toString()
+        reward: ((this.taskDetailsForm?.value?.reward || 0) * 100000000).toString()
       })
     }
   }

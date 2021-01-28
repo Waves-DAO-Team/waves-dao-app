@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core'
-import { grantStatusEnum } from '@services/static/static.model'
+import { GrantStatusEnum } from '@services/static/static.model'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { TeamsAndSolutionsControlsInterface, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 import { UserService } from '@services/user/user.service'
@@ -23,7 +23,7 @@ export class TeamsAndSolutionsComponent {
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
   @Output() newVoteForSolutionEvent = new EventEmitter<VoteTeamEventInterface>()
 
-  grantStatusEnum = grantStatusEnum
+  grantStatusEnum = GrantStatusEnum
 
   constructor (
     public userService: UserService,

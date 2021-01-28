@@ -19,7 +19,9 @@
 //        "standard-with-typescript",
         "plugin:@angular-eslint/ng-cli-compat",
         "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ],
       "rules": {
         "no-shadow": 0,
@@ -49,7 +51,11 @@
         ],
         "@typescript-eslint/semi": [2, "never"],
         "@typescript-eslint/member-delimiter-style": 0,
-        "@typescript-eslint/member-ordering": 0
+        "@typescript-eslint/member-ordering": 0,
+        "@typescript-eslint/unbound-method": 0,
+        "@typescript-eslint/no-unsafe-call": 0,
+        "@typescript-eslint/no-unsafe-member-access": 0,
+        "@typescript-eslint/no-unsafe-assignment": 0
       }
     },
     {

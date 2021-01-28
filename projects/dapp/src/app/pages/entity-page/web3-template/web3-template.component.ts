@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { grantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
 import { map, take } from 'rxjs/operators'
@@ -26,10 +26,9 @@ import { combineLatest, Subject } from 'rxjs'
   styleUrls: ['./web3-template.component.scss']
 })
 export class Web3TemplateComponent implements TemplateComponentAbstract {
-
   @Input() public readonly contract!: GrantsVariationType
 
-  grantStatusEnum = grantStatusEnum
+  grantStatusEnum = GrantStatusEnum
 
   voteForTaskData = {
     isShow: false,
@@ -121,8 +120,6 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       })
     )
 
-
-
   private inputGrant: ContractGrantModel = {}
 
   @Input() set grant (data: ContractGrantModel) {
@@ -132,6 +129,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     }
     this.grant$.next(data)
   }
+
   get grant () {
     return this.inputGrant
   }
@@ -181,7 +179,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   }
 
   voteTeam ($event: VoteTeamEventInterface): void {
-    if (this.grant?.status?.value === grantStatusEnum.readyToApply) {
+    if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.communityContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
@@ -252,7 +250,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   private prepareVoteForTaskData (grant: ContractGrantModel) {
     if (
-        this.userService.data.getValue().roles.isDAO &&
+      this.userService.data.getValue().roles.isDAO &&
         grant?.status?.value === this.grantStatusEnum.votingStarted
     ) {
       this.voteForTaskData.isShow = true

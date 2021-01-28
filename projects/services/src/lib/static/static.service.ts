@@ -4,7 +4,7 @@ import { filter, map, publishReplay, refCount } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { UserService } from '@services/user/user.service'
 import { RolesInterface } from '@services/user/user.interface'
-import { GrantsVariationType, grantTypesEnum } from './static.model'
+import { GrantsVariationType, GrantTypesEnum } from './static.model'
 import { TranslocoService } from '@ngneat/transloco'
 import { API, AppApiInterface } from '@constants'
 
@@ -12,8 +12,7 @@ import { API, AppApiInterface } from '@constants'
   providedIn: 'root'
 })
 export class StaticService {
-
-  public selectedContact: grantTypesEnum = grantTypesEnum.disruptive
+  public selectedContact: GrantTypesEnum = GrantTypesEnum.disruptive
 
   constructor (
     private readonly contractService: ContractService,
@@ -21,7 +20,6 @@ export class StaticService {
     private readonly translocoService: TranslocoService,
     @Inject(API) private readonly api: AppApiInterface
   ) { }
-
 
   public getContactsList (): Observable<GrantsVariationType[]> {
     const contracts = this.api.contracts as { [s: string]: string }
@@ -43,7 +41,7 @@ export class StaticService {
     )
   }
 
-  getStaticContract (contractType: grantTypesEnum) {
+  getStaticContract (contractType: GrantTypesEnum) {
     this.contractService.switchContract(contractType)
     this.selectedContact = contractType
 
@@ -73,11 +71,11 @@ export class StaticService {
   }
 
   checkPermissionCreateGrant (contractType: string, roles: RolesInterface): boolean {
-    return contractType === grantTypesEnum.web3 ? roles.isAuth : roles.isWG
+    return contractType === GrantTypesEnum.web3 ? roles.isAuth : roles.isWG
   }
 
   checkPermissionFinishCreateGrant (contractType: string, roles: RolesInterface): boolean {
-    return contractType === grantTypesEnum.web3 ? roles.isAuth : roles.isWG
+    return contractType === GrantTypesEnum.web3 ? roles.isAuth : roles.isWG
   }
 
   checkPermissionVoted (contractType: string, roles: RolesInterface): boolean {

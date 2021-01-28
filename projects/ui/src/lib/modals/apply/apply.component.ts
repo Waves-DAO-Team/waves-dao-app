@@ -11,7 +11,7 @@ import { StaticService } from '@services/static/static.service'
   templateUrl: './apply.component.html',
   styleUrls: ['./apply.component.scss']
 })
-export class ApplyComponent implements OnInit {
+export class ApplyComponent {
   modalStep: 1 | 2 | 3 = 1
   public readonly grant: ContractGrantModel = {}
   applyGrantForm = new FormGroup({
@@ -29,10 +29,7 @@ export class ApplyComponent implements OnInit {
     }
   }
 
-  ngOnInit (): void {
-  }
-
-  closeModal () {
+  closeModal (): void {
     this.params.dialogRef.close()
   }
 
@@ -50,7 +47,7 @@ export class ApplyComponent implements OnInit {
     }
   }
 
-  modalGoTo (com: 'ALREADY_APPLIED' | 'NEED_APPLY' | 'CLOSE') {
+  modalGoTo (com: 'ALREADY_APPLIED' | 'NEED_APPLY' | 'CLOSE'): void {
     if (com === 'CLOSE') {
       this.modalStep = 3
     } else {

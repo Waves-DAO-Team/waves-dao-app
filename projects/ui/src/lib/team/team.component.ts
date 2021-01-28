@@ -7,7 +7,7 @@ import {
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
-import { grantStatusEnum } from '@services/static/static.model'
+import { GrantStatusEnum } from '@services/static/static.model'
 import { TeamsControlsInterface, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
 
 @Component({
@@ -27,7 +27,7 @@ export class TeamComponent {
   @Output() newOpenApplyModalEvent = new EventEmitter()
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
-  public grantStatusEnum = grantStatusEnum
+  public grantStatusEnum = GrantStatusEnum
 
   constructor (
     public userService: UserService,

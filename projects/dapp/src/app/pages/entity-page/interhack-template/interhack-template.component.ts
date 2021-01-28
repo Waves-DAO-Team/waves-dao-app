@@ -1,31 +1,31 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core'
-import {ContractGrantModel} from '@services/contract/contract.model'
-import {grantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
-import {MatSnackBar} from '@angular/material/snack-bar'
-import {SignerService} from '@services/signer/signer.service'
-import {filter, map, take, tap} from 'rxjs/operators'
-import {translate} from '@ngneat/transloco'
-import {DialogComponent} from '@ui/dialog/dialog.component'
-import {ApplyComponent} from '@ui/modals/apply/apply.component'
+import { ChangeDetectorRef, Component, Input } from '@angular/core'
+import { ContractGrantModel } from '@services/contract/contract.model'
+import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { SignerService } from '@services/signer/signer.service'
+import { filter, map, take, tap } from 'rxjs/operators'
+import { translate } from '@ngneat/transloco'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { ApplyComponent } from '@ui/modals/apply/apply.component'
 import {
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
   SubmitCallBackRewardArg, SubmitCallBackSubmitSolutionResultArg
 } from '@ui/dialog/dialog.tokens'
-import {MatDialog} from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog'
 import {
   TeamsAndSolutionsControlsInterface,
   TemplateComponentAbstract,
   VoteTeamEventInterface
 } from '@pages/entity-page/entity.interface'
-import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
-import {UserService} from '@services/user/user.service'
-import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
-import {combineLatest, Observable, Subject} from 'rxjs'
-import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
-import {teamsAndSolutionsControls} from './functions'
-import {InterhackContractService} from '@services/contract/Interhack-contract.service'
+import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
+import { UserService } from '@services/user/user.service'
+import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
+import { combineLatest, Observable, Subject } from 'rxjs'
+import { SubmitSolutionComponent } from '@ui/modals/submit-solution/submit-solution.component'
+import { teamsAndSolutionsControls } from './functions'
+import { InterhackContractService } from '@services/contract/Interhack-contract.service'
 
 @Component({
   selector: 'app-interhack-template',
@@ -33,10 +33,9 @@ import {InterhackContractService} from '@services/contract/Interhack-contract.se
   styleUrls: ['./interhack-template.component.scss']
 })
 export class InterhackTemplateComponent implements TemplateComponentAbstract {
-
   @Input() public readonly contract!: GrantsVariationType
 
-  grantStatusEnum = grantStatusEnum
+  grantStatusEnum = GrantStatusEnum
 
   @Input() set grant (data: ContractGrantModel) {
     // if (data !== this.GSgrant) {
@@ -49,7 +48,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   get grant () {
     return this.inputGrant
   }
-
 
   voteForTaskData = {
     isShow: false,
@@ -210,7 +208,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   private inputGrant: ContractGrantModel = {}
 
-
   constructor (
     private readonly dialog: MatDialog,
     public disruptiveContractService: DisruptiveContractService,
@@ -262,7 +259,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   voteTeam ($event: VoteTeamEventInterface) {
-    if (this.grant?.status?.value === grantStatusEnum.readyToApply) {
+    if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }

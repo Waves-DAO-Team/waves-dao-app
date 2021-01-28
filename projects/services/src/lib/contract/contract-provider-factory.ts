@@ -18,28 +18,27 @@ import { StaticService } from '@services/static/static.service'
 import { GrantsVariationType } from '@services/static/static.model'
 
 export const contractProviderFactory = (
-    staticService: StaticService,
-    route: ActivatedRoute,
-    router: Router,
-    snackBar: MatSnackBar
+  staticService: StaticService,
+  route: ActivatedRoute,
+  router: Router,
+  snackBar: MatSnackBar
 ): LoadingWrapperModel<GrantsVariationType> => new LoadingWrapper(
-    route.params.pipe(
-        filter(({ contractType }) => !!contractType),
-        switchMap(({ contractType }): Observable<GrantsVariationType> => staticService.getStaticContract(contractType)),
-        catchError((error) => {
-          // Todo обработать ошибки
-          snackBar.open(error, translate('messages.ok'))
-          throw new Error('Contract not found')
-        }),
-        publishReplay(1),
-        refCount()
-    )
+  route.params.pipe(
+    filter(({ contractType }) => !!contractType),
+    switchMap(({ contractType }): Observable<GrantsVariationType> => staticService.getStaticContract(contractType)),
+    catchError((error) => {
+      // Todo обработать ошибки
+      snackBar.open(error, translate('messages.ok'))
+      throw new Error('Contract not found')
+    }),
+    publishReplay(1),
+    refCount()
+  )
 )
-
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const ContractProviderDefine = (tokenName: InjectionToken<GrantsVariationType>) => ({
-    provide: tokenName,
-    deps: [StaticService, ActivatedRoute, Router, MatSnackBar],
-    useFactory: contractProviderFactory
-  })
+  provide: tokenName,
+  deps: [StaticService, ActivatedRoute, Router, MatSnackBar],
+  useFactory: contractProviderFactory
+})

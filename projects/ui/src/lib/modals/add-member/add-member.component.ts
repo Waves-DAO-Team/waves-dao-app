@@ -18,15 +18,15 @@ export class AddMemberComponent {
     @Inject(DIALOG_DATA) public params: DialogParams
   ) { }
 
-  onSubmit () {
-    if (this.params.submitCallBack && this.form.value.address) {
+  onSubmit (): void {
+    if (this.params.submitCallBack && this?.form?.value?.address) {
       this.params.submitCallBack({
         address: this.form.value.address
       })
     }
   }
 
-  closeModal () {
+  closeModal (): void {
     this.params.dialogRef.close()
   }
 }

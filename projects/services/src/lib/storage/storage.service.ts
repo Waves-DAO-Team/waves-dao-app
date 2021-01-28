@@ -1,13 +1,11 @@
 import { Inject, Injectable } from '@angular/core'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
-type EmptyObject = {
-  [K in string]: never
-}
+import { SignerUser } from '@services/signer/signer.model'
+
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-
   private readonly currentContractAddress = this.constants.production
     ? 'ZwPjcEZtNHD9TRVUUiyR'
     : 'contactAddress'
@@ -38,8 +36,6 @@ export class StorageService {
     this.localStorage[name] = value
     window.localStorage.setItem(name, value)
   }
-
-
 
   // Session
   private getSession (name: string): string | null {
@@ -85,7 +81,7 @@ export class StorageService {
   }
 
   // Access token
-  public get userData (): EmptyObject | null {
+  public get userData (): SignerUser | null {
     const data = this.getSession(this.userDataSession)
     if (data) {
       return JSON.parse(data)
@@ -94,7 +90,7 @@ export class StorageService {
     return null
   }
 
-  public set userData (value: EmptyObject | null) {
+  public set userData (value: SignerUser | null) {
     if (!value) {
       this.deleteSession(this.userDataSession)
       return

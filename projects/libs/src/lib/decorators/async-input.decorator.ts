@@ -2,13 +2,12 @@ import 'reflect-metadata'
 import { ReplaySubject } from 'rxjs'
 import { publishReplay, refCount } from 'rxjs/operators'
 import { destroyQueue } from './common.decorator'
-import {Component} from '@angular/core'
+import { Component } from '@angular/core'
 
 // https://habr.com/ru/post/494668/
 // http://typescript-lang.ru/docs/Decorators.html
-// eslint-disable-next-line
-export function Async<PropertyDecorator> (): (target: Component, propertyKey: string) => void {
-  return (target: Component, propName: string) => {
+export function Async<PropertyDecorator> (): (target: any, propertyKey: string) => void { // eslint-disable-line
+  return (target: any, propName: string) => { // eslint-disable-line
     const name = '_async_prop_' + propName
     const stream = '_async_stream_' + propName
 
@@ -20,26 +19,26 @@ export function Async<PropertyDecorator> (): (target: Component, propertyKey: st
 
     // Create stream subject with destroy
     Reflect.defineProperty(target, stream, {
-      // @ts-ignore
+      // @ts-expect-error
       value: target[name].pipe(publishReplay(1), refCount()),
       writable: true
     })
 
     Reflect.defineProperty(target, propName, {
       set: (item): void => {
-        // @ts-ignore
+        // @ts-expect-error
         target[name].next(item)
       },
       get: () =>
-        // @ts-ignore
-         target[stream]
+        // @ts-expect-error
+        target[stream]
 
     })
 
     destroyQueue(
       target,
       () => {
-        // @ts-ignore
+        // @ts-expect-error
         this[name].complete()
       }
     )
