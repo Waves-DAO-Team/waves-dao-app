@@ -6,7 +6,7 @@ import {
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import {
-  ContractGrantExtendedModel, ContractGrantModel
+  ContractGrantExtendedModel, ContractGrantModel, ContractRawDataNumber
 } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -94,10 +94,10 @@ export class ListingComponent implements OnInit, OnDestroy {
             if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
-
-              e.reward = {}
-
-              e.reward.value = '0.00'
+              let newData: ContractRawDataNumber = {
+                key: "", type: 0, value: "0.00"
+              }
+              e.reward = newData
             }
             return e
           })
@@ -154,9 +154,11 @@ export class ListingComponent implements OnInit, OnDestroy {
               e.reward.value = (e.reward.value / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
 
-              e.reward = {}
+              let newData: ContractRawDataNumber = {
+                key: "", type: 0, value: "0.00"
 
-              e.reward.value = '0.00'
+              }
+              e.reward = newData
             }
             return e
           })
