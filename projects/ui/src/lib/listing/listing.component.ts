@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject,
   Input,
   OnDestroy,
-  OnInit
+  OnInit, Type
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import {
@@ -33,6 +33,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
 })
 export class ListingComponent implements OnInit, OnDestroy {
   @Input() contract: GrantsVariationType | null = null;
+  @Input() type: Type<any> | undefined
 
   constructor (
 
@@ -187,6 +188,8 @@ export class ListingComponent implements OnInit, OnDestroy {
       })
       // tap((data) => console.log('importantGrant$', data))
     )
+  default: any;
+  active: any;
 
   ngOnInit (): void {}
 

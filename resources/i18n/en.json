@@ -32,6 +32,7 @@
       "propose_web_grant": "Propose a Web 3.0 Dev Grant",
       "link_to_description": "Link to grant description",
       "link_to_apply": "Link to apply form",
+      "hint_link": "After link is opened in new tab, come back here",
       "apply_on_githubt": "Apply form on GitHub",
       "issue_on_githubt": "issue on GitHub",
       "please_submit": "Please submit the form using",
