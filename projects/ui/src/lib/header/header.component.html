@@ -30,7 +30,7 @@
       <li *ngIf="(user$ | async)?.name" class="profile mat-display-2">
         <div class="icon" *ngIf="userService.data.getValue().userRole as role">
           <img alt="avatar" src="assets/icons/avatar/master.svg" *ngIf="role === roleEnum.master || role === roleEnum.owner">
-          <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="role === roleEnum.DAOMember">
+          <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="role === roleEnum.daoMember">
           <img alt="avatar" src="assets/icons/avatar/wg.svg" *ngIf="role === roleEnum.workingGroup">
           <img alt="avatar" src="assets/icons/avatar/auth.png" *ngIf="role === roleEnum.authorized">
         </div>
@@ -45,7 +45,7 @@
             <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.workingGroup">
               {{ 'role.wg' | transloco }}
             </ng-container>
-            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.DAOMember">
+            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.daoMember">
               {{ 'role.dao' | transloco }}
             </ng-container>
             <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.authorized">

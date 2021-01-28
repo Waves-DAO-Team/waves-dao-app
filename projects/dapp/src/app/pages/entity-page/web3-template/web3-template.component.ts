@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { grantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
 import { map, take } from 'rxjs/operators'
@@ -29,7 +29,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   @Input() public readonly contract!: GrantsVariationType
 
-  grantStatusEnum = GrantStatusEnum
+  grantStatusEnum = grantStatusEnum
 
   voteForTaskData = {
     isShow: false,
@@ -181,7 +181,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   }
 
   voteTeam ($event: VoteTeamEventInterface): void {
-    if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
+    if (this.grant?.status?.value === grantStatusEnum.readyToApply) {
       this.communityContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }

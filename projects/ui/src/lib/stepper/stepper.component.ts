@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core'
 import { MatStepper } from '@angular/material/stepper'
-import { GrantStatusEnum } from '@services/static/static.model'
+import { grantStatusEnum } from '@services/static/static.model'
 import { StepperService } from '@services/stepper/stepper.service'
 import { combineLatest, Subject } from 'rxjs'
 import { tap } from 'rxjs/operators'
@@ -12,7 +12,7 @@ import { tap } from 'rxjs/operators'
 })
 export class StepperComponent implements AfterViewInit {
   @ViewChild('stepper') stepper: MatStepper | undefined
-  grantStatusEnum = GrantStatusEnum
+  grantStatusEnum = grantStatusEnum
   grantStatus: string[] = []
   stepId = 0
   formalStatuses = this.stepperService.getFormalStatuses()

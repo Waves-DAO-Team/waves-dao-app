@@ -4,7 +4,7 @@ import { filter, map, publishReplay, refCount } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { UserService } from '@services/user/user.service'
 import { RolesInterface } from '@services/user/user.interface'
-import { GrantsVariationType, GrantTypesEnum } from './static.model'
+import { GrantsVariationType, grantTypesEnum } from './static.model'
 import { TranslocoService } from '@ngneat/transloco'
 import { API, AppApiInterface } from '@constants'
 
@@ -12,6 +12,9 @@ import { API, AppApiInterface } from '@constants'
   providedIn: 'root'
 })
 export class StaticService {
+
+  public selectedContact: grantTypesEnum = grantTypesEnum.disruptive
+
   constructor (
     private readonly contractService: ContractService,
     private readonly userService: UserService,
@@ -19,7 +22,6 @@ export class StaticService {
     @Inject(API) private readonly api: AppApiInterface
   ) { }
 
-  public selectedContact: GrantTypesEnum = GrantTypesEnum.disruptive
 
   public getContactsList (): Observable<GrantsVariationType[]> {
     const contracts = this.api.contracts as { [s: string]: string }
@@ -41,7 +43,7 @@ export class StaticService {
     )
   }
 
-  getStaticContract (contractType: GrantTypesEnum) {
+  getStaticContract (contractType: grantTypesEnum) {
     this.contractService.switchContract(contractType)
     this.selectedContact = contractType
 
@@ -71,11 +73,11 @@ export class StaticService {
   }
 
   checkPermissionCreateGrant (contractType: string, roles: RolesInterface): boolean {
-    return contractType === GrantTypesEnum.web3 ? roles.isAuth : roles.isWG
+    return contractType === grantTypesEnum.web3 ? roles.isAuth : roles.isWG
   }
 
   checkPermissionFinishCreateGrant (contractType: string, roles: RolesInterface): boolean {
-    return contractType === GrantTypesEnum.web3 ? roles.isAuth : roles.isWG
+    return contractType === grantTypesEnum.web3 ? roles.isAuth : roles.isWG
   }
 
   checkPermissionVoted (contractType: string, roles: RolesInterface): boolean {

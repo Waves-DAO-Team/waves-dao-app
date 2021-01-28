@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { RoleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
+import { roleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
 import { SignerService } from '@services/signer/signer.service'
 import { ContractService } from '@services/contract/contract.service'
 import { BehaviorSubject, combineLatest } from 'rxjs'
@@ -12,12 +12,13 @@ import { MatSnackBar } from '@angular/material/snack-bar'
   providedIn: 'root'
 })
 export class UserService {
+
   public data: BehaviorSubject<UserDataInterface> = new BehaviorSubject<UserDataInterface>({
-    userRole: RoleEnum.unauthorized,
+    userRole: roleEnum.unauthorized,
     userAddress: '',
-    DAOMemberAddress: [],
+    addressDAOMember: [],
     owner: '',
-    WorkGroupAddress: [],
+    addressWorkGroup: [],
     masterAddress: '',
     roles: {
       isMaster: false,
@@ -34,18 +35,22 @@ export class UserService {
 
   lastAddress = ''
 
+  public readonly isBalanceMoreCommission$ = this.data
+    .pipe(
+      map((e) => e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005))
+    )
 
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
-        const WorkGroupAddress = Object.keys(contract?.working?.group?.member || {})
-        const DAOMemberAddress = Object.keys(contract?.dao?.member || {})
+        const addressWorkGroup = Object.keys(contract?.working?.group?.member || {})
+        const addressDAOMember = Object.keys(contract?.dao?.member || {})
         const userAddressText = userAddress && userAddress.address ? userAddress.address : ''
         const userBalanceText = userAddress && userAddress.balance ? userAddress.balance : '0'
-        const dr = this.defineRol(contract?.owner, contract.address, userAddressText, DAOMemberAddress, WorkGroupAddress)
+        const dr = this.defineRol(contract?.owner, contract.address, userAddressText, addressDAOMember, addressWorkGroup)
         const newData: UserDataInterface = {
-          DAOMemberAddress,
-          WorkGroupAddress,
+          addressDAOMember,
+          addressWorkGroup,
           owner: contract?.owner,
           masterAddress: contract.address,
           userAddress: userAddressText,
@@ -65,10 +70,6 @@ export class UserService {
       refCount()
     ).subscribe()
 
-  public readonly isBalanceMoreCommission$ = this.data
-    .pipe(
-      map((e) => e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005))
-    )
 
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
@@ -111,11 +112,11 @@ export class UserService {
     ownerAddress: string,
     masterAddress: string,
     userAddress: string,
-    DAOMemberAddress: string[],
-    WorkGroupAddress: string[]
+    addressDAOMember: string[],
+    addressWorkGroup: string[]
   ): RoleRowInterface {
     const result: RoleRowInterface = {
-      mainRole: RoleEnum.unauthorized,
+      mainRole: roleEnum.unauthorized,
       roles: {
         isMaster: false,
         isDAO: false,
@@ -126,27 +127,27 @@ export class UserService {
       }
     }
     if (userAddress !== '') {
-      result.mainRole = result.mainRole === RoleEnum.unauthorized ? RoleEnum.authorized : result.mainRole
+      result.mainRole = result.mainRole === roleEnum.unauthorized ? roleEnum.authorized : result.mainRole
       result.roles.isAuth = true
       result.roles.isUnauthorized = false
     }
-    if (DAOMemberAddress.includes(userAddress)) {
-      result.mainRole = RoleEnum.DAOMember
+    if (addressDAOMember.includes(userAddress)) {
+      result.mainRole = roleEnum.daoMember
       result.roles.isDAO = true
       result.roles.isUnauthorized = false
     }
-    if (WorkGroupAddress.includes(userAddress)) {
-      result.mainRole = RoleEnum.workingGroup
+    if (addressWorkGroup.includes(userAddress)) {
+      result.mainRole = roleEnum.workingGroup
       result.roles.isWG = true
       result.roles.isUnauthorized = false
     }
     if (masterAddress === userAddress) {
-      result.mainRole = RoleEnum.master
+      result.mainRole = roleEnum.master
       result.roles.isMaster = true
       result.roles.isUnauthorized = false
     }
     if (ownerAddress === userAddress) {
-      result.mainRole = RoleEnum.owner
+      result.mainRole = roleEnum.owner
       result.roles.isOwner = true
       result.roles.isUnauthorized = false
     }

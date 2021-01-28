@@ -112,7 +112,8 @@ export class SignerService {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
       map((data: TransactionState[]) => {
-        const confirmation = data.find((state: TransactionState) => state.status === 'confirmed' && state.confirmations >= this.api.confirmations)
+        const confirmation = data.find((state: TransactionState) =>
+          state.status === 'confirmed' && state.confirmations >= this.api.confirmations)
 
         console.log('Confirmation', confirmation)
         if (!confirmation) {

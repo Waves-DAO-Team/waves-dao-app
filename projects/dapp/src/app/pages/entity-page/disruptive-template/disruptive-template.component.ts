@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { grantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
@@ -38,7 +38,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   @Input() public readonly contract!: GrantsVariationType
 
-  grantStatusEnum = GrantStatusEnum
+  grantStatusEnum = grantStatusEnum
 
   grant$ = new Subject<ContractGrantModel>()
 

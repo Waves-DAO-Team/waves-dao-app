@@ -1,6 +1,6 @@
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { UserDataInterface } from '@services/user/user.interface'
-import { GrantStatusEnum } from '@services/static/static.model'
+import { grantStatusEnum } from '@services/static/static.model'
 import { TeamsAndSolutionsControlsInterface } from '@pages/entity-page/entity.interface'
 
 export const teamsAndSolutionsControls = (user: UserDataInterface, grant: ContractGrantModel): TeamsAndSolutionsControlsInterface => {
@@ -19,29 +19,29 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
     // isShowSolutionControls
     const status = grant.status.value
     if (
-      status === GrantStatusEnum.solutionChosen ||
-      status === GrantStatusEnum.rejected
+      status === grantStatusEnum.solutionChosen ||
+      status === grantStatusEnum.rejected
     ) {
       result.isShowSolutionControls = false
     }
     // stepType
-    if ((status === GrantStatusEnum.workStarted ||
-      status === GrantStatusEnum.proposed ||
-      status === GrantStatusEnum.readyToApply ||
-      status === GrantStatusEnum.workStarted)
+    if ((status === grantStatusEnum.workStarted ||
+      status === grantStatusEnum.proposed ||
+      status === grantStatusEnum.readyToApply ||
+      status === grantStatusEnum.workStarted)
     ) {
       result.stepType = 'team'
     } else {
       result.stepType = 'solution'
     }
     // isApplyBtn
-    if (user.roles.isAuth && status === GrantStatusEnum.readyToApply) {
+    if (user.roles.isAuth && status === grantStatusEnum.readyToApply) {
       result.isApplyBtn = true
     } else {
       result.isApplyBtn = false
     }
     // isSubmitSolutionBtn
-    if (user.roles.isAuth && status === GrantStatusEnum.workStarted) {
+    if (user.roles.isAuth && status === grantStatusEnum.workStarted) {
       result.isSubmitSolutionBtn = true
       grant.app.forEach((app) => {
         if (app.solution && app.solution.key.includes(user.userAddress.slice(-15))) {
@@ -53,9 +53,9 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
     }
     // isShowAllTeam
     if (
-      status === GrantStatusEnum.noStatus ||
-      status === GrantStatusEnum.proposed ||
-      status === GrantStatusEnum.readyToApply
+      status === grantStatusEnum.noStatus ||
+      status === grantStatusEnum.proposed ||
+      status === grantStatusEnum.readyToApply
     ) {
       result.isShowAllTeam = true
     } else {
@@ -89,7 +89,7 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
       result.leaderIds.push(app.leader.value)
     })
     // isShow
-    if (grant.status.value === GrantStatusEnum.rejected && grant.app.length === 0) {
+    if (grant.status.value === grantStatusEnum.rejected && grant.app.length === 0) {
       result.isShow = false
     }
   }

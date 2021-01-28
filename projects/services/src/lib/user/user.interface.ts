@@ -1,8 +1,8 @@
 
-export enum RoleEnum {
+export enum roleEnum {
   unauthorized = 'unauthorized',
   authorized = 'authorized',
-  DAOMember = 'DAOMember',
+  daoMember = 'DAOMember',
   workingGroup = 'workingGroup',
   master = 'master',
   owner = 'owner'
@@ -18,15 +18,15 @@ export interface RolesInterface {
 }
 
 export interface RoleRowInterface {
-  mainRole: RoleEnum
+  mainRole: roleEnum
   roles: RolesInterface
 }
 
 export interface UserDataInterface {
-  userRole: RoleEnum
+  userRole: roleEnum
   userAddress: string
-  DAOMemberAddress: string[]
-  WorkGroupAddress: string[]
+  addressDAOMember: string[]
+  addressWorkGroup: string[]
   masterAddress: string
   roles: RolesInterface
   voted: string[]

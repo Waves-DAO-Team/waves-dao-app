@@ -19,14 +19,15 @@ import {
 } from './contract.model'
 import { StorageService } from '@services/storage/storage.service'
 import { TranslocoService } from '@ngneat/transloco'
-import { GrantStatusEnum } from '@services/static/static.model'
+import { grantStatusEnum } from '@services/static/static.model'
 import { MembershipService } from '@services/membership/membership.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-  private readonly contractAddress$: BehaviorSubject<string> = new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
+  private readonly contractAddress$: BehaviorSubject<string> =
+    new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
   public applicants: string[] = []
 
   private readonly contractState = this.contractAddress$.pipe(
@@ -129,7 +130,7 @@ export class ContractService {
 
         return {
           ...grant,
-          isShowAppliers: !['', GrantStatusEnum.noStatus.toString(), GrantStatusEnum.proposed.toString()].includes(grant?.status?.value || ''),
+          isShowAppliers: !['', grantStatusEnum.noStatus.toString(), grantStatusEnum.proposed.toString()].includes(grant?.status?.value || ''),
           app: grant.app ? Object.keys(grant.app).map((appKey) => ({
             ...grant?.app?.[appKey],
             key: appKey

@@ -1,4 +1,4 @@
-export enum GrantTypesEnum {
+export enum grantTypesEnum {
   web3 = 'web3',
   disruptive = 'disruptive',
   interhack = 'interhack'
@@ -6,7 +6,7 @@ export enum GrantTypesEnum {
 
 export interface GrantsVariationType {
   type: string
-  name: GrantTypesEnum
+  name: grantTypesEnum
   preview: string
   img: string
   title: string
@@ -21,7 +21,7 @@ export interface GrantsVariationType {
   permissionSettings?: boolean
 }
 
-export enum GrantStatusEnum {
+export enum grantStatusEnum {
   proposed = 'proposed',
   readyToApply = 'ready_to_apply',
   approved = 'approved',

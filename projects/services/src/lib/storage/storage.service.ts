@@ -5,6 +5,14 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
   providedIn: 'root'
 })
 export class StorageService {
+
+  public deleteLocal (name: string): void {
+    if (this.getLocal(name)) {
+      delete this.localStorage[name]
+      window.localStorage.removeItem(name)
+    }
+  }
+
   private readonly currentContractAddress = this.constants.production
     ? 'ZwPjcEZtNHD9TRVUUiyR'
     : 'contactAddress'
@@ -36,12 +44,7 @@ export class StorageService {
     window.localStorage.setItem(name, value)
   }
 
-  public deleteLocal (name: string): void {
-    if (this.getLocal(name)) {
-      delete this.localStorage[name]
-      window.localStorage.removeItem(name)
-    }
-  }
+
 
   // Session
   private getSession (name: string): string | null {

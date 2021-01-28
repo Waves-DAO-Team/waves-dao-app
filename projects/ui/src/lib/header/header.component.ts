@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { Router } from '@angular/router'
 import { UserService } from '@services/user/user.service'
-import { RoleEnum } from '@services/user/user.interface'
+import { roleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
 import { ContractService } from '@services/contract/contract.service'
 import { map, take, takeUntil } from 'rxjs/operators'
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public readonly contractsList$ = this.staticService.getContactsList()
 
-  public readonly roleEnum = RoleEnum
+  public readonly roleEnum = roleEnum
   isToggleMenuOpen = false
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
   public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => data.userRole))

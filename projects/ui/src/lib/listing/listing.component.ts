@@ -16,13 +16,13 @@ import {
   AppConstantsInterface
 } from '@constants'
 import { UserService } from '@services/user/user.service'
-import { RoleEnum } from '@services/user/user.interface'
+import { roleEnum } from '@services/user/user.interface'
 import { map } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { TeamService } from '@services/team/team.service'
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
 import { translate } from '@ngneat/transloco'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { grantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 
 @Component({
   selector: 'ui-listing',
@@ -34,14 +34,14 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
 export class ListingComponent implements OnInit, OnDestroy {
   @Input() contract: GrantsVariationType | null = null
   public readonly grantsVariationActive = '1'
-  public readonly grantStatusEnum = GrantStatusEnum
+  public readonly grantStatusEnum = grantStatusEnum
   public selectedTagName$ = new BehaviorSubject('all')
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
     map((grants) => {
       const list = Object.values(grants.reduce((origin, grant) => ({
         ...origin,
         ...(grant?.status?.value === undefined
-          ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus }
+          ? { [grantStatusEnum.noStatus]: grantStatusEnum.noStatus }
           : { [grant?.status?.value]: grant?.status?.value })
       }), {}))
 
@@ -65,7 +65,7 @@ export class ListingComponent implements OnInit, OnDestroy {
         grants: grants.filter((e) => {
           const status = e.status && e.status.value ? e.status.value : null
           if (
-            status !== GrantStatusEnum.readyToApply || (selectedTagName === GrantStatusEnum.readyToApply && status === selectedTagName)) {
+            status !== grantStatusEnum.readyToApply || (selectedTagName === grantStatusEnum.readyToApply && status === selectedTagName)) {
             return true
           }
         }),
@@ -103,7 +103,7 @@ export class ListingComponent implements OnInit, OnDestroy {
           grants: data.grants.map((e: ContractGrantExtendedModel) => {
             const status = e.status && e.status.value ? e.status.value : 'no_status'
             e.statusText = translate('listing.status.' + status)
-            if (data.isDAO && status === GrantStatusEnum.proposed && e.id) {
+            if (data.isDAO && status === grantStatusEnum.proposed && e.id) {
               const isVote = this.userService.data.getValue().voted.includes(e.id)
               const voteText = (isVote ? 'vote_counted' : 'need_vote')
               e.voteText = translate('listing.DAO_subtext.' + voteText)
@@ -122,7 +122,7 @@ export class ListingComponent implements OnInit, OnDestroy {
       map(([grants, userServiceData, selectedTagName]) => ({ // all to one
         grants: grants.filter((e) => {
           const status = (e.status && e.status.value) || null
-          if (status === GrantStatusEnum.readyToApply && selectedTagName === 'all') {
+          if (status === grantStatusEnum.readyToApply && selectedTagName === 'all') {
             return true
           }
           return false

@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Input} from '@angular/core'
 import {ContractGrantModel} from '@services/contract/contract.model'
-import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
+import {grantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
@@ -36,7 +36,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   @Input() public readonly contract!: GrantsVariationType
 
-  grantStatusEnum = GrantStatusEnum
+  grantStatusEnum = grantStatusEnum
 
   @Input() set grant (data: ContractGrantModel) {
     // if (data !== this.GSgrant) {
@@ -262,7 +262,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   }
 
   voteTeam ($event: VoteTeamEventInterface) {
-    if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
+    if (this.grant?.status?.value === grantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
