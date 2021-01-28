@@ -3,7 +3,7 @@ import {
   LoadingWrapperModel
 } from '@libs/loading-wrapper/loading-wrapper'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
+import { contractProviderDefine } from '@services/contract/contract-provider-factory'
 
 export const CONTRACT = new InjectionToken<LoadingWrapperModel<ContractGrantModel>>(
   'A stream with contract for a listiong'
@@ -12,5 +12,5 @@ export const CONTRACT = new InjectionToken<LoadingWrapperModel<ContractGrantMode
 // По этому токену будет идти стрим с необходимой компоненту информацией:
 export const LISTING_PAGE_PROVIDERS: Provider[] = [
 
-  ContractProviderDefine(CONTRACT)
+  contractProviderDefine(CONTRACT)
 ]

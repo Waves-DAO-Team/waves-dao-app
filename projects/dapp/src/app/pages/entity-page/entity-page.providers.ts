@@ -8,7 +8,7 @@ import {
 import { ContractService } from '@services/contract/contract.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
-import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
+import { contractProviderDefine } from '@services/contract/contract-provider-factory'
 import { GrantsVariationType } from '@services/static/static.model'
 
 export const ENTITY = new InjectionToken<LoadingWrapperModel<ContractGrantModel>>(
@@ -43,6 +43,6 @@ export const ENTITY_PAGE_PROVIDERS: Provider[] = [
     deps: [ContractService, ActivatedRoute, MatSnackBar],
     useFactory: entityFactory
   },
-  ContractProviderDefine(CONTRACT)
+  contractProviderDefine(CONTRACT)
 ]
 

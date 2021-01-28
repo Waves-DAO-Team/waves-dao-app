@@ -20,16 +20,17 @@ import {
   ContractRawData, ContractRawDataNumber,
   ContractRawDataString
 } from '@services/contract/contract.model'
-
+type EmptyObject = {
+  [K in string]: never
+}
 @Injectable({
   providedIn: 'root'
 })
 export class MembershipService {
-  private readonly refresh$ = new Subject()
 
   private readonly address = this.api.management.membership
-
   private readonly membershipState$ = this.getContractData(this.address)
+  private readonly refresh$ = new Subject()
 
   public stream = this.membershipState$.pipe(
     publishReplay(1),
@@ -64,7 +65,7 @@ export class MembershipService {
     )
   }
 
-  private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
+  private group (keys: string[], context: { [s: string]: EmptyObject }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
 
     const key: string | undefined = keys.shift()

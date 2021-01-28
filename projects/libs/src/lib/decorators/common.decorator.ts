@@ -1,6 +1,8 @@
 import 'reflect-metadata'
-
-export const destroyQueue = (target: {}, func: () => void) => {
+type EmptyObject = {
+  [K in string]: never
+}
+export const destroyQueue = (target: EmptyObject, func: () => void) => {
   const METADATA_PROPERTY_KEY = 'ngOnDestroy'
   const METADATA_KEY = 'queue'
 

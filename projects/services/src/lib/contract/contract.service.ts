@@ -22,16 +22,19 @@ import { TranslocoService } from '@ngneat/transloco'
 import { grantStatusEnum } from '@services/static/static.model'
 import { MembershipService } from '@services/membership/membership.service'
 
+type EmptyObject = {
+  [K in string]: never
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
+  public applicants: string[] = []
   private readonly contractAddress$: BehaviorSubject<string> =
     new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
-  public applicants: string[] = []
 
   private readonly contractState = this.contractAddress$.pipe(
-
     switchMap((address) => this.getContractData(address)),
     publishReplay(1),
     refCount()
@@ -49,7 +52,8 @@ export class ContractService {
     refCount()
   )
 
-  public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.contractState.pipe(map((contract) => Object.keys(contract?.tasks || {}).map((entityKey: string) => ({
+  public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.contractState.pipe(map((contract) =>
+    Object.keys(contract?.tasks || {}).map((entityKey: string) => ({
     ...contract?.tasks[entityKey],
     id: entityKey
   }))))
@@ -96,7 +100,12 @@ export class ContractService {
     this.refresh(contracts[type])
   }
 
-  private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
+  private group (
+    keys: string[],
+    context: { [s: string]: EmptyObject },
+    value: ContractRawDataString | ContractRawDataNumber
+  ):
+    void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
 // @ts-ignore
     const key: string = keys.shift()
