@@ -76,7 +76,7 @@ export class UserService {
     private readonly contractService: ContractService
   ) {}
 
-  private defineApply (userAddress: string, tasks: {[index: string]: ContractGrantModel}): string[] {
+  private defineApply (userAddress: string, tasks: {[index: string]: ContractGrantRawModel}): string[] {
     const result: string[] = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
