@@ -154,13 +154,22 @@
     "no_applied_teams": "no teams have applied for this grant",
     "DAO": {
       "vote": {
+        "button": {
+          "like": "Approve",
+          "dislike": "Reject"
+        },
         "true": {
-          "subtext": "Your voice is important to us",
-          "text": "Vote for the grant"
+          "text": "Your voice is important",
+          "subtext": "Vote for the grant to make this happened."
+        },
+        "process": {
+          "text": "Thanks for your vote!",
+          "subtext": "We will take your vote into account"
         },
         "false": {
-          "subtext": "We will take your vote into account",
-          "text": "Thanks for your vote!"
+          "text": "You already voted",
+          "subtext": "Here is transtaction in ",
+          "explorer": "Waves Explorer."
         }
       }
     },

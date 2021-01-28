@@ -6,6 +6,9 @@
     "scss/at-import-partial-extension-blacklist": null,
     "scss/dollar-variable-pattern": null,
     "selector-max-compound-selectors": 12,
-    "max-nesting-depth": 100
+    "max-nesting-depth": 100,
+    "selector-pseudo-element-no-unknown": [true, {
+      "ignorePseudoElements": ["ng-deep"]
+    }]
   }
 }

@@ -9,7 +9,7 @@ export const environment = {
     rest: 'https://nodes.wavesnodes.com',
     explorer: 'https://wavesexplorer.com/address/',
     management: {
-      membership: null
+      membership: '3P5XXSbp8Mgnaccv7AmB1FaxDMkppu2LZgS'
     },
     contracts: {
       disruptive: '3PLAhMnipQdjzasGeh5B2EKxKP74dasHHqD',
