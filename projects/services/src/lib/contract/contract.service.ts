@@ -19,7 +19,7 @@ import {
 } from './contract.model'
 import {StorageService} from '@services/storage/storage.service'
 import {TranslocoService} from '@ngneat/transloco'
-import {grantStatusEnum} from '@services/static/static.model'
+import {GrantStatusEnum} from '@services/static/static.model'
 import {MembershipService} from '@services/membership/membership.service'
 
 type EmptyObject = {
@@ -55,7 +55,7 @@ export class ContractService {
       id: entityKey
     }))))
 
-  public entityById(entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
+  public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
     return this.stream.pipe(
       map((data: ContractDataModel) => {
         const grant: ContractGrantRawModel = data.tasks[entityId]
@@ -64,8 +64,8 @@ export class ContractService {
           ...grant,
           isShowAppliers: ![
             '',
-            grantStatusEnum.noStatus.toString(),
-            grantStatusEnum.proposed.toString()
+            GrantStatusEnum.noStatus.toString(),
+            GrantStatusEnum.proposed.toString()
           ].includes(grant?.status?.value || ''),
           app: grant.app ? Object.keys(grant.app).map((appKey) => ({
             ...grant?.app?.[appKey],
@@ -77,14 +77,14 @@ export class ContractService {
     )
   }
 
-  public getAddress(): string {
+  public getAddress (): string {
     return this.contractAddress$.getValue()
   }
 
   public applicants: string[] = []
 
 
-  constructor(
+  constructor (
     private readonly http: HttpClient,
     private storageService: StorageService,
     private readonly translocoService: TranslocoService,
@@ -93,7 +93,7 @@ export class ContractService {
   ) {
   }
 
-  public getContractData(address: string) {
+  public getContractData (address: string) {
     const url = new URL('/addresses/data/' + address, this.api.rest)
     return this.http.get<Observable<ContractRawData>>(url.href, {
       headers: {accept: 'application/json; charset=utf-8'}
@@ -107,14 +107,14 @@ export class ContractService {
     )
   }
 
-  public refresh(address: string = this.getAddress()): Observable<ContractDataModel> {
+  public refresh (address: string = this.getAddress()): Observable<ContractDataModel> {
     this.storageService.contactAddress = address
     this.contractAddress$.next(address)
 
     return this.contractState.pipe(skip(1), take(1))
   }
 
-  public switchContract(type: string | undefined) {
+  public switchContract (type: string | undefined) {
     if (!type) {
       return
     }
@@ -127,7 +127,7 @@ export class ContractService {
     this.refresh(contracts[type])
   }
 
-  private group(
+  private group (
     keys: string[],
     context: { [s: string]: EmptyObject },
     value: ContractRawDataString | ContractRawDataNumber
@@ -149,7 +149,7 @@ export class ContractService {
     return this.group(keys, context[key], value)
   }
 
-  private prepareData(data: ContractRawData): ContractDataModel {
+  private prepareData (data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
 // @ts-ignore
     return data.reduce((orig, item) => {

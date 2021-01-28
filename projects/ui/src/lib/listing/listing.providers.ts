@@ -13,6 +13,19 @@ export const GRANTS = new InjectionToken<LoadingWrapperModel<ContractGrantModel[
   'A stream with contracts list'
 )
 
+export const grantsFactory = (
+    contractService: ContractService,
+    route: ActivatedRoute,
+    snackBar: MatSnackBar
+): LoadingWrapperModel<ContractGrantRawModel[]> => new LoadingWrapper(
+      contractService.streamTasks.pipe(
+          catchError( (error) => {
+            // Todo обработать ошибки в нормальное сообщение
+            snackBar.open(error, translate('messages.ok'))
+            return []
+          }))
+  )
+
 export const GRANTS_PROVIDERS: Provider[] = [
   {
     provide: GRANTS,
@@ -20,18 +33,3 @@ export const GRANTS_PROVIDERS: Provider[] = [
     useFactory: grantsFactory
   }
 ]
-
-export function grantsFactory (
-  contractService: ContractService,
-  route: ActivatedRoute,
-  snackBar: MatSnackBar
-): LoadingWrapperModel<ContractGrantRawModel[]> {
-  return new LoadingWrapper(
-    contractService.streamTasks.pipe(
-      catchError( (error) => {
-        // Todo обработать ошибки в нормальное сообщение
-        snackBar.open(error, translate('messages.ok'))
-        return []
-      }))
-  )
-}

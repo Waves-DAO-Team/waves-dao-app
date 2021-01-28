@@ -1,8 +1,7 @@
 import 'reflect-metadata'
-type EmptyObject = {
-  [K in string]: never
-}
-export const destroyQueue = (target: EmptyObject, func: () => void) => {
+import {Component} from '@angular/core'
+
+export const destroyQueue = (target: Component, func: () => void) => {
   const METADATA_PROPERTY_KEY = 'ngOnDestroy'
   const METADATA_KEY = 'queue'
 
@@ -24,7 +23,7 @@ export const destroyQueue = (target: EmptyObject, func: () => void) => {
       'onDestroy',
       function (...args: Array<() => void>) {
         if (typeof originalDestroy === 'function') {
-// @ts-ignore
+          // @ts-ignore
           originalDestroy.apply(this, args)
         }
 

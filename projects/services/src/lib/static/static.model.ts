@@ -1,4 +1,5 @@
-export enum grantTypesEnum {
+// eslint-disable
+export enum GrantTypesEnum {
   web3 = 'web3',
   disruptive = 'disruptive',
   interhack = 'interhack'
@@ -6,7 +7,7 @@ export enum grantTypesEnum {
 
 export interface GrantsVariationType {
   type: string
-  name: grantTypesEnum
+  name: GrantTypesEnum
   preview: string
   img: string
   title: string
@@ -21,7 +22,7 @@ export interface GrantsVariationType {
   permissionSettings?: boolean
 }
 
-export enum grantStatusEnum {
+export enum GrantStatusEnum {
   proposed = 'proposed',
   readyToApply = 'ready_to_apply',
   approved = 'approved',

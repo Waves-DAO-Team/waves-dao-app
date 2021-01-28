@@ -58,6 +58,8 @@ export class StepperComponent implements AfterViewInit {
 
   ngAfterViewInit () {
     if (this.stepper) {
+      // TODO проверить нужно ли переопределять приватный метод он может изменится
+      // eslint-disable-next-line
       this.stepper._getIndicatorType = () => 'number'
       this.stepperInit$.next(true)
     }

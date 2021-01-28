@@ -1,13 +1,12 @@
 import 'reflect-metadata'
 import { Subject } from 'rxjs'
 import { destroyQueue } from '@libs/decorators/common.decorator'
-type EmptyObject = {
-  [K in string]: never
-}
+import {Component} from '@angular/core'
+
 // https://habr.com/ru/post/494668/
 // eslint-disable-next-line
-export function DestroyedSubject<PropertyDecorator> (): (target: EmptyObject, propertyKey: string) => void {
-  return (target: EmptyObject, propName: string) => {
+export function DestroyedSubject<PropertyDecorator> (): (target: Component, propertyKey: string) => void {
+  return (target: Component, propName: string) => {
     Reflect.defineProperty(target, propName, {
       value: new Subject()
     })
@@ -15,9 +14,9 @@ export function DestroyedSubject<PropertyDecorator> (): (target: EmptyObject, pr
     destroyQueue(
       target,
       function () {
-// @ts-ignore
+        // @ts-ignore
         this[propName].next()
-// @ts-ignore
+        // @ts-ignore
         this[propName].complete()
       }.bind(target)
     )

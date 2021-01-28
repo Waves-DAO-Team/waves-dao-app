@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase, @typescript-eslint/naming-convention */
 export interface MainResponseInterface {
   name: string
   path: string
@@ -25,7 +25,7 @@ export interface ReposResponseInterface {
   html_url: string
   id: number
   node_id: string
-  number: number
+  number: number   // eslint-disable-line
   title: string
   user: {
     login: string

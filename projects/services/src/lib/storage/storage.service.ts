@@ -19,14 +19,6 @@ export class StorageService {
   private localStorage: { [s: string]: string } = {}
   private sessionStorage: { [s: string]: string } = {}
 
-  public deleteLocal (name: string): void {
-    if (this.getLocal(name)) {
-      delete this.localStorage[name]
-      window.localStorage.removeItem(name)
-    }
-  }
-
-
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
@@ -68,6 +60,13 @@ export class StorageService {
     if (this.getSession(name)) {
       delete this.sessionStorage[name]
       window.sessionStorage.removeItem(name)
+    }
+  }
+
+  public deleteLocal (name: string): void {
+    if (this.getLocal(name)) {
+      delete this.localStorage[name]
+      window.localStorage.removeItem(name)
     }
   }
 

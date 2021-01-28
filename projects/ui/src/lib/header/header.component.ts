@@ -30,6 +30,8 @@ import { StaticService } from '@services/static/static.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>
+
   public readonly user$: Observable<SignerUser> = this.signerService.user
 
   // Subject activate if component destroyed
@@ -37,8 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public readonly contractsList$ = this.staticService.getContactsList()
   public readonly roleEnum = roleEnum
   isToggleMenuOpen = false
-  // @ts-ignore
-  @DestroyedSubject() private readonly destroyed$!: Subject<null>
+
   public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => data.userRole))
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,

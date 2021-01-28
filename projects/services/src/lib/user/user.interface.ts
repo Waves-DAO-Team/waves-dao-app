@@ -1,5 +1,5 @@
-
-export enum roleEnum {
+// eslint-disable
+export enum RoleEnum {
   unauthorized = 'unauthorized',
   authorized = 'authorized',
   daoMember = 'DAOMember',
@@ -18,12 +18,12 @@ export interface RolesInterface {
 }
 
 export interface RoleRowInterface {
-  mainRole: roleEnum
+  mainRole: RoleEnum
   roles: RolesInterface
 }
 
 export interface UserDataInterface {
-  userRole: roleEnum
+  userRole: RoleEnum
   userAddress: string
   addressDAOMember: string[]
   addressWorkGroup: string[]

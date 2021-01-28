@@ -42,7 +42,7 @@ export class SignerService {
   ) {
     this.signer = new Signer({
       // Specify URL of the node on Testnet
-      NODE_URL: api.nodes
+      NODE_URL: api.nodes // eslint-disable-line
     })
     this.signer.setProvider(new Provider(api.signer))
 
