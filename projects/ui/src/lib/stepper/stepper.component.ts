@@ -11,12 +11,21 @@ import { tap } from 'rxjs/operators'
   styleUrls: ['./stepper.component.scss']
 })
 export class StepperComponent implements AfterViewInit {
+  @ViewChild('stepper') stepper: MatStepper | undefined
   grantStatusEnum = GrantStatusEnum
   grantStatus: string[] = []
   stepId = 0
   formalStatuses = this.stepperService.getFormalStatuses()
   setId$ = new Subject()
   stepperInit$ = new Subject()
+  step$ = combineLatest([this.setId$, this.stepperInit$]).pipe(
+    tap(([id, init]) => {
+      if (id && typeof id === 'number' && init && this.stepper) {
+        this.stepper.selectedIndex = id
+        this.cdr.markForCheck()
+      }
+    })
+  ).subscribe()
 
   @Input() set setType (type: 'disruptive' | 'interhack' | 'web3') {
     this.stepperService.setType(type)
@@ -42,16 +51,6 @@ export class StepperComponent implements AfterViewInit {
     return this.statusInput
   }
 
-  step$ = combineLatest([this.setId$, this.stepperInit$]).pipe(
-    tap(([id, init]) => {
-      if (id && typeof id === 'number' && init && this.stepper) {
-        this.stepper.selectedIndex = id
-        this.cdr.markForCheck()
-      }
-    })
-  ).subscribe()
-
-  @ViewChild('stepper') stepper: MatStepper | undefined
 
   constructor (private readonly cdr: ChangeDetectorRef, public stepperService: StepperService) {
 

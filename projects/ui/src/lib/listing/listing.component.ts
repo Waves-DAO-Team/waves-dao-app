@@ -34,19 +34,8 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
 export class ListingComponent implements OnInit, OnDestroy {
   @Input() contract: GrantsVariationType | null = null
   public readonly grantsVariationActive = '1'
-  public readonly GrantStatusEnum = GrantStatusEnum
+  public readonly grantStatusEnum = GrantStatusEnum
   public selectedTagName$ = new BehaviorSubject('all')
-
-  constructor (
-      public cdr: ChangeDetectorRef,
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-      @Inject(API) public readonly api: AppApiInterface,
-      @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
-      public userService: UserService,
-      public contractService: ContractService,
-      public teamService: TeamService
-  ) {}
-
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
     map((grants) => {
       const list = Object.values(grants.reduce((origin, grant) => ({
@@ -67,9 +56,7 @@ export class ListingComponent implements OnInit, OnDestroy {
       return ['all']
     })
   )
-
   public readonly user$ = this.userService.data
-
   public readonly otherGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
     [this.grants.data$, this.userService.data, this.selectedTagName$]
   )
@@ -128,7 +115,6 @@ export class ListingComponent implements OnInit, OnDestroy {
       map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null)
       // tap((data) => console.log('otherGrant$', data))
     )
-
   public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
     [this.grants.data$, this.userService.data, this.selectedTagName$]
   )
@@ -175,6 +161,16 @@ export class ListingComponent implements OnInit, OnDestroy {
       map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null)
       // tap((data) => console.log('importantGrant$', data))
     )
+
+  constructor (
+      public cdr: ChangeDetectorRef,
+      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+      @Inject(API) public readonly api: AppApiInterface,
+      @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
+      public userService: UserService,
+      public contractService: ContractService,
+      public teamService: TeamService
+  ) {}
 
   ngOnInit (): void {}
 

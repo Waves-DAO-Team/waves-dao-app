@@ -21,20 +21,14 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common'
 export class DevGridComponent implements OnInit {
   @HostBinding('class.dev-mode') devPageMode: boolean = isDevMode()
   @Input() enabled: boolean
+
   public storageKey = 'dev-grid'
   public isShow = false
   public isActive = false
-  public deleteLocal (name: string = this.storageKey): void {
-    if (!this.enabled) {
-      return
-    }
-    if (this.getLocal(name)) {
-      window.localStorage.removeItem(name)
-    }
-  }
-  private readonly cssClass = 'dev-mode'
 
   private readonly html: HTMLElement
+  private readonly cssClass = 'dev-mode'
+
 
   constructor (
     public renderer: Renderer2,
@@ -45,23 +39,6 @@ export class DevGridComponent implements OnInit {
     this.html = document.documentElement
     this.enabled = isPlatformBrowser(platformId)
   }
-
-  private getLocal (name: string = this.storageKey): string | null {
-    if (!this.enabled) {
-      return null
-    }
-
-    return window.localStorage.getItem(name) || null
-  }
-
-  private setLocal (value: string, name: string = this.storageKey): void {
-    if (!this.enabled) {
-      return
-    }
-    window.localStorage.setItem(name, value)
-  }
-
-
 
   ngOnInit () {
     this.devPageMode = isDevMode()
@@ -94,5 +71,30 @@ export class DevGridComponent implements OnInit {
       this.setLocal('true', this.storageKey)
       this.isActive = true
     }
+  }
+
+
+  public deleteLocal (name: string = this.storageKey): void {
+    if (!this.enabled) {
+      return
+    }
+    if (this.getLocal(name)) {
+      window.localStorage.removeItem(name)
+    }
+  }
+
+  private getLocal (name: string = this.storageKey): string | null {
+    if (!this.enabled) {
+      return null
+    }
+
+    return window.localStorage.getItem(name) || null
+  }
+
+  private setLocal (value: string, name: string = this.storageKey): void {
+    if (!this.enabled) {
+      return
+    }
+    window.localStorage.setItem(name, value)
   }
 }

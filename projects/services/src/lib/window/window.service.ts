@@ -6,7 +6,7 @@ export const WINDOW = new InjectionToken('WindowToken')
 
 /* Define abstract class for obtaining reference to the global window object. */
 export abstract class WindowRef {
-  get nativeWindow (): Window | object {
+  get nativeWindow (): Window | {} {
     throw new Error('Not implemented.')
   }
 }

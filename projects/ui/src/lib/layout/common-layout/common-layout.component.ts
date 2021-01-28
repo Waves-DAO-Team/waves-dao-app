@@ -27,12 +27,12 @@ import { Subject } from 'rxjs'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonLayoutComponent implements OnInit, OnDestroy, CommonLayoutInterface {
-  public footerExtension?: TemplateRef<CommonLayoutComponentModel>
-  public singlePageLayout = false
-  public secondLevelOnNavigation = false
 
   @ViewChild('content', { read: ElementRef, static: true }) private readonly layoutContentRef: ElementRef<HTMLElement> | null = null
 
+  public footerExtension?: TemplateRef<CommonLayoutComponentModel>
+  public singlePageLayout = false
+  public secondLevelOnNavigation = false
   private readonly destroyed$ = new Subject()
 
   constructor (
