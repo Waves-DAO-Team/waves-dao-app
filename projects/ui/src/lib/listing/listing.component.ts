@@ -33,7 +33,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
 })
 export class ListingComponent implements OnInit, OnDestroy {
   @Input() contract: GrantsVariationType | null = null;
-  @Input() type: Type<any> | undefined
+  @Input() public type: 'default' | 'active' | undefined
 
   constructor (
 
@@ -191,7 +191,9 @@ export class ListingComponent implements OnInit, OnDestroy {
   default: any;
   active: any;
 
-  ngOnInit (): void {}
+  ngOnInit (): void {
+    console.log('type: ' + this.type)
+  }
 
   selectedTag ($event: string) {
     this.selectedTagName$.next($event)

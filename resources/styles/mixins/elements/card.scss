@@ -138,11 +138,13 @@
         &--active {
           .logo {
             @include icon-logo(21px, 'active');
+            margin-left: 5px;
           }
         }
         &--default {
           .logo {
             @include icon-logo(21px, 'default');
+            margin-left: 5px;
           }
         }
       }

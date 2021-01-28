@@ -15,9 +15,8 @@ export class SubListComponent implements OnInit {
   @HostBinding('class.enable') @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false
   // @ts-ignore
-  @Input() type: Type
+  @Input() public type: 'default' | 'active'
   @Input() title: string | null = null
-  $type: string | undefined;
 
   constructor (
       @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
