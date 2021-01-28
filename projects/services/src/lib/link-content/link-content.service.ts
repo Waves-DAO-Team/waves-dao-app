@@ -1,7 +1,7 @@
-import { Injectable, isDevMode } from '@angular/core'
-import { MainResponseInterface, ReposResponseInterface } from '@services/link-content/link-content.interface'
-import { EMPTY, of } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import {Injectable, isDevMode} from '@angular/core'
+import {MainResponseInterface, ReposResponseInterface} from '@services/link-content/link-content.interface'
+import {EMPTY, of} from 'rxjs'
+import {HttpClient} from '@angular/common/http'
 import {catchError, filter, map, switchMap, take} from 'rxjs/operators'
 
 interface LinkDataModel {
@@ -16,12 +16,13 @@ interface LinkDataModel {
   providedIn: 'root'
 })
 export class LinkContentService {
-  constructor (private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+  }
 
-  getContent (link: string) {
+  getContent(link: string) {
     return of(link).pipe(
       filter(el => el !== null && el !== undefined),
-      map((url: string ) => {
+      map((url: string) => {
         try {
           return {
             isFile: /\.md$/.test(url),
@@ -75,9 +76,13 @@ export class LinkContentService {
     )
   }
 
-  getPrepareContent (link: string) {
-    return this.getContent(link).pipe(
-      map((content: string) => content?.replace(/^# .+\n/g, ''))
-    )
+  getPrepareContent(link: string) {
+
+    return this.getContent(link)
+      .pipe(
+        // @ts-ignore
+        filter(el => el !== null && el !== undefined),
+        map((content: string) => content?.replace(/^# .+\n/g, ''))
+      )
   }
 }
