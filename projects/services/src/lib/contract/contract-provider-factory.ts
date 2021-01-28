@@ -17,15 +17,15 @@ import { InjectionToken } from '@angular/core'
 import { StaticService } from '@services/static/static.service'
 import { GrantsVariationType } from '@services/static/static.model'
 
-export function contractProviderDefine (tokenName: InjectionToken<GrantsVariationType>) {
+export function ContractProviderDefine (tokenName: InjectionToken<GrantsVariationType>) {
   return {
     provide: tokenName,
     deps: [StaticService, ActivatedRoute, Router, MatSnackBar],
-    useFactory: contractProviderFactory
+    useFactory: ContractProviderFactory
   }
 }
 
-export function contractProviderFactory (
+export function ContractProviderFactory (
   staticService: StaticService,
   route: ActivatedRoute,
   router: Router,

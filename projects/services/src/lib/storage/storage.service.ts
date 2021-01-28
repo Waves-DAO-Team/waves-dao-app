@@ -1,17 +1,12 @@
 import { Inject, Injectable } from '@angular/core'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
-
+type EmptyObject = {
+  [K in string]: never
+}
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-
-  public deleteLocal (name: string): void {
-    if (this.getLocal(name)) {
-      delete this.localStorage[name]
-      window.localStorage.removeItem(name)
-    }
-  }
 
   private readonly currentContractAddress = this.constants.production
     ? 'ZwPjcEZtNHD9TRVUUiyR'
@@ -23,6 +18,14 @@ export class StorageService {
 
   private localStorage: { [s: string]: string } = {}
   private sessionStorage: { [s: string]: string } = {}
+
+  public deleteLocal (name: string): void {
+    if (this.getLocal(name)) {
+      delete this.localStorage[name]
+      window.localStorage.removeItem(name)
+    }
+  }
+
 
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
@@ -83,7 +86,7 @@ export class StorageService {
   }
 
   // Access token
-  public get userData (): object | null {
+  public get userData (): EmptyObject | null {
     const data = this.getSession(this.userDataSession)
     if (data) {
       return JSON.parse(data)
@@ -92,7 +95,7 @@ export class StorageService {
     return null
   }
 
-  public set userData (value: object | null) {
+  public set userData (value: EmptyObject | null) {
     if (!value) {
       this.deleteSession(this.userDataSession)
       return

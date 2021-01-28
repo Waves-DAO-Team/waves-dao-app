@@ -34,13 +34,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
-
-
-
   public readonly contractsList$ = this.staticService.getContactsList()
-
   public readonly roleEnum = roleEnum
   isToggleMenuOpen = false
+  // @ts-ignore
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
   public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => data.userRole))
   constructor (

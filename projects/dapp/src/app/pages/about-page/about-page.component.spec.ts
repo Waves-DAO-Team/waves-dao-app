@@ -6,7 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { provideApi, provideAppConstants } from '@constants'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { contractProviderDefine } from '@services/contract/contract-provider-factory'
+import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
 import { CONTRACT } from './about-page.provider'
 import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
@@ -29,7 +29,7 @@ describe('AboutPageComponent', () => {
       providers: [
         provideAppConstants(),
         provideApi(),
-        contractProviderDefine(CONTRACT)
+        ContractProviderDefine(CONTRACT)
       ]
     })
       .compileComponents()

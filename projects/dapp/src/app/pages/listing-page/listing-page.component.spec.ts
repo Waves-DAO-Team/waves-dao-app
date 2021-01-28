@@ -9,7 +9,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import { contractProviderDefine } from '@services/contract/contract-provider-factory'
+import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
 import { CONTRACT } from './listing-page.providers'
 
 describe('ListingPageComponent', () => {
@@ -32,7 +32,7 @@ describe('ListingPageComponent', () => {
         provideAppConstants(),
         ContractService,
         provideApi(),
-        contractProviderDefine(CONTRACT)
+        ContractProviderDefine(CONTRACT)
       ]
     })
       .compileComponents()

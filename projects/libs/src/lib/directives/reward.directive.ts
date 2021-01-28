@@ -9,11 +9,11 @@ export class RewardDirective {
   maxVal = 1000000
   lastSelectionStart = 0
 
+  constructor (private readonly el: ElementRef) {}
+
   @HostListener('keyup') blur () {
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)
   }
-
-  constructor (private readonly el: ElementRef) {}
 
   format (str: string) {
     this.lastSelectionStart = this.el.nativeElement.selectionStart
@@ -26,6 +26,11 @@ export class RewardDirective {
     res = this.fractionalGuard(res)
     res = this.positionGuard(str, res)
     return res
+  }
+
+  //  1000000.00 =>  1 000 000.00
+  numberWithSpaces (x: string) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 
   private isNan (num: string): string {
@@ -61,10 +66,6 @@ export class RewardDirective {
     return num.replace(/[^\d.]/ig, '').replace(/\s/g, '')
   }
 
-  //  1000000.00 =>  1 000 000.00
-  numberWithSpaces (x: string) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-  }
 
   private maxValGuard (num: string): string {
     if (parseFloat(num) > this.maxVal) {
