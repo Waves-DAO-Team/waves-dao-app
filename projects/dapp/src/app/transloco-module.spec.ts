@@ -1,5 +1,5 @@
 import { TranslocoTestingModule, TranslocoTestingOptions } from '@ngneat/transloco'
-import en from '../../../../resources/i18n/en.json'
+import * as en from '../../../../resources/i18n/en.json'
 
 export const getTranslocoModule = (options: TranslocoTestingOptions = {}) => TranslocoTestingModule.forRoot({
   langs: { en },
