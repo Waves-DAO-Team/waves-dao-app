@@ -10,7 +10,7 @@ import { GrantsVariationType } from '@services/static/static.model'
   templateUrl: './sub-list.component.html',
   styleUrls: ['./sub-list.component.scss']
 })
-export class SubListComponent implements OnInit {
+export class SubListComponent {
   @Input() contract: GrantsVariationType | null = null
   @HostBinding('class.enable') @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false
@@ -20,6 +20,4 @@ export class SubListComponent implements OnInit {
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {
   }
-
-  ngOnInit (): void {}
 }

@@ -27,7 +27,7 @@ export interface SubmitCallBackAddMemberArg {
 }
 
 export interface SubmitCallBackSubmitSolutionResultArg {
-  solutionLink: string
+  solutionLink?: string
 }
 
 export interface DialogParams {
