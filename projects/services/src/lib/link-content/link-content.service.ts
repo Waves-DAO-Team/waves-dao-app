@@ -2,7 +2,7 @@ import { Injectable, isDevMode } from '@angular/core'
 import { MainResponseInterface, ReposResponseInterface } from '@services/link-content/link-content.interface'
 import { EMPTY, of } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { catchError, map, switchMap, take } from 'rxjs/operators'
+import {catchError, filter, map, switchMap, take} from 'rxjs/operators'
 
 interface LinkDataModel {
   isFile: boolean
@@ -20,11 +20,8 @@ export class LinkContentService {
 
   getContent (link: string) {
     return of(link).pipe(
-      map((url: string | undefined) => {
-        if (!url || typeof url !== 'string') {
-          return {}
-        }
-
+      filter(el => el !== null && el !== undefined),
+      map((url: string ) => {
         try {
           return {
             isFile: /\.md$/.test(url),
