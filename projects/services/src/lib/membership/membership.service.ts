@@ -47,6 +47,7 @@ export class MembershipService {
   // ToDo избавится от дублирования фуекций из contract Service
   public getContractData (address: string) {
     const url = new URL('/addresses/data/' + address, this.api.rest)
+
     return this.http.get<Observable<ContractRawData>>(url.href, {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
@@ -54,7 +55,7 @@ export class MembershipService {
       //   console.log('GET members data', data)
       // }),
       // // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-
+      // @ts-ignore
       repeatWhen(() => this.refresh$),
       map((data: ContractRawData) => ({
         ...this.prepareData(data),
@@ -66,7 +67,7 @@ export class MembershipService {
   private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
 
-    const key: string = keys.shift()
+    const key: string | undefined = keys.shift()
     if (!key) {
       return
     }
@@ -76,13 +77,14 @@ export class MembershipService {
     }
 
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-
+// @ts-ignore
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
     // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
 
+    // @ts-ignore
     return data.reduce((orig, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)

@@ -22,7 +22,7 @@ export const destroyQueue = (target: {}, func: () => void) => {
       'onDestroy',
       function (...args: Array<() => void>) {
         if (typeof originalDestroy === 'function') {
-
+// @ts-ignore
           originalDestroy.apply(this, args)
         }
 

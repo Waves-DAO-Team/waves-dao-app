@@ -12,6 +12,9 @@
     "importHelpers": true,
     "target": "es2015",
     "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "es2018",
       "dom"

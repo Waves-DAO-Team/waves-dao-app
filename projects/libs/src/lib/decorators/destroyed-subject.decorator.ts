@@ -13,9 +13,9 @@ export function DestroyedSubject<PropertyDecorator> (): (target: {}, propertyKey
     destroyQueue(
       target,
       function () {
-
+// @ts-ignore
         this[propName].next()
-
+// @ts-ignore
         this[propName].complete()
       }.bind(target)
     )
