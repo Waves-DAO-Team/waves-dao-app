@@ -12,8 +12,9 @@
   }
 
   &__caption {
-    font-size: 12px;
+    //font-size: 12px;
     line-height: sass-calc(18, 12);
+    margin-bottom: 0;
   }
 }
 

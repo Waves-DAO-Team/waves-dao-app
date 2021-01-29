@@ -9,8 +9,7 @@
           {{ 'entity.DAO.vote.true.text' | transloco}}
         </ng-container>
       </div>
-      <!--TODO тут должен быть caption типографика по макету-->
-      <div class="grant-vote__caption">
+      <div class="grant-vote__caption mat-h5">
         <ng-container *ngIf="isVoteInProcess">
           {{ 'entity.DAO.vote.process.subtext' | transloco}}
         </ng-container>
@@ -45,11 +44,9 @@
     </div>
   </div>
   <div class="grant-vote-end" *ngIf="isVote">
-    <div
-      class="grant-vote__title"
-    >{{ 'entity.DAO.vote.false.text' | transloco}}</div>
-    <div
-      class="grant-vote__caption"
-    >{{ 'entity.DAO.vote.false.subtext' | transloco}}</div>
+    <div class="grant-vote__title mat-h4">
+      {{ 'entity.DAO.vote.false.text' | transloco}}</div>
+    <div class="grant-vote__caption mat-h5">
+      {{ 'entity.DAO.vote.false.subtext' | transloco}}</div>
   </div>
 </div>
