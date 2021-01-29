@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@angular/core'
-import { EMPTY, Observable, Subject } from 'rxjs'
-import { TransactionsSuccessResult } from '@services/signer/signer.model'
+import {Inject, Injectable} from '@angular/core'
+import {EMPTY, Observable, Subject} from 'rxjs'
+import {TransactionsSuccessResult} from '@services/signer/signer.model'
 import {
   catchError,
   map,
@@ -9,18 +9,20 @@ import {
   repeatWhen,
   tap
 } from 'rxjs/operators'
-import { translate } from '@ngneat/transloco'
-import { HttpClient } from '@angular/common/http'
-import { StorageService } from '@services/storage/storage.service'
-import { API, AppApiInterface } from '@constants'
-import { SignerService } from '@services/signer/signer.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import {translate} from '@ngneat/transloco'
+import {HttpClient} from '@angular/common/http'
+import {StorageService} from '@services/storage/storage.service'
+import {API, AppApiInterface} from '@constants'
+import {SignerService} from '@services/signer/signer.service'
+import {MatSnackBar} from '@angular/material/snack-bar'
 import {
   ContractDataIterationModel,
   ContractDataModel,
   ContractRawData, ContractRawDataNumber,
   ContractRawDataString
 } from '@services/contract/contract.model'
+import {RequestsService} from "@services/requests-service/requests.service";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,30 +36,28 @@ export class MembershipService {
     refCount()
   )
 
-  constructor (
+  constructor(
     private readonly signerService: SignerService,
     private readonly snackBar: MatSnackBar,
     private readonly http: HttpClient,
     private readonly storageService: StorageService,
+    private readonly requestsService: RequestsService,
     @Inject(API) private readonly api: AppApiInterface
-  ) {}
-
-  // ToDo избавится от дублирования фуекций из contract Service
-  public getContractData (address: string) {
-    const url = new URL('/addresses/data/' + address, this.api.rest)
-
-    return this.http.get<ContractRawData>(url.href, {
-      headers: { accept: 'application/json; charset=utf-8' }
-    }).pipe(
-      repeatWhen(() => this.refresh$),
-      map((data: ContractRawData) => ({
-        ...this.prepareData(data),
-        owner: address
-      }))
-    )
+  ) {
   }
 
-  private group (keys: string[], context: ContractDataIterationModel, value: ContractRawDataString | ContractRawDataNumber): void {
+  public getContractData(address: string) {
+    return this.requestsService.getContractData(address)
+      .pipe(
+        repeatWhen(() => this.refresh$),
+        map((data: ContractRawData) => ({
+          ...this.prepareData(data),
+          owner: address
+        }))
+      )
+  }
+
+  private group(keys: string[], context: ContractDataIterationModel, value: ContractRawDataString | ContractRawDataNumber): void {
     const key: string | undefined = keys.shift()
     if (!key) {
       return
@@ -70,7 +70,7 @@ export class MembershipService {
     return this.group(keys, context[key], value)
   }
 
-  private prepareData (data: ContractRawData): ContractDataModel {
+  private prepareData(data: ContractRawData): ContractDataModel {
     return data.reduce((orig: {} | ContractDataIterationModel, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
@@ -78,11 +78,11 @@ export class MembershipService {
     }, {}) as ContractDataModel
   }
 
-  public addDAOMember (members: string): Observable<TransactionsSuccessResult> {
+  public addDAOMember(members: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.address,
       'addDAOMember',
-      [{ type: 'string', value: members }]
+      [{type: 'string', value: members}]
     ).pipe(
       catchError((error) => {
         const mes = error.message ? error.message : translate('messages.transaction_rejected')
@@ -96,11 +96,11 @@ export class MembershipService {
     )
   }
 
-  public addGroupMember (members: string): Observable<TransactionsSuccessResult> {
+  public addGroupMember(members: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.address,
       'addGroupMember',
-      [{ type: 'string', value: members }]
+      [{type: 'string', value: members}]
     )
       .pipe(
         catchError((error) => {
@@ -115,7 +115,7 @@ export class MembershipService {
       )
   }
 
-  refresh () {
+  refresh() {
     console.log('Refresh memberships')
     this.refresh$.next(null)
   }
