@@ -5,8 +5,6 @@ import {
   publishReplay,
   refCount
 } from 'rxjs/operators'
-import {translate} from "@ngneat/transloco";
-import {MatSnackBar} from "@angular/material/snack-bar";
 
 export interface LoadingWrapperModel<T> {
   data$: Observable<T>
@@ -24,16 +22,14 @@ export class LoadingWrapper<T> {
     refCount()
   )
 
-  constructor (
-    data: Observable<T>,
-    private readonly snackBar: MatSnackBar,
-  ) {
+  constructor (data: Observable<T>) {
     this.data$ = data.pipe(
       takeUntil(this.destroyed$),
       publishReplay(1),
       refCount(),
       catchError((error) => {
-        this.snackBar.open(error, error)
+        // Todo решить где и как обрабатывать ошибку
+        console.log('LoadingWrapper::Error\n', error)
         setTimeout(() => {
           this.errorLoading$.next(true)
         })

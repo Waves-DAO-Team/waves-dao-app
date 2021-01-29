@@ -72,7 +72,6 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
       })
     }
     teamKeys.forEach((key) => {
-
       if (grant.vh && grant.vh[key]) {
         result.teamVoteKeys.push(key.slice(-25))
       }

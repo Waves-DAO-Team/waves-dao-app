@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core'
-import { FormControl, FormGroup} from '@angular/forms'
+import { FormControl, FormGroup } from '@angular/forms'
 import { UserService } from '@services/user/user.service'
 import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 
@@ -11,7 +11,7 @@ import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 export class SubmitSolutionComponent {
   isSubmit = false
 
-  public form: FormGroup  = new FormGroup({
+  public form: FormGroup = new FormGroup({
     solution: new FormControl('')
   })
 

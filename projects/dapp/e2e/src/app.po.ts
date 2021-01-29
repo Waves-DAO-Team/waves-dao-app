@@ -2,7 +2,7 @@ import { browser, by, element } from 'protractor'
 
 export class AppPage {
   async navigateTo (): Promise<unknown> {
-    return await browser.get(browser.baseUrl) as Promise<unknown>
+    return await await await await await await await await await await await browser.get(browser.baseUrl) as Promise<unknown>
   }
 
   async getTitleText (): Promise<string> {

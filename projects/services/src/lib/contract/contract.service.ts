@@ -22,7 +22,7 @@ import { StorageService } from '@services/storage/storage.service'
 import { TranslocoService } from '@ngneat/transloco'
 import { GrantStatusEnum } from '@services/static/static.model'
 import { MembershipService } from '@services/membership/membership.service'
-import {RequestsService} from "@services/requests-service/requests.service";
+import { RequestsService } from '@services/requests-service/requests.service'
 
 @Injectable({
   providedIn: 'root'
