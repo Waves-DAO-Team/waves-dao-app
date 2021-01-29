@@ -24,15 +24,15 @@ export class DefaultTemplateComponent implements OnInit {
   @Input() public readonly api!: AppApiInterface
 
   constructor (
-    private readonly dialog: MatDialog,
-    public commonContractService: CommonContractService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public commonContractService: CommonContractService, // eslint-disable-line
+    private readonly cdr: ChangeDetectorRef // eslint-disable-line
   ) { }
 
   ngOnInit (): void {
   }
 
-  onProposeGrant () {
+  onProposeGrant (): void {
     this.dialog.open(DialogComponent, {
       data: {
         component: ProposeGrantComponent,

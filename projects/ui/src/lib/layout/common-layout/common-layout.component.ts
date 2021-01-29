@@ -35,9 +35,9 @@ export class CommonLayoutComponent implements OnInit, OnDestroy, CommonLayoutInt
   private readonly destroyed$ = new Subject()
 
   constructor (
-    private readonly router: Router,
-    @Inject(COMMON_LAYOUT_HEADER) public headerComponent: Type<CommonLayoutComponentModel>,
-    @Inject(COMMON_LAYOUT_FOOTER) public footerComponent: Type<CommonLayoutComponentModel>
+    private readonly router: Router, // eslint-disable-line
+    @Inject(COMMON_LAYOUT_HEADER) public headerComponent: Type<CommonLayoutComponentModel>, // eslint-disable-line
+    @Inject(COMMON_LAYOUT_FOOTER) public footerComponent: Type<CommonLayoutComponentModel> // eslint-disable-line
   ) {}
 
   public ngOnInit (): void {

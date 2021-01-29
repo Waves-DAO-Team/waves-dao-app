@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core'
+import {Component, Inject, Injectable} from '@angular/core'
 import { EMPTY, Observable, Subject } from 'rxjs'
 import { TransactionsSuccessResult } from '@services/signer/signer.model'
 import {
@@ -37,12 +37,12 @@ export class MembershipService {
   )
 
   constructor (
-    private readonly signerService: SignerService,
-    private readonly snackBar: MatSnackBar,
-    private readonly http: HttpClient,
-    private readonly storageService: StorageService,
-    private readonly requestsService: RequestsService,
-    @Inject(API) private readonly api: AppApiInterface
+    private readonly signerService: SignerService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar, // eslint-disable-line
+    private readonly http: HttpClient, // eslint-disable-line
+    private readonly storageService: StorageService, // eslint-disable-line
+    private readonly requestsService: RequestsService, // eslint-disable-line
+    @Inject(API) private readonly api: AppApiInterface // eslint-disable-line
   ) {
   }
 
@@ -70,8 +70,9 @@ export class MembershipService {
     return this.group(keys, context[key], value)
   }
 
+  // TODO: Component?
   private prepareData (data: ContractRawData): ContractDataModel {
-    return data.reduce((orig: {} | ContractDataIterationModel, item) => {
+    return data.reduce((orig: Component | ContractDataIterationModel, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig
@@ -115,7 +116,7 @@ export class MembershipService {
       )
   }
 
-  refresh () {
+  refresh (): void {
     console.log('Refresh memberships')
     this.refresh$.next(null)
   }

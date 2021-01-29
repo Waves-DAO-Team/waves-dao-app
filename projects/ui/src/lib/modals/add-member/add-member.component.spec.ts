@@ -6,16 +6,13 @@ import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
-import {API, provideApi, provideAppConstants} from '@constants'
+import {provideApi, provideAppConstants} from '@constants'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/entity-page.providers'
-import {environment} from '@dapp/src/environments/environment'
 import {DIALOG_DATA} from '@ui/dialog/dialog.tokens'
 import {
-  MAT_DIALOG_DATA,
   MatDialogModule,
-  MatDialogRef,
 } from '@angular/material/dialog'
 
 describe('AddMemberComponent', () => {

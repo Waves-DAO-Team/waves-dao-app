@@ -130,17 +130,17 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     this.grant$.next(data)
   }
 
-  get grant () {
+  get grant (): ContractGrantModel {
     return this.inputGrant
   }
 
   constructor (
-    private readonly dialog: MatDialog,
-    public communityContractService: CommunityContractService,
-    private readonly snackBar: MatSnackBar,
-    public signerService: SignerService,
-    private readonly cdr: ChangeDetectorRef,
-    public userService: UserService
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public communityContractService: CommunityContractService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar, // eslint-disable-line
+    public signerService: SignerService, // eslint-disable-line
+    private readonly cdr: ChangeDetectorRef, // eslint-disable-line
+    public userService: UserService // eslint-disable-line
   ) {
   }
 
@@ -219,7 +219,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     this.communityContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward () {
+  addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddTaskDetailsComponent,
@@ -240,9 +240,9 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  initTaskVoting () {
+  initTaskVoting (): void {
     if (this.grant.id) {
-      this.communityContractService.initTaskVoting(this.grant.id).subscribe((e) => {
+      this.communityContractService.initTaskVoting(this.grant.id).subscribe(() => {
         this.cdr.markForCheck()
       })
     }

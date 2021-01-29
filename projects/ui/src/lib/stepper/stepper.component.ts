@@ -51,7 +51,7 @@ export class StepperComponent implements AfterViewInit {
     return this.statusInput
   }
 
-  constructor (private readonly cdr: ChangeDetectorRef, public stepperService: StepperService) {
+  constructor (private readonly cdr: ChangeDetectorRef, public stepperService: StepperService) { // eslint-disable-line
 
   }
 

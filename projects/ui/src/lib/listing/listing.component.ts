@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject,
   Input,
   OnDestroy,
-  OnInit
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import {
@@ -163,20 +162,20 @@ export class ListingComponent implements OnDestroy {
     )
 
   constructor (
-    public cdr: ChangeDetectorRef,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    @Inject(API) public readonly api: AppApiInterface,
-    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
-    public userService: UserService,
-    public contractService: ContractService,
-    public teamService: TeamService
+    public cdr: ChangeDetectorRef, // eslint-disable-line
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
+    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>, // eslint-disable-line
+    public userService: UserService, // eslint-disable-line
+    public contractService: ContractService, // eslint-disable-line
+    public teamService: TeamService // eslint-disable-line
   ) {}
 
-  selectedTag ($event: string) {
+  selectedTag ($event: string): void {
     this.selectedTagName$.next($event)
   }
 
-  isCanShowByTag (status: string | null, selectedTagName: string) {
+  isCanShowByTag (status: string | null, selectedTagName: string): boolean {
     if (selectedTagName === 'all') {
       return true
     }
@@ -191,7 +190,7 @@ export class ListingComponent implements OnDestroy {
     return this.userService.data.getValue().apply.includes(grantId)
   }
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
     this.grants.destroy()
   }
 }

@@ -8,7 +8,7 @@ import { ContractService } from '@services/contract/contract.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent implements OnInit {
-  constructor (public contractService: ContractService) {}
+  constructor (public contractService: ContractService) {} // eslint-disable-line
 
   ngOnInit (): void {}
 }

@@ -7,15 +7,15 @@ import {
   translocoConfig,
   TranslocoModule
 } from '@ngneat/transloco'
-import { Injectable, NgModule } from '@angular/core'
+import {Component, Injectable, NgModule} from '@angular/core'
 import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs'
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
-  constructor (private readonly http: HttpClient) {}
-
-  getTranslation (lang: string): Observable<{}> {
+  constructor (private readonly http: HttpClient) {} // eslint-disable-line
+  // TODO: Component это правильно?
+  getTranslation (lang: string): Observable<Component> {
     return this.http.get<Translation>(`/assets/i18n/${lang}.json`)
   }
 }

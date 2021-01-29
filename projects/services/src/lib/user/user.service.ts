@@ -69,9 +69,9 @@ export class UserService {
     ).subscribe()
 
   constructor (
-    @Inject(API) private readonly api: AppApiInterface,
-    private readonly signerService: SignerService,
-    private readonly contractService: ContractService
+    @Inject(API) private readonly api: AppApiInterface, // eslint-disable-line
+    private readonly signerService: SignerService, // eslint-disable-line
+    private readonly contractService: ContractService // eslint-disable-line
   ) {}
 
   private defineApply (userAddress: string, tasks: {[index: string]: ContractGrantRawModel}): string[] {

@@ -26,8 +26,8 @@ export class TeamsAndSolutionsComponent {
   grantStatusEnum = GrantStatusEnum
 
   constructor (
-    public userService: UserService,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    public userService: UserService,// eslint-disable-line
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
   ) {
   }
 }

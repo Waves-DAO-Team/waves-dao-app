@@ -25,9 +25,9 @@ export class AboutPageComponent implements OnInit, OnDestroy {
   )
 
   constructor (
-    private readonly location: Location,
-    public linkContentService: LinkContentService,
-    @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType>
+    private readonly location: Location, // eslint-disable-line
+    public linkContentService: LinkContentService, // eslint-disable-line
+    @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType> // eslint-disable-line
   ) {}
 
   ngOnInit (): void {}
@@ -36,7 +36,7 @@ export class AboutPageComponent implements OnInit, OnDestroy {
     this.location.back()
   }
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
     this.contract.destroy()
   }
 }

@@ -14,8 +14,8 @@ export class AddMemberComponent {
   })
 
   constructor (
-    @Inject(API) public readonly api: AppApiInterface,
-    @Inject(DIALOG_DATA) public params: DialogParams
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
+    @Inject(DIALOG_DATA) public params: DialogParams // eslint-disable-line
   ) { }
 
   onSubmit (): void {

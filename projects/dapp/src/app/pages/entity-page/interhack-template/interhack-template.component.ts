@@ -45,7 +45,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     this.grant$.next(data)
   }
 
-  get grant () {
+  get grant (): ContractGrantModel {
     return this.inputGrant
   }
 
@@ -209,17 +209,17 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   private inputGrant: ContractGrantModel = {}
 
   constructor (
-    private readonly dialog: MatDialog,
-    public disruptiveContractService: DisruptiveContractService,
-    public interhackContractService: InterhackContractService,
-    private readonly snackBar: MatSnackBar,
-    public signerService: SignerService,
-    private readonly cdr: ChangeDetectorRef,
-    public userService: UserService
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
+    public interhackContractService: InterhackContractService,// eslint-disable-line
+    private readonly snackBar: MatSnackBar,// eslint-disable-line
+    public signerService: SignerService,// eslint-disable-line
+    private readonly cdr: ChangeDetectorRef,// eslint-disable-line
+    public userService: UserService// eslint-disable-line
   ) {
   }
 
-  vote (value: 'like' | 'dislike') {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -230,7 +230,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  signup () {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -239,7 +239,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal () {
+  openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -258,13 +258,13 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface) {
+  voteTeam ($event: VoteTeamEventInterface): void {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote () {
+  finishVote (): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
@@ -328,14 +328,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  enableSubmissions () {
+  enableSubmissions (): void {
     if (this.grant?.id) {
       this.disruptiveContractService.enableSubmissions(this.grant?.id, '').subscribe(() => {
       })
     }
   }
 
-  submitSolution () {
+  submitSolution (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: SubmitSolutionComponent,
@@ -356,14 +356,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteForSolution ($event: VoteTeamEventInterface) {
+  voteForSolution ($event: VoteTeamEventInterface): void {
     if (this.grant?.id) {
       this.disruptiveContractService.voteForSolution(
         this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  stopSubmissions () {
+  stopSubmissions (): void {
     if (this.grant?.id) {
       this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe()
     }

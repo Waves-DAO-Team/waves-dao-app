@@ -13,30 +13,24 @@ import { TransactionsSuccessResult } from '@services/signer/signer.model'
 })
 export class DisruptiveContractService {
   constructor (
-    private readonly commonContractService: CommonContractService,
-    private readonly contractService: ContractService,
-    private readonly signerService: SignerService,
-    private readonly snackBar: MatSnackBar
+    private readonly commonContractService: CommonContractService, // eslint-disable-line
+    private readonly contractService: ContractService, // eslint-disable-line
+    private readonly signerService: SignerService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar // eslint-disable-line
   ) {
   }
 
-  public addDAOMember (member: string) {
+  public addDAOMember (member: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addDAOMember(member)
   }
 
-  public addGroupMember (member: string) {
+  public addGroupMember (member: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addGroupMember(member)
-  }
-
-  // Add task
-  // Permission: only WG
-  public addTask (taskName: string, link: string) {
-    return this.commonContractService.addTask(taskName, link)
   }
 
   // Finished create task. Start voting
   // Permission: only WG
-  public addReward (taskId: string, reward: string) {
+  public addReward (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addReward(taskId, reward)
   }
 
@@ -102,7 +96,7 @@ export class DisruptiveContractService {
         this.snackBar.open(translate(mes))
         return EMPTY
       }),
-      tap((e) => {
+      tap(() => {
         this.contractService.refresh()
         this.snackBar.open(translate('messages.voteForApplicant'), translate('messages.ok'))
       })
@@ -192,7 +186,7 @@ export class DisruptiveContractService {
       )
   }
 
-  submitSolution (taskId: string, solutionLink: string = '123') {
+  submitSolution (taskId: string, solutionLink: string = '123'): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'submitSolution',
       [{ type: 'string', value: taskId }, { type: 'string', value: solutionLink }]
       // [{assetId: 'WAVES', amount: 900001}]
@@ -210,7 +204,7 @@ export class DisruptiveContractService {
       )
   }
 
-  voteForSolution (taskId: string, teamIdentifier: string, voteValue: string) {
+  voteForSolution (taskId: string, teamIdentifier: string, voteValue: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'voteForSolution',
       [
         { type: 'string', value: taskId },
@@ -232,7 +226,7 @@ export class DisruptiveContractService {
       )
   }
 
-  stopSubmissions (taskId: string) {
+  stopSubmissions (taskId: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'stopSubmissions',
       [
         { type: 'string', value: taskId }

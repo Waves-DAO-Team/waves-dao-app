@@ -20,7 +20,7 @@ export class TeamService {
     )
   ).subscribe()
 
-  constructor (private readonly signerService: SignerService, private readonly contractService: ContractService) {}
+  constructor (private readonly signerService: SignerService, private readonly contractService: ContractService) {} // eslint-disable-line
 
   private defineTeamList (data: ContractDataModel): TeamInterface[] {
     const result: TeamInterface[] = []

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
-  OnDestroy,
   OnInit
 } from '@angular/core'
 import {
@@ -29,7 +28,7 @@ import { StaticService } from '@services/static/static.service'
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
   public readonly user$: Observable<SignerUser> = this.signerService.user
@@ -42,29 +41,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => data.userRole))
   constructor (
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    private readonly signerService: SignerService,
-    private readonly snackBar: MatSnackBar,
-    public router: Router,
-    public userService: UserService,
-    public contractService: ContractService,
-    private readonly staticService: StaticService,
-    private readonly location: Location
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,// eslint-disable-line
+    private readonly signerService: SignerService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar, // eslint-disable-line
+    public router: Router, // eslint-disable-line
+    public userService: UserService, // eslint-disable-line
+    public contractService: ContractService, // eslint-disable-line
+    private readonly staticService: StaticService, // eslint-disable-line
+    private readonly location: Location // eslint-disable-line
   ) {
   }
 
   ngOnInit (): void {}
 
-  signupHandler () {
+  signupHandler (): void {
     this.signerService.login().subscribe(() => {
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
     })
   }
 
-  logoutHandler () {
+  logoutHandler (): void {
     // Get one value after click
-    this.signerService.logout().pipe(take(1)).subscribe((e) => {
+    this.signerService.logout().pipe(take(1)).subscribe(() => {
       this.contractService.refresh()
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
@@ -75,5 +74,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.location.back()
   }
 
-  ngOnDestroy () {}
 }

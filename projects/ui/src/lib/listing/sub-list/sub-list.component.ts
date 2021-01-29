@@ -1,4 +1,4 @@
-import { Component, HostBinding, Inject, Input, OnInit } from '@angular/core'
+import { Component, HostBinding, Inject, Input } from '@angular/core'
 import {
   ContractGrantExtendedModel
 } from '@services/contract/contract.model'
@@ -17,7 +17,7 @@ export class SubListComponent {
   @Input() title: string | null = null
 
   constructor (
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
   ) {
   }
 }
