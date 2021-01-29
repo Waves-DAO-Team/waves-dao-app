@@ -37,7 +37,7 @@ export const contractProviderFactory = (
 )
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const ContractProviderDefine = (tokenName: InjectionToken<GrantsVariationType>) => ({
+export const ContractProviderDefine = (tokenName: InjectionToken<GrantsVariationType>) => ({ // eslint-disable-line
   provide: tokenName,
   deps: [StaticService, ActivatedRoute, Router, MatSnackBar],
   useFactory: contractProviderFactory
