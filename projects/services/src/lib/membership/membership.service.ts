@@ -17,7 +17,7 @@ import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import {
   ContractDataIterationModel,
-  ContractDataModel,
+  ContractDataModel, ContractGrantFullAppModel,
   ContractRawData, ContractRawDataNumber,
   ContractRawDataString
 } from '@services/contract/contract.model'
@@ -46,7 +46,7 @@ export class MembershipService {
   ) {
   }
 
-  public getContractData (address: string) {
+  public getContractData (address: string): Observable<ContractGrantFullAppModel> {
     return this.requestsService.getContractData(address)
       .pipe(
         repeatWhen(() => this.refresh$),

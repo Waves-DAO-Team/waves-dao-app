@@ -14,11 +14,11 @@ import { MembershipService } from '@services/membership/membership.service'
 })
 export class CommonContractService {
   constructor (
-    private readonly contractService: ContractService,
-    private readonly signerService: SignerService,
-    private readonly snackBar: MatSnackBar,
-    public router: Router,
-    public membershipService: MembershipService
+    private readonly contractService: ContractService,  // eslint-disable-line
+    private readonly signerService: SignerService,  // eslint-disable-line
+    private readonly snackBar: MatSnackBar,  // eslint-disable-line
+    public router: Router,  // eslint-disable-line
+    public membershipService: MembershipService  // eslint-disable-line
   ) {
   }
 
@@ -46,7 +46,7 @@ export class CommonContractService {
 
           return EMPTY
         }),
-        tap((e) => {
+        tap(() => {
           this.contractService.refresh()
           this.snackBar.open(translate('messages.addTask'), translate('messages.ok'))
         })

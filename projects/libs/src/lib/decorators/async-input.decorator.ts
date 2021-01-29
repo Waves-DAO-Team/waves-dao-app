@@ -2,7 +2,6 @@ import 'reflect-metadata'
 import { ReplaySubject } from 'rxjs'
 import { publishReplay, refCount } from 'rxjs/operators'
 import { destroyQueue } from './common.decorator'
-import { Component } from '@angular/core'
 
 // https://habr.com/ru/post/494668/
 // http://typescript-lang.ru/docs/Decorators.html
@@ -29,9 +28,7 @@ export function Async<PropertyDecorator> (): (target: any, propertyKey: string) 
         target[name].next(item)
       },
       get: () =>
-
-        target[stream]
-
+        target[stream] // eslint-disable-line
     })
 
     destroyQueue(

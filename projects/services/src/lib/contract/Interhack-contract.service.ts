@@ -13,31 +13,25 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 })
 export class InterhackContractService {
   constructor (
-    private readonly commonContractService: CommonContractService,
-    private readonly contractService: ContractService,
-    private readonly signerService: SignerService,
-    private readonly snackBar: MatSnackBar
+    private readonly commonContractService: CommonContractService, // eslint-disable-line
+    private readonly contractService: ContractService, // eslint-disable-line
+    private readonly signerService: SignerService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar  // eslint-disable-line
   ) {}
 
   // Add DAO Members
-  public addDAOMember (member: string) {
+  public addDAOMember (member: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addDAOMember(member)
   }
 
   // ADD work group user
-  public addGroupMember (member: string) {
+  public addGroupMember (member: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addGroupMember(member)
-  }
-
-  // Add task
-  // Permission: only WG
-  public addTask (taskName: string, link: string) {
-    return this.commonContractService.addTask(taskName, link)
   }
 
   // Finished create task. Start voting
   // Permission: only WG
-  public addReward (taskId: string, reward: string) {
+  public addReward (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addReward(taskId, reward)
   }
 

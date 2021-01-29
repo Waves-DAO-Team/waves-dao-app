@@ -9,13 +9,13 @@ export class RewardDirective {
   maxVal = 1000000
   lastSelectionStart = 0
 
-  constructor (private readonly el: ElementRef) {}
+  constructor (private readonly el: ElementRef) {} // eslint-disable-line
 
-  @HostListener('keyup') blur () {
+  @HostListener('keyup') blur (): void {
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)
   }
 
-  format (str: string) {
+  format (str: string): string {
     this.lastSelectionStart = this.el.nativeElement.selectionStart
     this.cursorJumpAtBeginningOfInputGuard(str)
     str = this.numberGuard(str)
@@ -29,7 +29,7 @@ export class RewardDirective {
   }
 
   //  1000000.00 =>  1 000 000.00
-  numberWithSpaces (x: string) {
+  numberWithSpaces (x: string): string {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 

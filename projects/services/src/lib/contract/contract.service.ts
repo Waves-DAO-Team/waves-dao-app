@@ -11,11 +11,10 @@ import { API, AppApiInterface } from '@constants'
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
 import {
   ContractDataIterationModel,
-  ContractDataModel, ContractGrantModel,
+  ContractDataModel, ContractGrantFullAppModel, ContractGrantModel,
   ContractGrantRawModel,
   ContractRawData,
   ContractRawDataEntityId,
-  ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
 import { StorageService } from '@services/storage/storage.service'
@@ -84,16 +83,16 @@ export class ContractService {
   public applicants: string[] = []
 
   constructor (
-    private readonly http: HttpClient,
-    private storageService: StorageService,
-    private readonly translocoService: TranslocoService,
-    private readonly membershipService: MembershipService,
-    private readonly requestsService: RequestsService,
-    @Inject(API) private readonly api: AppApiInterface
+    private readonly http: HttpClient, // eslint-disable-line
+    private storageService: StorageService, // eslint-disable-line
+    private readonly translocoService: TranslocoService, // eslint-disable-line
+    private readonly membershipService: MembershipService, // eslint-disable-line
+    private readonly requestsService: RequestsService, // eslint-disable-line
+    @Inject(API) private readonly api: AppApiInterface // eslint-disable-line
   ) {
   }
 
-  public getContractData (address: string) {
+  public getContractData (address: string): Observable<ContractGrantFullAppModel> {
     return this.requestsService.getContractData(address).pipe(
       map((data: ContractRawData) => ({
         ...this.prepareData(data),
@@ -108,7 +107,7 @@ export class ContractService {
     return this.contractState.pipe(skip(1), take(1))
   }
 
-  public switchContract (type: string | undefined) {
+  public switchContract (type: string | undefined): void {
     if (!type) {
       return
     }

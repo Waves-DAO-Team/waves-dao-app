@@ -8,7 +8,7 @@ import { ContractGrantAppModel } from '@services/contract/contract.model'
 
 @Pipe({ name: 'sortByTeam' })
 export class SortByTeamPipe implements PipeTransform {
-  transform (value: ContractGrantAppModel[], order = '', column: string = ''): ContractGrantAppModel[] {
+  transform (value: ContractGrantAppModel[], order = '', column: string = ''): ContractGrantAppModel[] { // eslint-disable-line
     value = _.orderBy(value, ['score', 'value'], ['asc'])
     value = _.orderBy(value, ['process', 'value'], ['asc'])
     return value

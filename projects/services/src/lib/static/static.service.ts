@@ -41,10 +41,9 @@ export class StaticService {
     )
   }
 
-  getStaticContract (contractType: GrantTypesEnum) {
+  getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
     this.selectedContact = contractType
-
     return combineLatest([
       this.getContactInfo(contractType),
       this.userService.data
@@ -54,7 +53,6 @@ export class StaticService {
         if (!contractInfo) {
           throw new Error('Contact is not found')
         }
-
         return {
           ...contractInfo,
           permissionCreateGrant: this.checkPermissionCreateGrant(contractInfo.name, user.roles),
