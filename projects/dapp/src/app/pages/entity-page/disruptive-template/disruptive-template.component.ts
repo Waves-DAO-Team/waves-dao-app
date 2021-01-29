@@ -73,7 +73,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     this.grant$.next(data)
   }
 
-  get grant (): void {
+  get grant (): ContractGrantModel {
     return this.inputGrant
   }
 
