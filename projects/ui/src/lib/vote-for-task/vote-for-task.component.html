@@ -1,8 +1,7 @@
 <div class="grant-vote">
   <div class="grant-vote-active" *ngIf="!isVote">
     <div class="grant-vote-active__content">
-      <!--TODO тут должен быть .mat-h4 типографика по макету-->
-      <div class="grant-vote__title">
+      <div class="grant-vote__title mat-h4">
         <ng-container *ngIf="isVoteInProcess">
           {{ 'entity.DAO.vote.process.text' | transloco}}
         </ng-container>
