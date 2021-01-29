@@ -20,7 +20,7 @@ export const destroyQueue = (target: any, func: () => void) => { // eslint-disab
       'onDestroy',
       function (...args: Array<() => void>) {
         if (typeof originalDestroy === 'function') {
-          // @ts-ignore
+          // @ts-expect-error
           originalDestroy.apply(this, args)
         }
 

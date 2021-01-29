@@ -8,15 +8,13 @@
   padding: 24px;
 
   &__title {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: sass-calc(26, 18);
     margin-bottom: 4px;
   }
 
   &__caption {
-    font-size: 12px;
+    //font-size: 12px;
     line-height: sass-calc(18, 12);
+    margin-bottom: 0;
   }
 }
 

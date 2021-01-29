@@ -11,7 +11,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogModule,
   MatDialogRef,
-} from '@angular/material/dialog';
+} from '@angular/material/dialog'
 
 describe('MembersPageComponent', () => {
   let component: MembersPageComponent

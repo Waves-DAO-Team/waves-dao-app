@@ -21,6 +21,8 @@ import {
   ContractRawData, ContractRawDataNumber,
   ContractRawDataString
 } from '@services/contract/contract.model'
+import { RequestsService } from '@services/requests-service/requests.service'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,22 +41,20 @@ export class MembershipService {
     private readonly snackBar: MatSnackBar,
     private readonly http: HttpClient,
     private readonly storageService: StorageService,
+    private readonly requestsService: RequestsService,
     @Inject(API) private readonly api: AppApiInterface
-  ) {}
+  ) {
+  }
 
-  // ToDo избавится от дублирования фуекций из contract Service
   public getContractData (address: string) {
-    const url = new URL('/addresses/data/' + address, this.api.rest)
-
-    return this.http.get<ContractRawData>(url.href, {
-      headers: { accept: 'application/json; charset=utf-8' }
-    }).pipe(
-      repeatWhen(() => this.refresh$),
-      map((data: ContractRawData) => ({
-        ...this.prepareData(data),
-        owner: address
-      }))
-    )
+    return this.requestsService.getContractData(address)
+      .pipe(
+        repeatWhen(() => this.refresh$),
+        map((data: ContractRawData) => ({
+          ...this.prepareData(data),
+          owner: address
+        }))
+      )
   }
 
   private group (keys: string[], context: ContractDataIterationModel, value: ContractRawDataString | ContractRawDataNumber): void {

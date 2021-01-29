@@ -26,7 +26,6 @@ export function Async<PropertyDecorator> (): (target: any, propertyKey: string) 
 
     Reflect.defineProperty(target, propName, {
       set: (item): void => {
-
         target[name].next(item)
       },
       get: () =>
@@ -38,7 +37,6 @@ export function Async<PropertyDecorator> (): (target: any, propertyKey: string) 
     destroyQueue(
       target,
       () => {
-
         this[name].complete()
       }
     )

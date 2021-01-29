@@ -14,7 +14,7 @@ export function DestroyedSubject<PropertyDecorator> (): (target: any, propertyKe
       function () {
         target?.[propName].next()
         target?.[propName].complete()
-      }.bind(target)
+      }
     )
   }
 }

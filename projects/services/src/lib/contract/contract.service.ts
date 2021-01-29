@@ -22,6 +22,7 @@ import { StorageService } from '@services/storage/storage.service'
 import { TranslocoService } from '@ngneat/transloco'
 import { GrantStatusEnum } from '@services/static/static.model'
 import { MembershipService } from '@services/membership/membership.service'
+import { RequestsService } from '@services/requests-service/requests.service'
 
 @Injectable({
   providedIn: 'root'
@@ -87,15 +88,13 @@ export class ContractService {
     private storageService: StorageService,
     private readonly translocoService: TranslocoService,
     private readonly membershipService: MembershipService,
+    private readonly requestsService: RequestsService,
     @Inject(API) private readonly api: AppApiInterface
   ) {
   }
 
   public getContractData (address: string) {
-    const url = new URL('/addresses/data/' + address, this.api.rest)
-    return this.http.get<ContractRawData>(url.href, {
-      headers: { accept: 'application/json; charset=utf-8' }
-    }).pipe(
+    return this.requestsService.getContractData(address).pipe(
       map((data: ContractRawData) => ({
         ...this.prepareData(data),
         address
@@ -106,7 +105,6 @@ export class ContractService {
   public refresh (address: string = this.getAddress()): Observable<ContractDataModel> {
     this.storageService.contactAddress = address
     this.contractAddress$.next(address)
-
     return this.contractState.pipe(skip(1), take(1))
   }
 
