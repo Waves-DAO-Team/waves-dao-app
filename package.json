@@ -15,7 +15,7 @@
     "e2e": "ng e2e --port 0",
     "lint:code": "ts-standard --fix",
     "commit": "lint-staged --allow-empty",
-    "push": "run-s lint build e2e tests",
+    "push": "run-s lint:es build e2e tests",
     "heroku": "pm2-runtime start heroku.config.js",
     "postinstall": "run-p envsub:*",
     "envsub:stage": "envsub --diff ./projects/dapp/src/environments/environment.stage.ts",
