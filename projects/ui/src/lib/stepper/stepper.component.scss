@@ -1,35 +1,64 @@
 @import "const";
 
-::ng-deep .mat-horizontal-stepper-header{
-  pointer-events: none !important;
-}
-.mat-step-header .mat-step-icon {
-  display: none !important;
-}
+.stepper {
+  display: flex;
 
-::ng-deep {
-  .mat-step-icon-content {
-    color: #ffffff
+  &__text {
+    width: 14vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .mat-step-header .mat-step-icon {
-    background: $color_light_gray
+
+  &__step {
+    margin-top: 50px;
+    flex: 1;
+    width: 100%;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      //z-index: 1;
+      display: block;
+      left: 0;
+      top: -40px;
+      width: 24px;
+      height: 24px;
+      background: $color_light_gray;
+      content: "";
+    }
+
+    &::after {
+      position: absolute;
+      display: block;
+      left: 0;
+      top: -30px;
+      width: 100%;
+      height: 5px;
+      background: $color_light_gray;
+      content: "";
+    }
   }
-}
 
-.active {
-  ::ng-deep .mat-step-header .mat-step-icon-selected {
-    background-color: $blue;
-
+  &__step-done {
+    &::before, &::after {
+      background: $color_waves_blue;
+    }
   }
-}
 
-:host ::ng-deep .mat-horizontal-content-container {
-  padding:0 !important;
-}
+  &__step-pre-done {
+    &::before {
+      background: $color_waves_blue;
+    }
 
-::ng-deep .mat-completed-step {
-  opacity: 0.3;
-  .mat-step-icon {
-    background: $color_waves_blue;
+    &::after {
+      background: linear-gradient(90deg, $color_waves_blue 5%, $color_light_gray 70%);
+    }
+  }
+
+  &__step-last {
+    &::after {
+      display: none;
+    }
   }
 }
