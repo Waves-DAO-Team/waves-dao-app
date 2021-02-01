@@ -32,6 +32,7 @@
       "propose_web_grant": "Propose a Web 3.0 Dev Grant",
       "link_to_description": "Link to grant description",
       "link_to_apply": "Link to apply form",
+      "hint_link": "After link is opened in new tab, come back here",
       "apply_on_githubt": "Apply form on GitHub",
       "issue_on_githubt": "issue on GitHub",
       "please_submit": "Please submit the form using",
@@ -74,7 +75,7 @@
     "voting_has_started": "Voting has started",
     "requests_selection_over": "Requests selection is over",
     "work_begun": "The work has begun",
-    "requests_selection_start": "Requests requests is start",
+    "requests_selection_start": "Collecting applications",
     "solutions_selection_over": "Requests solutions is over",
     "work_started": "Work started",
     "work_finished": "Work finished"
@@ -94,6 +95,9 @@
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
       "team_chosen": "Looking for a team",
+
+      "team_choosen": "Looking for team",
+
       "solution_chosen": "Solution selected",
       "work_started": "In work",
       "work_finished": "Finished",
@@ -129,7 +133,7 @@
     "teams": "Teams",
     "solutions": "Solutions",
     "votes": "Votes",
-    "winner": "WINNER",
+    "winner": "Performer",
     "approved": "APPROVED",
     "learn_about_team": "Learn more about the team",
     "learn_about_solution": "Learn more about the solution",
@@ -150,13 +154,22 @@
     "no_applied_teams": "no teams have applied for this grant",
     "DAO": {
       "vote": {
+        "button": {
+          "like": "Approve",
+          "dislike": "Reject"
+        },
         "true": {
-          "subtext": "Your voice is important to us",
-          "text": "Vote for the grant"
+          "text": "Your voice is important",
+          "subtext": "Vote for the grant to make this happened."
+        },
+        "process": {
+          "text": "Thanks for your vote!",
+          "subtext": "We will take your vote into account"
         },
         "false": {
-          "subtext": "We will take your vote into account",
-          "text": "Thanks for your vote!"
+          "text": "You already voted",
+          "subtext": "Here is transtaction in ",
+          "explorer": "Waves Explorer."
         }
       }
     },
@@ -208,7 +221,7 @@
     "owner": "DAO owner",
     "members": "Members",
     "master": "Master",
-    "wg": "WG",
+    "wg": "Working Group",
     "dao": "DAO"
   },
   "edit_grant": {
@@ -333,7 +346,8 @@
       "title": "Disruptive Tech Grants",
       "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
       "banner": "Call for applications will be announced in Q1 2021. Stay tuned!",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
+      "landing": "Предлагаются крупные задачи по разработке или исследования, которые полезны для развития и адопшена блокчейн-технологии. Вы можете со своей командой подать на один из этих грантов и получить вознаграждение."
     },
     "web3": {
       "navigation": "Web3.0 grants",
@@ -342,7 +356,8 @@
       "title": "Web 3.0 Dev Grants",
       "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
       "banner": "Apply with your project before Feb. 1, 2021 to receive a grant of up to 100k WAVES",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
+      "landing": "Вы сами предлагаете идеи для грантов этого типа. Обычно это децентрализованное приложение или стартап."
     },
     "interhack": {
       "navigation": "Interhack grants",
@@ -351,8 +366,27 @@
       "title": "Interhack Grants",
       "desc": "Interhack Grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
       "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
+      "landing": "Такие гранты максимально приближены к привычному  формату хакатона. Ассоциация выдвигает идею и предлагаемый приз, а вы с командой соревнуетесь в реализации после отбора кандидатов."
     }
+  },
+  "landing-page": {
+    "exploreGrants": "Explore Grants",
+    "skip": "Skip",
+    "fullGuide": "Full Guide",
+    "exploreGrantsTitle": "Explore Waves Grants",
+    "disruptiveImage": "assets/img/disruptive-type-landing.png",
+    "web3Image": "assets/img/web3-type-landing.png",
+    "interhackImage": "assets/img/interhack-type-landing.png",
+    "howToDAO": "How to DAO",
+    "introDesc": "Waves DAO - фреймворк, используемый Waves Association для принятия решений о поддержке инициатив и проектов на базе протокола Waves в экосистеме: Waves Protocol, Gravity, Neutrino и других. Особенность - в прозрачности процессов. Например, можно наблюдать, какие решения обсуждаются, кто именно стоит за их принятием по финансированию проектов, а также каким образом проходят голосования.",
+    "whatAreRoles": "What are the Roles",
+    "applicant": "Applicant",
+    "applicantDesc": "Это вы. Любой член сообщества, который подал заявку на грант, используя свой аккаунт Waves. Если ваша заявка одобрена и утверждена голосованием DAO Members, вам будет присужден статус Performer.",
+    "workingGroupDesc": "Член рабочей группы по грантам и финансированию (Working Group for Funding & Grants). Группа осуществляет административную роль в грантовой программе. WG Members  предлагают задачи для грантов, открывают/закрывают голосование за команды, готовят отчеты. На данный момент, в состав рабочей группы входит 8 человек. Их аккаунты заносятся в DAO секретарем.",
+    "daoMemberDesc": "Член Ассоциации. Был принят в нее по рекомендации рабочей группы по членству, заплатил членский взнос и имеет право голосовать за распределение грантов, а также за лучшую команду. Список аккаунтов, которые имеют статус DAO Member, определяется DAO Owner’ом. На данный момент, это 30 человек - членов Ассоциации.",
+    "daoOwnerDesc": "Администратор DAO. Имеет право настраивать список участников рабочей группы и членов Ассоциации. На данный момент DAO Owner - это один аккаунт, доступ от которого имеет секретарь Ассоциации. В голосованиях DAO Owner не участвует."
+
   },
   "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
 }

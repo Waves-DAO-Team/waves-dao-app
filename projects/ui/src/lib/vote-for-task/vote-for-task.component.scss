@@ -1,47 +1,59 @@
 @import 'const';
+@import 'mixins/functions';
+@import '~include-media/dist/_include-media.scss';
 
-.card {
-  display: grid;
-  grid-template-columns: 98px 1fr 128px;
-  grid-template-rows: 1fr;
-  gap: 0px 22px;
-  border: 1px solid $gray-light;
-  height: 98px;
+.grant-vote {
+  background: $color_waves_blue;
+  color: $color_white;
+  padding: 24px;
 
-  &__logo {
-    justify-content: center;
-    align-items: center;
-    display: grid;
+  &__title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: sass-calc(26, 18);
+    margin-bottom: 4px;
+  }
+
+  &__caption {
+    font-size: 12px;
+    line-height: sass-calc(18, 12);
+  }
+}
+
+.grant-vote-active {
+  display: flex;
+  justify-content: space-between;
+  @include media('<=tablet') {
+    display: block;
   }
 
   &__content {
-    display: grid;
-
-    &-subtext {
-      align-self: end;
-      margin: 0 0 3px 0;
-      color: $color_dark_gray;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    &-text {
-      margin: 0;
-      font-weight: bold;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    flex: 0 0 45%;
+    @include media('<=tablet') {
+      margin-bottom: 10px;
     }
   }
 
-  &__controls {
-    align-self: center;
-    text-align: center;
+  &__buttons {
+    align-items: center;
+    display: flex;
+    flex: 0 0 45%;
 
-    img {
-      margin: 5px;
-      cursor: pointer;
+    button {
+      flex: 1 1 50%;
+      margin-right: 8px;
+
+      ::ng-deep .mat-button-wrapper {
+        justify-content: center;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
+}
+
+.grant-vote-end {
+  text-align: center;
 }
