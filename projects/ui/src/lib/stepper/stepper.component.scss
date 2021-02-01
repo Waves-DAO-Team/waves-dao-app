@@ -31,6 +31,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: $padding * 2;
+  margin-top: $padding * 2;
 
   &__text {
     max-width: 100%;
