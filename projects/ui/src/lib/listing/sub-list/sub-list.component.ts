@@ -1,4 +1,4 @@
-import { Component, HostBinding, Inject, Input, OnInit } from '@angular/core'
+import {Component, HostBinding, Inject, Input, OnInit, Type} from '@angular/core'
 import {
   ContractGrantExtendedModel
 } from '@services/contract/contract.model'
@@ -14,10 +14,13 @@ export class SubListComponent implements OnInit {
   @Input() contract: GrantsVariationType | null = null;
   @HostBinding('class.enable') @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false
+  // @ts-ignore
+  @Input() public type: 'default' | 'active'
   @Input() title: string | null = null
 
   constructor (
       @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+
   ) {
   }
 

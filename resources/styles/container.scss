@@ -57,7 +57,7 @@
       cursor: pointer;
       font-weight: 100;
       outline: none;
-      padding: 0;
+      padding: $padding + 2 0 0;
       position: sticky;
       top: $padding * 9;
 

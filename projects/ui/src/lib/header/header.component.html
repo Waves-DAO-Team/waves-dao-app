@@ -29,9 +29,9 @@
 
       <li *ngIf="(user$ | async)?.name" class="profile mat-display-2">
         <div class="icon" *ngIf="userService.data.getValue().userRole as role">
-          <img alt="avatar" src="assets/icons/avatar/master.png" *ngIf="role === RoleEnum.master || role === RoleEnum.owner">
-          <img alt="avatar" src="assets/icons/avatar/dao.png" *ngIf="role === RoleEnum.DAOMember">
-          <img alt="avatar" src="assets/icons/avatar/wg.png" *ngIf="role === RoleEnum.workingGroup">
+          <img alt="avatar" src="assets/icons/avatar/master.svg" *ngIf="role === RoleEnum.master || role === RoleEnum.owner">
+          <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="role === RoleEnum.DAOMember">
+          <img alt="avatar" src="assets/icons/avatar/wg.svg" *ngIf="role === RoleEnum.workingGroup">
           <img alt="avatar" src="assets/icons/avatar/auth.png" *ngIf="role === RoleEnum.authorized">
         </div>
         <div class="content">

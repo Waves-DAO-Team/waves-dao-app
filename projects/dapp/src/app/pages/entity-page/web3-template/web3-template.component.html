@@ -35,6 +35,7 @@
   <ui-vote-for-task
     *ngIf="voteForTaskData.isShow"
     [isVote]="voteForTaskData.isVote"
+    [isVoteInProcess]="voteForTaskData.isVoteInProcess"
     (newVoteEvent)="vote($event)"
   ></ui-vote-for-task>
 </ng-template>
