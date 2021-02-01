@@ -30,19 +30,22 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: GRANTS_PROVIDERS
 })
-export class ListingComponent implements OnDestroy {
+export class ListingComponent implements OnInit, OnDestroy {
   @Input() contract: GrantsVariationType | null = null
+  @Input() public type: 'default' | 'active' | undefined
+
   public readonly grantsVariationActive = '1'
   public readonly grantStatusEnum = GrantStatusEnum
   public selectedTagName$ = new BehaviorSubject('all')
+
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
     map((grants) => {
       const list = Object.values(grants.reduce((origin, grant) => ({
-        ...origin,
-        ...(grant?.status?.value === undefined
-          ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus }
-          : { [grant?.status?.value]: grant?.status?.value })
-      }), {}))
+          ...origin,
+          ...(grant?.status?.value === undefined
+            ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus }
+            : { [grant?.status?.value]: grant?.status?.value })
+        }), {}))
 
       if (list.length === 0) {
         return []
@@ -163,14 +166,15 @@ export class ListingComponent implements OnDestroy {
     )
 
   constructor (
-    public cdr: ChangeDetectorRef,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    @Inject(API) public readonly api: AppApiInterface,
-    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
-    public userService: UserService,
-    public contractService: ContractService,
-    public teamService: TeamService
-  ) {}
+      public cdr: ChangeDetectorRef,
+      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+      @Inject(API) public readonly api: AppApiInterface,
+      @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
+      public userService: UserService,
+      public contractService: ContractService,
+      public teamService: TeamService
+  ) {
+  }
 
   selectedTag ($event: string) {
     this.selectedTagName$.next($event)

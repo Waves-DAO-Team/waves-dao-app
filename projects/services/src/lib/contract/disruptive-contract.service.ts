@@ -227,7 +227,7 @@ export class DisruptiveContractService {
         }),
         tap(() => {
           this.contractService.refresh()
-          this.snackBar.open(translate('messages.vote_for_solution'), translate('messages.ok'))
+          this.snackBar.open(translate('entity.vote_for_solution'), translate('messages.ok'))
         })
       )
   }
@@ -246,7 +246,7 @@ export class DisruptiveContractService {
         }),
         tap(() => {
           this.contractService.refresh()
-          this.snackBar.open(translate('messages.stop_submissions'), translate('messages.ok'))
+          this.snackBar.open(translate('entity.stop_submissions'), translate('messages.ok'))
         })
       )
   }
