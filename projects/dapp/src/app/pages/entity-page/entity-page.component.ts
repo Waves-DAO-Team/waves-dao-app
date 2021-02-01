@@ -29,7 +29,7 @@ export class EntityPageComponent implements OnInit, OnDestroy {
     this.location.back()
   }
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
     this.entity.destroy()
   }
 }

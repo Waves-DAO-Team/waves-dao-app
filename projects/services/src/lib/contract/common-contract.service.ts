@@ -46,7 +46,7 @@ export class CommonContractService {
 
           return EMPTY
         }),
-        tap((e) => {
+        tap(() => {
           this.contractService.refresh()
           this.snackBar.open(translate('messages.addTask'), translate('messages.ok'))
         })

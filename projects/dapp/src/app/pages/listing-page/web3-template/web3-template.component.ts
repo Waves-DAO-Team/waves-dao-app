@@ -40,7 +40,7 @@ export class Web3TemplateComponent implements OnInit {
   ngOnInit (): void {
   }
 
-  onProposeGrant () {
+  onProposeGrant (): void {
     this.dialog.open(DialogComponent, {
       data: {
         component: ProposeGrantComponent,

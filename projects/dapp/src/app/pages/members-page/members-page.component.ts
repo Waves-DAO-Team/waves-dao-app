@@ -58,7 +58,7 @@ export class MembersPageComponent {
     })
   }
 
-  openAddWGModal () {
+  openAddWGModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddMemberComponent,

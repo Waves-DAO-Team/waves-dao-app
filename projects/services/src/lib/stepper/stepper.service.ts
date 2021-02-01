@@ -74,7 +74,7 @@ export class StepperService {
     this.grantType = type
   }
 
-  public getFormalStatuses () {
+  public getFormalStatuses (): {key: string, value: string}[] {
     switch (this.grantType) {
       case 'disruptive':
         return this.disruptiveFormalStatuses

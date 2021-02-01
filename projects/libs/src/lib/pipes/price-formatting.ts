@@ -8,7 +8,7 @@ export class PriceFormattingPipe implements PipeTransform {
     return value
   }
 
-  numberWithSpaces (x: string) {
+  numberWithSpaces (x: string): string {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 }

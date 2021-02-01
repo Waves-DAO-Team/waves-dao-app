@@ -41,7 +41,7 @@ export class StaticService {
     )
   }
 
-  getStaticContract (contractType: GrantTypesEnum) {
+  getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
     this.selectedContact = contractType
 

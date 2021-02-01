@@ -12,17 +12,13 @@ import {
 import { BehaviorSubject, from, Observable } from 'rxjs'
 import { publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take } from 'rxjs/operators'
 import {
-  TTransactionFromAPI, TTransactionFromAPIMap
-} from '@waves/ts-types'
-import {
   IInvoke, IInvokeWithType,
-  IMoney, TLong, TParamsToApi, TParamsToSign
+  IMoney, TParamsToSign
 } from '@waves/signer/cjs/interface'
 import { HttpClient } from '@angular/common/http'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { StorageService } from '@services/storage/storage.service'
-import { TTransactionsApi1 } from '@waves/signer/cjs/api'
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +42,7 @@ export class SignerService {
       // Specify URL of the node on Testnet
       NODE_URL: api.nodes // eslint-disable-line
     })
-    this.signer.setProvider(new Provider(api.signer))
+    this.signer.setProvider(new Provider(api.signer)).catch(() => {})
 
     this.user$.next(this.storageService.userData as SignerUser)
   }
@@ -96,7 +92,7 @@ export class SignerService {
         this.snackBar.open(translate('messages.startTransaction'), translate('messages.ok'))
       }),
       switchMap((tx: TParamsToSign<IInvokeWithType>) => from(this.signer.broadcast(tx))),
-      // @ts-expect-error
+      // @ts-expect-error: Data is a specific type on Signer library
       switchMap((data) => this.status(data?.id)),
       tap(() => {
         this.snackBar.open('Transaction is complete', translate('messages.ok'))

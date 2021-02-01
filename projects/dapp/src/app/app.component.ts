@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   constructor (private readonly iconService: IconService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.iconService.registerIcons()
   }
 }

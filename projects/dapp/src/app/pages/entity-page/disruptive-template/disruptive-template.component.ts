@@ -73,7 +73,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     this.grant$.next(data)
   }
 
-  get grant () {
+  get grant (): ContractGrantModel {
     return this.inputGrant
   }
 
@@ -89,7 +89,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   ) {
   }
 
-  vote (value: 'like' | 'dislike') {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -100,7 +100,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  signup () {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -109,7 +109,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal () {
+  openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -128,14 +128,14 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface) {
+  voteTeam ($event: VoteTeamEventInterface): void {
     const id = this.grant?.id as string
     const teamId = $event.teamIdentifier
     const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote () {
+  finishVote (): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 

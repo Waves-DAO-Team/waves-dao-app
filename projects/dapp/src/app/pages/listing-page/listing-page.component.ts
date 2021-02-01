@@ -32,7 +32,7 @@ export class ListingPageComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
     this.contract.destroy()
   }
 }

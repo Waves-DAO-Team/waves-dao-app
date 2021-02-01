@@ -20,7 +20,10 @@ export class BrowserWindowRef extends WindowRef {
 }
 
 /* Create an factory function that returns the native window object. */
-export const windowFactory = (browserWindowRef: BrowserWindowRef, platformId: object): Window | {} => {
+export const windowFactory = (
+    browserWindowRef: BrowserWindowRef,
+    platformId: Record<string, unknown>
+): Window | Record<string, unknown> => {
   if (isPlatformBrowser(platformId)) {
     return browserWindowRef.nativeWindow
   }

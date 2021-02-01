@@ -47,10 +47,10 @@ export class LinkContentService {
         } else if (data.isFile && data?.url) {
           return this.http.request('get', `https://raw.githubusercontent.com/${data?.url.replace('blob/', '')}`, {
             responseType: 'text'
-          }).pipe(catchError((e: Error) => of('')))
+          }).pipe(catchError(() => of('')))
         } else if (data?.url) {
           return this.http.get<MainResponseInterface>(`https://api.github.com/repos${data?.url}/contents/README.md`)
-            .pipe(catchError((e: Error) => of('')))
+            .pipe(catchError(() => of('')))
         } else {
           return of('')
         }
@@ -76,7 +76,7 @@ export class LinkContentService {
     )
   }
 
-  getPrepareContent (link: string) {
+  getPrepareContent (link: string): Observable<string | undefined> {
     return this.getContent(link)
       .pipe(
         map((el: string | undefined) => el || ''),

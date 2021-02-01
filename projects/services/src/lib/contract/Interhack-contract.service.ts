@@ -20,24 +20,24 @@ export class InterhackContractService {
   ) {}
 
   // Add DAO Members
-  public addDAOMember (member: string) {
+  public addDAOMember (member: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addDAOMember(member)
   }
 
   // ADD work group user
-  public addGroupMember (member: string) {
+  public addGroupMember (member: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addGroupMember(member)
   }
 
   // Add task
   // Permission: only WG
-  public addTask (taskName: string, link: string) {
+  public addTask (taskName: string, link: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addTask(taskName, link)
   }
 
   // Finished create task. Start voting
   // Permission: only WG
-  public addReward (taskId: string, reward: string) {
+  public addReward (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addReward(taskId, reward)
   }
 

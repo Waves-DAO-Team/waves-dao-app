@@ -36,7 +36,7 @@ export class AboutPageComponent implements OnInit, OnDestroy {
     this.location.back()
   }
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
     this.contract.destroy()
   }
 }

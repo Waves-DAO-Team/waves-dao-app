@@ -130,7 +130,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     this.grant$.next(data)
   }
 
-  get grant () {
+  get grant (): ContractGrantModel {
     return this.inputGrant
   }
 
@@ -219,7 +219,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     this.communityContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward () {
+  addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddTaskDetailsComponent,
@@ -240,15 +240,15 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  initTaskVoting () {
+  initTaskVoting (): void {
     if (this.grant.id) {
-      this.communityContractService.initTaskVoting(this.grant.id).subscribe((e) => {
+      this.communityContractService.initTaskVoting(this.grant.id).subscribe(() => {
         this.cdr.markForCheck()
       })
     }
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel): void {
     if (
       this.userService.data.getValue().roles.isDAO &&
         grant?.status?.value === this.grantStatusEnum.votingStarted

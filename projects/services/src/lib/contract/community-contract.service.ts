@@ -7,6 +7,7 @@ import { ContractService } from '@services/contract/contract.service'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { TransactionsSuccessResult } from '@services/signer/signer.model'
+import {ContractDataModel} from '@services/contract/contract.model'
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class CommunityContractService {
   ) {
   }
 
-  streamContractService () {
+  streamContractService (): Observable<ContractDataModel> {
     return this.contractService.stream
   }
 
@@ -40,14 +41,14 @@ export class CommunityContractService {
           this.snackBar.open(translate(mes))
           return EMPTY
         }),
-        tap((e) => {
+        tap(() => {
           this.contractService.refresh()
           this.snackBar.open(translate('messages.initTaskVoting'), translate('messages.ok'))
         })
       )
   }
 
-  public addReward (taskId: string, reward: string) {
+  public addReward (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addReward',
@@ -114,7 +115,7 @@ export class CommunityContractService {
         this.snackBar.open(translate(mes))
         return EMPTY
       }),
-      tap((e) => {
+      tap(() => {
         this.contractService.refresh()
         this.snackBar.open(translate('messages.voteForApplicant'), translate('messages.ok'))
       })

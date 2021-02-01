@@ -32,7 +32,7 @@ export class DefaultTemplateComponent implements OnInit {
   ngOnInit (): void {
   }
 
-  onProposeGrant () {
+  onProposeGrant (): void {
     this.dialog.open(DialogComponent, {
       data: {
         component: ProposeGrantComponent,

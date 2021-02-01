@@ -15,7 +15,6 @@ import {
   ContractGrantRawModel,
   ContractRawData,
   ContractRawDataEntityId,
-  ContractRawDataNumber,
   ContractRawDataString
 } from './contract.model'
 import { StorageService } from '@services/storage/storage.service'
@@ -93,7 +92,7 @@ export class ContractService {
   ) {
   }
 
-  public getContractData (address: string) {
+  public getContractData (address: string): Observable<ContractDataModel> {
     return this.requestsService.getContractData(address).pipe(
       map((data: ContractRawData) => ({
         ...this.prepareData(data),
@@ -108,7 +107,7 @@ export class ContractService {
     return this.contractState.pipe(skip(1), take(1))
   }
 
-  public switchContract (type: string | undefined) {
+  public switchContract (type: string | undefined): void {
     if (!type) {
       return
     }

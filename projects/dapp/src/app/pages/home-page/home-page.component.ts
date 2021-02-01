@@ -27,5 +27,5 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnInit (): void {}
 
-  ngOnDestroy () {}
+  ngOnDestroy (): void {}
 }

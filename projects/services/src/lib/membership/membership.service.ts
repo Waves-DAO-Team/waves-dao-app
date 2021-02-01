@@ -46,7 +46,7 @@ export class MembershipService {
   ) {
   }
 
-  public getContractData (address: string) {
+  public getContractData (address: string): Observable<ContractDataModel> {
     return this.requestsService.getContractData(address)
       .pipe(
         repeatWhen(() => this.refresh$),
@@ -71,7 +71,7 @@ export class MembershipService {
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
-    return data.reduce((orig: {} | ContractDataIterationModel, item) => {
+    return data.reduce((orig: ContractDataIterationModel, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig
@@ -115,7 +115,7 @@ export class MembershipService {
       )
   }
 
-  refresh () {
+  refresh (): void {
     console.log('Refresh memberships')
     this.refresh$.next(null)
   }

@@ -38,7 +38,7 @@ export class LoadingWrapper<T> {
     )
   }
 
-  destroy () {
+  destroy (): void {
     this.destroyed$.next(null)
     this.destroyed$.complete()
   }

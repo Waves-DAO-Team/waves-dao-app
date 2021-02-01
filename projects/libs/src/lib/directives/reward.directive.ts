@@ -11,11 +11,11 @@ export class RewardDirective {
 
   constructor (private readonly el: ElementRef) {}
 
-  @HostListener('keyup') blur () {
+  @HostListener('keyup') blur (): void {
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)
   }
 
-  format (str: string) {
+  format (str: string): string {
     this.lastSelectionStart = this.el.nativeElement.selectionStart
     this.cursorJumpAtBeginningOfInputGuard(str)
     str = this.numberGuard(str)
@@ -29,7 +29,7 @@ export class RewardDirective {
   }
 
   //  1000000.00 =>  1 000 000.00
-  numberWithSpaces (x: string) {
+  numberWithSpaces (x: string): string {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 
@@ -54,7 +54,7 @@ export class RewardDirective {
     return num
   }
 
-  private cursorJumpAtBeginningOfInputGuard (num: string) {
+  private cursorJumpAtBeginningOfInputGuard (num: string): void {
     if (num.length < 2) {
       setTimeout(() => {
         this.jumpTo(1)
