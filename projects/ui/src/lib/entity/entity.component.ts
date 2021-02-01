@@ -55,10 +55,9 @@ export class EntityComponent implements OnDestroy {
   ) {
   }
 
-  startWork () {
+  startWork (): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  ngOnDestroy () {
-  }
+  ngOnDestroy (): void {}
 }

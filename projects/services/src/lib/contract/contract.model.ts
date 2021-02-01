@@ -104,6 +104,12 @@ export interface ContractGrantExtendedModel extends ContractGrantModel {
   rewardText?: string
 }
 
+export interface ContractGrantExtendedParentModel {
+  grants: ContractGrantExtendedModel[];
+  selectedTag: string;
+  isDAO: boolean
+}
+
 export interface ContractDataModel {
   address: string
   owner: string

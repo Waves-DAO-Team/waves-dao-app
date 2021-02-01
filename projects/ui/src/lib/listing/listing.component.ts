@@ -1,12 +1,13 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject,
   Input,
-  OnDestroy,
-  OnInit
+  OnDestroy
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import {
-  ContractGrantExtendedModel, ContractGrantModel, ContractRawDataNumber
+  ContractGrantExtendedModel,
+  ContractGrantExtendedParentModel,
+  ContractGrantModel, ContractRawDataNumber
 } from '@services/contract/contract.model'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -64,7 +65,7 @@ export class ListingComponent implements OnDestroy {
     [this.grants.data$, this.userService.data, this.selectedTagName$]
   )
     .pipe(
-      map(([grants, userServiceData, selectedTagName]) => ({ // all to one
+      map(([grants, userServiceData, selectedTagName]): ContractGrantExtendedParentModel => ({ // all to one
         grants: grants.filter((e) => {
           const status = e.status && e.status.value ? e.status.value : null
           if (
@@ -75,12 +76,11 @@ export class ListingComponent implements OnDestroy {
         selectedTag: selectedTagName,
         isDAO: userServiceData.roles.isDAO
       })),
-      map((data) => // fix reward
-        ({
+      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
           ...data,
           grants: data.grants.map((e) => {
-            if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
-              e.reward.value = (e.reward.value / 100000000).toFixed(2)
+            if (e.reward && e.reward.value) {
+              e.reward.value = (parseFloat(e.reward.value) / 100000000).toFixed(2)
             } else if (e.reward === undefined) {
               const newData: ContractRawDataNumber = {
                 key: '', type: 0, value: '0.00'
@@ -91,8 +91,7 @@ export class ListingComponent implements OnDestroy {
           })
         })
       ),
-      map((data) => // isCanShowByTag
-        ({
+      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
           ...data,
           grants: data.grants.filter((e) => {
             const status = e.status && e.status.value ? e.status.value : null
@@ -100,8 +99,7 @@ export class ListingComponent implements OnDestroy {
           })
         })
       ),
-      map((data) => // add roleText, statusText
-        ({
+      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
           ...data,
           grants: data.grants.map((e: ContractGrantExtendedModel) => {
             const status = e.status && e.status.value ? e.status.value : 'no_status'
@@ -115,8 +113,7 @@ export class ListingComponent implements OnDestroy {
           })
         })
       ),
-      map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null)
-      // tap((data) => console.log('otherGrant$', data))
+      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedModel[] | null => data?.grants?.length ? data?.grants : null)
     )
 
   public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
@@ -176,11 +173,11 @@ export class ListingComponent implements OnDestroy {
   ) {
   }
 
-  selectedTag ($event: string) {
+  selectedTag ($event: string): void {
     this.selectedTagName$.next($event)
   }
 
-  isCanShowByTag (status: string | null, selectedTagName: string) {
+  isCanShowByTag (status: string | null, selectedTagName: string): boolean {
     if (selectedTagName === 'all') {
       return true
     }
@@ -195,7 +192,7 @@ export class ListingComponent implements OnDestroy {
     return this.userService.data.getValue().apply.includes(grantId)
   }
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
     this.grants.destroy()
   }
 }

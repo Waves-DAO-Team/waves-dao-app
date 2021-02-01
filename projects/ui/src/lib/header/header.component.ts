@@ -55,16 +55,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit (): void {}
 
-  signupHandler () {
+  signupHandler (): void {
     this.signerService.login().subscribe(() => {
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
     })
   }
 
-  logoutHandler () {
+  logoutHandler (): void {
     // Get one value after click
-    this.signerService.logout().pipe(take(1)).subscribe((e) => {
+    this.signerService.logout().pipe(take(1)).subscribe(() => {
       this.contractService.refresh()
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
@@ -75,5 +75,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.location.back()
   }
 
-  ngOnDestroy () {}
+  ngOnDestroy (): void {}
 }

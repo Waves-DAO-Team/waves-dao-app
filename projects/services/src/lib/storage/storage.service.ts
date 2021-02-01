@@ -84,7 +84,11 @@ export class StorageService {
   public get userData (): SignerUser | null {
     const data = this.getSession(this.userDataSession)
     if (data) {
-      return JSON.parse(data)
+      try {
+        return JSON.parse(data)
+      } catch (e) {
+        return null
+      }
     }
 
     return null

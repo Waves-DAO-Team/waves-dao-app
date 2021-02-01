@@ -21,12 +21,11 @@ export class AddRewardComponent {
   ) {
   }
 
-  onSubmit () {
+  onSubmit (): void {
     if (this.params.submitCallBack) {
       this.isInProcess = true
       this.params.submitCallBack({
         reward: (this.grantForm.value.reward * 100000000).toString()
-        // reward: this.grantForm.value.reward
       })
     }
   }

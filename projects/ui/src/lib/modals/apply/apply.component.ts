@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'

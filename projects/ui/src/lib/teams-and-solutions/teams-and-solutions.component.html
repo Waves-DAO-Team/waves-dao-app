@@ -80,7 +80,7 @@
                   alt="vote"
                   [class.disabled]="
                   teamsAndSolutionsControls.teamVoteKeys.includes(app.key)
-                  || GrantStatusEnum.readyToApply !== grant?.status?.value
+                  || grantStatusEnum.readyToApply !== grant?.status?.value
                 "
                   src="assets/icons/arr-down-red.svg"
                   (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">

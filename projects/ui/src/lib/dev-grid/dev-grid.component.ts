@@ -39,7 +39,7 @@ export class DevGridComponent implements OnInit {
     this.enabled = isPlatformBrowser(platformId)
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.devPageMode = isDevMode()
     if (this.enabled && this.devPageMode) {
       setTimeout(() => {
@@ -56,7 +56,7 @@ export class DevGridComponent implements OnInit {
     }
   }
 
-  toggleClassBody () {
+  toggleClassBody (): void {
     if (!this.enabled) {
       return
     }
