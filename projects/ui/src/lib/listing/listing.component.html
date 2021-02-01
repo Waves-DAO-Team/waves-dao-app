@@ -5,11 +5,13 @@
       <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
         <ui-sub-list
                 [contract]="contract"
+                [type]="'active'"
                 [isImportant]="true"
                 [title]="'listing.list.important' | transloco"
                 [grants]="(importantGrant$ | async)"
         ></ui-sub-list>
         <ui-sub-list
+                [type]="'default'"
                 [contract]="contract"
                 [isImportant]="false"
                 [title]="'listing.list.grants' | transloco"
