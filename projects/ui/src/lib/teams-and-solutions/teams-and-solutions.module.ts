@@ -8,7 +8,6 @@ import { TranslocoModule } from '@ngneat/transloco'
   imports: [
     CommonModule,
     TranslocoModule
-
   ],
   exports: [TeamsAndSolutionsComponent]
 })

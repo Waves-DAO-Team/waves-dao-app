@@ -12,6 +12,7 @@ import { MarkdownModule } from 'ngx-markdown'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { DIALOG_DATA } from '@ui/dialog/dialog.tokens'
+import {ReactiveFormsModule} from '@angular/forms'
 
 describe('SubmitSolutionComponent', () => {
   let component: SubmitSolutionComponent
@@ -27,7 +28,8 @@ describe('SubmitSolutionComponent', () => {
         MarkdownModule,
         StepperModule,
         NoopAnimationsModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveFormsModule
       ],
       declarations: [SubmitSolutionComponent],
       providers: [

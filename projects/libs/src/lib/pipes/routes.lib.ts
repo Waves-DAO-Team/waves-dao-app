@@ -1,4 +1,4 @@
-export const getRoutes = (value: string | string[], args: string[]) => { // eslint-disable-line
+export const getRoutes = (value: string | string[], args: string[]): string[] => {
   const params = args.slice()
   return (
     (typeof value === 'string') ? value.split('/') : value
@@ -6,8 +6,6 @@ export const getRoutes = (value: string | string[], args: string[]) => { // esli
     .map((path) => path.indexOf(':') === 0 ? params.shift() || path : path)
 }
 
-export const route
-  = (value: string | string[], args: string[]) => '/' + getRoutes(value, args).join('/') // eslint-disable-line
+export const route = (value: string | string[], args: string[]): string => '/' + getRoutes(value, args).join('/')
 
-export const relativeRoute
-  = (value: string | string[], args: string[]) => getRoutes(value, args).join('/') // eslint-disable-line
+export const relativeRoute = (value: string | string[], args: string[]): string => getRoutes(value, args).join('/')

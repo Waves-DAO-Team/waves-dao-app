@@ -369,7 +369,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     }
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant) {
+  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant): void {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === this.grantStatusEnum.proposed &&

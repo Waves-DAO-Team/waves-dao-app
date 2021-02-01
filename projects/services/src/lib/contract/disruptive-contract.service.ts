@@ -13,19 +13,25 @@ import { TransactionsSuccessResult } from '@services/signer/signer.model'
 })
 export class DisruptiveContractService {
   constructor (
-    private readonly commonContractService: CommonContractService, // eslint-disable-line
-    private readonly contractService: ContractService, // eslint-disable-line
-    private readonly signerService: SignerService, // eslint-disable-line
-    private readonly snackBar: MatSnackBar // eslint-disable-line
+    private readonly commonContractService: CommonContractService,
+    private readonly contractService: ContractService,
+    private readonly signerService: SignerService,
+    private readonly snackBar: MatSnackBar
   ) {
   }
 
-  public addDAOMember (member: string): Observable<TransactionsSuccessResult> {
+  public addDAOMember (member: string): Observable<TransactionsSuccessResult>  {
     return this.commonContractService.addDAOMember(member)
   }
 
   public addGroupMember (member: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addGroupMember(member)
+  }
+
+  // Add task
+  // Permission: only WG
+  public addTask (taskName: string, link: string): Observable<TransactionsSuccessResult> {
+    return this.commonContractService.addTask(taskName, link)
   }
 
   // Finished create task. Start voting
@@ -221,7 +227,7 @@ export class DisruptiveContractService {
         }),
         tap(() => {
           this.contractService.refresh()
-          this.snackBar.open(translate('messages.vote_for_solution'), translate('messages.ok'))
+          this.snackBar.open(translate('entity.vote_for_solution'), translate('messages.ok'))
         })
       )
   }
@@ -240,7 +246,7 @@ export class DisruptiveContractService {
         }),
         tap(() => {
           this.contractService.refresh()
-          this.snackBar.open(translate('messages.stop_submissions'), translate('messages.ok'))
+          this.snackBar.open(translate('entity.stop_submissions'), translate('messages.ok'))
         })
       )
   }
