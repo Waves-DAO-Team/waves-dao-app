@@ -34,11 +34,13 @@
 
   &__text {
     max-width: 100%;
-    margin-left: $padding;
+
     @include media('>=tablet') {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-left: $padding;
+      margin-right: $padding;
     }
   }
 
@@ -66,17 +68,22 @@
       text-align: left;
 
       .stepper__text {
-        margin: 0;
+        margin-left: 0;
       }
     }
 
+
     &:last-child {
+      text-align: right;
+
       &::before {
         left: auto;
         right: 0;
       }
+      .stepper__text {
+        margin-right: 0;
+      }
 
-      text-align: right;
     }
   }
 
@@ -95,5 +102,10 @@
       background: linear-gradient(90deg, $color_waves_blue 49%, $color_light_gray 95%);
     }
   }
+}
 
+.stepper__step-last.stepper__step-pre-done  {
+  &::after {
+    background: $color_waves_blue;
+  }
 }
