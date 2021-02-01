@@ -30,7 +30,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: GRANTS_PROVIDERS
 })
-export class ListingComponent implements OnInit, OnDestroy {
+export class ListingComponent implements OnDestroy {
   @Input() contract: GrantsVariationType | null = null
   @Input() public type: 'default' | 'active' | undefined
 
