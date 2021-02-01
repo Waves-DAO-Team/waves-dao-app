@@ -14,10 +14,12 @@ export const destroyQueue = (target: any, func: () => void) => { // eslint-disab
 
   Reflect.defineMetadata(METADATA_KEY, (metadata || []).concat([func]), target, METADATA_PROPERTY_KEY)
 
-  // @ts-expect-error: Problem with create type this object
+  // eslint-disable-next-line
+  // @ts-ignore
   if (target.constructor && target.constructor.ɵcmp) {
     Reflect.set(
-      // @ts-expect-error: Problem with create type this object
+      // eslint-disable-next-line
+      // @ts-ignore
       target.constructor.ɵcmp,
       'onDestroy',
       function (...args: Array<() => void>) {
