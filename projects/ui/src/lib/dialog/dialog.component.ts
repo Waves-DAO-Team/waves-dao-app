@@ -20,7 +20,7 @@ export class DialogComponent {
   public component: ComponentRef<ApplyComponent> | undefined = undefined
 
   constructor (
-    public dialogRef: MatDialogRef<DialogComponent>,
+    public dialogRef: MatDialogRef<DialogComponent>, // eslint-disable-line
     @Inject(MAT_DIALOG_DATA) public data: {
       component: ComponentRef<ApplyComponent>
       params: {

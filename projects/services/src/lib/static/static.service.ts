@@ -15,10 +15,10 @@ export class StaticService {
   public selectedContact: GrantTypesEnum = GrantTypesEnum.disruptive
 
   constructor (
-    private readonly contractService: ContractService,
-    private readonly userService: UserService,
-    private readonly translocoService: TranslocoService,
-    @Inject(API) private readonly api: AppApiInterface
+    private readonly contractService: ContractService, // eslint-disable-line
+    private readonly userService: UserService, // eslint-disable-line
+    private readonly translocoService: TranslocoService, // eslint-disable-line
+    @Inject(API) private readonly api: AppApiInterface // eslint-disable-line
   ) { }
 
   public getContactsList (): Observable<GrantsVariationType[]> {
@@ -44,7 +44,6 @@ export class StaticService {
   getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
     this.selectedContact = contractType
-
     return combineLatest([
       this.getContactInfo(contractType),
       this.userService.data
@@ -54,7 +53,6 @@ export class StaticService {
         if (!contractInfo) {
           throw new Error('Contact is not found')
         }
-
         return {
           ...contractInfo,
           permissionCreateGrant: this.checkPermissionCreateGrant(contractInfo.name, user.roles),

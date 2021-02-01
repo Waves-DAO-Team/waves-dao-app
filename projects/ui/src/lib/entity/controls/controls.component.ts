@@ -15,7 +15,7 @@ export class ControlsComponent {
   @Input() controlsTemplate: TemplateRef<Component> | undefined
 
   constructor (
-    public userService: UserService
+    public userService: UserService // eslint-disable-line
   ) {
   }
 }

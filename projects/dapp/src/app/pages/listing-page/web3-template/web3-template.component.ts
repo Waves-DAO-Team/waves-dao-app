@@ -31,9 +31,9 @@ export class Web3TemplateComponent implements OnInit {
   @Input() public readonly api!: AppApiInterface
 
   constructor (
-    private readonly dialog: MatDialog,
-    public communityContractService: CommunityContractService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public communityContractService: CommunityContractService, // eslint-disable-line
+    private readonly cdr: ChangeDetectorRef // eslint-disable-line
   ) {
   }
 

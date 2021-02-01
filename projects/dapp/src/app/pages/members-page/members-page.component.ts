@@ -25,14 +25,14 @@ export class MembersPageComponent {
   public readonly user$ = this.userService.data
 
   constructor (
-    private readonly commonContractService: CommonContractService,
-    private readonly dialog: MatDialog,
-    private readonly location: Location,
-    public userService: UserService,
-    public staticService: StaticService,
-    public cdr: ChangeDetectorRef,
-    @Inject(API) public readonly api: AppApiInterface,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    private readonly commonContractService: CommonContractService,  // eslint-disable-line
+    private readonly dialog: MatDialog, // eslint-disable-line
+    private readonly location: Location, // eslint-disable-line
+    public userService: UserService, // eslint-disable-line
+    public staticService: StaticService, // eslint-disable-line
+    public cdr: ChangeDetectorRef, // eslint-disable-line
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
   ) {
   }
 

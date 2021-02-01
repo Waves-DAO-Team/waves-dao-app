@@ -8,10 +8,10 @@ export interface VoteTeamEventInterface {
 
 export abstract class TemplateComponentAbstract {
   public grant$: Subject<ContractGrantModel> | undefined
-  public abstract vote (value: 'like' | 'dislike'): void
+  public abstract vote (value: 'like' | 'dislike'): void // eslint-disable-line
   public abstract signup (): void
   public abstract openApplyModal (): void
-  public abstract voteTeam ($event: VoteTeamEventInterface): void
+  public abstract voteTeam ($event: VoteTeamEventInterface): void // eslint-disable-line
   public abstract finishVote (): void
   public abstract startWork (): void
   public abstract reject (): void

@@ -16,8 +16,8 @@ export class AddRewardComponent {
   })
 
   constructor (
-    @Inject(DIALOG_DATA) public params: DialogParams,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    @Inject(DIALOG_DATA) public params: DialogParams, // eslint-disable-line
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
   ) {
   }
 

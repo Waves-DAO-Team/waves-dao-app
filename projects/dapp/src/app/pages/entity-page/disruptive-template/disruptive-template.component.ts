@@ -80,12 +80,12 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   private inputGrant: ContractGrantModel = {}
 
   constructor (
-    private readonly dialog: MatDialog,
-    public disruptiveContractService: DisruptiveContractService,
-    private readonly snackBar: MatSnackBar,
-    public signerService: SignerService,
-    private readonly cdr: ChangeDetectorRef,
-    public userService: UserService
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar, // eslint-disable-line
+    public signerService: SignerService, // eslint-disable-line
+    private readonly cdr: ChangeDetectorRef,// eslint-disable-line
+    public userService: UserService // eslint-disable-line
   ) {
   }
 

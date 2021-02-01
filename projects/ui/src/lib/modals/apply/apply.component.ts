@@ -20,9 +20,9 @@ export class ApplyComponent {
   })
 
   constructor (
-    public staticService: StaticService,
-    public disruptiveContractService: DisruptiveContractService,
-    @Inject(API) public readonly api: AppApiInterface,
+    public staticService: StaticService, // eslint-disable-line
+    public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
     @Inject(DIALOG_DATA) public params: DialogParams) {
     if (params.grant) {
       this.grant = params.grant

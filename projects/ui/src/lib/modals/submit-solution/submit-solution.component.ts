@@ -16,8 +16,8 @@ export class SubmitSolutionComponent {
   })
 
   constructor (
-    public userService: UserService,
-    @Inject(DIALOG_DATA) public params: DialogParams
+    public userService: UserService, // eslint-disable-line
+    @Inject(DIALOG_DATA) public params: DialogParams // eslint-disable-line
   ) {}
 
   onSubmit (): void {

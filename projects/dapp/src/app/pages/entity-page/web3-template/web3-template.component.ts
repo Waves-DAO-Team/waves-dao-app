@@ -135,12 +135,12 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
   }
 
   constructor (
-    private readonly dialog: MatDialog,
-    public communityContractService: CommunityContractService,
-    private readonly snackBar: MatSnackBar,
-    public signerService: SignerService,
-    private readonly cdr: ChangeDetectorRef,
-    public userService: UserService
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public communityContractService: CommunityContractService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar, // eslint-disable-line
+    public signerService: SignerService, // eslint-disable-line
+    private readonly cdr: ChangeDetectorRef, // eslint-disable-line
+    public userService: UserService // eslint-disable-line
   ) {
   }
 

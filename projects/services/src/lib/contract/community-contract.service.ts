@@ -14,10 +14,10 @@ import {ContractDataModel} from '@services/contract/contract.model'
 })
 export class CommunityContractService {
   constructor (
-    private readonly commonContractService: CommonContractService,
-    private readonly contractService: ContractService,
-    private readonly signerService: SignerService,
-    private readonly snackBar: MatSnackBar
+    private readonly commonContractService: CommonContractService, // eslint-disable-line
+    private readonly contractService: ContractService, // eslint-disable-line
+    private readonly signerService: SignerService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar  // eslint-disable-line
   ) {
   }
 

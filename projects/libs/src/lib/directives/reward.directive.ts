@@ -9,7 +9,7 @@ export class RewardDirective {
   maxVal = 1000000
   lastSelectionStart = 0
 
-  constructor (private readonly el: ElementRef) {}
+  constructor (private readonly el: ElementRef) {} // eslint-disable-line
 
   @HostListener('keyup') blur (): void {
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)

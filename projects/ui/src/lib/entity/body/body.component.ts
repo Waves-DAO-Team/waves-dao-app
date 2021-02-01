@@ -26,7 +26,7 @@ export class BodyComponent implements OnInit {
     return this.mdTemp
   }
 
-  constructor (public cdr: ChangeDetectorRef) {}
+  constructor (public cdr: ChangeDetectorRef) {} // eslint-disable-line
 
   ngOnInit (): void {
   }

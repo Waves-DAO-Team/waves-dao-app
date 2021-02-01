@@ -9,8 +9,8 @@ export class IconService {
   private readonly icons = ['like', 'dislike']
 
   constructor (
-    private readonly matIconRegistry: MatIconRegistry,
-    private readonly domSanitizer: DomSanitizer
+    private readonly matIconRegistry: MatIconRegistry, // eslint-disable-line
+    private readonly domSanitizer: DomSanitizer // eslint-disable-line
   ) { }
 
   public registerIcons (): void {

@@ -17,7 +17,7 @@ export class SubListComponent {
   @Input() title: string | null = null
 
   constructor (
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
   ) {
   }
 }

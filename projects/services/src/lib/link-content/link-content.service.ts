@@ -16,7 +16,7 @@ interface LinkDataModel {
   providedIn: 'root'
 })
 export class LinkContentService {
-  constructor (private readonly http: HttpClient) {
+  constructor (private readonly http: HttpClient) { // eslint-disable-line
   }
 
   getContent (link: string): Observable<string | undefined> {

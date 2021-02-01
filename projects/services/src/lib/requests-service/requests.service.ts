@@ -9,8 +9,8 @@ import { Observable } from 'rxjs'
 })
 export class RequestsService {
   constructor (
-    private readonly http: HttpClient,
-    @Inject(API) private readonly api: AppApiInterface
+    private readonly http: HttpClient, // eslint-disable-line
+    @Inject(API) private readonly api: AppApiInterface // eslint-disable-line
   ) { }
 
   public getContractData (address: string): Observable<ContractRawData> {

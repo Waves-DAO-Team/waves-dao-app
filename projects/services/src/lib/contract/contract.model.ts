@@ -19,12 +19,36 @@ export interface ContractRawDataNumber {
 
 export type ContractRawData = ContractRawDataString[]
 
+export interface ContractGrantFullAppModel {
+  owner: string; address:
+    string;
+  working: {
+    group: {
+      member: {
+        [s: string]: { weight: ContractRawDataString;
+        };
+      };
+      name: ContractRawDataString;
+      size: ContractRawDataNumber;
+    };
+  };
+  dao: {
+    member: {[s: string]: {
+        weight: ContractRawDataString
+      }}
+    members: ContractRawDataString
+    size: ContractRawDataNumber
+  };
+  tasks: {[s: string]: ContractGrantRawModel};
+}
+
 export interface ContractGrantAppModel {
   id: ContractRawDataString
   leader: ContractRawDataString
   name: ContractRawDataString
   link: ContractRawDataString
   key?: string
+  owner?: string
   process?: {
     key: string
     type: string
