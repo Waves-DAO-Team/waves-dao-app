@@ -47,10 +47,9 @@
     applyBtnText="{{'entity.apply' | transloco}}"
   ></ui-teams-and-solutions>
 
-  <button
-    *ngIf="(failedTeams$ | async).length > 0"
-    class="btn full see-all-teams-btn"
-  >{{'entity.see_all_teams' | transloco}}</button>
+  <ng-container *ngIf="failedTeams$ | async as teams">
+    <button *ngIf="teams.length > 0" class="btn full see-all-teams-btn">{{'entity.see_all_teams' | transloco}}</button>
+  </ng-container>
 
 </ng-template>
 
