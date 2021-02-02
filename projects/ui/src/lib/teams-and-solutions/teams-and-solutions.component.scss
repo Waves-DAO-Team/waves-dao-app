@@ -24,7 +24,7 @@
     align-items: center;
     font-weight: bold;
     overflow: hidden;
-    padding-left: $padding;
+    //padding-left: $padding;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 95%;
@@ -34,17 +34,26 @@
     min-height: 45px;
     max-height: 45px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    > a {
+      padding-top: $padding / 3;
+    }
   }
-  &__solution-link {
-    @include link();
+
+  &__link,  &__solution-link {
+    font-weight: 500;
+    padding-left: 14px;
+    white-space: nowrap;
+    color: #05f;
     margin: 0;
     line-height: 1;
-  }
-  &__link {
-    @include link();
-    margin: 0;
-    line-height: 1;
+    position: relative;
+    margin-right: $padding * 1.5;
+    img {
+      position: absolute;
+      right: -22px;
+      top: 2px;
+    }
   }
 }
 
