@@ -43,3 +43,10 @@ button.active {
     border: 1px solid $color_black;
   }
 }
+
+button.full {
+  width: 100%;
+  margin-left: 0 !important;
+  text-align: center;
+  display: block;
+}

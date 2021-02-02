@@ -117,6 +117,7 @@
     }
   },
   "entity": {
+    "see_all_teams": "SEE ALL TEAMS",
     "reward": "Reward",
     "log_in_for_apply": "Log in to apply",
     "edit_task_details": "EDIT TASK DETAILS",
