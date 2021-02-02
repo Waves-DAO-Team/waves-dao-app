@@ -7,21 +7,21 @@
   <div class="container__mid">
     <div class="all-teams__title mat-h3">
       {{ 'all_teams.title' | transloco }}
-      {{title$ | async}}
+      <a [routerLink]="['/', 'grants', (grantUrl$ | async).contractType, (grantUrl$ | async).entityId]">{{title$ | async}}</a>
     </div>
     <ul class="all-teams__teams">
-<!--      <li-->
-<!--        class="all-teams__team"-->
-<!--        *ngFor="let team of (teams$ | async)"-->
-<!--      >-->
-<!--        <div class="all-teams__left-container">-->
-<!--          {{team.score}}-->
-<!--        </div>-->
-<!--        <div class="all-teams__right-container">-->
-<!--          {{team.name}}-->
-<!--          {{team.link}}-->
-<!--        </div>-->
-<!--      </li>-->
+      <li
+        class="all-teams__team"
+        *ngFor="let team of (teams$ | async)"
+      >
+        <div class="all-teams__left-container">
+          {{team.score}}
+        </div>
+        <div class="all-teams__right-container">
+          {{team.name}}
+          {{team.link}}
+        </div>
+      </li>
     </ul>
   </div>
   <div class="container__right">
