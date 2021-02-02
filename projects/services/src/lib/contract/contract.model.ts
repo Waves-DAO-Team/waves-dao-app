@@ -61,7 +61,7 @@ export interface ContractGrantAppModel {
     applicant?: {
       key: string
       type: string
-      value: string
+      value: number
     }
   }
   voted: {
