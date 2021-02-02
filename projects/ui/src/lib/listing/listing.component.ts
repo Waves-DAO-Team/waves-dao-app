@@ -160,10 +160,7 @@ export class ListingComponent implements OnDestroy {
         })
       ),
       map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null)
-      // tap((data) => console.log('importantGrant$', data))
     )
-  default: any;
-  active: any;
 
   constructor (
       public cdr: ChangeDetectorRef,
