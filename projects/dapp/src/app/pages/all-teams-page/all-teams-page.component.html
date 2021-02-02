@@ -1,11 +1,28 @@
-<div class="container">
+<div class="container all-teams">
   <div class="container__left">
     <button class="container__left__back-btn" (click)="goBack()">
       <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
   <div class="container__mid">
-
+    <div class="all-teams__title mat-h3">
+      {{ 'all_teams.title' | transloco }}
+      {{title$ | async}}
+    </div>
+    <ul class="all-teams__teams">
+<!--      <li-->
+<!--        class="all-teams__team"-->
+<!--        *ngFor="let team of (teams$ | async)"-->
+<!--      >-->
+<!--        <div class="all-teams__left-container">-->
+<!--          {{team.score}}-->
+<!--        </div>-->
+<!--        <div class="all-teams__right-container">-->
+<!--          {{team.name}}-->
+<!--          {{team.link}}-->
+<!--        </div>-->
+<!--      </li>-->
+    </ul>
   </div>
   <div class="container__right">
   </div>

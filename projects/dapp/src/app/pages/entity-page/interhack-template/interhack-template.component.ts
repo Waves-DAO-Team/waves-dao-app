@@ -38,29 +38,20 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   grantStatusEnum = GrantStatusEnum
 
   @Input() set grant(data: ContractGrantModel) {
-    // if (data !== this.GSgrant) {
     this.inputGrant = data
     this.prepareVoteForTaskData(data)
-    // }
     this.grant$.next(data)
   }
 
   get grant(): ContractGrantModel {
     return this.inputGrant
   }
-
   voteForTaskData = {
     isShow: false,
     isVote: false,
     isVoteInProcess: false
   }
-
   grant$ = new Subject<ContractGrantModel>()
-
-
-  // teamsAndSolutionsControls.stepType !== 'team'
-  // app.score.applicant?.value < 1
-
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => teamsAndSolutionsControls(user, grant)))
@@ -69,7 +60,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   public failedTeams$: Observable<ContractGrantAppModel[]> = combineLatest([this.grant$, this.teamsAndSolutionsControls$])
     .pipe(
       filter(([g, c]) => c.stepType !== 'team'),
-      tap(([g, c]) => console.log('!!!+++ stepType: ', c.stepType)),
       map(([g, c]) => g),
       filter(grant => grant != undefined && grant != null && grant.app != null),
       map((grants) => grants.app),
@@ -89,7 +79,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           })
         return res
       }),
-      tap((e) => console.log('!!!+++', e))
     )
 
   winnerIdentifier: string | null = null

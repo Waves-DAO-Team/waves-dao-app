@@ -11,15 +11,15 @@ import { translate } from '@ngneat/transloco'
 import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
 import { GrantsVariationType } from '@services/static/static.model'
 
-export const ENTITY = new InjectionToken<LoadingWrapperModel<ContractGrantModel>>(
+export const ALL_TEAM = new InjectionToken<LoadingWrapperModel<ContractGrantModel>>(
   'A stream with current contract'
 )
 
-export const CONTRACT = new InjectionToken<GrantsVariationType>(
+export const ALL_TEAM_CONTRACT = new InjectionToken<GrantsVariationType>(
   'A stream with contract info'
 )
 
-export const entityFactory = (
+export const allTeamFactory = (
   contactService: ContractService,
   route: ActivatedRoute,
   snackBar: MatSnackBar
@@ -37,11 +37,11 @@ export const entityFactory = (
 )
 
 // По этому токену будет идти стрим с необходимой компоненту информацией:
-export const ENTITY_PAGE_PROVIDERS: Provider[] = [
+export const ALL_TEAM_PAGE_PROVIDERS: Provider[] = [
   {
-    provide: ENTITY,
+    provide: ALL_TEAM,
     deps: [ContractService, ActivatedRoute, MatSnackBar],
-    useFactory: entityFactory
+    useFactory: allTeamFactory
   },
-  ContractProviderDefine(CONTRACT)
+  ContractProviderDefine(ALL_TEAM_CONTRACT)
 ]

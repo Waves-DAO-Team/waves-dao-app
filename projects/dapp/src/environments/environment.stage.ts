@@ -42,6 +42,7 @@ export const environment = {
     about: 'grants/:contractType/about',
     entity: 'grants/:contractType/:entityId',
     createGrant: 'grants/:contractType/create-grant',
+    allTeams: 'grants/:contractType/:entityId/all-teams',
     members: 'members',
     stylesheet: 'stylesheet',
     addReward: 'grants/:contractType/add-reward/:entityId'

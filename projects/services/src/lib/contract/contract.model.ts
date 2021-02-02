@@ -17,6 +17,12 @@ export interface ContractRawDataNumber {
   type: ContractRawDataTypeNumber
 }
 
+export interface TeamsScoreLinkModel {
+  name: string,
+  link: string,
+  score: number | string
+}
+
 export type ContractRawData = ContractRawDataString[]
 
 export interface ContractGrantFullAppModel {

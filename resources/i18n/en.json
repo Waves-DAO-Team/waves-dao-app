@@ -116,6 +116,9 @@
       "important": "Important grants"
     }
   },
+  "all_teams": {
+    "title": "Teams applied to:"
+  },
   "entity": {
     "see_all_teams": "SEE ALL TEAMS",
     "reward": "Reward",
