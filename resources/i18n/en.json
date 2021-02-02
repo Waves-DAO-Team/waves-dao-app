@@ -347,7 +347,7 @@
       "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
       "banner": "Call for applications will be announced in Q1 2021. Stay tuned!",
       "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
-      "landing": "Major development or research tasks are proposed, which can be useful for the development and adoption of blockchain technology. You and your team can apply for one of these grants and receive a reward."
+      "landing": "Предлагаются крупные задачи по разработке или исследования, которые полезны для развития и адопшена блокчейн-технологии. Вы можете со своей командой подать на один из этих грантов и получить вознаграждение."
     },
     "web3": {
       "navigation": "Web3.0 grants",
@@ -357,7 +357,7 @@
       "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
       "banner": "Apply with your project before Feb. 1, 2021 to receive a grant of up to 100k WAVES",
       "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
-      "landing": "You propose ideas for grants of this type. Usually this is a decentralized application or startup."
+      "landing": "Вы сами предлагаете идеи для грантов этого типа. Обычно это децентрализованное приложение или стартап."
     },
     "interhack": {
       "navigation": "Interhack grants",
@@ -367,7 +367,7 @@
       "desc": "Interhack Grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
       "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool",
       "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
-      "landing": "These grants are as close as possible to the usual hackathon format. The Association puts forward an idea and a proposed a reward, and you with the team compete in implementation after being selected as a candidate"
+      "landing": "Такие гранты максимально приближены к привычному  формату хакатона. Ассоциация выдвигает идею и предлагаемый приз, а вы с командой соревнуетесь в реализации после отбора кандидатов."
     }
   },
   "landing-page": {
@@ -379,13 +379,13 @@
     "web3Image": "assets/img/web3-type-landing.png",
     "interhackImage": "assets/img/interhack-type-landing.png",
     "howToDAO": "How to DAO",
-    "introDesc": "Waves DAO is a framework used by the Waves Association. The purpose is making decisions on supporting initiatives and projects, based on the Waves protocol in the ecosystem: Waves Protocol, Gravity, Neutrino and others. The main feature is the transparency of processes. For example, you can observe what decisions are being discussed, who exactly is behind their adoption to finance projects, and also how the voting takes place.",
+    "introDesc": "Waves DAO - фреймворк, используемый Waves Association для принятия решений о поддержке инициатив и проектов на базе протокола Waves в экосистеме: Waves Protocol, Gravity, Neutrino и других. Особенность - в прозрачности процессов. Например, можно наблюдать, какие решения обсуждаются, кто именно стоит за их принятием по финансированию проектов, а также каким образом проходят голосования.",
     "whatAreRoles": "What are the Roles",
     "applicant": "Applicant",
-    "applicantDesc": "It is you, meaning any community member who has applied for a grant using the Waves account. If your application is approved by the DAO Members vote, you will be awarded Performer status.",
-    "workingGroupDesc": "Member of the Working Group for Funding & Grants. The group plays an administrative role in the grant program. WG Members propose tasks for grants, open / close voting for teams, prepare reports. At the moment, the working group includes 8 people. Their accounts are maintained by a DAO secretary.",
-    "daoMemberDesc": "A member of the Association, who admitted to it on the recommendation of the membership working group. Also, DAO member paid the membership fee and has the right to vote for the distribution of grants, as well as for the best team. The list of accounts that have the DAO Member status is determined by the DAO Owner. At the moment, these are 30 members of the Association.",
-    "daoOwnerDesc": "The DAO administrator. Has the right to customize the list of members of the working group as well as members of the Association. At the moment, DAO Owner is one account. The association secretary has an access to this account. Owner does not participate in DAO voting."
+    "applicantDesc": "Это вы. Любой член сообщества, который подал заявку на грант, используя свой аккаунт Waves. Если ваша заявка одобрена и утверждена голосованием DAO Members, вам будет присужден статус Performer.",
+    "workingGroupDesc": "Член рабочей группы по грантам и финансированию (Working Group for Funding & Grants). Группа осуществляет административную роль в грантовой программе. WG Members  предлагают задачи для грантов, открывают/закрывают голосование за команды, готовят отчеты. На данный момент, в состав рабочей группы входит 8 человек. Их аккаунты заносятся в DAO секретарем.",
+    "daoMemberDesc": "Член Ассоциации. Был принят в нее по рекомендации рабочей группы по членству, заплатил членский взнос и имеет право голосовать за распределение грантов, а также за лучшую команду. Список аккаунтов, которые имеют статус DAO Member, определяется DAO Owner’ом. На данный момент, это 30 человек - членов Ассоциации.",
+    "daoOwnerDesc": "Администратор DAO. Имеет право настраивать список участников рабочей группы и членов Ассоциации. На данный момент DAO Owner - это один аккаунт, доступ от которого имеет секретарь Ассоциации. В голосованиях DAO Owner не участвует."
 
   },
   "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
