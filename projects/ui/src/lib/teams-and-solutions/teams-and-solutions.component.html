@@ -68,19 +68,18 @@
               <div class="team__list__li__left__score mat-display-2">
                 <!-- team -->
                 <ng-container *ngIf="teamsAndSolutionsControls.stepType === 'team'; else solutionRes">
-                  t: {{app?.votes?.applicant?.value || 0}}
+                  t: {{app?.score?.applicant?.value || 0}}
                 </ng-container>
                 <!-- solution -->
                 <ng-template #solutionRes> s: {{app?.votes?.solution?.value || 0}}</ng-template>
               </div>
               <div class="team__list__li__left__down">
-
                 <img
                   *ngIf="teamsAndSolutionsControls.stepType === 'team'"
                   alt="vote"
                   [class.disabled]="
                   teamsAndSolutionsControls.teamVoteKeys.includes(app.key)
-                  || GrantStatusEnum.readyToApply !== grant?.status?.value
+                  || grantStatusEnum.readyToApply !== grant?.status?.value
                 "
                   src="assets/icons/arr-down-red.svg"
                   (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
@@ -102,7 +101,13 @@
           </div>
 
           <div class="team__mid-container">
-            <div class="team__name">{{app?.name?.value}}</div>
+            <div class="team__name">
+              {{app?.name?.value}}
+              <ui-statuses
+                [isHasSolution]="app?.solution?.value"
+                [isRejected]="teamsAndSolutionsControls.stepType !== 'team' && app?.score?.applicant?.value < 1"
+              ></ui-statuses>
+            </div>
             <div class="team__mid-container-bottom">
               <a class="team__link mat-display-1" [href]="app?.link?.value">
                 {{'entity.learn_about_team' | transloco}}
@@ -115,7 +120,7 @@
             </div>
           </div>
           <div class="team__list__li__right mat-display-2">
-            <ng-container *ngIf="app.process && grant?.status.value === GrantStatusEnum.workStarted">
+            <ng-container *ngIf="app.process && grant?.status.value === grantStatusEnum.workStarted">
               <img alt="winner" src="assets/icons/winner.png">{{'entity.approved' | transloco}}
             </ng-container>
           </div>

@@ -59,7 +59,12 @@
       </div>
 
       <div class="team__list__li__mid">
-        <div class="team__list__li__mid__name mat-display-2">{{app?.name?.value}}</div>
+        <div class="team__list__li__mid__name mat-display-2">
+          {{app?.name?.value}}
+          <ui-statuses
+            [isRejected]="isHasWinner && app?.score?.value < 1"
+          ></ui-statuses>
+        </div>
         <a class="team__list__li__mid__link  mat-display-1" [href]="app?.link?.value" target="_blank" rel="noopener nofollow noreferrer">
           {{'entity.learn_about_team' | transloco}} <img alt="link" src="assets/icons/link.svg">
         </a>

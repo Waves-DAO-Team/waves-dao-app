@@ -20,11 +20,15 @@
     width: calc(100% - 155px);
   }
   &__name {
-    @include link($color: #000000, $fontWeight: 900);
     display: flex;
-    align-items: flex-end;
-    min-height: 50px;
-    max-height: 50px;
+    align-items: center;
+    font-weight: bold;
+    overflow: hidden;
+    padding-left: $padding;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 95%;
+    margin: 15px auto $padding / 2 auto;
   }
   &__mid-container-bottom {
     min-height: 45px;

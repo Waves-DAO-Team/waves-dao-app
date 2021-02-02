@@ -94,14 +94,15 @@
         width: 20%;
 
         &__name {
-          display: inline-block;
+          display: flex;
+          align-items: center;
           font-weight: bold;
           overflow: hidden;
           padding-left: $padding;
           text-overflow: ellipsis;
           white-space: nowrap;
           width: 95%;
-          margin: auto auto 0 auto;
+          margin: auto auto $padding / 2 auto;
         }
 
         &__link {
