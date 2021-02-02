@@ -5,6 +5,7 @@ import {
   Inject,
   Input,
 } from '@angular/core'
+
 import {
   ContractGrantExtendedModel
 } from '@services/contract/contract.model'
@@ -21,6 +22,7 @@ export class SubListComponent {
   @Input() contract: GrantsVariationType | null = null
   @HostBinding('class.enable') @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false
+
   @Input() public type: 'default' | 'active' = 'default'
   @Input() title: string | null = null
 

@@ -31,6 +31,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: GRANTS_PROVIDERS
 })
+
 export class ListingComponent implements OnDestroy {
   @Input() contract: GrantsVariationType | null = null
   @Input() public type: 'default' | 'active' | undefined
@@ -159,7 +160,6 @@ export class ListingComponent implements OnDestroy {
         })
       ),
       map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null)
-      // tap((data) => console.log('importantGrant$', data))
     )
 
   constructor (
@@ -170,8 +170,7 @@ export class ListingComponent implements OnDestroy {
       public userService: UserService,
       public contractService: ContractService,
       public teamService: TeamService
-  ) {
-  }
+  ) {}
 
   selectedTag ($event: string): void {
     this.selectedTagName$.next($event)
