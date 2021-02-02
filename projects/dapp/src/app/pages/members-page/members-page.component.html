@@ -31,8 +31,8 @@
     </div>
     <div class="members-page__contract-block">
       <ui-user-contacts
-        *ngFor="let wg of user.WorkGroupAddress; let i = index"
-        [isList]='i + 1  < user.WorkGroupAddress.length ? true : false'
+        *ngFor="let wg of user.addressWorkGroup; let i = index"
+        [isList]='i + 1  < user.addressWorkGroup.length ? true : false'
         [address]="wg"
         [user]="api?.workingGroup[wg]"
       ></ui-user-contacts>
@@ -51,9 +51,9 @@
     </div>
     <div class="members-page__contract-block">
       <ui-user-contacts
-        *ngFor="let dao of user.DAOMemberAddress; let i = index"
+        *ngFor="let dao of user.addressDAOMember; let i = index"
         [address]="dao"
-        [isList]='i + 1  < user.DAOMemberAddress.length ? true : false'
+        [isList]='i + 1  < user.addressDAOMember.length ? true : false'
         [user]="api?.workingGroup[dao]"></ui-user-contacts>
     </div>
     <button

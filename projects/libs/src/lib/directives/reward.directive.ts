@@ -9,14 +9,13 @@ export class RewardDirective {
   maxVal = 1000000
   lastSelectionStart = 0
 
-  constructor (private el: ElementRef) {}
+  constructor (private readonly el: ElementRef) {} // eslint-disable-line
 
-  // @HostListener('blur') blur () {
-  @HostListener('keyup') blur () {
+  @HostListener('keyup') blur (): void {
     this.el.nativeElement.value = this.format(this.el.nativeElement.value)
   }
 
-  format (str: string) {
+  format (str: string): string {
     this.lastSelectionStart = this.el.nativeElement.selectionStart
     this.cursorJumpAtBeginningOfInputGuard(str)
     str = this.numberGuard(str)
@@ -27,6 +26,11 @@ export class RewardDirective {
     res = this.fractionalGuard(res)
     res = this.positionGuard(str, res)
     return res
+  }
+
+  //  1000000.00 =>  1 000 000.00
+  numberWithSpaces (x: string): string {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 
   private isNan (num: string): string {
@@ -50,7 +54,7 @@ export class RewardDirective {
     return num
   }
 
-  private cursorJumpAtBeginningOfInputGuard (num: string) {
+  private cursorJumpAtBeginningOfInputGuard (num: string): void {
     if (num.length < 2) {
       setTimeout(() => {
         this.jumpTo(1)
@@ -60,11 +64,6 @@ export class RewardDirective {
 
   private numberGuard (num: string): string {
     return num.replace(/[^\d.]/ig, '').replace(/\s/g, '')
-  }
-
-  //  1000000.00 =>  1 000 000.00
-  numberWithSpaces (x: string) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 
   private maxValGuard (num: string): string {

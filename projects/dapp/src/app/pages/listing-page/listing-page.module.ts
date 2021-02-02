@@ -10,7 +10,7 @@ import { PipesModule } from '@libs/pipes/pipes.module'
 import { RouterModule } from '@angular/router'
 import { DefaultTemplateComponent } from './default-template/default-template.component'
 import { Web3TemplateComponent } from './web3-template/web3-template.component'
-import {ProposeGrantModule} from '@ui/modals/propose-grant/propose-grant.module';
+import { ProposeGrantModule } from '@ui/modals/propose-grant/propose-grant.module'
 
 @NgModule({
   declarations: [ListingPageComponent, DefaultTemplateComponent, Web3TemplateComponent],

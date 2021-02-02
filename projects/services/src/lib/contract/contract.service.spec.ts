@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { StorageService } from '@services/storage/storage.service'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('ContractService', () => {
   let service: ContractService

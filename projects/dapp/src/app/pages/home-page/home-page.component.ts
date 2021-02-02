@@ -16,16 +16,16 @@ import { StaticService } from '@services/static/static.service'
 })
 export class HomePageComponent implements OnInit, OnDestroy {
   public readonly grantsVariationsList: Observable<GrantsVariationType[]> =
-      this.staticService.getContactsList()
+  this.staticService.getContactsList()
 
   constructor (
-      public cdr: ChangeDetectorRef,
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-      @Inject(API) public readonly api: AppApiInterface,
-      private staticService: StaticService
+    public cdr: ChangeDetectorRef,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(API) public readonly api: AppApiInterface,
+    private readonly staticService: StaticService
   ) { }
 
   ngOnInit (): void {}
 
-  ngOnDestroy () {}
+  ngOnDestroy (): void {}
 }

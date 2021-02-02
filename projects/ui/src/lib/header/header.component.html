@@ -29,26 +29,26 @@
 
       <li *ngIf="(user$ | async)?.name" class="profile mat-display-2">
         <div class="icon" *ngIf="userService.data.getValue().userRole as role">
-          <img alt="avatar" src="assets/icons/avatar/master.svg" *ngIf="role === RoleEnum.master || role === RoleEnum.owner">
-          <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="role === RoleEnum.DAOMember">
-          <img alt="avatar" src="assets/icons/avatar/wg.svg" *ngIf="role === RoleEnum.workingGroup">
-          <img alt="avatar" src="assets/icons/avatar/auth.png" *ngIf="role === RoleEnum.authorized">
+          <img alt="avatar" src="assets/icons/avatar/master.svg" *ngIf="role === roleEnum.master || role === roleEnum.owner">
+          <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="role === roleEnum.daoMember">
+          <img alt="avatar" src="assets/icons/avatar/wg.svg" *ngIf="role === roleEnum.workingGroup">
+          <img alt="avatar" src="assets/icons/avatar/auth.png" *ngIf="role === roleEnum.authorized">
         </div>
         <div class="content">
           <div class="name mat-display-2">
             {{(user$ | async)?.name}}
           </div>
           <div class="role mat-display-1">
-            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.owner">
+            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.owner">
               {{ 'role.owner' | transloco }}
             </ng-container>
-            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.workingGroup">
+            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.workingGroup">
               {{ 'role.wg' | transloco }}
             </ng-container>
-            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.DAOMember">
+            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.daoMember">
               {{ 'role.dao' | transloco }}
             </ng-container>
-            <ng-container *ngIf="userService.data.getValue().userRole === RoleEnum.authorized">
+            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.authorized">
               {{ 'role.auth' | transloco }}
             </ng-container>
           </div>
@@ -56,7 +56,7 @@
         </div>
         <img alt="logout" src="assets/icons/logout.svg" (click)="logoutHandler()">
       </li>
-      <li *ngIf="userRole === RoleEnum.unauthorized" class="profile mat-display-2">
+      <li *ngIf="userRole === roleEnum.unauthorized" class="profile mat-display-2">
         <button (click)="signupHandler()">
           {{ 'app.header.login' | transloco }}
           <img alt="logout" src="assets/icons/arr-right.svg">

@@ -141,6 +141,7 @@
             margin-left: 5px;
           }
         }
+
         &--default {
           .logo {
             @include icon-logo(21px, 'default');
@@ -198,7 +199,6 @@
     }
     .icon-logo {
       background: $color_waves_blue;
-
       &::after {
         background: $color_white;
       }

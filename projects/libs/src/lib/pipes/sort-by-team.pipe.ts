@@ -8,9 +8,9 @@ import { ContractGrantAppModel } from '@services/contract/contract.model'
 
 @Pipe({ name: 'sortByTeam' })
 export class SortByTeamPipe implements PipeTransform {
-  transform (value: ContractGrantAppModel[], order = '', column: string = ''): ContractGrantAppModel[] {
-    value = _.orderBy(value, ['score', 'value'], ['asc'])
-    value = _.orderBy(value, ['process', 'value'], ['asc'])
+  transform (value: ContractGrantAppModel[], order: string = 'asc'): ContractGrantAppModel[] {
+    value = _.orderBy(value, ['score', 'value'], [order === 'desc' ? order : 'asc'])
+    value = _.orderBy(value, ['process', 'value'], [order === 'desc' ? order : 'asc'])
     return value
   }
 }

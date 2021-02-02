@@ -33,7 +33,21 @@ import { InterhackContractService } from '@services/contract/Interhack-contract.
   styleUrls: ['./interhack-template.component.scss']
 })
 export class InterhackTemplateComponent implements TemplateComponentAbstract {
+  @Input() public readonly contract!: GrantsVariationType
+
   grantStatusEnum = GrantStatusEnum
+
+  @Input() set grant (data: ContractGrantModel) {
+    // if (data !== this.GSgrant) {
+    this.inputGrant = data
+    this.prepareVoteForTaskData(data)
+    // }
+    this.grant$.next(data)
+  }
+
+  get grant (): ContractGrantModel {
+    return this.inputGrant
+  }
 
   voteForTaskData = {
     isShow: false,
@@ -41,7 +55,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
-  grant$ = new Subject<ContractGrantModel>();
+  grant$ = new Subject<ContractGrantModel>()
 
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
@@ -192,51 +206,20 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     this.prepareVoteForTaskData()
   })
 
-  GSgrant: ContractGrantModel = {}
-
-  @Input() set grant (data: ContractGrantModel) {
-    // if (data !== this.GSgrant) {
-    this.GSgrant = data
-    this.prepareVoteForTaskData(data)
-    // }
-    this.grant$.next(data)
-  }
-
-  get grant () {
-    return this.GSgrant
-  }
-
-  @Input() public readonly contract!: GrantsVariationType
+  private inputGrant: ContractGrantModel = {}
 
   constructor (
-    private dialog: MatDialog,
-    public disruptiveContractService: DisruptiveContractService,
-    public interhackContractService: InterhackContractService,
-    private snackBar: MatSnackBar,
-    public signerService: SignerService,
-    private cdr: ChangeDetectorRef,
-    public userService: UserService
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
+    public interhackContractService: InterhackContractService,// eslint-disable-line
+    private readonly snackBar: MatSnackBar,// eslint-disable-line
+    public signerService: SignerService,// eslint-disable-line
+    private readonly cdr: ChangeDetectorRef,// eslint-disable-line
+    public userService: UserService// eslint-disable-line
   ) {
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel = this.GSgrant) {
-    if (
-      this.userService.data.getValue().roles.isDAO &&
-      grant?.status?.value === this.grantStatusEnum.proposed &&
-      grant?.reward?.value
-    ) {
-      this.voteForTaskData.isShow = true
-    } else {
-      this.voteForTaskData.isShow = false
-    }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
-      this.voteForTaskData.isVote = true
-    } else {
-      this.voteForTaskData.isVote = false
-    }
-  }
-
-  vote (value: 'like' | 'dislike') {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -247,7 +230,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  signup () {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -256,7 +239,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal () {
+  openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -275,13 +258,13 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface) {
+  voteTeam ($event: VoteTeamEventInterface): void {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote () {
+  finishVote (): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
@@ -303,7 +286,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
             if (this.grant?.id && this.winnerIdentifier) {
               this.interhackContractService.acceptWorkResult(
-                this.grant?.id as string,
+                this.grant?.id,
                 this.winnerIdentifier,
                 data.reportLink
               )
@@ -345,14 +328,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  enableSubmissions () {
+  enableSubmissions (): void {
     if (this.grant?.id) {
       this.disruptiveContractService.enableSubmissions(this.grant?.id, '').subscribe(() => {
       })
     }
   }
 
-  submitSolution () {
+  submitSolution (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: SubmitSolutionComponent,
@@ -373,16 +356,33 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteForSolution ($event: VoteTeamEventInterface) {
+  voteForSolution ($event: VoteTeamEventInterface): void {
     if (this.grant?.id) {
       this.disruptiveContractService.voteForSolution(
         this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  stopSubmissions () {
+  stopSubmissions (): void {
     if (this.grant?.id) {
       this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe()
+    }
+  }
+
+  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant): void {
+    if (
+      this.userService.data.getValue().roles.isDAO &&
+      grant?.status?.value === this.grantStatusEnum.proposed &&
+      grant?.reward?.value
+    ) {
+      this.voteForTaskData.isShow = true
+    } else {
+      this.voteForTaskData.isShow = false
+    }
+    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+      this.voteForTaskData.isVote = true
+    } else {
+      this.voteForTaskData.isVote = false
     }
   }
 }

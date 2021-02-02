@@ -26,6 +26,8 @@ import { combineLatest, Subject } from 'rxjs'
   styleUrls: ['./web3-template.component.scss']
 })
 export class Web3TemplateComponent implements TemplateComponentAbstract {
+  @Input() public readonly contract!: GrantsVariationType
+
   grantStatusEnum = GrantStatusEnum
 
   voteForTaskData = {
@@ -34,7 +36,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
-  grant$ = new Subject<ContractGrantModel>();
+  grant$ = new Subject<ContractGrantModel>()
 
   isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -118,46 +120,28 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
       })
     )
 
-  GSgrant: ContractGrantModel = {}
+  private inputGrant: ContractGrantModel = {}
 
   @Input() set grant (data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
+    if (data !== this.inputGrant) {
+      this.inputGrant = data
       this.prepareVoteForTaskData(data)
     }
     this.grant$.next(data)
   }
 
-  get grant () {
-    return this.GSgrant
+  get grant (): ContractGrantModel {
+    return this.inputGrant
   }
-
-  @Input() public readonly contract!: GrantsVariationType
 
   constructor (
-    private dialog: MatDialog,
-    public communityContractService: CommunityContractService,
-    private snackBar: MatSnackBar,
-    public signerService: SignerService,
-    private cdr: ChangeDetectorRef,
-    public userService: UserService
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public communityContractService: CommunityContractService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar, // eslint-disable-line
+    public signerService: SignerService, // eslint-disable-line
+    private readonly cdr: ChangeDetectorRef, // eslint-disable-line
+    public userService: UserService // eslint-disable-line
   ) {
-  }
-
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
-    if (
-      this.userService.data.getValue().roles.isDAO &&
-      grant?.status?.value === this.grantStatusEnum.votingStarted
-    ) {
-      this.voteForTaskData.isShow = true
-    } else {
-      this.voteForTaskData.isShow = false
-    }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
-      this.voteForTaskData.isVote = true
-    } else {
-      this.voteForTaskData.isVote = false
-    }
   }
 
   vote (value: 'like' | 'dislike'): void {
@@ -235,7 +219,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     this.communityContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward () {
+  addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddTaskDetailsComponent,
@@ -256,11 +240,27 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  initTaskVoting () {
+  initTaskVoting (): void {
     if (this.grant.id) {
-      this.communityContractService.initTaskVoting(this.grant.id).subscribe((e) => {
+      this.communityContractService.initTaskVoting(this.grant.id).subscribe(() => {
         this.cdr.markForCheck()
       })
+    }
+  }
+
+  private prepareVoteForTaskData (grant: ContractGrantModel): void {
+    if (
+      this.userService.data.getValue().roles.isDAO &&
+        grant?.status?.value === this.grantStatusEnum.votingStarted
+    ) {
+      this.voteForTaskData.isShow = true
+    } else {
+      this.voteForTaskData.isShow = false
+    }
+    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+      this.voteForTaskData.isVote = true
+    } else {
+      this.voteForTaskData.isVote = false
     }
   }
 }

@@ -9,7 +9,6 @@ import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
   styleUrls: ['./add-task-details.component.scss']
 })
 export class AddTaskDetailsComponent {
-
   isSubmit = false
 
   taskDetailsForm = new FormGroup({
@@ -17,14 +16,14 @@ export class AddTaskDetailsComponent {
   })
 
   constructor (
-    public userService: UserService,
-    @Inject(DIALOG_DATA) public params: DialogParams
+    public userService: UserService, // eslint-disable-line
+    @Inject(DIALOG_DATA) public params: DialogParams // eslint-disable-line
   ) {}
 
-  onSubmit () {
+  onSubmit (): void {
     if (this.params.submitCallBack) {
       this.params.submitCallBack({
-        reward: (this.taskDetailsForm.value.reward * 100000000).toString()
+        reward: ((this.taskDetailsForm?.value?.reward || 0) * 100000000).toString()
       })
     }
   }

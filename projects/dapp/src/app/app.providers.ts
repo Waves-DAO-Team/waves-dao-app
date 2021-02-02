@@ -7,9 +7,9 @@ export interface AppConstantsInterface {
 }
 
 export interface UserInterface {
-  name: string,
-  twitter?: string,
-  facebook?: string,
+  name: string
+  twitter?: string
+  facebook?: string
   linkedin?: string
 }
 
@@ -20,23 +20,23 @@ export interface AppApiInterface {
   explorer: string
   confirmations: number
   management: {
-    membership: string,
-  },
+    membership: string
+  }
   contracts: {
-    disruptive: string,
-    web3: string,
+    disruptive: string
+    web3: string
     interhack: string
-  },
-  grantsProgramLink: string,
+  }
+  grantsProgramLink: string
   issues: {
-    disruptive: string,
-    web3: string,
+    disruptive: string
+    web3: string
     interhack: string
-  },
+  }
   workingGroup: {[s: string]: {
-    name: string,
-    twitter?: string,
-    facebook?: string,
+    name: string
+    twitter?: string
+    facebook?: string
     linkedin?: string
   }}
 }
@@ -45,28 +45,24 @@ export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Ap
 
 export const API = new InjectionToken<Type<AppApiInterface>>('Application api constants')
 
-export function provideApi (): Provider[] {
-  return [
-    {
-      provide: API,
-      useValue: {
-        ...environment.apis,
-        confirmations: environment.confirmations,
-        grantsProgramLink: environment.grantsProgramLink,
-        workingGroup: environment.workingGroup
-      }
+export const provideApi = (): Provider[] => [
+  {
+    provide: API,
+    useValue: {
+      ...environment.apis,
+      confirmations: environment.confirmations,
+      grantsProgramLink: environment.grantsProgramLink,
+      workingGroup: environment.workingGroup
     }
-  ]
-}
+  }
+]
 
-export function provideAppConstants (): Provider[] {
-  return [
-    {
-      provide: APP_CONSTANTS,
-      useValue: {
-        routes: environment.routing,
-        production: environment.production
-      }
+export const provideAppConstants = (): Provider[] => [
+  {
+    provide: APP_CONSTANTS,
+    useValue: {
+      routes: environment.routing,
+      production: environment.production
     }
-  ]
-}
+  }
+]

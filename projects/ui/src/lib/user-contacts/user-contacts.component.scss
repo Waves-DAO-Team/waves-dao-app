@@ -5,9 +5,8 @@
   grid-template-columns: minmax(100px, 90%) auto;
 
   &__left-container {
-    align-items: start;
+    align-items: flex-start;
     display: flex;
-
     flex-direction: column;
     justify-content: center;
 

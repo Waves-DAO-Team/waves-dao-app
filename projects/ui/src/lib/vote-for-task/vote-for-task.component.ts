@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 
-type VoteStatus = 'like' | 'dislike';
+type VoteStatus = 'like' | 'dislike'
 
 @Component({
   selector: 'ui-vote-for-task',
@@ -9,24 +9,23 @@ type VoteStatus = 'like' | 'dislike';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VoteForTaskComponent {
-  public _isVoteInProcess = false;
-  voteStatus: VoteStatus | null = null;
-  buttonClicked = false;
+  @Output() newVoteEvent = new EventEmitter<VoteStatus>()
   @Input() isShow = false
   @Input() isVote = false
+  voteStatus: VoteStatus | null = null
+  buttonClicked = false
+
+  public isVoteInProcessInput = false
+
   @Input() set isVoteInProcess (value: boolean) {
-    this._isVoteInProcess = value
+    this.isVoteInProcessInput = value
   }
 
-  get isVoteInProcess () {
-    return this._isVoteInProcess
+  get isVoteInProcess (): boolean {
+    return this.isVoteInProcessInput
   }
 
-  @Output() newVoteEvent = new EventEmitter<VoteStatus>();
-  constructor (
-  ) { }
-
-  vote (event: VoteStatus) {
+  vote (event: VoteStatus): void {
     this.voteStatus = event
     this.newVoteEvent.emit(event)
     this.buttonClicked = true

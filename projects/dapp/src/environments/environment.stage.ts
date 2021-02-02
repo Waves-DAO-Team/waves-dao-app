@@ -1,7 +1,9 @@
 export const environment = {
   production: true,
   confirmations: 0,
-  grantsProgramLink: 'https://github.com/Waves-Association/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+',
+  grantsProgramLink: 'https://github.com/Waves-Association/grants-program/issues' +
+      '/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--' +
+      'interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+',
 
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',
@@ -9,7 +11,7 @@ export const environment = {
     rest: 'https://nodes-testnet.wavesnodes.com',
     explorer: 'https://testnet.wavesexplorer.com/address/',
     management: {
-      membership: '3NCGXdprrsBp9rzrGna68MmfJXQ7fcinF7o'
+      membership: '3N2y3sffZ2uPQc5MtbCdSY1P7efBhz9BU4G'
     },
     contracts: {
       disruptive: '3N71MDc3kPD6cnbdWp6iEuDY8ghgZ9DiVan',
@@ -17,9 +19,15 @@ export const environment = {
       interhack: '3N2sQRGTRmL9NGZVVtzhfBEjEyVR7S9Mkum'
     },
     issues: {
-      disruptive: 'https://github.com/vlzhr/grants-program/issues/new?assignees=KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
-      web3: 'https://github.com/vlzhr/grants-program/issues/new?assignees=KardanovIR&labels=Web3.0+Development+Grant&template=track-2--web3-0-development-grant.md&title=%5BTrack+2.+Web3.0+Development+Grant%5D+',
-      interhack: 'https://github.com/vlzhr/grants-program/issues/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+'
+      disruptive: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
+          'KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-' +
+          'tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
+      web3: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
+          'KardanovIR&labels=Web3.0+Development+Grant&template=track-2--web3-' +
+          '0-development-grant.md&title=%5BTrack+2.+Web3.0+Development+Grant%5D+',
+      interhack: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
+          'KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.' +
+          'md&title=%5BTrack+3.+Interhack+Grant%5D+'
     }
   },
 

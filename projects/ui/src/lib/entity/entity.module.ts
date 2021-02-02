@@ -16,7 +16,7 @@ import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { AcceptWorkResultModule } from '@ui/modals/accept-work-result/accept-work-result.module'
 import { AddMemberModule } from '@ui/modals/add-member/add-member.module'
-import {TeamsAndSolutionsModule} from '@ui/teams-and-solutions/teams-and-solutions.module';
+import { TeamsAndSolutionsModule } from '@ui/teams-and-solutions/teams-and-solutions.module'
 
 @NgModule({
   declarations: [EntityComponent],

@@ -12,10 +12,8 @@ import {
 import { BehaviorSubject, from, Observable } from 'rxjs'
 import { publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take } from 'rxjs/operators'
 import {
-  TTransactionFromAPI
-} from '@waves/ts-types'
-import {
-  IMoney, TLong
+  IInvoke, IInvokeWithType,
+  IMoney, TParamsToSign
 } from '@waves/signer/cjs/interface'
 import { HttpClient } from '@angular/common/http'
 import { translate } from '@ngneat/transloco'
@@ -28,7 +26,7 @@ import { StorageService } from '@services/storage/storage.service'
 export class SignerService {
   public readonly signer!: Signer
 
-  private user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '', balance: '' })
+  private readonly user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '', balance: '' })
 
   public user: Observable<SignerUser> = this.user$.pipe(tap((data) => {
     this.storageService.userData = data
@@ -37,14 +35,14 @@ export class SignerService {
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
     private readonly http: HttpClient,
-    private snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar,
     private storageService: StorageService
   ) {
     this.signer = new Signer({
       // Specify URL of the node on Testnet
-      NODE_URL: api.nodes
+      NODE_URL: api.nodes // eslint-disable-line
     })
-    this.signer.setProvider(new Provider(api.signer))
+    this.signer.setProvider(new Provider(api.signer)).catch(() => {})
 
     this.user$.next(this.storageService.userData as SignerUser)
   }
@@ -79,28 +77,23 @@ export class SignerService {
     contractAddress: string,
     command: string,
     args: SignerInvokeArgs[],
-    payment: Array<IMoney> = []
+    payment: IMoney[] = []
   ): Observable<TransactionsSuccessResult> {
     return from(this.signer.invoke({
       payment,
       dApp: contractAddress,
       call: {
         function: command,
-        // @ts-ignore
         args
       }
-    }).sign()).pipe(
+    } as IInvoke).sign()).pipe(
       take(1),
       tap(() => {
         this.snackBar.open(translate('messages.startTransaction'), translate('messages.ok'))
       }),
-      // @ts-ignore
-      switchMap((tx) => {
-        return from(this.signer.broadcast(tx))
-      }),
-      switchMap((data: TTransactionFromAPI<TLong>) => {
-        return this.status(data.id)
-      }),
+      switchMap((tx: TParamsToSign<IInvokeWithType>) => from(this.signer.broadcast(tx))),
+      // @ts-expect-error: Data is a specific type on Signer library
+      switchMap((data) => this.status(data?.id)),
       tap(() => {
         this.snackBar.open('Transaction is complete', translate('messages.ok'))
       })
@@ -116,9 +109,8 @@ export class SignerService {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
       map((data: TransactionState[]) => {
-        const confirmation = data.find((state: TransactionState) => {
-          return state.status === 'confirmed' && state.confirmations >= this.api.confirmations
-        })
+        const confirmation = data.find((state: TransactionState) =>
+          state.status === 'confirmed' && state.confirmations >= this.api.confirmations)
 
         console.log('Confirmation', confirmation)
         if (!confirmation) {
@@ -127,9 +119,7 @@ export class SignerService {
 
         return confirmation as TransactionsSuccessResult
       }),
-      retryWhen((data) => {
-        return data.pipe(delay(1000))
-      })
+      retryWhen((data) => data.pipe(delay(1000)))
     )
   }
 }

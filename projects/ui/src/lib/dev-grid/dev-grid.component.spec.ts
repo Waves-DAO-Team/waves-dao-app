@@ -7,9 +7,9 @@ describe('DevGridComponent', () => {
   let fixture: ComponentFixture<DevGridComponent>
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    TestBed.configureTestingModule({ // eslint-disable-line
       declarations: [DevGridComponent]
-    }).compileComponents()
+    }).compileComponents().catch(() => {})
   }))
 
   beforeEach(() => {

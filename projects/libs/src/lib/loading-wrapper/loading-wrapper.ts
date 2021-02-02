@@ -13,11 +13,9 @@ export interface LoadingWrapperModel<T> {
 }
 
 export class LoadingWrapper<T> {
-  private readonly errorLoading$ = new Subject<boolean>()
   readonly data$: Observable<T>
-
-  private destroyed$ = new Subject();
-
+  private readonly errorLoading$ = new Subject<boolean>()
+  private readonly destroyed$ = new Subject()
   readonly error$: Observable<boolean> = this.errorLoading$.pipe(
     takeUntil(this.destroyed$),
     publishReplay(1),
@@ -40,7 +38,7 @@ export class LoadingWrapper<T> {
     )
   }
 
-  destroy () {
+  destroy (): void {
     this.destroyed$.next(null)
     this.destroyed$.complete()
   }

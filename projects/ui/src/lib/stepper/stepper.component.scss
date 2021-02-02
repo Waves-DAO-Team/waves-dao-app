@@ -1,35 +1,113 @@
 @import "const";
+@import '~include-media/dist/_include-media.scss';
 
-::ng-deep .mat-horizontal-stepper-header{
-  pointer-events: none !important;
-}
-.mat-step-header .mat-step-icon {
-  display: none !important;
+@mixin line($left: 0, $right: 0, $top: 0, $width: 100%) {
+  position: absolute;
+  z-index: -1;
+  display: block;
+  left: $left;
+  right: $right;
+  top: $top;
+  width: $width;
+  height: 5px;
+  background: $color_light_gray;
+  content: "";
 }
 
-::ng-deep {
-  .mat-step-icon-content {
-    color: #ffffff
+@mixin square($left: 0, $right: 0, $top: 0) {
+  position: absolute;
+  display: block;
+  left: $left;
+  right: $right;
+  margin: auto;
+  top: $top;
+  width: 24px;
+  height: 24px;
+  background: $color_light_gray;
+  content: "";
+}
+
+.stepper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: $padding * 2;
+  margin-top: $padding * 2;
+
+  &__text {
+    max-width: 100%;
+
+    @include media('>=tablet') {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-left: $padding;
+      margin-right: $padding;
+    }
   }
-  .mat-step-header .mat-step-icon {
-    background: $color_light_gray
+
+  &__step {
+    margin-top: 50px;
+    flex: 1;
+    width: 100%;
+    position: relative;
+    text-align: center;
+
+    &::before {
+      @include square($left: 0, $right: 0, $top: -40px);
+    }
+
+    &::after {
+      @include line($left: 0, $right: 0, $top: -30px, $width: 100%);
+    }
+
+    &:first-child {
+      &::before {
+        left: 0;
+        right: auto;
+      }
+
+      text-align: left;
+
+      .stepper__text {
+        margin-left: 0;
+      }
+    }
+
+
+    &:last-child {
+      text-align: right;
+
+      &::before {
+        left: auto;
+        right: 0;
+      }
+      .stepper__text {
+        margin-right: 0;
+      }
+
+    }
+  }
+
+  &__step-done {
+    &::before, &::after {
+      background: $color_waves_blue;
+    }
+  }
+
+  &__step-pre-done {
+    &::before {
+      background: $color_waves_blue;
+    }
+
+    &::after {
+      background: linear-gradient(90deg, $color_waves_blue 49%, $color_light_gray 95%);
+    }
   }
 }
 
-.active {
-  ::ng-deep .mat-step-header .mat-step-icon-selected {
-    background-color: $blue;
-
-  }
-}
-
-:host ::ng-deep .mat-horizontal-content-container {
-  padding:0 !important;
-}
-
-::ng-deep .mat-completed-step {
-  opacity: 0.3;
-  .mat-step-icon {
+.stepper__step-last.stepper__step-pre-done  {
+  &::after {
     background: $color_waves_blue;
   }
 }

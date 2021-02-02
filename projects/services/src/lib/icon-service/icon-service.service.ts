@@ -2,22 +2,19 @@ import { Injectable } from '@angular/core'
 import { MatIconRegistry } from '@angular/material/icon'
 import { DomSanitizer } from '@angular/platform-browser'
 
-export enum Icons {
-  Like = 'like',
-  Dislike = 'dislike'
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class IconService {
+  private readonly icons = ['like', 'dislike']
+
   constructor (
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private readonly matIconRegistry: MatIconRegistry, // eslint-disable-line
+    private readonly domSanitizer: DomSanitizer // eslint-disable-line
   ) { }
 
   public registerIcons (): void {
-    this.loadIcons(Object.values(Icons), '../assets/svg/icons')
+    this.loadIcons(Object.values(this.icons), '../assets/svg/icons')
   }
 
   private loadIcons (iconKeys: string[], iconUrl: string): void {

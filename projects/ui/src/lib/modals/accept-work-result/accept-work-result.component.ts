@@ -18,7 +18,7 @@ export class AcceptWorkResultComponent {
     @Inject(DIALOG_DATA) public params: DialogParams
   ) { }
 
-  onSubmit () {
+  onSubmit (): void{
     if (this.params.submitCallBack) {
       this.params.submitCallBack({
         reportLink: this.form.value.reportLink

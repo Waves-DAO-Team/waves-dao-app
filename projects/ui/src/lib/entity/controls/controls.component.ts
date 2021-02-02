@@ -12,10 +12,10 @@ import { UserService } from '@services/user/user.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlsComponent {
-  @Input() controlsTemplate: TemplateRef<Component> | undefined;
+  @Input() controlsTemplate: TemplateRef<Component> | undefined
 
   constructor (
-    public userService: UserService
+    public userService: UserService // eslint-disable-line
   ) {
   }
 }

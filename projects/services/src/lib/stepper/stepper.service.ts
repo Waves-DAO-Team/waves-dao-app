@@ -70,11 +70,11 @@ export class StepperService {
     }
   ]
 
-  public setType (type: 'disruptive' | 'interhack' | 'web3'): void{
+  public setType (type: 'disruptive' | 'interhack' | 'web3'): void {
     this.grantType = type
   }
 
-  public getFormalStatuses () {
+  public getFormalStatuses (): {key: string, value: string}[] {
     switch (this.grantType) {
       case 'disruptive':
         return this.disruptiveFormalStatuses

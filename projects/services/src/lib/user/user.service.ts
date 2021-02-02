@@ -6,7 +6,6 @@ import { BehaviorSubject, combineLatest } from 'rxjs'
 import { map, publishReplay, refCount, tap } from 'rxjs/operators'
 import { ContractGrantRawModel } from '@services/contract/contract.model'
 import { API, AppApiInterface } from '@constants'
-import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,9 @@ export class UserService {
   public data: BehaviorSubject<UserDataInterface> = new BehaviorSubject<UserDataInterface>({
     userRole: RoleEnum.unauthorized,
     userAddress: '',
-    DAOMemberAddress: [],
+    addressDAOMember: [],
     owner: '',
-    WorkGroupAddress: [],
+    addressWorkGroup: [],
     masterAddress: '',
     roles: {
       isMaster: false,
@@ -34,18 +33,22 @@ export class UserService {
 
   lastAddress = ''
 
-  // @ts-ignore
+  public readonly isBalanceMoreCommission$ = this.data
+    .pipe(
+      map((e) => e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005))
+    )
+
   private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
     .pipe(
       tap(([userAddress, contract]) => {
-        const WorkGroupAddress = Object.keys(contract?.working?.group?.member || {})
-        const DAOMemberAddress = Object.keys(contract?.dao?.member || {})
+        const addressWorkGroup = Object.keys(contract?.working?.group?.member || {})
+        const addressDAOMember = Object.keys(contract?.dao?.member || {})
         const userAddressText = userAddress && userAddress.address ? userAddress.address : ''
         const userBalanceText = userAddress && userAddress.balance ? userAddress.balance : '0'
-        const dr = this.defineRol(contract?.owner, contract.address, userAddressText, DAOMemberAddress, WorkGroupAddress)
+        const dr = this.defineRol(contract?.owner, contract.address, userAddressText, addressDAOMember, addressWorkGroup)
         const newData: UserDataInterface = {
-          DAOMemberAddress,
-          WorkGroupAddress,
+          addressDAOMember,
+          addressWorkGroup,
           owner: contract?.owner,
           masterAddress: contract.address,
           userAddress: userAddressText,
@@ -65,26 +68,21 @@ export class UserService {
       refCount()
     ).subscribe()
 
-  public readonly isBalanceMoreCommission$ = this.data
-    .pipe(
-      map((e) => {
-        return e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005)
-      })
-    )
-
   constructor (
-    @Inject(API) private readonly api: AppApiInterface,
-    private signerService: SignerService,
-    private contractService: ContractService,
-    private snackBar: MatSnackBar
+    @Inject(API) private readonly api: AppApiInterface, // eslint-disable-line
+    private readonly signerService: SignerService, // eslint-disable-line
+    private readonly contractService: ContractService // eslint-disable-line
   ) {}
 
-  private defineApply (userAddress: string, tasks: ContractGrantRawModel): string[] {
+  private defineApply (userAddress: string, tasks: {[index: string]: ContractGrantRawModel}): string[] {
     const result: string[] = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
-        // @ts-ignore
-        if (userAddress && tasks[key]?.applicants?.value.includes(userAddress)) {
+        if (
+          userAddress &&
+          tasks &&
+          tasks[key]?.applicants?.value.includes(userAddress)
+        ) {
           result.push(key)
         }
       }
@@ -93,13 +91,11 @@ export class UserService {
     return result
   }
 
-  private defineVoted (userAddress: string, tasks: ContractGrantRawModel): string[] {
+  private defineVoted (userAddress: string, tasks: {[s: string]: ContractGrantRawModel}): string[] {
     const result = []
     if (tasks) {
-      // @ts-ignore
       for (const key of Object.keys(tasks)) {
-        // @ts-ignore
-        const grant = tasks[key]
+        const grant: ContractGrantRawModel = tasks[key]
         if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
           result.push(key)
         }
@@ -113,8 +109,8 @@ export class UserService {
     ownerAddress: string,
     masterAddress: string,
     userAddress: string,
-    DAOMemberAddress: string[],
-    WorkGroupAddress: string[]
+    addressDAOMember: string[],
+    addressWorkGroup: string[]
   ): RoleRowInterface {
     const result: RoleRowInterface = {
       mainRole: RoleEnum.unauthorized,
@@ -132,12 +128,12 @@ export class UserService {
       result.roles.isAuth = true
       result.roles.isUnauthorized = false
     }
-    if (DAOMemberAddress.includes(userAddress)) {
-      result.mainRole = RoleEnum.DAOMember
+    if (addressDAOMember.includes(userAddress)) {
+      result.mainRole = RoleEnum.daoMember
       result.roles.isDAO = true
       result.roles.isUnauthorized = false
     }
-    if (WorkGroupAddress.includes(userAddress)) {
+    if (addressWorkGroup.includes(userAddress)) {
       result.mainRole = RoleEnum.workingGroup
       result.roles.isWG = true
       result.roles.isUnauthorized = false

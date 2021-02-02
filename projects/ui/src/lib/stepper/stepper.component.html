@@ -1,8 +1,13 @@
-<div class="stepper" [class.active]="stepId != null">
-  <mat-horizontal-stepper #stepper >
-    <mat-step *ngFor="let el of formalStatuses; let i = index" [color]="i < stepId ? 'completed-step' : 'next-step'"  >
-      <ng-template matStepLabel >{{el.value}}</ng-template>
-    </mat-step>
-  </mat-horizontal-stepper>
+<div class="stepper">
+  <div
+    *ngFor="let el of formalStatuses; let i = index"
+    [class.stepper__step-done]="i < stepId"
+    [class.stepper__step-pre-done]="i == stepId"
+    [class.stepper__step-last]="i + 1 == formalStatuses.length"
+    class="stepper__step">
+    <div class="stepper__text mat-h5">
+      {{el.value}}
+    </div>
+  </div>
 </div>
-<!-- *ngIf="stepId && formalStatuses"-->
+

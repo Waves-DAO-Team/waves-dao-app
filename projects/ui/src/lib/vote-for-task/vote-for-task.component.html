@@ -1,21 +1,19 @@
 <div class="grant-vote">
   <div class="grant-vote-active" *ngIf="!isVote">
     <div class="grant-vote-active__content">
-      <!--TODO тут должен быть .mat-h4 типографика по макету-->
-      <div class="grant-vote__title">
-        <ng-container *ngIf="_isVoteInProcess">
+      <div class="grant-vote__title mat-h4">
+        <ng-container *ngIf="isVoteInProcess">
           {{ 'entity.DAO.vote.process.text' | transloco}}
         </ng-container>
-        <ng-container *ngIf="!_isVoteInProcess">
+        <ng-container *ngIf="!isVoteInProcess">
           {{ 'entity.DAO.vote.true.text' | transloco}}
         </ng-container>
       </div>
-      <!--TODO тут должен быть caption типографика по макету-->
-      <div class="grant-vote__caption">
-        <ng-container *ngIf="_isVoteInProcess">
+      <div class="grant-vote__caption mat-h5">
+        <ng-container *ngIf="isVoteInProcess">
           {{ 'entity.DAO.vote.process.subtext' | transloco}}
         </ng-container>
-        <ng-container *ngIf="!_isVoteInProcess">
+        <ng-container *ngIf="!isVoteInProcess">
           {{ 'entity.DAO.vote.true.subtext' | transloco}}
         </ng-container>
       </div>
@@ -23,9 +21,9 @@
     <div class="grant-vote-active__buttons">
       <button
         (click)="vote('like'); "
-        [class.mat-button-selected]="voteStatus === 'like' && _isVoteInProcess"
+        [class.mat-button-selected]="voteStatus === 'like' && isVoteInProcess"
         mat-button
-        [disabled]="_isVoteInProcess"
+        [disabled]="isVoteInProcess"
         mat-stroked-button
         color="white-primary"
       >
@@ -34,9 +32,9 @@
       </button>
       <button
         (click)="vote('dislike'); "
-        [class.mat-button-selected]="voteStatus === 'dislike' && _isVoteInProcess"
+        [class.mat-button-selected]="voteStatus === 'dislike' && isVoteInProcess"
         mat-button
-        [disabled]="_isVoteInProcess"
+        [disabled]="isVoteInProcess"
         mat-stroked-button
         color="white-primary"
       >
@@ -46,11 +44,9 @@
     </div>
   </div>
   <div class="grant-vote-end" *ngIf="isVote">
-    <div
-      class="grant-vote__title"
-    >{{ 'entity.DAO.vote.false.text' | transloco}}</div>
-    <div
-      class="grant-vote__caption"
-    >{{ 'entity.DAO.vote.false.subtext' | transloco}}</div>
+    <div class="grant-vote__title mat-h4">
+      {{ 'entity.DAO.vote.false.text' | transloco}}</div>
+    <div class="grant-vote__caption mat-h5">
+      {{ 'entity.DAO.vote.false.subtext' | transloco}}</div>
   </div>
 </div>

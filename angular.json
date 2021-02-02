@@ -30,14 +30,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/libs/tsconfig.lib.json",
-              "projects/libs/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/libs/**/*.ts",
+              "projects/libs/**/*.html"
             ]
           }
         }
@@ -70,14 +67,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/services/tsconfig.lib.json",
-              "projects/services/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/services/**/*.ts",
+              "projects/services/**/*.html"
             ]
           }
         }
@@ -120,14 +114,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ui/tsconfig.lib.json",
-              "projects/ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ui/**/*.ts",
+              "projects/ui/**/*.html"
             ]
           }
         }
@@ -155,7 +146,6 @@
             "main": "projects/dapp/src/main.ts",
             "polyfills": "projects/dapp/src/polyfills.ts",
             "tsConfig": "projects/dapp/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/dapp/src/favicon.ico",
               {
@@ -172,7 +162,9 @@
             "styles": [
               "resources/styles/index.scss"
             ],
-            "scripts": ["node_modules/emoji-toolkit/lib/js/joypixels.min.js"],
+            "scripts": [
+              "node_modules/emoji-toolkit/lib/js/joypixels.min.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"
@@ -280,7 +272,9 @@
             "styles": [
               "resources/styles/index.scss"
             ],
-            "scripts": ["node_modules/emoji-toolkit/lib/js/joypixels.min.js"],
+            "scripts": [
+              "node_modules/emoji-toolkit/lib/js/joypixels.min.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"
@@ -289,15 +283,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/dapp/tsconfig.app.json",
-              "projects/dapp/tsconfig.spec.json",
-              "projects/dapp/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/dapp/**/*.ts",
+              "projects/dapp/**/*.html"
             ]
           }
         },
