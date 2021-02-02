@@ -117,7 +117,9 @@
     }
   },
   "all_teams": {
-    "title": "Teams applied to:"
+    "title": "Teams applied to:",
+    "score": "Score",
+    "learn_about_team": "Learn more about the team"
   },
   "entity": {
     "see_all_teams": "SEE ALL TEAMS",
