@@ -30,6 +30,50 @@ manage the grant distribution process and transparently vote for the applicants.
   Web 3.0 Development Grants can be proposed by the community and awarded to
   the teams that foster mass adoption of blockchain technology.
 
+## Starting project
+
+```bash
+    git clone https://github.com/rieset/waves-grants.git
+    cd waves-grants
+    yarn install
+```
+
+- Go to the contract [repository](https://github.com/vlzhr/WavesDAO)
+and install like other project.
+
+- Run the deployment of contracts in the test network
+
+- Copy the file `.env` with the addresses of the contracts into the root
+directory of the project
+
+- Run project
+
+```bash
+    yarn start
+```
+
+## First steps in testnet
+
+Create users for different roles
+
+- Create a wallet in [Waves.exchange](https://testnet.waves.exchange/) for
+a workgroup member, and get [10 waves](https://testnet.wavesexplorer.com/faucet)
+on it
+- Create a wallet in [Waves.exchange](https://testnet.waves.exchange/) for
+a DAO member, and get [10 waves](https://testnet.wavesexplorer.com/faucet) on it
+- Create a wallet in [Waves.exchange](https://testnet.waves.exchange/) for a
+user, and get [10 waves](https://testnet.wavesexplorer.com/faucet) on it
+
+Import into [Waves.exchange](https://testnet.waves.exchange/) the `DAO Manager`
+wallet with the seed phrase from the project with the contracts after they are deposited
+
+Open a running project at [http://localhost:4200](http://localhost:4200) and go
+to the DAO member management page.
+
+Add users: `DAO member` and `workgroup user` to the blockchain
+
+Finish. Now you can experiment with your DAO
+
 ## Architecture
 
 Structure diagram:
@@ -57,15 +101,6 @@ CommonContractService combines common contract methods.
 - SignerService - service responsible for interaction with [Signer](https://github.com/wavesplatform/signer)
 - UserService - service responsible for the current user, his access and
 participation in grants.
-
-## Starting project
-
-```bash
-    git clone https://github.com/rieset/waves-grants.git
-    cd waves-grants
-    npm i
-    ng serve
-```
 
 ## Adding modules
 
@@ -113,6 +148,6 @@ To run the tests under Node you will need tap installed (it's listed as a
 `devDependencies` so `npm install` from the checkout should be enough), then do
 
 ```bash
-    ng lint
-    npm tests
+    yarn lint
+    yarn tests
 ```
