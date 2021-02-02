@@ -20,7 +20,7 @@ export class DisruptiveContractService {
   ) {
   }
 
-  public addDAOMember (member: string): Observable<TransactionsSuccessResult>  {
+  public addDAOMember (member: string): Observable<TransactionsSuccessResult> {
     return this.commonContractService.addDAOMember(member)
   }
 

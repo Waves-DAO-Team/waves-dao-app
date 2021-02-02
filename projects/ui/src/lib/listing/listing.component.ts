@@ -43,11 +43,11 @@ export class ListingComponent implements OnDestroy {
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
     map((grants) => {
       const list = Object.values(grants.reduce((origin, grant) => ({
-          ...origin,
-          ...(grant?.status?.value === undefined
-            ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus }
-            : { [grant?.status?.value]: grant?.status?.value })
-        }), {}))
+        ...origin,
+        ...(grant?.status?.value === undefined
+          ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus }
+          : { [grant?.status?.value]: grant?.status?.value })
+      }), {}))
 
       if (list.length === 0) {
         return []
@@ -78,41 +78,41 @@ export class ListingComponent implements OnDestroy {
         isDAO: userServiceData.roles.isDAO
       })),
       map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
-          ...data,
-          grants: data.grants.map((e) => {
-            if (e.reward && e.reward.value) {
-              e.reward.value = (parseFloat(e.reward.value) / 100000000).toFixed(2)
-            } else if (e.reward === undefined) {
-              const newData: ContractRawDataNumber = {
-                key: '', type: 0, value: '0.00'
-              }
-              e.reward = newData
+        ...data,
+        grants: data.grants.map((e) => {
+          if (e.reward && e.reward.value) {
+            e.reward.value = (parseFloat(e.reward.value) / 100000000).toFixed(2)
+          } else if (e.reward === undefined) {
+            const newData: ContractRawDataNumber = {
+              key: '', type: 0, value: '0.00'
             }
-            return e
-          })
+            e.reward = newData
+          }
+          return e
         })
+      })
       ),
       map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
-          ...data,
-          grants: data.grants.filter((e) => {
-            const status = e.status && e.status.value ? e.status.value : null
-            return this.isCanShowByTag(status, data.selectedTag)
-          })
+        ...data,
+        grants: data.grants.filter((e) => {
+          const status = e.status && e.status.value ? e.status.value : null
+          return this.isCanShowByTag(status, data.selectedTag)
         })
+      })
       ),
       map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
-          ...data,
-          grants: data.grants.map((e: ContractGrantExtendedModel) => {
-            const status = e.status && e.status.value ? e.status.value : 'no_status'
-            e.statusText = translate('listing.status.' + status)
-            if (data.isDAO && status === GrantStatusEnum.proposed && e.id) {
-              const isVote = this.userService.data.getValue().voted.includes(e.id)
-              const voteText = (isVote ? 'vote_counted' : 'need_vote')
-              e.voteText = translate('listing.DAO_subtext.' + voteText)
-            }
-            return e
-          })
+        ...data,
+        grants: data.grants.map((e: ContractGrantExtendedModel) => {
+          const status = e.status && e.status.value ? e.status.value : 'no_status'
+          e.statusText = translate('listing.status.' + status)
+          if (data.isDAO && status === GrantStatusEnum.proposed && e.id) {
+            const isVote = this.userService.data.getValue().voted.includes(e.id)
+            const voteText = (isVote ? 'vote_counted' : 'need_vote')
+            e.voteText = translate('listing.DAO_subtext.' + voteText)
+          }
+          return e
         })
+      })
       ),
       map((data: ContractGrantExtendedParentModel): ContractGrantExtendedModel[] | null => data?.grants?.length ? data?.grants : null)
     )
@@ -163,13 +163,13 @@ export class ListingComponent implements OnDestroy {
     )
 
   constructor (
-      public cdr: ChangeDetectorRef,
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-      @Inject(API) public readonly api: AppApiInterface,
-      @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
-      public userService: UserService,
-      public contractService: ContractService,
-      public teamService: TeamService
+    public cdr: ChangeDetectorRef,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(API) public readonly api: AppApiInterface,
+    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
+    public userService: UserService,
+    public contractService: ContractService,
+    public teamService: TeamService
   ) {}
 
   selectedTag ($event: string): void {
