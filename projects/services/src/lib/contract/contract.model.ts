@@ -20,26 +20,26 @@ export interface ContractRawDataNumber {
 export type ContractRawData = ContractRawDataString[]
 
 export interface ContractGrantFullAppModel {
-  owner: string; address:
-    string;
+  owner: string
+  address: string
   working: {
     group: {
       member: {
-        [s: string]: { weight: ContractRawDataString;
-        };
-      };
-      name: ContractRawDataString;
-      size: ContractRawDataNumber;
-    };
-  };
+        [s: string]: { weight: ContractRawDataString
+        }
+      }
+      name: ContractRawDataString
+      size: ContractRawDataNumber
+    }
+  }
   dao: {
     member: {[s: string]: {
-        weight: ContractRawDataString
-      }}
+      weight: ContractRawDataString
+    }}
     members: ContractRawDataString
     size: ContractRawDataNumber
-  };
-  tasks: {[s: string]: ContractGrantRawModel};
+  }
+  tasks: {[s: string]: ContractGrantRawModel}
 }
 
 export interface ContractGrantAppModel {
@@ -129,8 +129,8 @@ export interface ContractGrantExtendedModel extends ContractGrantModel {
 }
 
 export interface ContractGrantExtendedParentModel {
-  grants: ContractGrantExtendedModel[];
-  selectedTag: string;
+  grants: ContractGrantExtendedModel[]
+  selectedTag: string
   isDAO: boolean
 }
 

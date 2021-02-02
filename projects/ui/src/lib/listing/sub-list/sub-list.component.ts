@@ -3,7 +3,7 @@ import {
   Component,
   HostBinding,
   Inject,
-  Input,
+  Input
 } from '@angular/core'
 
 import {
@@ -16,7 +16,7 @@ import { GrantsVariationType } from '@services/static/static.model'
   selector: 'ui-sub-list',
   templateUrl: './sub-list.component.html',
   styleUrls: ['./sub-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubListComponent {
   @Input() contract: GrantsVariationType | null = null
