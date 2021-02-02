@@ -34,30 +34,20 @@ const routes: Routes = [
         loadChildren: async () => await import('./pages/members-page/members-page.module').then((m) => m.MembersPageModule),
         pathMatch: 'full'
       },
-      // {
-      //   path: environment.routing.createGrant,
-      //   loadChildren: () => import('./pages/create-grant-page/create-grant-page.module').then((m) => m.CreateGrantPageModule),
-      //   pathMatch: 'full'
-      // },
-      // {
-      //   path: environment.routing.editGrant,
-      //   loadChildren: () => import('./pages/edit-grant-page/edit-grant-page.module').then((m) => m.EditGrantPageModule),
-      //   pathMatch: 'full'
-      // },
       {
         path: environment.routing.stylesheet,
         loadChildren: async () => await import('./pages/stylesheet-page/stylesheet-page.module').then((m) => m.StylesheetPageModule),
         pathMatch: 'full'
       },
-      // {
-      //   path: environment.routing.addReward,
-      //   loadChildren: () => import('./pages/add-reward-page/add-reward-page.module').then((m) => m.AddRewardPageModule),
-      //   pathMatch: 'full'
-      // },
       {
         path: environment.routing.entity,
         loadChildren: async () =>
           await import('./pages/entity-page/entity-page.module').then((m) => m.EntityPageModule)
+      },
+      {
+        path: environment.routing.allTeams,
+        loadChildren: async () =>
+          await import('./pages/all-teams-page/all-teams-page.module').then((m) => m.AllTeamsPageModule)
       }
     ]
   },
