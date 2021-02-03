@@ -17,10 +17,12 @@ import { StepperModule } from '@ui/stepper/stepper.module'
 import { TeamsAndSolutionsModule } from '@ui/teams-and-solutions/teams-and-solutions.module'
 import { SubmitSolutionModule } from '@ui/modals/submit-solution/submit-solution.module'
 import {AllTeamsBtnModule} from "@ui/all-teams-btn/all-teams-btn.module";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
+  declarations: [ EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
   imports: [
+    MatTooltipModule,
     AllTeamsBtnModule,
     CommonModule,
     EntityPageRoutingModule,

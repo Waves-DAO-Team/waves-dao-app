@@ -27,7 +27,7 @@ import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solutio
 import {teamsAndSolutionsControls} from './functions'
 import {InterhackContractService} from '@services/contract/Interhack-contract.service'
 import {ActivatedRoute} from "@angular/router";
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 @Component({
   selector: 'app-interhack-template',
   templateUrl: './interhack-template.component.html',
@@ -61,31 +61,22 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   grant$ = new Subject<ContractGrantModel>()
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => teamsAndSolutionsControls(user, grant)))
-
-
-  public failedTeams$: Observable<ContractGrantAppModel[]> = combineLatest([this.grant$, this.teamsAndSolutionsControls$])
     .pipe(
-      filter(([g, c]) => c.stepType !== 'team'),
-      map(([g, c]) => g),
-      filter(grant => grant != undefined && grant != null && grant.app != null),
-      map((grants) => grants.app),
-      map((app) => {
-        let res: ContractGrantAppModel[] = []
-        if (app)
-          app.forEach((team) => {
-            if (
-              team
-              && team.score
-              && team.score.applicant
-              && team.score.applicant?.value
-              && team.score.applicant.value <= 0
-            ) {
-              res.push(team)
-            }
-          })
-        return res
-      }),
+      map(([user, grant]) => teamsAndSolutionsControls(user, grant)),
+    )
+
+
+
+  public isShowAllTeamsBtn$: Observable<boolean> = this.grant$
+    .pipe(
+      filter( e => e != undefined && e.status != undefined && e.status.value != undefined),
+      // @ts-ignore
+      map( e => e.status.value),
+      map( e =>
+        e === GrantStatusEnum.workStarted
+        || e === GrantStatusEnum.workFinished
+        || e === GrantStatusEnum.solutionChosen
+      ),
     )
 
   winnerIdentifier: string | null = null

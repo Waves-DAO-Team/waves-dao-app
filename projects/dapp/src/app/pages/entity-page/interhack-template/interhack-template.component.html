@@ -16,7 +16,11 @@
     {{'entity.finish_vote' | transloco}}
   </button>
 
-  <button class="marginTB" *ngIf="isRejectBtn$ | async" (click)="reject()">
+  <button
+
+    class="marginTB"
+    *ngIf="isRejectBtn$ | async"
+    (click)="reject()">
     {{'entity.reject' | transloco}}
   </button>
 
@@ -48,9 +52,7 @@
     applyBtnText="{{'entity.apply' | transloco}}"
   ></ui-teams-and-solutions>
 
-  <ng-container *ngIf="failedTeams$ | async as teams">
-    <ui-all-teams-btn *ngIf="teams.length > 0"></ui-all-teams-btn>
-  </ng-container>
+  <ui-all-teams-btn *ngIf="isShowAllTeamsBtn$ | async"></ui-all-teams-btn>
 
 </ng-template>
 

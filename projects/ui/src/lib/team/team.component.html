@@ -15,15 +15,22 @@
        {{'entity.log_in_for_apply' | transloco}}
       </button>
 
-      <button
-        class="active"
-        (click)="newOpenApplyModalEvent.emit()"
-        [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
-        *ngIf="teamsControls?.isApplyBtn"
-        routerLinkActive="active"
+
+      <div
+        matTooltip="{{'tooltip.not_enough_money' | transloco}}"
+        [matTooltipDisabled]="(userService.isBalanceMoreCommission$ | async) !== false"
       >
-        {{ applyBtnText }}
-      </button>
+        <button
+          class="active"
+          (click)="newOpenApplyModalEvent.emit()"
+          [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
+          *ngIf="teamsControls?.isApplyBtn"
+          routerLinkActive="active"
+        >
+          {{ applyBtnText }}
+        </button>
+      </div>
+
     </div>
   </div>
 

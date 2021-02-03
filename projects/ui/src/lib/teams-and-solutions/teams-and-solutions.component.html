@@ -21,15 +21,21 @@
         >
           {{ 'entity.submit_solution' | transloco }}
         </button>
-
-        <button
-          class="active"
-          (click)="newOpenApplyModalEvent.emit()"
-          [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
-          *ngIf="teamsAndSolutionsControls.isApplyBtn && !teamsAndSolutionsControls.leaderIds.includes(userService.data.getValue().userAddress)"
+        
+        <div
+          matTooltip="{{'tooltip.not_enough_money' | transloco}}"
+          [matTooltipDisabled]="(userService.isBalanceMoreCommission$ | async) !== false"
         >
-          {{ applyBtnText }}
-        </button>
+          <button
+            class="active"
+            (click)="newOpenApplyModalEvent.emit()"
+            [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
+            *ngIf="teamsAndSolutionsControls.isApplyBtn && !teamsAndSolutionsControls.leaderIds.includes(userService.data.getValue().userAddress)"
+          >
+            {{ applyBtnText }}
+          </button>
+        </div>
+
       </div>
     </div>
 

@@ -24,11 +24,14 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
     ) {
       result.isShowSolutionControls = false
     }
+
     // stepType
-    if ((status === GrantStatusEnum.workStarted ||
+    if (
+      status === GrantStatusEnum.workStarted ||
       status === GrantStatusEnum.proposed ||
-      status === GrantStatusEnum.readyToApply ||
-      status === GrantStatusEnum.workStarted)
+      status === GrantStatusEnum.readyToApply
+      // || status === GrantStatusEnum.workStarted
+
     ) {
       result.stepType = 'team'
     } else {

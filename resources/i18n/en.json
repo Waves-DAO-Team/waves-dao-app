@@ -21,6 +21,9 @@
       "setting": "Setting"
     }
   },
+  "tooltip": {
+    "not_enough_money": "Not enough money on the balance sheet"
+  },
   "modal": {
     "texts": {
       "add_reward": "Add reward",
