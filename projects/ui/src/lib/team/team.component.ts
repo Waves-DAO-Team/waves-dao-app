@@ -61,6 +61,5 @@ export class TeamComponent {
           isHasWinnerTemp = true
       })
     this.isHasWinner = isHasWinnerTemp
-    console.log('---isHasWinnerTemp', isHasWinnerTemp)
   }
 }

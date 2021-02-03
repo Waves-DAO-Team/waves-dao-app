@@ -24,11 +24,16 @@
     {{'entity.accept_work_result' | transloco}}
   </button>
 
+  <button *ngIf="isRejectBtn$ | async" (click)="reject()">
+    {{'entity.reject' | transloco}}
+  </button>
+
 </ng-template>
 
 
 <ng-template #team>
   <ui-team
+    *ngIf="isShowStepperAndTeam$ | async"
     [grant]="grant"
     [teamsControls]="teamsControls$ | async"
     [isProcess]="isShowTeamsBtn$ | async"
@@ -45,7 +50,7 @@
 
 <ng-template #voteForTask>
   <ui-vote-for-task
-    *ngIf="voteForTaskData.isShow"
+    *ngIf="voteForTaskData.isShow && isShowStepperAndTeam$ | async"
     [isShow]="voteForTaskData.isShow"
     [isVote]="voteForTaskData.isVote"
     [isVoteInProcess]="voteForTaskData.isVoteInProcess"
@@ -54,7 +59,10 @@
 </ng-template>
 
 <ng-template #stepper>
-  <ui-stepper [status]="grant?.status?.value"></ui-stepper>
+  <ui-stepper
+    *ngIf="isShowStepperAndTeam$ | async"
+    [status]="grant?.status?.value"
+  ></ui-stepper>
 </ng-template>
 
 <ui-entity

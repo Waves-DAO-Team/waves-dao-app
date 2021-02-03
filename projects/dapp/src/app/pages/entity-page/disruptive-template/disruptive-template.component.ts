@@ -42,6 +42,17 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   grant$ = new Subject<ContractGrantModel>()
 
+
+  isShowStepperAndTeam$: Observable<boolean> = this.grant$
+    .pipe(
+      // @ts-ignore
+      filter(e => e && e.status && e.status.value),
+      // @ts-ignore
+      map(e => e.status.value),
+      map(e => e !== GrantStatusEnum.rejected),
+      tap(e => console.log('---', e))
+    )
+
   isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isShowAddRewardBtn(user, grant)))
 
@@ -65,6 +76,19 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     isVote: false,
     isVoteInProcess: false
   }
+
+  isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isWG = user.roles.isWG
+          const isStatusMatch = grant?.status?.value !== this.grantStatusEnum.rejected
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
 
   public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
