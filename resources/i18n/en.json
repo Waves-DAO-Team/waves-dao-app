@@ -72,14 +72,15 @@
     "auth": "Authorized User"
   },
   "stepper": {
-    "collecting_requests": "Collecting requests",
+    "grant_propesed": "Grant propesed",
     "preparing": "Preparing",
     "voting_has_started": "Voting has started",
-    "requests_selection_over": "Requests selection is over",
+    "collecting_applications": "Collecting applications",
     "work_begun": "The work has begun",
-    "requests_selection_start": "Requests requests is start",
+    "requests_selection_start": "Collecting applications",
     "solutions_selection_over": "Requests solutions is over",
     "work_started": "Work started",
+    "in_work": "In work",
     "work_finished": "Work finished"
   },
   "listing": {
