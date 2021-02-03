@@ -30,6 +30,10 @@ button {
 
   &:hover {
     border: 1px solid $color_waves_blue;
+
+    img {
+      transform: translate(2px, 0);
+    }
   }
 }
 

@@ -1,0 +1,10 @@
+@import 'const';
+@import 'container';
+@import '~include-media/dist/_include-media.scss';
+@import "mixins";
+@import 'mixins/elements/text-title';
+@import "mixins/typography";
+
+.container {
+  @include container();
+}

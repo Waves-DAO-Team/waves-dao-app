@@ -3,65 +3,215 @@
 <div class="container landing-page">
 
   <div class="container__mid">
-    <div class="landing-page__title">
-      {{'listing.title' | transloco}}
-    </div>
-    <div class="landing-page__desc mat-display-2">
+
+
+    <div class="landing-page__intro mat-display-2">
+      <div class="landing-page__intro-title">
+        {{'listing.title' | transloco}}
+      </div>
       {{'landing-page.introDesc' | transloco}}.&nbsp;
-      <button class="btn active">
-        {{'landing-page.fullGuide' | transloco}}
+      <button class="btn active" [routerLink]="constants.routes.guide | route">
+        {{'landing-page.fullGuide' | transloco}}<img alt="img" src="assets/icons/arr-right-white.svg">
       </button>
     </div>
 
-    <div class="landing-page__title">
-      {{'landing-page.howToDAO' | transloco}}
+    <!--HOW TO DAO-->
+
+    <div class="landing-page__howTo bg-gray mat-display-2">
+
+      <div class="landing-page__title ">
+        {{'landing-page.howToDAO' | transloco}}
+      </div>
+
+      <div class="landing-page__tiles">
+        <div class="landing-page__howTo-pair">
+          <img alt="howToDAO" src="assets/icons/howToDAO_1.svg" class="landing-page__howTo-pair-icon">
+          <div class="landing-page__desc">
+            {{'landing-page.howToDAO_1' | transloco}}
+          </div>
+        </div>
+
+        <div class="landing-page__howTo-pair">
+          <img alt="howToDAO" src="assets/icons/howToDAO_2.svg" class="landing-page__howTo-pair-icon">
+          <div class="landing-page__desc">
+            {{'landing-page.howToDAO_2' | transloco}}
+          </div>
+        </div>
+
+        <div class="landing-page__howTo-pair">
+          <img alt="howToDAO" src="assets/icons/howToDAO_3.svg" class="landing-page__howTo-pair-icon">
+          <div class="landing-page__desc">
+            {{'landing-page.howToDAO_3' | transloco}}
+          </div>
+        </div>
+
+        <div class="landing-page__howTo-pair">
+          <img alt="howToDAO" src="assets/icons/howToDAO_4.svg" class="landing-page__howTo-pair-icon">
+          <div class="landing-page__desc">
+            {{'landing-page.howToDAO_4' | transloco}}
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="landing-page__tiles mat-display-2">
-      <div class="landing-page__tiles-pair">
-        <img alt="howToDAO" src="assets/icons/howToDAO_1.svg" class="landing-page__tiles-pair-icon">
-        <div class="landing-page__desc">
-          {{'landing-page.howToDAO_1' | transloco}}
-        </div>
+    <!--WHY DAO-->
+
+    <div class="landing-page__whyDAO">
+
+      <div class="landing-page__title">
+        {{'landing-page.whyDAO' | transloco}}
       </div>
 
-      <div class="landing-page__tiles-pair">
-        <img alt="howToDAO" src="assets/icons/howToDAO_2.svg" class="landing-page__tiles-pair-icon">
-        <div class="landing-page__desc">
-          {{'landing-page.howToDAO_2' | transloco}}
-        </div>
-      </div>
+      <div class="landing-page__whyDAO-cards mat-display-2">
 
-      <div class="landing-page__tiles-pair">
-        <img alt="howToDAO" src="assets/icons/howToDAO_3.svg" class="landing-page__tiles-pair-icon">
-        <div class="landing-page__desc">
-          {{'landing-page.howToDAO_3' | transloco}}
-        </div>
-      </div>
+        <span class="landing-page__whyDAO-cards-card">
+            <span class="landing-page__whyDAO-cards-card-title mat-display-4" [innerHTML]="'landing-page.whyDAO_title_1' | transloco "></span>
+            <span class="landing-page__whyDAO-cards-card-desc mat-display-2" [innerHTML]="'landing-page.whyDAO_content_1' | transloco "></span>
+        </span>
 
-      <div class="landing-page__tiles-pair">
-        <img alt="howToDAO" src="assets/icons/howToDAO_4.svg" class="landing-page__tiles-pair-icon">
-        <div class="landing-page__desc">
-          {{'landing-page.howToDAO_4' | transloco}}
-        </div>
+        <span class="landing-page__whyDAO-cards-card">
+            <span class="landing-page__whyDAO-cards-card-title mat-display-4" [innerHTML]="'landing-page.whyDAO_title_2' | transloco "></span>
+            <span class="landing-page__whyDAO-cards-card-desc mat-display-2" [innerHTML]="'landing-page.whyDAO_content_2' | transloco "></span>
+        </span>
+
+        <span class="landing-page__whyDAO-cards-card">
+            <span class="landing-page__whyDAO-cards-card-title mat-display-4" [innerHTML]="'landing-page.whyDAO_title_3' | transloco "></span>
+            <span class="landing-page__whyDAO-cards-card-desc mat-display-2" [innerHTML]="'landing-page.whyDAO_content_3' | transloco "></span>
+        </span>
       </div>
     </div>
 
-    <div class="landing-page__roles">
+    <!--WHAT ARE THE ROLES-->
+
+    <div class="landing-page__roles bg-gray">
       <div class="landing-page__title">
         {{'landing-page.whatAreRoles' | transloco}}
       </div>
 
-      <a class="landing-page__roles-card">
+      <div class="landing-page__roles-cards">
 
          <!--[routerLink]="constants.routes.listing | route : grants?.name"-->
+        <div>
+          <div class="landing-page__roles-cards-card">
+            <img alt="icon" src="assets/icons/avatar/auth.svg"  class="landing-page__roles-cards-card-img"/>
+            <span class="landing-page__roles-cards-card-content bg-gray">
+              <span class="landing-page__roles-cards-card-title mat-display-3" [innerHTML]="'landing-page.applicant' | transloco "></span>
+              <span class="landing-page__roles-cards-card-desc mat-display-1" [innerHTML]="'landing-page.applicantDesc' | transloco "></span>
+          </span>
+          </div>
 
-        <img alt="icon" src="assets/icons/avatar/master.svg"  class="landing-page__roles-card-img"/>
-        <span class="landing-page__roles-card-content">
-                    <span class="landing-page__roles-card-title mat-display-3">{{ 'landing-page.applicant' }}</span>
-                    <span class="landing-page__roles-card-desc mat-display-1">{{ 'landing-page.applicantDesc' }}</span>
-                </span>
-      </a>
+          <div class="landing-page__roles-cards-card">
+            <img alt="icon" src="assets/icons/avatar/wg.svg"  class="landing-page__roles-cards-card-img"/>
+            <span class="landing-page__roles-cards-card-content bg-gray">
+              <span class="landing-page__roles-cards-card-title mat-display-3" [innerHTML]="'role.wg' | transloco "></span>
+              <span class="landing-page__roles-cards-card-desc mat-display-1" [innerHTML]="'landing-page.workingGroupDesc' | transloco "></span>
+          </span>
+          </div>
+        </div>
+
+        <div>
+          <div class="landing-page__roles-cards-card">
+            <img alt="icon" src="assets/icons/avatar/dao.svg"  class="landing-page__roles-cards-card-img"/>
+            <span class="landing-page__roles-cards-card-content bg-gray">
+              <span class="landing-page__roles-cards-card-title mat-display-3" [innerHTML]="'role.dao' | transloco "></span>
+              <span class="landing-page__roles-cards-card-desc mat-display-1" [innerHTML]="'landing-page.daoMemberDesc' | transloco "></span>
+          </span>
+          </div>
+
+          <div class="landing-page__roles-cards-card">
+            <img alt="icon" src="assets/icons/avatar/master.svg"  class="landing-page__roles-cards-card-img"/>
+            <span class="landing-page__roles-cards-card-content bg-gray">
+              <span class="landing-page__roles-cards-card-title mat-display-3" [innerHTML]="'role.owner' | transloco "></span>
+              <span class="landing-page__roles-cards-card-desc mat-display-1" [innerHTML]="'landing-page.daoOwnerDesc' | transloco "></span>
+          </span>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
     </div>
+
+    <!--EXPLORE GRANTS-->
+
+    <div class="landing-page__grants">
+      <div class="landing-page__title">
+        {{'landing-page.exploreGrantsTitle' | transloco}}
+      </div>
+
+      <div class="landing-page__grants-cards">
+        <div class="landing-page__grants-cards-card">
+          <div class="landing-page__grants-cards-card-title mat-display-4">
+            {{ 'contracts.disruptive.title' | transloco }}
+          </div>
+          <div class="landing-page__grants-cards-card-desc mat-display-2">
+            {{ 'contracts.disruptive.landing' | transloco }}
+          </div>
+          <button class="landing-page__grants-cards-card-button btn active" [routerLink]="constants.routes.listing.disruptive | route">
+            {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
+          </button>
+        </div>
+        <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/disruptive-type-landing.png">
+      </div>
+
+      <div class="landing-page__grants-cards">
+        <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/web3-type-landing.png">
+        <div class="landing-page__grants-cards-card" [routerLink]="constants.routes.listing.web3 | route">
+          <div class="landing-page__grants-cards-card-title mat-display-4">
+            {{ 'contracts.web3.title' | transloco }}
+          </div>
+          <div class="landing-page__grants-cards-card-desc mat-display-2">
+            {{ 'contracts.web3.landing' | transloco }}
+          </div>
+          <button class="landing-page__grants-cards-card-button btn active">
+            {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
+          </button>
+        </div>
+      </div>
+
+      <div class="landing-page__grants-cards">
+        <div class="landing-page__grants-cards-card">
+          <div class="landing-page__grants-cards-card-title mat-display-4">
+            {{ 'contracts.interhack.title' | transloco }}
+          </div>
+          <div class="landing-page__grants-cards-card-desc mat-display-2">
+            {{ 'contracts.interhack.landing' | transloco }}
+          </div>
+          <button class="landing-page__grants-cards-card-button btn active" [routerLink]="constants.routes.listing.interhack | route">
+            {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
+          </button>
+        </div>
+        <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/interhack-type-landing.png">
+      </div>
+    </div>
+
+    <!--DIAGRAM-->
+
+    <div class="landing-page__workflow bg-gray">
+
+      <div class="landing-page__title">
+        {{'landing-page.workflow' | transloco}}
+      </div>
+
+      <mat-tab-group dynamicHeight>
+        <mat-tab label="{{ 'contracts.disruptive.title' | transloco }}">
+          <img class="landing-page__workflow-image" alt="img" src="assets/img/test-diagram-disruptive.png">
+        </mat-tab>
+        <mat-tab label="{{ 'contracts.web3.title' | transloco }}">
+          <img class="landing-page__workflow-image" alt="img" src="assets/img/test-diagram-web3.png">
+        </mat-tab>
+        <mat-tab label="{{ 'contracts.interhack.title' | transloco }}">
+          <img class="landing-page__workflow-image" alt="img" src="assets/img/test-diagram-interhack.png">
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+    <button class="landing-page__fullGuide btn active" [routerLink]="constants.routes.guide | route">
+      {{'landing-page.fullGuide' | transloco}}<img alt="img" src="assets/icons/arr-right-white.svg">
+    </button>
+
   </div>
 </div>

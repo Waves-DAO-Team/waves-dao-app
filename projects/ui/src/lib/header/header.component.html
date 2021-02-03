@@ -1,7 +1,7 @@
 <header >
   <div class="container" *ngIf="userRole$ | async as userRole">
     <div class="logo" [routerLink]="['/']" >
-      <img alt="logo" src="/assets/icons/logo.svg">
+      <img alt="logo" src="/assets/icons/logo-dao.svg">
       <div id="menu-toggle" [class.open]="isToggleMenuOpen" (click)="isToggleMenuOpen = !isToggleMenuOpen">
         <div id="hamburger">
           <span></span>
@@ -32,7 +32,7 @@
           <img alt="avatar" src="assets/icons/avatar/master.svg" *ngIf="role === RoleEnum.master || role === RoleEnum.owner">
           <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="role === RoleEnum.DAOMember">
           <img alt="avatar" src="assets/icons/avatar/wg.svg" *ngIf="role === RoleEnum.workingGroup">
-          <img alt="avatar" src="assets/icons/avatar/auth.png" *ngIf="role === RoleEnum.authorized">
+          <img alt="avatar" src="assets/icons/avatar/auth.svg" *ngIf="role === RoleEnum.authorized">
         </div>
         <div class="content">
           <div class="name mat-display-2">

@@ -66,8 +66,11 @@
         padding-left: 0;
       }
 
-      :hover {
-        color: $color_waves_blue;
+      &:hover {
+
+        img {
+          transform: translate(-4px, 0);
+        }
       }
     }
   }
