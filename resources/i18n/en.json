@@ -176,6 +176,10 @@
       }
     },
     "grant": {
+      "statuses": {
+        "has_solution": "HAS SOLUTION",
+        "rejected": "REJECTED"
+      },
       "status": {
         "proposed": {
           "subtext": "Wait. We contact with you",
