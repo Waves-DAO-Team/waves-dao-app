@@ -49,7 +49,11 @@
   ></ui-teams-and-solutions>
 
   <ng-container *ngIf="failedTeams$ | async as teams">
-    <button *ngIf="teams.length > 0" class="btn full see-all-teams-btn">{{'entity.see_all_teams' | transloco}}</button>
+    <button
+      *ngIf="teams.length > 0"
+      [routerLink]="['/', 'grants', (grantUrl$ | async).contractType, (grantUrl$ | async).entityId, 'all-teams']"
+      class="btn full see-all-teams-btn"
+    >{{'entity.see_all_teams' | transloco}}</button>
   </ng-container>
 
 </ng-template>

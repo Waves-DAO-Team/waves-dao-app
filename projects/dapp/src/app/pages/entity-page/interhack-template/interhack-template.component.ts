@@ -26,6 +26,7 @@ import {combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
 import {teamsAndSolutionsControls} from './functions'
 import {InterhackContractService} from '@services/contract/Interhack-contract.service'
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-interhack-template',
@@ -36,6 +37,12 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   @Input() public readonly contract!: GrantsVariationType
 
   grantStatusEnum = GrantStatusEnum
+
+  public grantUrl$ = this.route.paramMap
+    .pipe(
+      // @ts-ignore
+      map((e) => e.params)
+    )
 
   @Input() set grant(data: ContractGrantModel) {
     this.inputGrant = data
@@ -229,6 +236,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   private inputGrant: ContractGrantModel = {}
 
   constructor(
+    private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
     public interhackContractService: InterhackContractService,// eslint-disable-line
