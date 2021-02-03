@@ -21,7 +21,7 @@
         >
           {{ 'entity.submit_solution' | transloco }}
         </button>
-        
+
         <div
           matTooltip="{{'tooltip.not_enough_money' | transloco}}"
           [matTooltipDisabled]="(userService.isBalanceMoreCommission$ | async) !== false"

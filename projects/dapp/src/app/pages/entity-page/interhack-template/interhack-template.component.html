@@ -17,7 +17,6 @@
   </button>
 
   <button
-
     class="marginTB"
     *ngIf="isRejectBtn$ | async"
     (click)="reject()">
@@ -48,7 +47,7 @@
     (newVoteTeamEvent)="voteTeam($event)"
     (newVoteForSolutionEvent)="voteForSolution($event)"
     (newSubmitSolutionEvent)="submitSolution()"
-    titleText="{{'entity.teams' | transloco}}"
+    titleText="{{titleText$ | async}}"
     applyBtnText="{{'entity.apply' | transloco}}"
   ></ui-teams-and-solutions>
 

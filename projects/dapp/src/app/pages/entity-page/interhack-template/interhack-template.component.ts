@@ -44,6 +44,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       map((e) => e.params)
     )
 
+
   @Input() set grant(data: ContractGrantModel) {
     this.inputGrant = data
     this.prepareVoteForTaskData(data)
@@ -59,6 +60,16 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
   grant$ = new Subject<ContractGrantModel>()
+
+  public titleText$: Observable<string> = this.grant$
+    .pipe(
+      // @ts-ignore
+      filter( e => e && e.status && e.status.value),
+      // @ts-ignore
+      map( e => e.status.value),
+      map( e => e === GrantStatusEnum.readyToApply),
+      map( e => e ? translate('entity.applied_teams') : translate('entity.teams')),
+    )
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
     .pipe(
