@@ -30,45 +30,41 @@ import { StaticService } from '@services/static/static.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>
+
   public readonly user$: Observable<SignerUser> = this.signerService.user
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
-  @DestroyedSubject() private readonly destroyed$!: Subject<null>;
-
-  public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => {
-    return data.userRole
-  }))
-
   public readonly contractsList$ = this.staticService.getContactsList()
+  public readonly roleEnum = RoleEnum
+  isToggleMenuOpen = false
 
-  public readonly RoleEnum = RoleEnum;
-  isToggleMenuOpen = false;
-
+  public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => data.userRole))
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    private signerService: SignerService,
-    private snackBar: MatSnackBar,
+    private readonly signerService: SignerService,
+    private readonly snackBar: MatSnackBar,
     public router: Router,
     public userService: UserService,
     public contractService: ContractService,
-    private staticService: StaticService,
-    private location: Location
+    private readonly staticService: StaticService,
+    private readonly location: Location
   ) {
   }
 
   ngOnInit (): void {}
 
-  signupHandler () {
+  signupHandler (): void {
     this.signerService.login().subscribe(() => {
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
     })
   }
 
-  logoutHandler () {
+  logoutHandler (): void {
     // Get one value after click
-    this.signerService.logout().pipe(take(1)).subscribe((e) => {
+    this.signerService.logout().pipe(take(1)).subscribe(() => {
       this.contractService.refresh()
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
@@ -79,6 +75,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.location.back()
   }
 
-  ngOnDestroy () {}
-
+  ngOnDestroy (): void {}
 }

@@ -35,9 +35,11 @@ import {
   styleUrls: ['./disruptive-template.component.scss']
 })
 export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
+  @Input() public readonly contract!: GrantsVariationType
+
   grantStatusEnum = GrantStatusEnum
 
-  grant$ = new Subject<ContractGrantModel>();
+  grant$ = new Subject<ContractGrantModel>()
 
   isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isShowAddRewardBtn(user, grant)))
@@ -63,46 +65,31 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
-  GSgrant: ContractGrantModel = {}
-
   @Input() set grant (data: ContractGrantModel) {
-    if (data !== this.GSgrant) {
-      this.GSgrant = data
+    if (data !== this.inputGrant) {
+      this.inputGrant = data
       this.prepareVoteForTaskData(data)
     }
     this.grant$.next(data)
   }
 
-  get grant () {
-    return this.GSgrant
+  get grant (): ContractGrantModel {
+    return this.inputGrant
   }
 
-  @Input() public readonly contract!: GrantsVariationType
+  private inputGrant: ContractGrantModel = {}
 
   constructor (
-    private dialog: MatDialog,
-    public disruptiveContractService: DisruptiveContractService,
-    private snackBar: MatSnackBar,
-    public signerService: SignerService,
-    private cdr: ChangeDetectorRef,
-    public userService: UserService
+    private readonly dialog: MatDialog, // eslint-disable-line
+    public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
+    private readonly snackBar: MatSnackBar, // eslint-disable-line
+    public signerService: SignerService, // eslint-disable-line
+    private readonly cdr: ChangeDetectorRef,// eslint-disable-line
+    public userService: UserService // eslint-disable-line
   ) {
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
-    if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
-      this.voteForTaskData.isShow = true
-    } else {
-      this.voteForTaskData.isShow = false
-    }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
-      this.voteForTaskData.isVote = true
-    } else {
-      this.voteForTaskData.isVote = false
-    }
-  }
-
-  vote (value: 'like' | 'dislike') {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -113,7 +100,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  signup () {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -122,7 +109,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal () {
+  openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -141,14 +128,14 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface) {
+  voteTeam ($event: VoteTeamEventInterface): void {
     const id = this.grant?.id as string
     const teamId = $event.teamIdentifier
     const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote () {
+  finishVote (): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
@@ -206,5 +193,18 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
         }
       }
     })
+  }
+
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
+    if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
+      this.voteForTaskData.isShow = true
+    } else {
+      this.voteForTaskData.isShow = false
+    }
+    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+      this.voteForTaskData.isVote = true
+    } else {
+      this.voteForTaskData.isVote = false
+    }
   }
 }

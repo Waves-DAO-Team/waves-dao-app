@@ -1,0 +1,53 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": [
+    "!**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "projects/dapp/tsconfig.app.json",
+          "projects/dapp/tsconfig.spec.json",
+          "projects/dapp/e2e/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app"
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "error",
+        "space-before-function-paren": [
+          "error",
+          {
+            "anonymous": "always",
+            "asyncArrow": "always",
+            "named": "always"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "rules": {}
+    }
+  ]
+}

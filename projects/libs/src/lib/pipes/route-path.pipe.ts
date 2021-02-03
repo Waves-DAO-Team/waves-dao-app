@@ -5,7 +5,7 @@ import { relativeRoute, route } from './routes.lib'
   name: 'route'
 })
 export class RoutePipe implements PipeTransform {
-  transform (value: string | string[], ...args: string[]) {
+  transform (value: string | string[], ...args: string[]): string {
     return route(value, args)
   }
 }
@@ -14,7 +14,7 @@ export class RoutePipe implements PipeTransform {
   name: 'routes'
 })
 export class RoutesPipe implements PipeTransform {
-  transform (value: string | string[], ...args: string[]) {
+  transform (value: string | string[], ...args: string[]): string {
     return route(value, args)
   }
 }
@@ -23,7 +23,7 @@ export class RoutesPipe implements PipeTransform {
   name: 'relativeRoute'
 })
 export class RelativeRoutePipe implements PipeTransform {
-  transform (value: string | string[], ...args: string[]) {
+  transform (value: string | string[], ...args: string[]): string {
     return relativeRoute(value, args)
   }
 }

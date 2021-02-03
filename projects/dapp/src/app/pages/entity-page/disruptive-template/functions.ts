@@ -1,9 +1,9 @@
-import {UserDataInterface} from '@services/user/user.interface';
-import {ContractGrantModel} from '@services/contract/contract.model';
-import {GrantStatusEnum} from '@services/static/static.model'
-import {TeamsControlsInterface} from '@pages/entity-page/entity.interface';
+import { UserDataInterface } from '@services/user/user.interface'
+import { ContractGrantModel } from '@services/contract/contract.model'
+import { GrantStatusEnum } from '@services/static/static.model'
+import { TeamsControlsInterface } from '@pages/entity-page/entity.interface'
 
-export function isFinishApplicantsVoteBtn (user: UserDataInterface, grant: ContractGrantModel): boolean {
+export const isFinishApplicantsVoteBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
   if (grant && grant.app) {
     const isStatusMatch = grant?.status?.value === GrantStatusEnum.readyToApply
     const isWG = user.roles.isWG
@@ -19,7 +19,7 @@ export function isFinishApplicantsVoteBtn (user: UserDataInterface, grant: Contr
   }
 }
 
-export function getWinnerTeamId (grant: ContractGrantModel): string {
+export const getWinnerTeamId = (grant: ContractGrantModel): string => {
   const res = {
     key: '',
     score: 0
@@ -38,14 +38,14 @@ export function getWinnerTeamId (grant: ContractGrantModel): string {
   return res.key
 }
 
-export function isAcceptWorkResultBtn (user: UserDataInterface, grant: ContractGrantModel): boolean {
+export const isAcceptWorkResultBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
   let result = false
   if (grant && grant.app && grant.status && grant.status.value === GrantStatusEnum.workStarted) {
     let isPerformer = false
     grant.app.forEach((app) => {
       if (
-        app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted
-        && app.leader.value === user.userAddress
+        app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted &&
+        app.leader.value === user.userAddress
       ) {
         isPerformer = true
       }
@@ -55,7 +55,7 @@ export function isAcceptWorkResultBtn (user: UserDataInterface, grant: ContractG
   return result
 }
 
-export function teamsControls (user: UserDataInterface, grant: ContractGrantModel): TeamsControlsInterface {
+export const teamsControls = (user: UserDataInterface, grant: ContractGrantModel): TeamsControlsInterface => {
   const result: TeamsControlsInterface = {
     isVoteControls: 'show',
     voteFor: [],
@@ -76,7 +76,7 @@ export function teamsControls (user: UserDataInterface, grant: ContractGrantMode
   // isVoteControls
   if (grant.app) {
     grant.app.forEach((app) => {
-      if (app.key && app.voted && app.voted.value.includes(user.userAddress)){
+      if (app.key && app.voted && app.voted.value.includes(user.userAddress)) {
         result.voteFor.push(app.key)
       }
     })
@@ -89,7 +89,7 @@ export function teamsControls (user: UserDataInterface, grant: ContractGrantMode
   return result
 }
 
-export function isStartWorkBtn (user: UserDataInterface, grant: ContractGrantModel): boolean {
+export const isStartWorkBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
   let result = false
   const temp = {
     leader: '',
@@ -112,24 +112,24 @@ export function isStartWorkBtn (user: UserDataInterface, grant: ContractGrantMod
   return result
 }
 
-export function isShowAddRewardBtn (user: UserDataInterface, grant: ContractGrantModel): boolean {
+export const isShowAddRewardBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
   if (grant) {
     const isWG = user.roles.isWG
     const isNoReward = !grant?.reward?.value
     const isStatusMatch =
-      !grant?.status?.value
-      || grant?.status?.value === GrantStatusEnum.proposed
-      || grant?.status?.value === GrantStatusEnum.readyToApply
-      || grant?.status?.value === GrantStatusEnum.teamChosen
+      !grant?.status?.value ||
+      grant?.status?.value === GrantStatusEnum.proposed ||
+      grant?.status?.value === GrantStatusEnum.readyToApply ||
+      grant?.status?.value === GrantStatusEnum.teamChosen
     return isNoReward && isWG && isStatusMatch
   } else {
     return false
   }
 }
 
-export function isFinishVoteBtn (user: UserDataInterface, grant: ContractGrantModel): boolean {
+export const isFinishVoteBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
   if (grant && grant.app) {
-    const isVoted = grant.voted ? true : false
+    const isVoted = !!grant.voted
     const isStatusMatch = grant?.status?.value === GrantStatusEnum.proposed
     const isWG = user.roles.isWG
     return isVoted && isWG && isStatusMatch

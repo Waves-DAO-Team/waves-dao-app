@@ -20,14 +20,13 @@ export class TeamService {
     )
   ).subscribe()
 
-  constructor (private signerService: SignerService, private contractService: ContractService) {}
+  constructor (private readonly signerService: SignerService, private readonly contractService: ContractService) {} // eslint-disable-line
 
   private defineTeamList (data: ContractDataModel): TeamInterface[] {
     const result: TeamInterface[] = []
     const tasks = data.tasks
     if (tasks) {
       for (const key of Object.keys(tasks)) {
-        // @ts-ignore
         const grant = tasks[key]
         if (grant.app) {
           const app = grant.app

@@ -13,37 +13,32 @@ import {
   switchMap
 } from 'rxjs/operators'
 import { Observable } from 'rxjs'
-import { InjectionToken } from '@angular/core'
+import { FactoryProvider, InjectionToken } from '@angular/core'
 import { StaticService } from '@services/static/static.service'
 import { GrantsVariationType } from '@services/static/static.model'
 
-export function ContractProviderDefine (tokenName: InjectionToken<GrantsVariationType>) {
-  return {
-    provide: tokenName,
-    deps: [StaticService, ActivatedRoute, Router, MatSnackBar],
-    useFactory: ContractProviderFactory
-  }
-}
-
-export function ContractProviderFactory (
+export const contractProviderFactory = (
   staticService: StaticService,
   route: ActivatedRoute,
   router: Router,
   snackBar: MatSnackBar
-): LoadingWrapperModel<GrantsVariationType> {
-  return new LoadingWrapper(
-    route.params.pipe(
-      filter(({ contractType }) => !!contractType),
-      switchMap(({ contractType }): Observable<GrantsVariationType> => {
-        return staticService.getStaticContract(contractType)
-      }),
-      catchError((error) => {
-        // Todo обработать ошибки
-        snackBar.open(error, translate('messages.ok'))
-        throw new Error('Contract not found')
-      }),
-      publishReplay(1),
-      refCount()
-    )
+): LoadingWrapperModel<GrantsVariationType> => new LoadingWrapper(
+  route.params.pipe(
+    filter(({ contractType }) => !!contractType),
+    switchMap(({ contractType }): Observable<GrantsVariationType> => staticService.getStaticContract(contractType)),
+    catchError((error) => {
+      // Todo обработать ошибки
+      snackBar.open(error, translate('messages.ok'))
+      throw new Error('Contract not found')
+    }),
+    publishReplay(1),
+    refCount()
   )
-}
+)
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const ContractProviderDefine = (tokenName: InjectionToken<GrantsVariationType>): FactoryProvider => ({
+  provide: tokenName,
+  deps: [StaticService, ActivatedRoute, Router, MatSnackBar],
+  useFactory: contractProviderFactory
+})

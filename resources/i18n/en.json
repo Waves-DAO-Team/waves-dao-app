@@ -102,7 +102,7 @@
       "work_started": "In work",
       "work_finished": "Finished",
       "voting_started": "Voting started",
-      "no_status": "No status",
+      "no_status": "Proposed",
       "ready_to_submit": "Ready to submit",
       "approved": "Grant Approved",
       "all": "All"
@@ -375,11 +375,9 @@
     "skip": "Skip",
     "fullGuide": "Full Guide",
     "exploreGrantsTitle": "Explore Waves Grants",
-
     "disruptiveImage": "assets/img/disruptive-type-landing.png",
     "web3Image": "assets/img/web3-type-landing.png",
     "interhackImage": "assets/img/interhack-type-landing.png",
-
     "howToDAO": "How to DAO",
     "howToDAO_1": "Login with your Waves account",
     "howToDAO_2": "Create your own tasks",

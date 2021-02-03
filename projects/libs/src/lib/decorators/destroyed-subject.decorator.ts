@@ -3,20 +3,18 @@ import { Subject } from 'rxjs'
 import { destroyQueue } from '@libs/decorators/common.decorator'
 
 // https://habr.com/ru/post/494668/
-export function DestroyedSubject<PropertyDecorator> (): (target: object, propertyKey: string) => void {
-  return (target: object, propName: string) => {
+export function DestroyedSubject<PropertyDecorator> (): (target: any, propertyKey: string) => void { // eslint-disable-line
+  return (target: any, propName: string) => { // eslint-disable-line
     Reflect.defineProperty(target, propName, {
       value: new Subject()
     })
 
     destroyQueue(
       target,
-      function () {
-        // @ts-ignore
-        this[propName].next()
-        // @ts-ignore
-        this[propName].complete()
-      }.bind(target)
+      () => {
+        target?.[propName].next()
+        target?.[propName].complete()
+      }
     )
   }
 }

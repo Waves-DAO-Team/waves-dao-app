@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {GrantsVariationType} from "@services/static/static.model";
-import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from "@constants";
-import {StaticService} from "@services/static/static.service";
+import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core'
+import {Observable} from 'rxjs'
+import {GrantsVariationType} from '@services/static/static.model'
+import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
+import {StaticService} from '@services/static/static.service'
 
 @Component({
   selector: 'app-landing-page',
@@ -22,5 +22,5 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   ngOnInit (): void {}
 
-  ngOnDestroy () {}
+  ngOnDestroy (): void {}
 }

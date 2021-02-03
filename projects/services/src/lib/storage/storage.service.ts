@@ -1,23 +1,24 @@
 import { Inject, Injectable } from '@angular/core'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import { SignerUser } from '@services/signer/signer.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  private currentContractAddress = this.constants.production
+  private readonly currentContractAddress = this.constants.production
     ? 'ZwPjcEZtNHD9TRVUUiyR'
-    : 'contactAddress';
+    : 'contactAddress'
 
-  private userDataSession = this.constants.production
+  private readonly userDataSession = this.constants.production
     ? 'ZwPjcakdaYYHJ73snb'
-    : 'userData';
+    : 'userData'
 
-  private localStorage: { [s: string]: string } = {};
-  private sessionStorage: { [s: string]: string } = {};
+  private localStorage: { [s: string]: string } = {}
+  private sessionStorage: { [s: string]: string } = {}
 
   constructor (
-      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
 
   // Storage
@@ -34,13 +35,6 @@ export class StorageService {
   private setLocal (name: string, value: string): void {
     this.localStorage[name] = value
     window.localStorage.setItem(name, value)
-  }
-
-  public deleteLocal (name: string): void {
-    if (this.getLocal(name)) {
-      delete this.localStorage[name]
-      window.localStorage.removeItem(name)
-    }
   }
 
   // Session
@@ -65,6 +59,13 @@ export class StorageService {
     }
   }
 
+  public deleteLocal (name: string): void {
+    if (this.getLocal(name)) {
+      delete this.localStorage[name]
+      window.localStorage.removeItem(name)
+    }
+  }
+
   // Access token
   public get contactAddress (): string | null {
     return this.getLocal(this.currentContractAddress)
@@ -80,16 +81,20 @@ export class StorageService {
   }
 
   // Access token
-  public get userData (): object | null {
+  public get userData (): SignerUser | null {
     const data = this.getSession(this.userDataSession)
     if (data) {
-      return JSON.parse(data)
+      try {
+        return JSON.parse(data) as SignerUser
+      } catch (e) {
+        return null
+      }
     }
 
     return null
   }
 
-  public set userData (value: object | null) {
+  public set userData (value: SignerUser | null) {
     if (!value) {
       this.deleteSession(this.userDataSession)
       return

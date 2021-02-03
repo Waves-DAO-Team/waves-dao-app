@@ -1,16 +1,16 @@
-import {InjectionToken} from '@angular/core'
-import {MatDialogRef} from '@angular/material/dialog'
-import {DialogComponent} from './dialog.component'
-import {ContractGrantModel} from '@services/contract/contract.model'
+import { InjectionToken } from '@angular/core'
+import { MatDialogRef } from '@angular/material/dialog'
+import { DialogComponent } from './dialog.component'
+import { ContractGrantModel } from '@services/contract/contract.model'
 
 export interface SubmitCallBackApplyArg {
-  id: string,
-  team: string,
+  id: string
+  team: string
   link: string
 }
 
 export interface SubmitCallBackProposeArg {
-  name: string,
+  name: string
   link: string
 }
 
@@ -27,24 +27,24 @@ export interface SubmitCallBackAddMemberArg {
 }
 
 export interface SubmitCallBackSubmitSolutionResultArg {
-  solutionLink: string
+  solutionLink?: string
 }
 
 export interface DialogParams {
-  templateId?: string,
-  title?: string,
-  submitBtnText?: string,
-  grant?: ContractGrantModel,
-  grantId?: string,
-  dialogRef: MatDialogRef<DialogComponent>,
+  templateId?: string
+  title?: string
+  submitBtnText?: string
+  grant?: ContractGrantModel
+  grantId?: string
+  dialogRef: MatDialogRef<DialogComponent>
   submitCallBack?: (data:
-                      SubmitCallBackProposeArg |
-                      SubmitCallBackApplyArg |
-                      SubmitCallBackRewardArg |
-                      SubmitCallBackAcceptWorkResultArg |
-                      SubmitCallBackSubmitSolutionResultArg |
-                      SubmitCallBackAddMemberArg
-  ) => void,
+  SubmitCallBackProposeArg |
+  SubmitCallBackApplyArg |
+  SubmitCallBackRewardArg |
+  SubmitCallBackAcceptWorkResultArg |
+  SubmitCallBackSubmitSolutionResultArg |
+  SubmitCallBackAddMemberArg
+  ) => void
 }
 
 export const DIALOG_DATA = new InjectionToken<DialogParams>('Dialog Data')

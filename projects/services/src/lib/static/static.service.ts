@@ -12,28 +12,24 @@ import { API, AppApiInterface } from '@constants'
   providedIn: 'root'
 })
 export class StaticService {
-  constructor (
-      private contractService: ContractService,
-      private userService: UserService,
-      private translocoService: TranslocoService,
-      @Inject(API) private readonly api: AppApiInterface
-  ) { }
-
   public selectedContact: GrantTypesEnum = GrantTypesEnum.disruptive
+
+  constructor (
+    private readonly contractService: ContractService, // eslint-disable-line
+    private readonly userService: UserService, // eslint-disable-line
+    private readonly translocoService: TranslocoService, // eslint-disable-line
+    @Inject(API) private readonly api: AppApiInterface // eslint-disable-line
+  ) { }
 
   public getContactsList (): Observable<GrantsVariationType[]> {
     const contracts = this.api.contracts as { [s: string]: string }
 
     return this.translocoService.selectTranslateObject('contracts').pipe(
-      map((data: {[s: string]: GrantsVariationType}) => {
-        return Object.keys(data).map((key) => {
-          return {
-            ...data[key],
-            name: key,
-            type: contracts[key] || null
-          } as GrantsVariationType
-        })
-      }),
+      map((data: {[s: string]: GrantsVariationType}) => Object.keys(data).map((key) => ({
+        ...data[key],
+        name: key,
+        type: contracts[key] || null
+      } as GrantsVariationType))),
       publishReplay(1),
       refCount()
     )
@@ -41,16 +37,13 @@ export class StaticService {
 
   getContactInfo (contactType: string): Observable<GrantsVariationType | null> {
     return this.getContactsList().pipe(
-      map((contracts: GrantsVariationType[]) => {
-        return contracts.find((item) => item.name === contactType) || null
-      })
+      map((contracts: GrantsVariationType[]) => contracts.find((item) => item.name === contactType) || null)
     )
   }
 
-  getStaticContract (contractType: GrantTypesEnum) {
+  getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
     this.selectedContact = contractType
-
     return combineLatest([
       this.getContactInfo(contractType),
       this.userService.data
@@ -60,7 +53,6 @@ export class StaticService {
         if (!contractInfo) {
           throw new Error('Contact is not found')
         }
-
         return {
           ...contractInfo,
           permissionCreateGrant: this.checkPermissionCreateGrant(contractInfo.name, user.roles),

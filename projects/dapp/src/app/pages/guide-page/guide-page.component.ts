@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Location} from "@angular/common";
+import {Component, OnDestroy, OnInit} from '@angular/core'
+import {Location} from '@angular/common'
 
 @Component({
   selector: 'app-guide-page',
@@ -8,20 +8,18 @@ import {Location} from "@angular/common";
 })
 export class GuidePageComponent implements OnInit, OnDestroy {
 
-  constructor(private readonly location: Location) { }
+  constructor (private readonly location: Location) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
   goBack (): void {
     this.location.back()
   }
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
     this.destroy()
   }
 
-  private destroy() {
-
-  }
+  private destroy () {}
 }

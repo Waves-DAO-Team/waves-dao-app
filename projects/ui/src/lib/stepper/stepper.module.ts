@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { StepperComponent } from './stepper.component';
-import {MatStepperModule} from '@angular/material/stepper';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-
-
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { StepperComponent } from './stepper.component'
+import { MatStepperModule } from '@angular/material/stepper'
+import { ReactiveFormsModule } from '@angular/forms'
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [StepperComponent],
@@ -13,7 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
     CommonModule,
     MatStepperModule,
     ReactiveFormsModule,
-    MatIconModule,
+    MatIconModule
 
   ],
   exports: [StepperComponent]

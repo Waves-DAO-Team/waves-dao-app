@@ -27,18 +27,17 @@ import { Subject } from 'rxjs'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonLayoutComponent implements OnInit, OnDestroy, CommonLayoutInterface {
+  @ViewChild('content', { read: ElementRef, static: true }) private readonly layoutContentRef: ElementRef<HTMLElement> | null = null
+
   public footerExtension?: TemplateRef<CommonLayoutComponentModel>
   public singlePageLayout = false
   public secondLevelOnNavigation = false
-
-  @ViewChild('content', { read: ElementRef, static: true }) private layoutContentRef: ElementRef<HTMLElement> | null = null
-
-  private destroyed$ = new Subject()
+  private readonly destroyed$ = new Subject()
 
   constructor (
-    private router: Router,
-    @Inject(COMMON_LAYOUT_HEADER) public headerComponent: Type<CommonLayoutComponentModel>,
-    @Inject(COMMON_LAYOUT_FOOTER) public footerComponent: Type<CommonLayoutComponentModel>
+    private readonly router: Router, // eslint-disable-line
+    @Inject(COMMON_LAYOUT_HEADER) public headerComponent: Type<CommonLayoutComponentModel>, // eslint-disable-line
+    @Inject(COMMON_LAYOUT_FOOTER) public footerComponent: Type<CommonLayoutComponentModel> // eslint-disable-line
   ) {}
 
   public ngOnInit (): void {

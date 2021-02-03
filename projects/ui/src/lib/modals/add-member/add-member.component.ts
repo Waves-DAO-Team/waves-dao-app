@@ -1,7 +1,7 @@
-import {Component, Inject} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {API, AppApiInterface} from '@constants';
-import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens';
+import { Component, Inject } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { API, AppApiInterface } from '@constants'
+import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
 
 @Component({
   selector: 'ui-add-member',
@@ -9,27 +9,24 @@ import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens';
   styleUrls: ['./add-member.component.scss']
 })
 export class AddMemberComponent {
-
   public readonly form = new FormGroup({
     address: new FormControl('', Validators.required)
   })
 
   constructor (
-    @Inject(API) public readonly api: AppApiInterface,
-    @Inject(DIALOG_DATA) public params: DialogParams
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
+    @Inject(DIALOG_DATA) public params: DialogParams // eslint-disable-line
   ) { }
 
-
-  onSubmit () {
-    if (this.params.submitCallBack && this.form.value.address) {
+  onSubmit (): void {
+    if (this.params.submitCallBack && this?.form?.value?.address) {
       this.params.submitCallBack({
-        address: this.form.value.address,
+        address: this.form.value.address
       })
     }
   }
 
-  closeModal () {
+  closeModal (): void {
     this.params.dialogRef.close()
   }
-
 }

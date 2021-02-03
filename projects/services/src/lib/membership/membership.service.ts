@@ -16,20 +16,20 @@ import { API, AppApiInterface } from '@constants'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import {
+  ContractDataIterationModel,
   ContractDataModel,
   ContractRawData, ContractRawDataNumber,
   ContractRawDataString
 } from '@services/contract/contract.model'
+import { RequestsService } from '@services/requests-service/requests.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class MembershipService {
-  private refresh$ = new Subject();
-
-  private address = this.api.management.membership;
-
-  private membershipState$ = this.getContractData(this.address)
+  private readonly address = this.api.management.membership
+  private readonly membershipState$ = this.getContractData(this.address)
+  private readonly refresh$ = new Subject()
 
   public stream = this.membershipState$.pipe(
     publishReplay(1),
@@ -37,38 +37,28 @@ export class MembershipService {
   )
 
   constructor (
-      private readonly signerService: SignerService,
-      private snackBar: MatSnackBar,
-      private readonly http: HttpClient,
-      private storageService: StorageService,
-      @Inject(API) private readonly api: AppApiInterface
-  ) {}
-
-  // ToDo избавится от дублирования фуекций из contract Service
-  public getContractData (address: string) {
-    const url = new URL('/addresses/data/' + address, this.api.rest)
-    return this.http.get<Observable<ContractRawData>>(url.href, {
-      headers: { accept: 'application/json; charset=utf-8' }
-    }).pipe(
-      // tap((data) => {
-      //   console.log('GET members data', data)
-      // }),
-      // // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-      // @ts-ignore
-      repeatWhen(() => this.refresh$),
-      map((data: ContractRawData) => {
-        return {
-          ...this.prepareData(data),
-          owner: address
-        }
-      })
-    )
+    private readonly signerService: SignerService,
+    private readonly snackBar: MatSnackBar,
+    private readonly http: HttpClient,
+    private readonly storageService: StorageService,
+    private readonly requestsService: RequestsService,
+    @Inject(API) private readonly api: AppApiInterface
+  ) {
   }
 
-  private group (keys: string[], context: { [s: string]: object }, value: ContractRawDataString | ContractRawDataNumber): void {
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
-    const key: string = keys.shift()
+  public getContractData (address: string): Observable<ContractDataModel> {
+    return this.requestsService.getContractData(address)
+      .pipe(
+        repeatWhen(() => this.refresh$),
+        map((data: ContractRawData) => ({
+          ...this.prepareData(data),
+          owner: address
+        }))
+      )
+  }
+
+  private group (keys: string[], context: ContractDataIterationModel, value: ContractRawDataString | ContractRawDataNumber): void {
+    const key: string | undefined = keys.shift()
     if (!key) {
       return
     }
@@ -77,19 +67,15 @@ export class MembershipService {
       context[key] = keys.length === 0 ? value : {}
     }
 
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
     return this.group(keys, context[key], value)
   }
 
   private prepareData (data: ContractRawData): ContractDataModel {
-    // Todo поправить типизацию, пришлось лезть в контракт и переделывать структуру данных
-    // @ts-ignore
-    return data.reduce((orig, item) => {
+    return data.reduce((orig: ContractDataIterationModel, item) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig
-    }, {})
+    }, {}) as ContractDataModel
   }
 
   public addDAOMember (members: string): Observable<TransactionsSuccessResult> {
@@ -129,7 +115,7 @@ export class MembershipService {
       )
   }
 
-  refresh () {
+  refresh (): void {
     console.log('Refresh memberships')
     this.refresh$.next(null)
   }
