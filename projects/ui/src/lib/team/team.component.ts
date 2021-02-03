@@ -30,6 +30,7 @@ export class TeamComponent {
   }
 
   @Input() titleText: string | null = null
+  @Input() isProcess: boolean = false
   @Input() applyBtnText: string | null = null
   @Input() teamsControls: TeamsControlsInterface | null = null
 
@@ -60,5 +61,6 @@ export class TeamComponent {
           isHasWinnerTemp = true
       })
     this.isHasWinner = isHasWinnerTemp
+    console.log('---isHasWinnerTemp', isHasWinnerTemp)
   }
 }
