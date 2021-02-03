@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject,
   Input,
   OnDestroy,
-  OnInit, Type
+  OnInit
 } from '@angular/core'
 import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
 import {

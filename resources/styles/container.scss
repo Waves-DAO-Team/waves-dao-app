@@ -65,6 +65,10 @@
         margin-right: $padding;
         padding-left: 0;
       }
+
+      :hover {
+        color: $color_waves_blue;
+      }
     }
   }
 

@@ -1,0 +1,67 @@
+<!--<p>landing-page works!</p>-->
+
+<div class="container landing-page">
+
+  <div class="container__mid">
+    <div class="landing-page__title">
+      {{'listing.title' | transloco}}
+    </div>
+    <div class="landing-page__desc mat-display-2">
+      {{'landing-page.introDesc' | transloco}}.&nbsp;
+      <button class="btn active">
+        {{'landing-page.fullGuide' | transloco}}
+      </button>
+    </div>
+
+    <div class="landing-page__title">
+      {{'landing-page.howToDAO' | transloco}}
+    </div>
+
+    <div class="landing-page__tiles mat-display-2">
+      <div class="landing-page__tiles-pair">
+        <img alt="howToDAO" src="assets/icons/howToDAO_1.svg" class="landing-page__tiles-pair-icon">
+        <div class="landing-page__desc">
+          {{'landing-page.howToDAO_1' | transloco}}
+        </div>
+      </div>
+
+      <div class="landing-page__tiles-pair">
+        <img alt="howToDAO" src="assets/icons/howToDAO_2.svg" class="landing-page__tiles-pair-icon">
+        <div class="landing-page__desc">
+          {{'landing-page.howToDAO_2' | transloco}}
+        </div>
+      </div>
+
+      <div class="landing-page__tiles-pair">
+        <img alt="howToDAO" src="assets/icons/howToDAO_3.svg" class="landing-page__tiles-pair-icon">
+        <div class="landing-page__desc">
+          {{'landing-page.howToDAO_3' | transloco}}
+        </div>
+      </div>
+
+      <div class="landing-page__tiles-pair">
+        <img alt="howToDAO" src="assets/icons/howToDAO_4.svg" class="landing-page__tiles-pair-icon">
+        <div class="landing-page__desc">
+          {{'landing-page.howToDAO_4' | transloco}}
+        </div>
+      </div>
+    </div>
+
+    <div class="landing-page__roles">
+      <div class="landing-page__title">
+        {{'landing-page.whatAreRoles' | transloco}}
+      </div>
+
+      <a class="landing-page__roles-card">
+
+         <!--[routerLink]="constants.routes.listing | route : grants?.name"-->
+
+        <img alt="icon" src="assets/icons/avatar/master.svg"  class="landing-page__roles-card-img"/>
+        <span class="landing-page__roles-card-content">
+                    <span class="landing-page__roles-card-title mat-display-3">{{ 'landing-page.applicant' }}</span>
+                    <span class="landing-page__roles-card-desc mat-display-1">{{ 'landing-page.applicantDesc' }}</span>
+                </span>
+      </a>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,11 @@ const routes: Routes = [
     children: [
       {
         path: environment.routing.home,
+        loadChildren: () => import('./pages/landing-page/landing-page.module').then((m) => m.LandingPageModule),
+        pathMatch: 'full'
+      },
+      {
+        path: environment.routing.home,
         loadChildren: () => import('./pages/home-page/home-page.module').then((m) => m.HomePageModule),
         pathMatch: 'full'
       },

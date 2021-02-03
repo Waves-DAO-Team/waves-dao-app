@@ -16,5 +16,6 @@ export class UserContactsComponent implements OnInit {
   constructor () { }
 
   ngOnInit (): void {
+
   }
 }
