@@ -38,12 +38,8 @@
     applyBtnText="{{'entity.apply' | transloco}}"
   ></ui-team>
 
-  <ng-container *ngIf="isShowTeamsBtn$ | async">
-    <button
-      [routerLink]="['/', 'grants', (grantUrl$ | async).contractType, (grantUrl$ | async).entityId, 'all-teams']"
-      class="btn full see-all-teams-btn"
-    >{{'entity.see_all_teams' | transloco}}</button>
-  </ng-container>
+  <ui-all-teams-btn *ngIf="isShowTeamsBtn$ | async"></ui-all-teams-btn>
+
 </ng-template>
 
 <ng-template #voteForTask>

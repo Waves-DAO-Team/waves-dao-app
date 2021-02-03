@@ -66,12 +66,6 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
-  public grantUrl$ = this.route.paramMap
-    .pipe(
-      // @ts-ignore
-      map((e) => e.params)
-    )
-
   public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
       filter(grant => grant != undefined && grant != null && grant.app != null),
