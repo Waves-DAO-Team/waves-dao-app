@@ -36,16 +36,21 @@ export class AllTeamsPageComponent {
         let res: TeamsScoreLinkModel[] = []
         if (data) {
           data.forEach((d) => {
+            let score: string | number = 0
+            if (d.score && d.score.applicant && d.score.applicant.value) { // interhack
+              score = d.score.applicant.value
+            } else if (d.score && d.score.value) { // disruptive
+              score = d.score.value
+            }
             res.push({
               name: d.name.value,
               link: d.link.value,
-              score: d.score && d.score.applicant && d.score.applicant.value ? d.score.applicant.value : 0
+              score
             })
           })
         }
         return res
       }),
-      tap((data) => console.log('---2', data))
     )
 
   constructor(
