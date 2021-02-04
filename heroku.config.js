@@ -3,8 +3,8 @@ module.exports = {
     {
       name: 'Waves Grants',
       script: 'serve',
-      // instances: process.env.INSTANCES || "1",
-      // max_memory_restart: process.env.MEMORY || "256M",
+      instances: process.env.INSTANCES || "1",
+      max_memory_restart: process.env.MEMORY || "256M",
       cwd: './dist/dapp',
       env: {
         NODE_ENV: 'production',
