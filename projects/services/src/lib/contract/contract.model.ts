@@ -137,6 +137,7 @@ export interface ContractGrantExtendedModel extends ContractGrantModel {
   voteText?: string
   statusText?: string
   rewardText?: string
+  canBeCompleted?: string[]
 }
 
 export interface ContractDataModel {

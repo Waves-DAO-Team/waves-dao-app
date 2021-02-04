@@ -126,6 +126,7 @@
     "learn_about_team": "Learn more about the team"
   },
   "entity": {
+    "can_be_completed": "Can be completed",
     "see_all_teams": "SEE ALL TEAMS",
     "reward": "Reward",
     "log_in_for_apply": "Log in to apply",

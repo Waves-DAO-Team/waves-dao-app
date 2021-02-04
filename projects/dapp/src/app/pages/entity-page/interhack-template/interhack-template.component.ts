@@ -24,10 +24,11 @@ import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
 import {combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
-import {teamsAndSolutionsControls} from './functions'
+import {isAcceptWorkResultBtnInterhack, teamsAndSolutionsControls} from './functions'
 import {InterhackContractService} from '@services/contract/Interhack-contract.service'
 import {ActivatedRoute} from "@angular/router";
 import {MatTooltipModule} from '@angular/material/tooltip';
+
 @Component({
   selector: 'app-interhack-template',
   templateUrl: './interhack-template.component.html',
@@ -54,6 +55,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   get grant(): ContractGrantModel {
     return this.inputGrant
   }
+
   voteForTaskData = {
     isShow: false,
     isVote: false,
@@ -64,11 +66,11 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   public titleText$: Observable<string> = this.grant$
     .pipe(
       // @ts-ignore
-      filter( e => e && e.status && e.status.value),
+      filter(e => e && e.status && e.status.value),
       // @ts-ignore
-      map( e => e.status.value),
-      map( e => e === GrantStatusEnum.readyToApply),
-      map( e => e ? translate('entity.applied_teams') : translate('entity.teams')),
+      map(e => e.status.value),
+      map(e => e === GrantStatusEnum.readyToApply),
+      map(e => e ? translate('entity.applied_teams') : translate('entity.teams')),
     )
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
@@ -77,13 +79,12 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     )
 
 
-
   public isShowAllTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
-      filter( e => e != undefined && e.status != undefined && e.status.value != undefined),
+      filter(e => e != undefined && e.status != undefined && e.status.value != undefined),
       // @ts-ignore
-      map( e => e.status.value),
-      map( e =>
+      map(e => e.status.value),
+      map(e =>
         e === GrantStatusEnum.workStarted
         || e === GrantStatusEnum.workFinished
         || e === GrantStatusEnum.solutionChosen
@@ -182,23 +183,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     )
 
   isAcceptWorkResultBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      map(([user, grant]) => {
-        if (grant && grant.app) {
-          const isWG = user.roles.isWG
-          let isVote = false
-          grant.app.forEach((app) => {
-            if (app.voted && app.voted.solution && app.voted.solution.value) {
-              isVote = true
-            }
-          })
-          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workFinished
-          return isVote && isWG && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+    .pipe(map(([user, grant]) => isAcceptWorkResultBtnInterhack(user, grant)))
 
   isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(

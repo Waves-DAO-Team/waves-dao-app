@@ -1,7 +1,7 @@
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { UserDataInterface } from '@services/user/user.interface'
-import { GrantStatusEnum } from '@services/static/static.model'
-import { TeamsAndSolutionsControlsInterface } from '@pages/entity-page/entity.interface'
+import {ContractGrantModel} from '@services/contract/contract.model'
+import {UserDataInterface} from '@services/user/user.interface'
+import {GrantStatusEnum} from '@services/static/static.model'
+import {TeamsAndSolutionsControlsInterface} from '@pages/entity-page/entity.interface'
 
 export const teamsAndSolutionsControls = (user: UserDataInterface, grant: ContractGrantModel): TeamsAndSolutionsControlsInterface => {
   const result: TeamsAndSolutionsControlsInterface = {
@@ -96,4 +96,22 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
     }
   }
   return result
+}
+
+export const isAcceptWorkResultBtnInterhack = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
+  if (grant && grant.app) {
+    console.log('-----!!!!!!!!!!!!!')
+    const isWG = user.roles.isWG
+    let isVote = false
+    if (grant.app.length)
+      grant.app.forEach((app) => {
+        if (app.voted && app.voted.solution && app.voted.solution.value) {
+          isVote = true
+        }
+      })
+    const isStatusMatch = grant?.status?.value === GrantStatusEnum.workFinished
+    return isVote && isWG && isStatusMatch
+  } else {
+    return false
+  }
 }

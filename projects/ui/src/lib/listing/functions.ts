@@ -1,6 +1,13 @@
-import {ContractGrantExtendedModel, ContractGrantModel, ContractRawDataNumber} from "@services/contract/contract.model";
-import {translate} from "@ngneat/transloco";
-import {GrantStatusEnum} from "@services/static/static.model";
+import {
+  ContractGrantAppModel,
+  ContractGrantExtendedModel,
+  ContractGrantModel,
+  ContractRawDataNumber
+} from "@services/contract/contract.model";
+import {GrantStatusEnum, GrantTypesEnum} from "@services/static/static.model";
+import {map} from "rxjs/operators";
+import {UserDataInterface} from "@services/user/user.interface";
+// import {isAcceptWorkResultBtnInterhack} from "@pages/entity-page/interhack-template/functions";
 
 export const fixReward = (grants: ContractGrantModel[]): ContractGrantModel[] => {
   return grants.map((e) => {
@@ -31,7 +38,37 @@ export const sortOtherGrant = (data: ContractGrantExtendedModel[]): ContractGran
       } else {
         noStatusList.push(grant)
       }
-
     })
   return [...normList, ...noStatusList, ...rejectedList]
+}
+
+export const canBeCompleted = (
+  grants: ContractGrantExtendedModel[],
+  contractType: GrantTypesEnum,
+  user: UserDataInterface
+): string[] => {
+  let res: string[] = []
+  if (contractType === GrantTypesEnum.interhack) {
+    grants.forEach((grant) => {
+      let tempRes = false
+      const apps: ContractGrantAppModel[] | undefined = grant.app
+      if(apps) {
+        const isWG = user.roles.isWG
+        let isVote = false
+        for (let key in apps) {
+          let app = apps[key];
+          if (app.voted && app.voted.solution && app.voted.solution.value) {
+            isVote = true
+          }
+        }
+        const isStatusMatch = grant?.status?.value === GrantStatusEnum.workFinished
+        tempRes = isVote && isWG && isStatusMatch
+      }
+      if (tempRes && grant.id) {
+        res.push(grant.id)
+      }
+    })
+  }
+  console.log('+++++++++++', res)
+  return res
 }

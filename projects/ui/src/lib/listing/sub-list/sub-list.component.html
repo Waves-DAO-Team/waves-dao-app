@@ -1,4 +1,6 @@
 <div class="title mat-display-4" *ngIf="title && grants?.length > 0">{{title}}</div>
+
+
 <a
   class="card"
   *ngFor="let grant of grants"
@@ -9,7 +11,10 @@
     <div class="card__header__left-block">
       <div class="card__header__left-block__status">
         {{grant?.statusText}}
-        <div class="card__header__left-block__status__role-text">{{grant?.voteText}}</div>
+        <div class="card__header__left-block__status__role-text">
+          {{grant?.voteText}}
+          <span *ngIf="grant?.canBeCompleted?.includes(grant.id)">{{'entity.can_be_completed' | transloco}}</span>
+        </div>
       </div>
       <div class="card__header__left-block__title">{{grant.title?.value}}</div>
 <!--      <div class="card__header__left-block__address">{{ grant.id }}</div>-->

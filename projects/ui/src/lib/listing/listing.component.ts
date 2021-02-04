@@ -21,7 +21,8 @@ import {TeamService} from '@services/team/team.service'
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {fixReward, sortOtherGrant} from "@ui/listing/functions";
+import {canBeCompleted, fixReward, sortOtherGrant} from "@ui/listing/functions";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'ui-listing',
@@ -58,11 +59,18 @@ export class ListingComponent implements OnDestroy {
 
   public readonly user$ = this.userService.data
 
+  public grantUrl$ = this.route.paramMap
+    .pipe(
+      // @ts-ignore
+      map((e) => e.params)
+    )
+
   public readonly otherGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
-    [this.grants.data$, this.userService.data, this.selectedTagName$]
+    [this.grants.data$, this.userService.data, this.selectedTagName$, this.grantUrl$]
   )
     .pipe(
-      map(([grants, userServiceData, selectedTagName]) => ({ // all to one
+
+      map(([grants, userServiceData, selectedTagName, url]) => ({ // all to one
         grants: grants.filter((e) => {
           const status = e.status && e.status.value ? e.status.value : null
           if (
@@ -71,7 +79,8 @@ export class ListingComponent implements OnDestroy {
           }
         }),
         selectedTag: selectedTagName,
-        isDAO: userServiceData.roles.isDAO
+        isDAO: userServiceData.roles.isDAO,
+        canBeCompleted: canBeCompleted(grants, url.contractType, userServiceData)
       })),
       map((data) => ({...data, grants: fixReward(data.grants)})),
       map((data) => // isCanShowByTag
@@ -88,7 +97,7 @@ export class ListingComponent implements OnDestroy {
           ...data,
           grants: data.grants.map((e: ContractGrantExtendedModel) => {
             const status = e.status && e.status.value ? e.status.value : 'no_status'
-            e.statusText = translate('listing.status.' + status)
+            if(status != 'team_choosen') e.statusText = translate('listing.status.' + status)
             if (data.isDAO && status === GrantStatusEnum.proposed && e.id) {
               const isVote = this.userService.data.getValue().voted.includes(e.id)
               const voteText = (isVote ? 'vote_counted' : 'need_vote')
@@ -98,11 +107,15 @@ export class ListingComponent implements OnDestroy {
           })
         })
       ),
-      map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null),
+      map((data): ContractGrantExtendedModel[] | null => {
+        if (data.grants.length) {
+          data.grants.forEach(g => g.canBeCompleted = data.canBeCompleted)
+          return data.grants
+        } else return null
+      }),
       filter(e => e != null && e != undefined),
       // @ts-ignore
       map((data) => sortOtherGrant(data)),
-      tap((data) => console.log('otherGrant$', data))
     )
 
   public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
@@ -131,6 +144,7 @@ export class ListingComponent implements OnDestroy {
           ...data,
           grants: data.grants.map((e: ContractGrantExtendedModel) => {
             const status = e.status && e.status.value ? e.status.value : 'no_status'
+            // if(status != 'team_choosen') e.statusText = translate('listing.status.' + status)
             e.statusText = translate('listing.status.' + status)
             return e
           })
@@ -141,6 +155,7 @@ export class ListingComponent implements OnDestroy {
     )
 
   constructor(
+    public route: ActivatedRoute,
     public cdr: ChangeDetectorRef, // eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
     @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
