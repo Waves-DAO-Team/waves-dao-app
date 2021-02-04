@@ -68,7 +68,7 @@ export const teamsControls = (user: UserDataInterface, grant: ContractGrantModel
       result.isApplyBtn = true
     }
     grant.app.forEach((app) => {
-      if (app.leader.value === user.userAddress) {
+      if (app.leader && app.leader.value && app.leader.value === user.userAddress) {
         result.isApplyBtn = false
       }
     })

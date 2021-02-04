@@ -50,20 +50,18 @@
 </ng-template>
 
 <ng-template #voteForTask>
-<!--   && isShowStepperAndTeam$ | async-->
-  <ui-vote-for-task
-    *ngIf="voteForTaskData.isShow"
-    [isShow]="voteForTaskData.isShow"
-    [isVote]="voteForTaskData.isVote"
-    [isVoteInProcess]="voteForTaskData.isVoteInProcess"
-    (newVoteEvent)="vote($event)"
-  ></ui-vote-for-task>
+    <ui-vote-for-task
+      *ngIf="(isShowStepperAndTeam$ | async) && voteForTaskData.isShow"
+      [isShow]="voteForTaskData.isShow"
+      [isVote]="voteForTaskData.isVote"
+      [isVoteInProcess]="voteForTaskData.isVoteInProcess"
+      (newVoteEvent)="vote($event)"
+    ></ui-vote-for-task>
 </ng-template>
 
 <ng-template #stepper>
 <!--  *ngIf="isShowStepperAndTeam$ | async"-->
   <ui-stepper
-
     [status]="grant?.status?.value"
   ></ui-stepper>
 </ng-template>
