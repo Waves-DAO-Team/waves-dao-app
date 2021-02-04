@@ -17,7 +17,7 @@ import { StepperModule } from '@ui/stepper/stepper.module'
 import { AcceptWorkResultModule } from '@ui/modals/accept-work-result/accept-work-result.module'
 import { AddMemberModule } from '@ui/modals/add-member/add-member.module'
 import { TeamsAndSolutionsModule } from '@ui/teams-and-solutions/teams-and-solutions.module'
-import { LinkModule } from "@ui/entity/link/link.module";
+import { LinkModule } from '@ui/entity/link/link.module'
 
 @NgModule({
   declarations: [EntityComponent],
