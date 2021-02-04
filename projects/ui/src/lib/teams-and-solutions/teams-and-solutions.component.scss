@@ -132,7 +132,8 @@
           justify-content: center;
 
           .disabled {
-            opacity: 0.5;
+            //opacity: 0;
+            display: none;
           }
 
           img {
