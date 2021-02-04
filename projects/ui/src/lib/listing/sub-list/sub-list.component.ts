@@ -3,7 +3,7 @@ import {
   ContractGrantExtendedModel
 } from '@services/contract/contract.model'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
-import { GrantsVariationType } from '@services/static/static.model'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 
 @Component({
   selector: 'ui-sub-list',
@@ -11,6 +11,7 @@ import { GrantsVariationType } from '@services/static/static.model'
   styleUrls: ['./sub-list.component.scss']
 })
 export class SubListComponent {
+  grantStatusEnum = GrantStatusEnum
   @Input() contract: GrantsVariationType | null = null
   @HostBinding('class.enable') @Input() grants: ContractGrantExtendedModel[] | null = null
   @Input() isImportant = false

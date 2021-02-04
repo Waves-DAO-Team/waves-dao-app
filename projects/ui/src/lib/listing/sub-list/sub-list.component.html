@@ -1,7 +1,9 @@
 <div class="title mat-display-4" *ngIf="title && grants?.length > 0">{{title}}</div>
 <a
-  class="card" [class.important]="isImportant"
+  class="card"
   *ngFor="let grant of grants"
+  [class.important]="isImportant"
+  [class.rejected]="grant?.status?.value === grantStatusEnum.rejected"
   [routerLink]="constants.routes.entity | route: contract?.name : grant?.id">
   <div class="card__header">
     <div class="card__header__left-block">
@@ -10,7 +12,7 @@
         <div class="card__header__left-block__status__role-text">{{grant?.voteText}}</div>
       </div>
       <div class="card__header__left-block__title">{{grant.title?.value}}</div>
-      <div class="card__header__left-block__address">{{ grant.id }}</div>
+<!--      <div class="card__header__left-block__address">{{ grant.id }}</div>-->
     </div>
     <div class="card__header__right-block" [class.card__header__right-block--active]="grant?.reward?.value > 0">
       <div class="card__header__right-block__text">{{ 'listing.reward' | transloco}}</div>

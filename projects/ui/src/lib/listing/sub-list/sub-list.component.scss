@@ -9,6 +9,20 @@
   &.enable {
     display: block;
   }
+
+  .rejected {
+    background: $color_light_gray;
+    .card__header__left-block__title,
+    .card__header__left-block__address,
+    .card__header__left-block__status,
+    .card__header__right-block__text,
+    .card__header__right-block__price{
+      color: $color_dark_gray;
+    }
+    .icon-logo {
+      background: $color_dark_gray !important;
+    }
+  }
 }
 
 .title {
@@ -19,3 +33,4 @@
 .card {
   @include card;
 }
+

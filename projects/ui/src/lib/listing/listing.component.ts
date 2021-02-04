@@ -3,24 +3,25 @@ import {
   Input,
   OnDestroy,
 } from '@angular/core'
-import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
+import {GRANTS, GRANTS_PROVIDERS} from './listing.providers'
 import {
   ContractGrantExtendedModel, ContractGrantModel, ContractRawDataNumber
 } from '@services/contract/contract.model'
-import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
+import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {
   API,
   APP_CONSTANTS,
   AppApiInterface,
   AppConstantsInterface
 } from '@constants'
-import { UserService } from '@services/user/user.service'
-import { map } from 'rxjs/operators'
-import { ContractService } from '@services/contract/contract.service'
-import { TeamService } from '@services/team/team.service'
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
-import { translate } from '@ngneat/transloco'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import {UserService} from '@services/user/user.service'
+import {filter, map, tap} from 'rxjs/operators'
+import {ContractService} from '@services/contract/contract.service'
+import {TeamService} from '@services/team/team.service'
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
+import {translate} from '@ngneat/transloco'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
+import {fixReward, sortOtherGrant} from "@ui/listing/functions";
 
 @Component({
   selector: 'ui-listing',
@@ -39,8 +40,8 @@ export class ListingComponent implements OnDestroy {
       const list = Object.values(grants.reduce((origin, grant) => ({
         ...origin,
         ...(grant?.status?.value === undefined
-          ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus }
-          : { [grant?.status?.value]: grant?.status?.value })
+          ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
+          : {[grant?.status?.value]: grant?.status?.value})
       }), {}))
 
       if (list.length === 0) {
@@ -56,6 +57,7 @@ export class ListingComponent implements OnDestroy {
   )
 
   public readonly user$ = this.userService.data
+
   public readonly otherGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
     [this.grants.data$, this.userService.data, this.selectedTagName$]
   )
@@ -71,22 +73,7 @@ export class ListingComponent implements OnDestroy {
         selectedTag: selectedTagName,
         isDAO: userServiceData.roles.isDAO
       })),
-      map((data) => // fix reward
-        ({
-          ...data,
-          grants: data.grants.map((e) => {
-            if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
-              e.reward.value = (e.reward.value / 100000000).toFixed(2)
-            } else if (e.reward === undefined) {
-              const newData: ContractRawDataNumber = {
-                key: '', type: 0, value: '0.00'
-              }
-              e.reward = newData
-            }
-            return e
-          })
-        })
-      ),
+      map((data) => ({...data, grants: fixReward(data.grants)})),
       map((data) => // isCanShowByTag
         ({
           ...data,
@@ -111,8 +98,11 @@ export class ListingComponent implements OnDestroy {
           })
         })
       ),
-      map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null)
-      // tap((data) => console.log('otherGrant$', data))
+      map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null),
+      filter(e => e != null && e != undefined),
+      // @ts-ignore
+      map((data) => sortOtherGrant(data)),
+      tap((data) => console.log('otherGrant$', data))
     )
 
   public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
@@ -133,18 +123,7 @@ export class ListingComponent implements OnDestroy {
       map((data) => // fix reward
         ({
           ...data,
-          grants: data.grants.map((e) => {
-            if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
-              e.reward.value = (e.reward.value / 100000000).toFixed(2)
-            } else if (e.reward === undefined) {
-              const newData: ContractRawDataNumber = {
-                key: '', type: 0, value: '0.00'
-
-              }
-              e.reward = newData
-            }
-            return e
-          })
+          grants: fixReward(data.grants)
         })
       ),
       map((data) => // add statusText
@@ -161,7 +140,7 @@ export class ListingComponent implements OnDestroy {
       // tap((data) => console.log('importantGrant$', data))
     )
 
-  constructor (
+  constructor(
     public cdr: ChangeDetectorRef, // eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
     @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
@@ -169,13 +148,14 @@ export class ListingComponent implements OnDestroy {
     public userService: UserService, // eslint-disable-line
     public contractService: ContractService, // eslint-disable-line
     public teamService: TeamService // eslint-disable-line
-  ) {}
+  ) {
+  }
 
-  selectedTag ($event: string): void {
+  selectedTag($event: string): void {
     this.selectedTagName$.next($event)
   }
 
-  isCanShowByTag (status: string | null, selectedTagName: string): boolean {
+  isCanShowByTag(status: string | null, selectedTagName: string): boolean {
     if (selectedTagName === 'all') {
       return true
     }
@@ -186,11 +166,11 @@ export class ListingComponent implements OnDestroy {
     return false
   }
 
-  isAppliedForGrant (grantId: string): boolean {
+  isAppliedForGrant(grantId: string): boolean {
     return this.userService.data.getValue().apply.includes(grantId)
   }
 
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     this.grants.destroy()
   }
 }
