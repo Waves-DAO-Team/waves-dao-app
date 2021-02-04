@@ -87,6 +87,16 @@ export const canBeCompleted = (
         }
       }
     })
+  } else {
+    grants.forEach((grant) => {
+      if (grant) {
+        const isWG = user.roles.isWG
+        const isStatusMatch = grant?.status?.value === GrantStatusEnum.workStarted
+        if (isWG && isStatusMatch && grant.id) {
+          res.push(grant.id)
+        }
+      }
+    })
   }
   return res
 }
