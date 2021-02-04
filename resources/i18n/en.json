@@ -126,6 +126,8 @@
     "learn_about_team": "Learn more about the team"
   },
   "entity": {
+    "show_summary": "Show summary",
+    "show_full_content": "Show full content",
     "can_be_completed": "Can be completed",
     "see_all_teams": "SEE ALL TEAMS",
     "reward": "Reward",

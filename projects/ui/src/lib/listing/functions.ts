@@ -47,7 +47,6 @@ export const canBeCompleted = (
   user: UserDataInterface
 ): string[] => {
   let res: string[] = []
-  console.log('-----contractType', contractType)
   if (contractType === GrantTypesEnum.interhack) {
     grants.forEach((grant) => {
       let tempRes = false

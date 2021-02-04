@@ -100,7 +100,6 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
 
 export const isAcceptWorkResultBtnInterhack = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
   if (grant && grant.app) {
-    console.log('-----!!!!!!!!!!!!!')
     const isWG = user.roles.isWG
     let isVote = false
     if (grant.app.length)

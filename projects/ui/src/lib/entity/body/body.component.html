@@ -1,4 +1,21 @@
 <div class="entity-body">
-  <markdown [data]="md"></markdown>
-  <pre *ngIf="environment.showDevTools">{{ grant | json }}</pre>
+
+  <div class="entity-body__md" #entityBody [class.entity-body__summary]="!isShowFullMD">
+    <markdown [data]="md"></markdown>
+  </div>
+
+  <button
+    class="btn full"
+    *ngIf="isShowFullMDBtn"
+    (click)="toggleFullMD()"
+  >
+    <span *ngIf="isShowFullMD; else fullMd">
+      {{'entity.show_summary' | transloco}}
+    </span>
+    <ng-template #fullMd>
+      {{'entity.show_full_content' | transloco}}
+    </ng-template>
+  </button>
+
 </div>
+

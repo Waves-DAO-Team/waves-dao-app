@@ -214,7 +214,6 @@ export class DisruptiveContractService {
     )
       .pipe(
         catchError((error) => {
-          console.log('-------------error', error)
           const mes = error.message ? error.message : translate('messages.transaction_rejected')
           this.snackBar.open(translate(mes))
           return EMPTY

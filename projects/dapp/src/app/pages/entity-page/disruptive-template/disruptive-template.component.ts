@@ -50,7 +50,6 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
       // @ts-ignore
       map(e => e.status.value),
       map(e => e !== GrantStatusEnum.rejected),
-      tap(e => console.log('---', e))
     )
 
   isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
