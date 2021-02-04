@@ -42,6 +42,7 @@ export const isAcceptWorkResultBtn = (user: UserDataInterface, grant: ContractGr
   let result = false
   if (grant && grant.app && grant.status && grant.status.value === GrantStatusEnum.workStarted) {
     let isPerformer = false
+    const isWG = user.roles.isWG
     grant.app.forEach((app) => {
       if (
         app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted &&
@@ -50,7 +51,7 @@ export const isAcceptWorkResultBtn = (user: UserDataInterface, grant: ContractGr
         isPerformer = true
       }
     })
-    result = isPerformer
+    result = isPerformer && isWG
   }
   return result
 }
