@@ -5,7 +5,6 @@ import {
   ContractRawDataNumber
 } from "@services/contract/contract.model";
 import {GrantStatusEnum, GrantTypesEnum} from "@services/static/static.model";
-import {map} from "rxjs/operators";
 import {UserDataInterface} from "@services/user/user.interface";
 // import {isAcceptWorkResultBtnInterhack} from "@pages/entity-page/interhack-template/functions";
 
@@ -48,6 +47,7 @@ export const canBeCompleted = (
   user: UserDataInterface
 ): string[] => {
   let res: string[] = []
+  console.log('-----contractType', contractType)
   if (contractType === GrantTypesEnum.interhack) {
     grants.forEach((grant) => {
       let tempRes = false
@@ -68,7 +68,25 @@ export const canBeCompleted = (
         res.push(grant.id)
       }
     })
+  } else if (contractType === GrantTypesEnum.disruptive) {
+    grants.forEach((grant) => {
+      if (grant && grant.app && grant.status && grant.status.value === GrantStatusEnum.workStarted) {
+        let r = false
+        const apps: ContractGrantAppModel[] | undefined = grant.app
+        for (let key in apps) {
+          let app = apps[key];
+          if (
+            app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted &&
+            app.leader.value === user.userAddress
+          ) {
+            r = true
+          }
+        }
+        if(r && grant.id) {
+          res.push(grant.id)
+        }
+      }
+    })
   }
-  console.log('+++++++++++', res)
   return res
 }
