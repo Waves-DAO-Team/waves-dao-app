@@ -67,9 +67,10 @@
       }
 
       &:hover {
-
         img {
-          transform: translate(-4px, 0);
+          transform: translate(-25%, 0);
+          transition: transform 0.5s ease;
+          will-change: transform;
         }
       }
     }

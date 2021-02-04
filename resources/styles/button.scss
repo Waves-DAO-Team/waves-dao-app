@@ -32,7 +32,9 @@ button {
     border: 1px solid $color_waves_blue;
 
     img {
-      transform: translate(2px, 0);
+      transform: translate(15%, 0);
+      transition: transform 0.5s ease;
+      will-change: transform;
     }
   }
 }
@@ -45,5 +47,16 @@ button.active {
   &:hover {
     background: $color_black;
     border: 1px solid $color_black;
+  }
+}
+
+button.secondary {
+  background: transparent;
+  border: 1px solid $color_light_gray;
+  color: $color_black;
+
+  &:hover {
+    border: 1px solid $color_waves_blue;
+    box-shadow: 0 0 0 1px rgba(0, 85, 255, 1);
   }
 }

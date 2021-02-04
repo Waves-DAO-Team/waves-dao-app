@@ -374,6 +374,8 @@
     "exploreGrants": "Explore Grants",
     "skip": "Skip",
     "fullGuide": "Full Guide",
+    "learnMore": "Learn more",
+    "learnMoreLink": "https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles",
     "exploreGrantsTitle": "Explore Waves Grants",
     "disruptiveImage": "assets/img/disruptive-type-landing.png",
     "web3Image": "assets/img/web3-type-landing.png",
