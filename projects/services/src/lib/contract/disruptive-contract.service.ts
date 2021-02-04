@@ -181,7 +181,7 @@ export class DisruptiveContractService {
         }),
         tap(() => {
           this.contractService.refresh()
-          this.snackBar.open(translate('messages.rejectTask'), translate('messages.ok'))
+          this.snackBar.open(translate('messages.acceptWorkResult'), translate('messages.ok'))
         })
       )
   }
