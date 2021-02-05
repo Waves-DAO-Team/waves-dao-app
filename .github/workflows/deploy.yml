@@ -32,6 +32,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: create
+    env:
+      CONFIG: "stage"
     steps:
       - name: Set ENV
         run: echo "HEROKU_APPLICATION=$PROJECT-${GITHUB_REF##*/}" >> $GITHUB_ENV
