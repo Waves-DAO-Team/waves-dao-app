@@ -64,7 +64,7 @@
     }
   },
   "role": {
-    "owner": "DAO Owner",
+    "manager": "DAO Manager",
     "wg": "Working Group",
     "dao": "Waves Association",
     "auth": "Authorized User"
@@ -218,7 +218,7 @@
     }
   },
   "members": {
-    "owner": "DAO owner",
+    "manager": "DAO manager",
     "members": "Members",
     "master": "Master",
     "wg": "Working Group",
@@ -391,8 +391,8 @@
     "applicant": "Applicant",
     "applicantDesc": "It is you, meaning any community member who has applied for a grant using the Waves account. If your application is approved by the DAO Members vote, you will be awarded Performer status.",
     "workingGroupDesc": "Member of the Working Group for Funding & Grants. The group plays an administrative role in the grant program. WG Members propose tasks for grants, open / close voting for teams, prepare reports. At the moment, the working group includes 8 people. Their accounts are maintained by a DAO secretary.",
-    "daoMemberDesc": "A member of the Association, who admitted to it on the recommendation of the membership working group. Also, DAO member paid the membership fee and has the right to vote for the distribution of grants, as well as for the best team. The list of accounts that have the DAO Member status is determined by the DAO Owner. At the moment, these are 30 members of the Association.",
-    "daoOwnerDesc": "The DAO administrator. Has the right to customize the list of members of the working group as well as members of the Association. At the moment, DAO Owner is one account. The association secretary has an access to this account. Owner does not participate in DAO voting.",
+    "daoMemberDesc": "A member of the Association, who admitted to it on the recommendation of the membership working group. Also, DAO member paid the membership fee and has the right to vote for the distribution of grants, as well as for the best team. The list of accounts that have the DAO Member status is determined by the DAO Manager. At the moment, these are 30 members of the Association.",
+    "daoManagerDesc": "The DAO administrator. Has the right to customize the list of members of the working group as well as members of the Association. At the moment, DAO Manager is one account. The association secretary has an access to this account. Manager does not participate in DAO voting.",
 
     "whyDAO": "Why DAO",
     "whyDAO_title_1": "The power of community",

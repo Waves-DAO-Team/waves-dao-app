@@ -13,13 +13,13 @@
     <!--master-->
     <div class="sub-title mat-display-4">
       <img src="assets/icons/avatar/master.png" alt="master">
-      {{'members.owner' | transloco}}
+      {{'members.manager' | transloco}}
     </div>
     <div class="members-page__contract-block">
       <ui-user-contacts
         [isList]='false'
-        [address]="[user.owner]"
-        [user]="api?.workingGroup[user.owner]"
+        [address]="[user.manager]"
+        [user]="api?.workingGroup[user.manager]"
       ></ui-user-contacts>
     </div>
     <!--master-->
@@ -38,7 +38,7 @@
       ></ui-user-contacts>
     </div>
     <button
-      *ngIf="userService.data.getValue().roles.isOwner"
+      *ngIf="userService.data.getValue().roles.isManager"
       class="members-page__add-btn"
       (click)="openAddWGModal()"
     >{{'master_setting.form.add' | transloco}}</button>
@@ -57,7 +57,7 @@
         [user]="api?.workingGroup[dao]"></ui-user-contacts>
     </div>
     <button
-      *ngIf="userService.data.getValue().roles.isOwner"
+      *ngIf="userService.data.getValue().roles.isManager"
       class="members-page__add-btn"
       (click)="openAddDAOModal()"
     >{{'master_setting.form.add' | transloco}}</button>

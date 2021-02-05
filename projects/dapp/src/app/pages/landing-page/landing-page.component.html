@@ -129,9 +129,11 @@
           <div class="landing-page__roles-cards-card">
             <div class="icon-title">
               <img alt="icon" src="assets/icons/avatar/master.svg"  class="landing-page__roles-cards-card-img"/>
-              <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.owner' | transloco "></div>
+              
+              <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.manager' | transloco "></div>
             </div>
-            <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoOwnerDesc' | transloco "></span>
+            <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoManagerDesc' | transloco "></span>
+        
             <button class="landing-page__roles-cards-card-button btn secondary">
               {{ 'landing-page.learnMore' | transloco }}<img alt="img" src="assets/icons/arr-right.svg">
             </button>
@@ -205,7 +207,8 @@
         {{'landing-page.workflow' | transloco}}
       </div>
 
-      <mat-tab-group dynamicHeight>
+      <mat-tab-group disableRipple dynamicHeight class="landing-page__workflow-tabs">
+
         <mat-tab label="{{ 'contracts.disruptive.title' | transloco }}">
           <img class="landing-page__workflow-image" alt="img" src="assets/img/test-diagram-disruptive.png">
         </mat-tab>
