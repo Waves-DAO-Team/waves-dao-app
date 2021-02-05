@@ -10,6 +10,7 @@ LABEL authors="Albert Iblyaminov <rieset@yandex.ru>" \
 ENV BUILD_DEPS="" \
     RUNTIME_DEPS="" \
     NODE_ENV="production" \
+    CONFIG="stage" \
     NODE_OPTIONS="--max_old_space_size=2048"
 
 WORKDIR /home/source
@@ -17,6 +18,8 @@ WORKDIR /home/source
 RUN set -x && \
     apk add --update $RUNTIME_DEPS && \
     apk add --no-cache --virtual build_deps $BUILD_DEPS
+
+RUN echo "ENV CONFIG = $CONFIG"
 
 COPY . .
 
