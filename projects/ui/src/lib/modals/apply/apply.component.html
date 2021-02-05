@@ -7,8 +7,10 @@
       {{'modal.texts.apply_on_githubt' | transloco}}
     </div>
     <div class="modal-content__text">
-      {{'modal.texts.please_submit' | transloco}} <br>
+      {{'modal.texts.please_submit' | transloco}}
       <a [href]="api.grantsProgramLink" target="_blank">{{'modal.texts.issue_on_githubt' | transloco}}</a>.
+      <br/>
+      {{'modal.texts.hint_link' | transloco}}
     </div>
     <div class="modal-content__btn btn-container full">
       <button type="button" class="btn active" (click)="modalGoTo('NEED_APPLY')">
@@ -40,7 +42,7 @@
           <input type="text" class="inputText" formControlName="link" required />
           <span class="floating-label">{{'modal.form.link' | transloco}}</span>
           <div class="sub-text">
-            {{'modal.texts.please_submit' | transloco}} <a [href]="api.grantsProgramLink" target="_blank">
+            {{'modal.texts.please_submit' | transloco}} <a [href]="api.grantsProgramLink" target="_blank" rel="noopener nofollow noreferrer">
             {{'modal.texts.issue_on_githubt' | transloco}}</a> {{'modal.texts.paste_link' | transloco}}.
           </div>
         </div>

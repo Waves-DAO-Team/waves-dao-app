@@ -24,28 +24,32 @@ export interface TeamsScoreLinkModel {
 }
 
 export type ContractRawData = ContractRawDataString[]
-
+export interface ContractGrantExtendedParentModel {
+  grants: ContractGrantExtendedModel[]
+  selectedTag: string
+  isDAO: boolean
+}
 export interface ContractGrantFullAppModel {
-  owner: string; address:
-    string;
+  owner: string
+  address: string
   working: {
     group: {
       member: {
-        [s: string]: { weight: ContractRawDataString;
-        };
-      };
-      name: ContractRawDataString;
-      size: ContractRawDataNumber;
-    };
-  };
+        [s: string]: { weight: ContractRawDataString
+        }
+      }
+      name: ContractRawDataString
+      size: ContractRawDataNumber
+    }
+  }
   dao: {
     member: {[s: string]: {
-        weight: ContractRawDataString
-      }}
+      weight: ContractRawDataString
+    }}
     members: ContractRawDataString
     size: ContractRawDataNumber
-  };
-  tasks: {[s: string]: ContractGrantRawModel};
+  }
+  tasks: {[s: string]: ContractGrantRawModel}
 }
 
 export interface ContractGrantAppModel {
@@ -144,6 +148,12 @@ export interface ContractGrantExtendedModel extends ContractGrantModel {
   statusText?: string
   rewardText?: string
   canBeCompleted?: string[]
+}
+
+export interface ContractGrantExtendedParentModel extends ContractGrantExtendedModel{
+  grants: ContractGrantExtendedModel[]
+  selectedTag: string
+  isDAO: boolean
 }
 
 export interface ContractDataModel {

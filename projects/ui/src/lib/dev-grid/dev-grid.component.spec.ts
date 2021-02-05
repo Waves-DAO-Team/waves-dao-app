@@ -9,7 +9,7 @@ describe('DevGridComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({ // eslint-disable-line
       declarations: [DevGridComponent]
-    }).compileComponents()
+    }).compileComponents().catch(() => {})
   }))
 
   beforeEach(() => {

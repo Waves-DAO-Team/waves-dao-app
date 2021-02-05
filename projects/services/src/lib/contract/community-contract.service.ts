@@ -7,7 +7,7 @@ import { ContractService } from '@services/contract/contract.service'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { TransactionsSuccessResult } from '@services/signer/signer.model'
-import {ContractDataModel} from '@services/contract/contract.model'
+import { ContractDataModel } from '@services/contract/contract.model'
 
 @Injectable({
   providedIn: 'root'

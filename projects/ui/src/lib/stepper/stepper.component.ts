@@ -20,7 +20,7 @@ export class StepperComponent implements AfterViewInit {
   stepperInit$ = new Subject()
   step$ = combineLatest([this.setId$, this.stepperInit$]).pipe(
     tap(([id, init]) => {
-      if (id && typeof id === 'number' && init && this.stepper) {
+      if (id && typeof id === 'number' && init != null && this.stepper != null) {
         this.stepper.selectedIndex = id
         this.cdr.markForCheck()
       }
@@ -32,12 +32,16 @@ export class StepperComponent implements AfterViewInit {
     this.formalStatuses = this.stepperService.getFormalStatuses()
   }
 
+  get setType (): 'disruptive' | 'interhack' | 'web3' {
+    return this.stepperService.grantType
+  }
+
   private statusInput = ''
   @Input() set status (data: string) {
-    if (data) {
+    if (data?.length > 0) {
       this.statusInput = data
       this.stepId = this.stepperService.getActiveId(data)
-      if (this.stepId) {
+      if (this.stepId >= 0) {
         this.setId$.next(this.stepId)
       }
     } else {
@@ -56,7 +60,7 @@ export class StepperComponent implements AfterViewInit {
   }
 
   ngAfterViewInit (): void {
-    if (this.stepper) {
+    if (this.stepper != null) {
       // TODO проверить нужно ли переопределять приватный метод он может изменится
       // eslint-disable-next-line
       this.stepper._getIndicatorType = () => 'number'

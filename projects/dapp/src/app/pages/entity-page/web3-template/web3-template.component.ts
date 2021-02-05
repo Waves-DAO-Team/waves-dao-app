@@ -248,7 +248,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     }
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel): void {
     if (
       this.userService.data.getValue().roles.isDAO &&
         grant?.status?.value === this.grantStatusEnum.votingStarted

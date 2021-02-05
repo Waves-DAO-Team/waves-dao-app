@@ -5,7 +5,9 @@ import {
 } from '@angular/core'
 import {GRANTS, GRANTS_PROVIDERS} from './listing.providers'
 import {
-  ContractGrantExtendedModel, ContractGrantModel, ContractRawDataNumber
+  ContractGrantExtendedModel,
+  ContractGrantExtendedParentModel,
+  ContractGrantModel, ContractRawDataNumber
 } from '@services/contract/contract.model'
 import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -31,11 +33,15 @@ import {ActivatedRoute} from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: GRANTS_PROVIDERS
 })
+
 export class ListingComponent implements OnDestroy {
   @Input() contract: GrantsVariationType | null = null
+  @Input() public type: 'default' | 'active' | undefined
+
   public readonly grantsVariationActive = '1'
   public readonly grantStatusEnum = GrantStatusEnum
   public selectedTagName$ = new BehaviorSubject('all')
+
   public readonly listGrantStatuses$ = this.grants.data$.pipe(
     map((grants) => {
       const list = Object.values(grants.reduce((origin, grant) => ({
@@ -82,30 +88,42 @@ export class ListingComponent implements OnDestroy {
         isDAO: userServiceData.roles.isDAO,
         canBeCompleted: canBeCompleted(grants, url.contractType, userServiceData)
       })),
-      map((data) => ({...data, grants: fixReward(data.grants)})),
-      map((data) => // isCanShowByTag
-        ({
-          ...data,
-          grants: data.grants.filter((e) => {
-            const status = e.status && e.status.value ? e.status.value : null
-            return this.isCanShowByTag(status, data.selectedTag)
-          })
-        })
-      ),
-      map((data) => // add roleText, statusText
-        ({
-          ...data,
-          grants: data.grants.map((e: ContractGrantExtendedModel) => {
-            const status = e.status && e.status.value ? e.status.value : 'no_status'
-            if(status != 'team_choosen') e.statusText = translate('listing.status.' + status)
-            if (data.isDAO && status === GrantStatusEnum.proposed && e.id) {
-              const isVote = this.userService.data.getValue().voted.includes(e.id)
-              const voteText = (isVote ? 'vote_counted' : 'need_vote')
-              e.voteText = translate('listing.DAO_subtext.' + voteText)
+      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
+        ...data,
+        grants: data.grants.map((e) => {
+          if (e.reward && e.reward.value) {
+            e.reward.value = (parseFloat(e.reward.value) / 100000000).toFixed(2)
+          } else if (e.reward === undefined) {
+            const newData: ContractRawDataNumber = {
+              key: '', type: 0, value: '0.00'
             }
-            return e
-          })
+            e.reward = newData
+          }
+          return e
         })
+      })
+      ),
+      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
+        ...data,
+        grants: data.grants.filter((e) => {
+          const status = e.status && e.status.value ? e.status.value : null
+          return this.isCanShowByTag(status, data.selectedTag)
+        })
+      })
+      ),
+      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
+        ...data,
+        grants: data.grants.map((e: ContractGrantExtendedModel) => {
+          const status = e.status && e.status.value ? e.status.value : 'no_status'
+          e.statusText = translate('listing.status.' + status)
+          if (data.isDAO && status === GrantStatusEnum.proposed && e.id) {
+            const isVote = this.userService.data.getValue().voted.includes(e.id)
+            const voteText = (isVote ? 'vote_counted' : 'need_vote')
+            e.voteText = translate('listing.DAO_subtext.' + voteText)
+          }
+          return e
+        })
+      })
       ),
       map((data): ContractGrantExtendedModel[] | null => {
         if (data.grants.length) {
@@ -144,7 +162,6 @@ export class ListingComponent implements OnDestroy {
           ...data,
           grants: data.grants.map((e: ContractGrantExtendedModel) => {
             const status = e.status && e.status.value ? e.status.value : 'no_status'
-            // if(status != 'team_choosen') e.statusText = translate('listing.status.' + status)
             e.statusText = translate('listing.status.' + status)
             return e
           })
@@ -163,8 +180,7 @@ export class ListingComponent implements OnDestroy {
     public userService: UserService, // eslint-disable-line
     public contractService: ContractService, // eslint-disable-line
     public teamService: TeamService // eslint-disable-line
-  ) {
-  }
+  ) {}
 
   selectedTag($event: string): void {
     this.selectedTagName$.next($event)

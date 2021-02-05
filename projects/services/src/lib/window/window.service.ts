@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common'
-import {ClassProvider, Component, FactoryProvider, InjectionToken, PLATFORM_ID} from '@angular/core'
+import { ClassProvider, FactoryProvider, InjectionToken, PLATFORM_ID } from '@angular/core'
 
 /* Create a new injection token for injecting the window into a component. */
 export const WINDOW = new InjectionToken('WindowToken')
@@ -19,9 +19,11 @@ export class BrowserWindowRef extends WindowRef {
   }
 }
 
-// TODO: Component?
 /* Create an factory function that returns the native window object. */
-export const windowFactory = (browserWindowRef: BrowserWindowRef, platformId: Component): Window | Component => {
+export const windowFactory = (
+  browserWindowRef: BrowserWindowRef,
+  platformId: Record<string, unknown>
+): Window | Record<string, unknown> => {
   if (isPlatformBrowser(platformId)) {
     return browserWindowRef.nativeWindow
   }

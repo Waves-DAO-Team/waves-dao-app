@@ -140,9 +140,22 @@
         font-size: $font-size-medium;
         font-weight: 600;
 
-        .icon-logo {
-          @include icon-logo;
-          margin-left: 5px;
+        .logo {
+          @include icon-logo(21px);
+        }
+
+        &--active {
+          .logo {
+            @include icon-logo(21px, 'active');
+            margin-left: 5px;
+          }
+        }
+
+        &--default {
+          .logo {
+            @include icon-logo(21px, 'default');
+            margin-left: 5px;
+          }
         }
       }
     }
@@ -194,5 +207,12 @@
       }
     }
 
+    .icon-logo {
+      background: $color_waves_blue;
+
+      &::after {
+        background: $color_white;
+      }
+    }
   }
 }

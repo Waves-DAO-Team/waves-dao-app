@@ -54,7 +54,7 @@ export class RewardDirective {
     return num
   }
 
-  private cursorJumpAtBeginningOfInputGuard (num: string) {
+  private cursorJumpAtBeginningOfInputGuard (num: string): void {
     if (num.length < 2) {
       setTimeout(() => {
         this.jumpTo(1)

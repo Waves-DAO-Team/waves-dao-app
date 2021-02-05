@@ -14,11 +14,11 @@ export class AcceptWorkResultComponent {
   })
 
   constructor (
-    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
-    @Inject(DIALOG_DATA) public params: DialogParams // eslint-disable-line
+    @Inject(API) public readonly api: AppApiInterface,
+    @Inject(DIALOG_DATA) public params: DialogParams
   ) { }
 
-  onSubmit (): void{
+  onSubmit (): void {
     if (this.params.submitCallBack) {
       this.params.submitCallBack({
         reportLink: this.form.value.reportLink

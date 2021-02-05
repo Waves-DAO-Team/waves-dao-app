@@ -30,16 +30,16 @@ export class DevGridComponent implements OnInit {
   private readonly cssClass = 'dev-mode'
 
   constructor (
-    public renderer: Renderer2, // eslint-disable-line
+    public renderer: Renderer2,
     @Inject(DOCUMENT) document: Document,
     @Inject(PLATFORM_ID) private readonly platformId: PlatformRef,
-    public cdr: ChangeDetectorRef // eslint-disable-line
+    public cdr: ChangeDetectorRef
   ) {
     this.html = document.documentElement
     this.enabled = isPlatformBrowser(platformId)
   }
 
-  ngOnInit (): void{
+  ngOnInit (): void {
     this.devPageMode = isDevMode()
     if (this.enabled && this.devPageMode) {
       setTimeout(() => {

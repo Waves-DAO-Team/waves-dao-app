@@ -7,6 +7,8 @@ import { DIALOG_DATA } from '@ui/dialog/dialog.tokens'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
+import {MatIconTestingModule} from '@angular/material/icon/testing'
+import { MatIconModule } from '@angular/material/icon'
 
 describe('VoteForTaskComponent', () => {
   let component: VoteForTaskComponent
@@ -14,7 +16,14 @@ describe('VoteForTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule, MatSnackBarModule, getTranslocoModule()],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatSnackBarModule,
+        getTranslocoModule(),
+        MatIconTestingModule,
+        MatIconModule
+      ],
       providers: [
         provideAppConstants(),
         provideApi(),

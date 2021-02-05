@@ -21,9 +21,9 @@
     </div>
     <div class="card__header__right-block" [class.card__header__right-block--active]="grant?.reward?.value > 0">
       <div class="card__header__right-block__text">{{ 'listing.reward' | transloco}}</div>
-      <div class="card__header__right-block__price">
+      <div class="card__header__right-block__price card__header__right-block__price--{{type}}">
         {{grant?.reward?.value | PriceFormatting}}
-        <div class="icon-logo"></div>
+        <div class="logo"></div>
       </div>
     </div>
   </div>

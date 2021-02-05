@@ -18,7 +18,7 @@ export class StorageService {
   private sessionStorage: { [s: string]: string } = {}
 
   constructor (
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
 
   // Storage
@@ -84,7 +84,11 @@ export class StorageService {
   public get userData (): SignerUser | null {
     const data = this.getSession(this.userDataSession)
     if (data) {
-      return JSON.parse(data) as SignerUser
+      try {
+        return JSON.parse(data) as SignerUser
+      } catch (e) {
+        return null
+      }
     }
 
     return null

@@ -13,7 +13,7 @@ import {
   switchMap
 } from 'rxjs/operators'
 import { Observable } from 'rxjs'
-import { InjectionToken } from '@angular/core'
+import { FactoryProvider, InjectionToken } from '@angular/core'
 import { StaticService } from '@services/static/static.service'
 import { GrantsVariationType } from '@services/static/static.model'
 
@@ -37,7 +37,7 @@ export const contractProviderFactory = (
 )
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const ContractProviderDefine = (tokenName: InjectionToken<GrantsVariationType>) => ({ // eslint-disable-line
+export const ContractProviderDefine = (tokenName: InjectionToken<GrantsVariationType>): FactoryProvider => ({
   provide: tokenName,
   deps: [StaticService, ActivatedRoute, Router, MatSnackBar],
   useFactory: contractProviderFactory

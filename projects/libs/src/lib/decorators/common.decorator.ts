@@ -6,7 +6,7 @@ export const destroyQueue = (target: any, func: () => void) => { // eslint-disab
 
   const originalDestroy = target.constructor.prototype.ngOnDestroy
   if (typeof originalDestroy !== 'function') {
-    console.error(`${target.constructor.name} is using @DestroyedSubject but does not implement OnDestroy`)// eslint-disable-line
+    console.error(`${target.constructor.name} is using @DestroyedSubject but does not implement OnDestroy`) // eslint-disable-line
   }
 
   // Создаем метадату для того что бы в ней хранить очередь событий для дестроя
@@ -14,13 +14,17 @@ export const destroyQueue = (target: any, func: () => void) => { // eslint-disab
 
   Reflect.defineMetadata(METADATA_KEY, (metadata || []).concat([func]), target, METADATA_PROPERTY_KEY)
 
+  // eslint-disable-next-line
+  // @ts-ignore
   if (target.constructor && target.constructor.ɵcmp) {
     Reflect.set(
+      // eslint-disable-next-line
+      // @ts-ignore
       target.constructor.ɵcmp,
       'onDestroy',
       function (...args: Array<() => void>) {
         if (typeof originalDestroy === 'function') {
-          // @ts-expect-error // eslint-disable-line
+          // @ts-expect-error: Problem with create type this object
           originalDestroy.apply(this, args)
         }
 

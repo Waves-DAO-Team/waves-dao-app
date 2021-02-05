@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core'
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import {
   API,
   APP_CONSTANTS,
@@ -14,14 +14,18 @@ import { StaticService } from '@services/static/static.service'
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit, OnDestroy {
   public readonly grantsVariationsList: Observable<GrantsVariationType[]> =
   this.staticService.getContactsList()
 
   constructor (
-    public cdr: ChangeDetectorRef, // eslint-disable-line
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
-    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
-    private readonly staticService: StaticService // eslint-disable-line
+    public cdr: ChangeDetectorRef,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(API) public readonly api: AppApiInterface,
+    private readonly staticService: StaticService
   ) { }
+
+  ngOnInit (): void {}
+
+  ngOnDestroy (): void {}
 }

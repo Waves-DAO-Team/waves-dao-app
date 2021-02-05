@@ -11,7 +11,7 @@ export const environment = {
     rest: 'https://nodes-testnet.wavesnodes.com',
     explorer: 'https://testnet.wavesexplorer.com/address/',
     management: {
-      membership: '3NCGXdprrsBp9rzrGna68MmfJXQ7fcinF7o'
+      membership: '3N2y3sffZ2uPQc5MtbCdSY1P7efBhz9BU4G'
     },
     contracts: {
       disruptive: '3N71MDc3kPD6cnbdWp6iEuDY8ghgZ9DiVan',
@@ -37,7 +37,9 @@ export const environment = {
 
   // Routing constants on page
   routing: {
-    home: '',
+    // home: '',
+    landing: '',
+    guide: 'guide',
     listing: 'grants/:contractType',
     about: 'grants/:contractType/about',
     entity: 'grants/:contractType/:entityId',

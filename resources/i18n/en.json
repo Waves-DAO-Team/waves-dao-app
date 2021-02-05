@@ -65,6 +65,7 @@
       "propose_web_grant": "Propose a Web 3.0 Dev Grant",
       "link_to_description": "Link to grant description",
       "link_to_apply": "Link to apply form",
+      "hint_link": "After link is opened in new tab, come back here",
       "apply_on_githubt": "Apply form on GitHub",
       "issue_on_githubt": "issue on GitHub",
       "please_submit": "Please submit the form using",
@@ -128,11 +129,14 @@
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
       "team_chosen": "Looking for a team",
+
+      "team_choosen": "Looking for team",
+
       "solution_chosen": "Solution selected",
       "work_started": "In work",
       "work_finished": "Finished",
       "voting_started": "Voting started",
-      "no_status": "No status",
+      "no_status": "Proposed",
       "ready_to_submit": "Ready to submit",
       "approved": "Grant Approved",
       "all": "All"
@@ -266,7 +270,7 @@
     "owner": "Secretarian",
     "members": "Members",
     "master": "Master",
-    "wg": "WG",
+    "wg": "Working Group",
     "dao": "DAO"
   },
   "edit_grant": {
@@ -361,7 +365,6 @@
     "description": "Page not found"
   },
   "messages": {
-    "stop_submissions": "The stop submissions has been completed. The transaction is confirmed in the blockchain Waves",
     "ok": "OK",
     "error": "error",
     "transaction_rejected": "The transaction was rejected",
@@ -392,7 +395,8 @@
       "title": "Disruptive Tech Grants",
       "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
       "banner": "Call for applications will be announced in Q1 2021. Stay tuned!",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
+      "landing": "Major development or research tasks are proposed, which can be useful for the development and adoption of blockchain technology. You and your team can apply for one of these grants and receive a reward."
     },
     "web3": {
       "navigation": "Web3.0 grants",
@@ -401,7 +405,8 @@
       "title": "Web 3.0 Dev Grants",
       "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
       "banner": "Apply with your project before Feb. 1, 2021 to receive a grant of up to 100k WAVES",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
+      "landing": "You propose ideas for grants of this type. Usually this is a decentralized application or startup."
     },
     "interhack": {
       "navigation": "Interhack grants",
@@ -410,8 +415,43 @@
       "title": "Interhack Grants",
       "desc": "Interhack Grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
       "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool",
-      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md"
+      "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
+      "landing": "These grants are as close as possible to the usual hackathon format. The Association puts forward an idea and a proposed a reward, and you with the team compete in implementation after being selected as a candidate"
     }
+  },
+  "landing-page": {
+    "exploreGrants": "Explore Grants",
+    "skip": "Skip",
+    "fullGuide": "Full Guide",
+    "learnMore": "Learn more",
+    "learnMoreLink": "https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles",
+    "exploreGrantsTitle": "Explore Waves Grants",
+    "disruptiveImage": "assets/img/disruptive-type-landing.png",
+    "web3Image": "assets/img/web3-type-landing.png",
+    "interhackImage": "assets/img/interhack-type-landing.png",
+    "howToDAO": "How to DAO",
+    "howToDAO_1": "Login with your Waves account",
+    "howToDAO_2": "Create your own tasks",
+    "howToDAO_3": "Participate in competition and solve tasks",
+    "howToDAO_4": "Win and get reward",
+
+    "introDesc": "Waves DAO is a framework used by the Waves Association. The purpose is making decisions on supporting initiatives and projects, based on the Waves protocol in the ecosystem: Waves Protocol, Gravity, Neutrino and others. The main feature is the transparency of processes. For example, you can observe what decisions are being discussed, who exactly is behind their adoption to finance projects, and also how the voting takes place.",
+    "whatAreRoles": "What are the Roles",
+    "applicant": "Applicant",
+    "applicantDesc": "It is you, meaning any community member who has applied for a grant using the Waves account. If your application is approved by the DAO Members vote, you will be awarded Performer status.",
+    "workingGroupDesc": "Member of the Working Group for Funding & Grants. The group plays an administrative role in the grant program. WG Members propose tasks for grants, open / close voting for teams, prepare reports. At the moment, the working group includes 8 people. Their accounts are maintained by a DAO secretary.",
+    "daoMemberDesc": "A member of the Association, who admitted to it on the recommendation of the membership working group. Also, DAO member paid the membership fee and has the right to vote for the distribution of grants, as well as for the best team. The list of accounts that have the DAO Member status is determined by the DAO Owner. At the moment, these are 30 members of the Association.",
+    "daoOwnerDesc": "The DAO administrator. Has the right to customize the list of members of the working group as well as members of the Association. At the moment, DAO Owner is one account. The association secretary has an access to this account. Owner does not participate in DAO voting.",
+
+    "whyDAO": "Why DAO",
+    "whyDAO_title_1": "The power of community",
+    "whyDAO_title_2": "Decision making framework",
+    "whyDAO_title_3": "Full transparency",
+    "whyDAO_content_1": "DAO attracts community members to participate in Waves ecosystem development processes, and keeps everyone on the same page",
+    "whyDAO_content_2": "Using DAO Association, members are following predefined steps to make the decisions with a simple UX and fast transactions",
+    "whyDAO_content_3": "Any internet user can observe decision making processes and stay sure that the decisions are made transparently and honestly",
+
+    "workflow": "The Workflow"
   },
   "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
 }

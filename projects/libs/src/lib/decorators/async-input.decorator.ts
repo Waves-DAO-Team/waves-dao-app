@@ -27,13 +27,13 @@ export function Async<PropertyDecorator> (): (target: any, propertyKey: string) 
       set: (item): void => {
         target[name].next(item)
       },
-      get: () =>
-        target[stream] // eslint-disable-line
+      get: (): any => target[stream] // eslint-disable-line
     })
 
     destroyQueue(
       target,
       () => {
+        // @ts-expect-error: Undefined objects in decorators
         this[name].complete()
       }
     )
