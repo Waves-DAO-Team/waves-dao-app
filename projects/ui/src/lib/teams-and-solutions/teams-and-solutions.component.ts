@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core'
 import { GrantStatusEnum } from '@services/static/static.model'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { TeamsAndSolutionsControlsInterface, VoteTeamEventInterface } from '@pages/entity-page/entity.interface'
+import {
+  TeamsAndSolutionsControlsInterface,
+  VoteEventInterface,
+  VoteTeamEventInterface
+} from '@pages/entity-page/entity.interface'
 import { UserService } from '@services/user/user.service'
 import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 
@@ -29,5 +33,9 @@ export class TeamsAndSolutionsComponent {
     public userService: UserService,// eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
   ) {
+  }
+
+  public vote($event: VoteEventInterface) {
+    console.log('$event', $event)
   }
 }

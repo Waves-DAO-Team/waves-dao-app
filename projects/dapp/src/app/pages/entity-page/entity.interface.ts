@@ -1,6 +1,10 @@
 import { Subject } from 'rxjs'
 import { ContractGrantModel } from '@services/contract/contract.model'
 
+export interface VoteEventInterface {
+  voteValue: 'like' | 'dislike'
+  teamIdentifier: string
+}
 export interface VoteTeamEventInterface {
   voteValue: 'like' | 'dislike'
   teamIdentifier: string
