@@ -173,7 +173,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
             }
           })
           const isTeamApply = grant.app.length > 0
-          const isRole = user.roles.isDAO
+          const isRole = user.roles.isWG
           const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
           return isVoteForTeam && isTeamApply && isRole && isStatusMatch
         } else {
