@@ -13,6 +13,7 @@ import { TeamModule } from '@ui/team/team.module'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import {FlowTextModule} from '@ui/flow-text/flow-text.module';
 
 describe('DisruptiveTemplateComponent', () => {
   let component: DisruptiveTemplateComponent
@@ -25,7 +26,8 @@ describe('DisruptiveTemplateComponent', () => {
         TeamModule,
         VoteForTaskModule,
         StepperModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        FlowTextModule
       ],
       declarations: [DisruptiveTemplateComponent],
       providers: [

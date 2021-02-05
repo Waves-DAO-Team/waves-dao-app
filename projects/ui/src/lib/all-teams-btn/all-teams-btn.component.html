@@ -1,5 +1,5 @@
 <button
-  [routerLink]="['/', 'grants', (grantUrl$ | async).contractType, (grantUrl$ | async).entityId, 'all-teams']"
+  [routerLink]="['/', 'grants', (grantUrl$ | async)?.contractType, (grantUrl$ | async)?.entityId, 'all-teams']"
   class="btn full see-all-teams-btn"
 >
   {{'entity.see_all_teams' | transloco}}

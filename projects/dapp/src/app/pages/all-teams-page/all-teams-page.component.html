@@ -7,7 +7,7 @@
   <div class="container__mid">
     <div class="all-teams__title mat-h3">
       {{ 'all_teams.title' | transloco }}
-      <a [routerLink]="['/', 'grants', (grantUrl$ | async).contractType, (grantUrl$ | async).entityId]">
+      <a [routerLink]="['/', 'grants', (grantUrl$ | async)?.contractType, (grantUrl$ | async)?.entityId]">
         {{title$ | async}}
       </a>
     </div>
