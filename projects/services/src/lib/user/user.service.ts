@@ -15,14 +15,14 @@ export class UserService {
     userRole: RoleEnum.unauthorized,
     userAddress: '',
     addressDAOMember: [],
-    owner: '',
+    manager: '',
     addressWorkGroup: [],
     masterAddress: '',
     roles: {
       isMaster: false,
       isDAO: false,
       isWG: false,
-      isOwner: false,
+      isManager: false,
       isAuth: false,
       isUnauthorized: true
     },
@@ -45,11 +45,11 @@ export class UserService {
         const addressDAOMember = Object.keys(contract?.dao?.member || {})
         const userAddressText = userAddress && userAddress.address ? userAddress.address : ''
         const userBalanceText = userAddress && userAddress.balance ? userAddress.balance : '0'
-        const dr = this.defineRol(contract?.owner, contract.address, userAddressText, addressDAOMember, addressWorkGroup)
+        const dr = this.defineRol(contract?.manager, contract.address, userAddressText, addressDAOMember, addressWorkGroup)
         const newData: UserDataInterface = {
           addressDAOMember,
           addressWorkGroup,
-          owner: contract?.owner,
+          manager: contract?.manager,
           masterAddress: contract.address,
           userAddress: userAddressText,
           userRole: dr.mainRole,
@@ -106,7 +106,7 @@ export class UserService {
   }
 
   private defineRol (
-    ownerAddress: string,
+    managerAddress: string,
     masterAddress: string,
     userAddress: string,
     addressDAOMember: string[],
@@ -119,7 +119,7 @@ export class UserService {
         isDAO: false,
         isWG: false,
         isAuth: false,
-        isOwner: false,
+        isManager: false,
         isUnauthorized: true
       }
     }
@@ -143,9 +143,9 @@ export class UserService {
       result.roles.isMaster = true
       result.roles.isUnauthorized = false
     }
-    if (ownerAddress === userAddress) {
-      result.mainRole = RoleEnum.owner
-      result.roles.isOwner = true
+    if (managerAddress === userAddress) {
+      result.mainRole = RoleEnum.manager
+      result.roles.isManager = true
       result.roles.isUnauthorized = false
     }
     return result

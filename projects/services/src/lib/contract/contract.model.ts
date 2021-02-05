@@ -20,7 +20,7 @@ export interface ContractRawDataNumber {
 export type ContractRawData = ContractRawDataString[]
 
 export interface ContractGrantFullAppModel {
-  owner: string
+  manager: string
   address: string
   working: {
     group: {
@@ -48,7 +48,7 @@ export interface ContractGrantAppModel {
   name: ContractRawDataString
   link: ContractRawDataString
   key?: string
-  owner?: string
+  manager?: string
   process?: {
     key: string
     type: string
@@ -136,7 +136,7 @@ export interface ContractGrantExtendedParentModel {
 
 export interface ContractDataModel {
   address: string
-  owner: string
+  manager: string
   working: {
     group: {
       member: {[s: string]: {
