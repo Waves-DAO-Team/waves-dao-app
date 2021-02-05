@@ -60,6 +60,11 @@ export interface ContractGrantAppModel {
     type: string
     value: string
   }
+  report?: {
+    key: string
+    type: string
+    value: string
+  }
   score?: {
     key: string
     type: string
@@ -131,6 +136,7 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   link?: ContractRawDataString
   leader?: ContractRawDataString
   isShowAppliers?: boolean
+  report?: ContractRawDataString
 }
 
 export interface ContractGrantExtendedModel extends ContractGrantModel {

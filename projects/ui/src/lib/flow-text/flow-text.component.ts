@@ -1,60 +1,114 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {filter, map, repeatWhen, tap} from "rxjs/operators";
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {filter, map, repeatWhen, takeUntil, tap} from "rxjs/operators";
 import {ActivatedRoute} from "@angular/router";
 import {GrantTypesEnum} from "@services/static/static.model";
-import {combineLatest, merge, Observable, Subject} from "rxjs";
+import {BehaviorSubject, combineLatest, merge, Observable, Subject} from "rxjs";
 import {translate} from "@ngneat/transloco";
+import {ContractGrantModel} from "@services/contract/contract.model";
 
 @Component({
   selector: 'ui-flow-text',
   templateUrl: './flow-text.component.html',
   styleUrls: ['./flow-text.component.scss']
 })
-export class FlowTextComponent implements OnInit {
+export class FlowTextComponent implements OnDestroy {
 
+  @Input() isShowStatus: boolean = false
+  @Input() isShowFlow: boolean = false
+  private grant$: BehaviorSubject<ContractGrantModel> = new BehaviorSubject<ContractGrantModel>({})
+
+  @Input() set grant(data: ContractGrantModel) {
+    if (data && data.id) {
+      this.grant$.next(data)
+    }
+  }
+
+  private readonly destroyed$ = new Subject()
   public grantUrl$: Observable<GrantTypesEnum> = this.route.paramMap
     .pipe(
+      takeUntil(this.destroyed$),
       // @ts-ignore
-      filter( e => e && e.params && e.params.contractType),
+      filter(e => e && e.params && e.params.contractType),
       // @ts-ignore
       map((e) => e.params.contractType),
-      tap( e => console.log('+++data', e))
     )
-
-  // private status$: Subject<string> = new Subject()
-  private status$: Subject<string> = new Subject<string>()
-
-  public content$ = combineLatest([this.grantUrl$, this.status$])
+  private status$: BehaviorSubject<string> = new BehaviorSubject<string>('')
+  public content$ = combineLatest([this.grantUrl$, this.status$, this.grant$])
     .pipe(
-      // repeatWhen(() => this.status$),
+      takeUntil(this.destroyed$),
       map(
-
-        ([grantType, status]) => {
+        ([grantType, status, grant]) => {
           let data = {
-            status: '',
-            flow: '',
+            status: status ? translate('listing.status.' + status) : '',
+            flow: "",
           }
-          data.status = translate('listing.status.' + status)
-          if(grantType === GrantTypesEnum.disruptive || grantType === GrantTypesEnum.web3) {
-            data.flow = 'test'
+          if (grantType === GrantTypesEnum.disruptive || grantType === GrantTypesEnum.web3) {
+            data.flow = translate('flow.disruptive.' + status)
           } else {
-            data.flow = 'test1'
+            data.flow = translate('flow.interhack.' + status)
           }
-          console.log('+data', data)
+          if (grant && grant.id)
+            data.flow = this.prepareData(data.flow, grant)
           return data
         }
       )
     )
 
   @Input() set status(data: string) {
-    console.log('++data', data)
     this.status$.next(data)
   }
 
+  constructor(public route: ActivatedRoute) {
+  }
 
-  constructor(public route: ActivatedRoute) { }
+  ngOnDestroy(): void {
+    this.destroyed$.next(null)
+  }
 
-  ngOnInit(): void {
+  private prepareData(flow: string, grant: ContractGrantModel): string {
+    // <voteScore> <votesAmount> <performerName> <reportLink> <winnerName>
+
+    let voteScore: number = 0
+    let votesAmount: number = 0
+    if (grant.voted) {
+      for (const key of Object.keys(grant.voted)) {
+        votesAmount++
+        voteScore += parseInt(grant.voted[key].value)
+      }
+    }
+    let performerName: string = ''
+    if (grant.app) {
+      grant.app.forEach( app => {
+        if (app.process && app.name && app.name.value) {
+          performerName = app.name.value
+        }
+      })
+    }
+    let reportLink: string = ''
+    if (grant.app) {
+      grant.app.forEach( app => {
+        if (app.report && app.report.value) {
+          reportLink = app.report.value
+        }
+      })
+    }
+    console.log('---------------------------------')
+    // Amount - сколько голосовало.
+    //   Score - результат
+    //
+    // Если голосовало двое, один +1, а второй -1
+    // То amount = 2, score = 0
+
+    console.log(grant)
+    console.log('---------------------------------')
+
+    flow = flow.replace('<voteScore>', voteScore.toString())
+    flow = flow.replace('<votesAmount>', votesAmount.toString())
+    flow = flow.replace('<performerName>', performerName)
+    flow = flow.replace('<reportLink>', reportLink)
+    flow = flow.replace('<winnerName>', performerName)
+
+    return flow
   }
 
 }

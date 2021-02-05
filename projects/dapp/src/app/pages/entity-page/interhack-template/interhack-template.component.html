@@ -74,6 +74,11 @@
     [status]="grant?.status?.value"
     [setType]="'interhack'"
   ></ui-stepper>
+  <ui-flow-text
+    [isShowFlow]="true"
+    [grant]="(grant$ | async)"
+    [status]="(grant$ | async)?.status?.value"
+  ></ui-flow-text>
 </ng-template>
 
 <ui-entity

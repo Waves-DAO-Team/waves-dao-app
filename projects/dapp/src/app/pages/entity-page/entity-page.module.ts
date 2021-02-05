@@ -18,6 +18,7 @@ import { TeamsAndSolutionsModule } from '@ui/teams-and-solutions/teams-and-solut
 import { SubmitSolutionModule } from '@ui/modals/submit-solution/submit-solution.module'
 import {AllTeamsBtnModule} from "@ui/all-teams-btn/all-teams-btn.module";
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {FlowTextModule} from "@ui/flow-text/flow-text.module";
 
 @NgModule({
   declarations: [ EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
@@ -35,7 +36,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     VoteForTaskModule,
     TeamsAndSolutionsModule,
     SubmitSolutionModule,
-    StepperModule
+    StepperModule,
+    FlowTextModule
   ]
 })
 export class EntityPageModule { }
