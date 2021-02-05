@@ -151,3 +151,10 @@ To run the tests under Node you will need tap installed (it's listed as a
     yarn lint
     yarn tests
 ```
+
+## SECRETS IN GITHUB
+
+- `CONFIG` = stage
+- `HEROKU_API_KEY` = { Heroku api key }
+- `PROJECT` = waves-grants
+- `WORKINGGROUP` = { "address": {"name": "Name Member": "twitter": "link"} }

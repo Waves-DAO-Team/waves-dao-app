@@ -22,7 +22,7 @@ func tryGetString(key: String) = {
     val
 }
 
-func isOwner(address: Address) = {
+func isManager(address: Address) = {
     address == this
 }
 

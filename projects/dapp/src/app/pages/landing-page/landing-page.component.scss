@@ -1,5 +1,6 @@
 @import 'const';
 @import 'container';
+@import 'variables';
 @import '~include-media/dist/_include-media.scss';
 @import "mixins";
 @import 'mixins/elements/text-title';
@@ -35,10 +36,11 @@
       //font-size: 6.5vh;
       font-size: $font_size_h2;
       font-weight: 600;
+      padding-top: 0;
     }
 
     @include media('<desktop') {
-      padding-top: 0;
+      padding-top: $padding * 3;
     }
   }
 
@@ -83,6 +85,11 @@
     display: flex;
     justify-content: center;
     margin: $padding * 2 auto;
+
+    @include media('<phone') {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &__howTo {
@@ -103,7 +110,7 @@
       }
     }
 
-    @include media('<desktop') {
+    @include media('<tablet') {
 
       padding-top: $padding * 3;
       margin: auto;
@@ -115,17 +122,6 @@
         }
       }
     }
-
-    @include media('<=phone') {
-      margin: auto 0;
-      &-pair {
-        padding: 0 $padding;
-
-        &-icon {
-          width: 60px;
-        }
-      }
-    }
   }
 
   &__roles {
@@ -134,20 +130,12 @@
       flex-direction: column;
       justify-content: flex-start;
     }
-    //@include media('<=phone') {
-    //  a {
-    //    &:nth-child(2) {
-    //      margin-left: 0;
-    //      margin-right: 0;
-    //    }
-    //  }
-    //}
 
     &-cards {
       display: grid;
       grid-template: 1fr 1fr / 1fr 1fr;
 
-      @include media('<=tablet') {
+      @include media('<=phone') {
         display: flex;
         flex-direction: column;
         grid-template: unset;
@@ -166,6 +154,11 @@
         flex-direction: column;
         text-decoration: none;
         transition: 0.3s;
+        
+        @include media('<=phone') {
+          max-width: unset;
+          margin-top: $padding;
+        }
 
         //padding: $padding * 2;
 
@@ -218,24 +211,30 @@
         margin-right: $padding * 2;
         width: 300px;
         @include media('<=phone') {
-          width: auto;
+          width: 100%;
+        }
+
+        @include media('<=tablet') {
+          margin-right: unset;
+          width: 70%;
         }
 
         &-title {
           margin-bottom: 0;
-          margin-top:$padding * 2;
+          margin-top:$padding;
           text-align: center;
           display: flex;
           align-items: center;
           justify-content: center;
           height: $padding * 5;
+          line-height: 1.2;
+          letter-spacing: .1pt;
         }
 
         &-desc {
           border-top: 11px solid $color_waves_blue;
-          margin-top: $padding * 3;
+          margin-top: $padding * 1.5;
           padding-top: $padding;
-
         }
       }
     }
@@ -248,14 +247,17 @@
     padding: $padding * 2 auto;
     margin: 0 auto;
 
+    @include media('<=phone') {
+      align-items: center;
+    }
     &-cards {
       display: flex;
       flex-direction: row;
       align-items: flex-end;
       text-align: start;
       justify-content: space-between;
-      margin-bottom: $padding * 7;
-      padding: $padding * 3;
+      margin-bottom: $padding * 3.5;
+      padding: $padding * 2.5 $padding * 3 $padding * 3;
 
       &:hover {
         box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
@@ -264,7 +266,6 @@
 
       @include media('<tablet') {
         margin-bottom: $padding;
-        justify-content: center;
       }
 
       //@include media('<tablet') {
@@ -283,9 +284,14 @@
         align-items: flex-start;
         margin-top: $padding * 6;
 
-        @include media('<tablet') {
+        @include media('>phone', '<tablet') {
           margin-top: $padding;
           justify-content: center;
+          max-width: 300px;
+        }
+
+        @include media('>=tablet', '<desktop') {
+          width: 400px;
         }
 
         &-title {
@@ -300,8 +306,12 @@
         &-image {
           width: 500px;
 
-          @include media('<tablet', '>phone') {
-            width: 200px;
+          @include media('<tablet') {
+            width: 300px;
+          }
+
+          @include media('>=tablet', '<desktop') {
+            width: 400px;
           }
 
           @include media('<=phone') {
@@ -321,6 +331,32 @@
 
     &-image {
       margin-bottom: $padding * 3;
+      
+      @include media('<desktop') {
+        width: 100%;
+        margin-bottom: 0;
+      }
+    }
+    &-tabs {
+      ::ng-deep .mat-tab {
+
+        &-group {
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
+        }
+        &-labels {
+          border-bottom: 1px solid $color_waves_blue;
+        }
+
+        &-label-active {
+          border-top: 1px solid $color_waves_blue;
+          background-color: $color_white;
+          border-left: 1px solid $color_waves_blue;
+          border-right: 1px solid $color_waves_blue;
+          color: $color_waves_blue;
+        }
+      }
     }
   }
 
@@ -329,29 +365,6 @@
     margin-right: auto;
   }
 }
-
-.mat-tab {
-
-  &:active {
-    border: 1px solid $color_waves_blue;
-    color: $color_waves_blue;
-  }
-  &-group {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  &-label:active {
-    border: 1px solid $color_waves_blue;
-    color: $color_waves_blue;
-  }
-}
-//
-//.mat-tab
-//
-//.mat-tab-list {
-//  transition: unset;
-//}
 
 .icon-title {
   display: flex;
