@@ -122,17 +122,6 @@
         }
       }
     }
-
-    //@include media('<phone') {
-    //  margin: auto 0;
-    //  &-pair {
-    //    padding: 0 $padding;
-    //
-    //    &-icon {
-    //      width: 60px;
-    //    }
-    //  }
-    //}
   }
 
   &__roles {
@@ -165,7 +154,7 @@
         flex-direction: column;
         text-decoration: none;
         transition: 0.3s;
-
+        
         @include media('<=phone') {
           max-width: unset;
           margin-top: $padding;
@@ -246,7 +235,6 @@
           border-top: 11px solid $color_waves_blue;
           margin-top: $padding * 1.5;
           padding-top: $padding;
-
         }
       }
     }
@@ -262,7 +250,6 @@
     @include media('<=phone') {
       align-items: center;
     }
-
     &-cards {
       display: flex;
       flex-direction: row;
@@ -344,6 +331,7 @@
 
     &-image {
       margin-bottom: $padding * 3;
+      
       @include media('<desktop') {
         width: 100%;
         margin-bottom: 0;
