@@ -331,6 +331,7 @@
     "description": "Page not found"
   },
   "messages": {
+    "stop_submissions": "The stop submissions has been completed. The transaction is confirmed in the blockchain Waves",
     "ok": "OK",
     "error": "error",
     "transaction_rejected": "The transaction was rejected",
