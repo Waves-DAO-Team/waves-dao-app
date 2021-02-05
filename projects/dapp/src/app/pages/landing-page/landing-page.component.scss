@@ -103,8 +103,10 @@
       }
     }
 
-    @include media('<tablet') {
-      margin: auto $padding * 5;
+    @include media('<desktop') {
+
+      padding-top: $padding * 3;
+      margin: auto;
       &-pair {
         padding: 0 $padding;
 
@@ -127,7 +129,7 @@
   }
 
   &__roles {
-    margin-bottom: $padding * 3;
+    padding-bottom: $padding * 3;
     @include media('<=tablet') {
       flex-direction: column;
       justify-content: flex-start;
@@ -252,7 +254,7 @@
       align-items: flex-end;
       text-align: start;
       justify-content: space-between;
-      margin-bottom: $padding * 10;
+      margin-bottom: $padding * 7;
       padding: $padding * 3;
 
       &:hover {
@@ -356,6 +358,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: $padding * 2;
+  padding: $padding * 2 $padding * 2 0 $padding * 2;
 }
 

@@ -26,28 +26,28 @@
       <div class="landing-page__tiles">
         <div class="landing-page__howTo-pair">
           <img alt="howToDAO" src="assets/icons/howToDAO_rec_1.svg" class="landing-page__howTo-pair-icon">
-          <div class="landing-page__desc">
+          <div class="landing-page__intro mat-display-2">
             {{'landing-page.howToDAO_1' | transloco}}
           </div>
         </div>
 
         <div class="landing-page__howTo-pair">
           <img alt="howToDAO" src="assets/icons/howToDAO_rec_2.svg" class="landing-page__howTo-pair-icon">
-          <div class="landing-page__desc">
+          <div class="landing-page__intro mat-display-2">
             {{'landing-page.howToDAO_2' | transloco}}
           </div>
         </div>
 
         <div class="landing-page__howTo-pair">
           <img alt="howToDAO" src="assets/icons/howToDAO_rec_3.svg" class="landing-page__howTo-pair-icon">
-          <div class="landing-page__desc">
+          <div class="landing-page__intro mat-display-2">
             {{'landing-page.howToDAO_3' | transloco}}
           </div>
         </div>
 
         <div class="landing-page__howTo-pair">
           <img alt="howToDAO" src="assets/icons/howToDAO_rec_4.svg" class="landing-page__howTo-pair-icon">
-          <div class="landing-page__desc">
+          <div class="landing-page__intro mat-display-2">
             {{'landing-page.howToDAO_4' | transloco}}
           </div>
         </div>
@@ -67,17 +67,17 @@
 
         <span class="landing-page__whyDAO-cards-card">
             <span class="landing-page__whyDAO-cards-card-title mat-display-4" [innerHTML]="'landing-page.whyDAO_title_1' | transloco "></span>
-            <span class="landing-page__whyDAO-cards-card-desc mat-display-2" [innerHTML]="'landing-page.whyDAO_content_1' | transloco "></span>
+            <span class="landing-page__whyDAO-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.whyDAO_content_1' | transloco "></span>
         </span>
 
         <span class="landing-page__whyDAO-cards-card">
             <span class="landing-page__whyDAO-cards-card-title mat-display-4" [innerHTML]="'landing-page.whyDAO_title_2' | transloco "></span>
-            <span class="landing-page__whyDAO-cards-card-desc mat-display-2" [innerHTML]="'landing-page.whyDAO_content_2' | transloco "></span>
+            <span class="landing-page__whyDAO-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.whyDAO_content_2' | transloco "></span>
         </span>
 
         <span class="landing-page__whyDAO-cards-card">
             <span class="landing-page__whyDAO-cards-card-title mat-display-4" [innerHTML]="'landing-page.whyDAO_title_3' | transloco "></span>
-            <span class="landing-page__whyDAO-cards-card-desc mat-display-2" [innerHTML]="'landing-page.whyDAO_content_3' | transloco "></span>
+            <span class="landing-page__whyDAO-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.whyDAO_content_3' | transloco "></span>
         </span>
       </div>
     </div>
@@ -95,31 +95,21 @@
           <div class="landing-page__roles-cards-card">
             <div class="icon-title">
               <img alt="icon" src="assets/icons/avatar/auth.svg"  class="landing-page__roles-cards-card-img"/>
-              <div class="landing-page__roles-cards-card-title mat-display-3" [innerHTML]="'landing-page.applicant' | transloco "></div>
+              <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'landing-page.applicant' | transloco "></div>
             </div>
 
-            <span class="landing-page__roles-cards-card-desc bg-gray mat-display-1" [innerHTML]="'landing-page.applicantDesc' | transloco "></span>
+            <span class="landing-page__roles-cards-card-desc bg-gray landing-page__intro mat-display-2" [innerHTML]="'landing-page.applicantDesc' | transloco "></span>
             <button class="landing-page__roles-cards-card-button btn secondary">
               {{ 'landing-page.learnMore' | transloco }}<img alt="img" src="assets/icons/arr-right.svg">
-
-<!--              <ng-template #body>-->
-<!--                <ui-body [md]="'landing-page.learnMoreLink' | linkContent | async"-->
-<!--                         [link]="'landing-page.learnMoreLink'">-->
-<!--                  -->
-<!--                </ui-body>-->
-              <ui-link [link]="'landing-page.learnMoreLink'" [md]="'landing-page.learnMoreLink' | linkContent | async" ]>
-              </ui-link>
-
-
             </button>
           </div>
 
           <div class="landing-page__roles-cards-card">
             <div class="icon-title">
               <img alt="icon" src="assets/icons/avatar/wg.svg"  class="landing-page__roles-cards-card-img"/>
-              <div class="landing-page__roles-cards-card-title mat-display-3" [innerHTML]="'role.wg' | transloco "></div>
+              <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.wg' | transloco "></div>
             </div>
-            <span class="landing-page__roles-cards-card-desc mat-display-1" [innerHTML]="'landing-page.workingGroupDesc' | transloco "></span>
+            <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.workingGroupDesc' | transloco "></span>
             <button class="landing-page__roles-cards-card-button btn secondary">
               {{ 'landing-page.learnMore' | transloco }}<img alt="img" src="assets/icons/arr-right.svg">
             </button>
@@ -128,9 +118,9 @@
           <div class="landing-page__roles-cards-card">
             <div class="icon-title">
               <img alt="icon" src="assets/icons/avatar/dao.svg"  class="landing-page__roles-cards-card-img"/>
-              <div class="landing-page__roles-cards-card-title mat-display-3" [innerHTML]="'role.dao' | transloco "></div>
+              <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.dao' | transloco "></div>
             </div>
-            <span class="landing-page__roles-cards-card-desc mat-display-1" [innerHTML]="'landing-page.daoMemberDesc' | transloco "></span>
+            <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoMemberDesc' | transloco "></span>
             <button class="landing-page__roles-cards-card-button btn secondary">
               {{ 'landing-page.learnMore' | transloco }}<img alt="img" src="assets/icons/arr-right.svg">
             </button>
@@ -139,9 +129,9 @@
           <div class="landing-page__roles-cards-card">
             <div class="icon-title">
               <img alt="icon" src="assets/icons/avatar/master.svg"  class="landing-page__roles-cards-card-img"/>
-              <div class="landing-page__roles-cards-card-title mat-display-3" [innerHTML]="'role.owner' | transloco "></div>
+              <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.owner' | transloco "></div>
             </div>
-            <span class="landing-page__roles-cards-card-desc mat-display-1" [innerHTML]="'landing-page.daoOwnerDesc' | transloco "></span>
+            <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoOwnerDesc' | transloco "></span>
             <button class="landing-page__roles-cards-card-button btn secondary">
               {{ 'landing-page.learnMore' | transloco }}<img alt="img" src="assets/icons/arr-right.svg">
             </button>
