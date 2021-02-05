@@ -39,32 +39,17 @@
     <ng-container *ngFor="let app of grant?.app | sortByTeam">
       <li *ngIf="isProcess && app?.score?.value !> -1 || !isProcess" [class.winner]="app?.process" class="team__list__li">
 
-        <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">
-          <ng-container *ngSwitchCase="true">
-            <div class="team__list__li__left__up" >
-              <img
-                alt="vote"
-                src="assets/icons/arr-up-blue.svg"
-                [class.disabled]="teamsControls?.voteFor.includes(app.id.value)"
-                *ngIf="!(teamsControls?.isVoteControls === 'hidden')"
-                (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
-              >
-            </div>
-            <div class="team__list__li__left__score mat-display-2">{{app?.score?.value || 0}}</div>
-            <div class="team__list__li__left__down">
-              <img
-                alt="vote"
-                src="assets/icons/arr-down-red.svg"
-                [class.disabled]="teamsControls?.voteFor.includes(app.id.value)"
-                *ngIf="!(teamsControls?.isVoteControls === 'hidden')"
-                (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
-            </div>
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            <div class="team__list__li__left__top mat-display-1">{{'entity.votes' | transloco}}</div>
-            <div class="team__list__li__left__bottom mat-display-4">{{app?.score?.value || 0}}</div>
-          </ng-container>
-        </div>
+        <ui-voting-square
+          [votes]="app?.score?.value"
+          [teamId]="app.id.value"
+          [isCanVote]="
+            (!(teamsControls?.isVoteControls === 'hidden')
+            && grantStatusEnum.rejected !== grant?.status?.value)
+            && !teamsControls?.voteFor.includes(app.id.value)
+          "
+          [isShowResult]="!user.roles.isDAO"
+          (voteEvent)="newVoteTeamEvent.emit($event)"
+        ></ui-voting-square>
 
         <div class="team__list__li__mid">
           <div class="team__list__li__mid__name mat-display-2">

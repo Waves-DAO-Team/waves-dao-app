@@ -6,6 +6,7 @@ import {PipesModule} from '@libs/pipes/pipes.module'
 import {ApplyModule} from '@ui/modals/apply/apply.module'
 import {StatusesModule} from "@ui/statuses/statuses.module";
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {VotingSquareModule} from "@ui/voting-square/voting-square.module";
 
 @NgModule({
   declarations: [TeamComponent],
@@ -15,7 +16,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     TranslocoModule,
     PipesModule,
     ApplyModule,
-    StatusesModule
+    StatusesModule,
+    VotingSquareModule
   ],
   exports: [TeamComponent]
 })

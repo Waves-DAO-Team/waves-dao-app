@@ -27,63 +27,6 @@
       display: flex;
       margin-bottom: $padding;
 
-      &__left {
-        background: $color_light_gray;
-        display: flex;
-        flex-direction: column;
-        max-height: $padding * 7;
-        max-width: $padding * 7;
-        min-height: $padding * 7;
-        min-width: $padding * 7;
-
-        &__top {
-          align-items: flex-end;
-          color: $color_dark_gray;
-          display: flex;
-          flex: 1;
-          justify-content: center;
-          margin: auto;
-          width: 100%;
-        }
-
-        &__bottom {
-          align-items: baseline;
-          display: flex;
-          flex: 1.2;
-          font-weight: bold;
-          justify-content: center;
-          line-height: 1;
-          margin: auto;
-        }
-
-        &__up,
-        &__down {
-          align-items: center;
-          display: flex;
-          flex: 1;
-          justify-content: center;
-
-          &.disabled, .disabled {
-            //opacity: 0.5;
-            display: none;
-          }
-
-          img {
-            cursor: pointer;
-            height: 15px;
-          }
-        }
-
-        &__score {
-          align-items: center;
-          display: flex;
-          flex: 1;
-          justify-content: center;
-          margin: auto;
-        }
-
-      }
-
       &__mid {
         align-items: flex-start;
         display: flex;
