@@ -37,7 +37,9 @@ export const environment = {
 
   // Routing constants on page
   routing: {
-    home: '',
+    // home: '',
+    landing: '',
+    guide: 'guide',
     listing: 'grants/:contractType',
     about: 'grants/:contractType/about',
     entity: 'grants/:contractType/:entityId',

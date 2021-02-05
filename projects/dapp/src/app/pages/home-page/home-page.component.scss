@@ -1,6 +1,9 @@
 @import 'const';
 @import 'container';
 @import '~include-media/dist/_include-media.scss';
+@import "mixins";
+@import 'mixins/elements/text-title';
+@import "mixins/typography";
 
 .container {
   @include container();
@@ -9,6 +12,22 @@
 .home-page {
   &__title {
     padding-bottom: $padding;
+    //font-size: 6.5vh;
+    font-size: $font_size_h1;
+    font-weight: 700;
+    padding-top: 6.5rem;
+    line-height: 1.5;
+    letter-spacing: -1%;
+
+    @include media('<tablet') {
+      //font-size: 6.5vh;
+      font-size: $font_size_h2;
+      font-weight: 600;
+    }
+
+    @include media('<desktop') {
+      padding-top: 0;
+    }
   }
 
   &__desc {

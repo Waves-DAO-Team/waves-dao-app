@@ -197,8 +197,10 @@
         border: 1px solid #717781;
       }
     }
+
     .icon-logo {
       background: $color_waves_blue;
+
       &::after {
         background: $color_white;
       }

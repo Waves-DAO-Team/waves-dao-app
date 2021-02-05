@@ -3,7 +3,7 @@
     "markdownlint --fix"
   ],
   "*.{ts,js}": [
-    "eslint --fix"
+    "eslint --fix --config ./.eslintrc.json"
   ],
   "*.scss": [
     "stylelint --fix"

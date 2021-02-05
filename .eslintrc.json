@@ -6,14 +6,19 @@
   "overrides": [
     {
       "files": [
-        "*.ts"
+        "*.ts", "*.js"
       ],
       "parserOptions": {
+        "ecmaVersion": 2017,
         "project": [
           "tsconfig.json",
           "e2e/tsconfig.json"
         ],
         "createDefaultProgram": true
+      },
+      "env": {
+        "es6": true,
+        "node": true
       },
       "extends": [
 //        "standard-with-typescript",

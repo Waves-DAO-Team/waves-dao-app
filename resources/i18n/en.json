@@ -374,18 +374,35 @@
     "exploreGrants": "Explore Grants",
     "skip": "Skip",
     "fullGuide": "Full Guide",
+    "learnMore": "Learn more",
+    "learnMoreLink": "https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles",
     "exploreGrantsTitle": "Explore Waves Grants",
     "disruptiveImage": "assets/img/disruptive-type-landing.png",
     "web3Image": "assets/img/web3-type-landing.png",
     "interhackImage": "assets/img/interhack-type-landing.png",
     "howToDAO": "How to DAO",
+    "howToDAO_1": "Login with your Waves account",
+    "howToDAO_2": "Create your own tasks",
+    "howToDAO_3": "Participate in competition and solve tasks",
+    "howToDAO_4": "Win and get reward",
+
     "introDesc": "Waves DAO is a framework used by the Waves Association. The purpose is making decisions on supporting initiatives and projects, based on the Waves protocol in the ecosystem: Waves Protocol, Gravity, Neutrino and others. The main feature is the transparency of processes. For example, you can observe what decisions are being discussed, who exactly is behind their adoption to finance projects, and also how the voting takes place.",
     "whatAreRoles": "What are the Roles",
     "applicant": "Applicant",
     "applicantDesc": "It is you, meaning any community member who has applied for a grant using the Waves account. If your application is approved by the DAO Members vote, you will be awarded Performer status.",
     "workingGroupDesc": "Member of the Working Group for Funding & Grants. The group plays an administrative role in the grant program. WG Members propose tasks for grants, open / close voting for teams, prepare reports. At the moment, the working group includes 8 people. Their accounts are maintained by a DAO secretary.",
     "daoMemberDesc": "A member of the Association, who admitted to it on the recommendation of the membership working group. Also, DAO member paid the membership fee and has the right to vote for the distribution of grants, as well as for the best team. The list of accounts that have the DAO Member status is determined by the DAO Owner. At the moment, these are 30 members of the Association.",
-    "daoOwnerDesc": "The DAO administrator. Has the right to customize the list of members of the working group as well as members of the Association. At the moment, DAO Owner is one account. The association secretary has an access to this account. Owner does not participate in DAO voting."
+    "daoOwnerDesc": "The DAO administrator. Has the right to customize the list of members of the working group as well as members of the Association. At the moment, DAO Owner is one account. The association secretary has an access to this account. Owner does not participate in DAO voting.",
+
+    "whyDAO": "Why DAO",
+    "whyDAO_title_1": "The power of community",
+    "whyDAO_title_2": "Decision making framework",
+    "whyDAO_title_3": "Full transparency",
+    "whyDAO_content_1": "DAO attracts community members to participate in Waves ecosystem development processes, and keeps everyone on the same page",
+    "whyDAO_content_2": "Using DAO Association, members are following predefined steps to make the decisions with a simple UX and fast transactions",
+    "whyDAO_content_3": "Any internet user can observe decision making processes and stay sure that the decisions are made transparently and honestly",
+
+    "workflow": "The Workflow"
   },
   "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
 }

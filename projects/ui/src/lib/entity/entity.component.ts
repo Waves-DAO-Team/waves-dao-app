@@ -32,6 +32,7 @@ export class EntityComponent implements OnDestroy {
   @Input() voteForTaskTemplate: TemplateRef<Component> | undefined
   @Input() headerControlsTemplate: TemplateRef<Component> | undefined
   @Input() solutionsTemplate: TemplateRef<Component> | undefined
+  @Input() linkTemplate: TemplateRef<Component> | undefined
 
   @Output() newFinishVoteEvent = new EventEmitter()
   @Output() newStartWorkEvent = new EventEmitter()
