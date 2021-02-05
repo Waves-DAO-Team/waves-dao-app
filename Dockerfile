@@ -21,7 +21,7 @@ RUN set -x && \
 COPY . .
 
 RUN yarn install --production=false && \
-    node_modules/.bin/ng build --prod
+    yarn build
 
 # -----------
 # Production image
