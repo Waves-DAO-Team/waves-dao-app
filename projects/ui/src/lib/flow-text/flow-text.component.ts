@@ -67,7 +67,6 @@ export class FlowTextComponent implements OnDestroy {
 
   private prepareData(flow: string, grant: ContractGrantModel): string {
     // <voteScore> <votesAmount> <performerName> <reportLink> <winnerName>
-
     let voteScore: number = 0
     let votesAmount: number = 0
     if (grant.voted) {
@@ -92,22 +91,11 @@ export class FlowTextComponent implements OnDestroy {
         }
       })
     }
-    console.log('---------------------------------')
-    // Amount - сколько голосовало.
-    //   Score - результат
-    //
-    // Если голосовало двое, один +1, а второй -1
-    // То amount = 2, score = 0
-
-    console.log(grant)
-    console.log('---------------------------------')
-
     flow = flow.replace('<voteScore>', voteScore.toString())
     flow = flow.replace('<votesAmount>', votesAmount.toString())
     flow = flow.replace('<performerName>', performerName)
     flow = flow.replace('<reportLink>', reportLink)
     flow = flow.replace('<winnerName>', performerName)
-
     return flow
   }
 
