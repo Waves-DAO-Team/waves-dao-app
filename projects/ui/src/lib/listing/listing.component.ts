@@ -22,10 +22,10 @@ import {ContractService} from '@services/contract/contract.service'
 import {TeamService} from '@services/team/team.service'
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import {translate} from '@ngneat/transloco'
-import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
+import {GrantStatusEnum, GrantsVariationType, GrantTypesEnum} from '@services/static/static.model'
 import {canBeCompleted, fixReward, sortOtherGrant} from '@ui/listing/functions'
 import {ActivatedRoute} from '@angular/router'
-import {IUrl} from "../../../../services/src/interface";
+import {IUrl} from '@services/interface'
 
 @Component({
   selector: 'ui-listing',
@@ -69,7 +69,7 @@ export class ListingComponent implements OnDestroy {
   public grantUrl$: Observable<IUrl> = this.route.paramMap
     .pipe(
       map( e => {
-        let res: IUrl = {
+        const res: IUrl = {
           contractType: e.get('contractType') || '',
           entityId: e.get('entityId') || ''
         }
@@ -92,7 +92,7 @@ export class ListingComponent implements OnDestroy {
         }),
         selectedTag: selectedTagName,
         isDAO: userServiceData.roles.isDAO,
-        canBeCompleted: canBeCompleted(grants, url.contractType, userServiceData)
+        canBeCompleted: canBeCompleted(grants, url.contractType as GrantTypesEnum, userServiceData)
       })),
       map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
         ...data,

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {map} from 'rxjs/operators'
-import {Observable} from "rxjs";
-import {IUrl} from "../../../../services/src/interface";
+import {Observable} from 'rxjs'
+import {IUrl} from '@services/interface'
 
 @Component({
   selector: 'ui-all-teams-btn',
@@ -14,7 +14,7 @@ export class AllTeamsBtnComponent implements OnInit {
   public grantUrl$: Observable<IUrl> = this.route.paramMap
     .pipe(
       map( e => {
-        let res: IUrl = {
+        const res: IUrl = {
           contractType: e.get('contractType') || '',
           entityId: e.get('entityId') || ''
         }

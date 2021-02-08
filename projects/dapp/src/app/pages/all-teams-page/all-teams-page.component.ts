@@ -6,7 +6,7 @@ import {filter, map} from 'rxjs/operators'
 import {Observable} from 'rxjs'
 import {ALL_TEAM, ALL_TEAM_PAGE_PROVIDERS} from './all-teams-page-routing.providers'
 import {ActivatedRoute} from '@angular/router'
-import {IUrl} from "@ui/all-teams-btn/all-teams-btn.interface";
+import {IUrl} from '@services/interface'
 
 @Component({
   selector: 'app-all-teams-page',
@@ -19,8 +19,8 @@ export class AllTeamsPageComponent {
 
   public grantUrl$: Observable<IUrl> = this.route.paramMap
     .pipe(
-      map( e => {
-        let res: IUrl = {
+      map(e => {
+        const res: IUrl = {
           contractType: e.get('contractType') || '',
           entityId: e.get('entityId') || ''
         }
@@ -59,14 +59,14 @@ export class AllTeamsPageComponent {
       }),
     )
 
-  constructor (
+  constructor(
     private route: ActivatedRoute, // eslint-disable-line
     private readonly location: Location, // eslint-disable-line
     @Inject(ALL_TEAM) public entity: LoadingWrapperModel<ContractGrantModel>, // eslint-disable-line
   ) {
   }
 
-  goBack (): void {
+  goBack(): void {
     this.location.back()
   }
 

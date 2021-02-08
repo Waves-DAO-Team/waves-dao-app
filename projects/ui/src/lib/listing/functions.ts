@@ -53,12 +53,9 @@ export const canBeCompleted = (
       if (apps) {
         const isWG = user.roles.isWG
         let isVote = false
-        for (const key in apps) {
-          if (apps[key]) {
-            const app = apps[key]
+        for (const app of apps) {
             if (app.voted && app.voted.solution && app.voted.solution.value) {
               isVote = true
-            }
           }
         }
         const isStatusMatch = grant?.status?.value === GrantStatusEnum.workFinished
@@ -73,10 +70,9 @@ export const canBeCompleted = (
       if (grant && grant.app && grant.status && grant.status.value === GrantStatusEnum.workStarted) {
         let r = false
         const apps: ContractGrantAppModel[] | undefined = grant.app
-        if (apps)
-          for (const key in apps) {
-            if (apps[key]) {
-              const app = apps[key]
+        if (apps) {
+          for (const key of apps) {
+              const app = key
               if (
                 app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted &&
                 app.leader.value === user.userAddress
@@ -84,7 +80,7 @@ export const canBeCompleted = (
                 r = true
               }
             }
-          }
+        }
         if (r && grant.id) {
           res.push(grant.id)
         }
