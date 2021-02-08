@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {map} from 'rxjs/operators'
 import {IUrl} from "@ui/all-teams-btn/all-teams-btn.interface";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'ui-all-teams-btn',
@@ -11,7 +12,7 @@ import {IUrl} from "@ui/all-teams-btn/all-teams-btn.interface";
 export class AllTeamsBtnComponent implements OnInit {
 
 
-  public grantUrl$ = this.route.paramMap
+  public grantUrl$: Observable<IUrl> = this.route.paramMap
     .pipe(
       map( e => {
         let res: IUrl = {

@@ -6,6 +6,7 @@ import {filter, map} from 'rxjs/operators'
 import {Observable} from 'rxjs'
 import {ALL_TEAM, ALL_TEAM_PAGE_PROVIDERS} from './all-teams-page-routing.providers'
 import {ActivatedRoute} from '@angular/router'
+import {IUrl} from "@ui/all-teams-btn/all-teams-btn.interface";
 
 @Component({
   selector: 'app-all-teams-page',
@@ -15,16 +16,22 @@ import {ActivatedRoute} from '@angular/router'
 })
 export class AllTeamsPageComponent {
 
-  public grantUrl$ = this.route.paramMap
+
+  public grantUrl$: Observable<IUrl> = this.route.paramMap
     .pipe(
-      // @ts-ignore
-      map((e) => e.params)
+      map( e => {
+        let res: IUrl = {
+          contractType: e.get('contractType') || '',
+          entityId: e.get('entityId') || ''
+        }
+        return res
+      })
     )
 
-  public title$: Observable<String> = this.entity.data$
+  public title$: Observable<string> = this.entity.data$
     .pipe(
       filter((data) => data.title !== undefined && data.title.value !== undefined),
-      map((data) => data?.title?.value || ""),
+      map((data) => data?.title?.value || ''),
     )
 
   public teams$: Observable<TeamsScoreLinkModel[]> = this.entity.data$
