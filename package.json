@@ -16,8 +16,7 @@
     "lint:code": "ts-standard",
     "commit": "lint-staged --allow-empty",
     "push": "run-s lint:es build",
-    "heroku": "pm2-runtime start heroku.config.js",
-    "postinstall": "run-p envsub:*",
+    "envsub": "run-p envsub:*",
     "envsub:stage": "envsub --diff ./projects/dapp/src/environments/environment.stage.ts",
     "envsub:prod": "envsub --diff ./projects/dapp/src/environments/environment.prod.ts"
   },

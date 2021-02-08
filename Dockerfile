@@ -24,6 +24,7 @@ RUN echo "ENV CONFIG = $CONFIG"
 COPY . .
 
 RUN yarn install --production=false && \
+    yarn envsub && \
     yarn build
 
 # -----------
