@@ -7,7 +7,7 @@ env:
   DOCKER_USERNAME: "_"
   DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
   PROJECT: ${{ secrets.PROJECT }}
-  WORKINGGROUP: ${{ secrets.WORKINGGROUP }}
+  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
   CONFIG: ${{ secrets.CONFIG }}
 
 jobs:

@@ -42,6 +42,11 @@
 
 <ng-template #stepper>
   <ui-stepper [setType]="'web3'" [status]="grant?.status?.value"></ui-stepper>
+  <ui-flow-text
+    [isShowFlow]="true"
+    [grant]="(grant$ | async)"
+    [status]="(grant$ | async)?.status?.value"
+  ></ui-flow-text>
 </ng-template>
 
 <ui-entity

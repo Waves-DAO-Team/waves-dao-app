@@ -13,6 +13,7 @@ import { TeamModule } from '@ui/team/team.module'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import {FlowTextModule} from '@ui/flow-text/flow-text.module'
 
 describe('Web3TemplateComponent', () => {
   let component: Web3TemplateComponent
@@ -31,7 +32,8 @@ describe('Web3TemplateComponent', () => {
         TeamModule,
         VoteForTaskModule,
         StepperModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        FlowTextModule
       ],
       declarations: [Web3TemplateComponent],
       providers: [

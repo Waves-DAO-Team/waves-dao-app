@@ -187,7 +187,7 @@ export class DisruptiveContractService {
         }),
         tap(() => {
           this.contractService.refresh()
-          this.snackBar.open(translate('messages.rejectTask'), translate('messages.ok'))
+          this.snackBar.open(translate('messages.acceptWorkResult'), translate('messages.ok'))
         })
       )
   }
@@ -220,7 +220,6 @@ export class DisruptiveContractService {
     )
       .pipe(
         catchError((error) => {
-          console.log('-------------error', error)
           const mes = error.message ? error.message : translate('messages.transaction_rejected')
           this.snackBar.open(translate(mes))
           return EMPTY

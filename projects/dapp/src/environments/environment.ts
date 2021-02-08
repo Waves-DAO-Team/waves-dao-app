@@ -54,6 +54,8 @@ export const environment = {
     about: 'grants/:contractType/about',
     entity: 'grants/:contractType/:entityId',
     createGrant: 'grants/:contractType/create-grant',
+    allTeams: 'grants/:contractType/:entityId/all-teams',
+    // http://localhost:4200/grants/interhack/AL7dYSjTknfdD5H8XNMR7EVS59HpnYnbJyiCTP7UV6xU/all-teams
     members: 'members',
     stylesheet: 'stylesheet',
     addReward: 'grants/:contractType/add-reward/:entityId'

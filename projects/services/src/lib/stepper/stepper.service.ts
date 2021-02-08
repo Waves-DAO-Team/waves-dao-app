@@ -9,16 +9,16 @@ export class StepperService {
 
   disruptiveFormalStatuses = [
     {
-      key: 'ready_to_apply',
-      value: translate('stepper.collecting_requests')
+      key: 'proposed',
+      value: translate('stepper.grant_propesed')
     },
     {
-      key: 'team_chosen',
-      value: translate('stepper.requests_selection_over')
+      key: 'ready_to_apply|team_chosen',
+      value: translate('stepper.collecting_applications')
     },
     {
       key: 'work_started',
-      value: translate('stepper.work_started')
+      value: translate('stepper.in_work')
     },
     {
       key: 'work_finished',

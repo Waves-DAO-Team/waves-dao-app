@@ -1,28 +1,35 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject,
   Input,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core'
-import { GRANTS, GRANTS_PROVIDERS } from './listing.providers'
+import {GRANTS, GRANTS_PROVIDERS} from './listing.providers'
 import {
   ContractGrantExtendedModel,
   ContractGrantExtendedParentModel,
   ContractGrantModel, ContractRawDataNumber
 } from '@services/contract/contract.model'
-import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
+import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {
   API,
   APP_CONSTANTS,
   AppApiInterface,
   AppConstantsInterface
 } from '@constants'
-import { UserService } from '@services/user/user.service'
-import { map } from 'rxjs/operators'
-import { ContractService } from '@services/contract/contract.service'
-import { TeamService } from '@services/team/team.service'
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
-import { translate } from '@ngneat/transloco'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import {UserService} from '@services/user/user.service'
+import {map} from 'rxjs/operators'
+import {ContractService} from '@services/contract/contract.service'
+import {TeamService} from '@services/team/team.service'
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
+import {translate} from '@ngneat/transloco'
+import {
+  GrantStatusEnum,
+  GrantsVariationType,
+  GrantTypesEnum,
+} from '@services/static/static.model'
+import {canBeCompleted, fixReward, sortOtherGrant} from '@ui/listing/functions'
+import {ActivatedRoute} from '@angular/router'
+import {IUrl} from '@services/interface'
 
 @Component({
   selector: 'ui-listing',
@@ -45,8 +52,8 @@ export class ListingComponent implements OnDestroy {
       const list = Object.values(grants.reduce((origin, grant) => ({
         ...origin,
         ...(grant?.status?.value === undefined
-          ? { [GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus }
-          : { [grant?.status?.value]: grant?.status?.value })
+          ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
+          : {[grant?.status?.value]: grant?.status?.value})
       }), {}))
 
       if (list.length === 0) {
@@ -62,11 +69,21 @@ export class ListingComponent implements OnDestroy {
   )
 
   public readonly user$ = this.userService.data
+
+  public grantUrl$: Observable<IUrl> = this.route.paramMap
+  .pipe(
+      map( (e): IUrl => ({
+          contractType: e.get('contractType') || '',
+          entityId: e.get('entityId') || ''
+        }))
+  )
+
   public readonly otherGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
-    [this.grants.data$, this.userService.data, this.selectedTagName$]
+    [this.grants.data$, this.userService.data, this.selectedTagName$, this.grantUrl$]
   )
     .pipe(
-      map(([grants, userServiceData, selectedTagName]): ContractGrantExtendedParentModel => ({ // all to one
+
+      map(([grants, userServiceData, selectedTagName, url]) => ({ // all to one
         grants: grants.filter((e) => {
           const status = e.status && e.status.value ? e.status.value : null
           if (
@@ -75,7 +92,8 @@ export class ListingComponent implements OnDestroy {
           }
         }),
         selectedTag: selectedTagName,
-        isDAO: userServiceData.roles.isDAO
+        isDAO: userServiceData.roles.isDAO,
+        canBeCompleted: canBeCompleted(grants, url?.contractType as GrantTypesEnum, userServiceData)
       })),
       map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
         ...data,
@@ -114,7 +132,13 @@ export class ListingComponent implements OnDestroy {
         })
       })
       ),
-      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedModel[] | null => data?.grants?.length ? data?.grants : null)
+      map((data): ContractGrantExtendedModel[] => {
+        if (data.grants.length) {
+          data.grants.forEach(g => g.canBeCompleted = data.canBeCompleted)
+          return data.grants
+        } else {return []}
+      }),
+      map((data: ContractGrantExtendedModel[]) => sortOtherGrant(data)),
     )
 
   public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
@@ -135,18 +159,7 @@ export class ListingComponent implements OnDestroy {
       map((data) => // fix reward
         ({
           ...data,
-          grants: data.grants.map((e) => {
-            if (e.reward && e.reward.value && typeof e.reward.value === 'number') {
-              e.reward.value = (e.reward.value / 100000000).toFixed(2)
-            } else if (e.reward === undefined) {
-              const newData: ContractRawDataNumber = {
-                key: '', type: 0, value: '0.00'
-
-              }
-              e.reward = newData
-            }
-            return e
-          })
+          grants: fixReward(data.grants)
         })
       ),
       map((data) => // add statusText
@@ -160,16 +173,18 @@ export class ListingComponent implements OnDestroy {
         })
       ),
       map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null)
+      // tap((data) => console.log('importantGrant$', data))
     )
 
   constructor (
-    public cdr: ChangeDetectorRef,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
-    @Inject(API) public readonly api: AppApiInterface,
-    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>,
-    public userService: UserService,
-    public contractService: ContractService,
-    public teamService: TeamService
+    public route: ActivatedRoute,
+    public cdr: ChangeDetectorRef, // eslint-disable-line
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
+    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>, // eslint-disable-line
+    public userService: UserService, // eslint-disable-line
+    public contractService: ContractService, // eslint-disable-line
+    public teamService: TeamService // eslint-disable-line
   ) {}
 
   selectedTag ($event: string): void {

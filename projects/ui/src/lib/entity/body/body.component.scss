@@ -6,4 +6,10 @@
 
 .entity-body {
   margin-bottom: 40px;
+  &__summary {
+    max-height: 800px;
+    overflow-y: hidden;
+  }
 }
+
+

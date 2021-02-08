@@ -20,27 +20,40 @@
     width: calc(100% - 155px);
   }
   &__name {
-    @include link($color: #000000, $fontWeight: 900);
     display: flex;
-    align-items: flex-end;
-    min-height: 50px;
-    max-height: 50px;
+    align-items: center;
+    font-weight: bold;
+    overflow: hidden;
+    //padding-left: $padding;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 95%;
+    margin: 15px auto $padding / 2 auto;
   }
   &__mid-container-bottom {
     min-height: 45px;
     max-height: 45px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    > a {
+      padding-top: $padding / 3;
+    }
   }
-  &__solution-link {
-    @include link();
+
+  &__link,  &__solution-link {
+    font-weight: 500;
+    padding-left: 14px;
+    white-space: nowrap;
+    color: #05f;
     margin: 0;
     line-height: 1;
-  }
-  &__link {
-    @include link();
-    margin: 0;
-    line-height: 1;
+    position: relative;
+    margin-right: $padding * 1.5;
+    img {
+      position: absolute;
+      right: -22px;
+      top: 2px;
+    }
   }
 }
 
@@ -82,61 +95,6 @@
       display: flex;
       margin-bottom: $padding;
 
-      &__left {
-        background: $color_light_gray;
-        display: flex;
-        flex-direction: column;
-        max-height: $padding * 7;
-        max-width: $padding * 7;
-        min-height: $padding * 7;
-        min-width: $padding * 7;
-
-        &__top {
-          align-items: flex-end;
-          color: $color_dark_gray;
-          display: flex;
-          flex: 1;
-          justify-content: center;
-          margin: auto;
-          width: 100%;
-        }
-
-        &__bottom {
-          align-items: baseline;
-          display: flex;
-          flex: 1.2;
-          font-weight: bold;
-          justify-content: center;
-          line-height: 1;
-          margin: auto;
-        }
-
-        &__up,
-        &__down {
-          align-items: center;
-          display: flex;
-          flex: 1;
-          justify-content: center;
-
-          .disabled {
-            opacity: 0.5;
-          }
-
-          img {
-            cursor: pointer;
-            height: 15px;
-          }
-        }
-
-        &__score {
-          align-items: center;
-          display: flex;
-          flex: 1;
-          justify-content: center;
-          margin: auto;
-        }
-
-      }
 
       &__mid {
         align-items: flex-start;

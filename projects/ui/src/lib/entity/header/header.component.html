@@ -1,9 +1,9 @@
 <div class="card-header-entity">
 
-  <div class="card-header-entity__top">
-<!--    {{status}} <br>-->
-    {{'listing.status.' + status | transloco}}
-  </div>
+  <ui-flow-text
+    [isShowStatus]="true"
+    [status]="status"
+  ></ui-flow-text>
 
   <div class="card-header-entity__mid mat-h2">
     <div class="card-header-entity__mid-title">{{title}}</div>

@@ -24,33 +24,53 @@
     {{'entity.accept_work_result' | transloco}}
   </button>
 
+  <button *ngIf="isRejectBtn$ | async" (click)="reject()">
+    {{'entity.reject' | transloco}}
+  </button>
+
 </ng-template>
 
 
 <ng-template #team>
+<!--  *ngIf="isShowStepperAndTeam$ | async"-->
   <ui-team
+
     [grant]="grant"
     [teamsControls]="teamsControls$ | async"
+    [isProcess]="isShowTeamsBtn$ | async"
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"
     (newVoteTeamEvent)="voteTeam($event)"
     titleText="{{'entity.teams' | transloco}}"
     applyBtnText="{{'entity.apply' | transloco}}"
   ></ui-team>
+
+  <ui-all-teams-btn *ngIf="isShowTeamsBtn$ | async"></ui-all-teams-btn>
+
 </ng-template>
 
 <ng-template #voteForTask>
-  <ui-vote-for-task
-    *ngIf="voteForTaskData.isShow"
-    [isShow]="voteForTaskData.isShow"
-    [isVote]="voteForTaskData.isVote"
-    [isVoteInProcess]="voteForTaskData.isVoteInProcess"
-    (newVoteEvent)="vote($event)"
-  ></ui-vote-for-task>
+    <ui-vote-for-task
+      *ngIf="(isShowStepperAndTeam$ | async) && voteForTaskData.isShow"
+      [isShow]="voteForTaskData.isShow"
+      [isVote]="voteForTaskData.isVote"
+      [isVoteInProcess]="voteForTaskData.isVoteInProcess"
+      (newVoteEvent)="vote($event)"
+    ></ui-vote-for-task>
 </ng-template>
 
 <ng-template #stepper>
-  <ui-stepper [status]="grant?.status?.value"></ui-stepper>
+<!--  *ngIf="isShowStepperAndTeam$ | async"-->
+  <ui-stepper
+    [status]="grant?.status?.value"
+  ></ui-stepper>
+
+  <ui-flow-text
+    [isShowFlow]="true"
+    [grant]="(grant$ | async)"
+    [status]="(grant$ | async)?.status?.value"
+  ></ui-flow-text>
+
 </ng-template>
 
 <ui-entity

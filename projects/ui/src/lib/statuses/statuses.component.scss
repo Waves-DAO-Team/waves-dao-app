@@ -1,0 +1,23 @@
+@import "const";
+
+.statuses {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  li {
+    padding: $padding / 2 $padding;
+    margin-left: $padding;
+    margin-bottom: 0;
+    font-weight: 100;
+    line-height: 1.5;
+  }
+  &__has-solution {
+    color: #14C77A;
+    background: rgba(20, 199, 122, 0.12);
+  }
+  &__rejected {
+    color: #FF3D19;
+    background: rgba(255, 61, 25, 0.12);
+  }
+}

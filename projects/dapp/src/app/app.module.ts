@@ -26,6 +26,7 @@ import {
 import { MarkdownModule } from 'ngx-markdown'
 import { MatDialogModule } from '@angular/material/dialog'
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -43,7 +44,6 @@ import { MatDialogModule } from '@angular/material/dialog'
     TranslocoRootModule,
     HeaderModule,
     TagModule,
-
     FooterModule,
     PipesModule,
     MatSnackBarModule,

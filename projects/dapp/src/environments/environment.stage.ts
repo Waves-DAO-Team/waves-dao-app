@@ -32,7 +32,7 @@ export const environment = {
   },
 
   /* eslint-disable */
-  workingGroup: JSON.parse('' || '{}'),
+  workingGroup: JSON.parse('${WORKING_GROUP}' || '{}'),
   /* eslint-enable */
 
   // Routing constants on page
@@ -44,6 +44,7 @@ export const environment = {
     about: 'grants/:contractType/about',
     entity: 'grants/:contractType/:entityId',
     createGrant: 'grants/:contractType/create-grant',
+    allTeams: 'grants/:contractType/:entityId/all-teams',
     members: 'members',
     stylesheet: 'stylesheet',
     addReward: 'grants/:contractType/add-reward/:entityId'

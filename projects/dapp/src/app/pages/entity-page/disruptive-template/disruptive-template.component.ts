@@ -1,33 +1,34 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { SignerService } from '@services/signer/signer.service'
-import { map, take } from 'rxjs/operators'
-import { translate } from '@ngneat/transloco'
-import { DialogComponent } from '@ui/dialog/dialog.component'
-import { ApplyComponent } from '@ui/modals/apply/apply.component'
+import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
+import {MatSnackBar} from '@angular/material/snack-bar'
+import {SignerService} from '@services/signer/signer.service'
+import {map, take} from 'rxjs/operators'
+import {translate} from '@ngneat/transloco'
+import {DialogComponent} from '@ui/dialog/dialog.component'
+import {ApplyComponent} from '@ui/modals/apply/apply.component'
 import {
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
   SubmitCallBackRewardArg
 } from '@ui/dialog/dialog.tokens'
-import { MatDialog } from '@angular/material/dialog'
+import {MatDialog} from '@angular/material/dialog'
 import {
   TeamsControlsInterface,
   TemplateComponentAbstract,
   VoteTeamEventInterface
 } from '@pages/entity-page/entity.interface'
-import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
-import { UserService } from '@services/user/user.service'
-import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
-import { combineLatest, Observable, Subject } from 'rxjs'
+import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
+import {UserService} from '@services/user/user.service'
+import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
+import {combineLatest, Observable, Subject} from 'rxjs'
 import {
   getWinnerTeamId, isAcceptWorkResultBtn,
   isFinishApplicantsVoteBtn, isFinishVoteBtn, isShowAddRewardBtn, isStartWorkBtn,
   teamsControls
 } from '@pages/entity-page/disruptive-template/functions'
+import {ActivatedRoute} from '@angular/router'
 
 @Component({
   selector: 'app-disruptive-template',
@@ -40,6 +41,13 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   grantStatusEnum = GrantStatusEnum
 
   grant$ = new Subject<ContractGrantModel>()
+
+
+  isShowStepperAndTeam$: Observable<boolean> = this.grant$
+    .pipe(
+      map(e => typeof e?.status?.value === 'string' ? e?.status?.value : ''),
+      map(e => e !== GrantStatusEnum.rejected),
+    )
 
   isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(map(([user, grant]) => isShowAddRewardBtn(user, grant)))
@@ -65,6 +73,25 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     isVoteInProcess: false
   }
 
+  isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (grant) {
+          const isWG = user.roles.isWG
+          const isStatusMatch = grant?.status?.value !== this.grantStatusEnum.rejected
+          return isWG && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
+    .pipe(
+      map((grants: ContractGrantModel): ContractGrantAppModel[]  => grants?.app || []),
+      map((app: ContractGrantAppModel[]) => !!app.find((a) => !!a.process))
+  )
+
   @Input() set grant (data: ContractGrantModel) {
     if (data !== this.inputGrant) {
       this.inputGrant = data
@@ -80,6 +107,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
   private inputGrant: ContractGrantModel = {}
 
   constructor (
+    private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
     private readonly snackBar: MatSnackBar, // eslint-disable-line
