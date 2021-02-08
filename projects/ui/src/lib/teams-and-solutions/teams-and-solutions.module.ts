@@ -1,14 +1,22 @@
-import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { TeamsAndSolutionsComponent } from './teams-and-solutions.component'
-import { TranslocoModule } from '@ngneat/transloco'
+import {NgModule} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {TeamsAndSolutionsComponent} from './teams-and-solutions.component'
+import {TranslocoModule} from '@ngneat/transloco'
+import {StatusesModule} from '@ui/statuses/statuses.module'
+import {MatTooltipModule} from '@angular/material/tooltip'
+import {VotingSquareModule} from '@ui/voting-square/voting-square.module'
 
 @NgModule({
   declarations: [TeamsAndSolutionsComponent],
   imports: [
+    MatTooltipModule,
     CommonModule,
-    TranslocoModule
+    TranslocoModule,
+    StatusesModule,
+    VotingSquareModule
+
   ],
   exports: [TeamsAndSolutionsComponent]
 })
-export class TeamsAndSolutionsModule { }
+export class TeamsAndSolutionsModule {
+}

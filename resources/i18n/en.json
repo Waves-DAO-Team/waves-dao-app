@@ -21,6 +21,39 @@
       "setting": "Setting"
     }
   },
+  "tooltip": {
+    "not_enough_money": "Not enough money on the balance sheet"
+  },
+  "flow": {
+    "disruptive": {
+      "null": "Grant idea was proposed to the Members. The reward amount will be decided later.",
+      "no_status": "Grant idea was proposed to the Members. The reward amount will be decided later.",
+      "proposed": "Grant was proposed and now is being voted by Association members. Current vote is <voteScore> with <votesAmount> members voted. We are waiting for a qorum to accept/decline the grant.",
+      "ready_to_apply": "Grant is open for team applications. If you feel ready to implement the task, fill the form and send the application.",
+      "rejected": "Grant was rejected by the Association members. After voting the score is <voteScore>.",
+      "voting_started": " ",
+      "approved": " ",
+      "team_chosen": "The task performer was chosen by Association members. Waiting for the team <performerName> to start working on implementation.",
+      "work_started": "The task performer was chosen by Association members. Team <performerName> has started working on implementation.",
+      "work_finished": "The task was successfully completed by <performerName> team. The work result is accessible at <reportLink>."
+    },
+    "interhack": {
+      "null": "Hackathon will start soon.",
+      "no_status": "Hackathon will start soon.",
+      "proposed": "Grant was proposed and now is being voted by Association members. Current vote is <voteScore> with <votesAmount> members voted. We are waiting for a qorum to accept/decline the grant.",
+      "ready_to_apply": " ",
+      "collecting_requests": "Collecting applications from teams to participate in hackathon. Participants will be voted by Association members.",
+      "preparing": "",
+      "voting_has_started": "Association members are voting on teams applications. Hackathon will start soon.",
+      "requests_selection_over":"Teams participating in hackathon have been elected.  Hackathon will start soon.",
+      "work_begun":"The hackathon was started. Join Waves Association channels to stay updated.",
+      "requests_selection_start": "",
+      "solutions_selection_over":"Solutions are collected. Jury is making the decision.",
+      "work_started":"Teams are submitting their solutions. Later they will be judged by jury.",
+      "solution_chosen": " ",
+      "work_finished":"The hackathon is over. Winning team <winnerName> was chosen by jury and awarded with the transparent DAO model."
+    }
+  },
   "modal": {
     "texts": {
       "add_reward": "Add reward",
@@ -70,14 +103,15 @@
     "auth": "Authorized User"
   },
   "stepper": {
-    "collecting_requests": "Collecting requests",
+    "grant_propesed": "Grant propesed",
     "preparing": "Preparing",
     "voting_has_started": "Voting has started",
-    "requests_selection_over": "Requests selection is over",
+    "collecting_applications": "Collecting applications",
     "work_begun": "The work has begun",
     "requests_selection_start": "Collecting applications",
     "solutions_selection_over": "Requests solutions is over",
     "work_started": "Work started",
+    "in_work": "In work",
     "work_finished": "Work finished"
   },
   "listing": {
@@ -120,7 +154,16 @@
       "important": "Important grants"
     }
   },
+  "all_teams": {
+    "title": "Teams applied to:",
+    "score": "Score",
+    "learn_about_team": "Learn more about the team"
+  },
   "entity": {
+    "show_summary": "Show summary",
+    "show_full_content": "Show full content",
+    "can_be_completed": "Can be completed",
+    "see_all_teams": "SEE ALL TEAMS",
     "reward": "Reward",
     "log_in_for_apply": "Log in to apply",
     "edit_task_details": "EDIT TASK DETAILS",
@@ -131,16 +174,18 @@
     "edit": "Edit",
     "reject": "Reject",
     "teams": "Teams",
+    "applied_teams": "Applied teams",
     "solutions": "Solutions",
     "votes": "Votes",
-    "winner": "Performer",
+    "winner": "WINNER",
+    "performer": "Performer",
     "approved": "APPROVED",
     "learn_about_team": "Learn more about the team",
-    "learn_about_solution": "Learn more about the solution",
+    "learn_about_solution": "About solution",
     "add_reward": "Add reward",
     "finish_vote": "Finish vote",
     "vote_for_solution": "Vote for solution",
-    "enable_submissions": "Enable submissions",
+    "enable_submissions": "stop applications",
     "submit_solution": "Submit solution",
     "stop_submissions": "Stop submissions",
     "accept_work_result": "Accept work result",
@@ -174,6 +219,10 @@
       }
     },
     "grant": {
+      "statuses": {
+        "has_solution": "HAS SOLUTION",
+        "rejected": "REJECTED"
+      },
       "status": {
         "proposed": {
           "subtext": "Wait. We contact with you",

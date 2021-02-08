@@ -1,5 +1,5 @@
 import { InjectionToken, Provider } from '@angular/core'
-import { switchMap, publishReplay, refCount, catchError } from 'rxjs/operators'
+import {switchMap, publishReplay, refCount, catchError} from 'rxjs/operators'
 import { ActivatedRoute } from '@angular/router'
 import { LoadingWrapper, LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -27,7 +27,7 @@ export const entityFactory = (
   route.params.pipe(
     switchMap(({ entityId }) => contactService.entityById(entityId)),
     catchError((error) => {
-      // Todo обработать ошибки
+      // Todo обработать ошибки (404)
       snackBar.open(error, translate('messages.ok'))
       throw new Error('Entity not found')
     }),

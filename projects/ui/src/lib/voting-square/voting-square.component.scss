@@ -1,0 +1,56 @@
+@import 'const';
+
+$width: 98px;
+
+.voting-square {
+  min-width: $width;
+  max-width: $width;
+  min-height: $width;
+  max-height: $width;
+  background: $color_light_gray;
+  display: flex;
+  // result
+  &__result {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__result-votes-text {
+    padding: 0;
+    margin: 0;
+    color: $color_dark_gray;
+  }
+  &__result-votes {
+    padding: 0;
+    margin: 0;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1;
+  }
+  // voting
+  &__voting {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  &__voting-arrow-up, &__voting-votes, &__voting-arrow-down {
+    flex: 1;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  &__voting-arrow-up, &__voting-arrow-down {
+    img {
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+  }
+  &__voting-votes {
+    line-height: 1;
+    margin: 0;
+  }
+}

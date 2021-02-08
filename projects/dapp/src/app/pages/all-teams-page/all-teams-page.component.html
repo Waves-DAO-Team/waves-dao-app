@@ -1,0 +1,32 @@
+<div class="container all-teams">
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
+    </button>
+  </div>
+  <div class="container__mid">
+    <div class="all-teams__title mat-h3">
+      {{ 'all_teams.title' | transloco }}
+      <a [routerLink]="['/', 'grants', (grantUrl$ | async)?.contractType, (grantUrl$ | async)?.entityId]">
+        {{title$ | async}}
+      </a>
+    </div>
+    <ul class="all-teams__teams">
+      <li class="all-teams__team" *ngFor="let team of (teams$ | async)">
+        <div class="all-teams__left-container">
+          <div class="all-teams__score-label mat-h5">{{'all_teams.score' | transloco}}</div>
+          <div class="all-teams__score-val mat-h4">{{team.score}}</div>
+        </div>
+        <div class="all-teams__right-container">
+          <div class="all-teams__name mat-h4">{{team.name}}</div>
+          <a class="all-teams__link mat-h5" [routerLink]="team.link">
+            {{'all_teams.learn_about_team' | transloco}}
+            <img _ngcontent-kjc-c117="" alt="link" src="assets/icons/link.svg">
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="container__right">
+  </div>
+</div>

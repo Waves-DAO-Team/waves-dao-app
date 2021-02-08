@@ -15,61 +15,62 @@
        {{'entity.log_in_for_apply' | transloco}}
       </button>
 
-      <button
-        class="active"
-        (click)="newOpenApplyModalEvent.emit()"
-        [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
-        *ngIf="teamsControls?.isApplyBtn"
-        routerLinkActive="active"
+
+      <div
+        matTooltip="{{'tooltip.not_enough_money' | transloco}}"
+        [matTooltipDisabled]="(userService.isBalanceMoreCommission$ | async) !== false"
       >
-        {{ applyBtnText }}
-      </button>
+        <button
+          class="active"
+          (click)="newOpenApplyModalEvent.emit()"
+          [disabled]="(userService.isBalanceMoreCommission$ | async) === false"
+          *ngIf="teamsControls?.isApplyBtn"
+          routerLinkActive="active"
+        >
+          {{ applyBtnText }}
+        </button>
+      </div>
+
     </div>
   </div>
 
   <ul *ngIf="grant?.app?.length > 0" class="team__list">
 
-    <li *ngFor="let app of grant?.app | sortByTeam" [class.winner]="app?.process" class="team__list__li">
+    <ng-container *ngFor="let app of grant?.app | sortByTeam">
+      <li *ngIf="isProcess && app?.score?.value !> -1 || !isProcess" [class.winner]="app?.process" class="team__list__li">
 
-      <div [ngSwitch]="user.roles.isDAO" class="team__list__li__left">
-        <ng-container *ngSwitchCase="true">
-          <div class="team__list__li__left__up" >
-            <img
-              alt="vote"
-              src="assets/icons/arr-up-blue.svg"
-              [class.disabled]="teamsControls?.voteFor.includes(app.id.value)"
-              *ngIf="!(teamsControls?.isVoteControls === 'hidden')"
-              (click)="newVoteTeamEvent.emit( {voteValue: 'like', teamIdentifier: app.id.value})"
-             >
-          </div>
-          <div class="team__list__li__left__score mat-display-2">{{app?.score?.value || 0}}</div>
-          <div class="team__list__li__left__down">
-            <img
-              alt="vote"
-              src="assets/icons/arr-down-red.svg"
-              [class.disabled]="teamsControls?.voteFor.includes(app.id.value)"
-              *ngIf="!(teamsControls?.isVoteControls === 'hidden')"
-              (click)="newVoteTeamEvent.emit( {voteValue: 'dislike', teamIdentifier: app.id.value})">
-          </div>
-        </ng-container>
-        <ng-container *ngSwitchDefault>
-          <div class="team__list__li__left__top mat-display-1">{{'entity.votes' | transloco}}</div>
-          <div class="team__list__li__left__bottom mat-display-4">{{app?.score?.value || 0}}</div>
-        </ng-container>
-      </div>
+        <ui-voting-square
+          [votes]="app?.score?.value"
+          [teamId]="app.id.value"
+          [isCanVote]="
+            (!(teamsControls?.isVoteControls === 'hidden')
+            && grantStatusEnum.rejected !== grant?.status?.value)
+            && !teamsControls?.voteFor.includes(app.id.value)
+          "
+          [isShowResult]="!user.roles.isDAO"
+          (voteEvent)="newVoteTeamEvent.emit($event)"
+        ></ui-voting-square>
 
-      <div class="team__list__li__mid">
-        <div class="team__list__li__mid__name mat-display-2">{{app?.name?.value}}</div>
-        <a class="team__list__li__mid__link  mat-display-1" [href]="app?.link?.value" target="_blank" rel="noopener nofollow noreferrer">
-          {{'entity.learn_about_team' | transloco}} <img alt="link" src="assets/icons/link.svg">
-        </a>
-      </div>
-      <div class="team__list__li__right mat-display-2">
-        <ng-container *ngIf="app.process">
-          <img alt="winner" src="assets/icons/winner.png">{{'entity.winner' | transloco}}
-        </ng-container>
-      </div>
-    </li>
+        <div class="team__list__li__mid">
+          <div class="team__list__li__mid__name mat-display-2">
+            {{app?.name?.value}}
+            <ui-statuses
+              [isRejected]="isHasWinner && app?.score?.value < 0"
+            ></ui-statuses>
+          </div>
+          <a class="team__list__li__mid__link  mat-display-1" [href]="app?.link?.value" target="_blank" rel="noopener nofollow noreferrer">
+            {{'entity.learn_about_team' | transloco}} <img alt="link" src="assets/icons/link.svg">
+          </a>
+        </div>
+        <div class="team__list__li__right mat-display-2">
+          <ng-container *ngIf="app.process">
+            <img alt="winner" src="assets/icons/winner.png">{{'entity.performer' | transloco}}
+          </ng-container>
+        </div>
+      </li>
+    </ng-container>
+
+
   </ul>
 
 </div>

@@ -31,7 +31,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: $padding * 2;
+  //margin-bottom: $padding * 2;
+  //margin-bottom: $padding;
   margin-top: $padding * 2;
 
   &__text {

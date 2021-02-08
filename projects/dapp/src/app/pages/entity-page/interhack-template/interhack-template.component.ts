@@ -1,31 +1,32 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { SignerService } from '@services/signer/signer.service'
-import { filter, map, take, tap } from 'rxjs/operators'
-import { translate } from '@ngneat/transloco'
-import { DialogComponent } from '@ui/dialog/dialog.component'
-import { ApplyComponent } from '@ui/modals/apply/apply.component'
+import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ContractGrantModel} from '@services/contract/contract.model'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
+import {MatSnackBar} from '@angular/material/snack-bar'
+import {SignerService} from '@services/signer/signer.service'
+import {filter, map, take, tap} from 'rxjs/operators'
+import {translate} from '@ngneat/transloco'
+import {DialogComponent} from '@ui/dialog/dialog.component'
+import {ApplyComponent} from '@ui/modals/apply/apply.component'
 import {
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
   SubmitCallBackRewardArg, SubmitCallBackSubmitSolutionResultArg
 } from '@ui/dialog/dialog.tokens'
-import { MatDialog } from '@angular/material/dialog'
+import {MatDialog} from '@angular/material/dialog'
 import {
   TeamsAndSolutionsControlsInterface,
   TemplateComponentAbstract,
   VoteTeamEventInterface
 } from '@pages/entity-page/entity.interface'
-import { AddRewardComponent } from '@ui/modals/add-reward/add-reward.component'
-import { UserService } from '@services/user/user.service'
-import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
-import { combineLatest, Observable, Subject } from 'rxjs'
-import { SubmitSolutionComponent } from '@ui/modals/submit-solution/submit-solution.component'
-import { teamsAndSolutionsControls } from './functions'
-import { InterhackContractService } from '@services/contract/Interhack-contract.service'
+import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
+import {UserService} from '@services/user/user.service'
+import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
+import {combineLatest, Observable, Subject} from 'rxjs'
+import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
+import {isAcceptWorkResultBtnInterhack, teamsAndSolutionsControls} from './functions'
+import {InterhackContractService} from '@services/contract/Interhack-contract.service'
+import {ActivatedRoute} from '@angular/router'
 
 @Component({
   selector: 'app-interhack-template',
@@ -37,11 +38,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   grantStatusEnum = GrantStatusEnum
 
+
   @Input() set grant (data: ContractGrantModel) {
-    // if (data !== this.GSgrant) {
     this.inputGrant = data
     this.prepareVoteForTaskData(data)
-    // }
     this.grant$.next(data)
   }
 
@@ -54,12 +54,32 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     isVote: false,
     isVoteInProcess: false
   }
-
   grant$ = new Subject<ContractGrantModel>()
 
+  public titleText$: Observable<string> = this.grant$
+    .pipe(
+      filter((e: ContractGrantModel): boolean => e?.status?.value !== undefined),
+      map((e: ContractGrantModel): string => e?.status?.value as string),
+      map((e: string) => e === GrantStatusEnum.readyToApply),
+      map(e => e ? translate('entity.applied_teams') : translate('entity.teams')),
+    )
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => teamsAndSolutionsControls(user, grant)))
+    .pipe(
+      map(([user, grant]) => teamsAndSolutionsControls(user, grant)),
+    )
+
+
+  public isShowAllTeamsBtn$: Observable<boolean> = this.grant$
+    .pipe(
+      filter(e => e !== undefined && e.status !== undefined && e.status.value !== undefined),
+      map(e => e?.status?.value as string ),
+      map(e =>
+        e === GrantStatusEnum.workStarted
+        || e === GrantStatusEnum.workFinished
+        || e === GrantStatusEnum.solutionChosen
+      ),
+    )
 
   winnerIdentifier: string | null = null
   winnerIdentifier$ = this.grant$.pipe(
@@ -143,7 +163,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
             }
           })
           const isTeamApply = grant.app.length > 0
-          const isRole = user.roles.isDAO
+          const isRole = user.roles.isWG
           const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
           return isVoteForTeam && isTeamApply && isRole && isStatusMatch
         } else {
@@ -153,23 +173,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     )
 
   isAcceptWorkResultBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      map(([user, grant]) => {
-        if (grant && grant.app) {
-          const isWG = user.roles.isWG
-          let isVote = false
-          grant.app.forEach((app) => {
-            if (app.voted && app.voted.solution && app.voted.solution.value) {
-              isVote = true
-            }
-          })
-          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workFinished
-          return isVote && isWG && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+    .pipe(map(([user, grant]) => isAcceptWorkResultBtnInterhack(user, grant)))
 
   isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -209,6 +213,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   private inputGrant: ContractGrantModel = {}
 
   constructor (
+    private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
     public interhackContractService: InterhackContractService,// eslint-disable-line
@@ -369,7 +374,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     }
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant): void {
+  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant) {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === this.grantStatusEnum.proposed &&

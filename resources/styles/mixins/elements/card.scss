@@ -69,9 +69,12 @@
     flex-direction: row;
     padding: ($padding + 2) ($padding + 10);
     transition: 0.3s;
+    min-height: 80px;
 
     &__left-block {
       flex: 1;
+      display: flex;
+      justify-content: center;
       flex-direction: column;
 
       &__title {
@@ -79,11 +82,13 @@
         cursor: pointer;
         font-size: $font-size-medium;
         font-weight: 600;
-        margin-top: 0.5em;
+        //margin-top: 0.5em;
         max-width: 85%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        display: flex;
+        align-items: end;
       }
 
       &__address {
@@ -99,6 +104,9 @@
         color: $gray;
         display: flex;
         font-size: $font-size-small;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: $padding / 2;
 
         &__role-text {
           color: $blue;
@@ -112,7 +120,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      opacity: 0.15;
+      //opacity: 0.15;
       text-align: right;
 
       &--active {
@@ -122,6 +130,7 @@
       &__text {
         color: $gray;
         font-size: $font-size-small;
+        padding-bottom: $padding / 2;
       }
 
       &__price {
@@ -175,7 +184,7 @@
 
     .card__header__left-block__status,
     .card__header__right-block__text {
-      opacity: 0.6;
+      //opacity: 0.6;
     }
 
     .icon-logo {

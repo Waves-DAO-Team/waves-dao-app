@@ -1,0 +1,12 @@
+@import "const";
+
+.flow-text {
+  &__status, &__text {
+    color: $color_dark_gray;
+    margin: 0;
+    //line-height: 1;
+  }
+  &__text {
+    margin-bottom: $padding * 2;
+  }
+}

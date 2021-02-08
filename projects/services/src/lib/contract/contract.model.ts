@@ -17,8 +17,18 @@ export interface ContractRawDataNumber {
   type: ContractRawDataTypeNumber
 }
 
-export type ContractRawData = ContractRawDataString[]
+export interface TeamsScoreLinkModel {
+  name: string,
+  link: string,
+  score: number | string
+}
 
+export type ContractRawData = ContractRawDataString[]
+export interface ContractGrantExtendedParentModel {
+  grants: ContractGrantExtendedModel[]
+  selectedTag: string
+  isDAO: boolean
+}
 export interface ContractGrantFullAppModel {
   manager: string
   address: string
@@ -54,10 +64,20 @@ export interface ContractGrantAppModel {
     type: string
     value: string
   }
+  report?: {
+    key: string
+    type: string
+    value: string
+  }
   score?: {
     key: string
     type: string
     value: string
+    applicant?: {
+      key: string
+      type: string
+      value: number
+    }
   }
   voted: {
     key: string
@@ -120,15 +140,17 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   link?: ContractRawDataString
   leader?: ContractRawDataString
   isShowAppliers?: boolean
+  report?: ContractRawDataString
 }
 
 export interface ContractGrantExtendedModel extends ContractGrantModel {
   voteText?: string
   statusText?: string
   rewardText?: string
+  canBeCompleted?: string[]
 }
 
-export interface ContractGrantExtendedParentModel {
+export interface ContractGrantExtendedParentModel extends ContractGrantExtendedModel{
   grants: ContractGrantExtendedModel[]
   selectedTag: string
   isDAO: boolean
