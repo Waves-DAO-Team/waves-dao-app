@@ -25,6 +25,7 @@ import {translate} from '@ngneat/transloco'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {canBeCompleted, fixReward, sortOtherGrant} from '@ui/listing/functions'
 import {ActivatedRoute} from '@angular/router'
+import {IUrl} from "../../../../services/src/interface";
 
 @Component({
   selector: 'ui-listing',
@@ -65,16 +66,22 @@ export class ListingComponent implements OnDestroy {
 
   public readonly user$ = this.userService.data
 
-  public grantUrl$ = this.route.paramMap
+  public grantUrl$: Observable<IUrl> = this.route.paramMap
     .pipe(
-      // @ts-ignore
-      map((e) => e.params)
+      map( e => {
+        let res: IUrl = {
+          contractType: e.get('contractType') || '',
+          entityId: e.get('entityId') || ''
+        }
+        return res
+      })
     )
 
   public readonly otherGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
     [this.grants.data$, this.userService.data, this.selectedTagName$, this.grantUrl$]
   )
     .pipe(
+
       map(([grants, userServiceData, selectedTagName, url]) => ({ // all to one
         grants: grants.filter((e) => {
           const status = e.status && e.status.value ? e.status.value : null
@@ -124,13 +131,11 @@ export class ListingComponent implements OnDestroy {
         })
       })
       ),
-      map((data): ContractGrantExtendedModel[] | null => {
-        if (data.grants.length) {
-          data.grants.forEach(g => g.canBeCompleted = data.canBeCompleted)
-          return data.grants
-        } else {return null}
+      filter((e) => e !== null),
+      map((data): ContractGrantExtendedModel[] => {
+        data.grants.forEach(g => g.canBeCompleted = data.canBeCompleted)
+        return data.grants
       }),
-      filter((e: ContractGrantExtendedModel[] | null) => e !== null),
       map((data: ContractGrantExtendedModel[]) => sortOtherGrant(data)),
     )
 

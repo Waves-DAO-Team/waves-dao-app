@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {map} from 'rxjs/operators'
-import {IUrl} from "@ui/all-teams-btn/all-teams-btn.interface";
 import {Observable} from "rxjs";
+import {IUrl} from "../../../../services/src/interface";
 
 @Component({
   selector: 'ui-all-teams-btn',
@@ -10,7 +10,6 @@ import {Observable} from "rxjs";
   styleUrls: ['./all-teams-btn.component.scss']
 })
 export class AllTeamsBtnComponent implements OnInit {
-
 
   public grantUrl$: Observable<IUrl> = this.route.paramMap
     .pipe(
