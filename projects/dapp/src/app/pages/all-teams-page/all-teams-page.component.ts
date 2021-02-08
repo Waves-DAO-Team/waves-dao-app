@@ -59,14 +59,14 @@ export class AllTeamsPageComponent {
       }),
     )
 
-  constructor(
+  constructor (
     private route: ActivatedRoute, // eslint-disable-line
     private readonly location: Location, // eslint-disable-line
     @Inject(ALL_TEAM) public entity: LoadingWrapperModel<ContractGrantModel>, // eslint-disable-line
   ) {
   }
 
-  goBack(): void {
+  goBack (): void {
     this.location.back()
   }
 
