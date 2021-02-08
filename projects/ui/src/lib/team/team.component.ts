@@ -20,17 +20,17 @@ export class TeamComponent {
 
   private inputGrant: ContractGrantModel | null = null
 
-  @Input() set grant(data: ContractGrantModel | null) {
+  @Input() set grant (data: ContractGrantModel | null) {
     this.inputGrant = data
     this.preparingStatusData(data)
   }
 
-  get grant(): ContractGrantModel | null {
+  get grant (): ContractGrantModel | null {
     return this.inputGrant
   }
 
   @Input() titleText: string | null = null
-  @Input() isProcess: boolean = false
+  @Input() isProcess = false
   @Input() applyBtnText: string | null = null
   @Input() teamsControls: TeamsControlsInterface | null = null
 
@@ -43,23 +43,23 @@ export class TeamComponent {
 
   public isHasWinner = false
 
-  constructor(
+  constructor (
     public userService: UserService, // eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
   ) {
   }
 
-  isReadyToApply(): boolean {
+  isReadyToApply (): boolean {
     return this.grant?.status?.value === this.grantStatusEnum.readyToApply
   }
 
-  private preparingStatusData(data: ContractGrantModel | null) {
+  private preparingStatusData (data: ContractGrantModel | null) {
     let isHasWinnerTemp = false
     if (data && data.app)
-      data.app.forEach(app => {
+      {data.app.forEach(app => {
         if (app.score)
-          isHasWinnerTemp = true
-      })
+          {isHasWinnerTemp = true}
+      })}
     this.isHasWinner = isHasWinnerTemp
   }
 }

@@ -17,14 +17,14 @@ import {
   AppConstantsInterface
 } from '@constants'
 import {UserService} from '@services/user/user.service'
-import {filter, map, tap} from 'rxjs/operators'
+import {filter, map} from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {TeamService} from '@services/team/team.service'
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {canBeCompleted, fixReward, sortOtherGrant} from "@ui/listing/functions";
-import {ActivatedRoute} from "@angular/router";
+import {canBeCompleted, fixReward, sortOtherGrant} from '@ui/listing/functions'
+import {ActivatedRoute} from '@angular/router'
 
 @Component({
   selector: 'ui-listing',
@@ -75,7 +75,6 @@ export class ListingComponent implements OnDestroy {
     [this.grants.data$, this.userService.data, this.selectedTagName$, this.grantUrl$]
   )
     .pipe(
-
       map(([grants, userServiceData, selectedTagName, url]) => ({ // all to one
         grants: grants.filter((e) => {
           const status = e.status && e.status.value ? e.status.value : null
@@ -129,11 +128,10 @@ export class ListingComponent implements OnDestroy {
         if (data.grants.length) {
           data.grants.forEach(g => g.canBeCompleted = data.canBeCompleted)
           return data.grants
-        } else return null
+        } else {return null}
       }),
-      filter(e => e != null && e != undefined),
-      // @ts-ignore
-      map((data) => sortOtherGrant(data)),
+      filter((e: ContractGrantExtendedModel[] | null) => e !== null),
+      map((data: ContractGrantExtendedModel[]) => sortOtherGrant(data)),
     )
 
   public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
@@ -171,7 +169,7 @@ export class ListingComponent implements OnDestroy {
       // tap((data) => console.log('importantGrant$', data))
     )
 
-  constructor(
+  constructor (
     public route: ActivatedRoute,
     public cdr: ChangeDetectorRef, // eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
@@ -182,11 +180,11 @@ export class ListingComponent implements OnDestroy {
     public teamService: TeamService // eslint-disable-line
   ) {}
 
-  selectedTag($event: string): void {
+  selectedTag ($event: string): void {
     this.selectedTagName$.next($event)
   }
 
-  isCanShowByTag(status: string | null, selectedTagName: string): boolean {
+  isCanShowByTag (status: string | null, selectedTagName: string): boolean {
     if (selectedTagName === 'all') {
       return true
     }
@@ -197,11 +195,11 @@ export class ListingComponent implements OnDestroy {
     return false
   }
 
-  isAppliedForGrant(grantId: string): boolean {
+  isAppliedForGrant (grantId: string): boolean {
     return this.userService.data.getValue().apply.includes(grantId)
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.grants.destroy()
   }
 }

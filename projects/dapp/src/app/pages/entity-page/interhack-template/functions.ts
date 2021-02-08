@@ -103,11 +103,11 @@ export const isAcceptWorkResultBtnInterhack = (user: UserDataInterface, grant: C
     const isWG = user.roles.isWG
     let isVote = false
     if (grant.app.length)
-      grant.app.forEach((app) => {
+      {grant.app.forEach((app) => {
         if (app.voted && app.voted.solution && app.voted.solution.value) {
           isVote = true
         }
-      })
+      })}
     const isStatusMatch = grant?.status?.value === GrantStatusEnum.workFinished
     return isVote && isWG && isStatusMatch
   } else {

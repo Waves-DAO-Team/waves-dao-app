@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {VoteEventInterface, VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
+import {Component, EventEmitter, Input, Output} from '@angular/core'
+import {VoteEventInterface} from '@pages/entity-page/entity.interface'
 
 @Component({
   selector: 'ui-voting-square',
@@ -8,18 +8,18 @@ import {VoteEventInterface, VoteTeamEventInterface} from "@pages/entity-page/ent
 })
 export class VotingSquareComponent {
 
-  @Input() isShowResult: boolean = false
-  @Input() isCanVote: boolean = false
-  @Input() votes: number = 0
-  @Input() teamId: string = ''
+  @Input() isShowResult = false
+  @Input() isCanVote = false
+  @Input() votes = 0
+  @Input() teamId = ''
   @Output() voteEvent = new EventEmitter<VoteEventInterface>()
 
-  public voteDown(): void {
+  public voteDown (): void {
     console.log({voteValue: 'dislike', teamIdentifier: this.teamId})
     this.voteEvent.emit( {voteValue: 'dislike', teamIdentifier: this.teamId})
   }
 
-  public voteUp(): void {
+  public voteUp (): void {
     this.voteEvent.emit( {voteValue: 'like', teamIdentifier: this.teamId})
   }
 

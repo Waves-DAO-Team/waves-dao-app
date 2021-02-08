@@ -1,10 +1,10 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {filter, map, repeatWhen, takeUntil, tap} from "rxjs/operators";
-import {ActivatedRoute} from "@angular/router";
-import {GrantTypesEnum} from "@services/static/static.model";
-import {BehaviorSubject, combineLatest, merge, Observable, Subject} from "rxjs";
-import {translate} from "@ngneat/transloco";
-import {ContractGrantModel} from "@services/contract/contract.model";
+import {Component, Input, OnDestroy} from '@angular/core'
+import {filter, map, takeUntil} from 'rxjs/operators'
+import {ActivatedRoute} from '@angular/router'
+import {GrantTypesEnum} from '@services/static/static.model'
+import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
+import {translate} from '@ngneat/transloco'
+import {ContractGrantModel} from '@services/contract/contract.model'
 
 @Component({
   selector: 'ui-flow-text',
@@ -13,11 +13,11 @@ import {ContractGrantModel} from "@services/contract/contract.model";
 })
 export class FlowTextComponent implements OnDestroy {
 
-  @Input() isShowStatus: boolean = false
-  @Input() isShowFlow: boolean = false
+  @Input() isShowStatus = false
+  @Input() isShowFlow = false
   private grant$: BehaviorSubject<ContractGrantModel> = new BehaviorSubject<ContractGrantModel>({})
 
-  @Input() set grant(data: ContractGrantModel) {
+  @Input() set grant (data: ContractGrantModel) {
     if (data && data.id) {
       this.grant$.next(data)
     }
@@ -27,10 +27,16 @@ export class FlowTextComponent implements OnDestroy {
   public grantUrl$: Observable<GrantTypesEnum> = this.route.paramMap
     .pipe(
       takeUntil(this.destroyed$),
-      // @ts-ignore
-      filter(e => e && e.params && e.params.contractType),
-      // @ts-ignore
-      map((e) => e.params.contractType),
+      filter(e => e.get('contractType') !== undefined),
+      map((e) => {
+        const contractType = e.get('contractType')
+        if (contractType === GrantTypesEnum.disruptive)
+          {return GrantTypesEnum.disruptive}
+        else if (contractType === GrantTypesEnum.web3)
+          {return GrantTypesEnum.web3}
+        else
+          {return GrantTypesEnum.interhack}
+      }),
     )
   private status$: BehaviorSubject<string> = new BehaviorSubject<string>('')
   public content$ = combineLatest([this.grantUrl$, this.status$, this.grant$])
@@ -38,9 +44,9 @@ export class FlowTextComponent implements OnDestroy {
       takeUntil(this.destroyed$),
       map(
         ([grantType, status, grant]) => {
-          let data = {
+          const data = {
             status: status ? translate('listing.status.' + status) : '',
-            flow: "",
+            flow: '',
           }
           if (grantType === GrantTypesEnum.disruptive || grantType === GrantTypesEnum.web3) {
             data.flow = translate('flow.disruptive.' + status)
@@ -48,34 +54,34 @@ export class FlowTextComponent implements OnDestroy {
             data.flow = translate('flow.interhack.' + status)
           }
           if (grant && grant.id)
-            data.flow = this.prepareData(data.flow, grant)
+            {data.flow = this.prepareData(data.flow, grant)}
           return data
         }
       )
     )
 
-  @Input() set status(data: string) {
+  @Input() set status (data: string) {
     this.status$.next(data)
   }
 
-  constructor(public route: ActivatedRoute) {
+  constructor (public route: ActivatedRoute) {
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.destroyed$.next(null)
   }
 
-  private prepareData(flow: string, grant: ContractGrantModel): string {
+  private prepareData (flow: string, grant: ContractGrantModel): string {
     // <voteScore> <votesAmount> <performerName> <reportLink> <winnerName>
-    let voteScore: number = 0
-    let votesAmount: number = 0
+    let voteScore = 0
+    let votesAmount = 0
     if (grant.voted) {
       for (const key of Object.keys(grant.voted)) {
         votesAmount++
-        voteScore += parseInt(grant.voted[key].value)
+        voteScore += parseInt(grant.voted[key].value, 10)
       }
     }
-    let performerName: string = ''
+    let performerName = ''
     if (grant.app) {
       grant.app.forEach( app => {
         if (app.process && app.name && app.name.value) {
@@ -83,7 +89,7 @@ export class FlowTextComponent implements OnDestroy {
         }
       })
     }
-    let reportLink: string = ''
+    let reportLink = ''
     if (grant.app) {
       grant.app.forEach( app => {
         if (app.report && app.report.value) {

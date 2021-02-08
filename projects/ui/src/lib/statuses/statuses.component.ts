@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core'
 
 @Component({
   selector: 'ui-statuses',
@@ -10,9 +10,9 @@ export class StatusesComponent implements OnInit {
   @Input() isHasSolution: boolean | null = null
   @Input() isRejected: boolean | null = null
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
 }
