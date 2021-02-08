@@ -19,7 +19,7 @@ func tryGetString(key: String) = {
     val
 }
 
-func isOwner(address: Address) = {
+func isManager(address: Address) = {
     address == this
 }
 
@@ -53,8 +53,8 @@ func canMemberVote(i: Invocation) = {
 
 @Callable(i)
 func addDAOMember(memberAddress: String) = {
-    if (!isOwner(i.caller)) then {
-        throw("access only to the DAO owner")
+    if (!isManager(i.caller)) then {
+        throw("access only to the DAO manager")
     } else {
         if (tryGetInteger("dao_member_"+memberAddress+"_weight") == 1) then {
             throw("This user already exists")
@@ -77,8 +77,8 @@ func addDAOMember(memberAddress: String) = {
 
 @Callable(i)
 func addGroupMember(memberAddress: String) = {
-    if (!isOwner(i.caller)) then {
-        throw("access only to the DAO owner")
+    if (!isManager(i.caller)) then {
+        throw("access only to the DAO manager")
     } else {
         if (tryGetInteger("working_group_member_"+memberAddress+"_weight") == 1) then {
             throw("This user already exists")

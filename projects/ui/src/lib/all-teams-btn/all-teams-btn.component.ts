@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {map} from "rxjs/operators";
+import { Component, OnInit } from '@angular/core'
+import {ActivatedRoute} from '@angular/router'
+import {map} from 'rxjs/operators'
+import {Observable} from 'rxjs'
+import {IUrl} from '@services/interface'
 
 @Component({
   selector: 'ui-all-teams-btn',
@@ -9,17 +11,19 @@ import {map} from "rxjs/operators";
 })
 export class AllTeamsBtnComponent implements OnInit {
 
-  public grantUrl$ = this.route.paramMap
+  public grantUrl$: Observable<IUrl> = this.route.paramMap
     .pipe(
-      // @ts-ignore
-      map((e) => e.params)
+      map( (e): IUrl => ({
+          contractType: e.get('contractType') || '',
+          entityId: e.get('entityId') || ''
+        }))
     )
 
-  constructor(
+  constructor (
     public route: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
 }

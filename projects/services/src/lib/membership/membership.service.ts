@@ -52,7 +52,7 @@ export class MembershipService {
         repeatWhen(() => this.refresh$),
         map((data: ContractRawData) => ({
           ...this.prepareData(data),
-          owner: address
+          manager: address
         }))
       )
   }

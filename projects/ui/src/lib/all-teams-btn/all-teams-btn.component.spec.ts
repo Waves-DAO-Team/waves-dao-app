@@ -1,17 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { AllTeamsBtnComponent } from './all-teams-btn.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {TagModule} from '@ui/tag/tag.module';
-import {getTranslocoModule} from '@dapp/src/app/transloco-module.spec';
-import {RouterTestingModule} from '@angular/router/testing';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import {Observable, of} from 'rxjs';
+import { AllTeamsBtnComponent } from './all-teams-btn.component'
+import {HttpClientTestingModule} from '@angular/common/http/testing'
+import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {TagModule} from '@ui/tag/tag.module'
+import {getTranslocoModule} from '@dapp/src/app/transloco-module.spec'
+import {RouterTestingModule} from '@angular/router/testing'
+import { ActivatedRoute } from '@angular/router'
+import {of} from 'rxjs'
 
 describe('AllTeamsBtnComponent', () => {
-  let component: AllTeamsBtnComponent;
-  let fixture: ComponentFixture<AllTeamsBtnComponent>;
+  let component: AllTeamsBtnComponent
+  let fixture: ComponentFixture<AllTeamsBtnComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,23 +21,21 @@ describe('AllTeamsBtnComponent', () => {
         provide: ActivatedRoute,
         useValue: {
           paramMap: of({
-            get: () => {
-              return null;
-            }
+            get: () => null
           })
         }
       }]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AllTeamsBtnComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(AllTeamsBtnComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

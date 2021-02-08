@@ -32,7 +32,7 @@ export const environment = {
   },
 
   /* eslint-disable */
-  workingGroup: JSON.parse('' || '{}'),
+  workingGroup: JSON.parse('${WORKING_GROUP}' || '{}'),
   /* eslint-enable */
 
   // Routing constants on page

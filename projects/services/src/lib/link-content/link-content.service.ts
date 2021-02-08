@@ -69,10 +69,7 @@ export class LinkContentService {
         }
       ),
       take(1),
-      catchError((error: Error) => {
-        // console.log('File by link ' + link + ' is not be a parsed', error)
-        return EMPTY
-      })
+      catchError(() => EMPTY)
     )
   }
 

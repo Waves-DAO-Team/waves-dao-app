@@ -17,14 +17,19 @@ import {
   AppConstantsInterface
 } from '@constants'
 import {UserService} from '@services/user/user.service'
-import {filter, map, tap} from 'rxjs/operators'
+import {map} from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {TeamService} from '@services/team/team.service'
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import {translate} from '@ngneat/transloco'
-import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {canBeCompleted, fixReward, sortOtherGrant} from "@ui/listing/functions";
-import {ActivatedRoute} from "@angular/router";
+import {
+  GrantStatusEnum,
+  GrantsVariationType,
+  GrantTypesEnum,
+} from '@services/static/static.model'
+import {canBeCompleted, fixReward, sortOtherGrant} from '@ui/listing/functions'
+import {ActivatedRoute} from '@angular/router'
+import {IUrl} from '@services/interface'
 
 @Component({
   selector: 'ui-listing',
@@ -65,11 +70,13 @@ export class ListingComponent implements OnDestroy {
 
   public readonly user$ = this.userService.data
 
-  public grantUrl$ = this.route.paramMap
-    .pipe(
-      // @ts-ignore
-      map((e) => e.params)
-    )
+  public grantUrl$: Observable<IUrl> = this.route.paramMap
+  .pipe(
+      map( (e): IUrl => ({
+          contractType: e.get('contractType') || '',
+          entityId: e.get('entityId') || ''
+        }))
+  )
 
   public readonly otherGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
     [this.grants.data$, this.userService.data, this.selectedTagName$, this.grantUrl$]
@@ -86,7 +93,7 @@ export class ListingComponent implements OnDestroy {
         }),
         selectedTag: selectedTagName,
         isDAO: userServiceData.roles.isDAO,
-        canBeCompleted: canBeCompleted(grants, url.contractType, userServiceData)
+        canBeCompleted: canBeCompleted(grants, url?.contractType as GrantTypesEnum, userServiceData)
       })),
       map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
         ...data,
@@ -125,15 +132,13 @@ export class ListingComponent implements OnDestroy {
         })
       })
       ),
-      map((data): ContractGrantExtendedModel[] | null => {
+      map((data): ContractGrantExtendedModel[] => {
         if (data.grants.length) {
           data.grants.forEach(g => g.canBeCompleted = data.canBeCompleted)
           return data.grants
-        } else return null
+        } else {return []}
       }),
-      filter(e => e != null && e != undefined),
-      // @ts-ignore
-      map((data) => sortOtherGrant(data)),
+      map((data: ContractGrantExtendedModel[]) => sortOtherGrant(data)),
     )
 
   public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
@@ -171,7 +176,7 @@ export class ListingComponent implements OnDestroy {
       // tap((data) => console.log('importantGrant$', data))
     )
 
-  constructor(
+  constructor (
     public route: ActivatedRoute,
     public cdr: ChangeDetectorRef, // eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
@@ -182,11 +187,11 @@ export class ListingComponent implements OnDestroy {
     public teamService: TeamService // eslint-disable-line
   ) {}
 
-  selectedTag($event: string): void {
+  selectedTag ($event: string): void {
     this.selectedTagName$.next($event)
   }
 
-  isCanShowByTag(status: string | null, selectedTagName: string): boolean {
+  isCanShowByTag (status: string | null, selectedTagName: string): boolean {
     if (selectedTagName === 'all') {
       return true
     }
@@ -197,11 +202,11 @@ export class ListingComponent implements OnDestroy {
     return false
   }
 
-  isAppliedForGrant(grantId: string): boolean {
+  isAppliedForGrant (grantId: string): boolean {
     return this.userService.data.getValue().apply.includes(grantId)
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.grants.destroy()
   }
 }

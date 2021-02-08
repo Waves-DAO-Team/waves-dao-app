@@ -1,10 +1,9 @@
 import {
-  AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit,
+  AfterViewChecked,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component, ElementRef,
   Input,
-  OnInit,
   ViewChild
 } from '@angular/core'
 import {environment} from '@dapp/src/environments/environment'
@@ -16,13 +15,13 @@ import {ContractGrantModel} from '@services/contract/contract.model'
   styleUrls: ['./body.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class BodyComponent  {
+export class BodyComponent implements AfterViewChecked {
   @Input() link: string | null = null
   @Input() grant: ContractGrantModel | null = null
-  @ViewChild('entityBody') entityBodyElementRef: ElementRef | undefined;
-  public mdHeight: number = 0
-  public isShowFullMD: boolean = false
-  public isShowFullMDBtn: boolean = false
+  @ViewChild('entityBody') entityBodyElementRef: ElementRef | undefined
+  public mdHeight = 0
+  public isShowFullMD = false
+  public isShowFullMDBtn = false
 
   environment: {
     showDevTools: boolean
@@ -30,33 +29,33 @@ export class BodyComponent  {
 
   mdTemp: string | null = null
 
-  @Input() set md(value: string | null) {
+  @Input() set md (value: string | null) {
     this.mdTemp = value
     this.cdr.markForCheck()
   }
 
-  get md(): string | null {
+  get md (): string | null {
     return this.mdTemp
   }
 
-  constructor(public cdr: ChangeDetectorRef) {
-  } // eslint-disable-line
+  constructor (public cdr: ChangeDetectorRef) {
+  }
 
 
-  toggleFullMD() {
+  toggleFullMD (): void {
     this.isShowFullMD = !this.isShowFullMD
     // this.cdr.markForCheck()
   }
 
 
-  ngAfterViewChecked(): void {
+  ngAfterViewChecked (): void {
     if (this.entityBodyElementRef) {
       const scrollHeight = this.entityBodyElementRef.nativeElement.scrollHeight
-      if (this.mdHeight != scrollHeight)
-        setTimeout(() => this.cdr.markForCheck(), 0)
+      if (this.mdHeight !== scrollHeight)
+        {setTimeout(() => this.cdr.markForCheck(), 0)}
       this.mdHeight = scrollHeight
       if (this.mdHeight > 800)
-        this.isShowFullMDBtn = true
+        {this.isShowFullMDBtn = true}
     }
   }
 

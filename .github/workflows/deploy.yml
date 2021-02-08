@@ -7,7 +7,8 @@ env:
   DOCKER_USERNAME: "_"
   DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
   PROJECT: ${{ secrets.PROJECT }}
-  WORKINGGROUP: ${{ secrets.WORKINGGROUP }}
+  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
+  CONFIG: ${{ secrets.CONFIG }}
 
 jobs:
   create:
@@ -33,8 +34,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: create
-    env:
-      CONFIG: "stage"
     steps:
       - name: Set ENV
         run: echo "HEROKU_APPLICATION=$PROJECT-${GITHUB_REF##*/}" >> $GITHUB_ENV

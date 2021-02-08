@@ -6,7 +6,7 @@ import { translate } from '@ngneat/transloco'
 })
 export class StepperService {
   grantType: 'disruptive' | 'interhack' | 'web3' = 'disruptive'
-  
+
   disruptiveFormalStatuses = [
     {
       key: 'proposed',

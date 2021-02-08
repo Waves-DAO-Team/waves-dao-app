@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FlowTextComponent } from './flow-text.component';
-import {TranslocoModule} from "@ngneat/transloco";
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FlowTextComponent } from './flow-text.component'
+import {TranslocoModule} from '@ngneat/transloco'
 
 
 

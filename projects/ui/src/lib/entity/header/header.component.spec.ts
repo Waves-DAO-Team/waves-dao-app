@@ -3,13 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { HeaderComponent } from './header.component'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { PipesModule } from '@libs/pipes/pipes.module'
-import {FlowTextModule} from '@ui/flow-text/flow-text.module';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {TagModule} from '@ui/tag/tag.module';
-import {RouterTestingModule} from '@angular/router/testing';
-import {ActivatedRoute} from '@angular/router';
-import {of} from 'rxjs';
+import {FlowTextModule} from '@ui/flow-text/flow-text.module'
+import {HttpClientTestingModule} from '@angular/common/http/testing'
+import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {TagModule} from '@ui/tag/tag.module'
+import {RouterTestingModule} from '@angular/router/testing'
+import {ActivatedRoute} from '@angular/router'
+import {of} from 'rxjs'
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent
@@ -24,9 +24,7 @@ describe('HeaderComponent', () => {
         provide: ActivatedRoute,
         useValue: {
           paramMap: of({
-            get: () => {
-              return null;
-            }
+            get: () => null
           })
         }
       }]

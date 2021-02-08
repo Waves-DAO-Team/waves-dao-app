@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input} from '@angular/core'
-import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
+import {ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
@@ -26,8 +26,7 @@ import {combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
 import {isAcceptWorkResultBtnInterhack, teamsAndSolutionsControls} from './functions'
 import {InterhackContractService} from '@services/contract/Interhack-contract.service'
-import {ActivatedRoute} from "@angular/router";
-import {MatTooltipModule} from '@angular/material/tooltip';
+import {ActivatedRoute} from '@angular/router'
 
 @Component({
   selector: 'app-interhack-template',
@@ -39,20 +38,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   grantStatusEnum = GrantStatusEnum
 
-  public grantUrl$ = this.route.paramMap
-    .pipe(
-      // @ts-ignore
-      map((e) => e.params)
-    )
 
-
-  @Input() set grant(data: ContractGrantModel) {
+  @Input() set grant (data: ContractGrantModel) {
     this.inputGrant = data
     this.prepareVoteForTaskData(data)
     this.grant$.next(data)
   }
 
-  get grant(): ContractGrantModel {
+  get grant (): ContractGrantModel {
     return this.inputGrant
   }
 
@@ -65,25 +58,20 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   public titleText$: Observable<string> = this.grant$
     .pipe(
-      // @ts-ignore
-      filter(e => e && e.status && e.status.value),
-      // @ts-ignore
-      map(e => e.status.value),
+      map(e => e?.status?.value || ''),
       map(e => e === GrantStatusEnum.readyToApply),
       map(e => e ? translate('entity.applied_teams') : translate('entity.teams')),
     )
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
     .pipe(
-      map(([user, grant]) => teamsAndSolutionsControls(user, grant)),
+      map(([user, grant]) =>
+          teamsAndSolutionsControls(user, grant)),
     )
-
 
   public isShowAllTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
-      filter(e => e != undefined && e.status != undefined && e.status.value != undefined),
-      // @ts-ignore
-      map(e => e.status.value),
+      map(e => typeof e?.status?.value === 'string' ? e.status.value : ''),
       map(e =>
         e === GrantStatusEnum.workStarted
         || e === GrantStatusEnum.workFinished
@@ -222,7 +210,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   private inputGrant: ContractGrantModel = {}
 
-  constructor(
+  constructor (
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -234,7 +222,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   ) {
   }
 
-  vote(value: 'like' | 'dislike'): void {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -245,7 +233,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  signup(): void {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -254,7 +242,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       })
   }
 
-  openApplyModal(): void {
+  openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: ApplyComponent,
@@ -273,25 +261,25 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface): void {
+  voteTeam ($event: VoteTeamEventInterface): void {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote(): void {
+  finishVote (): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork(): void {
+  startWork (): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject(): void {
+  reject (): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult(): void {
+  acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AcceptWorkResultComponent,
@@ -316,12 +304,12 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  finishApplicantsVote(): void {
+  finishApplicantsVote (): void {
     this.interhackContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
     // this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward(): void {
+  addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: AddRewardComponent,
@@ -343,14 +331,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  enableSubmissions(): void {
+  enableSubmissions (): void {
     if (this.grant?.id) {
       this.disruptiveContractService.enableSubmissions(this.grant?.id, '').subscribe(() => {
       })
     }
   }
 
-  submitSolution(): void {
+  submitSolution (): void {
     const dialog = this.dialog.open(DialogComponent, {
       data: {
         component: SubmitSolutionComponent,
@@ -371,20 +359,20 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     })
   }
 
-  voteForSolution($event: VoteTeamEventInterface): void {
+  voteForSolution ($event: VoteTeamEventInterface): void {
     if (this.grant?.id) {
       this.disruptiveContractService.voteForSolution(
         this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  stopSubmissions(): void {
+  stopSubmissions (): void {
     if (this.grant?.id) {
       this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe()
     }
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel = this.inputGrant) {
+  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant) {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === this.grantStatusEnum.proposed &&

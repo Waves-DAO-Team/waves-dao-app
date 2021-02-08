@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { StatusesComponent } from './statuses.component';
-import {TranslocoModule} from "@ngneat/transloco";
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { StatusesComponent } from './statuses.component'
+import {TranslocoModule} from '@ngneat/transloco'
 
 
 

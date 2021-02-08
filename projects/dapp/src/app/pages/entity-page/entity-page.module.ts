@@ -16,9 +16,9 @@ import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { TeamsAndSolutionsModule } from '@ui/teams-and-solutions/teams-and-solutions.module'
 import { SubmitSolutionModule } from '@ui/modals/submit-solution/submit-solution.module'
-import {AllTeamsBtnModule} from "@ui/all-teams-btn/all-teams-btn.module";
-import { MatTooltipModule } from '@angular/material/tooltip';
-import {FlowTextModule} from "@ui/flow-text/flow-text.module";
+import {AllTeamsBtnModule} from '@ui/all-teams-btn/all-teams-btn.module'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import {FlowTextModule} from '@ui/flow-text/flow-text.module'
 
 @NgModule({
   declarations: [ EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
