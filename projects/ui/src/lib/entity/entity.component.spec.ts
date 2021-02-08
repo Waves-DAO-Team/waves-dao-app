@@ -15,6 +15,7 @@ import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatDialogModule } from '@angular/material/dialog'
 import { LinkContentModule } from '@services/link-content/link-content.module'
+import {LinkModule} from '@ui/entity/link/link.module';
 describe('EntityComponent', () => {
   let component: EntityComponent
   let fixture: ComponentFixture<EntityComponent>
@@ -33,7 +34,8 @@ describe('EntityComponent', () => {
         TeamModule,
         MarkdownModule,
         ReactiveFormsModule,
-        LinkContentModule
+        LinkContentModule,
+        LinkModule
       ],
       declarations: [EntityComponent],
       providers: [UserService, provideApi(), provideAppConstants(), MarkdownService, {

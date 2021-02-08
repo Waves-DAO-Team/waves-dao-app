@@ -5,7 +5,7 @@ export enum RoleEnum {
   daoMember = 'DAOMember',
   workingGroup = 'workingGroup',
   master = 'master',
-  owner = 'owner'
+  manager = 'manager'
 }
 
 export interface RolesInterface {
@@ -14,7 +14,7 @@ export interface RolesInterface {
   isWG: boolean
   isAuth: boolean
   isUnauthorized: boolean
-  isOwner: boolean
+  isManager: boolean
 }
 
 export interface RoleRowInterface {
@@ -32,5 +32,5 @@ export interface UserDataInterface {
   voted: string[]
   apply: string[]
   balance: string
-  owner: string
+  manager: string
 }
