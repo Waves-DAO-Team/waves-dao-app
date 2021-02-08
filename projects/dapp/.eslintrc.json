@@ -10,9 +10,9 @@
       ],
       "parserOptions": {
         "project": [
-          "./tsconfig.app.json",
-          "./tsconfig.spec.json",
-          "./e2e/tsconfig.json"
+          "projects/dapp/tsconfig.app.json",
+          "projects/dapp/tsconfig.spec.json",
+          "projects/dapp/e2e/tsconfig.json"
         ],
         "createDefaultProgram": true
       },
