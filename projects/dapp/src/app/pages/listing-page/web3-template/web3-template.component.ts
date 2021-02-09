@@ -42,6 +42,8 @@ export class Web3TemplateComponent implements OnInit {
 
   onProposeGrant (): void {
     this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: ProposeGrantComponent,
         params: {

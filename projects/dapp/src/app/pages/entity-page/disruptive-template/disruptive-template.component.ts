@@ -168,6 +168,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
 
   openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: ApplyComponent,
         params: {
@@ -206,6 +208,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
 
   acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AcceptWorkResultComponent,
         params: {
@@ -232,6 +236,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
 
   addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AddRewardComponent,
         params: {

@@ -266,6 +266,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   openApplyModal(): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: ApplyComponent,
         params: {
@@ -303,6 +305,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   acceptWorkResult(): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AcceptWorkResultComponent,
         params: {
@@ -333,6 +337,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   addReward(): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AddRewardComponent,
         params: {
@@ -362,6 +368,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   submitSolution(): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: SubmitSolutionComponent,
         params: {
