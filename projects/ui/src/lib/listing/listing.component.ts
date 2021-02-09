@@ -5,7 +5,7 @@ import {
 } from '@angular/core'
 import {GRANTS, GRANTS_PROVIDERS} from './listing.providers'
 import {
-  ContractGrantModel, ContractGrantRawModel,
+  ContractGrantModel, ContractGrantRawModel, GrantParams,
 } from '@services/contract/contract.model'
 import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -22,10 +22,11 @@ import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {
   GrantStatusEnum,
-  GrantsVariationType,
+  GrantsVariationType, GrantTypesEnum,
 } from '@services/static/static.model'
 import {ActivatedRoute} from '@angular/router'
 import { Async } from '@libs/decorators/async-input.decorator'
+import {UserDataInterface} from '@services/user/user.interface'
 
 @Component({
   selector: 'ui-listing',
@@ -34,7 +35,6 @@ import { Async } from '@libs/decorators/async-input.decorator'
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: GRANTS_PROVIDERS
 })
-
 export class ListingComponent implements OnDestroy {
   statusPriority = []
 
@@ -69,57 +69,32 @@ export class ListingComponent implements OnDestroy {
             grant?.status?.value || GrantStatusEnum.noStatus,
             'all'].includes(selectedTagName))
           .map((grant: ContractGrantRawModel): ContractGrantModel => {
-            const labelRole = userServiceData?.userRole || 'undefined'
-            const labelStatus = grant?.status?.value || 'undefined'
-            const labelContract = contract?.name || 'undefined'
-            const label = translate(
-                `listing.labels.${labelContract}.${labelRole}.${labelStatus}`)
+            const label = this.createLabel(grant, userServiceData, contract)
 
             return {
               ...grant,
               app: grant.app ? Object.values(grant.app) : [],
               // Check labels with attribute grant in lang file
-              label: label.indexOf('listing.labels') === 0 ? null : label
+              label
             }
           })
-          .sort((grantA, grantB) => {
-            // TODO check this function
-
-            let weight = 0
-            // First priority, status
-            if (grantA?.status?.value === GrantStatusEnum.rejected) {
-              weight = weight + 3
-            }
-            if (grantB?.status?.value === GrantStatusEnum.rejected) {
-              weight = weight - 3
-            }
-
-            // Second priority, zero reward
-            if (!grantA?.reward?.value) {
-              weight = weight + 2
-            }
-            if (!grantB?.reward?.value) {
-              weight = weight - 2
-            }
-
-            // Thirty priority, date
-            // Todo realize date in contracts
-
-            return weight
-          })),
+          .sort(this.sort)
+      ),
       publishReplay(1),
       refCount()
     )
 
   public otherGrantList$: Observable<ContractGrantModel[]> = this.grantsList$
   .pipe(
-      map((grants) => grants.filter((grant: ContractGrantModel) => !grant?.label))
+      map((grants) => grants
+        .filter((grant: ContractGrantModel) => !grant?.label?.important)
+      )
   )
 
   public importantGrantList$: Observable<ContractGrantModel[]> = this.grantsList$
   .pipe(
-      map((grants) => grants.
-                filter((grant: ContractGrantModel) => !!grant?.label)
+      map((grants) => grants
+          .filter((grant: ContractGrantModel) => !!grant?.label?.important)
       )
   )
 
@@ -138,22 +113,84 @@ export class ListingComponent implements OnDestroy {
     this.selectedTagName$.next($event)
   }
 
-  // isCanShowByTag (status: string | null, selectedTagName: string): boolean {
-  //   if (selectedTagName === 'all') {
-  //     return true
-  //   }
-  //   status = !status ? 'no_status' : status
-  //   if (status === selectedTagName || selectedTagName === '') {
-  //     return true
-  //   }
-  //   return false
-  // }
-
-  // isAppliedForGrant (grantId: string): boolean {
-  //   return this.userService.data.getValue().apply.includes(grantId)
-  // }
-
   ngOnDestroy (): void {
     this.grants.destroy()
+  }
+
+  private sort (grantA: ContractGrantModel, grantB: ContractGrantModel): number {
+    // TODO check this function
+
+    let weight = 0
+    // First priority, status
+    if (grantA?.status?.value === GrantStatusEnum.rejected) {
+      weight = weight + 4
+    }
+    if (grantB?.status?.value === GrantStatusEnum.rejected) {
+      weight = weight - 4
+    }
+
+    // Second priority, zero reward
+    if (!grantA?.reward?.value) {
+      weight = weight + 3
+    }
+    if (!grantB?.reward?.value) {
+      weight = weight - 3
+    }
+
+    // Second priority, zero reward
+    if (grantA?.status?.value === GrantStatusEnum.workFinished) {
+      weight = weight + 2
+    }
+    if (grantB?.status?.value === GrantStatusEnum.workFinished) {
+      weight = weight - 2
+    }
+
+    // Thirty priority, date
+    // Todo realize date in contracts
+
+    return weight
+  }
+
+  private createLabel (grant: ContractGrantRawModel, userServiceData: UserDataInterface, contract: GrantsVariationType): GrantParams {
+    let params: GrantParams = {}
+
+    params = {
+      ...params,
+      ...this.getStatusProperties(grant, userServiceData)
+    }
+
+    const labelRole = userServiceData?.userRole || 'undefined'
+    const labelStatus = grant?.status?.value || 'undefined'
+    const labelContract = contract?.name || 'undefined'
+    const labelImportant = params?.important === true ? 'true' : params?.important === false ? 'false' : 'undefined'
+
+    const label = translate(
+        `listing.labels.${labelContract}.${labelRole}.${labelStatus}.${labelImportant}`, params)
+
+    return {
+      ...params,
+      label: label.indexOf('listing.labels') === 0 ? null : label,
+    }
+  }
+
+  getStatusProperties (grant: ContractGrantRawModel, userServiceData: UserDataInterface): GrantParams {
+    switch(grant?.status?.value) {
+      case GrantStatusEnum.readyToApply:
+        return {
+          count: (grant?.app && Object.keys(grant?.app).length || '0').toString(),
+          important: userServiceData.roles.isAuth ?
+              grant?.applicants && grant?.applicants?.value.indexOf(userServiceData?.userAddress) >= 0 : undefined
+        }
+      case GrantStatusEnum.proposed:
+        return {
+          amount: grant?.voting?.amount?.value || '0',
+          score: grant?.voting?.state?.value || '0',
+          important: userServiceData.roles.isDAO ? !(grant?.voted && grant?.voted[userServiceData?.userAddress]) : undefined
+        }
+      case GrantTypesEnum.web3:
+
+        break
+    }
+    return {}
   }
 }

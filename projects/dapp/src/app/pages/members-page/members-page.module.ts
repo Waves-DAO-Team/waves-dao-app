@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { UserContactsModule } from '@ui/user-contacts/user-contacts.module'
 import { RouterModule } from '@angular/router'
 import { PipesModule } from '@libs/pipes/pipes.module'
-import { DialogModule } from '@ui/dialog/dialog.module';
+import { DialogModule } from '@ui/dialog/dialog.module'
 
 @NgModule({
   declarations: [MembersPageComponent],

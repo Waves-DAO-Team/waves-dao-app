@@ -127,17 +127,32 @@
     "labels": {
       "disruptive" : {
         "unauthorized": {
-          "ready_to_apply": "You can apply"
+          "ready_to_apply": {
+            "undefined": "{{count}} applications"
+          }
+        },
+        "authorized": {
+          "ready_to_apply": {
+            "undefined": "{{count}} applications",
+            "false": "You can apply. Count of applications {{count}}",
+            "true": "You have submitted an application. Please wait until the application deadline"
+          }
         },
         "workingGroup": {
-          "undefined": "Need choose reward"
+          "ready_to_apply": {
+            "undefined": "{{count}} applications "
+          }
         },
         "DAOMember": {
-          "proposed": "Need vote"
+          "ready_to_apply": {
+            "undefined": "{{count}} applications "
+          },
+          "proposed": {
+            "false": "Your vote has been counted",
+            "true": "Need vote"
+          }
         }
-      },
-      "need_vote": "Need vote",
-      "vote_counted": "Your vote has been counted"
+      }
     },
     "status": {
       "proposed": "Open",
@@ -224,7 +239,7 @@
         },
         "false": {
           "text": "You already voted",
-          "subtext": "Here is transtaction in ",
+          "subtext": "",
           "explorer": "Waves Explorer."
         }
       }
