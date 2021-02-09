@@ -78,6 +78,11 @@ export interface ContractGrantAppModel {
       type: string
       value: number
     }
+    solution?: {
+      key: string
+      type: string
+      value: number
+    }
   }
   voted: {
     key: string

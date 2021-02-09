@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
-import {ContractGrantModel} from '@services/contract/contract.model'
+import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
@@ -46,7 +46,22 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   }
 
   get grant(): ContractGrantModel {
-    return this.inputGrant
+    let grant = this.inputGrant
+    if(
+     this.inputGrant?.status?.value !== this.grantStatusEnum.noStatus
+      && this.inputGrant?.status?.value !== this.grantStatusEnum.proposed
+      && this.inputGrant?.status?.value !== this.grantStatusEnum.readyToApply
+      && grant
+      && grant.app
+    ) {
+      grant.app = grant?.app?.filter((e) => {
+        let score = e.score?.applicant?.value
+        if( score && score > 0) {
+          return true
+        }
+      })
+    }
+    return grant
   }
 
   voteForTaskData = {
@@ -82,33 +97,25 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       ),
     )
 
-  winnerIdentifier: string | null = null
-  winnerIdentifier$ = this.grant$.pipe(
-    takeUntil(this.destroyed$),
-    filter(d => d !== null),
-    map(d => d.app),
-    map(d => {
-      const res = {
-        id: '',
-        vote: 0
-      }
-      if (d) {
-        d.forEach((e) => {
-          if (e.votes && e.votes.solution && e.votes.solution.value && e.key) {
-            const solution = +e.votes.solution.value
-            if (solution > res.vote) {
-              res.vote = solution
-              res.id = e.key
-            }
+  winnerSolutionId: string = ''
+  winnerSolutionId$ = this.grant$
+    .pipe(
+      takeUntil(this.destroyed$),
+      filter(e => e !== null && e.app !== undefined && e.app.length > 0),
+      map( (e: ContractGrantModel): ContractGrantAppModel[] => e.app as ContractGrantAppModel[]),
+      map( (e: ContractGrantAppModel[] ) => {
+        let solution = e[0]
+        e.forEach( e =>{
+          let eScore = e.score?.solution?.value || 0
+          let sScore = solution.score?.solution?.value || 0
+          if (eScore > sScore) {
+            solution = e
           }
         })
-      }
-      return res.vote > 0 ? res.id : null
-    }),
-    tap((d) => {
-      this.winnerIdentifier = d
-    })
-  ).subscribe()
+        return solution.key as string
+      })
+    )
+    .subscribe((e) => this.winnerSolutionId = e)
 
   isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -313,10 +320,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            if (this.grant?.id && this.winnerIdentifier) {
+            if (this.grant?.id && this.winnerSolutionId) {
               this.interhackContractService.acceptWorkResult(
                 this.grant?.id,
-                this.winnerIdentifier,
+                this.winnerSolutionId,
                 data.reportLink
               ).subscribe()
             }

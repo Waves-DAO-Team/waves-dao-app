@@ -59,10 +59,10 @@
           </div>
 
         </div>
-        <img alt="logout" src="assets/icons/logout.svg" (click)="logoutHandler()">
+        <img alt="logout" src="assets/icons/logout.svg" (click)="logoutHandler(); isToggleMenuOpen = false">
       </li>
       <li *ngIf="userRole === roleEnum.unauthorized" class="profile mat-display-2">
-        <button (click)="signupHandler()">
+        <button (click)="signupHandler(); isToggleMenuOpen = false">
           {{ 'app.header.login' | transloco }}
           <img alt="logout" src="assets/icons/arr-right.svg">
         </button>

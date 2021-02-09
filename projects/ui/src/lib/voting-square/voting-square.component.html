@@ -1,11 +1,11 @@
 <div class="voting-square">
 
-  <div class="voting-square__result" *ngIf="isShowResult">
+  <div class="voting-square__result" *ngIf="isShowResult || !isCanVote">
     <div class="voting-square__result-votes-text mat-h5">{{'entity.votes' | transloco}}</div>
     <div class="voting-square__result-votes">{{votes || 0}}</div>
   </div>
 
-  <div class="voting-square__voting" *ngIf="!isShowResult">
+  <div class="voting-square__voting" *ngIf="!isShowResult && isCanVote">
     <div class="voting-square__voting-arrow-up" *ngIf="isCanVote">
       <img src="assets/icons/arr-up-blue.svg" alt="vote up" (click)="voteUp()">
     </div>
