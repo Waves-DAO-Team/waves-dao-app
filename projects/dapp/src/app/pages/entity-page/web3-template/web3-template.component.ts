@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core'
+import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
-import { map, take } from 'rxjs/operators'
+import {filter, map, take, takeUntil} from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { ApplyComponent } from '@ui/modals/apply/apply.component'
@@ -25,9 +25,9 @@ import { combineLatest, Subject } from 'rxjs'
   templateUrl: './web3-template.component.html',
   styleUrls: ['./web3-template.component.scss']
 })
-export class Web3TemplateComponent implements TemplateComponentAbstract {
+export class Web3TemplateComponent implements TemplateComponentAbstract, OnDestroy {
   @Input() public readonly contract!: GrantsVariationType
-
+  private readonly destroyed$ = new Subject()
   grantStatusEnum = GrantStatusEnum
 
   voteForTaskData = {
@@ -40,6 +40,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isTL = grant.leader?.value === user.userAddress
@@ -53,6 +54,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   isFinishVoteBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isAmount = grant?.voting?.amount
@@ -67,6 +69,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   isInitTaskVotingtBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isWG = user.roles.isWG
@@ -81,6 +84,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   isAcceptWorkResultBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isWG = user.roles.isWG
@@ -94,6 +98,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isWG = user.roles.isWG
@@ -109,6 +114,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
 
   isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isRole = grant.leader?.value === user.userAddress
@@ -121,6 +127,12 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     )
 
   private inputGrant: ContractGrantModel = {}
+  private user$ = this.userService.data
+    .pipe(
+      takeUntil(this.destroyed$),
+      filter(() => this.inputGrant?.id !== undefined)
+    )
+    .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
 
   @Input() set grant (data: ContractGrantModel) {
     if (data !== this.inputGrant) {
@@ -262,5 +274,9 @@ export class Web3TemplateComponent implements TemplateComponentAbstract {
     } else {
       this.voteForTaskData.isVote = false
     }
+  }
+
+  ngOnDestroy (): void {
+    this.destroyed$.next()
   }
 }

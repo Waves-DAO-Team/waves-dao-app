@@ -1,10 +1,10 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import {ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
-import {filter, map, take, tap} from 'rxjs/operators'
+import {filter, map, take, takeUntil, tap} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
@@ -33,11 +33,11 @@ import {ActivatedRoute} from '@angular/router'
   templateUrl: './interhack-template.component.html',
   styleUrls: ['./interhack-template.component.scss']
 })
-export class InterhackTemplateComponent implements TemplateComponentAbstract {
+export class InterhackTemplateComponent implements TemplateComponentAbstract, OnDestroy {
+
   @Input() public readonly contract!: GrantsVariationType
-
+  private readonly destroyed$ = new Subject()
   grantStatusEnum = GrantStatusEnum
-
 
   @Input() set grant (data: ContractGrantModel) {
     this.inputGrant = data
@@ -58,6 +58,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   public titleText$: Observable<string> = this.grant$
     .pipe(
+      takeUntil(this.destroyed$),
       map(e => e?.status?.value || ''),
       map(e => e === GrantStatusEnum.readyToApply),
       map(e => e ? translate('entity.applied_teams') : translate('entity.teams')),
@@ -65,12 +66,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) =>
-          teamsAndSolutionsControls(user, grant)),
+        teamsAndSolutionsControls(user, grant)),
     )
 
   public isShowAllTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
+      takeUntil(this.destroyed$),
       map(e => typeof e?.status?.value === 'string' ? e.status.value : ''),
       map(e =>
         e === GrantStatusEnum.workStarted
@@ -81,6 +84,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   winnerIdentifier: string | null = null
   winnerIdentifier$ = this.grant$.pipe(
+    takeUntil(this.destroyed$),
     filter(d => d !== null),
     map(d => d.app),
     map(d => {
@@ -108,6 +112,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
         let isVoteForSolution = false
@@ -125,6 +130,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isTL = grant.leader?.value === user.userAddress
@@ -138,6 +144,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   isFinishVoteBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isAmount = grant?.voting?.amount
@@ -152,6 +159,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   isEnableSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant && grant.app) {
           let isVoteForTeam = false
@@ -171,10 +179,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     )
 
   isAcceptWorkResultBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => isAcceptWorkResultBtnInterhack(user, grant)))
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => isAcceptWorkResultBtnInterhack(user, grant))
+    )
 
   isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isWG = user.roles.isWG
@@ -188,6 +200,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           // !grant?.reward?.value
@@ -204,9 +217,18 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
       })
     )
 
-  userServiceData$ = this.userService.data.subscribe(() => {
-    this.prepareVoteForTaskData()
-  })
+  userServiceData$ = this.userService.data
+    .pipe(takeUntil(this.destroyed$))
+    .subscribe(() => {
+      this.prepareVoteForTaskData()
+    })
+
+  private user$ = this.userService.data
+    .pipe(
+      takeUntil(this.destroyed$),
+      filter(() => this.inputGrant?.id !== undefined)
+    )
+    .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
 
   private inputGrant: ContractGrantModel = {}
 
@@ -387,5 +409,9 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract {
     } else {
       this.voteForTaskData.isVote = false
     }
+  }
+
+  ngOnDestroy (): void {
+    this.destroyed$.next()
   }
 }

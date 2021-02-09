@@ -1,10 +1,10 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
-import {map, take} from 'rxjs/operators'
+import {filter, map, take, takeUntil} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
@@ -35,36 +35,64 @@ import {ActivatedRoute} from '@angular/router'
   templateUrl: './disruptive-template.component.html',
   styleUrls: ['./disruptive-template.component.scss']
 })
-export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
+export class DisruptiveTemplateComponent implements TemplateComponentAbstract, OnDestroy {
   @Input() public readonly contract!: GrantsVariationType
 
   grantStatusEnum = GrantStatusEnum
 
   grant$ = new Subject<ContractGrantModel>()
 
+  private readonly destroyed$ = new Subject()
+
+  private user$ = this.userService.data
+    .pipe(
+      takeUntil(this.destroyed$),
+      filter( () => this.inputGrant?.id !== undefined)
+    )
+    .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
+
   isShowStepperAndTeam$: Observable<boolean> = this.grant$
     .pipe(
+      takeUntil(this.destroyed$),
       map(e => typeof e?.status?.value === 'string' ? e?.status?.value : ''),
       map(e => e !== GrantStatusEnum.rejected),
     )
 
   isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => isShowAddRewardBtn(user, grant)))
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => isShowAddRewardBtn(user, grant))
+    )
 
   teamsControls$: Observable<TeamsControlsInterface> = combineLatest([this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => teamsControls(user, grant)))
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => teamsControls(user, grant))
+    )
 
   isStartWorkBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => isStartWorkBtn(user, grant)))
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => isStartWorkBtn(user, grant))
+    )
 
   isFinishApplicantsVoteBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => isFinishApplicantsVoteBtn(user, grant)))
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => isFinishApplicantsVoteBtn(user, grant))
+    )
 
   isAcceptWorkResultBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => isAcceptWorkResultBtn(user, grant)))
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => isAcceptWorkResultBtn(user, grant))
+    )
 
   isFinishVoteBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(map(([user, grant]) => isFinishVoteBtn(user, grant)))
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => isFinishVoteBtn(user, grant))
+    )
 
   voteForTaskData = {
     isShow: false,
@@ -74,6 +102,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
+      takeUntil(this.destroyed$),
       map(([user, grant]) => {
         if (grant) {
           const isWG = user.roles.isWG
@@ -87,6 +116,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
+      takeUntil(this.destroyed$),
       map((grants: ContractGrantModel): ContractGrantAppModel[]  => grants?.app || []),
       map((app: ContractGrantAppModel[]) => !!app.find((a) => !!a.process))
   )
@@ -233,5 +263,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
     } else {
       this.voteForTaskData.isVote = false
     }
+  }
+
+  ngOnDestroy (): void {
+    this.destroyed$.next()
   }
 }
