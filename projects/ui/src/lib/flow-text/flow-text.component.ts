@@ -35,6 +35,7 @@ export class FlowTextComponent implements OnDestroy {
       takeUntil(this.destroyed$),
       map(
         ([grantType, status, grant]) => {
+          console.log('+status', status)
           const data = {
             status: status ? translate('listing.status.' + status) : '',
             flow: '',

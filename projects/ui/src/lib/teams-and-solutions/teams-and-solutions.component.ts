@@ -14,11 +14,11 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
   styleUrls: ['./teams-and-solutions.component.scss']
 })
 export class TeamsAndSolutionsComponent {
+
   @Input() teamsAndSolutionsControls: TeamsAndSolutionsControlsInterface | undefined
   @Input() grant: ContractGrantModel | null = null
   @Input() titleText: string | null = null
   @Input() applyBtnText: string | null = null
-
   @Output() openApplyModal = new EventEmitter<boolean>()
   @Output() newSignupEvent = new EventEmitter()
   @Output() newSubmitSolutionEvent = new EventEmitter()

@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
-import {ContractGrantModel} from '@services/contract/contract.model'
+import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
@@ -39,14 +39,29 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   private readonly destroyed$ = new Subject()
   grantStatusEnum = GrantStatusEnum
 
-  @Input() set grant (data: ContractGrantModel) {
+  @Input() set grant(data: ContractGrantModel) {
     this.inputGrant = data
     this.prepareVoteForTaskData(data)
     this.grant$.next(data)
   }
 
-  get grant (): ContractGrantModel {
-    return this.inputGrant
+  get grant(): ContractGrantModel {
+    let grant = this.inputGrant
+    if(
+     this.inputGrant?.status?.value !== this.grantStatusEnum.noStatus
+      && this.inputGrant?.status?.value !== this.grantStatusEnum.proposed
+      && this.inputGrant?.status?.value !== this.grantStatusEnum.readyToApply
+      && grant
+      && grant.app
+    ) {
+      grant.app = grant?.app?.filter((e) => {
+        let score = e.score?.applicant?.value
+        if( score && score > 0) {
+          return true
+        }
+      })
+    }
+    return grant
   }
 
   voteForTaskData = {
@@ -82,33 +97,25 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       ),
     )
 
-  winnerIdentifier: string | null = null
-  winnerIdentifier$ = this.grant$.pipe(
-    takeUntil(this.destroyed$),
-    filter(d => d !== null),
-    map(d => d.app),
-    map(d => {
-      const res = {
-        id: '',
-        vote: 0
-      }
-      if (d) {
-        d.forEach((e) => {
-          if (e.votes && e.votes.solution && e.votes.solution.value && e.key) {
-            const solution = +e.votes.solution.value
-            if (solution > res.vote) {
-              res.vote = solution
-              res.id = e.key
-            }
+  winnerSolutionId: string = ''
+  winnerSolutionId$ = this.grant$
+    .pipe(
+      takeUntil(this.destroyed$),
+      filter(e => e !== null && e.app !== undefined && e.app.length > 0),
+      map( (e: ContractGrantModel): ContractGrantAppModel[] => e.app as ContractGrantAppModel[]),
+      map( (e: ContractGrantAppModel[] ) => {
+        let solution = e[0]
+        e.forEach( e =>{
+          let eScore = e.score?.solution?.value || 0
+          let sScore = solution.score?.solution?.value || 0
+          if (eScore > sScore) {
+            solution = e
           }
         })
-      }
-      return res.vote > 0 ? res.id : null
-    }),
-    tap((d) => {
-      this.winnerIdentifier = d
-    })
-  ).subscribe()
+        return solution.key as string
+      })
+    )
+    .subscribe((e) => this.winnerSolutionId = e)
 
   isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -232,7 +239,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   private inputGrant: ContractGrantModel = {}
 
-  constructor (
+  constructor(
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -244,7 +251,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   ) {
   }
 
-  vote (value: 'like' | 'dislike'): void {
+  vote(value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -255,7 +262,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  signup (): void {
+  signup(): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -264,8 +271,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       })
   }
 
-  openApplyModal (): void {
+  openApplyModal(): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: ApplyComponent,
         params: {
@@ -283,56 +292,58 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface): void {
+  voteTeam($event: VoteTeamEventInterface): void {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote (): void {
+  finishVote(): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork (): void {
+  startWork(): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject (): void {
+  reject(): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult (): void {
+  acceptWorkResult(): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AcceptWorkResultComponent,
         params: {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            if (this.grant?.id && this.winnerIdentifier) {
+            if (this.grant?.id && this.winnerSolutionId) {
               this.interhackContractService.acceptWorkResult(
                 this.grant?.id,
-                this.winnerIdentifier,
+                this.winnerSolutionId,
                 data.reportLink
-              )
-                .subscribe(() => {
-                  dialog.close()
-                  this.cdr.markForCheck()
-                })
+              ).subscribe()
             }
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }
     })
   }
 
-  finishApplicantsVote (): void {
+  finishApplicantsVote(): void {
     this.interhackContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
     // this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward (): void {
+  addReward(): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AddRewardComponent,
         params: {
@@ -353,15 +364,17 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  enableSubmissions (): void {
+  enableSubmissions(): void {
     if (this.grant?.id) {
       this.disruptiveContractService.enableSubmissions(this.grant?.id, '').subscribe(() => {
       })
     }
   }
 
-  submitSolution (): void {
+  submitSolution(): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: SubmitSolutionComponent,
         params: {
@@ -381,20 +394,20 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  voteForSolution ($event: VoteTeamEventInterface): void {
+  voteForSolution($event: VoteTeamEventInterface): void {
     if (this.grant?.id) {
       this.disruptiveContractService.voteForSolution(
         this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  stopSubmissions (): void {
+  stopSubmissions(): void {
     if (this.grant?.id) {
       this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe()
     }
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant) {
+  private prepareVoteForTaskData(grant: ContractGrantModel = this.inputGrant) {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === this.grantStatusEnum.proposed &&
@@ -411,7 +424,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     }
   }
 
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     this.destroyed$.next()
   }
 }

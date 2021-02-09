@@ -20,7 +20,6 @@ import { DialogModule } from '@ui/dialog/dialog.module'
     UserContactsModule,
     RouterModule,
     PipesModule,
-    RouterModule,
     DialogModule
   ]
 })

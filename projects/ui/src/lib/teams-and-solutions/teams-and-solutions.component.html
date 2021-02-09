@@ -61,20 +61,19 @@
               && grantStatusEnum.rejected !== grant?.status?.value
               && grantStatusEnum.workStarted !== grant?.status?.value
             "
-            [isShowResult]="!user.roles.isDAO"
+            [isShowResult]="!user.roles.isDAO || teamsAndSolutionsControls.teamVoteKeys.includes(app.key)"
             (voteEvent)="newVoteTeamEvent.emit($event)"
           ></ui-voting-square>
-
           <ui-voting-square
             *ngIf="teamsAndSolutionsControls.stepType !== 'team'"
-            [votes]="app?.votes?.solution?.value"
+            [votes]="app?.score.solution.value"
             [teamId]="app.id.value"
             [isCanVote]="
               !app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)
               && grantStatusEnum.solutionChosen !== grant?.status?.value
               && grantStatusEnum.rejected !== grant?.status?.value
             "
-            [isShowResult]="!user.roles.isDAO"
+            [isShowResult]="!user.roles.isDAO || app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)"
             (voteEvent)="newVoteForSolutionEvent.emit($event)"
           ></ui-voting-square>
 
