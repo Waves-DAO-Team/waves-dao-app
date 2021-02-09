@@ -103,9 +103,11 @@
     "auth": "Authorized User"
   },
   "stepper": {
+    "grant_propesed": "Grant propesed",
     "collecting_requests": "Collecting requests",
     "preparing": "Preparing",
     "voting_has_started": "Voting has started",
+    "collecting_applications": "Collecting applications",
     "requests_selection_over": "Requests selection is over",
     "work_begun": "The work has begun",
     "requests_selection_start": "Collecting applications",
