@@ -318,12 +318,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
                 this.grant?.id,
                 this.winnerIdentifier,
                 data.reportLink
-              )
-                .subscribe(() => {
-                  dialog.close()
-                  this.cdr.markForCheck()
-                })
+              ).subscribe()
             }
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }
