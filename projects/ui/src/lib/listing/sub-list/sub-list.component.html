@@ -10,13 +10,18 @@
   <div class="card__header">
     <div class="card__header__left-block">
       <div class="card__header__left-block__status">
-        {{grant?.statusText}}
-        <div class="card__header__left-block__status__role-text">
-          {{grant?.voteText}}
-          <span *ngIf="grant?.canBeCompleted?.includes(grant.id)">{{'entity.can_be_completed' | transloco}}</span>
+        {{ 'listing.status.' + grant?.status?.value | transloco }}
+
+
+        <div class="card__header__left-block__status__role-text" *ngIf="grant?.label">
+          {{ grant?.label }}
         </div>
+<!--        <div class="card__header__left-block__status__role-text">-->
+<!--          {{grant?.voteText}}-->
+<!--          <span *ngIf="grant?.canBeCompleted?.includes(grant.id)">{{'entity.can_be_completed' | transloco}}</span>-->
+<!--        </div>-->
       </div>
-      <div class="card__header__left-block__title">{{grant.title?.value}}</div>
+      <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
 <!--      <div class="card__header__left-block__address">{{ grant.id }}</div>-->
     </div>
     <div class="card__header__right-block" [class.card__header__right-block--active]="grant?.reward?.value > 0">

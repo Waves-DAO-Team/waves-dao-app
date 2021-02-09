@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators'
 import {Observable} from 'rxjs'
 import {ALL_TEAM, ALL_TEAM_PAGE_PROVIDERS} from './all-teams-page-routing.providers'
 import {ActivatedRoute} from '@angular/router'
-import {IUrl} from '@services/interface'
+import {GrantUrl} from '@services/interface'
 
 @Component({
   selector: 'app-all-teams-page',
@@ -20,9 +20,9 @@ import {IUrl} from '@services/interface'
 })
 export class AllTeamsPageComponent {
 
-  public grantUrl$: Observable<IUrl> = this.route.paramMap
+  public grantUrl$: Observable<GrantUrl> = this.route.paramMap
   .pipe(
-      map((e): IUrl => ({
+      map((e): GrantUrl => ({
           contractType: e.get('contractType') || '',
           entityId: e.get('entityId') || ''
         }))

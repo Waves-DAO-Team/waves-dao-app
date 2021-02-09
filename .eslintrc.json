@@ -70,7 +70,8 @@
             "ts-ignore": "allow-with-description",
             "minimumDescriptionLength": 3
           }
-        ]
+        ],
+        "@angular-eslint/no-input-rename": 0
       }
     },
     {

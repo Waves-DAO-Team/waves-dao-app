@@ -1,21 +1,21 @@
 <div class="listing">
     <div class="content">
-      <ui-tag [tags]="listGrantStatuses$ | async" (selectedTag)="selectedTag($event)"></ui-tag>
+      <ui-tag [tags]="listGrantStatuses$ | async" (selectedTag)="selectTag($event)"></ui-tag>
 
       <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
         <ui-sub-list
-                [contract]="contract"
+                [contract]="contract$ | async"
                 [type]="'active'"
                 [isImportant]="true"
                 [title]="'listing.list.important' | transloco"
-                [grants]="(importantGrant$ | async)"
+                [grants]="(importantGrantList$ | async)"
         ></ui-sub-list>
         <ui-sub-list
                 [type]="'default'"
-                [contract]="contract"
+                [contract]="contract$ | async"
                 [isImportant]="false"
                 [title]="'listing.list.grants' | transloco"
-                [grants]="(otherGrant$ | async)"
+                [grants]="(otherGrantList$ | async)"
         ></ui-sub-list>
       </div>
       <ng-template #loadingOrErrorTemplate>
@@ -27,7 +27,6 @@
       <ng-template #loading>
         {{'listing.loading' | transloco}}...
       </ng-template>
-
 
     </div>
 </div>

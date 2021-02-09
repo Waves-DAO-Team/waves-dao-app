@@ -5,9 +5,7 @@ import {
 } from '@angular/core'
 import {GRANTS, GRANTS_PROVIDERS} from './listing.providers'
 import {
-  ContractGrantExtendedModel,
-  ContractGrantExtendedParentModel,
-  ContractGrantModel, ContractRawDataNumber
+  ContractGrantModel, ContractGrantRawModel,
 } from '@services/contract/contract.model'
 import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -17,7 +15,7 @@ import {
   AppConstantsInterface
 } from '@constants'
 import {UserService} from '@services/user/user.service'
-import {map} from 'rxjs/operators'
+import {map, publishReplay, refCount} from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {TeamService} from '@services/team/team.service'
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
@@ -25,11 +23,9 @@ import {translate} from '@ngneat/transloco'
 import {
   GrantStatusEnum,
   GrantsVariationType,
-  GrantTypesEnum,
 } from '@services/static/static.model'
-import {canBeCompleted, fixReward, sortOtherGrant} from '@ui/listing/functions'
 import {ActivatedRoute} from '@angular/router'
-import {IUrl} from '@services/interface'
+import { Async } from '@libs/decorators/async-input.decorator'
 
 @Component({
   selector: 'ui-listing',
@@ -40,171 +36,122 @@ import {IUrl} from '@services/interface'
 })
 
 export class ListingComponent implements OnDestroy {
-  @Input() contract: GrantsVariationType | null = null
+  statusPriority = []
+
   @Input() public type: 'default' | 'active' | undefined
+
+  @Async() @Input('contract') public readonly contract$!: Observable<GrantsVariationType>
 
   public readonly grantsVariationActive = '1'
   public readonly grantStatusEnum = GrantStatusEnum
-  public selectedTagName$ = new BehaviorSubject('all')
+  public selectedTagName$ = new BehaviorSubject<string>('all')
 
-  public readonly listGrantStatuses$ = this.grants.data$.pipe(
-    map((grants) => {
-      const list = Object.values(grants.reduce((origin, grant) => ({
-        ...origin,
-        ...(grant?.status?.value === undefined
-          ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
-          : {[grant?.status?.value]: grant?.status?.value})
-      }), {}))
-
-      if (list.length === 0) {
-        return []
-      }
-
-      if (list.length > 1) {
-        return ['all'].concat(list as [])
-      }
-
-      return ['all']
-    })
-  )
+  public readonly listGrantStatuses$: Observable<string[]> = this.grants.data$.pipe(
+    map((grants: ContractGrantRawModel[]): string[] =>
+        grants instanceof Array ? Object.values(
+            grants.reduce<{[s: string]: string}>(
+                (origin, grant) => ({
+                  ...origin,
+                  ...(grant?.status?.value === undefined
+                    ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
+                    : {[grant?.status?.value]: grant?.status?.value})
+                }), {})) : []),
+    map((list: string[]) => list.length > 0 ? ['all'].concat(list as []) : list.length === 1 ? ['all'] : []))
 
   public readonly user$ = this.userService.data
 
-  public grantUrl$: Observable<IUrl> = this.route.paramMap
-  .pipe(
-      map( (e): IUrl => ({
-          contractType: e.get('contractType') || '',
-          entityId: e.get('entityId') || ''
-        }))
-  )
-
-  public readonly otherGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
-    [this.grants.data$, this.userService.data, this.selectedTagName$, this.grantUrl$]
+  public readonly grantsList$: Observable<ContractGrantModel[]> = combineLatest(
+    [this.grants.data$, this.userService.data, this.selectedTagName$, this.contract$]
   )
     .pipe(
+      map(([grants, userServiceData, selectedTagName, contract]) => grants
+          .filter((grant: ContractGrantRawModel) => [
+            grant?.status?.value || GrantStatusEnum.noStatus,
+            'all'].includes(selectedTagName))
+          .map((grant: ContractGrantRawModel): ContractGrantModel => {
+            const labelRole = userServiceData?.userRole || 'undefined'
+            const labelStatus = grant?.status?.value || 'undefined'
+            const labelContract = contract?.name || 'undefined'
+            const label = translate(
+                `listing.labels.${labelContract}.${labelRole}.${labelStatus}`)
 
-      map(([grants, userServiceData, selectedTagName, url]) => ({ // all to one
-        grants: grants.filter((e) => {
-          const status = e.status && e.status.value ? e.status.value : null
-          if (
-            status !== GrantStatusEnum.readyToApply || (selectedTagName === GrantStatusEnum.readyToApply && status === selectedTagName)) {
-            return true
-          }
-        }),
-        selectedTag: selectedTagName,
-        isDAO: userServiceData.roles.isDAO,
-        canBeCompleted: canBeCompleted(grants, url?.contractType as GrantTypesEnum, userServiceData)
-      })),
-      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
-        ...data,
-        grants: data.grants.map((e) => {
-          if (e.reward && e.reward.value) {
-            e.reward.value = (parseFloat(e.reward.value) / 100000000).toFixed(2)
-          } else if (e.reward === undefined) {
-            const newData: ContractRawDataNumber = {
-              key: '', type: 0, value: '0.00'
+            return {
+              ...grant,
+              app: grant.app ? Object.values(grant.app) : [],
+              // Check labels with attribute grant in lang file
+              label: label.indexOf('listing.labels') === 0 ? null : label
             }
-            e.reward = newData
-          }
-          return e
-        })
-      })
-      ),
-      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
-        ...data,
-        grants: data.grants.filter((e) => {
-          const status = e.status && e.status.value ? e.status.value : null
-          return this.isCanShowByTag(status, data.selectedTag)
-        })
-      })
-      ),
-      map((data: ContractGrantExtendedParentModel): ContractGrantExtendedParentModel => ({
-        ...data,
-        grants: data.grants.map((e: ContractGrantExtendedModel) => {
-          const status = e.status && e.status.value ? e.status.value : 'no_status'
-          e.statusText = translate('listing.status.' + status)
-          if (data.isDAO && status === GrantStatusEnum.proposed && e.id) {
-            const isVote = this.userService.data.getValue().voted.includes(e.id)
-            const voteText = (isVote ? 'vote_counted' : 'need_vote')
-            e.voteText = translate('listing.DAO_subtext.' + voteText)
-          }
-          return e
-        })
-      })
-      ),
-      map((data): ContractGrantExtendedModel[] => {
-        if (data.grants.length) {
-          data.grants.forEach(g => g.canBeCompleted = data.canBeCompleted)
-          return data.grants
-        } else {return []}
-      }),
-      map((data: ContractGrantExtendedModel[]) => sortOtherGrant(data)),
+          })
+          .sort((grantA, grantB) => {
+            // TODO check this function
+
+            let weight = 0
+            // First priority, status
+            if (grantA?.status?.value === GrantStatusEnum.rejected) {
+              weight = weight + 3
+            }
+            if (grantB?.status?.value === GrantStatusEnum.rejected) {
+              weight = weight - 3
+            }
+
+            // Second priority, zero reward
+            if (!grantA?.reward?.value) {
+              weight = weight + 2
+            }
+            if (!grantB?.reward?.value) {
+              weight = weight - 2
+            }
+
+            // Thirty priority, date
+            // Todo realize date in contracts
+
+            return weight
+          })),
+      publishReplay(1),
+      refCount()
     )
 
-  public readonly importantGrant$: Observable<ContractGrantExtendedModel[] | null> = combineLatest(
-    [this.grants.data$, this.userService.data, this.selectedTagName$]
+  public otherGrantList$: Observable<ContractGrantModel[]> = this.grantsList$
+  .pipe(
+      map((grants) => grants.filter((grant: ContractGrantModel) => !grant?.label))
   )
-    .pipe(
-      map(([grants, userServiceData, selectedTagName]) => ({ // all to one
-        grants: grants.filter((e) => {
-          const status = (e.status && e.status.value) || null
-          if (status === GrantStatusEnum.readyToApply && selectedTagName === 'all') {
-            return true
-          }
-          return false
-        }),
-        selectedTag: selectedTagName,
-        isDAO: userServiceData.roles.isDAO
-      })),
-      map((data) => // fix reward
-        ({
-          ...data,
-          grants: fixReward(data.grants)
-        })
-      ),
-      map((data) => // add statusText
-        ({
-          ...data,
-          grants: data.grants.map((e: ContractGrantExtendedModel) => {
-            const status = e.status && e.status.value ? e.status.value : 'no_status'
-            e.statusText = translate('listing.status.' + status)
-            return e
-          })
-        })
-      ),
-      map((data): ContractGrantExtendedModel[] | null => data.grants.length ? data.grants : null)
-      // tap((data) => console.log('importantGrant$', data))
-    )
+
+  public importantGrantList$: Observable<ContractGrantModel[]> = this.grantsList$
+  .pipe(
+      map((grants) => grants.
+                filter((grant: ContractGrantModel) => !!grant?.label)
+      )
+  )
 
   constructor (
     public route: ActivatedRoute,
-    public cdr: ChangeDetectorRef, // eslint-disable-line
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
-    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
-    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantModel[]>, // eslint-disable-line
-    public userService: UserService, // eslint-disable-line
-    public contractService: ContractService, // eslint-disable-line
-    public teamService: TeamService // eslint-disable-line
+    public cdr: ChangeDetectorRef,
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    @Inject(API) public readonly api: AppApiInterface,
+    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantRawModel[]>,
+    public userService: UserService,
+    public contractService: ContractService,
+    public teamService: TeamService
   ) {}
 
-  selectedTag ($event: string): void {
+  selectTag ($event: string): void {
     this.selectedTagName$.next($event)
   }
 
-  isCanShowByTag (status: string | null, selectedTagName: string): boolean {
-    if (selectedTagName === 'all') {
-      return true
-    }
-    status = !status ? 'no_status' : status
-    if (status === selectedTagName || selectedTagName === '') {
-      return true
-    }
-    return false
-  }
+  // isCanShowByTag (status: string | null, selectedTagName: string): boolean {
+  //   if (selectedTagName === 'all') {
+  //     return true
+  //   }
+  //   status = !status ? 'no_status' : status
+  //   if (status === selectedTagName || selectedTagName === '') {
+  //     return true
+  //   }
+  //   return false
+  // }
 
-  isAppliedForGrant (grantId: string): boolean {
-    return this.userService.data.getValue().apply.includes(grantId)
-  }
+  // isAppliedForGrant (grantId: string): boolean {
+  //   return this.userService.data.getValue().apply.includes(grantId)
+  // }
 
   ngOnDestroy (): void {
     this.grants.destroy()

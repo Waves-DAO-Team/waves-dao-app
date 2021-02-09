@@ -1,6 +1,6 @@
 import { InjectionToken, Provider } from '@angular/core'
 import {
-  ContractGrantModel, ContractGrantRawModel
+  ContractGrantRawModel
 } from '@services/contract/contract.model'
 import { ContractService } from '@services/contract/contract.service'
 import { catchError } from 'rxjs/operators'
@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { LoadingWrapper, LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import { ActivatedRoute } from '@angular/router'
 
-export const GRANTS = new InjectionToken<LoadingWrapperModel<ContractGrantModel[]>>(
+export const GRANTS = new InjectionToken<LoadingWrapperModel<ContractGrantRawModel[]>>(
   'A stream with contracts list'
 )
 

@@ -42,7 +42,6 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract {
 
   grant$ = new Subject<ContractGrantModel>()
 
-
   isShowStepperAndTeam$: Observable<boolean> = this.grant$
     .pipe(
       map(e => typeof e?.status?.value === 'string' ? e?.status?.value : ''),

@@ -1,4 +1,4 @@
-export interface IUrl {
+export interface GrantUrl {
   contractType: string,
   entityId: string
 }

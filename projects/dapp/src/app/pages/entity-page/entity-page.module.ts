@@ -37,7 +37,7 @@ import {FlowTextModule} from '@ui/flow-text/flow-text.module'
     TeamsAndSolutionsModule,
     SubmitSolutionModule,
     StepperModule,
-    FlowTextModule
+    FlowTextModule,
   ]
 })
 export class EntityPageModule { }

@@ -11,11 +11,11 @@ import { API, AppApiInterface } from '@constants'
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
 import {
   ContractDataIterationModel,
-  ContractDataModel, ContractGrantModel,
+  ContractDataModel, ContractGrantFullAppModel, ContractGrantModel,
   ContractGrantRawModel,
   ContractRawData,
   ContractRawDataEntityId,
-  ContractRawDataString
+  ContractRawDataString,
 } from './contract.model'
 import { StorageService } from '@services/storage/storage.service'
 import { TranslocoService } from '@ngneat/transloco'
@@ -36,7 +36,7 @@ export class ContractService {
     refCount()
   )
 
-  public readonly stream: Observable<ContractDataModel> = combineLatest([this.contractState, this.membershipService.stream]).pipe(
+  public readonly stream: Observable<ContractGrantFullAppModel> = combineLatest([this.contractState, this.membershipService.stream]).pipe(
     map(([data, members]) => ({
       ...data,
       ...members
@@ -48,7 +48,7 @@ export class ContractService {
     refCount()
   )
 
-  public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.contractState.pipe(map((contract) =>
+  public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.stream.pipe(map((contract) =>
     Object.keys(contract?.tasks || {}).map((entityKey: string) => ({
       ...contract?.tasks[entityKey],
       id: entityKey

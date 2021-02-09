@@ -1,7 +1,7 @@
 export type ContractRawDataKey = string
 export type ContractRawDataValue = string
-export type ContractRawDataTypeString = string
-export type ContractRawDataTypeNumber = number
+export type ContractRawDataTypeString = 'string'
+export type ContractRawDataTypeNumber = 'integer'
 
 export type ContractRawDataEntityId = string
 
@@ -114,7 +114,7 @@ export interface ContractGrantCommonModel {
 
   applicants?: ContractRawDataString
   link?: ContractRawDataString
-  reward?: ContractRawDataString
+  reward?: ContractRawDataNumber
   status?: ContractRawDataString
   title?: ContractRawDataString
   vh?: {[s: string]: ContractRawDataString}
@@ -140,10 +140,12 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   link?: ContractRawDataString
   leader?: ContractRawDataString
   isShowAppliers?: boolean
-  report?: ContractRawDataString
+  report?: ContractRawDataString,
+  label?: string
 }
 
 export interface ContractGrantExtendedModel extends ContractGrantModel {
+  grants: ContractGrantExtendedModel[]
   voteText?: string
   statusText?: string
   rewardText?: string
