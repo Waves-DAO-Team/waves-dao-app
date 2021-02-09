@@ -1,7 +1,7 @@
 <header >
   <div class="container" *ngIf="userRole$ | async as userRole">
-    <div class="logo" [routerLink]="['/']" >
-      <img alt="logo" src="/assets/icons/logo-dao.svg">
+    <div class="logo" >
+      <img alt="logo" src="/assets/icons/logo-dao.svg" (click)="isToggleMenuOpen = false" [routerLink]="['/']">
       <div id="menu-toggle" [class.open]="isToggleMenuOpen" (click)="isToggleMenuOpen = !isToggleMenuOpen">
         <div id="hamburger">
           <span></span>
