@@ -431,8 +431,7 @@
     }
   },
   "landing-page": {
-    "exploreGrants": "Explore Grants",
-    "skip": "Skip",
+    "exploreGrants": "Explore Grant",
     "fullGuide": "Full Guide",
     "learnMore": "Learn more",
     "learnMoreLink": "https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles",
