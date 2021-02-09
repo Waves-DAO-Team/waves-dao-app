@@ -9,10 +9,10 @@
   </div>
 
   <div class="btn-container full">
-    <button type="submit" class="btn active" [disabled]="!grantForm.valid" *ngIf="!isInProcess">
+    <button type="submit" class="btn primary" [disabled]="!grantForm.valid" *ngIf="!isInProcess">
       {{'create_grant.form.apply' | transloco}}
     </button>
-    <button type="submit" class="btn active" [disabled]="true" *ngIf="isInProcess">
+    <button type="submit" class="btn primary" [disabled]="true" *ngIf="isInProcess">
       {{'add-reward.disabled_submit_text' | transloco}}
     </button>
   </div>
