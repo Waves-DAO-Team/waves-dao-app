@@ -2,6 +2,7 @@
 @import 'container';
 @import '~include-media/dist/_include-media.scss';
 @import 'mixins';
+@import 'mixins/typography';
 
 .listing {
   .content {
@@ -18,7 +19,7 @@
   }
 }
 
-@include media('<=tablet') {
+@include media('<=phone') {
   .listing {
     .grants-variation {
       align-items: center;
@@ -57,6 +58,17 @@
 
       ui-tag {
         margin: 0 0 $padding * 3 0;
+      }
+    }
+  }
+}
+
+@include media('>phone', '<=tablet') {
+  .listing {
+    .content {
+      .listing-list {
+        flex: 3;
+        width: 80%;
       }
     }
   }

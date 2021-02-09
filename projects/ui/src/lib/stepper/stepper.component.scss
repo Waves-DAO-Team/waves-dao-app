@@ -1,5 +1,8 @@
 @import 'const';
 @import '~include-media/dist/_include-media.scss';
+@import 'mixins';
+@import 'mixins/typography';
+
 
 @mixin line($left: 0, $right: 0, $top: 0, $width: 100%) {
   background: $color_light_gray;
@@ -38,7 +41,7 @@
   &__text {
     max-width: 100%;
 
-    @include media('>=tablet') {
+    @include media('>=phone') {
       margin-left: $padding;
       margin-right: $padding;
       overflow: hidden;
