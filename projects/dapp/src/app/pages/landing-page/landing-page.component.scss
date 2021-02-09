@@ -24,31 +24,28 @@
 
   &__title {
     padding-bottom: $padding;
-    //font-size: 6.5vh;
     font-size: $font_size_h1;
     font-weight: 700;
-    padding-top: 6.5rem;
+    padding-top: 3rem;
     line-height: 1.5;
     letter-spacing: -1%;
-    text-align: center;
+    text-align: left;
+    width: max-content;
+    margin: auto;
 
-    @include media('<tablet') {
+
+    @include media('<=phone') {
       //font-size: 6.5vh;
       font-size: $font_size_h2;
       font-weight: 600;
-      padding-top: 0;
-    }
-
-    @include media('<desktop') {
+      max-width: 90%;
       padding-top: $padding * 3;
     }
   }
 
   &__intro {
-    color: $color_dark_gray;
-    padding-bottom: $padding * 2;
-    max-width: 45em; //720px;
-    margin: $padding * 2 auto;
+    max-width: 43rem; //desktop;
+    margin: $padding * 2 auto $padding * 3;
 
     &-title {
       padding-bottom: $padding;
@@ -61,7 +58,6 @@
       text-align: left;
 
       @include media('<tablet') {
-        //font-size: 6.5vh;
         font-size: $font_size_h2;
         font-weight: 600;
       }
@@ -69,6 +65,10 @@
       @include media('<desktop') {
         padding-top: 0;
       }
+    }
+
+    &-desc {
+      margin-bottom: 0;
     }
 
     button {
@@ -122,6 +122,17 @@
         }
       }
     }
+
+    @include media('<=phone') {
+      margin: auto 0;
+      &-pair {
+        padding: 0 $padding;
+
+        &-icon {
+          width: 60px;
+        }
+      }
+    }
   }
 
   &__roles {
@@ -134,6 +145,7 @@
     &-cards {
       display: grid;
       grid-template: 1fr 1fr / 1fr 1fr;
+      margin: $padding;
 
       @include media('<=phone') {
         display: flex;
@@ -154,24 +166,23 @@
         flex-direction: column;
         text-decoration: none;
         transition: 0.3s;
-        
+
         @include media('<=phone') {
           max-width: unset;
           margin-top: $padding;
         }
 
-        //padding: $padding * 2;
-
-        &:hover {
-          box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12); //gray shadow but not visible on gray bg: rgba(41, 44, 48, 0.12);
-          transform: translate(0, -1px);
-        }
+        //&:hover {
+        //  box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12); //gray shadow but not visible on gray bg: rgba(41, 44, 48, 0.12);
+        //  transform: translate(0, -1px);
+        //}
 
         &-img {
           width: 40px;
           height: 40px;
           margin-right: $padding;
         }
+
         &-title {
           margin-bottom: 0;
         }
@@ -182,6 +193,7 @@
           background-color: #F8F9FA;
           height: 100%;
         }
+
         &-button {
           width: fit-content;
           padding: $padding;
@@ -202,6 +214,7 @@
         flex-direction: column;
         align-items: center;
       }
+
       &-card {
         display: flex;
         flex-direction: column;
@@ -221,7 +234,7 @@
 
         &-title {
           margin-bottom: 0;
-          margin-top:$padding;
+          margin-top: $padding;
           text-align: center;
           display: flex;
           align-items: center;
@@ -250,6 +263,7 @@
     @include media('<=phone') {
       align-items: center;
     }
+
     &-cards {
       display: flex;
       flex-direction: row;
@@ -259,22 +273,18 @@
       margin-bottom: $padding * 3.5;
       padding: $padding * 2.5 $padding * 3 $padding * 3;
 
-      &:hover {
-        box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
-        transform: translate(0, -1px);
-      }
+      //&:hover {
+      //  box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
+      //  transform: translate(0, -1px);
+      //}
 
       @include media('<tablet') {
         margin-bottom: $padding;
       }
 
-      //@include media('<tablet') {
-      //  flex-direction: column;
-      //  align-items: center;
-      //  //:nth-child(2){
-      //  //  flex-direction: column-reverse;
-      //  //}
-      //}
+      @include media('<=phone') {
+        flex-direction: column;
+      }
 
       &-card {
         display: flex;
@@ -283,6 +293,10 @@
         justify-content: flex-end;
         align-items: flex-start;
         margin-top: $padding * 6;
+
+        @include media('<=phone') {
+          margin-top: $padding;
+        }
 
         @include media('>phone', '<tablet') {
           margin-top: $padding;
@@ -297,12 +311,15 @@
         &-title {
           margin-bottom: 25px;
         }
+
         &-desc {
           margin-bottom: 25px;
         }
+
         &-button {
 
         }
+
         &-image {
           width: 500px;
 
@@ -331,22 +348,35 @@
 
     &-image {
       margin-bottom: $padding * 3;
-      
+
       @include media('<desktop') {
         width: 100%;
         margin-bottom: 0;
       }
     }
+
     &-tabs {
+
+      z-index: 0;
+      padding: $padding * 3;
+
       ::ng-deep .mat-tab {
 
         &-group {
           margin-left: auto;
           margin-right: auto;
           width: 100%;
+
         }
+
         &-labels {
           border-bottom: 1px solid $color_waves_blue;
+        }
+
+        &-group {
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
         }
 
         &-label-active {
@@ -361,16 +391,18 @@
   }
 
   &__fullGuide {
-    margin-left: auto;
-    margin-right: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+
+
   }
-}
 
-.icon-title {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: $padding * 2 $padding * 2 0 $padding * 2;
-}
-
+  .icon-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: $padding * 2 $padding * 2 0 $padding * 2;
+  }

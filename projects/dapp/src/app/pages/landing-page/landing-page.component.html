@@ -4,13 +4,17 @@
 
   <div class="container__mid">
 
+<!--    INTRO-->
 
-    <div class="landing-page__intro mat-display-2">
-      <div class="landing-page__intro-title">
+    <div class="landing-page__intro">
+
+      <div class="landing-page__title">
         {{'listing.title' | transloco}}
       </div>
-      {{'landing-page.introDesc' | transloco}}.&nbsp;
-      <button class="btn active" [routerLink]="constants.routes.guide | route">
+      <div class="landing-page__intro-desc mat-display-2">
+        {{'landing-page.introDesc' | transloco}}.&nbsp;
+      </div>
+      <button class="btn primary" [routerLink]="constants.routes.guide | route">
         {{'landing-page.fullGuide' | transloco}}<img alt="img" src="assets/icons/arr-right-white.svg">
       </button>
     </div>
@@ -129,11 +133,11 @@
           <div class="landing-page__roles-cards-card">
             <div class="icon-title">
               <img alt="icon" src="assets/icons/avatar/master.svg"  class="landing-page__roles-cards-card-img"/>
-              
+
               <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.manager' | transloco "></div>
             </div>
             <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoManagerDesc' | transloco "></span>
-        
+
             <button class="landing-page__roles-cards-card-button btn secondary">
               {{ 'landing-page.learnMore' | transloco }}<img alt="img" src="assets/icons/arr-right.svg">
             </button>
@@ -161,7 +165,7 @@
           <div class="landing-page__grants-cards-card-desc mat-display-2">
             {{ 'contracts.disruptive.landing' | transloco }}
           </div>
-          <button class="landing-page__grants-cards-card-button btn active" [routerLink]="constants.routes.listing | route: 'disruptive'">
+          <button class="landing-page__grants-cards-card-button btn primary" [routerLink]="constants.routes.listing | route: 'disruptive'">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </button>
         </div>
@@ -177,7 +181,7 @@
           <div class="landing-page__grants-cards-card-desc mat-display-2">
             {{ 'contracts.web3.landing' | transloco }}
           </div>
-          <button class="landing-page__grants-cards-card-button btn active">
+          <button class="landing-page__grants-cards-card-button btn primary">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </button>
         </div>
@@ -191,7 +195,7 @@
           <div class="landing-page__grants-cards-card-desc mat-display-2">
             {{ 'contracts.interhack.landing' | transloco }}
           </div>
-          <button class="landing-page__grants-cards-card-button btn active" [routerLink]="constants.routes.listing | route: 'interhack'">
+          <button class="landing-page__grants-cards-card-button btn primary" [routerLink]="constants.routes.listing | route: 'interhack'">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </button>
         </div>
@@ -221,7 +225,7 @@
       </mat-tab-group>
     </div>
 
-    <button class="landing-page__fullGuide btn active" [routerLink]="constants.routes.guide | route">
+    <button class="landing-page__fullGuide btn primary" [routerLink]="constants.routes.guide | route">
       {{'landing-page.fullGuide' | transloco}}<img alt="img" src="assets/icons/arr-right-white.svg">
     </button>
 
