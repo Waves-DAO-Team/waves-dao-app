@@ -174,6 +174,7 @@ export class ListingComponent implements OnDestroy {
     const labelContract = contract?.name || 'undefined'
     const labelImportant = params?.important === true ? 'true' : params?.important === false ? 'false' : 'undefined'
 
+
     const label = translate(
         `listing.labels.${labelContract}.${labelRole}.${labelStatus}.${labelImportant}`, params)
 

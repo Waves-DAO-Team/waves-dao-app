@@ -47,7 +47,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   private user$ = this.userService.data
     .pipe(
       takeUntil(this.destroyed$),
-      filter( () => this.inputGrant?.id !== undefined)
+      filter(() => this.inputGrant?.id !== undefined)
     )
     .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
 
@@ -117,11 +117,11 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
-      map((grants: ContractGrantModel): ContractGrantAppModel[]  => grants?.app || []),
+      map((grants: ContractGrantModel): ContractGrantAppModel[] => grants?.app || []),
       map((app: ContractGrantAppModel[]) => !!app.find((a) => !!a.process))
-  )
+    )
 
-  @Input() set grant (data: ContractGrantModel) {
+  @Input() set grant(data: ContractGrantModel) {
     if (data !== this.inputGrant) {
       this.inputGrant = data
       this.prepareVoteForTaskData(data)
@@ -129,13 +129,13 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     this.grant$.next(data)
   }
 
-  get grant (): ContractGrantModel {
+  get grant(): ContractGrantModel {
     return this.inputGrant
   }
 
   private inputGrant: ContractGrantModel = {}
 
-  constructor (
+  constructor(
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -146,7 +146,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   ) {
   }
 
-  vote (value: 'like' | 'dislike'): void {
+  vote(value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -157,7 +157,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  signup (): void {
+  signup(): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -166,7 +166,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
       })
   }
 
-  openApplyModal (): void {
+  openApplyModal(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -177,36 +177,35 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
           submitCallBack: (data: SubmitCallBackApplyArg) => {
             this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
               .pipe(take(1))
-              .subscribe(() => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+              .subscribe()
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface): void {
+  voteTeam($event: VoteTeamEventInterface): void {
     const id = this.grant?.id as string
     const teamId = $event.teamIdentifier
     const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote (): void {
+  finishVote(): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork (): void {
+  startWork(): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject (): void {
+  reject(): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult (): void {
+  acceptWorkResult(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -217,24 +216,23 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
             this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
-              .subscribe(() => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+              .subscribe()
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }
     })
   }
 
-  finishApplicantsVote (): void {
+  finishApplicantsVote(): void {
     const id = this.grant.id as string
     if (id) {
       this.disruptiveContractService.finishApplicantsVoting(id, getWinnerTeamId(this.grant)).subscribe()
     }
   }
 
-  addReward (): void {
+  addReward(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -258,7 +256,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
+  private prepareVoteForTaskData(grant: ContractGrantModel) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
@@ -271,7 +269,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     }
   }
 
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     this.destroyed$.next()
   }
 }
