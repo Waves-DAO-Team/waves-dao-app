@@ -84,18 +84,20 @@ export class ListingComponent implements OnDestroy {
       refCount()
     )
 
-  public otherGrantList$: Observable<ContractGrantModel[]> = this.grantsList$
+  public otherGrantList$: Observable<ContractGrantModel[] | null> = this.grantsList$
   .pipe(
       map((grants) => grants
         .filter((grant: ContractGrantModel) => !grant?.label?.important)
-      )
+      ),
+      map(grants => grants.length > 0 ? grants : null)
   )
 
-  public importantGrantList$: Observable<ContractGrantModel[]> = this.grantsList$
+  public importantGrantList$: Observable<ContractGrantModel[] | null> = this.grantsList$
   .pipe(
       map((grants) => grants
           .filter((grant: ContractGrantModel) => !!grant?.label?.important)
-      )
+      ),
+      map(grants => grants.length > 0 ? grants : null)
   )
 
   constructor (
@@ -129,20 +131,28 @@ export class ListingComponent implements OnDestroy {
       weight = weight - 4
     }
 
-    // Second priority, zero reward
+    // priority, zero reward
     if (!grantA?.reward?.value) {
-      weight = weight + 3
+      weight = weight + 2
     }
     if (!grantB?.reward?.value) {
+      weight = weight - 2
+    }
+
+    // priority, finished grant
+    if (grantA?.status?.value === GrantStatusEnum.workFinished) {
+      weight = weight + 3
+    }
+    if (grantB?.status?.value === GrantStatusEnum.workFinished) {
       weight = weight - 3
     }
 
-    // Second priority, zero reward
-    if (grantA?.status?.value === GrantStatusEnum.workFinished) {
-      weight = weight + 2
+    // priority, grant with label
+    if (!!grantA?.label?.label) {
+      weight = weight - 3
     }
-    if (grantB?.status?.value === GrantStatusEnum.workFinished) {
-      weight = weight - 2
+    if (grantB?.label?.label) {
+      weight = weight + 3
     }
 
     // Thirty priority, date

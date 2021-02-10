@@ -127,16 +127,28 @@
       "waves": "WAVES"
     },
     "labels": {
+      "interhack" : {
+        "unauthorized": {
+          "ready_to_apply": {
+            "undefined": "You can apply. {{count}} applications"
+          }
+        }
+      },
+      "web3" : {
+        "unauthorized": {
+
+        }
+      },
       "disruptive" : {
         "unauthorized": {
           "ready_to_apply": {
-            "undefined": "{{count}} applications"
+            "undefined": "You can apply. {{count}} applications"
           }
         },
         "authorized": {
           "ready_to_apply": {
             "undefined": "{{count}} applications",
-            "false": "You can apply. Count of applications {{count}}",
+            "false": "You can apply. {{count}} applications",
             "true": "You have submitted an application. Please wait until the application deadline"
           }
         },
@@ -161,9 +173,6 @@
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
       "team_chosen": "Looking for a team",
-
-      "team_choosen": "Looking for team",
-
       "solution_chosen": "Solution selected",
       "work_started": "In work",
       "work_finished": "Finished",
