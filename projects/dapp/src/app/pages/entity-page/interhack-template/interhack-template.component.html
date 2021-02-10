@@ -8,7 +8,7 @@
     {{'entity.stop_submissions' | transloco}}
   </button>
 
-  <button class="marginTB" (click)="acceptWorkResult()" *ngIf="isAcceptWorkResultBtn$ | async">
+  <button class="marginTB" (click)="acceptWorkResult()" *ngIf="(isAcceptWorkResultBtn$ | async) && !(multiWinners$ | async)">
     {{'entity.accept_work_result' | transloco}}
   </button>
 
@@ -42,6 +42,7 @@
   <ui-teams-and-solutions
     [grant]="grant"
     [winnerSolutionId]="winnerSolutionId"
+    [multiWinners]="multiWinners$ | async"
     [teamsAndSolutionsControls]="teamsAndSolutionsControls$ | async"
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"

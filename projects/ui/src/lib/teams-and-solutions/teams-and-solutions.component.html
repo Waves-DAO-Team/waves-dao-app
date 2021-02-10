@@ -43,7 +43,8 @@
       <ng-container *ngFor="let app of grant?.app | sortBySolutions ">
         <li
           [class.winner]="
-            (
+            !multiWinners
+            && (
               grantStatusEnum.workFinished === grant?.status?.value
               || grantStatusEnum.solutionChosen === grant?.status?.value
             )

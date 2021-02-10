@@ -22,7 +22,7 @@ import {
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
-import {combineLatest, Observable, Subject} from 'rxjs'
+import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
 import {isAcceptWorkResultBtnInterhack, teamsAndSolutionsControls} from './functions'
 import {InterhackContractService} from '@services/contract/Interhack-contract.service'
@@ -97,6 +97,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       ),
     )
 
+  multiWinners$ = new BehaviorSubject<boolean>(false)
   winnerSolutionId: string = ''
   winnerSolutionId$ = this.grant$
     .pipe(
@@ -105,17 +106,34 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       map( (e: ContractGrantModel): ContractGrantAppModel[] => e.app as ContractGrantAppModel[]),
       map( (e: ContractGrantAppModel[] ) => {
         let solution = e[0]
+        let maxScore = 0
+        let maxScoreSolutionCount = 0
         e.forEach( e =>{
           let eScore = e.score?.solution?.value || 0
           let sScore = solution.score?.solution?.value || 0
-          if (eScore > sScore) {
+          if (eScore >= sScore) {
             solution = e
+            maxScore = eScore
           }
         })
+        // multiWinners
+        e.forEach( e =>{
+          let eScore = e.score?.solution?.value || 0
+          if(eScore === maxScore) {
+            maxScoreSolutionCount++
+          }
+        })
+        if (maxScoreSolutionCount > 1) {
+          this.multiWinners$.next(true)
+        } else {
+          this.multiWinners$.next(false)
+        }
         return solution.key as string
       })
     )
-    .subscribe((e) => this.winnerSolutionId = e)
+    .subscribe((e) => {
+      this.winnerSolutionId = e
+    })
 
   isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
