@@ -16,7 +16,7 @@
     "controls": {
       "createGrant": "Create grant",
       "addReward": "Add reward",
-      "proposeGrant": "Request grant",
+      "proposeGrant": "Apply for grant",
       "finishProposeGrant": "Submit to vote",
       "setting": "Setting"
     }

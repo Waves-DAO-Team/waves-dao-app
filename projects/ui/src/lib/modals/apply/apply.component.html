@@ -13,7 +13,7 @@
       {{'modal.texts.hint_link' | transloco}}
     </div>
     <div class="modal-content__btn btn-container full">
-      <button type="button" class="btn primary" (click)="modalGoTo('NEED_APPLY')">
+      <button type="button" class="btn active" (click)="modalGoTo('NEED_APPLY')">
         {{'modal.btn.apply_on_githubt' | transloco}}
       </button>
       <button type="button" class="btn" (click)="modalGoTo('ALREADY_APPLIED')">
@@ -51,7 +51,7 @@
         <button type="button" (click)="closeModal()" class="btn">
           {{'modal.btn.cancel' | transloco}}
         </button>
-        <button type="submit" class="btn primary" [disabled]="!applyGrantForm.valid">
+        <button type="submit" class="btn active" [disabled]="!applyGrantForm.valid">
           {{'modal.btn.apply' | transloco}}
         </button>
       </div>

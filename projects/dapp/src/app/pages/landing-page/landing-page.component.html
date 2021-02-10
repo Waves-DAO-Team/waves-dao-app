@@ -14,7 +14,7 @@
       <div class="landing-page__intro-desc mat-display-2">
         {{'landing-page.introDesc' | transloco}}.&nbsp;
       </div>
-      <button class="btn primary" [routerLink]="constants.routes.guide | route">
+      <button class="btn active" [routerLink]="constants.routes.guide | route">
         {{'landing-page.fullGuide' | transloco}}<img alt="img" src="assets/icons/arr-right-white.svg">
       </button>
     </div>
@@ -165,7 +165,7 @@
           <div class="landing-page__grants-cards-card-desc mat-display-2">
             {{ 'contracts.disruptive.landing' | transloco }}
           </div>
-          <button class="landing-page__grants-cards-card-button btn primary" [routerLink]="constants.routes.listing | route: 'disruptive'">
+          <button class="landing-page__grants-cards-card-button btn active" [routerLink]="constants.routes.listing | route: 'disruptive'">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </button>
         </div>
@@ -181,7 +181,7 @@
           <div class="landing-page__grants-cards-card-desc mat-display-2">
             {{ 'contracts.web3.landing' | transloco }}
           </div>
-          <button class="landing-page__grants-cards-card-button btn primary">
+          <button class="landing-page__grants-cards-card-button btn active">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </button>
         </div>
@@ -195,7 +195,7 @@
           <div class="landing-page__grants-cards-card-desc mat-display-2">
             {{ 'contracts.interhack.landing' | transloco }}
           </div>
-          <button class="landing-page__grants-cards-card-button btn primary" [routerLink]="constants.routes.listing | route: 'interhack'">
+          <button class="landing-page__grants-cards-card-button btn active" [routerLink]="constants.routes.listing | route: 'interhack'">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </button>
         </div>
@@ -225,7 +225,7 @@
       </mat-tab-group>
     </div>
 
-    <button class="landing-page__fullGuide btn primary" [routerLink]="constants.routes.guide | route">
+    <button class="landing-page__fullGuide btn active" [routerLink]="constants.routes.guide | route">
       {{'landing-page.fullGuide' | transloco}}<img alt="img" src="assets/icons/arr-right-white.svg">
     </button>
 
