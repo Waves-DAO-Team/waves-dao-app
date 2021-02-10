@@ -39,7 +39,9 @@ export class FlowTextComponent implements OnDestroy {
             status: status ? translate('listing.status.' + status) : '',
             flow: '',
           }
-          if (grantType === GrantTypesEnum.disruptive || grantType === GrantTypesEnum.web3) {
+          if(grantType === GrantTypesEnum.web3){
+            data.flow = translate('flow.web3.' + status)
+          } else if (grantType === GrantTypesEnum.disruptive) {
             data.flow = translate('flow.disruptive.' + status)
           } else {
             data.flow = translate('flow.interhack.' + status)

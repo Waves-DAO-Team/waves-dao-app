@@ -52,6 +52,15 @@
       "work_started":"Teams are submitting their solutions. Later they will be judged by jury.",
       "solution_chosen": " ",
       "work_finished":"The hackathon is over. Winning team <winnerName> was chosen by jury and awarded with the transparent DAO model."
+    },
+    "web3": {
+      "null": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
+      "no_status": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
+      "voting_started": "The Working Group researched the application and recommended it to the Association. DAO Members are voting on it.",
+      "approved": "Project is approved by Association voting and will be granted.",
+      "work_started": "The team started implementing the task. Soon we will see the results.",
+      "rejected": "Project proposal was rejected by the Association. Details can be found on the Github page of the application.",
+      "work_finished": "The team completed the task and was granted by Waves Association."
     }
   },
   "modal": {
