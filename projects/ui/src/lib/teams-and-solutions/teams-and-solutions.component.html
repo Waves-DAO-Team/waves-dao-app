@@ -40,10 +40,16 @@
     </div>
 
     <ul *ngIf="grant?.app?.length > 0 && teamsAndSolutionsControls" class="team__list">
-      <ng-container *ngFor="let app of grant?.app | sortBySolutions">
-
+      <ng-container *ngFor="let app of grant?.app | sortBySolutions ">
         <li
-          [class.winner]="app?.process"
+          [class.winner]="
+            (
+              grantStatusEnum.workFinished === grant?.status?.value
+              || grantStatusEnum.solutionChosen === grant?.status?.value
+            )
+            && app?.process
+            && app?.id?.value === winnerSolutionId
+          "
           [class.disabled-team]="
            !teamsAndSolutionsControls.isShowAllTeam
            && (!(app?.votes?.applicant?.value) || app?.votes?.applicant?.value < 0)
@@ -66,7 +72,7 @@
           ></ui-voting-square>
           <ui-voting-square
             *ngIf="teamsAndSolutionsControls.stepType !== 'team'"
-            [votes]="app?.score.solution.value"
+            [votes]="app?.score?.solution?.value"
             [teamId]="app.id.value"
             [isCanVote]="
               !app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)

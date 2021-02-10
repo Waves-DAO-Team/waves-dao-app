@@ -1,4 +1,5 @@
 @import 'const';
+@import '~include-media/dist/_include-media.scss';
 
 @mixin link($color: $color_waves_blue, $fontWeight: 500) {
   font-weight: $fontWeight;
@@ -28,15 +29,21 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 95%;
-    margin: 15px auto $padding / 2 auto;
+    margin: 15px auto $padding / 2 0;
+
+    padding-left: $padding;
   }
   &__mid-container-bottom {
     min-height: 45px;
     max-height: 45px;
     display: flex;
     flex-direction: row;
+
     > a {
       padding-top: $padding / 3;
+    }
+    @include media('<desktop') {
+      display: block;
     }
   }
 
@@ -49,6 +56,14 @@
     line-height: 1;
     position: relative;
     margin-right: $padding * 1.5;
+
+    @include media('<tablet') {
+      max-width: 50%;
+      overflow: hidden;
+      display: block;
+      text-overflow: ellipsis;
+    }
+
     img {
       position: absolute;
       right: -22px;
@@ -115,6 +130,9 @@
         min-width: 100px;
         padding-right: $padding * 2;
         margin: 0;
+        @media (max-width: 1200px) {
+          display: none;
+        }
 
         img {
           margin-right: $padding / 2;
