@@ -41,11 +41,11 @@
 
         <ui-voting-square
           [votes]="app?.score?.value"
-          [teamId]="app.id.value"
+          [teamId]="app?.id?.value"
           [isCanVote]="
             (!(teamsControls?.isVoteControls === 'hidden')
             && grantStatusEnum.rejected !== grant?.status?.value)
-            && !teamsControls?.voteFor.includes(app.id.value)
+            && !teamsControls?.voteFor.includes(app?.id?.value)
           "
           [isShowResult]="!user.roles.isDAO"
           (voteEvent)="newVoteTeamEvent.emit($event)"

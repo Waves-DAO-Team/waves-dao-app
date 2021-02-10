@@ -16,7 +16,7 @@
     "controls": {
       "createGrant": "Create grant",
       "addReward": "Add reward",
-      "proposeGrant": "Request grant",
+      "proposeGrant": "Apply for grant",
       "finishProposeGrant": "Submit to vote",
       "setting": "Setting"
     }
@@ -109,7 +109,9 @@
     "manager": "DAO Manager",
     "wg": "Working Group",
     "dao": "Waves Association",
-    "auth": "Authorized User"
+    "auth": "Authorized User",
+    "applicant": "Applicant",
+    "board": "Association Board"
   },
   "stepper": {
     "grant_propesed": "Grant propesed",
@@ -136,28 +138,58 @@
       "waves": "WAVES"
     },
     "labels": {
-      "disruptive" : {
+      "interhack" : {
         "unauthorized": {
-          "ready_to_apply": "You can apply"
-        },
-        "workingGroup": {
-          "undefined": "Need choose reward"
-        },
-        "DAOMember": {
-          "proposed": "Need vote"
+          "ready_to_apply": {
+            "undefined": "You can apply. {{count}} applications"
+          }
         }
       },
-      "need_vote": "Need vote",
-      "vote_counted": "Your vote has been counted"
+      "web3" : {
+        "unauthorized": {
+
+        }
+      },
+      "disruptive" : {
+        "unauthorized": {
+          "ready_to_apply": {
+            "undefined": "You can apply. {{count}} applications"
+          }
+        },
+        "authorized": {
+          "ready_to_apply": {
+            "undefined": "{{count}} applications",
+            "false": "You can apply. {{count}} applications",
+            "true": "You have submitted an application. Please wait until the application deadline"
+          }
+        },
+        "workingGroup": {
+          "ready_to_apply": {
+            "undefined": "{{count}} applications "
+          },
+          "team_chosen" : {
+            "undefined": "Awaiting team decision. Perhaps we need to notify them"
+          },
+          "undefined": {
+            "undefined": "We need to determine the reward"
+          }
+        },
+        "DAOMember": {
+          "ready_to_apply": {
+            "undefined": "{{count}} applications "
+          },
+          "proposed": {
+            "false": "Your vote has been counted",
+            "true": "Need vote"
+          }
+        }
+      }
     },
     "status": {
       "proposed": "Open",
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
       "team_chosen": "Looking for a team",
-
-      "team_choosen": "Looking for team",
-
       "solution_chosen": "Solution selected",
       "work_started": "In work",
       "work_finished": "Finished",
@@ -235,7 +267,7 @@
         },
         "false": {
           "text": "You already voted",
-          "subtext": "Here is transtaction in ",
+          "subtext": "",
           "explorer": "Waves Explorer."
         }
       }
@@ -442,8 +474,7 @@
     }
   },
   "landing-page": {
-    "exploreGrants": "Explore Grants",
-    "skip": "Skip",
+    "exploreGrants": "Explore Grant",
     "fullGuide": "Full Guide",
     "learnMore": "Learn more",
     "learnMoreLink": "https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles",
@@ -459,11 +490,11 @@
 
     "introDesc": "Waves DAO is a framework used by the Waves Association. The purpose is making decisions on supporting initiatives and projects, based on the Waves protocol in the ecosystem: Waves Protocol, Gravity, Neutrino and others. The main feature is the transparency of processes. For example, you can observe what decisions are being discussed, who exactly is behind their adoption to finance projects, and also how the voting takes place.",
     "whatAreRoles": "What are the Roles",
-    "applicant": "Applicant",
     "applicantDesc": "It is you, meaning any community member who has applied for a grant using the Waves account. If your application is approved by the DAO Members vote, you will be awarded Performer status.",
-    "workingGroupDesc": "Member of the Working Group for Funding & Grants. The group plays an administrative role in the grant program. WG Members propose tasks for grants, open / close voting for teams, prepare reports. At the moment, the working group includes 8 people. Their accounts are maintained by a DAO secretary.",
-    "daoMemberDesc": "A member of the Association, who admitted to it on the recommendation of the membership working group. Also, DAO member paid the membership fee and has the right to vote for the distribution of grants, as well as for the best team. The list of accounts that have the DAO Member status is determined by the DAO Manager. At the moment, these are 30 members of the Association.",
-    "daoManagerDesc": "The DAO administrator. Has the right to customize the list of members of the working group as well as members of the Association. At the moment, DAO Manager is one account. The association secretary has an access to this account. Manager does not participate in DAO voting.",
+    "workingGroupDesc": "Member of the Working Group for Funding & Grants. The group plays an administrative role in the grant program. WG Members propose tasks for grants, open / close voting for teams, prepare reports. At the moment, the working group includes 8 people.",
+    "daoDesc": "A member of the Association admitted to it on the recommendation of the membership working group. A DAO member has the right to vote for the distribution of grants. At the moment, these are 30 members of the Association.",
+    "daoManagerDesc": "At the moment, DAO Manager is one account accessed by the association secretary who has the right to customize the list of members of the working group as well as members of the Association. Manager does not participate in DAO voting.",
+    "boardDesc": "This entity doesn’t interact with DAO smart contract but plays a big role in Waves Association including Association President and the heads of 3 working groups. This entity coordinates and agrees on the actions of working groups.",
 
     "whyDAO": "Why DAO",
     "whyDAO_title_1": "The power of community",

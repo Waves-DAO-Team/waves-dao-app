@@ -23,32 +23,29 @@
 
 .landing-page {
   &__title {
-    //font-size: 6.5vh;
     font-size: $font_size_h1;
     font-weight: 700;
     letter-spacing: -1%;
     line-height: 1.5;
+    margin: auto;
     padding-bottom: $padding;
-    padding-top: 6.5rem;
-    text-align: center;
+    padding-top: 3rem;
+    text-align: left;
+    width: max-content;
 
-    @include media('<tablet') {
+
+    @include media('<=phone') {
       //font-size: 6.5vh;
       font-size: $font_size_h2;
       font-weight: 600;
-      padding-top: 0;
-    }
-
-    @include media('<desktop') {
+      max-width: 90%;
       padding-top: $padding * 3;
     }
   }
 
   &__intro {
-    color: $color_dark_gray;
-    margin: $padding * 2 auto;
-    max-width: 45em; //720px;
-    padding-bottom: $padding * 2;
+    margin: $padding * 2 auto $padding * 3;
+    max-width: 43rem; //desktop;
 
     &-title {
       color: $color_black;
@@ -61,7 +58,6 @@
       text-align: left;
 
       @include media('<tablet') {
-        //font-size: 6.5vh;
         font-size: $font_size_h2;
         font-weight: 600;
       }
@@ -69,6 +65,10 @@
       @include media('<desktop') {
         padding-top: 0;
       }
+    }
+
+    &-desc {
+      margin-bottom: 0;
     }
 
     button {
@@ -95,16 +95,14 @@
   &__howTo {
     padding-bottom: $padding * 4;
 
-    @include media('<tablet') {
-      margin: auto;
-
-      padding-top: $padding * 3;
+    @include media('<=phone') {
+      margin: auto 0;
 
       &-pair {
         padding: 0 $padding;
 
         &-icon {
-          width: 80px;
+          width: 60px;
         }
       }
     }
@@ -135,6 +133,7 @@
     &-cards {
       display: grid;
       grid-template: 1fr 1fr / 1fr 1fr;
+      margin: $padding;
 
       @include media('<=phone') {
         align-items: center;
@@ -155,18 +154,16 @@
         overflow: hidden;
         text-decoration: none;
         transition: 0.3s;
-        
+
         @include media('<=phone') {
           margin-top: $padding;
           max-width: unset;
         }
 
-        //padding: $padding * 2;
-
-        &:hover {
-          box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12); //gray shadow but not visible on gray bg: rgba(41, 44, 48, 0.12);
-          transform: translate(0, -1px);
-        }
+        //&:hover {
+        //  box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12); //gray shadow but not visible on gray bg: rgba(41, 44, 48, 0.12);
+        //  transform: translate(0, -1px);
+        //}
 
         &-img {
           height: 40px;
@@ -264,22 +261,18 @@
       padding: $padding * 2.5 $padding * 3 $padding * 3;
       text-align: start;
 
+      //&:hover {
+      //  box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
+      //  transform: translate(0, -1px);
+      //}
+
       @include media('<tablet') {
         margin-bottom: $padding;
       }
 
-      &:hover {
-        box-shadow: 0 16px 40px rgba(41, 44, 48, 0.12);
-        transform: translate(0, -1px);
+      @include media('<=phone') {
+        flex-direction: column;
       }
-
-      //@include media('<tablet') {
-      //  flex-direction: column;
-      //  align-items: center;
-      //  //:nth-child(2){
-      //  //  flex-direction: column-reverse;
-      //  //}
-      //}
 
       &-card {
         align-items: flex-start;
@@ -288,6 +281,10 @@
         justify-content: flex-end;
         margin-top: $padding * 6;
         width: 500px;
+
+        @include media('<=phone') {
+          margin-top: $padding;
+        }
 
         @include media('>phone', '<tablet') {
           justify-content: center;
@@ -306,9 +303,11 @@
         &-desc {
           margin-bottom: 25px;
         }
+        //
         //&-button {
         //
         //}
+
         &-image {
           width: 500px;
 
@@ -337,7 +336,7 @@
 
     &-image {
       margin-bottom: $padding * 3;
-      
+
       @include media('<desktop') {
         margin-bottom: 0;
         width: 100%;
@@ -345,15 +344,26 @@
     }
 
     &-tabs {
+      padding: $padding * 3;
+
+      z-index: 0;
+
       ::ng-deep .mat-tab {
         &-group {
           margin-left: auto;
           margin-right: auto;
           width: 100%;
+
         }
 
         &-labels {
           border-bottom: 1px solid $color_waves_blue;
+        }
+
+        &-group {
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
         }
 
         &-label-active {
@@ -371,6 +381,9 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+
+
 }
 
 .icon-title {

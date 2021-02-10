@@ -142,19 +142,18 @@
 
         .logo {
           @include icon-logo(21px);
+          margin-left: 5px;
         }
 
         &--active {
           .logo {
             @include icon-logo(21px, 'active');
-            margin-left: 5px;
           }
         }
 
         &--default {
           .logo {
             @include icon-logo(21px, 'default');
-            margin-left: 5px;
           }
         }
       }
@@ -167,42 +166,42 @@
     padding: $padding;
   }
 
-  &.important {
-    background-color: $color_waves_blue;
-    background-image: url('~resources/assets/img/bg-active-card.png');
-    background-position: right;
-    background-repeat: no-repeat;
-    background-size: auto 100%;
-
-
-    .card__header__left-block__status,
-    .card__header__left-block__title,
-    .card__header__right-block__text,
-    .card__header__right-block__price {
-      color: $color_white;
-    }
-
-    .card__header__left-block__status__role-text {
-      color: $color_warning;
-    }
-
-    .card__header__left-block__status,
-    .card__header__right-block__text {
-      //opacity: 0.6;
-    }
-
-    .icon-logo {
-      background: $color_white;
-
-      &::after {
-        background: $color_waves_blue;
-      }
-    }
-
-    &:hover {
-      background-color: #1e73ff;
-    }
-  }
+  //&.important {
+  //  //background-color: $color_waves_blue;
+  //  background-image: url('~resources/assets/img/bg-active-card.png');
+  //  background-position: right;
+  //  background-repeat: no-repeat;
+  //  background-size: auto 100%;
+  //
+  //
+  //  .card__header__left-block__status,
+  //  .card__header__left-block__title,
+  //  .card__header__right-block__text,
+  //  .card__header__right-block__price {
+  //    color: $color_white;
+  //  }
+  //
+  //  .card__header__left-block__status__role-text {
+  //    color: $color_warning;
+  //  }
+  //
+  //  .card__header__left-block__status,
+  //  .card__header__right-block__text {
+  //    //opacity: 0.6;
+  //  }
+  //
+  //  .icon-logo {
+  //    background: $color_white;
+  //
+  //    &::after {
+  //      background: $color_waves_blue;
+  //    }
+  //  }
+  //
+  //  &:hover {
+  //    background-color: #1e73ff;
+  //  }
+  //}
 
   &:not(.active) {
     .card__header {
