@@ -155,6 +155,12 @@
         "workingGroup": {
           "ready_to_apply": {
             "undefined": "{{count}} applications "
+          },
+          "team_chosen" : {
+            "undefined": "Awaiting team decision. Perhaps we need to notify them"
+          },
+          "undefined": {
+            "undefined": "We need to determine the reward"
           }
         },
         "DAOMember": {
