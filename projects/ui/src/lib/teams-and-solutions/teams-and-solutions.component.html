@@ -40,7 +40,7 @@
     </div>
 
     <ul *ngIf="grant?.app?.length > 0 && teamsAndSolutionsControls" class="team__list">
-      <ng-container *ngFor="let app of grant?.app">
+      <ng-container *ngFor="let app of grant?.app | sortBySolutions">
 
         <li
           [class.winner]="app?.process"
