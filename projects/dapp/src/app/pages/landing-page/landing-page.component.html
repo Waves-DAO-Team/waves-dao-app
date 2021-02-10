@@ -99,7 +99,7 @@
           <div class="landing-page__roles-cards-card">
             <div class="icon-title">
               <img alt="icon" src="assets/icons/avatar/auth.svg"  class="landing-page__roles-cards-card-img"/>
-              <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'landing-page.applicant' | transloco "></div>
+              <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.applicant' | transloco "></div>
             </div>
 
             <span class="landing-page__roles-cards-card-desc bg-gray landing-page__intro mat-display-2" [innerHTML]="'landing-page.applicantDesc' | transloco "></span>
@@ -124,7 +124,7 @@
               <img alt="icon" src="assets/icons/avatar/dao.svg"  class="landing-page__roles-cards-card-img"/>
               <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.dao' | transloco "></div>
             </div>
-            <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoMemberDesc' | transloco "></span>
+            <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoDesc' | transloco "></span>
             <button class="landing-page__roles-cards-card-button btn secondary">
               {{ 'landing-page.learnMore' | transloco }}<img alt="img" src="assets/icons/arr-right.svg">
             </button>
@@ -143,7 +143,17 @@
             </button>
           </div>
 
+        <div class="landing-page__roles-cards-card">
+          <div class="icon-title">
+            <img alt="icon" src="assets/icons/avatar/master.svg"  class="landing-page__roles-cards-card-img"/>
+            <div class="landing-page__roles-cards-card-title mat-display-4" [innerHTML]="'role.board' | transloco "></div>
+          </div>
 
+          <span class="landing-page__roles-cards-card-desc bg-gray landing-page__intro mat-display-2" [innerHTML]="'landing-page.boardDesc' | transloco "></span>
+          <button class="landing-page__roles-cards-card-button btn secondary">
+            {{ 'landing-page.learnMore' | transloco }}<img alt="img" src="assets/icons/arr-right.svg">
+          </button>
+        </div>
 
 
 
