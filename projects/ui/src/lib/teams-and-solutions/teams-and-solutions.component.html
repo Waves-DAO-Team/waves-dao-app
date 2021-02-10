@@ -44,10 +44,7 @@
         <li
           [class.winner]="
             !multiWinners
-            && (
-              grantStatusEnum.workFinished === grant?.status?.value
-              || grantStatusEnum.solutionChosen === grant?.status?.value
-            )
+            &&  grantStatusEnum.solutionChosen === grant?.status?.value
             && app?.process
             && app?.id?.value === winnerSolutionId
           "
@@ -109,10 +106,7 @@
             </ng-container>
             <ng-container *ngIf="
               !multiWinners
-              && (
-                grantStatusEnum.workFinished === grant?.status?.value
-                || grantStatusEnum.solutionChosen === grant?.status?.value
-              )
+              && grantStatusEnum.solutionChosen === grant?.status?.value
               && app?.process
               && app?.id?.value === winnerSolutionId
             ">

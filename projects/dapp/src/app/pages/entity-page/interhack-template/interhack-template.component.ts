@@ -47,8 +47,8 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   get grant(): ContractGrantModel {
     let grant = this.inputGrant
-    if(
-     this.inputGrant?.status?.value !== this.grantStatusEnum.noStatus
+    if (
+      this.inputGrant?.status?.value !== this.grantStatusEnum.noStatus
       && this.inputGrant?.status?.value !== this.grantStatusEnum.proposed
       && this.inputGrant?.status?.value !== this.grantStatusEnum.readyToApply
       && grant
@@ -56,7 +56,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     ) {
       grant.app = grant?.app?.filter((e) => {
         let score = e.score?.applicant?.value
-        if( score && score > 0) {
+        if (score && score > 0) {
           return true
         }
       })
@@ -70,14 +70,52 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     isVoteInProcess: false
   }
   grant$ = new Subject<ContractGrantModel>()
+//   status === GrantStatusEnum.workStarted
+// || status === GrantStatusEnum.workFinished
+// || status === GrantStatusEnum.solutionChosen
 
-  public titleText$: Observable<string> = this.grant$
+  isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
-      map(e => e?.status?.value || ''),
-      map(e => e === GrantStatusEnum.readyToApply),
-      map(e => e ? translate('entity.applied_teams') : translate('entity.teams')),
+      map(([user, grant]) => {
+        const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+        let isVoteForSolution = false
+        if (grant.app) {
+          grant.app.forEach((app) => {
+            if (app.solution) {
+              isVoteForSolution = true
+            }
+          })
+        }
+        const isWG = user.roles.isWG
+        return isVoteForSolution && isWG && isStatusMatch
+      })
     )
+
+  public titleText$: Observable<string> = combineLatest([this.grant$, this.isStopSubmissionsBtn$])
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([grant, isStopSubmissions]) => {
+        let grantStatus = grant?.status?.value || GrantStatusEnum.noStatus
+        console.log('+++grantStatus', grantStatus)
+        if (
+          (
+            grantStatus === GrantStatusEnum.noStatus
+            || grantStatus === GrantStatusEnum.proposed
+            || grantStatus === GrantStatusEnum.readyToApply
+            || grantStatus === GrantStatusEnum.workStarted
+          )
+          && !isStopSubmissions
+        ) {
+          return true
+        } else {
+          return false
+        }
+      }),
+      map(e => e ? translate('entity.applied_teams') : translate('entity.solutions')),
+      tap(e => console.log('+++', e))
+    )
+
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
     .pipe(
@@ -103,12 +141,12 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     .pipe(
       takeUntil(this.destroyed$),
       filter(e => e !== null && e.app !== undefined && e.app.length > 0),
-      map( (e: ContractGrantModel): ContractGrantAppModel[] => e.app as ContractGrantAppModel[]),
-      map( (e: ContractGrantAppModel[] ) => {
+      map((e: ContractGrantModel): ContractGrantAppModel[] => e.app as ContractGrantAppModel[]),
+      map((e: ContractGrantAppModel[]) => {
         let solution = e[0]
         let maxScore = 0
         let maxScoreSolutionCount = 0
-        e.forEach( e =>{
+        e.forEach(e => {
           let eScore = e.score?.solution?.value || 0
           let sScore = solution.score?.solution?.value || 0
           if (eScore >= sScore) {
@@ -117,9 +155,9 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
           }
         })
         // multiWinners
-        e.forEach( e =>{
+        e.forEach(e => {
           let eScore = e.score?.solution?.value || 0
-          if(eScore === maxScore) {
+          if (eScore === maxScore) {
             maxScoreSolutionCount++
           }
         })
@@ -135,23 +173,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       this.winnerSolutionId = e
     })
 
-  isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
-        let isVoteForSolution = false
-        if (grant.app) {
-          grant.app.forEach((app) => {
-            if (app.solution) {
-              isVoteForSolution = true
-            }
-          })
-        }
-        const isWG = user.roles.isWG
-        return isVoteForSolution && isWG && isStatusMatch
-      })
-    )
 
   isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
