@@ -107,6 +107,17 @@
             <ng-container *ngIf="app.process && grant?.status.value === grantStatusEnum.workStarted">
               <img alt="winner" src="assets/icons/winner.png">{{'entity.approved' | transloco}}
             </ng-container>
+            <ng-container *ngIf="
+              !multiWinners
+              && (
+                grantStatusEnum.workFinished === grant?.status?.value
+                || grantStatusEnum.solutionChosen === grant?.status?.value
+              )
+              && app?.process
+              && app?.id?.value === winnerSolutionId
+            ">
+              <img alt="winner" src="assets/icons/winner.png">{{'entity.winner' | transloco}}
+            </ng-container>
           </div>
         </li>
       </ng-container>
