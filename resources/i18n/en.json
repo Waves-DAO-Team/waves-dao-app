@@ -56,7 +56,7 @@
     "web3": {
       "null": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
       "no_status": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
-      "voting_started": "The Working Group researched the application and recommended it to the Association. DAO Members are voting on it.",
+      "voting_started": "The Working Group researched the application and recommended it to the Association. DAO Members are voting on it. Current vote is {{voteScore}} with {{votesAmount}} members voted.",
       "approved": "Project is approved by Association voting and will be granted.",
       "work_started": "The team started implementing the task. Soon we will see the results.",
       "rejected": "Project proposal was rejected by the Association. Details can be found on the Github page of the application.",
