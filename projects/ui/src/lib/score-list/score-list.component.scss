@@ -1,0 +1,112 @@
+@import 'const';
+@import '~include-media/dist/_include-media.scss';
+
+
+
+@mixin mid() {
+  &__mid-container {
+    display: grid;
+    width: calc(100% - 155px);
+  }
+  &__name {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    overflow: hidden;
+    //padding-left: $padding;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 95%;
+    margin: 15px auto $padding / 2 0;
+
+    padding-left: $padding * 2;
+  }
+  &__mid-container-bottom {
+    min-height: 45px;
+    max-height: 45px;
+    display: flex;
+    flex-direction: row;
+
+    > a {
+      padding-top: $padding / 3;
+    }
+    @include media('<desktop') {
+      display: block;
+    }
+  }
+
+  &__link,  &__solution-link {
+    font-weight: 500;
+    padding-left: $padding * 2;
+    white-space: nowrap;
+    color: #05f;
+    margin: 0;
+    line-height: 1;
+    position: relative;
+    margin-right: $padding * 1.5;
+
+    @include media('<tablet') {
+      max-width: 70%;
+      overflow: hidden;
+      display: block;
+      text-overflow: ellipsis;
+    }
+
+    img {
+      position: absolute;
+      right: -22px;
+      top: 2px;
+    }
+  }
+}
+
+.score-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .winner {
+      border: 1px solid $color_waves_blue;
+    }
+
+    @include mid();
+
+    &__li {
+      border: 1px solid $color_light_gray;
+      display: flex;
+      margin-bottom: $padding;
+
+      &__mid {
+        align-items: flex-start;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: $padding;
+        width: 20%;
+      }
+
+      &__right {
+        align-items: center;
+        color: $color_waves_blue;
+        display: flex;
+        justify-content: center;
+        max-width: 100px;
+        min-width: 100px;
+        padding-right: $padding * 2;
+        margin: 0;
+        @media (max-width: 1200px) {
+          display: none;
+        }
+
+        img {
+          margin-right: $padding / 2;
+        }
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+}

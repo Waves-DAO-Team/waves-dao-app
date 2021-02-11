@@ -1,0 +1,35 @@
+<ul class="score-list">
+
+    <li *ngFor="let el of list" [class.winner]="el.isWinner" class="score-list__li">
+
+      <ui-voting-square
+        [votes]="el.square.score"
+        [teamId]="el.square.id"
+        [isCanVote]="el.square.isCanVote"
+        [isShowResult]="el.square.isShowResult"
+      ></ui-voting-square>
+
+      <div class="score-list__mid-container">
+        <div class="score-list__name">
+          {{el.name}}
+          <ui-statuses [isHasSolution]="el.status.isSolution" [isRejected]="el.status.isRejected"></ui-statuses>
+        </div>
+        <div class="score-list__mid-container-bottom">
+          <a class="score-list__link mat-display-1" *ngIf="el?.teamLink" [href]="el?.teamLink">
+            {{'entity.learn_about_team' | transloco}}
+            <img alt="link" src="assets/icons/link.svg">
+          </a>
+          <a class="score-list__solution-link mat-display-1" *ngIf="el?.solutionLink" [href]="el?.solutionLink">
+            {{'entity.learn_about_solution' | transloco}}
+            <img alt="link" src="assets/icons/link.svg">
+          </a>
+        </div>
+      </div>
+
+      <div class="score-list__list__li__right mat-display-2" *ngIf="el.isWinner && el.isWinnerIcon">
+        <img alt="winner" src="assets/icons/winner.png">
+        {{'entity.winner' | transloco}}
+      </div>
+
+    </li>
+</ul>
