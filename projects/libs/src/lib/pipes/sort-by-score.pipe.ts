@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import * as _ from 'lodash'
-import { ContractGrantAppModel } from '@services/contract/contract.model'
-import {IScore} from "@services/interface";
+import {IScore} from '@services/interface'
 
 @Pipe({ name: 'sortByScore' })
 export class SortByScorePipe implements PipeTransform {

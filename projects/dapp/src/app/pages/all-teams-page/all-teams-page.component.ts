@@ -7,7 +7,7 @@ import {Observable, Subject} from 'rxjs'
 import {ALL_TEAM, ALL_TEAM_PAGE_PROVIDERS} from './all-teams-page-routing.providers'
 import {ActivatedRoute} from '@angular/router'
 import {GrantUrl, IScore} from '@services/interface'
-import {GrantTypesEnum} from "@services/static/static.model";
+import {GrantTypesEnum} from '@services/static/static.model'
 
 @Component({
   selector: 'app-all-teams-page',
@@ -34,17 +34,17 @@ export class AllTeamsPageComponent implements OnDestroy {
       map((data: ContractGrantModel) => data?.title?.value || ''),
     )
 
-  public teams$ : Observable<IScore.IUnit[]> = this.entity.data$
+  public teams$: Observable<IScore.IUnit[]> = this.entity.data$
     .pipe(
       takeUntil(this.destroyed$),
       filter((data: ContractGrantModel) => data !== null && data !== undefined),
       filter((data: ContractGrantModel) => data.app !== null && data.app !== undefined),
-      map((data: ContractGrantModel): ContractGrantAppModel[] => data.app!),
+      map((data: ContractGrantModel): ContractGrantAppModel[] => data.app || []),
       map((apps: ContractGrantAppModel[]) => {
-        let res: IScore.IUnit[] = []
+        const res: IScore.IUnit[] = []
 
         apps.forEach( app => {
-          console.log("+++", app)
+          console.log('+++', app)
 
           const grantType: GrantTypesEnum = app.score && app.score.applicant && app.score.applicant.value
             ? GrantTypesEnum.interhack
@@ -54,7 +54,7 @@ export class AllTeamsPageComponent implements OnDestroy {
             ? (app?.score?.applicant?.value || 0)
             : (app?.score?.value || 0)
 
-          let unit: IScore.IUnit = {
+          const unit: IScore.IUnit = {
             isWinner: app.process?.value === 'winner' || app.process?.value === 'work_finished'? true : false,
             isWinnerIcon: true, // TODO:
             name: app.name.value,
@@ -83,18 +83,18 @@ export class AllTeamsPageComponent implements OnDestroy {
       })
     )
 
-  constructor(
+  constructor (
     private route: ActivatedRoute, // eslint-disable-line
     private readonly location: Location, // eslint-disable-line
     @Inject(ALL_TEAM) public entity: LoadingWrapperModel<ContractGrantModel>, // eslint-disable-line
   ) {
   }
 
-  goBack(): void {
+  goBack (): void {
     this.location.back()
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.destroyed$.next(null)
     this.destroyed$.complete()
   }

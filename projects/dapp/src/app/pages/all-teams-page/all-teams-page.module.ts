@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common'
 import { AllTeamsPageRoutingModule } from './all-teams-page-routing.module'
 import { AllTeamsPageComponent } from './all-teams-page.component'
 import {TranslocoModule} from '@ngneat/transloco'
-import {ScoreListModule} from "@ui/score-list/score-list.module";
+import {ScoreListModule} from '@ui/score-list/score-list.module'
 
 
 @NgModule({
