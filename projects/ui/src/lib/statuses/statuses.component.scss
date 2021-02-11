@@ -5,12 +5,14 @@
   margin: 0;
   list-style: none;
   display: flex;
+
   li {
     padding: $padding / 2 $padding;
     margin-left: $padding;
     margin-bottom: 0;
     font-weight: 100;
     line-height: 1.5;
+    white-space: nowrap;
   }
   &__has-solution {
     color: #14C77A;

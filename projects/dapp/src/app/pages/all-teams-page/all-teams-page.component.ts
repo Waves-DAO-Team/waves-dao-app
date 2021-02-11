@@ -1,8 +1,8 @@
 import {Component, Inject, OnDestroy} from '@angular/core'
 import {Location} from '@angular/common'
 import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
-import {ContractGrantAppModel, ContractGrantModel, TeamsScoreLinkModel,} from '@services/contract/contract.model'
-import {filter, map, takeUntil, tap} from 'rxjs/operators'
+import {ContractGrantAppModel, ContractGrantModel,} from '@services/contract/contract.model'
+import {filter, map, takeUntil} from 'rxjs/operators'
 import {Observable, Subject} from 'rxjs'
 import {ALL_TEAM, ALL_TEAM_PAGE_PROVIDERS} from './all-teams-page-routing.providers'
 import {ActivatedRoute} from '@angular/router'
@@ -44,19 +44,26 @@ export class AllTeamsPageComponent implements OnDestroy {
         let res: IScore.IUnit[] = []
 
         apps.forEach( app => {
+          console.log("+++", app)
 
-          let grantType: GrantTypesEnum = app.score && app.score.applicant && app.score.applicant.value
+          const grantType: GrantTypesEnum = app.score && app.score.applicant && app.score.applicant.value
             ? GrantTypesEnum.interhack
             : GrantTypesEnum.disruptive
 
+          const score = grantType === GrantTypesEnum.interhack
+            ? (app?.score?.applicant?.value || 0)
+            : (app?.score?.value || 0)
+
           let unit: IScore.IUnit = {
-            isWinner: false, // TODO:
-            isWinnerIcon: false, // TODO:
+            isWinner: app.process?.value ? true : false,
+            isWinnerIcon: true, // TODO:
             name: app.name.value,
             solutionLink: null, // TODO:
             status: {
-              isSolution: false, // TODO:
-              isRejected: false, // TODO:
+              isSolution:
+                grantType === GrantTypesEnum.interhack
+                && app?.solution?.value ? true : false,
+              isRejected: score < 1,
             },
             square: {
               score: grantType === GrantTypesEnum.interhack

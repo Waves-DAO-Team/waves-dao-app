@@ -1,21 +1,20 @@
 @import 'const';
 @import '~include-media/dist/_include-media.scss';
 
-
-
 @mixin mid() {
   &__mid-container {
     display: grid;
-    width: calc(100% - 155px);
+    //width: calc(100% - 155px);
+    //grid-template-columns: 1fr 1fr 1fr;
   }
   &__name {
     display: flex;
     align-items: center;
     font-weight: bold;
-    overflow: hidden;
+    //overflow: hidden;
     //padding-left: $padding;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    //white-space: nowrap;
     width: 95%;
     margin: 15px auto $padding / 2 0;
 
@@ -69,13 +68,29 @@
       border: 1px solid $color_waves_blue;
     }
 
+  &__winner {
+    min-width: 100px;
+    grid-template-columns: auto 1fr;
+    margin: 0 $padding * 2 0 0;
+    align-self: center;
+    justify-self: center;
+    line-height: 1;
+    color: $color_waves_blue;
+    img {
+      margin-bottom: -4px;
+    }
+    @include media('<desktop') {
+      display: none;
+    }
+  }
+
     @include mid();
 
     &__li {
       border: 1px solid $color_light_gray;
-      display: flex;
+      display: grid;
       margin-bottom: $padding;
-
+      grid-template-columns: auto 10fr auto;
       &__mid {
         align-items: flex-start;
         display: flex;
