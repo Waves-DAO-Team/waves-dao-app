@@ -10,8 +10,10 @@ import { ContractGrantAppModel } from '@services/contract/contract.model'
 export class SortBySolutionsPipe implements PipeTransform {
   transform (value: ContractGrantAppModel[], order: string = 'asc'): ContractGrantAppModel[] {
     console.log(order)
+
+    console.log('+++',value,  this.detectSortType(value))
     if (this.detectSortType(value) === 'team') {
-      value = _.sortBy(value, (e) => e?.score?.applicant?.value).reverse()
+      value = _.orderBy(value, ['score', 'applicant', 'value'], [order === 'desc' ? order : 'asc'])
     } else {
       value = _.sortBy(value, (e) => e?.score?.solution?.value).reverse()
     }
