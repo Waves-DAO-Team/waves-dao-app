@@ -436,7 +436,13 @@
     "exploreGrants": "Explore Grant",
     "fullGuide": "Full Guide",
     "learnMore": "Learn more",
-    "learnMoreLink": "https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles",
+    "rolesLink": "https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles",
+
+    "grantDisruptiveLink": "https://github.com/vlzhr/WavesDAO/blob/master/interhack-grants-about.md",
+    "grantWeb3Link": "https://github.com/vlzhr/WavesDAO/blob/master/web3-grants-about.md",
+    "grantInterhackLink": "https://github.com/vlzhr/WavesDAO/blob/master/interhack-grants-about.md",
+
+    "fullGuideLink": "https://github.com/vlzhr/WavesDAO#happy-path",
     "exploreGrantsTitle": "Explore Waves Grants",
     "disruptiveImage": "assets/img/disruptive-type-landing.png",
     "web3Image": "assets/img/web3-type-landing.png",
