@@ -11,9 +11,9 @@
         {{title$ | async}}
       </a>
     </div>
-    <ui-score-list
-      [list]="t$ | async"
-    ></ui-score-list>
+
+    <ui-score-list [list]="teams$ | async"></ui-score-list>
+
   </div>
   <div class="container__right">
   </div>

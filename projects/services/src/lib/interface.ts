@@ -23,5 +23,8 @@ export namespace IScore {
     isCanVote: boolean
     isShowResult: boolean
   }
+  export interface ISort {
+    by: 'team' | 'solution'
+  }
 }
 

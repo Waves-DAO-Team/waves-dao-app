@@ -1,6 +1,6 @@
 <ul class="score-list">
 
-    <li *ngFor="let el of list" [class.winner]="el.isWinner" class="score-list__li">
+    <li *ngFor="let el of list | sortByScore" [class.winner]="el.isWinner" class="score-list__li">
 
       <ui-voting-square
         [votes]="el.square.score"
