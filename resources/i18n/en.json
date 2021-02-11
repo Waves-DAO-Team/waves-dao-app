@@ -275,7 +275,8 @@
     "grant": {
       "statuses": {
         "has_solution": "HAS SOLUTION",
-        "rejected": "REJECTED"
+        "rejected": "REJECTED",
+        "approve": "APPROVE"
       },
       "status": {
         "proposed": {

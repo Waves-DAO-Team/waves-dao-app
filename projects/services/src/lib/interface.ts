@@ -16,6 +16,7 @@ export namespace IScore {
   export interface IStatus {
     isSolution: boolean
     isRejected: boolean
+    isApprove: boolean
   }
   export interface ISquare {
     score: number | string

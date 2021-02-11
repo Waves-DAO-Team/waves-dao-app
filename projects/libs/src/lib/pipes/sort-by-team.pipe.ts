@@ -13,7 +13,7 @@ export class SortByTeamPipe implements PipeTransform {
     value = _.orderBy(value, ['score', 'value'], [order === 'desc' ? order : 'asc'])
     value = _.sortBy(value, (e) => e?.score?.value).reverse()
 
-    console.log("+++", value)
+    // console.log("+++", value)
     // value = _.orderBy(value, ['square', 'value'], [order === 'desc' ? order : 'asc'])
     // value = _.orderBy(value, ['process', 'value'], [order === 'desc' ? order : 'asc'])
     return value
