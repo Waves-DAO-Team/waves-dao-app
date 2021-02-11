@@ -9,9 +9,10 @@ import { ContractGrantAppModel } from '@services/contract/contract.model'
 @Pipe({ name: 'sortByTeam' })
 export class SortByTeamPipe implements PipeTransform {
   transform (value: ContractGrantAppModel[], order: string = 'asc'): ContractGrantAppModel[] {
+    console.log(value)
     value = _.orderBy(value, ['votes', 'value'], [order === 'desc' ? order : 'asc'])
     value = _.orderBy(value, ['score', 'value'], [order === 'desc' ? order : 'asc'])
-    value = _.sortBy(value, (e) => e?.score?.value).reverse()
+    value = _.sortBy(value, (e) => e?.score?.value || 0).reverse()
 
     // console.log("+++", value)
     // value = _.orderBy(value, ['square', 'value'], [order === 'desc' ? order : 'asc'])
