@@ -1,8 +1,10 @@
 <div class="voting-square">
 
   <div class="voting-square__result" *ngIf="isShowResult || !isCanVote">
-    <div class="voting-square__result-votes-text mat-h5">{{'entity.votes' | transloco}}</div>
-    <div class="voting-square__result-votes">{{votes || 0}}</div>
+    <div class="voting-square__result-votes">
+      {{votes || 0}}
+      <div class="voting-square__result-votes-text mat-h5">{{'entity.score' | transloco}}</div>
+    </div>
   </div>
 
   <div class="voting-square__voting" *ngIf="!isShowResult && isCanVote">

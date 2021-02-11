@@ -215,6 +215,7 @@
     "learn_about_team": "Learn more about the team"
   },
   "entity": {
+    "score": "Score",
     "show_summary": "Show summary",
     "show_full_content": "Show full content",
     "see_all_teams": "SEE ALL TEAMS",
