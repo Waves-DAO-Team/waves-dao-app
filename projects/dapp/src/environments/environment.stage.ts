@@ -11,12 +11,12 @@ export const environment = {
     rest: 'https://nodes-testnet.wavesnodes.com',
     explorer: 'https://testnet.wavesexplorer.com/address/',
     management: {
-      membership: '3N2y3sffZ2uPQc5MtbCdSY1P7efBhz9BU4G'
+      membership: '3N97iacRapbKQMwDxobcwAvNk8WSb3TPwjx'
     },
     contracts: {
-      disruptive: '3N71MDc3kPD6cnbdWp6iEuDY8ghgZ9DiVan',
-      web3: '3N6QtvE15KN8rsW1jkBe1kz8xJHdmhNsYnG',
-      interhack: '3N2sQRGTRmL9NGZVVtzhfBEjEyVR7S9Mkum'
+      disruptive: '3N1vwPpGTfCSYkJxLkA47nYiyJSDPyeVDFD',
+      web3: '3Ms9uNDuJGQrtsFzhPUy4gHbHF2cHMSQQHB',
+      interhack: '3Mqn3vqCeTsYQgHyvh7GGseW25rC4U12AMj'
     },
     issues: {
       disruptive: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
