@@ -40,10 +40,14 @@
     </div>
 
     <ul *ngIf="grant?.app?.length > 0 && teamsAndSolutionsControls" class="team__list">
-      <ng-container *ngFor="let app of grant?.app">
-
+      <ng-container *ngFor="let app of grant?.app | sortBySolutions ">
         <li
-          [class.winner]="app?.process"
+          [class.winner]="
+            !multiWinners
+            &&  grantStatusEnum.solutionChosen === grant?.status?.value
+            && app?.process
+            && app?.id?.value === winnerSolutionId
+          "
           [class.disabled-team]="
            !teamsAndSolutionsControls.isShowAllTeam
            && (!(app?.votes?.applicant?.value) || app?.votes?.applicant?.value < 0)
@@ -66,7 +70,7 @@
           ></ui-voting-square>
           <ui-voting-square
             *ngIf="teamsAndSolutionsControls.stepType !== 'team'"
-            [votes]="app?.score.solution.value"
+            [votes]="app?.score?.solution?.value"
             [teamId]="app.id.value"
             [isCanVote]="
               !app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)
@@ -99,6 +103,14 @@
           <div class="team__list__li__right mat-display-2">
             <ng-container *ngIf="app.process && grant?.status.value === grantStatusEnum.workStarted">
               <img alt="winner" src="assets/icons/winner.png">{{'entity.approved' | transloco}}
+            </ng-container>
+            <ng-container *ngIf="
+              !multiWinners
+              && grantStatusEnum.solutionChosen === grant?.status?.value
+              && app?.process
+              && app?.id?.value === winnerSolutionId
+            ">
+              <img alt="winner" src="assets/icons/winner.png">{{'entity.winner' | transloco}}
             </ng-container>
           </div>
         </li>

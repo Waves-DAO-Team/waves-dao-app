@@ -35,7 +35,7 @@
       "approved": " ",
       "team_chosen": "The task performer was chosen by Association members. Waiting for the team <performerName> to start working on implementation.",
       "work_started": "The task performer was chosen by Association members. Team <performerName> has started working on implementation.",
-      "work_finished": "The task was successfully completed by <performerName> team. The work result is accessible at <reportLink>."
+      "work_finished": "The task was successfully completed by <performerName> team.<br><hr> The work result is accessible at <reportLink>."
     },
     "interhack": {
       "null": "Hackathon will start soon.",
@@ -52,6 +52,15 @@
       "work_started":"Teams are submitting their solutions. Later they will be judged by jury.",
       "solution_chosen": " ",
       "work_finished":"The hackathon is over. Winning team <winnerName> was chosen by jury and awarded with the transparent DAO model."
+    },
+    "web3": {
+      "null": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
+      "no_status": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
+      "voting_started": "The Working Group researched the application and recommended it to the Association. DAO Members are voting on it.",
+      "approved": "Project is approved by Association voting and will be granted.",
+      "work_started": "The team started implementing the task. Soon we will see the results.",
+      "rejected": "Project proposal was rejected by the Association. Details can be found on the Github page of the application.",
+      "work_finished": "The team completed the task and was granted by Waves Association."
     }
   },
   "modal": {
@@ -258,7 +267,6 @@
         },
         "false": {
           "text": "You already voted",
-          "subtext": "",
           "explorer": "Waves Explorer."
         }
       }

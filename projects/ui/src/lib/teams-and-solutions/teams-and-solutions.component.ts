@@ -19,6 +19,8 @@ export class TeamsAndSolutionsComponent {
   @Input() grant: ContractGrantModel | null = null
   @Input() titleText: string | null = null
   @Input() applyBtnText: string | null = null
+  @Input() multiWinners = false
+  @Input() winnerSolutionId: string | null = null
   @Output() openApplyModal = new EventEmitter<boolean>()
   @Output() newSignupEvent = new EventEmitter()
   @Output() newSubmitSolutionEvent = new EventEmitter()
