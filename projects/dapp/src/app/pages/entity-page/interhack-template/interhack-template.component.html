@@ -84,7 +84,8 @@
 </ng-template>
 
 <ui-entity
-  [contract]="contract" [grant]="grant"
+  [contract]="contract"
+  [grant]="grant"
   (newFinishVoteEvent)="finishVote()"
   (newStartWorkEvent)="startWork()"
   (newRejectEvent)="reject()"

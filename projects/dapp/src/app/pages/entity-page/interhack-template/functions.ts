@@ -27,11 +27,13 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
 
     // stepType
     if (
-      status === GrantStatusEnum.workStarted ||
-      status === GrantStatusEnum.proposed ||
-      status === GrantStatusEnum.readyToApply
-      // || status === GrantStatusEnum.workStarted
-
+      status === GrantStatusEnum.noStatus
+      || status === GrantStatusEnum.proposed
+      || status === GrantStatusEnum.readyToApply
+      // status === GrantStatusEnum.workStarted ||
+      // status === GrantStatusEnum.proposed ||
+      // status === GrantStatusEnum.readyToApply
+      // // || status === GrantStatusEnum.workStarted
     ) {
       result.stepType = 'team'
     } else {
