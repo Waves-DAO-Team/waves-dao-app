@@ -52,7 +52,7 @@
         ></ui-voting-square>
 
         <div class="team__list__li__mid">
-          <div class="team__list__li__mid__name mat-display-2">
+          <div class="team__list__li__mid__name mat-display-1" title="{{app?.name?.value}}">
             {{app?.name?.value}}
             <ui-statuses
               [isRejected]="isHasWinner && app?.score?.value < 0"

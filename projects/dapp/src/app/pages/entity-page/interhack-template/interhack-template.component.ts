@@ -70,9 +70,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     isVoteInProcess: false
   }
   grant$ = new Subject<ContractGrantModel>()
-//   status === GrantStatusEnum.workStarted
-// || status === GrantStatusEnum.workFinished
-// || status === GrantStatusEnum.solutionChosen
 
   isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(

@@ -10,7 +10,7 @@
       ></ui-voting-square>
 
       <div class="score-list__mid-container">
-        <div class="score-list__name">
+        <div class="score-list__name" title="{{el.name}}">
           {{el.name}}
           <ui-statuses [isHasSolution]="el.status.isSolution" [isRejected]="el.status.isRejected"></ui-statuses>
         </div>
