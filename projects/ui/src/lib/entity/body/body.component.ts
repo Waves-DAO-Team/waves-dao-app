@@ -55,7 +55,6 @@ export class BodyComponent implements AfterViewChecked {
 
       const scrollHeight = this.entityBodyElementRef.nativeElement.scrollHeight
       // const scrollHeight = this.elementRef.nativeElement.offsetHeight + 100
-      console.log('+++1',scrollHeight, scrollHeight > 480)
       if (this.mdHeight !== scrollHeight)
         {setTimeout(() => this.cdr.markForCheck(), 0)}
       this.mdHeight = scrollHeight
