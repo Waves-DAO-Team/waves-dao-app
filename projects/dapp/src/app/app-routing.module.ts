@@ -19,11 +19,6 @@ const routes: Routes = [
         loadChildren: () => import('./pages/landing-page/landing-page.module').then((m) => m.LandingPageModule),
         pathMatch: 'full'
       },
-      {
-        path: environment.routing.guide,
-        loadChildren: () => import('./pages/guide-page/guide-page.module').then((m) => m.GuidePageModule),
-        pathMatch: 'full'
-      },
       // {
       //   path: environment.routing.home,
       //   loadChildren: () => import('./pages/home-page/home-page.module').then((m) => m.HomePageModule),
