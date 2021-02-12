@@ -25,6 +25,12 @@ a {
   }
 }
 
+.button {
+  margin-bottom: $padding * 2;
+  margin-top: $padding * 2;
+  width: max-content;
+}
+
 .landing-page {
   &__title {
     font-size: $font_size_h1;
@@ -74,11 +80,6 @@ a {
 
     &-desc {
       margin-bottom: 0;
-    }
-
-    button {
-      margin-bottom: $padding * 2;
-      margin-top: $padding * 2;
     }
   }
 
@@ -189,8 +190,6 @@ a {
 
         &-button {
           margin: $padding * 2;
-          padding: $padding;
-          width: fit-content;
         }
       }
     }

@@ -1,5 +1,5 @@
 /* stylelint-disable */
-button {
+.button, button {
   background: none;
   border: 1px solid $color_light_gray;
   color: $color_black;
@@ -39,7 +39,7 @@ button {
   }
 }
 
-button.active {
+.button.active, button.active {
   background: $color_waves_blue;
   border: 1px solid $color_waves_blue;
   color: #fff;
@@ -50,7 +50,7 @@ button.active {
   }
 }
 
-button.secondary {
+.button.secondary, button.secondary {
   background: transparent;
   border: 1px solid $color_light_gray;
   color: $color_black;
@@ -61,7 +61,7 @@ button.secondary {
   }
 }
 
-button.full {
+.button.full, button.full {
   width: 100%;
   margin-left: 0 !important;
   text-align: center;
