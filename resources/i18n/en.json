@@ -38,20 +38,17 @@
       "work_finished": "The task was successfully completed by <performerName> team.<br><hr> The work result is accessible at <reportLink>."
     },
     "interhack": {
-      "null": "Hackathon will start soon.",
-      "no_status": "Hackathon will start soon.",
-      "proposed": "Grant was proposed and now is being voted by Association members. Current vote is <voteScore> with <votesAmount> members voted. We are waiting for a qorum to accept/decline the grant.",
-      "ready_to_apply": " ",
-      "collecting_requests": "Collecting applications from teams to participate in hackathon. Participants will be voted by Association members.",
-      "preparing": "",
-      "voting_has_started": "Association members are voting on teams applications. Hackathon will start soon.",
-      "requests_selection_over":"Teams participating in hackathon have been elected.  Hackathon will start soon.",
-      "work_begun":"The hackathon was started. Join Waves Association channels to stay updated.",
-      "requests_selection_start": "",
-      "solutions_selection_over":"Solutions are collected. Jury is making the decision.",
-      "work_started":"Teams are submitting their solutions. Later they will be judged by jury.",
-      "solution_chosen": " ",
-      "work_finished":"The hackathon is over. Winning team <winnerName> was chosen by jury and awarded with the transparent DAO model."
+      "null": "Hackathon was proposed by the Working Group. Details are discussed and will be published later.",
+      "no_status": "Hackathon was proposed by the Working Group. Details are discussed and will be published later.",
+      "proposed": "Hackathon task was proposed by the Working Group and is now voted by Association members. Current score is {{voteScore}} with {{voteAmount}} members voted so far.",
+      "ready_to_apply": "Hackathon was approved by the Association. Teams are welcome to apply for a hackathon to join the participants list.",
+      "ready_to_submit": "Team applications are closed. {{teamsAmount}} hackathon participants have been selected and are welcome to submit their solutions.",
+      "requests_selection_over": "Team applications are closed. {{teamsAmount}} hackathon participants have been selected and are welcome to submit their solutions.",
+      "work_begun": "Team applications are closed. {{teamsAmount}} hackathon participants have been selected and are welcome to submit their solutions.",
+      "work_started":"Team applications are closed. {{teamsAmount}} hackathon participants have been selected and are welcome to submit their solutions.",
+      "work_finished":"Submissions are closed. Solutions were collected from the participating teams and are now judged by jury.",
+      "solution_chosen": "Hackathon is over! Winning team {{winnerIdentifier}} was chosen. Their solution was rewarded.",
+      "rejected":"Task was rejected during the Association voting. It was declined by {{voteAmount}} members voted with the result score {{voteScore}}."
     },
     "web3": {
       "null": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
