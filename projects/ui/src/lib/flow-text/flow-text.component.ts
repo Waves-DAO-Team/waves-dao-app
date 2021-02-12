@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy } from '@angular/core'
 import { map, takeUntil } from 'rxjs/operators'
 import {ActivatedRoute} from '@angular/router'
-import {GrantTypesEnum} from '@services/static/static.model'
+import {GrantStatusEnum, GrantTypesEnum} from '@services/static/static.model'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {ContractGrantModel} from '@services/contract/contract.model'
@@ -12,6 +12,8 @@ import {ContractGrantModel} from '@services/contract/contract.model'
   styleUrls: ['./flow-text.component.scss']
 })
 export class FlowTextComponent implements OnDestroy {
+
+  public readonly grantStatusEnum = GrantStatusEnum
 
   @Input() isShowStatus = false
   @Input() isShowFlow = false
@@ -36,18 +38,9 @@ export class FlowTextComponent implements OnDestroy {
       map(
         ([grantType, status, grant]) => {
           const data = {
-            status: status ? translate('listing.status.' + status) : '',
-            flow: '',
+            status: translate(`listing.status.${status}`, this.prepareData(grant)),
+            flow: translate(`flow.${grantType}.${status}`, this.prepareData(grant))
           }
-          if(grantType === GrantTypesEnum.web3){
-            data.flow = translate('flow.web3.' + status)
-          } else if (grantType === GrantTypesEnum.disruptive) {
-            data.flow = translate('flow.disruptive.' + status)
-          } else {
-            data.flow = translate('flow.interhack.' + status)
-          }
-          if (grant && grant.id)
-            {data.flow = this.prepareData(data.flow, grant)}
           return data
         }
       )
@@ -60,12 +53,13 @@ export class FlowTextComponent implements OnDestroy {
   constructor (public route: ActivatedRoute) {
   }
 
-  ngOnDestroy (): void {
-    this.destroyed$.next(null)
-  }
-
-  private prepareData (flow: string, grant: ContractGrantModel): string {
-    // <voteScore> <votesAmount> <performerName> <reportLink> <winnerName>
+  private prepareData (grant: ContractGrantModel): {
+    voteScore: string,
+    votesAmount: string,
+    performerName: string,
+    reportLink: string,
+    winnerName: string,
+  } {
     let voteScore = 0
     let votesAmount = 0
     if (grant.voted) {
@@ -86,13 +80,17 @@ export class FlowTextComponent implements OnDestroy {
     if (grant.report?.value) {
       reportLink = grant.report?.value
     }
-    flow = flow.replace('<voteScore>', voteScore.toString())
-    flow = flow.replace('<votesAmount>', votesAmount.toString())
-    flow = flow.replace('<performerName>', performerName)
-    flow = flow.replace('<reportLink>', reportLink)
-    flow = flow.replace('<winnerName>', performerName)
+    return {
+      voteScore: voteScore.toString(),
+      votesAmount: votesAmount.toString(),
+      performerName,
+      reportLink,
+      winnerName: performerName
+    }
+  }
 
-    return flow
+  ngOnDestroy (): void {
+    this.destroyed$.next(null)
   }
 
 }

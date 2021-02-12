@@ -5,7 +5,10 @@ export const getTranslocoModule = (options: TranslocoTestingOptions = {}): Trans
   langs: { en },
   translocoConfig: {
     availableLangs: ['en'],
-    defaultLang: 'en'
+    defaultLang: 'en',
+    missingHandler: {
+      logMissingKey: false
+    }
   },
   ...options
 })
