@@ -4,13 +4,13 @@
     <div class="user-contacts__address">{{ address }}</div>
   </div>
   <div class="user-contacts__right-container">
-    <a class="user-contacts__link" *ngIf="user?.facebook" [attr.href]="user?.facebook">
+    <a class="user-contacts__link" *ngIf="user?.facebook" [attr.href]="user?.facebook | linkHttp">
       <img class="user-contacts__icon" src="assets/icons/social/facebook.svg" alt="facebook">
     </a>
-    <a class="user-contacts__link" *ngIf="user?.linkedin" [attr.href]="user?.linkedin">
+    <a class="user-contacts__link" *ngIf="user?.linkedin" [attr.href]="user?.linkedin | linkHttp">
       <img class="user-contacts__icon" src="assets/icons/social/linkedin.svg" alt="linkedin">
     </a>
-    <a class="user-contacts__link" *ngIf="user?.twitter" [attr.href]="user?.twitter">
+    <a class="user-contacts__link" *ngIf="user?.twitter" [attr.href]="user?.twitter | linkHttp">
       <img class="user-contacts__icon" src="assets/icons/social/twitter.svg" alt="twitter">
     </a>
   </div>

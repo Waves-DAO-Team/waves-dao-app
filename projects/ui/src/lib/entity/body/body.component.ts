@@ -38,8 +38,10 @@ export class BodyComponent implements AfterViewChecked {
     return this.mdTemp
   }
 
-  constructor (public cdr: ChangeDetectorRef) {
-  }
+  constructor (
+    public cdr: ChangeDetectorRef,
+    private elementRef: ElementRef
+  ) { }
 
 
   toggleFullMD (): void {
@@ -50,12 +52,15 @@ export class BodyComponent implements AfterViewChecked {
 
   ngAfterViewChecked (): void {
     if (this.entityBodyElementRef) {
+
       const scrollHeight = this.entityBodyElementRef.nativeElement.scrollHeight
+      // const scrollHeight = this.elementRef.nativeElement.offsetHeight + 100
       if (this.mdHeight !== scrollHeight)
         {setTimeout(() => this.cdr.markForCheck(), 0)}
       this.mdHeight = scrollHeight
-      if (this.mdHeight > 800)
-        {this.isShowFullMDBtn = true}
+      if (this.mdHeight > 480) {
+        this.isShowFullMDBtn = true
+      }
     }
   }
 

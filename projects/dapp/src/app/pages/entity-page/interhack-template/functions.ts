@@ -27,11 +27,13 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
 
     // stepType
     if (
-      status === GrantStatusEnum.workStarted ||
-      status === GrantStatusEnum.proposed ||
-      status === GrantStatusEnum.readyToApply
-      // || status === GrantStatusEnum.workStarted
-
+      status === GrantStatusEnum.noStatus
+      || status === GrantStatusEnum.proposed
+      || status === GrantStatusEnum.readyToApply
+      // status === GrantStatusEnum.workStarted ||
+      // status === GrantStatusEnum.proposed ||
+      // status === GrantStatusEnum.readyToApply
+      // // || status === GrantStatusEnum.workStarted
     ) {
       result.stepType = 'team'
     } else {
@@ -47,7 +49,14 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
     if (user.roles.isAuth && status === GrantStatusEnum.workStarted) {
       result.isSubmitSolutionBtn = true
       grant.app.forEach((app) => {
+        const id = app.leader.value
+        const score = app?.score?.applicant?.value || 0
         if (app.solution && app.solution.key.includes(user.userAddress.slice(-15))) {
+          result.isSubmitSolutionBtn = false
+        } else if (
+          id === user.userAddress
+          && score < 1
+        ) {
           result.isSubmitSolutionBtn = false
         }
       })

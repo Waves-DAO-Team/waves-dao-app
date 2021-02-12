@@ -1,4 +1,7 @@
 <div class="flow-text" *ngIf="(content$ | async) as content">
   <div class="flow-text__status mat-h4" *ngIf="isShowStatus">{{content.status}}</div>
-  <div class="flow-text__text mat-h5" *ngIf="isShowFlow">{{content.flow}}</div>
+  <div
+    class="flow-text__text mat-h5"
+    [innerHTML]="content.flow | safe: 'html'"
+    *ngIf="isShowFlow"></div>
 </div>

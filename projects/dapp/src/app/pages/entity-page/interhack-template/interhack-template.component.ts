@@ -70,9 +70,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     isVoteInProcess: false
   }
   grant$ = new Subject<ContractGrantModel>()
-//   status === GrantStatusEnum.workStarted
-// || status === GrantStatusEnum.workFinished
-// || status === GrantStatusEnum.solutionChosen
 
   isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -92,26 +89,68 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       })
     )
 
-  public titleText$: Observable<string> = combineLatest([this.grant$, this.isStopSubmissionsBtn$])
+  squareFakeBlockVoting$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
-      map(([grant, isStopSubmissions]): boolean => {
+      map(([user, grant]) => {
+        console.log(user)
+        return grant
+      }),
+      map((grant) => {
+        const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+        let isVoteForSolution = false
+        if (grant.app) {
+          grant.app.forEach((app) => {
+            if (app.solution) {
+              isVoteForSolution = true
+            }
+          })
+        }
+        return isVoteForSolution && isStatusMatch
+      })
+    )
+
+  isEnableSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => {
+        if (grant && grant.app) {
+          let isVoteForTeam = false
+          grant.app.forEach((app) => {
+            if (app && app.voted && app.votes) {
+              isVoteForTeam = true
+            }
+          })
+          const isTeamApply = grant.app.length > 0
+          const isRole = user.roles.isWG
+          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
+          return isVoteForTeam && isTeamApply && isRole && isStatusMatch
+        } else {
+          return false
+        }
+      })
+    )
+
+  public titleText$: Observable<string> = combineLatest([this.grant$])
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([grant]): boolean => {
         const grantStatus = grant?.status?.value || GrantStatusEnum.noStatus
         if (
           (
             grantStatus === GrantStatusEnum.noStatus
             || grantStatus === GrantStatusEnum.proposed
             || grantStatus === GrantStatusEnum.readyToApply
-            || grantStatus === GrantStatusEnum.workStarted
           )
-          && !isStopSubmissions
         ) {
           return true
         } else {
           return false
         }
       }),
-      map((e: boolean): string => e ? translate('entity.applied_teams') : translate('entity.solutions'))
+      map((e: boolean): string => e
+        ? translate('entity.applied_teams')
+        : translate('entity.solutions'))
     )
 
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
@@ -196,27 +235,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
           const isStatusMatch = grant?.status?.value === this.grantStatusEnum.proposed
           const isWG = user.roles.isWG
           return isAmount && isWG && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
-
-  isEnableSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        if (grant && grant.app) {
-          let isVoteForTeam = false
-          grant.app.forEach((app) => {
-            if (app && app.voted && app.votes) {
-              isVoteForTeam = true
-            }
-          })
-          const isTeamApply = grant.app.length > 0
-          const isRole = user.roles.isWG
-          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
-          return isVoteForTeam && isTeamApply && isRole && isStatusMatch
         } else {
           return false
         }

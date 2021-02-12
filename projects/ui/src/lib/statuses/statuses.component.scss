@@ -5,12 +5,14 @@
   margin: 0;
   list-style: none;
   display: flex;
+
   li {
     padding: $padding / 2 $padding;
     margin-left: $padding;
     margin-bottom: 0;
     font-weight: 100;
     line-height: 1.5;
+    white-space: nowrap;
   }
   &__has-solution {
     color: #14C77A;
@@ -19,5 +21,9 @@
   &__rejected {
     color: #FF3D19;
     background: rgba(255, 61, 25, 0.12);
+  }
+  &__approve {
+    color: $color_waves_blue;
+    background: lighten($color_waves_blue, 40%);
   }
 }

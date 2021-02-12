@@ -1,67 +1,53 @@
 @import 'const';
 @import '~include-media/dist/_include-media.scss';
 
-@mixin link($color: $color_waves_blue, $fontWeight: 500) {
-  //margin: auto auto 0 auto;
-  color: $color;
-  font-weight: $fontWeight;
-  overflow: hidden;
-  padding-left: $padding;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 95%;
-
-  img {
-    padding-left: $padding / 2;
-  }
-}
-
 @mixin mid() {
   &__mid-container {
     display: grid;
-    width: calc(100% - 155px);
+    //width: calc(100% - 155px);
+    //grid-template-columns: 1fr 1fr 1fr;
   }
-
   &__name {
-    align-items: center;
     display: flex;
+    align-items: center;
     font-weight: bold;
     //overflow: hidden;
     //padding-left: $padding;
     text-overflow: ellipsis;
     //white-space: nowrap;
     width: 95%;
-  }
+    margin: 15px auto $padding / 2 0;
 
+    padding-left: $padding * 2;
+  }
   &__mid-container-bottom {
+    min-height: 45px;
+    max-height: 45px;
     display: flex;
     flex-direction: row;
-    max-height: 45px;
-    min-height: 45px;
-    @include media('<desktop') {
-      display: block;
-    }
 
     > a {
       padding-top: $padding / 3;
     }
+    @include media('<desktop') {
+      display: block;
+    }
   }
 
-  &__link,
-  &__solution-link {
-    color: #05f;
+  &__link,  &__solution-link {
     font-weight: 500;
-    line-height: 1;
-    margin: 0;
-    margin-right: $padding * 1.5;
-    padding-left: 14px;
-    position: relative;
+    padding-left: $padding * 2;
     white-space: nowrap;
+    color: #05f;
+    margin: 0;
+    line-height: 1;
+    position: relative;
+    margin-right: $padding * 1.5;
 
     @include media('<tablet') {
-      display: block;
       max-width: 70%;
       overflow: hidden;
+      display: block;
       text-overflow: ellipsis;
     }
 
@@ -73,32 +59,7 @@
   }
 }
 
-.team {
-
-  @include mid();
-  margin-bottom: $padding;
-
-  &__header {
-    align-items: center;
-    display: flex;
-    margin-bottom: 20px;
-  }
-
-  &__controls {
-    display: flex;
-    flex-direction: row;
-
-    button {
-      margin-left: $padding;
-    }
-  }
-
-  &__title {
-    flex: 1 1 auto;
-    margin-bottom: 0;
-  }
-
-  &__list {
+.score-list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -107,12 +68,29 @@
       border: 1px solid $color_waves_blue;
     }
 
+  &__winner {
+    min-width: 100px;
+    grid-template-columns: auto 1fr;
+    margin: 0 $padding * 2 0 0;
+    align-self: center;
+    justify-self: center;
+    line-height: 1;
+    color: $color_waves_blue;
+    img {
+      margin-bottom: -4px;
+    }
+    @include media('<desktop') {
+      display: none;
+    }
+  }
+
+    @include mid();
+
     &__li {
       border: 1px solid $color_light_gray;
-      display: flex;
+      display: grid;
       margin-bottom: $padding;
-
-
+      grid-template-columns: auto 10fr auto;
       &__mid {
         align-items: flex-start;
         display: flex;
@@ -128,16 +106,16 @@
         color: $color_waves_blue;
         display: flex;
         justify-content: center;
-        margin: 0;
         max-width: 100px;
         min-width: 100px;
         padding-right: $padding * 2;
+        margin: 0;
+        @media (max-width: 1200px) {
+          display: none;
+        }
 
         img {
           margin-right: $padding / 2;
-        }
-        @media (max-width: 1200px) {
-          display: none;
         }
       }
 
@@ -145,9 +123,5 @@
         margin-bottom: 0;
       }
     }
-  }
-}
 
-.disabled-team {
-  display: none;
 }

@@ -1,0 +1,47 @@
+<ul class="score-list">
+
+    <li *ngFor="let el of list | sortByScore" [class.winner]="el.isWinner" class="score-list__li">
+
+      <ui-voting-square
+        [votes]="el.square.score"
+        [teamId]="el.square.id"
+        [isCanVote]="el.square.isCanVote"
+        [isShowResult]="el.square.isShowResult"
+      ></ui-voting-square>
+
+      <div class="score-list__mid-container">
+        <div class="score-list__name" title="{{el.name}}">
+          {{el.name}}
+          <ui-statuses
+            [isHasSolution]="el.status.isSolution"
+            [isRejected]="el.status.isRejected"
+            [isApprove]="el.status.isApprove"
+          ></ui-statuses>
+        </div>
+        <div class="score-list__mid-container-bottom">
+          <a
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+            class="score-list__link mat-display-1"
+            *ngIf="el?.teamLink" [href]="el?.teamLink | linkHttp">
+            {{'entity.learn_about_team' | transloco}}
+            <img alt="link" src="assets/icons/link.svg">
+          </a>
+          <a
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+            class="score-list__solution-link mat-display-1"
+            *ngIf="el?.solutionLink" [href]="el?.solutionLink | linkHttp">
+            {{'entity.learn_about_solution' | transloco}}
+            <img alt="link" src="assets/icons/link.svg">
+          </a>
+        </div>
+      </div>
+
+      <div class="score-list__winner mat-display-2" *ngIf="el.isWinner && el.isWinnerIcon">
+        <img alt="winner" src="assets/icons/winner.png">
+        {{'entity.winner' | transloco}}
+      </div>
+
+    </li>
+</ul>

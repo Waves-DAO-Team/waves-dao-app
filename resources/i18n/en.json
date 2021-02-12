@@ -28,19 +28,19 @@
     "disruptive": {
       "null": "Grant idea was proposed to the Members. The reward amount will be decided later.",
       "no_status": "Grant idea was proposed to the Members. The reward amount will be decided later.",
-      "proposed": "Grant was proposed and now is being voted by Association members. Current vote is <voteScore> with <votesAmount> members voted. We are waiting for a qorum to accept/decline the grant.",
+      "proposed": "Grant was proposed and now is being voted by Association members. Current vote is {{voteScore}} with {{votesAmount}} members voted. We are waiting for a qorum to accept/decline the grant.",
       "ready_to_apply": "Grant is open for team applications. If you feel ready to implement the task, fill the form and send the application.",
-      "rejected": "Grant was rejected by the Association members. After voting the score is <voteScore>.",
+      "rejected": "Grant was rejected by the Association members. After voting the score is {{voteScore}}.",
       "voting_started": " ",
       "approved": " ",
-      "team_chosen": "The task performer was chosen by Association members. Waiting for the team <performerName> to start working on implementation.",
-      "work_started": "The task performer was chosen by Association members. Team <performerName> has started working on implementation.",
-      "work_finished": "The task was successfully completed by <performerName> team.<br><hr> The work result is accessible at <reportLink>."
+      "team_chosen": "The task performer was chosen by Association members. Waiting for the team {{performerName}} to start working on implementation.",
+      "work_started": "The task performer was chosen by Association members. Team {{performerName}} has started working on implementation.",
+      "work_finished": "The task was successfully completed by {{performerName}} team. The work result is accessible at <a target='_blank' rel='noopener nofollow noreferrer' href='{{reportLink}}'>link</a>."
     },
     "interhack": {
       "null": "Hackathon was proposed by the Working Group. Details are discussed and will be published later.",
       "no_status": "Hackathon was proposed by the Working Group. Details are discussed and will be published later.",
-      "proposed": "Hackathon task was proposed by the Working Group and is now voted by Association members. Current score is {{voteScore}} with {{voteAmount}} members voted so far.",
+      "proposed": "Hackathon task was proposed by the Working Group and is now voted by Association members. Current score is {{voteScore}} with {{votesAmount}} members voted so far.",
       "ready_to_apply": "Hackathon was approved by the Association. Teams are welcome to apply for a hackathon to join the participants list.",
       "ready_to_submit": "Team applications are closed. {{teamsAmount}} hackathon participants have been selected and are welcome to submit their solutions.",
       "requests_selection_over": "Team applications are closed. {{teamsAmount}} hackathon participants have been selected and are welcome to submit their solutions.",
@@ -48,7 +48,7 @@
       "work_started":"Team applications are closed. {{teamsAmount}} hackathon participants have been selected and are welcome to submit their solutions.",
       "work_finished":"Submissions are closed. Solutions were collected from the participating teams and are now judged by jury.",
       "solution_chosen": "Hackathon is over! Winning team {{winnerIdentifier}} was chosen. Their solution was rewarded.",
-      "rejected":"Task was rejected during the Association voting. It was declined by {{voteAmount}} members voted with the result score {{voteScore}}."
+      "rejected":"Task was rejected during the Association voting. It was declined by {{votesAmount}} members voted with the result score {{voteScore}}."
     },
     "web3": {
       "null": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
@@ -190,9 +190,6 @@
           "work_started": {
             "undefined":""
           },
-          "work_finished": {
-            "undefined":""
-          },
           "team_chosen": {
             "undefined":""
           },
@@ -222,9 +219,6 @@
           "work_started": {
             "undefined":""
           },
-          "work_finished": {
-            "undefined":""
-          },
           "team_chosen": {
             "undefined":""
           },
@@ -252,9 +246,6 @@
             "undefined":""
           },
           "work_started": {
-            "undefined":""
-          },
-          "work_finished": {
             "undefined":""
           },
           "team_chosen": {
@@ -461,7 +452,7 @@
       "proposed": "Open",
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
-      "team_chosen": "Wating for team approval",
+      "team_chosen": "Waiting for team approval",
       "solution_chosen": "Solution selected",
       "work_started": "In work",
       "work_finished": "Finished",
@@ -487,6 +478,7 @@
     "learn_about_team": "Learn more about the team"
   },
   "entity": {
+    "score": "Score",
     "show_summary": "Show summary",
     "show_full_content": "Show full content",
     "see_all_teams": "SEE ALL TEAMS",
@@ -546,7 +538,8 @@
     "grant": {
       "statuses": {
         "has_solution": "HAS SOLUTION",
-        "rejected": "REJECTED"
+        "rejected": "REJECTED",
+        "approve": "APPROVE"
       },
       "status": {
         "proposed": {

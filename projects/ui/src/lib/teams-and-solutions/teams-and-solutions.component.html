@@ -54,7 +54,6 @@
         "
           class="team__list__li"
         >
-
           <ui-voting-square
             *ngIf="teamsAndSolutionsControls.stepType === 'team'"
             [votes]="app?.score?.applicant?.value"
@@ -69,20 +68,22 @@
             (voteEvent)="newVoteTeamEvent.emit($event)"
           ></ui-voting-square>
           <ui-voting-square
-            *ngIf="teamsAndSolutionsControls.stepType !== 'team'"
+            *ngIf="teamsAndSolutionsControls.stepType === 'solution'"
             [votes]="app?.score?.solution?.value"
             [teamId]="app.id.value"
             [isCanVote]="
               !app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)
               && grantStatusEnum.solutionChosen !== grant?.status?.value
               && grantStatusEnum.rejected !== grant?.status?.value
+              && !squareFakeBlockVoting
+              && app?.solution?.value
             "
             [isShowResult]="!user.roles.isDAO || app?.voted?.solution?.value.includes(userService.data.getValue().userAddress)"
             (voteEvent)="newVoteForSolutionEvent.emit($event)"
           ></ui-voting-square>
 
           <div class="team__mid-container">
-            <div class="team__name">
+            <div class="team__name mat-display-1"  title="{{app?.name?.value}}">
               {{app?.name?.value}}
               <ui-statuses
                 [isHasSolution]="app?.solution?.value"
@@ -90,20 +91,28 @@
               ></ui-statuses>
             </div>
             <div class="team__mid-container-bottom">
-              <a class="team__link mat-display-1" [href]="app?.link?.value">
+              <a
+                target="_blank"
+                rel="noopener nofollow noreferrer"
+                class="team__link mat-display-1"
+                [href]="app?.link?.value | linkHttp">
                 {{'entity.learn_about_team' | transloco}}
                 <img alt="link" src="assets/icons/link.svg">
               </a>
-              <a class="team__solution-link mat-display-1" *ngIf="app?.solution?.value" [href]="app?.solution?.value">
+              <a
+                target="_blank"
+                rel="noopener nofollow noreferrer"
+                class="team__solution-link mat-display-1"
+                *ngIf="app?.solution?.value" [href]="app?.solution?.value | linkHttp">
                 {{'entity.learn_about_solution' | transloco}}
                 <img alt="link" src="assets/icons/link.svg">
               </a>
             </div>
           </div>
           <div class="team__list__li__right mat-display-2">
-            <ng-container *ngIf="app.process && grant?.status.value === grantStatusEnum.workStarted">
-              <img alt="winner" src="assets/icons/winner.png">{{'entity.approved' | transloco}}
-            </ng-container>
+<!--            <ng-container *ngIf="app.process && grant?.status.value === grantStatusEnum.workStarted">-->
+<!--              <img alt="winner" src="assets/icons/winner.png">{{'entity.approved' | transloco}}-->
+<!--            </ng-container>-->
             <ng-container *ngIf="
               !multiWinners
               && grantStatusEnum.solutionChosen === grant?.status?.value

@@ -10,6 +10,7 @@ import {getTranslocoModule} from '@dapp/src/app/transloco-module.spec'
 import {RouterTestingModule} from '@angular/router/testing'
 import {StorageService} from '@services/storage/storage.service'
 import {provideApi, provideAppConstants} from '@constants'
+import {ScoreListModule} from '@ui/score-list/score-list.module'
 
 describe('AllTeamsPageComponent', () => {
   let component: AllTeamsPageComponent
@@ -17,7 +18,7 @@ describe('AllTeamsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatSnackBarModule, TagModule, getTranslocoModule(), RouterTestingModule],
+      imports: [HttpClientTestingModule, MatSnackBarModule, TagModule, getTranslocoModule(), RouterTestingModule, ScoreListModule],
       declarations: [ AllTeamsPageComponent ],
       providers: [
         StorageService,

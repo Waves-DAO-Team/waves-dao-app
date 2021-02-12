@@ -19,6 +19,7 @@ import { SubmitSolutionModule } from '@ui/modals/submit-solution/submit-solution
 import {AllTeamsBtnModule} from '@ui/all-teams-btn/all-teams-btn.module'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import {FlowTextModule} from '@ui/flow-text/flow-text.module'
+import {ScoreListModule} from '@ui/score-list/score-list.module'
 
 @NgModule({
   declarations: [ EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
@@ -38,6 +39,7 @@ import {FlowTextModule} from '@ui/flow-text/flow-text.module'
     SubmitSolutionModule,
     StepperModule,
     FlowTextModule,
+    ScoreListModule
   ]
 })
 export class EntityPageModule { }

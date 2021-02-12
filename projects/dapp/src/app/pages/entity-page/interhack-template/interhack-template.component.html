@@ -43,6 +43,7 @@
     [grant]="grant"
     [winnerSolutionId]="winnerSolutionId"
     [multiWinners]="multiWinners$ | async"
+    [squareFakeBlockVoting]="squareFakeBlockVoting$ | async"
     [teamsAndSolutionsControls]="teamsAndSolutionsControls$ | async"
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"
@@ -84,7 +85,8 @@
 </ng-template>
 
 <ui-entity
-  [contract]="contract" [grant]="grant"
+  [contract]="contract"
+  [grant]="grant"
   (newFinishVoteEvent)="finishVote()"
   (newStartWorkEvent)="startWork()"
   (newRejectEvent)="reject()"
