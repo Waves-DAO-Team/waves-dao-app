@@ -9,6 +9,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
 import {provideApi, provideAppConstants} from '@constants'
 import {MatTabsModule} from '@angular/material/tabs'
 import {NoopAnimationsModule} from '@angular/platform-browser/animations'
+import {LinkContentModule} from '@services/link-content/link-content.module'
 
 describe('LandingPageComponent', () => {
   let component: LandingPageComponent
@@ -23,7 +24,8 @@ describe('LandingPageComponent', () => {
         PipesModule,
         MatSnackBarModule,
         MatTabsModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        LinkContentModule
       ],
       providers: [
         provideAppConstants(),
