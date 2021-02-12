@@ -5,7 +5,7 @@ import {GrantStatusEnum, GrantTypesEnum} from '@services/static/static.model'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {ContractGrantModel} from '@services/contract/contract.model'
-import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
+import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
 
 @Component({
   selector: 'ui-flow-text',
@@ -87,11 +87,11 @@ export class FlowTextComponent implements OnDestroy {
       reportLink = this.linkHttpPipe.transform(grant.report?.value)
     }
 
-    let teamsAmount = (grant.app?.length || 0).toString()
+    const teamsAmount = (grant.app?.length || 0).toString()
 
     let winnerIdentifier = ''
     grant.app?.forEach( app => {
-      if (app.process?.value === "winner") {
+      if (app.process?.value === 'winner') {
         winnerIdentifier = app.id.value
       }
     })

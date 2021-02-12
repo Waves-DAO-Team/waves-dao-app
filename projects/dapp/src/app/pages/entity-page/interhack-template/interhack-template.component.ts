@@ -92,7 +92,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   squareFakeBlockVoting$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
-      map(([user, grant]) => grant),
+      map(([user, grant]) => {
+        console.log(user)
+        return grant
+      }),
       map((grant) => {
         const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
         let isVoteForSolution = false

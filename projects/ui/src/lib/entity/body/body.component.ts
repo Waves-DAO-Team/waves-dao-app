@@ -40,7 +40,7 @@ export class BodyComponent implements AfterViewChecked {
 
   constructor (
     public cdr: ChangeDetectorRef,
-    private elementRef:ElementRef
+    private elementRef: ElementRef
   ) { }
 
 

@@ -8,6 +8,7 @@ import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { ListingModule } from '@ui/listing/listing.module'
+import {PipesModule} from "@libs/pipes/pipes.module";
 
 describe('DefaultTemplateComponent', () => {
   let component: DefaultTemplateComponent
@@ -16,6 +17,7 @@ describe('DefaultTemplateComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        PipesModule,
         MatDialogModule,
         HttpClientTestingModule,
         getTranslocoModule(),

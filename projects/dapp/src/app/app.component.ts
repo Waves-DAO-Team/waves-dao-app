@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { IconService } from '@services/icon-service/icon-service.service'
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -16,9 +16,9 @@ export class AppComponent implements OnInit {
 
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
-        return;
+        return
       }
       window.scrollTo(0, 0)
-    });
+    })
   }
 }
