@@ -47,7 +47,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   private user$ = this.userService.data
     .pipe(
       takeUntil(this.destroyed$),
-      filter( () => this.inputGrant?.id !== undefined)
+      filter(() => this.inputGrant?.id !== undefined)
     )
     .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
 
@@ -117,9 +117,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
-      map((grants: ContractGrantModel): ContractGrantAppModel[]  => grants?.app || []),
+      map((grants: ContractGrantModel): ContractGrantAppModel[] => grants?.app || []),
       map((app: ContractGrantAppModel[]) => !!app.find((a) => !!a.process))
-  )
+    )
 
   @Input() set grant (data: ContractGrantModel) {
     if (data !== this.inputGrant) {
@@ -168,6 +168,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
 
   openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: ApplyComponent,
         params: {
@@ -175,10 +177,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
           submitCallBack: (data: SubmitCallBackApplyArg) => {
             this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
               .pipe(take(1))
-              .subscribe(() => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+              .subscribe()
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }
@@ -206,6 +207,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
 
   acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AcceptWorkResultComponent,
         params: {
@@ -213,10 +216,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
             this.disruptiveContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
-              .subscribe(() => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+              .subscribe()
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }
@@ -232,6 +234,8 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
 
   addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AddRewardComponent,
         params: {

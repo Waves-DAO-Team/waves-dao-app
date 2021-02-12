@@ -25,6 +25,7 @@ export class RewardDirective {
     res = this.numberWithSpaces(res)
     res = this.fractionalGuard(res)
     res = this.positionGuard(str, res)
+    res = this.isNan(res)
     return res
   }
 

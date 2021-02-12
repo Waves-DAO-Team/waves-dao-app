@@ -178,6 +178,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract, OnDestr
 
   openApplyModal (): void {
     this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: ApplyComponent,
         params: {
@@ -210,6 +212,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract, OnDestr
 
   acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AcceptWorkResultComponent,
         params: {
@@ -233,6 +237,8 @@ export class Web3TemplateComponent implements TemplateComponentAbstract, OnDestr
 
   addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AddTaskDetailsComponent,
         params: {

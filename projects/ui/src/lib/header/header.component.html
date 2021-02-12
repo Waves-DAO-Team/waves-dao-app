@@ -1,7 +1,7 @@
 <header >
   <div class="container" *ngIf="userRole$ | async as userRole">
-    <div class="logo" [routerLink]="['/']" >
-      <img alt="logo" src="/assets/icons/logo-dao.svg">
+    <div class="logo" >
+      <img alt="logo" src="/assets/icons/logo-dao.svg" (click)="isToggleMenuOpen = false" [routerLink]="['/']">
       <div id="menu-toggle" [class.open]="isToggleMenuOpen" (click)="isToggleMenuOpen = !isToggleMenuOpen">
         <div id="hamburger">
           <span></span>
@@ -18,12 +18,17 @@
 
       <li *ngFor="let contract of contractsList$ | async"
           class="mat-display-2"
+          (click)="isToggleMenuOpen = false"
           [routerLink]="[constants.routes.listing | route : contract.name ]"
           routerLinkActive="active">
           {{ contract.navigation }}
       </li>
 
-      <li class="mat-display-2" [routerLink]="[constants.routes.members | route]" routerLinkActive="active">
+      <li
+        class="mat-display-2"
+        (click)="isToggleMenuOpen = false"
+        [routerLink]="[constants.routes.members | route]"
+        routerLinkActive="active">
         {{ 'app.header.members' | transloco }}
       </li>
 
@@ -54,10 +59,10 @@
           </div>
 
         </div>
-        <img alt="logout" src="assets/icons/logout.svg" (click)="logoutHandler()">
+        <img alt="logout" src="assets/icons/logout.svg" (click)="logoutHandler(); isToggleMenuOpen = false">
       </li>
       <li *ngIf="userRole === roleEnum.unauthorized" class="profile mat-display-2">
-        <button (click)="signupHandler()">
+        <button (click)="signupHandler(); isToggleMenuOpen = false">
           {{ 'app.header.login' | transloco }}
           <img alt="logout" src="assets/icons/arr-right.svg">
         </button>

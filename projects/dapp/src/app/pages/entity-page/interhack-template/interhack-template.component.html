@@ -41,6 +41,8 @@
 
   <ui-teams-and-solutions
     [grant]="grant"
+    [winnerSolutionId]="winnerSolutionId"
+    [multiWinners]="multiWinners$ | async"
     [teamsAndSolutionsControls]="teamsAndSolutionsControls$ | async"
     (newSignupEvent)="signup()"
     (newOpenApplyModalEvent)="openApplyModal()"

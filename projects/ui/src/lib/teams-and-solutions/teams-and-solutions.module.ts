@@ -5,6 +5,7 @@ import {TranslocoModule} from '@ngneat/transloco'
 import {StatusesModule} from '@ui/statuses/statuses.module'
 import {MatTooltipModule} from '@angular/material/tooltip'
 import {VotingSquareModule} from '@ui/voting-square/voting-square.module'
+import {PipesModule} from '@libs/pipes/pipes.module'
 
 @NgModule({
   declarations: [TeamsAndSolutionsComponent],
@@ -13,8 +14,8 @@ import {VotingSquareModule} from '@ui/voting-square/voting-square.module'
     CommonModule,
     TranslocoModule,
     StatusesModule,
-    VotingSquareModule
-
+    VotingSquareModule,
+    PipesModule,
   ],
   exports: [TeamsAndSolutionsComponent]
 })

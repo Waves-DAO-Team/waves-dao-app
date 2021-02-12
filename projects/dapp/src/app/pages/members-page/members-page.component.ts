@@ -42,9 +42,12 @@ export class MembersPageComponent {
 
   openAddDAOModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AddMemberComponent,
         params: {
+
           title: translate('modal.texts.add_member'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
@@ -60,6 +63,8 @@ export class MembersPageComponent {
 
   openAddWGModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
       data: {
         component: AddMemberComponent,
         params: {

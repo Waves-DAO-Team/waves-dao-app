@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-
 import { VotingSquareComponent } from './voting-square.component'
+import {getTranslocoModule} from '@dapp/src/app/transloco-module.spec'
 
 describe('VotingSquareComponent', () => {
   let component: VotingSquareComponent
@@ -8,7 +8,9 @@ describe('VotingSquareComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VotingSquareComponent ]
+      declarations: [ VotingSquareComponent ],
+      imports: [getTranslocoModule()]
+
     })
     .compileComponents()
   })

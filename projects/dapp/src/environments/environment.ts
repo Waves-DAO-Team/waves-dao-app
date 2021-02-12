@@ -15,6 +15,7 @@ export const environment = {
       membership: '3MwRzi2BmqZZXWrCGCwcRQLsnic2Aod6zhS'
     },
     contracts: {
+
       disruptive: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
       web3: '3MtV1AQ8fEPk76tjKgvrufuMe5aA3q4TviQ',
       interhack: '3MutoJzdTrUrDBhCu1qU6FRgAADLadZEL9D'

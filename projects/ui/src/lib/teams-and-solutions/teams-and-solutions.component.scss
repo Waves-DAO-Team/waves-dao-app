@@ -1,14 +1,16 @@
 @import 'const';
+@import '~include-media/dist/_include-media.scss';
 
 @mixin link($color: $color_waves_blue, $fontWeight: 500) {
+  //margin: auto auto 0 auto;
+  color: $color;
   font-weight: $fontWeight;
   overflow: hidden;
   padding-left: $padding;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 95%;
-  //margin: auto auto 0 auto;
-  color: $color;
+
   img {
     padding-left: $padding / 2;
   }
@@ -19,36 +21,53 @@
     display: grid;
     width: calc(100% - 155px);
   }
+
   &__name {
-    display: flex;
     align-items: center;
+    display: flex;
     font-weight: bold;
+    margin: 15px auto $padding / 2 0;
     overflow: hidden;
+
+    padding-left: $padding;
     //padding-left: $padding;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 95%;
-    margin: 15px auto $padding / 2 auto;
   }
+
   &__mid-container-bottom {
-    min-height: 45px;
-    max-height: 45px;
     display: flex;
     flex-direction: row;
+    max-height: 45px;
+    min-height: 45px;
+    @include media('<desktop') {
+      display: block;
+    }
+
     > a {
       padding-top: $padding / 3;
     }
   }
 
-  &__link,  &__solution-link {
-    font-weight: 500;
-    padding-left: 14px;
-    white-space: nowrap;
+  &__link,
+  &__solution-link {
     color: #05f;
-    margin: 0;
+    font-weight: 500;
     line-height: 1;
-    position: relative;
+    margin: 0;
     margin-right: $padding * 1.5;
+    padding-left: 14px;
+    position: relative;
+    white-space: nowrap;
+
+    @include media('<tablet') {
+      display: block;
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     img {
       position: absolute;
       right: -22px;
@@ -58,6 +77,8 @@
 }
 
 .team {
+
+  @include mid();
   margin-bottom: $padding;
 
   &__header {
@@ -69,6 +90,7 @@
   &__controls {
     display: flex;
     flex-direction: row;
+
     button {
       margin-left: $padding;
     }
@@ -78,8 +100,6 @@
     flex: 1 1 auto;
     margin-bottom: 0;
   }
-
-  @include mid();
 
   &__list {
     list-style: none;
@@ -111,13 +131,16 @@
         color: $color_waves_blue;
         display: flex;
         justify-content: center;
+        margin: 0;
         max-width: 100px;
         min-width: 100px;
         padding-right: $padding * 2;
-        margin: 0;
 
         img {
           margin-right: $padding / 2;
+        }
+        @media (max-width: 1200px) {
+          display: none;
         }
       }
 

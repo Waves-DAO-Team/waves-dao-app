@@ -78,6 +78,11 @@ export interface ContractGrantAppModel {
       type: string
       value: number
     }
+    solution?: {
+      key: string
+      type: string
+      value: number
+    }
   }
   voted: {
     key: string
@@ -133,6 +138,16 @@ export interface ContractGrantRawModel extends ContractGrantCommonModel {
   app?: {[s: string]: ContractGrantAppModel}
 }
 
+export interface GrantParams {
+  amount?: string,
+  score?: string,
+  count?: string,
+  max?: string,
+  min?: string
+  label?: string
+  important?: boolean
+}
+
 export interface ContractGrantModel extends ContractGrantCommonModel {
   app?: ContractGrantAppModel[]
   id?: ContractRawDataEntityId
@@ -141,7 +156,7 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   leader?: ContractRawDataString
   isShowAppliers?: boolean
   report?: ContractRawDataString,
-  label?: string
+  label?: GrantParams
 }
 
 export interface ContractGrantExtendedModel extends ContractGrantModel {

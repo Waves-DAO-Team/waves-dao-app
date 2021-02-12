@@ -16,7 +16,7 @@
     "controls": {
       "createGrant": "Create grant",
       "addReward": "Add reward",
-      "proposeGrant": "Request grant",
+      "proposeGrant": "Apply for grant",
       "finishProposeGrant": "Submit to vote",
       "setting": "Setting"
     }
@@ -35,7 +35,7 @@
       "approved": " ",
       "team_chosen": "The task performer was chosen by Association members. Waiting for the team <performerName> to start working on implementation.",
       "work_started": "The task performer was chosen by Association members. Team <performerName> has started working on implementation.",
-      "work_finished": "The task was successfully completed by <performerName> team. The work result is accessible at <reportLink>."
+      "work_finished": "The task was successfully completed by <performerName> team.<br><hr> The work result is accessible at <reportLink>."
     },
     "interhack": {
       "null": "Hackathon will start soon.",
@@ -52,6 +52,15 @@
       "work_started":"Teams are submitting their solutions. Later they will be judged by jury.",
       "solution_chosen": " ",
       "work_finished":"The hackathon is over. Winning team <winnerName> was chosen by jury and awarded with the transparent DAO model."
+    },
+    "web3": {
+      "null": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
+      "no_status": "Project was proposed by the applying team. The Working Group will research it and give feedback.",
+      "voting_started": "The Working Group researched the application and recommended it to the Association. DAO Members are voting on it. Current vote is {{voteScore}} with {{votesAmount}} members voted.",
+      "approved": "Project is approved by Association voting and will be granted.",
+      "work_started": "The team started implementing the task. Soon we will see the results.",
+      "rejected": "Project proposal was rejected by the Association. Details can be found on the Github page of the application.",
+      "work_finished": "The team completed the task and was granted by Waves Association."
     }
   },
   "modal": {
@@ -105,9 +114,11 @@
     "board": "Association Board"
   },
   "stepper": {
+    "grant_propesed": "Grant proposed",
     "collecting_requests": "Collecting requests",
     "preparing": "Preparing",
     "voting_has_started": "Voting has started",
+    "collecting_applications": "Collecting applications",
     "requests_selection_over": "Requests selection is over",
     "work_begun": "The work has begun",
     "requests_selection_start": "Collecting applications",
@@ -127,28 +138,58 @@
       "waves": "WAVES"
     },
     "labels": {
-      "disruptive" : {
+      "interhack" : {
         "unauthorized": {
-          "ready_to_apply": "You can apply"
-        },
-        "workingGroup": {
-          "undefined": "Need choose reward"
-        },
-        "DAOMember": {
-          "proposed": "Need vote"
+          "ready_to_apply": {
+            "undefined": "You can apply. {{count}} applications"
+          }
         }
       },
-      "need_vote": "Need vote",
-      "vote_counted": "Your vote has been counted"
+      "web3" : {
+        "unauthorized": {
+
+        }
+      },
+      "disruptive" : {
+        "unauthorized": {
+          "ready_to_apply": {
+            "undefined": "You can apply. {{count}} applications"
+          }
+        },
+        "authorized": {
+          "ready_to_apply": {
+            "undefined": "{{count}} applications",
+            "false": "You can apply. {{count}} applications",
+            "true": "You have submitted an application. Please wait until the application deadline"
+          }
+        },
+        "workingGroup": {
+          "ready_to_apply": {
+            "undefined": "{{count}} applications "
+          },
+          "team_chosen" : {
+            "undefined": "Awaiting team decision. Perhaps we need to notify them"
+          },
+          "undefined": {
+            "undefined": "We need to determine the reward"
+          }
+        },
+        "DAOMember": {
+          "ready_to_apply": {
+            "undefined": "{{count}} applications "
+          },
+          "proposed": {
+            "false": "Your vote has been counted",
+            "true": "Need vote"
+          }
+        }
+      }
     },
     "status": {
       "proposed": "Open",
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
-      "team_chosen": "Looking for a team",
-
-      "team_choosen": "Looking for team",
-
+      "team_chosen": "Wating for team approval",
       "solution_chosen": "Solution selected",
       "work_started": "In work",
       "work_finished": "Finished",
@@ -226,7 +267,6 @@
         },
         "false": {
           "text": "You already voted",
-          "subtext": "Here is transtaction in ",
           "explorer": "Waves Explorer."
         }
       }

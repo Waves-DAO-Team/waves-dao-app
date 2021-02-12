@@ -39,7 +39,9 @@ export class FlowTextComponent implements OnDestroy {
             status: status ? translate('listing.status.' + status) : '',
             flow: '',
           }
-          if (grantType === GrantTypesEnum.disruptive || grantType === GrantTypesEnum.web3) {
+          if(grantType === GrantTypesEnum.web3){
+            data.flow = translate('flow.web3.' + status)
+          } else if (grantType === GrantTypesEnum.disruptive) {
             data.flow = translate('flow.disruptive.' + status)
           } else {
             data.flow = translate('flow.interhack.' + status)
@@ -81,18 +83,15 @@ export class FlowTextComponent implements OnDestroy {
       })
     }
     let reportLink = ''
-    if (grant.app) {
-      grant.app.forEach( app => {
-        if (app.report && app.report.value) {
-          reportLink = app.report.value
-        }
-      })
+    if (grant.report?.value) {
+      reportLink = grant.report?.value
     }
     flow = flow.replace('<voteScore>', voteScore.toString())
     flow = flow.replace('<votesAmount>', votesAmount.toString())
     flow = flow.replace('<performerName>', performerName)
     flow = flow.replace('<reportLink>', reportLink)
     flow = flow.replace('<winnerName>', performerName)
+
     return flow
   }
 

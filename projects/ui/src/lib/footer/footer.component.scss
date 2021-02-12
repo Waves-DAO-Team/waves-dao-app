@@ -2,6 +2,7 @@
 @import 'container';
 @import '~include-media/dist/_include-media.scss';
 @import 'mixins/elements/btn-container';
+@import 'mixins/typography';
 
 .container {
   @include container();
@@ -78,7 +79,7 @@ hr {
   padding: 0;
 }
 
-@include media('<=tablet') {
+@include media('<=phone') {
   .footer {
     .container__mid {
       flex-direction: column-reverse;

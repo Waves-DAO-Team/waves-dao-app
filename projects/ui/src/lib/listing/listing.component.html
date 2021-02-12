@@ -4,18 +4,20 @@
 
       <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
         <ui-sub-list
+                *ngIf="importantGrantList$ | async as importantGrantList"
                 [contract]="contract$ | async"
                 [type]="'active'"
                 [isImportant]="true"
                 [title]="'listing.list.important' | transloco"
-                [grants]="(importantGrantList$ | async)"
+                [grants]="importantGrantList"
         ></ui-sub-list>
         <ui-sub-list
+                *ngIf="otherGrantList$ | async as otherGrantList"
                 [type]="'default'"
                 [contract]="contract$ | async"
                 [isImportant]="false"
                 [title]="'listing.list.grants' | transloco"
-                [grants]="(otherGrantList$ | async)"
+                [grants]="otherGrantList"
         ></ui-sub-list>
       </div>
       <ng-template #loadingOrErrorTemplate>
