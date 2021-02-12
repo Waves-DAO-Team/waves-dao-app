@@ -63,6 +63,8 @@ export class FlowTextComponent implements OnDestroy {
     performerName: string,
     reportLink: string,
     winnerName: string,
+    teamsAmount: string,
+    winnerIdentifier: string
   } {
     let voteScore = 0
     let votesAmount = 0
@@ -84,12 +86,24 @@ export class FlowTextComponent implements OnDestroy {
     if (grant.report?.value) {
       reportLink = this.linkHttpPipe.transform(grant.report?.value)
     }
+
+    let teamsAmount = (grant.app?.length || 0).toString()
+
+    let winnerIdentifier = ''
+    grant.app?.forEach( app => {
+      if (app.process?.value === "winner") {
+        winnerIdentifier = app.id.value
+      }
+    })
+
     return {
       voteScore: voteScore.toString(),
       votesAmount: votesAmount.toString(),
       performerName,
       reportLink,
-      winnerName: performerName
+      winnerName: performerName,
+      teamsAmount,
+      winnerIdentifier
     }
   }
 
