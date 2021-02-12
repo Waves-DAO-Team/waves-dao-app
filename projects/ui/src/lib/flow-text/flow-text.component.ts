@@ -5,6 +5,7 @@ import {GrantStatusEnum, GrantTypesEnum} from '@services/static/static.model'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {ContractGrantModel} from '@services/contract/contract.model'
+import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
 
 @Component({
   selector: 'ui-flow-text',
@@ -12,6 +13,8 @@ import {ContractGrantModel} from '@services/contract/contract.model'
   styleUrls: ['./flow-text.component.scss']
 })
 export class FlowTextComponent implements OnDestroy {
+
+  private linkHttpPipe: LinkHttpPipe = new LinkHttpPipe()
 
   public readonly grantStatusEnum = GrantStatusEnum
 
@@ -78,7 +81,7 @@ export class FlowTextComponent implements OnDestroy {
     }
     let reportLink = ''
     if (grant.report?.value) {
-      reportLink = grant.report?.value
+      reportLink = this.linkHttpPipe.transform(grant.report?.value)
     }
     return {
       voteScore: voteScore.toString(),

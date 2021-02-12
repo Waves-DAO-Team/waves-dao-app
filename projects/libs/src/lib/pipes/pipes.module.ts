@@ -6,6 +6,7 @@ import { PriceFormattingPipe } from '@libs/pipes/price-formatting'
 import {SortBySolutionsPipe} from '@libs/pipes/sort-by-solutions.pipe'
 import {SortByScorePipe} from '@libs/pipes/sort-by-score.pipe'
 import {SafeHtmPipe} from "@libs/pipes/safe-html.pipe";
+import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {SafeHtmPipe} from "@libs/pipes/safe-html.pipe";
     SortBySolutionsPipe,
     SortByScorePipe,
     PriceFormattingPipe,
-    SafeHtmPipe
+    SafeHtmPipe,
+    LinkHttpPipe
   ],
   imports: [CommonModule],
   exports: [
@@ -27,7 +29,8 @@ import {SafeHtmPipe} from "@libs/pipes/safe-html.pipe";
     SortBySolutionsPipe,
     SortByScorePipe,
     PriceFormattingPipe,
-    SafeHtmPipe
+    SafeHtmPipe,
+    LinkHttpPipe
   ]
 })
 export class PipesModule {}
