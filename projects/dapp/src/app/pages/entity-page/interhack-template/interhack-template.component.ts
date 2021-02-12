@@ -89,6 +89,24 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       })
     )
 
+  squareFakeBlockVoting$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([user, grant]) => grant),
+      map((grant) => {
+        const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
+        let isVoteForSolution = false
+        if (grant.app) {
+          grant.app.forEach((app) => {
+            if (app.solution) {
+              isVoteForSolution = true
+            }
+          })
+        }
+        return isVoteForSolution && isStatusMatch
+      })
+    )
+
   isEnableSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
@@ -430,7 +448,6 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   }
 
   voteForSolution ($event: VoteTeamEventInterface): void {
-    console.log('+++voteForSolution', this.grant?.id, $event.teamIdentifier, $event.voteValue)
     if (this.grant?.id) {
       this.disruptiveContractService.voteForSolution(
         this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()

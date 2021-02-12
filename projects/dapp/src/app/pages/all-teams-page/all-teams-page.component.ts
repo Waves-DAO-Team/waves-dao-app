@@ -44,7 +44,6 @@ export class AllTeamsPageComponent implements OnDestroy {
         const res: IScore.IUnit[] = []
 
         apps.forEach( app => {
-          console.log('+++', app)
 
           const grantType: GrantTypesEnum = app.score && app.score.applicant && app.score.applicant.value
             ? GrantTypesEnum.interhack

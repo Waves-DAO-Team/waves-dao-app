@@ -20,6 +20,7 @@ export class TeamsAndSolutionsComponent {
   @Input() titleText: string | null = null
   @Input() applyBtnText: string | null = null
   @Input() multiWinners = false
+  @Input() squareFakeBlockVoting = true
   @Input() winnerSolutionId: string | null = null
   @Output() openApplyModal = new EventEmitter<boolean>()
   @Output() newSignupEvent = new EventEmitter()

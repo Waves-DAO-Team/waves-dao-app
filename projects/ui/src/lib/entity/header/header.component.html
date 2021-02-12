@@ -17,7 +17,10 @@
       {{'entity.reward' | transloco}}: <span>{{reward | PriceFormatting}} {{'listing.header.waves' | transloco}} </span>
     </div>
     <div class="card-header-entity__bottom-right">
-      <a class="link" target="_blank" [href]="link"> {{'listing.header.view_github' | transloco | linkHttp}} <img alt="link" src="assets/icons/link.svg"></a>
+      <a class="link" target="_blank" [href]="link | linkHttp">
+        {{'listing.header.view_github' | transloco}}
+        <img alt="link" src="assets/icons/link.svg">
+      </a>
     </div>
   </div>
 </div>
