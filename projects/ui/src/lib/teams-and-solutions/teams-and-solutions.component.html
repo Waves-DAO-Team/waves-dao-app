@@ -91,11 +91,19 @@
               ></ui-statuses>
             </div>
             <div class="team__mid-container-bottom">
-              <a class="team__link mat-display-1" [href]="app?.link?.value | linkHttp">
+              <a
+                target="_blank"
+                rel="noopener nofollow noreferrer"
+                class="team__link mat-display-1"
+                [href]="app?.link?.value | linkHttp">
                 {{'entity.learn_about_team' | transloco}}
                 <img alt="link" src="assets/icons/link.svg">
               </a>
-              <a class="team__solution-link mat-display-1" *ngIf="app?.solution?.value" [href]="app?.solution?.value | linkHttp">
+              <a
+                target="_blank"
+                rel="noopener nofollow noreferrer"
+                class="team__solution-link mat-display-1"
+                *ngIf="app?.solution?.value" [href]="app?.solution?.value | linkHttp">
                 {{'entity.learn_about_solution' | transloco}}
                 <img alt="link" src="assets/icons/link.svg">
               </a>
