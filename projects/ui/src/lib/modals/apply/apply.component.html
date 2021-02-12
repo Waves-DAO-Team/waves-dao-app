@@ -8,7 +8,7 @@
     </div>
     <div class="modal-content__text">
       {{'modal.texts.please_submit' | transloco}}
-      <a [href]="api.grantsProgramLink" target="_blank">{{'modal.texts.issue_on_githubt' | transloco}}</a>.
+      <a [href]="api.grantsProgramLink | linkHttp" target="_blank">{{'modal.texts.issue_on_githubt' | transloco}}</a>.
       <br/>
       {{'modal.texts.hint_link' | transloco}}
     </div>
@@ -42,7 +42,7 @@
           <input type="text" class="inputText" formControlName="link" required />
           <span class="floating-label">{{'modal.form.link' | transloco}}</span>
           <div class="sub-text">
-            {{'modal.texts.please_submit' | transloco}} <a [href]="api.grantsProgramLink" target="_blank" rel="noopener nofollow noreferrer">
+            {{'modal.texts.please_submit' | transloco}} <a [href]="api.grantsProgramLink | linkHttp" target="_blank" rel="noopener nofollow noreferrer">
             {{'modal.texts.issue_on_githubt' | transloco}}</a> {{'modal.texts.paste_link' | transloco}}.
           </div>
         </div>

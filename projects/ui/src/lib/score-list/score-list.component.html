@@ -23,7 +23,7 @@
             {{'entity.learn_about_team' | transloco}}
             <img alt="link" src="assets/icons/link.svg">
           </a>
-          <a class="score-list__solution-link mat-display-1" *ngIf="el?.solutionLink" [href]="el?.solutionLink">
+          <a class="score-list__solution-link mat-display-1" *ngIf="el?.solutionLink" [href]="el?.solutionLink | linkHttp">
             {{'entity.learn_about_solution' | transloco}}
             <img alt="link" src="assets/icons/link.svg">
           </a>

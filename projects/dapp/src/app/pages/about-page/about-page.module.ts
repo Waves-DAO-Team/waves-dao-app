@@ -7,6 +7,7 @@ import { TranslocoModule } from '@ngneat/transloco'
 import { MarkdownModule } from 'ngx-markdown'
 import { NotFoundPageModule } from '@pages/not-found-page/not-found-page.module'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
+import {PipesModule} from "@libs/pipes/pipes.module";
 
 @NgModule({
   declarations: [AboutPageComponent],
@@ -16,7 +17,8 @@ import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
     TranslocoModule,
     MarkdownModule,
     NotFoundPageModule,
-    LoadingPageModule
+    LoadingPageModule,
+    PipesModule,
   ]
 })
 export class AboutPageModule { }

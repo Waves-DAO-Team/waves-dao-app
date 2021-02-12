@@ -58,7 +58,11 @@
               [isRejected]="isHasWinner && app?.score?.value < 0"
             ></ui-statuses>
           </div>
-          <a class="team__list__li__mid__link  mat-display-1" [href]="app?.link?.value" target="_blank" rel="noopener nofollow noreferrer">
+          <a
+            class="team__list__li__mid__link mat-display-1"
+            [href]="app?.link?.value | linkHttp"
+            target="_blank"
+            rel="noopener nofollow noreferrer">
             {{'entity.learn_about_team' | transloco}} <img alt="link" src="assets/icons/link.svg">
           </a>
         </div>
