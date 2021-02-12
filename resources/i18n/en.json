@@ -35,7 +35,7 @@
       "approved": " ",
       "team_chosen": "The task performer was chosen by Association members. Waiting for the team {{performerName}} to start working on implementation.",
       "work_started": "The task performer was chosen by Association members. Team {{performerName}} has started working on implementation.",
-      "work_finished": "The task was successfully completed by {{performerName}} team. The work result is accessible at <a target='_blank' href='{{reportLink}}'>link</a>."
+      "work_finished": "The task was successfully completed by {{performerName}} team. The work result is accessible at <a target='_blank' rel='noopener nofollow noreferrer' href='{{reportLink}}'>link</a>."
     },
     "interhack": {
       "null": "Hackathon will start soon.",
