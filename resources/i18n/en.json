@@ -111,7 +111,7 @@
     "board": "Association Board"
   },
   "stepper": {
-    "grant_propesed": "Grant propesed",
+    "grant_propesed": "Grant proposed",
     "collecting_requests": "Collecting requests",
     "preparing": "Preparing",
     "voting_has_started": "Voting has started",
@@ -137,23 +137,250 @@
     "labels": {
       "interhack" : {
         "unauthorized": {
+          "undefined": {
+            "undefined": ""
+          },
           "ready_to_apply": {
             "undefined": "You can apply. {{count}} applications"
+          },
+          "solution_chosen": {
+            "undefined":""
+          },
+          "rejected": {
+            "undefined":""
+          },
+          "work_finished": {
+            "undefined":""
+          },
+          "proposed": {
+            "undefined":""
+          },
+          "work_started": {
+            "undefined":""
+          },
+          "work_finished": {
+            "undefined":""
+          },
+          "team_chosen": {
+            "undefined":""
+          },
+          "ready_to_submit": {
+            "undefined":""
+          }
+        },
+        "authorized": {
+          "undefined": {
+            "undefined": ""
+          },
+          "ready_to_apply": {
+            "undefined": ""
+          },
+          "solution_chosen": {
+            "undefined":""
+          },
+          "rejected": {
+            "undefined":""
+          },
+          "work_finished": {
+            "undefined":""
+          },
+          "proposed": {
+            "undefined":""
+          },
+          "work_started": {
+            "undefined":""
+          },
+          "team_chosen": {
+            "undefined":""
+          },
+          "ready_to_submit": {
+            "undefined":""
+          }
+        },
+        "workingGroup": {
+          "undefined": {
+            "undefined": ""
+          },
+          "ready_to_apply": {
+            "undefined": ""
+          },
+          "solution_chosen": {
+            "undefined":""
+          },
+          "rejected": {
+            "undefined":""
+          },
+          "work_finished": {
+            "undefined":""
+          },
+          "proposed": {
+            "undefined":""
+          },
+          "work_started": {
+            "undefined":""
+          },
+          "team_chosen": {
+            "undefined":""
+          },
+          "ready_to_submit": {
+            "undefined":""
+          }
+        },
+        "DAOMember": {
+          "undefined": {
+            "undefined": ""
+          },
+          "ready_to_apply": {
+            "undefined": ""
+          },
+          "solution_chosen": {
+            "undefined":""
+          },
+          "rejected": {
+            "undefined":""
+          },
+          "work_finished": {
+            "undefined":""
+          },
+          "proposed": {
+            "undefined":""
+          },
+          "work_started": {
+            "undefined":""
+          },
+          "team_chosen": {
+            "undefined":""
+          },
+          "ready_to_submit": {
+            "undefined":""
           }
         }
       },
       "web3" : {
         "unauthorized": {
-
+          "work_finished": {
+            "undefined": ""
+          },
+          "work_started": {
+            "undefined": ""
+          },
+          "voting_started": {
+            "undefined": ""
+          },
+          "rejected": {
+            "undefined": ""
+          },
+          "approved": {
+            "undefined": ""
+          }
+        },
+        "authorized": {
+          "work_finished": {
+            "undefined": ""
+          },
+          "work_started": {
+            "undefined": ""
+          },
+          "voting_started": {
+            "undefined": ""
+          },
+          "rejected": {
+            "undefined": ""
+          },
+          "approved": {
+            "undefined": ""
+          }
+        },
+        "workingGroup": {
+          "work_finished": {
+            "undefined": ""
+          },
+          "work_started": {
+            "undefined": ""
+          },
+          "voting_started": {
+            "undefined": ""
+          },
+          "rejected": {
+            "undefined": ""
+          },
+          "approved": {
+            "undefined": ""
+          }
+        },
+        "DAOMember": {
+          "work_finished": {
+            "undefined": ""
+          },
+          "work_started": {
+            "undefined": ""
+          },
+          "voting_started": {
+            "undefined": ""
+          },
+          "rejected": {
+            "undefined": ""
+          },
+          "approved": {
+            "undefined": ""
+          }
         }
       },
       "disruptive" : {
         "unauthorized": {
+          "work_finished": {
+            "undefined": ""
+          },
+          "work_started": {
+            "undefined": ""
+          },
+          "undefined": {
+            "undefined": ""
+          },
+          "voting_started": {
+            "undefined": ""
+          },
+          "rejected": {
+            "undefined": ""
+          },
+          "approved": {
+            "undefined": ""
+          },
+          "team_chosen": {
+            "undefined": ""
+          },
+          "proposed": {
+            "undefined": ""
+          },
           "ready_to_apply": {
             "undefined": "You can apply. {{count}} applications"
           }
         },
         "authorized": {
+          "work_finished": {
+            "undefined": ""
+          },
+          "work_started": {
+            "undefined": ""
+          },
+          "undefined": {
+            "undefined": ""
+          },
+          "voting_started": {
+            "undefined": ""
+          },
+          "rejected": {
+            "undefined": ""
+          },
+          "approved": {
+            "undefined": ""
+          },
+          "team_chosen": {
+            "undefined": ""
+          },
+          "proposed": {
+            "undefined": ""
+          },
           "ready_to_apply": {
             "undefined": "{{count}} applications",
             "false": "You can apply. {{count}} applications",
@@ -161,6 +388,24 @@
           }
         },
         "workingGroup": {
+          "work_finished": {
+            "undefined": ""
+          },
+          "work_started": {
+            "undefined": ""
+          },
+          "voting_started": {
+            "undefined": ""
+          },
+          "rejected": {
+            "undefined": ""
+          },
+          "approved": {
+            "undefined": ""
+          },
+          "proposed": {
+            "undefined": ""
+          },
           "ready_to_apply": {
             "undefined": "{{count}} applications "
           },
@@ -178,6 +423,27 @@
           "proposed": {
             "false": "Your vote has been counted",
             "true": "Need vote"
+          },
+          "work_finished": {
+            "undefined": ""
+          },
+          "work_started": {
+            "undefined": ""
+          },
+          "undefined": {
+            "undefined": ""
+          },
+          "voting_started": {
+            "undefined": ""
+          },
+          "rejected": {
+            "undefined": ""
+          },
+          "approved": {
+            "undefined": ""
+          },
+          "team_chosen": {
+            "undefined": ""
           }
         }
       }
@@ -186,7 +452,7 @@
       "proposed": "Open",
       "ready_to_apply": "Ready to apply",
       "rejected": "Rejected",
-      "team_chosen": "Looking for a team",
+      "team_chosen": "Waiting for team approval",
       "solution_chosen": "Solution selected",
       "work_started": "In work",
       "work_finished": "Finished",
