@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { DIALOG_DATA } from '@ui/dialog/dialog.tokens'
 import { ReactiveFormsModule } from '@angular/forms'
-import {PipesModule} from "@libs/pipes/pipes.module";
+import {PipesModule} from '@libs/pipes/pipes.module'
 
 describe('ApplyComponent', () => {
   let component: ApplyComponent
