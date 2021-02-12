@@ -10,6 +10,10 @@
   @include container();
 }
 
+a {
+  color: unset;
+}
+
 .bg-gray {
   background-color: rgba(231, 231, 235, 0.55); //$color_light_gray with opacity 55%
   background-size: 100% 100%;
@@ -19,6 +23,12 @@
   img {
     margin-left: $padding / 2;
   }
+}
+
+.button {
+  margin-bottom: $padding * 2;
+  margin-top: $padding * 2;
+  width: max-content;
 }
 
 .landing-page {
@@ -35,11 +45,12 @@
 
 
     @include media('<=phone') {
-      //font-size: 6.5vh;
       font-size: $font_size_h2;
       font-weight: 600;
-      max-width: 90%;
+      line-height: 1.2;
+      max-width: 80%;
       padding-top: $padding * 3;
+      text-align: center;
     }
   }
 
@@ -69,11 +80,6 @@
 
     &-desc {
       margin-bottom: 0;
-    }
-
-    button {
-      margin-bottom: $padding * 2;
-      margin-top: $padding * 2;
     }
   }
 
@@ -184,8 +190,6 @@
 
         &-button {
           margin: $padding * 2;
-          padding: $padding;
-          width: fit-content;
         }
       }
     }
@@ -230,6 +234,10 @@
           margin-bottom: 0;
           margin-top: $padding;
           text-align: center;
+
+          @include media('<=phone') {
+            height: auto;
+          }
         }
 
         &-desc {
@@ -272,6 +280,7 @@
 
       @include media('<=phone') {
         flex-direction: column;
+        padding: $padding;
       }
 
       &-card {
@@ -284,6 +293,7 @@
 
         @include media('<=phone') {
           margin-top: $padding;
+          width: 100%;
         }
 
         @include media('>phone', '<tablet') {
@@ -303,10 +313,6 @@
         &-desc {
           margin-bottom: 25px;
         }
-        //
-        //&-button {
-        //
-        //}
 
         &-image {
           width: 500px;
@@ -345,8 +351,11 @@
 
     &-tabs {
       padding: $padding * 3;
-
       z-index: 0;
+
+      @include media('<=phone') {
+        padding: $padding;
+      }
 
       ::ng-deep .mat-tab {
         &-group {
@@ -354,6 +363,19 @@
           margin-right: auto;
           width: 100%;
 
+        }
+
+        &-header-pagination {
+          @include media('<=phone') {
+            display: none;
+          }
+        }
+
+        &-label {
+          @include media('<=phone') {
+            height: auto;
+            padding: $padding / 2;
+          }
         }
 
         &-labels {
@@ -365,6 +387,12 @@
           margin-right: auto;
           width: 100%;
         }
+
+        //&-label {
+        //  @include media('<=phone'){
+        //    padding: 0;
+        //  }
+        //}
 
         &-label-active {
           background-color: $color_white;
