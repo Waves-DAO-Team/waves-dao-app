@@ -1,6 +1,6 @@
 <div class="entity-body">
 
-  <div class="entity-body__md" #entityBody [class.entity-body__summary]="!isShowFullMD">
+  <div class="entity-body__md" #entityBody [class.entity-body__summary]="!isShowFullMD && isShowFullMDBtn">
     <markdown [data]="md"></markdown>
   </div>
 
