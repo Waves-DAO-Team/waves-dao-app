@@ -9,8 +9,8 @@ import {UserService} from '@services/user/user.service'
 import {APP_CONSTANTS, AppConstantsInterface} from '@constants'
 import {GrantStatusEnum} from '@services/static/static.model'
 import {TeamsControlsInterface, VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
-import {BehaviorSubject, combineLatest, Observable, Subject} from "rxjs";
-import {map, takeUntil} from "rxjs/operators";
+import {BehaviorSubject, combineLatest, Subject} from 'rxjs'
+import {map, takeUntil} from 'rxjs/operators'
 
 @Component({
   selector: 'ui-team',
@@ -24,7 +24,7 @@ export class TeamComponent implements OnDestroy{
   private isHasWinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   private inputGrant: ContractGrantModel | null = null
 
-  @Input() set grant(data: ContractGrantModel | null) {
+  @Input() set grant (data: ContractGrantModel | null) {
     this.inputGrant = data
     this.preparingStatusData(data)
     if (data) {
@@ -32,7 +32,7 @@ export class TeamComponent implements OnDestroy{
     }
   }
 
-  get grant(): ContractGrantModel | null {
+  get grant (): ContractGrantModel | null {
     return this.inputGrant
   }
 
@@ -61,17 +61,17 @@ export class TeamComponent implements OnDestroy{
       )
     )
 
-  constructor(
+  constructor (
     public userService: UserService, // eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface // eslint-disable-line
   ) {
   }
 
-  isReadyToApply(): boolean {
+  isReadyToApply (): boolean {
     return this.grant?.status?.value === this.grantStatusEnum.readyToApply
   }
 
-  private preparingStatusData(data: ContractGrantModel | null) {
+  private preparingStatusData (data: ContractGrantModel | null) {
     let isHasWinnerTemp = false
     if (data && data.app) {
       data.app.forEach(app => {
