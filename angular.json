@@ -229,13 +229,21 @@
                   "maximumError": "5000kb"
                 }
               ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/dapp/src/environments/environment.ts",
+                  "with": "projects/dapp/src/environments/environment.local.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dapp:build"
+            "browserTarget": "dapp:build:local"
           },
           "configurations": {
             "production": {

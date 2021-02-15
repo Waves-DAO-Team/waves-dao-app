@@ -46,3 +46,4 @@ Thumbs.db
 /temp
 /temp/*
 .env
+**/environment.local.ts

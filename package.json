@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "run-s start:*",
+    "start:env": "envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.local.ts",
+    "start:serve": "ng serve",
     "build": "ng build --prod --configuration=$CONFIG",
     "test": "ng test",
     "tests": "run-p test:*",

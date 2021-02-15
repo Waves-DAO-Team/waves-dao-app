@@ -32,6 +32,11 @@ manage the grant distribution process and transparently vote for the applicants.
 
 ## Starting project
 
+WARNING: environment.ts is a template, a configuration file of the application.
+The [envsub](https://www.npmjs.com/package/envsub) tool used to merge the .env
+file or environment variables of the build server with the template
+configuration file.
+
 ```bash
     git clone https://github.com/rieset/waves-grants.git
     cd waves-grants
@@ -51,6 +56,9 @@ directory of the project
 ```bash
     yarn start
 ```
+
+After launching, the environment.local.ts file is created with the environment
+based on the .env file on root project
 
 ## First steps in testnet
 
