@@ -7,8 +7,20 @@ env:
   DOCKER_USERNAME: "_"
   DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
   PROJECT: ${{ secrets.PROJECT }}
-  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
   CONFIG: ${{ secrets.CONFIG }}
+
+  MEMBERSHIP: ${{ secrets.MEMBERSHIP }}
+  DISRUPTIVE: ${{ secrets.DISRUPTIVE }}
+  WEB3: ${{ secrets.WEB3 }}
+  INTERHACK: ${{ secrets.INTERHACK }}
+
+  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
+  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+
+  GRANT_PROGRAM_LINK: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+
+  WORKING_GROUP: ${{ secrets.secrets.WORKING_GROUP }}
 
 jobs:
   create:
