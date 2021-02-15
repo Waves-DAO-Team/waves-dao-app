@@ -45,8 +45,8 @@ export const isAcceptWorkResultBtn = (user: UserDataInterface, grant: ContractGr
     const isWG = user.roles.isWG
     grant.app.forEach((app) => {
       if (
-        app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted &&
-        app.leader.value === user.userAddress
+        app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted
+        // && app.leader.value === user.userAddress
       ) {
         isPerformer = true
       }
