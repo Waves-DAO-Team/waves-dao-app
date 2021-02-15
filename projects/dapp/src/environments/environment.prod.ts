@@ -4,10 +4,17 @@ export const environment = {
   grantsProgramLink: '${GRANT_PROGRAM_LINK}',
 
   apis: {
-    nodes: 'https://nodes.wavesnodes.com',
-    signer: 'https://waves.exchange/signer/',
-    rest: 'https://nodes.wavesnodes.com',
-    explorer: 'https://wavesexplorer.com/address/',
+    // Mainnet
+    // nodes: 'https://nodes.wavesnodes.com',
+    // signer: 'https://waves.exchange/signer/',
+    // rest: 'https://nodes.wavesnodes.com',
+    // explorer: 'https://wavesexplorer.com/address/',
+
+    // Testnet
+    nodes: 'https://nodes-testnet.wavesnodes.com',
+    signer: 'https://testnet.waves.exchange/signer/',
+    rest: 'https://nodes-testnet.wavesnodes.com',
+    explorer: 'https://testnet.wavesexplorer.com/address/',
 
     // USE SYSTEM ENVIRONMENTS ON BUILD PROJECT
     management: {
