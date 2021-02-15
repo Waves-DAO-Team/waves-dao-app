@@ -10,18 +10,6 @@ env:
   DOCKER_USERNAME: "_"
   DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
 
-  # Variables for build project
-  MEMBERSHIP: ${{ secrets.MEMBERSHIP_PROD }}
-  DISRUPTIVE: ${{ secrets.DISRUPTIVE_PROD }}
-  WEB3: ${{ secrets.WEB3_PROD }}
-  INTERHACK: ${{ secrets.INTERHACK_PROD }}
-
-  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE_PROD }}
-  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}
-  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}
-  GRANT_PROGRAM_LINK: ${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}
-  WORKING_GROUP: ${{ secrets.secrets.WORKING_GROUP_PROD }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -49,7 +37,16 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: registry.heroku.com/${{ env.HEROKU_APPLICATION }}/web
-
+          secrets: |
+            "MEMBERSHIP=${{ secrets.MEMBERSHIP_PROD }}"
+            "DISRUPTIVE=${{ secrets.DISRUPTIVE_PROD }}"
+            "WEB3=${{ secrets.WEB3_PROD }}"
+            "INTERHACK=${{ secrets.INTERHACK_PROD }}"
+            "DISRUPTIVE_ISSUE_TEMPLATE=${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE_PROD }}"
+            "WEB3_ISSUE_TEMPLATE=${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}"
+            "INTERHACK_ISSUE_TEMPLATE=${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}"
+            "GRANT_PROGRAM_LINK=${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}"
+            "WORKING_GROUP=${{ secrets.WORKING_GROUP_PROD }}"
 
   deploy:
     runs-on: ubuntu-latest
