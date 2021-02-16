@@ -342,6 +342,7 @@ a {
 
     &-image {
       margin-bottom: $padding * 3;
+      width: 100%;
 
       @include media('<desktop') {
         margin-bottom: 0;
