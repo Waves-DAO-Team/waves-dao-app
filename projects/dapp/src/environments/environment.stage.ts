@@ -1,8 +1,9 @@
-
 export const environment = {
-  production: false,
+  production: true,
   confirmations: 0,
-  grantsProgramLink: '${GRANT_PROGRAM_LINK}',
+  grantsProgramLink: 'https://github.com/Waves-Association/grants-program/issues' +
+      '/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--' +
+      'interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+',
 
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',
@@ -10,17 +11,23 @@ export const environment = {
     rest: 'https://nodes-testnet.wavesnodes.com',
     explorer: 'https://testnet.wavesexplorer.com/address/',
     management: {
-      membership: '${MEMBERSHIP}'
+      membership: '3N97iacRapbKQMwDxobcwAvNk8WSb3TPwjx'
     },
     contracts: {
-      disruptive: '${DISRUPTIVE}',
-      web3: '${WEB3}',
-      interhack: '${INTERHACK}'
+      disruptive: '3N1vwPpGTfCSYkJxLkA47nYiyJSDPyeVDFD',
+      web3: '3Ms9uNDuJGQrtsFzhPUy4gHbHF2cHMSQQHB',
+      interhack: '3Mqn3vqCeTsYQgHyvh7GGseW25rC4U12AMj'
     },
     issues: {
-      disruptive: '${DISRUPTIVE_ISSUE_TEMPLATE}',
-      web3: '${WEB3_ISSUE_TEMPLATE}',
-      interhack: '${INTERHACK_ISSUE_TEMPLATE}'
+      disruptive: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
+          'KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-' +
+          'tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
+      web3: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
+          'KardanovIR&labels=Web3.0+Development+Grant&template=track-2--web3-' +
+          '0-development-grant.md&title=%5BTrack+2.+Web3.0+Development+Grant%5D+',
+      interhack: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
+          'KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.' +
+          'md&title=%5BTrack+3.+Interhack+Grant%5D+'
     },
     links: {
       facebook: 'https://www.facebook.com/wavesassociation',
@@ -43,6 +50,7 @@ export const environment = {
 
   // Routing constants on page
   routing: {
+    // home: '',
     landing: '',
     guide: 'guide',
     listing: 'grants/:contractType',

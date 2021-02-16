@@ -29,7 +29,7 @@ export const entityFactory = (
     catchError((error) => {
       // Todo обработать ошибки (404)
       snackBar.open(error, translate('messages.ok'))
-      throw new Error('Entity not found')
+      throw new Error(translate('messages.errors.entity_not_found'))
     }),
     publishReplay(1),
     refCount()

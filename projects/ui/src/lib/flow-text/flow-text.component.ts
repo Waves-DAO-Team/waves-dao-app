@@ -1,11 +1,11 @@
-import {Component, Input, OnDestroy } from '@angular/core'
-import { map, takeUntil } from 'rxjs/operators'
-import {ActivatedRoute} from '@angular/router'
-import {GrantStatusEnum, GrantTypesEnum} from '@services/static/static.model'
-import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
+import {Component, Input, OnDestroy} from '@angular/core'
+import {map, takeUntil} from 'rxjs/operators'
+import {GrantStatusEnum} from '@services/static/static.model'
+import {BehaviorSubject, combineLatest, Subject} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {ContractGrantModel} from '@services/contract/contract.model'
 import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
+import {StaticService} from '@services/static/static.service'
 
 @Component({
   selector: 'ui-flow-text',
@@ -29,13 +29,8 @@ export class FlowTextComponent implements OnDestroy {
   }
 
   private readonly destroyed$ = new Subject()
-  public grantUrl$: Observable<GrantTypesEnum> = this.route.paramMap
-    .pipe(
-      takeUntil(this.destroyed$),
-      map((e) => (e.get('contractType') as GrantTypesEnum | null) || GrantTypesEnum.disruptive),
-    )
   private status$: BehaviorSubject<string> = new BehaviorSubject<string>('')
-  public content$ = combineLatest([this.grantUrl$, this.status$, this.grant$])
+  public content$ = combineLatest([this.staticService.selectedContact$, this.status$, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
       map(
@@ -54,7 +49,9 @@ export class FlowTextComponent implements OnDestroy {
     this.status$.next(data)
   }
 
-  constructor (public route: ActivatedRoute) {
+  constructor (
+    public staticService: StaticService, // eslint-disable-line
+  ) {
   }
 
   private prepareData (grant: ContractGrantModel): {
@@ -76,7 +73,7 @@ export class FlowTextComponent implements OnDestroy {
     }
     let performerName = ''
     if (grant.app) {
-      grant.app.forEach( app => {
+      grant.app.forEach(app => {
         if (app.process && app.name && app.name.value) {
           performerName = app.name.value
         }
@@ -90,7 +87,7 @@ export class FlowTextComponent implements OnDestroy {
     const teamsAmount = (grant.app?.length || 0).toString()
 
     let winnerIdentifier = ''
-    grant.app?.forEach( app => {
+    grant.app?.forEach(app => {
       if (app.process?.value === 'winner') {
         winnerIdentifier = app.id.value
       }
