@@ -10,7 +10,7 @@ import {TagModule} from '@ui/tag/tag.module'
 import {RouterTestingModule} from '@angular/router/testing'
 import {ActivatedRoute} from '@angular/router'
 import {of} from 'rxjs'
-import {provideApi, provideAppConstants} from "@constants";
+import {provideApi, provideAppConstants} from '@constants'
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent

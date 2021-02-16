@@ -8,7 +8,7 @@ import {getTranslocoModule} from '@dapp/src/app/transloco-module.spec'
 import {RouterTestingModule} from '@angular/router/testing'
 import {ActivatedRoute} from '@angular/router'
 import {of} from 'rxjs'
-import {provideApi, provideAppConstants} from "@constants";
+import {provideApi, provideAppConstants} from '@constants'
 
 describe('AllTeamsBtnComponent', () => {
   let component: AllTeamsBtnComponent

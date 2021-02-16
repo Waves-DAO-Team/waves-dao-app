@@ -6,7 +6,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
 import {TagModule} from '@ui/tag/tag.module'
 import {getTranslocoModule} from '@dapp/src/app/transloco-module.spec'
 import {RouterTestingModule} from '@angular/router/testing'
-import {provideApi, provideAppConstants} from "@constants";
+import {provideApi, provideAppConstants} from '@constants'
 
 describe('FlowTextComponent', () => {
   let component: FlowTextComponent
