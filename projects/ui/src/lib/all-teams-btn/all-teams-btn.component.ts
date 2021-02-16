@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core'
+import {Component, OnDestroy} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {filter, map, takeUntil} from 'rxjs/operators'
 import {combineLatest, Observable, Subject} from 'rxjs'
 import {GrantUrl} from '@services/interface'
-import {ContractService} from "@services/contract/contract.service";
-import {StaticService} from "@services/static/static.service";
+import {ContractService} from '@services/contract/contract.service'
+import {StaticService} from '@services/static/static.service'
 
 @Component({
   selector: 'ui-all-teams-btn',
@@ -20,7 +20,7 @@ export class AllTeamsBtnComponent implements OnDestroy {
   ).pipe(
     takeUntil(this.destroyed$),
     filter(([entityId, contractType]) => entityId !== undefined && contractType !== undefined),
-    map(([entityId, contractType]) => {return { entityId, contractType}}),
+    map(([entityId, contractType]) => ({ entityId, contractType})),
   )
 
   constructor (
@@ -29,7 +29,7 @@ export class AllTeamsBtnComponent implements OnDestroy {
     public route: ActivatedRoute
   ) { }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.destroyed$.next(null)
     this.destroyed$.complete()
   }

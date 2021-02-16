@@ -43,10 +43,10 @@ export interface AppApiInterface {
     facebook?: string
     medium?: string
     twitter?: string
-    github?: {
-      api?: string
-      raw?: string
-      mdEnd?: string
+    github: {
+      api: string
+      raw: string
+      mdEnd: string
     }
   },
   emails: {

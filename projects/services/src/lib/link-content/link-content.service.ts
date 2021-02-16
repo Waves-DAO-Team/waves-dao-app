@@ -3,8 +3,8 @@ import { MainResponseInterface, ReposResponseInterface } from '@services/link-co
 import { EMPTY, Observable, of } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { catchError, filter, map, switchMap, take } from 'rxjs/operators'
-import {API, AppApiInterface} from "@constants";
-import {translate} from "@ngneat/transloco";
+import {API, AppApiInterface} from '@constants'
+import {translate} from '@ngneat/transloco'
 
 interface LinkDataModel {
   isFile: boolean
@@ -49,13 +49,13 @@ export class LinkContentService {
         }
 
         if (data.isGH && data.isIssues && data?.url) {
-          return this.http.get<ReposResponseInterface>(`${this.api.links.github?.api}${data?.url}`)
+          return this.http.get<ReposResponseInterface>(`${this.api.links.github.api}${data?.url}`)
         } else if (data.isFile && data?.url) {
-          return this.http.request('get', `${this.api.links.github?.raw}${data?.url.replace('blob/', '')}`, {
+          return this.http.request('get', `${this.api.links.github.raw}${data?.url.replace('blob/', '')}`, {
             responseType: 'text'
           }).pipe(catchError(() => of('')))
         } else if (data?.url) {
-          return this.http.get<MainResponseInterface>(`${this.api.links.github?.api}${data?.url}${this.api.links.github?.mdEnd}`)
+          return this.http.get<MainResponseInterface>(`${this.api.links.github.api}${data?.url}${this.api.links.github.mdEnd}`)
             .pipe(catchError(() => of('')))
         } else {
           return of('')

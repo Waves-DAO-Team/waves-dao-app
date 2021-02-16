@@ -5,7 +5,7 @@ import {BehaviorSubject, combineLatest, Subject} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {ContractGrantModel} from '@services/contract/contract.model'
 import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
-import {StaticService} from "@services/static/static.service";
+import {StaticService} from '@services/static/static.service'
 
 @Component({
   selector: 'ui-flow-text',
@@ -22,7 +22,7 @@ export class FlowTextComponent implements OnDestroy {
   @Input() isShowFlow = false
   private grant$: BehaviorSubject<ContractGrantModel> = new BehaviorSubject<ContractGrantModel>({})
 
-  @Input() set grant(data: ContractGrantModel) {
+  @Input() set grant (data: ContractGrantModel) {
     if (data && data.id) {
       this.grant$.next(data)
     }
@@ -45,16 +45,16 @@ export class FlowTextComponent implements OnDestroy {
       )
     )
 
-  @Input() set status(data: string) {
+  @Input() set status (data: string) {
     this.status$.next(data)
   }
 
-  constructor(
+  constructor (
     public staticService: StaticService, // eslint-disable-line
   ) {
   }
 
-  private prepareData(grant: ContractGrantModel): {
+  private prepareData (grant: ContractGrantModel): {
     voteScore: string,
     votesAmount: string,
     performerName: string,
@@ -104,7 +104,7 @@ export class FlowTextComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.destroyed$.next(null)
   }
 
