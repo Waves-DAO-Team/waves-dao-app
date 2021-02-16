@@ -2,9 +2,7 @@
 export const environment = {
   production: false,
   confirmations: 0,
-  grantsProgramLink: 'https://github.com/Waves-Association/grants-program/issues' +
-      '/new?assignees=KardanovIR&labels=Interhack+Grant&template=track-3--' +
-      'interhack-grant.md&title=%5BTrack+3.+Interhack+Grant%5D+',
+  grantsProgramLink: '${GRANT_PROGRAM_LINK}',
 
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',
@@ -12,18 +10,17 @@ export const environment = {
     rest: 'https://nodes-testnet.wavesnodes.com',
     explorer: 'https://testnet.wavesexplorer.com/address/',
     management: {
-      membership: '3MwRzi2BmqZZXWrCGCwcRQLsnic2Aod6zhS'
+      membership: '${MEMBERSHIP}'
     },
     contracts: {
-
-      disruptive: '3Mxk4Jmjd8SdE2MojSXsUQ8LVYM8vRzmFSA',
-      web3: '3MtV1AQ8fEPk76tjKgvrufuMe5aA3q4TviQ',
-      interhack: '3MutoJzdTrUrDBhCu1qU6FRgAADLadZEL9D'
+      disruptive: '${DISRUPTIVE}',
+      web3: '${WEB3}',
+      interhack: '${INTERHACK}'
     },
     issues: {
-      disruptive: 'https://github.com/Waves-Association/grants-program/blob/main/README.md',
-      web3: 'https://github.com/Waves-Association/grants-program/blob/main/README.md',
-      interhack: 'https://github.com/Waves-Association/grants-program/blob/main/README.md'
+      disruptive: '${DISRUPTIVE_ISSUE_TEMPLATE}',
+      web3: '${WEB3_ISSUE_TEMPLATE}',
+      interhack: '${INTERHACK_ISSUE_TEMPLATE}'
     },
     links: {
       facebook: 'https://www.facebook.com/wavesassociation',
@@ -40,28 +37,12 @@ export const environment = {
     }
   },
 
-  workingGroup: {
-    '3MtsjR7qZQLRKfpkYHybo65f2p6GydDvn5X': {
-      name: 'Sam I Am',
-      twitter: 'Link'
-    },
-    '3MwRzi2BmqZZXWrCGCwcRQLsnic2Aod6zhS': {
-      name: 'Bohdan Stun',
-      twitter: 'Link'
-    },
-    '3N9eoi55zj9AzeDT415pMEm8dyeHiuz1wST': {
-      name: 'John Smith',
-      linkedin: 'Link'
-    },
-    '3N6XZgaswUMmihcHkUTXfBGAxekdkP541yT': {
-      name: 'Gregory Volandemort',
-      facebook: 'Link'
-    }
-  },
+  /* eslint-disable */
+  workingGroup: JSON.parse('${WORKING_GROUP}' || '{}'),
+  /* eslint-enable */
 
   // Routing constants on page
   routing: {
-    // home: '',
     landing: '',
     guide: 'guide',
     listing: 'grants/:contractType',
@@ -69,7 +50,6 @@ export const environment = {
     entity: 'grants/:contractType/:entityId',
     createGrant: 'grants/:contractType/create-grant',
     allTeams: 'grants/:contractType/:entityId/all-teams',
-    // http://localhost:4200/grants/interhack/AL7dYSjTknfdD5H8XNMR7EVS59HpnYnbJyiCTP7UV6xU/all-teams
     members: 'members',
     stylesheet: 'stylesheet',
     addReward: 'grants/:contractType/add-reward/:entityId'

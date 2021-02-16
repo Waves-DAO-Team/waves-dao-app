@@ -203,30 +203,11 @@
                 }
               ]
             },
-            "stage": {
+            "local": {
               "fileReplacements": [
                 {
                   "replace": "projects/dapp/src/environments/environment.ts",
-                  "with": "projects/dapp/src/environments/environment.stage.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": true,
-              "buildOptimizer": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "5000kb",
-                  "maximumError": "2mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "500kb",
-                  "maximumError": "5000kb"
+                  "with": "projects/dapp/src/environments/environment.local.ts"
                 }
               ]
             }
@@ -235,7 +216,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dapp:build"
+            "browserTarget": "dapp:build:local"
           },
           "configurations": {
             "production": {

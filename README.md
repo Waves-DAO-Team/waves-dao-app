@@ -32,6 +32,11 @@ manage the grant distribution process and transparently vote for the applicants.
 
 ## Starting project
 
+WARNING: environment.ts is a template, a configuration file of the application.
+The [envsub](https://www.npmjs.com/package/envsub) tool used to merge the .env
+file or environment variables of the build server with the template
+configuration file.
+
 ```bash
     git clone https://github.com/rieset/waves-grants.git
     cd waves-grants
@@ -51,6 +56,9 @@ directory of the project
 ```bash
     yarn start
 ```
+
+After launching, the environment.local.ts file is created with the environment
+based on the .env file on root project
 
 ## First steps in testnet
 
@@ -154,7 +162,34 @@ To run the tests under Node you will need tap installed (it's listed as a
 
 ## SECRETS IN GITHUB
 
-- `CONFIG` = stage
+Show in sample.env file
+
 - `HEROKU_API_KEY` = { Heroku api key }
-- `PROJECT` = waves-grants
-- `WORKINGGROUP` = { "address": {"name": "Name Member": "twitter": "link"} }
+- `PROJECT` = waves-dao-app
+
+### Api Waves blockchain network
+
+- `API_SIGNER` = <https://testnet.waves.exchange/signer/>
+- `API_NODES` = <https://nodes-testnet.wavesnodes.com>
+- `API_EXPLORER` = <https://testnet.wavesexplorer.com/address/>
+
+### Contracts <https://github.com/vlzhr/WavesDAO>
+
+- `MEMBERSHIP` = ...address...
+- `DISRUPTIVE` = ...address...
+- `WEB3` = ...address...
+- `INTERHACK` = ...address...
+
+### Templates issue on github for different grant type
+
+- `DISRUPTIVE_ISSUE_TEMPLATE` = "...link to issue tempalte..."
+- `WEB3_ISSUE_TEMPLATE` = "...link to issue tempalte..."
+- `INTERHACK_ISSUE_TEMPLATE`="...link to issue tempalte..."
+
+### Link to description on githib about DAO system
+
+- `GRANT_PROGRAM_LINK` = "...link to grants programm..."
+
+### Members name and contacts
+
+- `WORKING_GROUP` = { "address": {"name": "Name Member": "twitter": "link"} }

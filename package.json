@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod --configuration=$CONFIG",
+    "start": "run-s start:*",
+    "start:env": "envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.local.ts",
+    "start:serve": "ng serve",
+    "build": "ng build --prod",
     "test": "ng test",
     "tests": "run-p test:*",
     "test:dapp": "ng test dapp --browsers=ChromeHeadless --watch=false --progress=false",
@@ -16,9 +18,7 @@
     "lint:code": "ts-standard",
     "commit": "lint-staged --allow-empty",
     "push": "run-s lint:es build",
-    "envsub": "run-p envsub:*",
-    "envsub:stage": "envsub --diff ./projects/dapp/src/environments/environment.stage.ts",
-    "envsub:prod": "envsub --diff ./projects/dapp/src/environments/environment.prod.ts"
+    "envsub": "envsub --diff ./projects/dapp/src/environments/environment.prod.ts"
   },
   "private": true,
   "dependencies": {
