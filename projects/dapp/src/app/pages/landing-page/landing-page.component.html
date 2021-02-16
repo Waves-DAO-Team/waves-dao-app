@@ -12,12 +12,10 @@
         {{'listing.title' | transloco}}
       </div>
       <div class="landing-page__intro-desc mat-display-2">
-        {{'landing-page.introDesc' | transloco}}.&nbsp;
+        {{'landing-page.introDesc' | transloco}}
       </div>
 
-      <!--TODO make this link to en.json 'landing-page.fullGuideLink'-->
-
-      <a class="button btn active" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO'">
+      <a class="button btn active" target="_blank" rel="noopener nofollow noreferrer" [href]="'landing-page.fullGuideLink' | transloco">
         {{'landing-page.fullGuide' | transloco}}<img alt="img" src="assets/icons/arr-right-white.svg">
       </a>
     </div>
@@ -107,10 +105,10 @@
 
             <span class="landing-page__roles-cards-card-desc bg-gray landing-page__intro mat-display-2" [innerHTML]="'landing-page.applicantDesc' | transloco "></span>
 
-<!--            {{ "https://github.com/vlzhr/grants-program/issues/12" | linkContent }}-->
-
-            <!--TODO make this link to en.json 'landing-page.rolesLink'-->
-            <a class="button landing-page__roles-cards-card-button btn secondary" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles'">
+            <a
+              class="button landing-page__roles-cards-card-button btn secondary"
+              target="_blank" rel="noopener nofollow noreferrer"
+              [href]="'landing-page.rolesLink' | transloco">
               {{'landing-page.learnMore' | transloco}}<img alt="img" src="assets/icons/arr-right.svg">
             </a>
           </div>
@@ -122,8 +120,11 @@
             </div>
             <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.workingGroupDesc' | transloco "></span>
 
-            <!--TODO make this link to en.json 'landing-page.rolesLink'-->
-            <a class="button landing-page__roles-cards-card-button btn secondary" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles'">
+            <a
+              class="button landing-page__roles-cards-card-button btn secondary"
+              target="_blank"
+              rel="noopener nofollow noreferrer"
+              [href]="'landing-page.rolesLink' | transloco">
               {{'landing-page.learnMore' | transloco}}<img alt="img" src="assets/icons/arr-right.svg">
             </a>
           </div>
@@ -135,9 +136,11 @@
             </div>
             <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoDesc' | transloco "></span>
 
-            <!--TODO make this link to en.json 'landing-page.rolesLink'-->
-            <a class="button landing-page__roles-cards-card-button btn secondary" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles'">
-              {{'landing-page.learnMore' | transloco}}<img alt="img" src="assets/icons/arr-right.svg">
+            <a
+              class="button landing-page__roles-cards-card-button btn secondary"
+              target="_blank" rel="noopener nofollow noreferrer"
+              [href]="'landing-page.rolesLink' | transloco">
+                {{'landing-page.learnMore' | transloco}}<img alt="img" src="assets/icons/arr-right.svg">
             </a>
           </div>
 
@@ -148,8 +151,11 @@
             </div>
             <span class="landing-page__roles-cards-card-desc landing-page__intro mat-display-2" [innerHTML]="'landing-page.daoManagerDesc' | transloco "></span>
 
-            <!--TODO make this link to en.json 'landing-page.rolesLink'-->
-            <a class="button landing-page__roles-cards-card-button btn secondary" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles'">
+            <a
+              class="button landing-page__roles-cards-card-button btn secondary"
+              target="_blank"
+              rel="noopener nofollow noreferrer"
+              [href]="'landing-page.rolesLink' | transloco">
               {{'landing-page.learnMore' | transloco}}<img alt="img" src="assets/icons/arr-right.svg">
             </a>
           </div>
@@ -162,8 +168,10 @@
 
           <span class="landing-page__roles-cards-card-desc bg-gray landing-page__intro mat-display-2" [innerHTML]="'landing-page.boardDesc' | transloco "></span>
 
-          <!--TODO make this link to en.json 'landing-page.rolesLink'-->
-          <a class="button landing-page__roles-cards-card-button btn secondary" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles'">
+          <a
+            class="button landing-page__roles-cards-card-button btn secondary"
+            target="_blank" rel="noopener nofollow noreferrer"
+            [href]="'landing-page.rolesLink' | transloco">
             {{'landing-page.learnMore' | transloco}}<img alt="img" src="assets/icons/arr-right.svg">
           </a>
         </div>
@@ -189,8 +197,11 @@
             {{ 'contracts.disruptive.landing' | transloco }}
           </div>
 
-          <!--TODO make this link to en.json 'landing-page.grantDisruptiveLink'-->
-          <a class="button landing-page__grants-cards-card-button btn active" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grants-about.md'">
+          <a
+            class="button landing-page__grants-cards-card-button btn active"
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+            [href]="'landing-page.grantDisruptiveLink' | transloco">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </a>
         </div>
@@ -207,8 +218,11 @@
             {{ 'contracts.web3.landing' | transloco }}
           </div>
 
-          <!--TODO make this link to en.json 'landing-page.grantWeb3Link'-->
-          <a class="button landing-page__grants-cards-card-button btn active" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/blob/master/web3-grants-about.md'">
+          <a
+            class="button landing-page__grants-cards-card-button btn active"
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+            [href]="'landing-page.grantWeb3Link' | transloco">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </a>
         </div>
@@ -223,8 +237,11 @@
             {{ 'contracts.interhack.landing' | transloco }}
           </div>
 
-          <!--TODO make this link to en.json 'landing-page.grantInterhackLink'-->
-          <a class="button landing-page__grants-cards-card-button btn active" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/blob/master/interhack-grants-about.md'">
+          <a
+            class="button landing-page__grants-cards-card-button btn active"
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+            [href]="'landing-page.grantInterhackLink' | transloco">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </a>
         </div>
@@ -254,8 +271,11 @@
       </mat-tab-group>
     </div>
 
-    <!--TODO make this link to en.json 'landing-page.fullGuideLink'-->
-    <a class="button landing-page__fullGuide btn active" target="_blank" rel="noopener nofollow noreferrer" [href]="'https://github.com/vlzhr/WavesDAO/'">
+    <a
+      class="button landing-page__fullGuide btn active"
+      target="_blank"
+      rel="noopener nofollow noreferrer"
+      [href]="'landing-page.fullGuideLink' | transloco">
       {{'landing-page.fullGuide' | transloco}}<img alt="img" src="assets/icons/arr-right-white.svg">
     </a>
 

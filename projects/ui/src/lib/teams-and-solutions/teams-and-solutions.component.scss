@@ -1,5 +1,6 @@
 @import 'const';
 @import '~include-media/dist/_include-media.scss';
+@import 'variables';
 
 @mixin link($color: $color_waves_blue, $fontWeight: 500) {
   //margin: auto auto 0 auto;
@@ -31,6 +32,10 @@
     text-overflow: ellipsis;
     //white-space: nowrap;
     width: 95%;
+
+    margin: 15px auto $padding / 2 0;
+
+    padding-left: $padding;
   }
 
   &__mid-container-bottom {

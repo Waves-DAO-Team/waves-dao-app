@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core'
 import { ContractService } from '@services/contract/contract.service'
+import {API, AppApiInterface} from '@constants'
 
 @Component({
   selector: 'ui-footer',
@@ -8,7 +9,10 @@ import { ContractService } from '@services/contract/contract.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent implements OnInit {
-  constructor (public contractService: ContractService) {} // eslint-disable-line
+  constructor (
+    public contractService: ContractService,
+    @Inject(API) public readonly api: AppApiInterface,
+  ) {} // eslint-disable-line
 
   ngOnInit (): void {}
 }

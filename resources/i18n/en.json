@@ -21,6 +21,9 @@
       "setting": "Setting"
     }
   },
+  "footer": {
+    "copyright": "© 2020 Waves Association"
+  },
   "tooltip": {
     "not_enough_money": "Not enough money on the balance sheet"
   },
@@ -682,6 +685,14 @@
   "messages": {
     "ok": "OK",
     "error": "error",
+    "errors": {
+      "analyzing_failed": "Analyzing url is failed",
+      "conditions_link": "Conditions is not equal a link",
+      "entity_not_found": "Entity not found",
+      "invalid_specified": "Invalid safe type specified",
+      "contract_not_found": "Contract not found",
+      "not_implemented": "Not implemented"
+    },
     "transaction_rejected": "The transaction was rejected",
     "enable_submissions": "Enable submissions",
     "getBalanceError": "getBalance error",
@@ -719,7 +730,7 @@
       "img": "assets/img/web3-type.png",
       "title": "Web 3.0 Dev Grants",
       "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
-      "banner": "Apply with your project before Feb. 1, 2021 to receive a grant of up to 100k WAVES",
+      "banner": "Apply with your project before May 1, 2021 to receive a grant of up to 100k WAVES",
       "about": "https://github.com/Waves-Association/grants-program/blob/main/README.md",
       "landing": "You propose ideas for grants of this type. Usually this is a decentralized application or startup."
     },

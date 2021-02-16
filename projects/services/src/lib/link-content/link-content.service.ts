@@ -1,8 +1,10 @@
-import { Injectable, isDevMode } from '@angular/core'
+import {Inject, Injectable, isDevMode} from '@angular/core'
 import { MainResponseInterface, ReposResponseInterface } from '@services/link-content/link-content.interface'
 import { EMPTY, Observable, of } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { catchError, filter, map, switchMap, take } from 'rxjs/operators'
+import {API, AppApiInterface} from '@constants'
+import {translate} from '@ngneat/transloco'
 
 interface LinkDataModel {
   isFile: boolean
@@ -16,7 +18,10 @@ interface LinkDataModel {
   providedIn: 'root'
 })
 export class LinkContentService {
-  constructor (private readonly http: HttpClient) { // eslint-disable-line
+  constructor (
+    private readonly http: HttpClient,
+    @Inject(API) private readonly api: AppApiInterface
+  ) { // eslint-disable-line
   }
 
   getContent (link: string): Observable<string | undefined> {
@@ -32,24 +37,25 @@ export class LinkContentService {
             url: url ? (new URL(url)).pathname : ''
           }
         } catch (error) {
-          throw new Error('Analyzing url is failed')
+          throw new Error(translate('messages.errors.analyzing_failed'))
         }
       }),
       switchMap((data: LinkDataModel) => {
+        console.log(translate('messages.transaction_rejected'))
         if (data.url && !(data?.isGH && (data?.isFile || data?.isIssues || data?.separatorCounter === 5))) {
           if (isDevMode()) {
-            throw new Error('Conditions is not equal a link')
+            throw new Error(translate('messages.errors.conditions_link'))
           }
         }
 
         if (data.isGH && data.isIssues && data?.url) {
-          return this.http.get<ReposResponseInterface>(`https://api.github.com/repos${data?.url}`)
+          return this.http.get<ReposResponseInterface>(`${this.api.links.github.api}${data?.url}`)
         } else if (data.isFile && data?.url) {
-          return this.http.request('get', `https://raw.githubusercontent.com/${data?.url.replace('blob/', '')}`, {
+          return this.http.request('get', `${this.api.links.github.raw}${data?.url.replace('blob/', '')}`, {
             responseType: 'text'
           }).pipe(catchError(() => of('')))
         } else if (data?.url) {
-          return this.http.get<MainResponseInterface>(`https://api.github.com/repos${data?.url}/contents/README.md`)
+          return this.http.get<MainResponseInterface>(`${this.api.links.github.api}${data?.url}${this.api.links.github.mdEnd}`)
             .pipe(catchError(() => of('')))
         } else {
           return of('')

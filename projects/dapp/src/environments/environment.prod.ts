@@ -29,6 +29,20 @@ export const environment = {
       disruptive: '${DISRUPTIVE_ISSUE_TEMPLATE}',
       web3: '${WEB3_ISSUE_TEMPLATE}',
       interhack: '${INTERHACK_ISSUE_TEMPLATE}'
+    },
+
+    links: {
+      facebook: 'https://www.facebook.com/wavesassociation',
+      medium: 'https://medium.com/waves-association',
+      twitter: 'https://twitter.com/Waves_Ass',
+      github: {
+        api: 'https://api.github.com/repos',
+        raw: 'https://raw.githubusercontent.com/',
+        mdEnd: '/contents/README.md',
+      }
+    },
+    emails: {
+      grants: 'grants@wavesassociation.org'
     }
   },
 
