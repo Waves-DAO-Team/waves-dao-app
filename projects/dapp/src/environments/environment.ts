@@ -29,6 +29,11 @@ export const environment = {
       facebook: 'https://www.facebook.com/wavesassociation',
       medium: 'https://medium.com/waves-association',
       twitter: 'https://twitter.com/Waves_Ass',
+      github: {
+        api: 'https://api.github.com/repos',
+        raw: 'https://raw.githubusercontent.com/',
+        mdEnd: '/contents/README.md',
+      }
     },
     emails: {
       grants: 'grants@wavesassociation.org'

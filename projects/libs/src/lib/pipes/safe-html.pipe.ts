@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser'
+import {translate} from "@ngneat/transloco";
 
 @Pipe({
   name: 'safe'
@@ -16,7 +17,7 @@ export class SafeHtmPipe implements PipeTransform {
       case 'script': return this.sanitizer.bypassSecurityTrustScript(value)
       case 'url': return this.sanitizer.bypassSecurityTrustUrl(value)
       case 'resourceUrl': return this.sanitizer.bypassSecurityTrustResourceUrl(value)
-      default: throw new Error(`Invalid safe type specified: ${type}`)
+      default: throw new Error(`${translate('messages.errors.invalid_specified')}: ${type}`)
     }
   }
 }

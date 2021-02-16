@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common'
 import { ClassProvider, FactoryProvider, InjectionToken, PLATFORM_ID } from '@angular/core'
+import {translate} from "@ngneat/transloco";
 
 /* Create a new injection token for injecting the window into a component. */
 export const WINDOW = new InjectionToken('WindowToken')
@@ -7,7 +8,7 @@ export const WINDOW = new InjectionToken('WindowToken')
 /* Define abstract class for obtaining reference to the global window object. */
 export abstract class WindowRef {
   get nativeWindow (): Window {
-    throw new Error('Not implemented.')
+    throw new Error(translate('messages.errors.not_implemented'))
   }
 }
 

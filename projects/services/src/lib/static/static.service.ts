@@ -5,7 +5,7 @@ import { ContractService } from '@services/contract/contract.service'
 import { UserService } from '@services/user/user.service'
 import { RolesInterface } from '@services/user/user.interface'
 import { GrantsVariationType, GrantTypesEnum } from './static.model'
-import { TranslocoService } from '@ngneat/transloco'
+import {translate, TranslocoService} from '@ngneat/transloco'
 import { API, AppApiInterface } from '@constants'
 
 @Injectable({
@@ -51,7 +51,7 @@ export class StaticService {
       filter(([contract, user]) => !!contract && !!user),
       map(([contractInfo, user]) => {
         if (!contractInfo) {
-          throw new Error('Contact is not found')
+          throw new Error(translate('messages.errors.contract_not_found'))
         }
         return {
           ...contractInfo,

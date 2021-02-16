@@ -688,6 +688,14 @@
   "messages": {
     "ok": "OK",
     "error": "error",
+    "errors": {
+      "analyzing_failed": "Analyzing url is failed",
+      "conditions_link": "Conditions is not equal a link",
+      "entity_not_found": "Entity not found",
+      "invalid_specified": "Invalid safe type specified",
+      "contract_not_found": "Contract not found",
+      "not_implemented": "Not implemented"
+    },
     "transaction_rejected": "The transaction was rejected",
     "enable_submissions": "Enable submissions",
     "getBalanceError": "getBalance error",

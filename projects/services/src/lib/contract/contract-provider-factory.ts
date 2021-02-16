@@ -29,7 +29,7 @@ export const contractProviderFactory = (
     catchError((error) => {
       // Todo обработать ошибки
       snackBar.open(error, translate('messages.ok'))
-      throw new Error('Contract not found')
+      throw new Error(translate('messages.errors.contract_not_found'))
     }),
     publishReplay(1),
     refCount()
