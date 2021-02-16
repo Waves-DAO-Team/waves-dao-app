@@ -55,9 +55,9 @@ export class AllTeamsPageComponent implements OnDestroy {
 
           const unit: IScore.IUnit = {
             isWinner: app.process?.value === 'winner' || app.process?.value === 'work_finished'? true : false,
-            isWinnerIcon: true, // TODO:
+            isWinnerIcon: true,
             name: app.name.value,
-            solutionLink: null, // TODO:
+            solutionLink: null,
             status: {
               isSolution: grantType === GrantTypesEnum.interhack && app?.solution?.value ? true : false,
               isRejected: score < 1,
@@ -69,7 +69,7 @@ export class AllTeamsPageComponent implements OnDestroy {
                 : (app?.score?.value || 0),
               id: app.id.value,
               isCanVote: false,
-              isShowResult: false, // TODO:
+              isShowResult: false,
             },
             teamLink: app.link.value
           }
