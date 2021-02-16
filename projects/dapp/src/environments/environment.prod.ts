@@ -10,11 +10,10 @@ export const environment = {
     // rest: 'https://nodes.wavesnodes.com',
     // explorer: 'https://wavesexplorer.com/address/',
 
-    // Testnet
-    nodes: 'https://nodes-testnet.wavesnodes.com',
-    signer: 'https://testnet.waves.exchange/signer/',
-    rest: 'https://nodes-testnet.wavesnodes.com',
-    explorer: 'https://testnet.wavesexplorer.com/address/',
+    nodes: '${API_NODES}',        //'https://nodes-testnet.wavesnodes.com',
+    signer: '${API_SIGNER}',      //'https://testnet.waves.exchange/signer/',
+    rest: '${API_NODES}',         //'https://nodes-testnet.wavesnodes.com',
+    explorer: '${API_EXPLORER}',  // 'https://testnet.wavesexplorer.com/address/',
 
     // USE SYSTEM ENVIRONMENTS ON BUILD PROJECT
     management: {

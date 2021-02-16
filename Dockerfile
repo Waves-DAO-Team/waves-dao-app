@@ -47,6 +47,6 @@ RUN npm install pm2 -g && \
 
 USER $USER
 
-COPY --chown=$USER:$USER --from=source ["/home/source/dist/", "/home/source/heroku.config.js", "/home/$USER/dist/"]
+COPY --chown=$USER:$USER --from=source ["/home/source/dist/", "/home/source/pm2.config.js", "/home/$USER/dist/"]
 
-CMD ["pm2-runtime", "start", "./dist/heroku.config.js"]
+CMD ["pm2-runtime", "start", "./dist/pm2.config.js"]

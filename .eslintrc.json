@@ -12,7 +12,7 @@
         "ecmaVersion": 2017,
         "project": [
           "tsconfig.json",
-          "e2e/tsconfig.json"
+          "projects/dapp/e2e/tsconfig.json"
         ],
         "createDefaultProgram": true
       },

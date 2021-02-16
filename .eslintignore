@@ -5,3 +5,4 @@ coverage/**
 dist/**
 .idea/**
 .github/**
+pm2.config.js
