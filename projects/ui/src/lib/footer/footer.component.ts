@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core'
 import { ContractService } from '@services/contract/contract.service'
-import {API, AppApiInterface} from "@constants";
+import {API, AppApiInterface} from '@constants'
 
 @Component({
   selector: 'ui-footer',

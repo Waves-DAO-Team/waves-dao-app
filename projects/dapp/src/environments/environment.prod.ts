@@ -30,12 +30,12 @@ export const environment = {
           'md&title=%5BTrack+3.+Interhack+Grant%5D+'
     },
     links: {
-      facebook: "https://www.facebook.com/wavesassociation",
-      medium: "https://medium.com/waves-association",
-      twitter: "https://twitter.com/Waves_Ass",
+      facebook: 'https://www.facebook.com/wavesassociation',
+      medium: 'https://medium.com/waves-association',
+      twitter: 'https://twitter.com/Waves_Ass',
     },
     emails: {
-      grants: "grants@wavesassociation.org"
+      grants: 'grants@wavesassociation.org'
     }
   },
 

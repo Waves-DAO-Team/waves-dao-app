@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FooterComponent } from './footer.component'
-import {TranslocoModule} from "@ngneat/transloco";
+import {TranslocoModule} from '@ngneat/transloco'
 
 @NgModule({
   declarations: [FooterComponent],
