@@ -37,6 +37,12 @@ jobs:
           in-file: ./projects/dapp/src/environments/environment.ts
           out-file: ./projects/dapp/src/environments/environment.prod.ts
 
+      - name: Set analytics
+        uses: mshick/fast-envsubst@v1
+        with:
+          in-file: ./projects/dapp/src/index.html
+          out-file: ./projects/dapp/src/index.html
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 

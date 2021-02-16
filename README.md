@@ -193,3 +193,7 @@ Show in sample.env file
 ### Members name and contacts
 
 - `WORKING_GROUP` = { "address": {"name": "Name Member": "twitter": "link"} }
+
+### Analytics
+
+- `TAG_MANAGER` = "tag manager id"
