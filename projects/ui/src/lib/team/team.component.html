@@ -27,7 +27,7 @@
           *ngIf="teamsControls?.isApplyBtn"
           routerLinkActive="active"
         >
-          {{ applyBtnText }}
+         {{ applyBtnText }}
         </button>
       </div>
 
@@ -37,7 +37,7 @@
   <ul *ngIf="grant?.app?.length > 0" class="team__list">
 
     <ng-container *ngFor="let app of grant?.app | sortByTeam">
-      <li *ngIf="isProcess && app?.score?.value !> -1 || !isProcess" [class.winner]="app?.process" class="team__list__li">
+      <li *ngIf="isProcess && app?.score?.value !> 0 || !isProcess" [class.winner]="app?.process" class="team__list__li">
 
         <ui-voting-square
           [votes]="app?.score?.value"
@@ -55,7 +55,7 @@
           <div class="team__list__li__mid__name mat-display-1" title="{{app?.name?.value}}">
             {{app?.name?.value}}
             <ui-statuses
-              [isRejected]="isHasWinner && app?.score?.value < 0"
+              [isRejected]="(uiStatusesIsRejected$ | async) && app?.score?.value < 0"
             ></ui-statuses>
           </div>
           <a

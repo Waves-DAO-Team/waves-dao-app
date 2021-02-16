@@ -2,13 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component, EventEmitter,
   Inject,
-  Input, Output
+  Input, OnDestroy, Output
 } from '@angular/core'
 import {ContractGrantModel} from '@services/contract/contract.model'
 import {UserService} from '@services/user/user.service'
 import {APP_CONSTANTS, AppConstantsInterface} from '@constants'
 import {GrantStatusEnum} from '@services/static/static.model'
 import {TeamsControlsInterface, VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
+import {BehaviorSubject, combineLatest, Subject} from 'rxjs'
+import {map, takeUntil} from 'rxjs/operators'
 
 @Component({
   selector: 'ui-team',
@@ -16,13 +18,18 @@ import {TeamsControlsInterface, VoteTeamEventInterface} from '@pages/entity-page
   styleUrls: ['./team.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeamComponent {
+export class TeamComponent implements OnDestroy{
 
+  private grant$: BehaviorSubject<ContractGrantModel> = new BehaviorSubject<ContractGrantModel>({})
+  private isHasWinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   private inputGrant: ContractGrantModel | null = null
 
   @Input() set grant (data: ContractGrantModel | null) {
     this.inputGrant = data
     this.preparingStatusData(data)
+    if (data) {
+      this.grant$.next(data)
+    }
   }
 
   get grant (): ContractGrantModel | null {
@@ -40,8 +47,19 @@ export class TeamComponent {
   @Output() newVoteTeamEvent = new EventEmitter<VoteTeamEventInterface>()
 
   public grantStatusEnum = GrantStatusEnum
+  private readonly destroyed$ = new Subject()
 
-  public isHasWinner = false
+  public uiStatusesIsRejected$ = combineLatest([this.grant$, this.isHasWinner$])
+    .pipe(
+      takeUntil(this.destroyed$),
+      map(([grant, isWinner]) =>
+        isWinner
+        && grant.status?.value
+        && grant.status?.value === this.grantStatusEnum.teamChosen
+        || grant.status?.value === this.grantStatusEnum.workStarted
+        || grant.status?.value === this.grantStatusEnum.workFinished
+      )
+    )
 
   constructor (
     public userService: UserService, // eslint-disable-line
@@ -55,11 +73,18 @@ export class TeamComponent {
 
   private preparingStatusData (data: ContractGrantModel | null) {
     let isHasWinnerTemp = false
-    if (data && data.app)
-      {data.app.forEach(app => {
-        if (app.score)
-          {isHasWinnerTemp = true}
-      })}
-    this.isHasWinner = isHasWinnerTemp
+    if (data && data.app) {
+      data.app.forEach(app => {
+        if (app.score) {
+          isHasWinnerTemp = true
+        }
+      })
+    }
+    this.isHasWinner$.next(isHasWinnerTemp)
+  }
+
+  ngOnDestroy (): void {
+    this.destroyed$.next(null)
+    this.destroyed$.complete()
   }
 }
