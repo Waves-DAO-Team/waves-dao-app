@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { combineLatest, Observable } from 'rxjs'
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import { filter, map, publishReplay, refCount } from 'rxjs/operators'
 import { ContractService } from '@services/contract/contract.service'
 import { UserService } from '@services/user/user.service'
@@ -12,7 +12,7 @@ import { API, AppApiInterface } from '@constants'
   providedIn: 'root'
 })
 export class StaticService {
-  public selectedContact: GrantTypesEnum = GrantTypesEnum.disruptive
+  public selectedContact$: BehaviorSubject<GrantTypesEnum> = new BehaviorSubject<GrantTypesEnum>( GrantTypesEnum.disruptive)
 
   constructor (
     private readonly contractService: ContractService, // eslint-disable-line
@@ -43,7 +43,7 @@ export class StaticService {
 
   getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
-    this.selectedContact = contractType
+    this.selectedContact$.next(contractType)
     return combineLatest([
       this.getContactInfo(contractType),
       this.userService.data

@@ -2,12 +2,14 @@ import {Component, Inject, OnDestroy} from '@angular/core'
 import {Location} from '@angular/common'
 import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {ContractGrantAppModel, ContractGrantModel,} from '@services/contract/contract.model'
-import {filter, map, takeUntil} from 'rxjs/operators'
-import {Observable, Subject} from 'rxjs'
+import {filter, map, takeUntil, tap} from 'rxjs/operators'
+import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {ALL_TEAM, ALL_TEAM_PAGE_PROVIDERS} from './all-teams-page-routing.providers'
 import {ActivatedRoute} from '@angular/router'
 import {GrantUrl, IScore} from '@services/interface'
 import {GrantTypesEnum} from '@services/static/static.model'
+import {StaticService} from "@services/static/static.service";
+import {ContractService} from "@services/contract/contract.service";
 
 @Component({
   selector: 'app-all-teams-page',
@@ -19,14 +21,13 @@ export class AllTeamsPageComponent implements OnDestroy {
 
   private readonly destroyed$ = new Subject()
 
-  public grantUrl$: Observable<GrantUrl> = this.route.paramMap
-    .pipe(
-      takeUntil(this.destroyed$),
-      map((e): GrantUrl => ({
-        contractType: e.get('contractType') || '',
-        entityId: e.get('entityId') || ''
-      }))
-    )
+  public grantUrl$: Observable<GrantUrl> = combineLatest(
+    [this.contractService.entityId$, this.staticService.selectedContact$]
+  ).pipe(
+    takeUntil(this.destroyed$),
+    filter(([entityId, contractType]) => entityId !== undefined && contractType !== undefined),
+    map(([entityId, contractType]) => {return { entityId, contractType}}),
+  )
 
   public title$: Observable<string> = this.entity.data$
     .pipe(
@@ -43,7 +44,7 @@ export class AllTeamsPageComponent implements OnDestroy {
       map((apps: ContractGrantAppModel[]) => {
         const res: IScore.IUnit[] = []
 
-        apps.forEach( app => {
+        apps.forEach(app => {
 
           const grantType: GrantTypesEnum = app.score && app.score.applicant && app.score.applicant.value
             ? GrantTypesEnum.interhack
@@ -54,7 +55,7 @@ export class AllTeamsPageComponent implements OnDestroy {
             : (app?.score?.value || 0)
 
           const unit: IScore.IUnit = {
-            isWinner: app.process?.value === 'winner' || app.process?.value === 'work_finished'? true : false,
+            isWinner: app.process?.value === 'winner' || app.process?.value === 'work_finished' ? true : false,
             isWinnerIcon: true,
             name: app.name.value,
             solutionLink: null,
@@ -82,18 +83,19 @@ export class AllTeamsPageComponent implements OnDestroy {
       })
     )
 
-  constructor (
+  constructor(
+    private readonly contractService: ContractService,
+    public staticService: StaticService, // eslint-disable-line
     private route: ActivatedRoute, // eslint-disable-line
     private readonly location: Location, // eslint-disable-line
     @Inject(ALL_TEAM) public entity: LoadingWrapperModel<ContractGrantModel>, // eslint-disable-line
-  ) {
-  }
+  ) {}
 
-  goBack (): void {
+  goBack(): void {
     this.location.back()
   }
 
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     this.destroyed$.next(null)
     this.destroyed$.complete()
   }

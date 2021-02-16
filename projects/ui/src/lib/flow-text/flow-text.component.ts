@@ -1,11 +1,11 @@
-import {Component, Input, OnDestroy } from '@angular/core'
-import { map, takeUntil } from 'rxjs/operators'
-import {ActivatedRoute} from '@angular/router'
-import {GrantStatusEnum, GrantTypesEnum} from '@services/static/static.model'
-import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
+import {Component, Input, OnDestroy} from '@angular/core'
+import {map, takeUntil} from 'rxjs/operators'
+import {GrantStatusEnum} from '@services/static/static.model'
+import {BehaviorSubject, combineLatest, Subject} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {ContractGrantModel} from '@services/contract/contract.model'
 import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
+import {StaticService} from "@services/static/static.service";
 
 @Component({
   selector: 'ui-flow-text',
@@ -22,20 +22,15 @@ export class FlowTextComponent implements OnDestroy {
   @Input() isShowFlow = false
   private grant$: BehaviorSubject<ContractGrantModel> = new BehaviorSubject<ContractGrantModel>({})
 
-  @Input() set grant (data: ContractGrantModel) {
+  @Input() set grant(data: ContractGrantModel) {
     if (data && data.id) {
       this.grant$.next(data)
     }
   }
 
   private readonly destroyed$ = new Subject()
-  public grantUrl$: Observable<GrantTypesEnum> = this.route.paramMap
-    .pipe(
-      takeUntil(this.destroyed$),
-      map((e) => (e.get('contractType') as GrantTypesEnum | null) || GrantTypesEnum.disruptive),
-    )
   private status$: BehaviorSubject<string> = new BehaviorSubject<string>('')
-  public content$ = combineLatest([this.grantUrl$, this.status$, this.grant$])
+  public content$ = combineLatest([this.staticService.selectedContact$, this.status$, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
       map(
@@ -50,14 +45,16 @@ export class FlowTextComponent implements OnDestroy {
       )
     )
 
-  @Input() set status (data: string) {
+  @Input() set status(data: string) {
     this.status$.next(data)
   }
 
-  constructor (public route: ActivatedRoute) {
+  constructor(
+    public staticService: StaticService, // eslint-disable-line
+  ) {
   }
 
-  private prepareData (grant: ContractGrantModel): {
+  private prepareData(grant: ContractGrantModel): {
     voteScore: string,
     votesAmount: string,
     performerName: string,
@@ -76,7 +73,7 @@ export class FlowTextComponent implements OnDestroy {
     }
     let performerName = ''
     if (grant.app) {
-      grant.app.forEach( app => {
+      grant.app.forEach(app => {
         if (app.process && app.name && app.name.value) {
           performerName = app.name.value
         }
@@ -90,7 +87,7 @@ export class FlowTextComponent implements OnDestroy {
     const teamsAmount = (grant.app?.length || 0).toString()
 
     let winnerIdentifier = ''
-    grant.app?.forEach( app => {
+    grant.app?.forEach(app => {
       if (app.process?.value === 'winner') {
         winnerIdentifier = app.id.value
       }
@@ -107,7 +104,7 @@ export class FlowTextComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     this.destroyed$.next(null)
   }
 

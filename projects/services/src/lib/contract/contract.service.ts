@@ -35,7 +35,7 @@ export class ContractService {
     publishReplay(1),
     refCount()
   )
-
+  public entityId$: BehaviorSubject<string> = new BehaviorSubject<string>('')
   public readonly stream: Observable<ContractGrantFullAppModel> = combineLatest([this.contractState, this.membershipService.stream]).pipe(
     map(([data, members]) => ({
       ...data,
@@ -55,6 +55,7 @@ export class ContractService {
     }))))
 
   public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
+    this.entityId$.next(entityId)
     return this.stream.pipe(
       map((data: ContractDataModel) => {
         const grant: ContractGrantRawModel = data.tasks[entityId]

@@ -52,7 +52,7 @@ export class ApplyComponent {
       this.modalStep = 3
     } else {
       if (com === 'NEED_APPLY') {
-        window.open(this.api.issues[this.staticService.selectedContact], '_blank', ' noreferrer')
+        window.open(this.api.issues[this.staticService.selectedContact$.getValue()], '_blank', ' noreferrer')
       }
       this.modalStep = 2
     }
