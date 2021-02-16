@@ -38,7 +38,15 @@ export interface AppApiInterface {
     twitter?: string
     facebook?: string
     linkedin?: string
-  }}
+  }},
+  links: {
+    facebook?: string
+    medium?: string
+    twitter?: string
+  },
+  emails: {
+    grants?: string
+  }
 }
 
 export const APP_CONSTANTS = new InjectionToken<Type<AppConstantsInterface>>('Application constants')

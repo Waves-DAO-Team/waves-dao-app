@@ -28,6 +28,14 @@ export const environment = {
       interhack: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
           'KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.' +
           'md&title=%5BTrack+3.+Interhack+Grant%5D+'
+    },
+    links: {
+      facebook: "https://www.facebook.com/wavesassociation",
+      medium: "https://medium.com/waves-association",
+      twitter: "https://twitter.com/Waves_Ass",
+    },
+    emails: {
+      grants: "grants@wavesassociation.org"
     }
   },
 

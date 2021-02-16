@@ -24,6 +24,14 @@ export const environment = {
       disruptive: 'https://github.com/Waves-Association/grants-program/blob/main/README.md',
       web3: 'https://github.com/Waves-Association/grants-program/blob/main/README.md',
       interhack: 'https://github.com/Waves-Association/grants-program/blob/main/README.md'
+    },
+    links: {
+      facebook: "https://www.facebook.com/wavesassociation",
+      medium: "https://medium.com/waves-association",
+      twitter: "https://twitter.com/Waves_Ass",
+    },
+    emails: {
+      grants: "grants@wavesassociation.org"
     }
   },
 

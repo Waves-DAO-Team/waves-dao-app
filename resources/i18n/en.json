@@ -21,6 +21,9 @@
       "setting": "Setting"
     }
   },
+  "footer": {
+    "copyright": "© 2020 Waves Association"
+  },
   "tooltip": {
     "not_enough_money": "Not enough money on the balance sheet"
   },
