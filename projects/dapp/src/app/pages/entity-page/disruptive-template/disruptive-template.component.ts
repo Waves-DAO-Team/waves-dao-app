@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
-import {GrantStatusEnum, GrantsVariationType, GrantTypesEnum} from '@services/static/static.model'
+import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
@@ -29,8 +29,8 @@ import {
   teamsControls
 } from '@pages/entity-page/disruptive-template/functions'
 import {ActivatedRoute} from '@angular/router'
-import {IScore} from "@services/interface";
-import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
+import {IScore} from '@services/interface'
+import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
 
 @Component({
   selector: 'app-disruptive-template',
@@ -63,9 +63,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   public readonly teamsHeader$ = combineLatest(
     [this.grant$, this.userService.data, this.userService.isBalanceMoreCommission$])
     .pipe(
-      filter(([grant, user]) => grant !== null && grant !== undefined),
+      filter(([grant]) => grant !== null && grant !== undefined),
       map(([grant, user, isBalance]): IScore.IHeader => {
-        let res: IScore.IHeader = {
+        const res: IScore.IHeader = {
           applyBtnText: translate('entity.apply'),
           isApplyBtn: teamsControls(user, grant).isApplyBtn || false,
           isBalanceMoreCommission: isBalance !== false,
@@ -82,7 +82,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   )
     .pipe(
       takeUntil(this.destroyed$),
-      filter(([grant, user, isProcess]) => grant !== null && grant !== undefined),
+      filter(([grant]) => grant !== null && grant !== undefined),
       map(([grant, user, isProcess]) => {
         const res: IScore.IUnit[] = []
         const apps = grant.app || []
@@ -112,7 +112,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
             },
             teamLink: this.linkHttpPipe.transform(app?.link?.value)
           }
-          if(isProcess && score !> 0 || !isProcess) {
+          if(isProcess && score> 0 || !isProcess) {
             res.push(unit)
           }
         })
@@ -185,8 +185,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
 
 
 
-  @Input() set grant(data
-                       :
+  @Input() set grant (data:
                        ContractGrantModel
   ) {
     if (data !== this.inputGrant) {
@@ -196,15 +195,14 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     this.grant$.next(data)
   }
 
-  get grant()
-    :
+  get grant ():
     ContractGrantModel {
     return this.inputGrant
   }
 
   private inputGrant: ContractGrantModel = {}
 
-  constructor(
+  constructor (
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -215,8 +213,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   ) {
   }
 
-  vote(value
-         :
+  vote (value:
          'like' | 'dislike'
   ):
     void {
@@ -230,8 +227,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  signup()
-    :
+  signup ():
     void {
     this.signerService.login()
       .pipe(take(1))
@@ -241,8 +237,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
       })
   }
 
-  openApplyModal()
-    :
+  openApplyModal ():
     void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
@@ -263,8 +258,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  voteTeam($event
-             :
+  voteTeam ($event:
              VoteTeamEventInterface
   ):
     void {
@@ -274,26 +268,22 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote()
-    :
+  finishVote ():
     void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork()
-    :
+  startWork ():
     void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject()
-    :
+  reject ():
     void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult()
-    :
+  acceptWorkResult ():
     void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
@@ -314,8 +304,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  finishApplicantsVote()
-    :
+  finishApplicantsVote ():
     void {
     const id = this.grant.id as string
     if (id) {
@@ -323,8 +312,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     }
   }
 
-  addReward()
-    :
+  addReward ():
     void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
@@ -349,7 +337,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
@@ -362,7 +350,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.destroyed$.next()
   }
 }

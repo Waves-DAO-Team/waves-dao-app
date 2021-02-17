@@ -5,7 +5,7 @@ import {VotingSquareModule} from '@ui/voting-square/voting-square.module'
 import {StatusesModule} from '@ui/statuses/statuses.module'
 import {TranslocoModule} from '@ngneat/transloco'
 import {PipesModule} from '@libs/pipes/pipes.module'
-import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatTooltipModule} from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [ScoreListComponent],

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core'
 import {IScore} from '@services/interface'
-import {VoteEventInterface, VoteTeamEventInterface} from "@pages/entity-page/entity.interface";
-import {ContractGrantModel} from "@services/contract/contract.model";
+import {VoteEventInterface} from '@pages/entity-page/entity.interface'
+import {ContractGrantModel} from '@services/contract/contract.model'
 
 @Component({
   selector: 'ui-score-list',
