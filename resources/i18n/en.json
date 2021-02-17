@@ -782,7 +782,8 @@
     "whyDAO_content_2": "Using DAO Association, members are following predefined steps to make the decisions with a simple UX and fast transactions",
     "whyDAO_content_3": "Any internet user can observe decision making processes and stay sure that the decisions are made transparently and honestly",
 
-    "workflow": "The Workflow"
+    "workflow": "The Workflow",
+    "workflow_description": "As a preparation for launching a grant process, the DAO Manager sets the lists of Waves Association and Working Group members."
   },
   "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
 }
