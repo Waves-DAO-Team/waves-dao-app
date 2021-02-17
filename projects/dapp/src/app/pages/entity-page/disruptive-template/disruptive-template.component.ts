@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
-import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
+import {GrantStatusEnum, GrantsVariationType, GrantTypesEnum} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
@@ -29,6 +29,8 @@ import {
   teamsControls
 } from '@pages/entity-page/disruptive-template/functions'
 import {ActivatedRoute} from '@angular/router'
+import {IScore} from "@services/interface";
+import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
 
 @Component({
   selector: 'app-disruptive-template',
@@ -43,13 +45,80 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   grant$ = new Subject<ContractGrantModel>()
 
   private readonly destroyed$ = new Subject()
-
+  private linkHttpPipe: LinkHttpPipe = new LinkHttpPipe()
   private user$ = this.userService.data
     .pipe(
       takeUntil(this.destroyed$),
       filter(() => this.inputGrant?.id !== undefined)
     )
     .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
+
+  public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
+    .pipe(
+      takeUntil(this.destroyed$),
+      map((grants: ContractGrantModel): ContractGrantAppModel[] => grants?.app || []),
+      map((app: ContractGrantAppModel[]) => !!app.find((a) => !!a.process))
+    )
+
+  public readonly teamsHeader$ = combineLatest(
+    [this.grant$, this.userService.data, this.userService.isBalanceMoreCommission$])
+    .pipe(
+      filter(([grant, user]) => grant !== null && grant !== undefined),
+      map(([grant, user, isBalance]): IScore.IHeader => {
+        let res: IScore.IHeader = {
+          applyBtnText: translate('entity.apply'),
+          isApplyBtn: teamsControls(user, grant).isApplyBtn || false,
+          isBalanceMoreCommission: isBalance !== false,
+          isShowAppliers: grant?.isShowAppliers || false,
+          isUnauthorized: user.roles.isUnauthorized,
+          titleText: translate('entity.teams')
+        }
+        return res
+      })
+    )
+
+  public readonly teams$: Observable<IScore.IUnit[]> = combineLatest(
+    [this.grant$, this.userService.data, this.isShowTeamsBtn$]
+  )
+    .pipe(
+      takeUntil(this.destroyed$),
+      filter(([grant, user, isProcess]) => grant !== null && grant !== undefined),
+      map(([grant, user, isProcess]) => {
+        const res: IScore.IUnit[] = []
+        const apps = grant.app || []
+        const controls = teamsControls(user, grant)
+        apps.forEach(app => {
+          const isCanVote =
+            (!(controls?.isVoteControls === 'hidden')&& this.grantStatusEnum.rejected !== grant?.status?.value)
+            && !controls?.voteFor.includes(app?.id?.value)
+          const score = app?.score?.value || 0
+          const unit: IScore.IUnit = {
+            isWinner: false,
+            isPerformer: !!app.process?.value,
+            isWinnerIcon: !!app.process?.value,
+            isPerformerIcon: true,
+            name: app.name.value,
+            solutionLink: null,
+            status: {
+              isSolution: false,
+              isRejected: false,
+              isApprove: false
+            },
+            square: {
+              score: app.score?.value || 0,
+              id: app?.id?.value || '',
+              isCanVote,
+              isShowResult: !user.roles.isDAO,
+            },
+            teamLink: this.linkHttpPipe.transform(app?.link?.value)
+          }
+          if(isProcess && score !> 0 || !isProcess) {
+            res.push(unit)
+          }
+        })
+        return res
+      })
+    )
 
   isShowStepperAndTeam$: Observable<boolean> = this.grant$
     .pipe(
@@ -114,14 +183,12 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
       })
     )
 
-  public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
-    .pipe(
-      takeUntil(this.destroyed$),
-      map((grants: ContractGrantModel): ContractGrantAppModel[] => grants?.app || []),
-      map((app: ContractGrantAppModel[]) => !!app.find((a) => !!a.process))
-    )
 
-  @Input() set grant (data: ContractGrantModel) {
+
+  @Input() set grant(data
+                       :
+                       ContractGrantModel
+  ) {
     if (data !== this.inputGrant) {
       this.inputGrant = data
       this.prepareVoteForTaskData(data)
@@ -129,13 +196,15 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     this.grant$.next(data)
   }
 
-  get grant (): ContractGrantModel {
+  get grant()
+    :
+    ContractGrantModel {
     return this.inputGrant
   }
 
   private inputGrant: ContractGrantModel = {}
 
-  constructor (
+  constructor(
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -146,7 +215,11 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   ) {
   }
 
-  vote (value: 'like' | 'dislike'): void {
+  vote(value
+         :
+         'like' | 'dislike'
+  ):
+    void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -157,7 +230,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  signup (): void {
+  signup()
+    :
+    void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -166,7 +241,9 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
       })
   }
 
-  openApplyModal (): void {
+  openApplyModal()
+    :
+    void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -186,26 +263,38 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface): void {
+  voteTeam($event
+             :
+             VoteTeamEventInterface
+  ):
+    void {
     const id = this.grant?.id as string
     const teamId = $event.teamIdentifier
     const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote (): void {
+  finishVote()
+    :
+    void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork (): void {
+  startWork()
+    :
+    void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject (): void {
+  reject()
+    :
+    void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult (): void {
+  acceptWorkResult()
+    :
+    void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -225,14 +314,18 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  finishApplicantsVote (): void {
+  finishApplicantsVote()
+    :
+    void {
     const id = this.grant.id as string
     if (id) {
       this.disruptiveContractService.finishApplicantsVoting(id, getWinnerTeamId(this.grant)).subscribe()
     }
   }
 
-  addReward (): void {
+  addReward()
+    :
+    void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -256,7 +349,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
+  private prepareVoteForTaskData(grant: ContractGrantModel) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
@@ -269,7 +362,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     }
   }
 
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     this.destroyed$.next()
   }
 }

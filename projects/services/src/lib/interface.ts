@@ -7,7 +7,9 @@ export namespace IScore {
   export interface IUnit {
     name: string
     isWinner: boolean
+    isPerformer: boolean
     isWinnerIcon: boolean
+    isPerformerIcon: boolean
     teamLink: string | null
     solutionLink: string | null
     square: ISquare
@@ -26,6 +28,14 @@ export namespace IScore {
   }
   export interface ISort {
     by: 'team' | 'solution'
+  }
+  export interface IHeader {
+    titleText: string | null
+    applyBtnText: string | null
+    isShowAppliers: boolean
+    isUnauthorized: boolean
+    isBalanceMoreCommission: boolean
+    isApplyBtn: boolean
   }
 }
 
