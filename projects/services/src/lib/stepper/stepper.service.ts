@@ -29,27 +29,21 @@ export class StepperService {
   interhackFormalStatuses = [
     {
       key: 'ready_to_apply',
-      value: translate('stepper.requests_selection_start')
+      value: translate('stepper.hackathon_proposed')
     },
     {
       key: 'work_started',
-      value: translate('stepper.work_started')
+      value: translate('stepper.collecting_applications')
     },
     {
       key: 'work_finished',
-      value: translate('stepper.work_finished')
+      value: translate('stepper.hackathon_is_live')
     },
     {
       key: 'solution_chosen',
-      value: translate('stepper.solutions_selection_over')
+      value: translate('stepper.winner_is_selected')
     }
   ]
-
-  // no_status        Подготовка            Preparing
-  // voting_started   Начато голосование    Voting has started
-  // approved         Работа начата         The work has begun
-  // work_started     Работа начата         The work has begun
-  // work_finished    Завершен              Finished
 
   dev3FormalStatuses = [
     {

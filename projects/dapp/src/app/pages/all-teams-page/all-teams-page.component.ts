@@ -57,6 +57,8 @@ export class AllTeamsPageComponent implements OnDestroy {
           const unit: IScore.IUnit = {
             isWinner: app.process?.value === 'winner' || app.process?.value === 'work_finished' ? true : false,
             isWinnerIcon: true,
+            isPerformer: false,
+            isPerformerIcon: false,
             name: app.name.value,
             solutionLink: null,
             status: {
