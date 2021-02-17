@@ -8,6 +8,7 @@
   margin-bottom: 40px;
   &__md {
     margin-bottom: $padding * 2;
+    overflow-x: hidden;
   }
   &__summary {
     margin-bottom: 0;
