@@ -6,7 +6,7 @@
         <button
           class="active"
           (click)="newSignupEvent.emit()"
-          *ngIf="user.roles.isUnauthorized"
+          *ngIf="user.roles.isUnauthorized && !grant.vh"
         >
           {{'entity.log_in_for_apply' | transloco}}
         </button>

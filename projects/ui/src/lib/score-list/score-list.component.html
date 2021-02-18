@@ -3,7 +3,7 @@
   <div class="score-list__header" *ngIf="header?.isShowAppliers && header?.titleText">
     <div class="score-list__title mat-display-4">{{header.titleText}}</div>
     <div class="score-list__controls">
-      <button class="active" (click)="newSignupEvent.emit()" *ngIf="header.isUnauthorized">
+      <button class="active" (click)="newSignupEvent.emit()" *ngIf="header.isShowLogInForApplyBtn">
         {{'entity.log_in_for_apply' | transloco}}
       </button>
       <div
