@@ -340,6 +340,16 @@ a {
     margin: $padding * 2 auto;
     padding: $padding * 3 auto;
 
+    &-desc {
+      max-width: 45%;
+      @include media('<tablet') {
+        max-width: 80%;
+      }
+      @include media('>=tablet', '<desktop') {
+        max-width: 60%;
+      }
+    }
+
     &-image {
       margin-bottom: $padding * 3;
       width: 100%;

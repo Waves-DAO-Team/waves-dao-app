@@ -15,7 +15,7 @@
   &__mid {
     color: $color_black;
     display: grid;
-    grid-template-columns: minmax(300px, 100%) 400px;
+    grid-template-columns: 1fr auto;
     line-height: 1;
     margin-bottom: $padding * 2;
     margin-top: $padding * 2;

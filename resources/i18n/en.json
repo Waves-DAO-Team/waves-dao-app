@@ -121,11 +121,11 @@
     "collecting_applications": "Collecting applications",
     "requests_selection_over": "Requests selection is over",
     "work_begun": "The work has begun",
-    "requests_selection_start": "Collecting applications",
-    "solutions_selection_over": "Requests solutions is over",
-    "work_started": "Work started",
+    "hackathon_proposed": "Hackathon proposed",
+    "winner_is_selected": "Winner is selected",
     "in_work": "In work",
-    "work_finished": "Work finished"
+    "work_finished": "Work finished",
+    "hackathon_is_live": "Hackathon is live"
   },
   "listing": {
     "desc": {
@@ -782,7 +782,8 @@
     "whyDAO_content_2": "Using DAO Association, members are following predefined steps to make the decisions with a simple UX and fast transactions",
     "whyDAO_content_3": "Any internet user can observe decision making processes and stay sure that the decisions are made transparently and honestly",
 
-    "workflow": "The Workflow"
+    "workflow": "The Workflow",
+    "workflow_description": "As a preparation for launching a grant process, the DAO Manager sets the lists of Waves Association and Working Group members."
   },
   "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
 }

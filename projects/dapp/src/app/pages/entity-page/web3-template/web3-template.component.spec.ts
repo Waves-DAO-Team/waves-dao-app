@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { EntityModule } from '@ui/entity/entity.module'
 import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
-import { TeamModule } from '@ui/team/team.module'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
@@ -29,7 +28,6 @@ describe('Web3TemplateComponent', () => {
         MatSnackBarModule,
         EntityModule,
         MarkdownModule,
-        TeamModule,
         VoteForTaskModule,
         StepperModule,
         NoopAnimationsModule,

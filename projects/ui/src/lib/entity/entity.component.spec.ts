@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { HeaderModule } from '@ui/entity/header/header.module'
 import { BodyModule } from '@ui/entity/body/body.module'
 import { ControlsModule } from '@ui/entity/controls/controls.module'
-import { TeamModule } from '@ui/team/team.module'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -30,7 +29,6 @@ describe('EntityComponent', () => {
         HeaderModule,
         BodyModule,
         ControlsModule,
-        TeamModule,
         MarkdownModule,
         ReactiveFormsModule,
         LinkContentModule
