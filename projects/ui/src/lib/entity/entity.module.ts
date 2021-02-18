@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HeaderModule } from '@ui/entity/header/header.module'
 import { BodyModule } from '@ui/entity/body/body.module'
 import { ControlsModule } from '@ui/entity/controls/controls.module'
-import { TeamModule } from '@ui/team/team.module'
 import { DialogModule } from '@ui/dialog/dialog.module'
 import { ApplyModule } from '@ui/modals/apply/apply.module'
 import { LinkContentModule } from '@services/link-content/link-content.module'
@@ -29,7 +28,6 @@ import { TeamsAndSolutionsModule } from '@ui/teams-and-solutions/teams-and-solut
     BodyModule,
     ControlsModule,
     TeamsAndSolutionsModule,
-    TeamModule,
     ReactiveFormsModule,
     DialogModule,
     ApplyModule,

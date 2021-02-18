@@ -32,18 +32,17 @@
 
 
 <ng-template #team>
-<!--  *ngIf="isShowStepperAndTeam$ | async"-->
-  <ui-team
 
-    [grant]="grant"
-    [teamsControls]="teamsControls$ | async"
-    [isProcess]="isShowTeamsBtn$ | async"
-    (newSignupEvent)="signup()"
-    (newOpenApplyModalEvent)="openApplyModal()"
-    (newVoteTeamEvent)="voteTeam($event)"
+  <ui-score-list
     titleText="{{'entity.teams' | transloco}}"
     applyBtnText="{{'entity.apply' | transloco}}"
-  ></ui-team>
+    [grant]="grant"
+    [header]="teamsHeader$ | async"
+    [list]="teams$ | async"
+    (newVoteEvent)="voteTeam($event)"
+    (newSignupEvent)="signup()"
+    (newOpenApplyModalEvent)="openApplyModal()"
+  ></ui-score-list>
 
   <ui-all-teams-btn *ngIf="isShowTeamsBtn$ | async"></ui-all-teams-btn>
 

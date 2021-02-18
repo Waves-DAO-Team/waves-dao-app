@@ -121,11 +121,11 @@
     "collecting_applications": "Collecting applications",
     "requests_selection_over": "Requests selection is over",
     "work_begun": "The work has begun",
-    "requests_selection_start": "Collecting applications",
-    "solutions_selection_over": "Requests solutions is over",
-    "work_started": "Work started",
+    "hackathon_proposed": "Hackathon proposed",
+    "winner_is_selected": "Winner is selected",
     "in_work": "In work",
-    "work_finished": "Work finished"
+    "work_finished": "Work finished",
+    "hackathon_is_live": "Hackathon is live"
   },
   "listing": {
     "desc": {
