@@ -12,6 +12,7 @@
     text-align: center;
   }
 }
+
 .container {
   @include container();
 
@@ -29,4 +30,10 @@
       width: 5px;
     }
   }
+}
+
+markdown {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
