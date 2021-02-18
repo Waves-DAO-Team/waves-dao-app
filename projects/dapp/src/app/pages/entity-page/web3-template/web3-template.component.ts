@@ -220,11 +220,9 @@ export class Web3TemplateComponent implements TemplateComponentAbstract, OnDestr
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            this.communityContractService.acceptWorkResult(this.grant?.id as string, data.reportLink)
-              .subscribe(() => {
-                dialog.close()
-                this.cdr.markForCheck()
-              })
+            this.communityContractService.acceptWorkResult(this.grant?.id as string, data.reportLink).subscribe()
+            dialog.close()
+            this.cdr.markForCheck()
           }
         }
       }
