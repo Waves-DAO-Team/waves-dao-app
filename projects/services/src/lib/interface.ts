@@ -36,6 +36,7 @@ export namespace IScore {
     isUnauthorized: boolean
     isBalanceMoreCommission: boolean
     isApplyBtn: boolean
+    isShowLogInForApplyBtn: boolean
   }
 }
 

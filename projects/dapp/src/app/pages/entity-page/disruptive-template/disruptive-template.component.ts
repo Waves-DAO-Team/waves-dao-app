@@ -65,13 +65,22 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     .pipe(
       filter(([grant]) => grant !== null && grant !== undefined),
       map(([grant, user, isBalance]): IScore.IHeader => {
+
+        let isProcess = false
+        grant?.app?.forEach( app => {
+          if(!!app.process?.value) {
+            isProcess = true
+          }
+        })
+
         const res: IScore.IHeader = {
           applyBtnText: translate('entity.apply'),
           isApplyBtn: teamsControls(user, grant).isApplyBtn || false,
           isBalanceMoreCommission: isBalance !== false,
           isShowAppliers: grant?.isShowAppliers || false,
           isUnauthorized: user.roles.isUnauthorized,
-          titleText: translate('entity.teams')
+          titleText: translate('entity.teams'),
+          isShowLogInForApplyBtn: user.roles.isUnauthorized && !isProcess
         }
         return res
       })
