@@ -77,7 +77,7 @@ export const teamsControls = (user: UserDataInterface, grant: ContractGrantModel
   // isVoteControls
   if (grant.app) {
     grant.app.forEach((app) => {
-      if (app.key && app.voted && app.voted.value.includes(user.userAddress)) {
+      if (app.key && app.voted && app.voted.value && app.voted.value.includes(user.userAddress)) {
         result.voteFor.push(app.key)
       }
     })

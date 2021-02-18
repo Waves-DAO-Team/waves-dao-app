@@ -60,7 +60,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
       map((app: ContractGrantAppModel[]) => !!app.find((a) => !!a.process))
     )
 
-  public readonly teamsHeader$ = combineLatest(
+  public readonly teamsHeader$: Observable<IScore.IHeader> = combineLatest(
     [this.grant$, this.userService.data, this.userService.isBalanceMoreCommission$])
     .pipe(
       filter(([grant]) => grant !== null && grant !== undefined),
@@ -82,6 +82,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
           titleText: translate('entity.teams'),
           isShowLogInForApplyBtn: user.roles.isUnauthorized && !isProcess
         }
+
         return res
       })
     )

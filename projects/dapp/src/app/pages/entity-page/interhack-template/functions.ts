@@ -2,6 +2,10 @@ import {ContractGrantModel} from '@services/contract/contract.model'
 import {UserDataInterface} from '@services/user/user.interface'
 import {GrantStatusEnum} from '@services/static/static.model'
 import {TeamsAndSolutionsControlsInterface} from '@pages/entity-page/entity.interface'
+import {IScore} from "@services/interface";
+import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
+
+const linkHttpPipe: LinkHttpPipe = new LinkHttpPipe()
 
 export const teamsAndSolutionsControls = (user: UserDataInterface, grant: ContractGrantModel): TeamsAndSolutionsControlsInterface => {
   const result: TeamsAndSolutionsControlsInterface = {
@@ -35,9 +39,9 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
       // status === GrantStatusEnum.readyToApply
       // // || status === GrantStatusEnum.workStarted
     ) {
-      result.stepType = 'team'
+      result.stepType = IScore.EStepType.team
     } else {
-      result.stepType = 'solution'
+      result.stepType = IScore.EStepType.solution
     }
     // isApplyBtn
     if (user.roles.isAuth && status === GrantStatusEnum.readyToApply) {
@@ -111,15 +115,118 @@ export const isAcceptWorkResultBtnInterhack = (user: UserDataInterface, grant: C
   if (grant && grant.app) {
     const isWG = user.roles.isWG
     let isVote = false
-    if (grant.app.length)
-      {grant.app.forEach((app) => {
+    if (grant.app.length) {
+      grant.app.forEach((app) => {
         if (app.voted && app.voted.solution && app.voted.solution.value) {
           isVote = true
         }
-      })}
+      })
+    }
     const isStatusMatch = grant?.status?.value === GrantStatusEnum.workFinished
     return isVote && isWG && isStatusMatch
   } else {
     return false
   }
+}
+
+export const teamsAndSolutionTypeTeam = (
+  grant: ContractGrantModel, user: UserDataInterface, controls: TeamsAndSolutionsControlsInterface
+): IScore.IUnit[] => {
+
+  const res: IScore.IUnit[] = []
+  const apps = grant.app || []
+
+  apps.forEach(app => {
+
+    const appKey: string = app.key || ""
+    const isCanVote = (!controls.teamVoteKeys.includes(appKey)
+      || GrantStatusEnum.readyToApply !== grant?.status?.value)
+      && GrantStatusEnum.rejected !== grant?.status?.value
+      && GrantStatusEnum.workStarted !== grant?.status?.value
+
+    const unit: IScore.IUnit = {
+      isWinner: false,
+      isPerformer: !!app.process?.value,
+      isWinnerIcon: !!app.process?.value,
+      isPerformerIcon: true,
+      name: app.name.value,
+      solutionLink: null,
+      status: {
+        isSolution: false,
+        isRejected: false,
+        isApprove: false
+      },
+      square: {
+        score: app?.score?.applicant?.value || 0,
+        id: app?.id?.value || '',
+        isCanVote,
+        isShowResult: !user.roles.isDAO,
+      },
+      teamLink: linkHttpPipe.transform(app?.link?.value)
+    }
+
+    res.push(unit)
+
+  })
+
+  return res
+
+}
+
+export const teamsAndSolutionTypeSolution = (
+  grant: ContractGrantModel,
+  user: UserDataInterface,
+  controls: TeamsAndSolutionsControlsInterface,
+  fake: boolean,
+  multiWinners: boolean,
+  winnerSolutionId: string
+): IScore.IUnit[] => {
+
+  const res: IScore.IUnit[] = []
+  const apps = grant.app || []
+
+  apps.forEach(app => {
+
+    const isSolution: boolean = !!app?.solution?.value
+    const isCanVote: boolean =
+      !app?.voted?.solution?.value.includes(user.userAddress)
+      && GrantStatusEnum.solutionChosen !== grant?.status?.value
+      && GrantStatusEnum.rejected !== grant?.status?.value
+      && !fake
+      && isSolution
+    const isWinner: boolean =
+      !multiWinners
+      && GrantStatusEnum.solutionChosen === grant?.status?.value
+      && !!app?.process
+      && app?.id?.value === winnerSolutionId
+
+    const unit: IScore.IUnit = {
+      isWinner,
+      isPerformer: false,
+      isWinnerIcon: true,
+      isPerformerIcon: true,
+      name: app.name.value,
+      solutionLink: app?.solution?.value ? app?.solution?.value : null,
+      status: {
+        isSolution: app?.solution?.value ? true : false,
+        isRejected: false,
+        isApprove: false
+      },
+      square: {
+        score: app?.score?.solution?.value || 0,
+        id: app?.id?.value || '',
+        isCanVote,
+        isShowResult: !user.roles.isDAO,
+      },
+      teamLink: linkHttpPipe.transform(app?.link?.value)
+    }
+
+    const applicantScore = app?.score?.applicant?.value || 0
+
+    if (applicantScore > 0)
+      res.push(unit)
+
+  })
+
+  return res
 }
