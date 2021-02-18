@@ -199,10 +199,8 @@
 
           <a
             class="button landing-page__grants-cards-card-button btn active"
-            target="_blank"
-            rel="noopener nofollow noreferrer"
-            [href]="'landing-page.grantDisruptiveLink' | transloco">
-            {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
+            [routerLink]="constants.routes.listing | route: 'disruptive'">
+          {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </a>
         </div>
         <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/disruptive-type-landing.png">
@@ -220,9 +218,7 @@
 
           <a
             class="button landing-page__grants-cards-card-button btn active"
-            target="_blank"
-            rel="noopener nofollow noreferrer"
-            [href]="'landing-page.grantWeb3Link' | transloco">
+            [routerLink]="constants.routes.listing | route: 'web3'">
             {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </a>
         </div>
@@ -239,10 +235,8 @@
 
           <a
             class="button landing-page__grants-cards-card-button btn active"
-            target="_blank"
-            rel="noopener nofollow noreferrer"
-            [href]="'landing-page.grantInterhackLink' | transloco">
-            {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
+            [routerLink]="constants.routes.listing | route: 'interhack'">
+          {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
           </a>
         </div>
         <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/interhack-type-landing.png">
