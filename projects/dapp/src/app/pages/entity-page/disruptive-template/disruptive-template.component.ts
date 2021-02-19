@@ -15,7 +15,6 @@ import {
 } from '@ui/dialog/dialog.tokens'
 import {MatDialog} from '@angular/material/dialog'
 import {
-  TeamsControlsInterface,
   TemplateComponentAbstract,
   VoteTeamEventInterface
 } from '@pages/entity-page/entity.interface'
@@ -31,12 +30,10 @@ import {
   isShowAddRewardBtn,
   isStartWorkBtn, prepareIsRejectBtnData,
   prepareTeamsData,
-  prepareTeamsHeaderData,
-  teamsControls
+  prepareTeamsHeaderData
 } from '@pages/entity-page/disruptive-template/functions'
 import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
-import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
 
 @Component({
   selector: 'app-disruptive-template',
@@ -132,7 +129,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     )
 
 
-  @Input() set grant(data: ContractGrantModel) {
+  @Input() set grant (data: ContractGrantModel) {
     if (data !== this.inputGrant) {
       this.inputGrant = data
       this.prepareVoteForTaskData(data)
@@ -140,14 +137,14 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     this.grant$.next(data)
   }
 
-  get grant():
+  get grant ():
     ContractGrantModel {
     return this.inputGrant
   }
 
   private inputGrant: ContractGrantModel = {}
 
-  constructor(
+  constructor (
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -158,7 +155,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   ) {
   }
 
-  vote(value: 'like' | 'dislike'): void {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -169,7 +166,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  signup(): void {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -178,7 +175,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
       })
   }
 
-  openApplyModal(): void {
+  openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -198,26 +195,26 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface): void {
+  voteTeam ($event: VoteTeamEventInterface): void {
     const id = this.grant?.id as string
     const teamId = $event.teamIdentifier
     const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote(): void {
+  finishVote (): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork(): void {
+  startWork (): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject(): void {
+  reject (): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult(): void {
+  acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -237,14 +234,14 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  finishApplicantsVote(): void {
+  finishApplicantsVote (): void {
     const id = this.grant.id as string
     if (id) {
       this.disruptiveContractService.finishApplicantsVoting(id, getWinnerTeamId(this.grant)).subscribe()
     }
   }
 
-  addReward(): void {
+  addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -268,7 +265,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     })
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
@@ -281,7 +278,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.destroyed$.next()
   }
 }

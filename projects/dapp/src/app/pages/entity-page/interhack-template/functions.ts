@@ -1,11 +1,11 @@
-import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
+import {ContractGrantModel} from '@services/contract/contract.model'
 import {UserDataInterface} from '@services/user/user.interface'
 import {GrantStatusEnum} from '@services/static/static.model'
 import {TeamsAndSolutionsControlsInterface} from '@pages/entity-page/entity.interface'
-import {IScore} from "@services/interface";
-import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
-import {translate} from "@ngneat/transloco";
-import {teamsControls} from "@pages/entity-page/disruptive-template/functions";
+import {IScore} from '@services/interface'
+import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
+import {translate} from '@ngneat/transloco'
+import {teamsControls} from '@pages/entity-page/disruptive-template/functions'
 
 const linkHttpPipe: LinkHttpPipe = new LinkHttpPipe()
 
@@ -140,7 +140,7 @@ export const teamsAndSolutionTypeTeam = (
 
   apps.forEach(app => {
 
-    const appKey: string = app.key || ""
+    const appKey: string = app.key || ''
     const isCanVote = (!controls.teamVoteKeys.includes(appKey)
       || GrantStatusEnum.readyToApply !== grant?.status?.value)
       && GrantStatusEnum.rejected !== grant?.status?.value
@@ -189,7 +189,7 @@ export const teamsAndSolutionTypeSolution = (
 
   apps.forEach(app => {
 
-    const isSolution: boolean = !!app?.solution?.value
+    const isSolution = !!app?.solution?.value
     const isCanVote: boolean =
       !app?.voted?.solution?.value.includes(user.userAddress)
       && GrantStatusEnum.solutionChosen !== grant?.status?.value
@@ -226,7 +226,7 @@ export const teamsAndSolutionTypeSolution = (
     const applicantScore = app?.score?.applicant?.value || 0
 
     if (applicantScore > 0)
-      res.push(unit)
+      {res.push(unit)}
 
   })
 
@@ -247,7 +247,7 @@ export const isStopSubmissionsBtn = (user: UserDataInterface, grant: ContractGra
   return isVoteForSolution && isWG && isStatusMatch
 }
 
-export const prepareSquareFakeBlockVotingData = (grant: ContractGrantModel) => {
+export const prepareSquareFakeBlockVotingData = (grant: ContractGrantModel): boolean => {
   const isStatusMatch = grant?.status?.value === GrantStatusEnum.workStarted
   let isVoteForSolution = false
   if (grant.app) {
@@ -308,7 +308,8 @@ export const prepareTeamsAndSolutionHeaderData = (
   isBalance: boolean,
   titleText: string,
   controls: TeamsAndSolutionsControlsInterface
-) => {
+): IScore.IHeader => {
+
   let isProcess = false
   grant?.app?.forEach(app => {
     if (!!app.process?.value) {
@@ -322,7 +323,7 @@ export const prepareTeamsAndSolutionHeaderData = (
     isBalanceMoreCommission: isBalance !== false,
     isShowAppliers: grant?.isShowAppliers || false,
     isUnauthorized: user.roles.isUnauthorized,
-    titleText: titleText,
+    titleText,
     isSubmitSolutionBtn: controls.isSubmitSolutionBtn,
     isShowLogInForApplyBtn: user.roles.isUnauthorized && !isProcess
   }
@@ -359,19 +360,11 @@ export const prepareTeamsAndSolutionData = (
   grant: ContractGrantModel,
   user: UserDataInterface,
   controls: TeamsAndSolutionsControlsInterface,
-  step: IScore.EStepType,
+  step: string,
   fake: boolean,
   multiWinners: boolean,
   winnerSolutionId: string
 ): IScore.IUnit[] => {
-
-  grant = grant as ContractGrantModel
-  user = user as UserDataInterface
-  controls = controls as TeamsAndSolutionsControlsInterface
-  fake = fake as boolean
-  multiWinners = multiWinners as boolean
-  winnerSolutionId = winnerSolutionId as string
-
   if (step === IScore.EStepType.team) {
     return teamsAndSolutionTypeTeam(grant, user, controls)
   } else {

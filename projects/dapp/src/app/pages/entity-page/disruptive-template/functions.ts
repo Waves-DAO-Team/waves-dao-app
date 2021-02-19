@@ -2,9 +2,9 @@ import { UserDataInterface } from '@services/user/user.interface'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { GrantStatusEnum } from '@services/static/static.model'
 import { TeamsControlsInterface } from '@pages/entity-page/entity.interface'
-import {IScore} from "@services/interface";
-import {translate} from "@ngneat/transloco";
-import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
+import {IScore} from '@services/interface'
+import {translate} from '@ngneat/transloco'
+import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
 
 const linkHttpPipe = new LinkHttpPipe()
 

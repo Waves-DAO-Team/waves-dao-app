@@ -40,7 +40,8 @@ import {
 } from './functions'
 import {InterhackContractService} from '@services/contract/Interhack-contract.service'
 import {ActivatedRoute} from '@angular/router'
-import {IScore} from "@services/interface";
+import {IScore} from '@services/interface'
+import {UserDataInterface} from '@services/user/user.interface'
 
 @Component({
   selector: 'app-interhack-template',
@@ -54,13 +55,13 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   grantStatusEnum = GrantStatusEnum
   eScore = IScore.EStepType
 
-  @Input() set grant(data: ContractGrantModel) {
+  @Input() set grant (data: ContractGrantModel) {
     this.inputGrant = data
     this.prepareVoteForTaskData(data)
     this.grant$.next(data)
   }
 
-  get grant(): ContractGrantModel {
+  get grant (): ContractGrantModel {
     const grant = this.inputGrant
     if (
       this.inputGrant?.status?.value !== this.grantStatusEnum.noStatus
@@ -88,25 +89,25 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   public readonly isStopSubmissionsBtn$: Observable<boolean> =
     combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => isStopSubmissionsBtn(user, grant))
-    )
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => isStopSubmissionsBtn(user, grant))
+      )
 
   public readonly squareFakeBlockVoting$: Observable<boolean> =
-    combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => grant),
-      map((grant) => prepareSquareFakeBlockVotingData(grant))
-    )
+    combineLatest([this.grant$, this.userService.data])
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([grant]) => grant),
+        map((grant) => prepareSquareFakeBlockVotingData(grant))
+      )
 
   public readonly isEnableSubmissionsBtn$: Observable<boolean> =
     combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => prepareIsEnableSubmissionsBtnData(user, grant))
-    )
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => prepareIsEnableSubmissionsBtnData(user, grant))
+      )
 
   public titleText$: Observable<string> = combineLatest([this.grant$])
     .pipe(
@@ -183,31 +184,31 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   public readonly isStartWorkBtn$: Observable<boolean> =
     combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => prepareIsStartWorkBtnData(user, grant))
-    )
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => prepareIsStartWorkBtnData(user, grant))
+      )
 
   public readonly isFinishVoteBtn$: Observable<boolean> =
     combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]): boolean => prepareIsFinishVoteBtnData(grant, user))
-    )
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]): boolean => prepareIsFinishVoteBtnData(grant, user))
+      )
 
   public readonly isAcceptWorkResultBtn$: Observable<boolean> =
     combineLatest([this.userService.data, this.grant$, this.multiWinners$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant, win]) => isAcceptWorkResultBtnInterhack(user, grant) && !win)
-    )
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant, win]) => isAcceptWorkResultBtnInterhack(user, grant) && !win)
+      )
 
   public readonly isRejectBtn$: Observable<boolean> =
     combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => prepareIsRejectBtnData(grant, user))
-    )
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => prepareIsRejectBtnData(grant, user))
+      )
 
   isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
@@ -253,13 +254,20 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     .pipe(
       takeUntil(this.destroyed$),
       filter(([grant]) => grant !== null && grant !== undefined),
-      map(([grant, user, controls, step, fake, multiWinners, winnerSolutionId]) =>
-        // @ts-ignore
-        prepareTeamsAndSolutionData(grant, user, controls, step, fake, multiWinners, winnerSolutionId)
+      map(([grant, user, controls, step, fake, multiWinners, winnerSolutionId]) => {
+          grant = grant as ContractGrantModel
+          user = user as UserDataInterface
+          controls = controls as TeamsAndSolutionsControlsInterface
+          fake = fake as boolean
+          step = step as string
+          multiWinners = multiWinners as boolean
+          winnerSolutionId = winnerSolutionId as string
+          return prepareTeamsAndSolutionData(grant, user, controls, step, fake, multiWinners, winnerSolutionId)
+        }
       )
     )
 
-  constructor(
+  constructor (
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -271,7 +279,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   ) {
   }
 
-  vote(value: 'like' | 'dislike'): void {
+  vote (value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -282,7 +290,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  signup(): void {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -291,7 +299,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       })
   }
 
-  openApplyModal(): void {
+  openApplyModal (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -312,25 +320,25 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface): void {
+  voteTeam ($event: VoteTeamEventInterface): void {
     if (this.grant?.status?.value === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(this.grant?.id as string, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote(): void {
+  finishVote (): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork(): void {
+  startWork (): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject(): void {
+  reject (): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult(): void {
+  acceptWorkResult (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -355,12 +363,12 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  finishApplicantsVote(): void {
+  finishApplicantsVote (): void {
     this.interhackContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
     // this.disruptiveContractService.finishApplicantsVoting(this.grant?.id as string).subscribe()
   }
 
-  addReward(): void {
+  addReward (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -384,14 +392,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  enableSubmissions(): void {
+  enableSubmissions (): void {
     if (this.grant?.id) {
       this.disruptiveContractService.enableSubmissions(this.grant?.id, '').subscribe(() => {
       })
     }
   }
 
-  submitSolution(): void {
+  submitSolution (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -414,20 +422,20 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  voteSolution($event: VoteTeamEventInterface): void {
+  voteSolution ($event: VoteTeamEventInterface): void {
     if (this.grant?.id) {
       this.disruptiveContractService.voteForSolution(
         this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  stopSubmissions(): void {
+  stopSubmissions (): void {
     if (this.grant?.id) {
       this.disruptiveContractService.stopSubmissions(this.grant?.id).subscribe()
     }
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel = this.inputGrant) {
+  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant) {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === this.grantStatusEnum.proposed &&
@@ -444,7 +452,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.destroyed$.next()
   }
 }
