@@ -1,9 +1,11 @@
-import {ContractGrantModel} from '@services/contract/contract.model'
+import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {UserDataInterface} from '@services/user/user.interface'
 import {GrantStatusEnum} from '@services/static/static.model'
 import {TeamsAndSolutionsControlsInterface} from '@pages/entity-page/entity.interface'
 import {IScore} from "@services/interface";
 import {LinkHttpPipe} from "@libs/pipes/link-http.pipe";
+import {translate} from "@ngneat/transloco";
+import {teamsControls} from "@pages/entity-page/disruptive-template/functions";
 
 const linkHttpPipe: LinkHttpPipe = new LinkHttpPipe()
 
@@ -229,4 +231,161 @@ export const teamsAndSolutionTypeSolution = (
   })
 
   return res
+}
+
+export const isStopSubmissionsBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
+  const isStatusMatch = grant?.status?.value === GrantStatusEnum.workStarted
+  let isVoteForSolution = false
+  if (grant.app) {
+    grant.app.forEach((app) => {
+      if (app.solution) {
+        isVoteForSolution = true
+      }
+    })
+  }
+  const isWG = user.roles.isWG
+  return isVoteForSolution && isWG && isStatusMatch
+}
+
+export const prepareSquareFakeBlockVotingData = (grant: ContractGrantModel) => {
+  const isStatusMatch = grant?.status?.value === GrantStatusEnum.workStarted
+  let isVoteForSolution = false
+  if (grant.app) {
+    grant.app.forEach((app) => {
+      if (app.solution) {
+        isVoteForSolution = true
+      }
+    })
+  }
+  return isVoteForSolution && isStatusMatch
+}
+
+export const prepareIsEnableSubmissionsBtnData = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
+  if (grant && grant.app) {
+    let isVoteForTeam = false
+    grant.app.forEach((app) => {
+      if (app && app.voted && app.votes) {
+        isVoteForTeam = true
+      }
+    })
+    const isTeamApply = grant.app.length > 0
+    const isRole = user.roles.isWG
+    const isStatusMatch = grant?.status?.value === GrantStatusEnum.readyToApply
+    return isVoteForTeam && isTeamApply && isRole && isStatusMatch
+  } else {
+    return false
+  }
+}
+
+export const prepareTitleTextData = (grant: ContractGrantModel): string => {
+  const grantStatus = grant?.status?.value || GrantStatusEnum.noStatus
+  if (
+    (
+      grantStatus === GrantStatusEnum.noStatus
+      || grantStatus === GrantStatusEnum.proposed
+      || grantStatus === GrantStatusEnum.readyToApply
+    )
+  ) {
+    return translate('entity.applied_teams')
+  } else {
+    return translate('entity.solutions')
+  }
+}
+
+export const prepareIsStartWorkBtnData = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
+  if (grant) {
+    const isTL = grant.leader?.value === user.userAddress
+    const isStatusMatch = grant.status?.value === GrantStatusEnum.approved
+    return isTL && isStatusMatch
+  } else {
+    return false
+  }
+}
+
+export const prepareTeamsAndSolutionHeaderData = (
+  grant: ContractGrantModel,
+  user: UserDataInterface,
+  isBalance: boolean,
+  titleText: string,
+  controls: TeamsAndSolutionsControlsInterface
+) => {
+  let isProcess = false
+  grant?.app?.forEach(app => {
+    if (!!app.process?.value) {
+      isProcess = true
+    }
+  })
+
+  const res: IScore.IHeader = {
+    applyBtnText: translate('entity.apply'),
+    isApplyBtn: teamsControls(user, grant).isApplyBtn || false,
+    isBalanceMoreCommission: isBalance !== false,
+    isShowAppliers: grant?.isShowAppliers || false,
+    isUnauthorized: user.roles.isUnauthorized,
+    titleText: titleText,
+    isSubmitSolutionBtn: controls.isSubmitSolutionBtn,
+    isShowLogInForApplyBtn: user.roles.isUnauthorized && !isProcess
+  }
+
+  return res
+}
+
+export const prepareIsFinishVoteBtnData = (grant: ContractGrantModel, user: UserDataInterface): boolean => {
+  if (grant) {
+    const isAmount = grant?.voting?.amount || false
+    const isStatusMatch = grant?.status?.value === GrantStatusEnum.proposed
+    const isWG = user.roles.isWG
+    return isAmount && isWG && isStatusMatch
+  } else {
+    return false
+  }
+}
+
+export const prepareIsShowAddRewardBtnData = (grant: ContractGrantModel, user: UserDataInterface): boolean => {
+  if (grant) {
+    const isWG = user.roles.isWG
+    const isNoReward = !grant?.reward?.value
+    const isStatusMatch = !grant?.status?.value ||
+      grant?.status?.value === GrantStatusEnum.proposed ||
+      grant?.status?.value === GrantStatusEnum.readyToApply ||
+      grant?.status?.value === GrantStatusEnum.teamChosen
+    return isNoReward && isWG && isStatusMatch
+  } else {
+    return false
+  }
+}
+
+export const prepareTeamsAndSolutionData = (
+  grant: ContractGrantModel,
+  user: UserDataInterface,
+  controls: TeamsAndSolutionsControlsInterface,
+  step: IScore.EStepType,
+  fake: boolean,
+  multiWinners: boolean,
+  winnerSolutionId: string
+): IScore.IUnit[] => {
+
+  grant = grant as ContractGrantModel
+  user = user as UserDataInterface
+  controls = controls as TeamsAndSolutionsControlsInterface
+  fake = fake as boolean
+  multiWinners = multiWinners as boolean
+  winnerSolutionId = winnerSolutionId as string
+
+  if (step === IScore.EStepType.team) {
+    return teamsAndSolutionTypeTeam(grant, user, controls)
+  } else {
+    return teamsAndSolutionTypeSolution(grant, user, controls, fake, multiWinners, winnerSolutionId)
+  }
+
+}
+
+export const prepareIsRejectBtnData = (grant: ContractGrantModel, user: UserDataInterface): boolean => {
+  if (grant) {
+    const isWG = user.roles.isWG
+    const isStatusMatch = grant?.status?.value !== GrantStatusEnum.rejected
+    return isWG && isStatusMatch
+  } else {
+    return false
+  }
 }
