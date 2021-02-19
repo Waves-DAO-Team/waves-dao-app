@@ -310,10 +310,15 @@ export const prepareTeamsAndSolutionHeaderData = (
   controls: TeamsAndSolutionsControlsInterface
 ): IScore.IHeader => {
 
+  let isLeader = false
   let isProcess = false
+
   grant?.app?.forEach(app => {
     if (!!app.process?.value) {
       isProcess = true
+    }
+    if (app.leader.value === user.userAddress) {
+      isLeader = true
     }
   })
 
@@ -324,7 +329,7 @@ export const prepareTeamsAndSolutionHeaderData = (
     isShowAppliers: grant?.isShowAppliers || false,
     isUnauthorized: user.roles.isUnauthorized,
     titleText,
-    isSubmitSolutionBtn: controls.isSubmitSolutionBtn,
+    isSubmitSolutionBtn: controls.isSubmitSolutionBtn && isLeader,
     isShowLogInForApplyBtn: user.roles.isUnauthorized && !isProcess
   }
 
