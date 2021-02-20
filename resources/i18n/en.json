@@ -22,7 +22,8 @@
     }
   },
   "footer": {
-    "copyright": "© 2020 Waves Association"
+    "copyright": "© 2020 Waves Association",
+    "telegram": "Ask in Telegram"
   },
   "tooltip": {
     "not_enough_money": "Not enough money on the balance sheet"
