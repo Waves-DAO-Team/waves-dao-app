@@ -40,6 +40,7 @@ export interface AppApiInterface {
     linkedin?: string
   }},
   links: {
+    telegram?: string
     facebook?: string
     medium?: string
     twitter?: string
