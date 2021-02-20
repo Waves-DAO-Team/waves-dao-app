@@ -30,6 +30,7 @@ export const environment = {
           'md&title=%5BTrack+3.+Interhack+Grant%5D+'
     },
     links: {
+      telegram: 'https://t.me/WavesDAO',
       facebook: 'https://www.facebook.com/wavesassociation',
       medium: 'https://medium.com/waves-association',
       twitter: 'https://twitter.com/Waves_Assn',
