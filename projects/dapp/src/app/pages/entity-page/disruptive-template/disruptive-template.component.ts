@@ -9,6 +9,7 @@ import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
 import {
+  FinishApplicantsVotingArg,
   SubmitCallBackAcceptWorkResultArg,
   SubmitCallBackApplyArg,
   SubmitCallBackRewardArg
@@ -34,6 +35,7 @@ import {
 } from '@pages/entity-page/disruptive-template/functions'
 import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
+import {FinishApplicantsVotingComponent} from '@ui/modals/finish-applicants-voting/finish-applicants-voting.component'
 
 @Component({
   selector: 'app-disruptive-template',
@@ -235,10 +237,37 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
   }
 
   finishApplicantsVote (): void {
-    const id = this.grant.id as string
-    if (id) {
-      this.disruptiveContractService.finishApplicantsVoting(id, getWinnerTeamId(this.grant)).subscribe()
-    }
+
+    const teamIdList: string[] = []
+    this.grant.app?.forEach(el => {
+      if (el?.score?.value && +el?.score?.value > 0) {
+        teamIdList.push(el.id.value)
+      }
+    })
+
+    const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
+      data: {
+        component: FinishApplicantsVotingComponent,
+        params: {
+          title: translate('entity.finish_applicants_voting'),
+          submitBtnText: translate('modal.btn.propose_grant'),
+          grantId: this.grant?.id,
+          teamIdList,
+          proposedWinner: getWinnerTeamId(this.grant),
+          submitCallBack: (data: FinishApplicantsVotingArg) => {
+            const id = this.grant.id as string
+            const winnerTeamId = data.winnerTeamId
+            if (id && winnerTeamId) {
+              this.disruptiveContractService.finishApplicantsVoting(id, winnerTeamId).subscribe()
+            }
+            dialog.close()
+            this.cdr.markForCheck()
+          }
+        }
+      }
+    })
   }
 
   addReward (): void {

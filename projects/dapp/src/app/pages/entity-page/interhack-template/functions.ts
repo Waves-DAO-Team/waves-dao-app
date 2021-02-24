@@ -180,7 +180,6 @@ export const teamsAndSolutionTypeSolution = (
   user: UserDataInterface,
   controls: TeamsAndSolutionsControlsInterface,
   fake: boolean,
-  multiWinners: boolean,
   winnerSolutionId: string
 ): IScore.IUnit[] => {
 
@@ -197,8 +196,7 @@ export const teamsAndSolutionTypeSolution = (
       && !fake
       && isSolution
     const isWinner: boolean =
-      !multiWinners
-      && GrantStatusEnum.solutionChosen === grant?.status?.value
+      GrantStatusEnum.solutionChosen === grant?.status?.value
       && !!app?.process
       && app?.id?.value === winnerSolutionId
 
@@ -367,13 +365,12 @@ export const prepareTeamsAndSolutionData = (
   controls: TeamsAndSolutionsControlsInterface,
   step: string,
   fake: boolean,
-  multiWinners: boolean,
   winnerSolutionId: string
 ): IScore.IUnit[] => {
   if (step === IScore.EStepType.team) {
     return teamsAndSolutionTypeTeam(grant, user, controls)
   } else {
-    return teamsAndSolutionTypeSolution(grant, user, controls, fake, multiWinners, winnerSolutionId)
+    return teamsAndSolutionTypeSolution(grant, user, controls, fake, winnerSolutionId)
   }
 
 }

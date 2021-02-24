@@ -21,7 +21,6 @@ import {
 } from '@pages/entity-page/entity.interface'
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
-import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
 import {
@@ -41,7 +40,7 @@ import {
 import {InterhackContractService} from '@services/contract/Interhack-contract.service'
 import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
-import {UserDataInterface} from '@services/user/user.interface'
+import {AcceptWorkResultInterhackComponent} from '@ui/modals/accept-work-result-interhack/accept-work-result-interhack.component'
 
 @Component({
   selector: 'app-interhack-template',
@@ -140,10 +139,9 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       ),
     )
 
-
-  multiWinners$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   winnerSolutionId$: BehaviorSubject<string> = new BehaviorSubject<string>('')
   winnerSolutionId = ''
+  solutionIdList: string[] = []
   public readonly winnerSolution$ = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
@@ -151,34 +149,28 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       map((e: ContractGrantModel): ContractGrantAppModel[] => e.app as ContractGrantAppModel[]),
       map((e: ContractGrantAppModel[]) => {
         let solution = e[0]
-        let maxScore = 0
-        let maxScoreSolutionCount = 0
+        const solutionIdList: string[] = []
         e.forEach(e => {
+
           const eScore = e.score?.solution?.value || 0
           const sScore = solution.score?.solution?.value || 0
+
+          if(eScore > 0 && e.key) {
+            solutionIdList.push(e.key)
+          }
+
           if (eScore >= sScore) {
             solution = e
-            maxScore = eScore
           }
+
         })
-        // multiWinners
-        e.forEach(e => {
-          const eScore = e.score?.solution?.value || 0
-          if (eScore === maxScore) {
-            maxScoreSolutionCount++
-          }
-        })
-        if (maxScoreSolutionCount > 1) {
-          this.multiWinners$.next(true)
-        } else {
-          this.multiWinners$.next(false)
-        }
-        return solution.key as string
+        return {key: solution.key as string, solutionIdList}
       })
     )
     .subscribe((e) => {
-      this.winnerSolutionId = e
-      this.winnerSolutionId$.next(e)
+      this.winnerSolutionId = e.key
+      this.winnerSolutionId$.next(e.key)
+      this.solutionIdList = e.solutionIdList
     })
 
 
@@ -197,10 +189,10 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       )
 
   public readonly isAcceptWorkResultBtn$: Observable<boolean> =
-    combineLatest([this.userService.data, this.grant$, this.multiWinners$])
+    combineLatest([this.userService.data, this.grant$])
       .pipe(
         takeUntil(this.destroyed$),
-        map(([user, grant, win]) => isAcceptWorkResultBtnInterhack(user, grant) && !win)
+        map(([user, grant]) => isAcceptWorkResultBtnInterhack(user, grant))
       )
 
   public readonly isRejectBtn$: Observable<boolean> =
@@ -247,22 +239,19 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       this.teamsAndSolutionsControls$,
       this.stepType$,
       this.squareFakeBlockVoting$,
-      this.multiWinners$,
       this.winnerSolutionId$
     ]
   )
     .pipe(
       takeUntil(this.destroyed$),
       filter(([grant]) => grant !== null && grant !== undefined),
-      map(([grant, user, controls, step, fake, multiWinners, winnerSolutionId]) => {
-          grant = grant as ContractGrantModel
-          user = user as UserDataInterface
-          controls = controls as TeamsAndSolutionsControlsInterface
-          fake = fake as boolean
-          step = step as string
-          multiWinners = multiWinners as boolean
-          winnerSolutionId = winnerSolutionId as string
-          return prepareTeamsAndSolutionData(grant, user, controls, step, fake, multiWinners, winnerSolutionId)
+      map(([grant, user, controls, step, fake, winnerSolutionId]) => {
+          grant = grant
+          user = user
+          controls = controls
+          fake = fake
+          winnerSolutionId = winnerSolutionId
+          return prepareTeamsAndSolutionData(grant, user, controls, step.toString() , fake, winnerSolutionId)
         }
       )
     )
@@ -343,15 +332,17 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       width: '500px',
       maxWidth: '100vw',
       data: {
-        component: AcceptWorkResultComponent,
+        component: AcceptWorkResultInterhackComponent,
         params: {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
+          proposedWinner: this.winnerSolutionId,
+          solutionIdList: this.solutionIdList,
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            if (this.grant?.id && this.winnerSolutionId) {
+            if (this.grant?.id && data.winnerTeamId) {
               this.interhackContractService.acceptWorkResult(
                 this.grant?.id,
-                this.winnerSolutionId,
+                data.winnerTeamId,
                 data.reportLink
               ).subscribe()
             }
