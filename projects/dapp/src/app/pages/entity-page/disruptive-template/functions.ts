@@ -126,7 +126,6 @@ export const isStartWorkBtn = (user: UserDataInterface, grant: ContractGrantMode
   if (grant && grant.status && grant.status.value === GrantStatusEnum.teamChosen && temp.leader === user.userAddress) {
     result = true
   }
-  console.log('----', result, temp)
   return result
 }
 
