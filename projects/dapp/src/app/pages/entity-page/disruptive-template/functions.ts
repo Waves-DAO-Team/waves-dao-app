@@ -109,18 +109,24 @@ export const isStartWorkBtn = (user: UserDataInterface, grant: ContractGrantMode
   }
   if (grant && grant.app) {
     grant.app.forEach((app) => {
-      if (app.leader && app.score && app.score.value) {
+      // if (app.leader && app.score && app.score.value) {
+      //   const score = parseInt(app.score.value, 10)
+      //   if (temp.score <= score) {
+      //     temp.leader = app.leader.value
+      //     temp.score = score
+      //   }
+      // }
+      if(app?.process?.value && app?.score?.value) {
         const score = parseInt(app.score.value, 10)
-        if (temp.score <= score) {
-          temp.leader = app.leader.value
-          temp.score = score
-        }
+        temp.leader = app.leader.value
+        temp.score = score
       }
     })
   }
   if (grant && grant.status && grant.status.value === GrantStatusEnum.teamChosen && temp.leader === user.userAddress) {
     result = true
   }
+  console.log('----', result, temp)
   return result
 }
 

@@ -34,12 +34,13 @@ export interface AppApiInterface {
     interhack: string
   }
   workingGroup: {[s: string]: {
-    name: string
-    twitter?: string
-    facebook?: string
-    linkedin?: string
-  }},
+      name: string
+      twitter?: string
+      facebook?: string
+      linkedin?: string
+    }},
   links: {
+    telegram?: string
     facebook?: string
     medium?: string
     twitter?: string
