@@ -17,7 +17,6 @@ import {
 import {UserService} from '@services/user/user.service'
 import {map, publishReplay, refCount} from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
-
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {
@@ -25,8 +24,9 @@ import {
   GrantsVariationType, GrantTypesEnum,
 } from '@services/static/static.model'
 import {ActivatedRoute} from '@angular/router'
-import { Async } from '@libs/decorators/async-input.decorator'
+import {Async} from '@libs/decorators/async-input.decorator'
 import {UserDataInterface} from '@services/user/user.interface'
+import {TextOptions} from '@services/text-options/text-options'
 
 @Component({
   selector: 'ui-listing',
@@ -76,7 +76,7 @@ export class ListingComponent implements OnDestroy {
               app: grant.app ? Object.values(grant.app) : [],
               // Check labels with attribute grant in lang file
               label
-            }
+            } as ContractGrantModel
           })
           .sort(this.sort)
       ),
@@ -107,7 +107,7 @@ export class ListingComponent implements OnDestroy {
     @Inject(API) public readonly api: AppApiInterface,
     @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantRawModel[]>,
     public userService: UserService,
-    public contractService: ContractService
+    public contractService: ContractService,
   ) {}
 
   selectTag ($event: string): void {
@@ -163,19 +163,20 @@ export class ListingComponent implements OnDestroy {
   private createLabel (grant: ContractGrantRawModel, userServiceData: UserDataInterface, contract: GrantsVariationType): GrantParams {
     let params: GrantParams = {}
 
-    params = {
-      ...params,
-      ...this.getStatusProperties(grant, userServiceData)
-    }
-
     const labelRole = userServiceData?.userRole || 'undefined'
     const labelStatus = grant?.status?.value || 'undefined'
     const labelContract = contract?.name || 'undefined'
+
+    params = {
+      ...params,
+      ...this.getStatusProperties(grant, userServiceData, labelContract)
+    }
+
     const labelImportant = params?.important === true ? 'true' : params?.important === false ? 'false' : 'undefined'
 
 
     const label = translate(
-        `listing.labels.${labelContract}.${labelRole}.${labelStatus}.${labelImportant}`, params)
+      `listing.labels.${labelContract}.${labelRole}.${labelStatus}.${labelImportant}`, params)
 
     return {
       ...params,
@@ -183,23 +184,52 @@ export class ListingComponent implements OnDestroy {
     }
   }
 
-  getStatusProperties (grant: ContractGrantRawModel, userServiceData: UserDataInterface): GrantParams {
-    switch(grant?.status?.value) {
-      case GrantStatusEnum.readyToApply:
-        return {
-          count: (grant?.app && Object.keys(grant?.app).length || '0').toString(),
-          important: userServiceData.roles.isAuth ?
-              grant?.applicants && grant?.applicants?.value.indexOf(userServiceData?.userAddress) >= 0 : undefined
-        }
+  getStatusProperties (grant: ContractGrantRawModel, userServiceData: UserDataInterface, contractType: GrantTypesEnum): GrantParams {
+    const textOptions = (new TextOptions(grant, userServiceData, contractType)).generateAll()
+    switch (grant?.status?.value) {
       case GrantStatusEnum.proposed:
         return {
-          amount: grant?.voting?.amount?.value || '0',
-          score: grant?.voting?.state?.value || '0',
+          ...textOptions,
           important: userServiceData.roles.isDAO ? !(grant?.voted && grant?.voted[userServiceData?.userAddress]) : undefined
         }
-      case GrantTypesEnum.web3:
-
-        break
+      case GrantStatusEnum.readyToApply:
+        return {
+          ...textOptions,
+          important: userServiceData.roles.isAuth ?
+            grant?.applicants && grant?.applicants?.value.indexOf(userServiceData?.userAddress) >= 0 : undefined
+        }
+      case GrantStatusEnum.approved:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.rejected:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.teamChosen:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.solutionChosen:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.workStarted:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.workFinished:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.votingStarted:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.noStatus:
+        return {
+          ...textOptions,
+        }
     }
     return {}
   }
