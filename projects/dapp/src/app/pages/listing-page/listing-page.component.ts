@@ -28,9 +28,7 @@ export class ListingPageComponent implements OnInit, OnDestroy {
     public readonly userService: UserService // eslint-disable-line
   ) {}
 
-  ngOnInit (): void {
-
-  }
+  ngOnInit (): void {}
 
   ngOnDestroy (): void {
     this.contract.destroy()
