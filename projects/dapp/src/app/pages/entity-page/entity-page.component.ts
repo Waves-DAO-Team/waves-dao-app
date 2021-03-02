@@ -7,6 +7,7 @@ import {
 } from '@services/contract/contract.model'
 import { Location } from '@angular/common'
 import { GrantsVariationType } from '@services/static/static.model'
+import {HttpClient} from '@angular/common/http'
 
 @Component({
   selector: 'app-entity-page',
@@ -20,10 +21,15 @@ export class EntityPageComponent implements OnInit, OnDestroy {
     private readonly location: Location, // eslint-disable-line
     @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType>, // eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line
-    @Inject(ENTITY) public entity: LoadingWrapperModel<ContractGrantModel> // eslint-disable-line
+    @Inject(ENTITY) public entity: LoadingWrapperModel<ContractGrantModel>, // eslint-disable-line
+    private readonly http: HttpClient
   ) {}
 
-  ngOnInit (): void {}
+  ngOnInit (): void {
+    // const linkChecker = new LinkChecker( this.http, 'https://github.com/vlzhr/grants-program/issues/15')
+    // linkChecker.result$.subscribe( e => console.log('====', e))
+    // linkChecker.onDestroy()
+  }
 
   goBack (): void {
     this.location.back()
