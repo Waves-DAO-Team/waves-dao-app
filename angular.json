@@ -26,7 +26,13 @@
           "options": {
             "main": "projects/libs/src/test.ts",
             "tsConfig": "projects/libs/tsconfig.spec.json",
-            "karmaConfig": "projects/libs/karma.conf.js"
+            "karmaConfig": "projects/libs/karma.conf.js",
+            "fileReplacements": [
+              {
+                "replace": "projects/dapp/src/environments/environment.ts",
+                "with": "projects/dapp/src/environments/environment.local.ts"
+              }
+            ]
           }
         },
         "lint": {
@@ -63,7 +69,13 @@
           "options": {
             "main": "projects/services/src/test.ts",
             "tsConfig": "projects/services/tsconfig.spec.json",
-            "karmaConfig": "projects/services/karma.conf.js"
+            "karmaConfig": "projects/services/karma.conf.js",
+            "fileReplacements": [
+              {
+                "replace": "projects/dapp/src/environments/environment.ts",
+                "with": "projects/dapp/src/environments/environment.local.ts"
+              }
+            ]
           }
         },
         "lint": {
@@ -106,6 +118,12 @@
             "main": "projects/ui/src/test.ts",
             "tsConfig": "projects/ui/tsconfig.spec.json",
             "karmaConfig": "projects/ui/karma.conf.js",
+            "fileReplacements": [
+              {
+                "replace": "projects/dapp/src/environments/environment.ts",
+                "with": "projects/dapp/src/environments/environment.local.ts"
+              }
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "resources/styles"
@@ -237,6 +255,12 @@
             "polyfills": "projects/dapp/src/polyfills.ts",
             "tsConfig": "projects/dapp/tsconfig.spec.json",
             "karmaConfig": "projects/dapp/karma.conf.js",
+            "fileReplacements": [
+              {
+                "replace": "projects/dapp/src/environments/environment.ts",
+                "with": "projects/dapp/src/environments/environment.local.ts"
+              }
+            ],
             "assets": [
               "projects/dapp/src/favicon.ico",
               {

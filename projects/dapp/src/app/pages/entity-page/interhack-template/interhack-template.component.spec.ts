@@ -13,6 +13,7 @@ import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import {FlowTextModule} from '@ui/flow-text/flow-text.module'
+import {ScoreListModule} from '@ui/score-list/score-list.module'
 
 describe('InterhackTemplateComponent', () => {
   let component: InterhackTemplateComponent
@@ -25,7 +26,8 @@ describe('InterhackTemplateComponent', () => {
         VoteForTaskModule,
         StepperModule,
         NoopAnimationsModule,
-        FlowTextModule
+        FlowTextModule,
+        ScoreListModule
       ],
       declarations: [InterhackTemplateComponent],
       providers: [

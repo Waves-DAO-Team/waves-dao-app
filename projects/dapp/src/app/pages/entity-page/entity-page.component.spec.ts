@@ -11,6 +11,7 @@ import { getTranslocoModule } from '../../transloco-module.spec'
 import { LoadingPageModule } from '@pages/loading-page/loading-page.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { ENTITY_PAGE_PROVIDERS } from './entity-page.providers'
+import {ScoreListModule} from '@ui/score-list/score-list.module'
 
 describe('EntityPageComponent', () => {
   let component: EntityPageComponent
@@ -25,7 +26,8 @@ describe('EntityPageComponent', () => {
         PipesModule,
         getTranslocoModule(),
         LoadingPageModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        ScoreListModule
       ],
       declarations: [EntityPageComponent],
       providers: [
