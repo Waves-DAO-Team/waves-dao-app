@@ -177,14 +177,22 @@ Show in sample.env file
 
 - `MEMBERSHIP` = ...address...
 - `DISRUPTIVE` = ...address...
+- `VOTINGS` = ...address...
 - `WEB3` = ...address...
 - `INTERHACK` = ...address...
 
 ### Templates issue on github for different grant type
 
 - `DISRUPTIVE_ISSUE_TEMPLATE` = "...link to issue tempalte..."
+- `VOTINGS_ISSUE_TEMPLATE` = "...link to issue tempalte..."
 - `WEB3_ISSUE_TEMPLATE` = "...link to issue tempalte..."
 - `INTERHACK_ISSUE_TEMPLATE`="...link to issue tempalte..."
+
+### Link to show more page
+- `DISRUPTIVE_SHOW_MORE`="...link to show more..."
+- `VOTINGS_SHOW_MORE`="...link to show more..."
+- `WEB3_SHOW_MORE`="...link to show more..."
+- `INTERHACK_SHOW_MORE`="...link to show more..."
 
 ### Link to description on githib about DAO system
 

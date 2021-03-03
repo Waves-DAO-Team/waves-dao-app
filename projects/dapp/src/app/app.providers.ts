@@ -24,12 +24,20 @@ export interface AppApiInterface {
   }
   contracts: {
     disruptive: string
+    votings: string
     web3: string
     interhack: string
   }
   grantsProgramLink: string
   issues: {
     disruptive: string
+    votings: string
+    web3: string
+    interhack: string
+  },
+  showMoreLink: {
+    disruptive: string
+    votings: string
     web3: string
     interhack: string
   }
@@ -64,6 +72,7 @@ export const provideApi = (): Provider[] => [
     provide: API,
     useValue: {
       ...environment.apis,
+      showMoreLink: environment.showMoreLink,
       confirmations: environment.confirmations,
       grantsProgramLink: environment.grantsProgramLink,
       workingGroup: environment.workingGroup
