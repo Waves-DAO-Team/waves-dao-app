@@ -284,7 +284,7 @@
         <mat-tab label="{{ 'contracts.interhack.title' | transloco }}" *ngIf="api.contracts.interhack">
           <img class="landing-page__workflow-image" alt="img" src="assets/img/diagram_interhack_2x.png">
         </mat-tab>
-        <mat-tab label="{{ 'contracts.votings.title' | transloco }}">
+        <mat-tab label="{{ 'contracts.votings.title' | transloco }}" *ngIf="api.contracts.votings">
           <img class="landing-page__workflow-image" alt="img" src="assets/img/diagram_votings_2x.png">
         </mat-tab>
       </mat-tab-group>
