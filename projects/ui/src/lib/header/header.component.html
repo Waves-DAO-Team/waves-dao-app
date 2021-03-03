@@ -15,13 +15,17 @@
       </div>
     </div>
     <ul class="nav" [class.open]="isToggleMenuOpen">
-      <li *ngFor="let contract of contractsList$ | async"
-          class="mat-display-2"
-          (click)="isToggleMenuOpen = false"
-          [routerLink]="[constants.routes.listing | route : contract.name ]"
-          routerLinkActive="active">
+
+      <ng-container *ngFor="let contract of contractsList$ | async">
+        <li *ngIf="contract.type"
+            class="mat-display-2"
+            (click)="isToggleMenuOpen = false"
+            [routerLink]="[constants.routes.listing | route : contract.name ]"
+            routerLinkActive="active">
           {{ contract.navigation }}
-      </li>
+        </li>
+      </ng-container>
+
 
       <li
         class="mat-display-2"
