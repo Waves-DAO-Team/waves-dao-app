@@ -3,7 +3,12 @@ export const environment = {
   production: false,
   confirmations: 0,
   grantsProgramLink: '${GRANT_PROGRAM_LINK}',
-
+  showMoreLink: {
+    disruptive: '${DISRUPTIVE_SHOW_MORE}',
+    votings: '${VOTINGS_SHOW_MORE}',
+    web3: '${WEB3_SHOW_MORE}',
+    interhack: '${INTERHACK_SHOW_MORE}'
+  },
   apis: {
     nodes: 'https://nodes-testnet.wavesnodes.com',
     signer: 'https://testnet.waves.exchange/signer/',

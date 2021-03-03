@@ -34,6 +34,12 @@ export interface AppApiInterface {
     votings: string
     web3: string
     interhack: string
+  },
+  showMoreLink: {
+    disruptive: string
+    votings: string
+    web3: string
+    interhack: string
   }
   workingGroup: {[s: string]: {
     name: string
@@ -66,6 +72,7 @@ export const provideApi = (): Provider[] => [
     provide: API,
     useValue: {
       ...environment.apis,
+      showMoreLink: environment.showMoreLink,
       confirmations: environment.confirmations,
       grantsProgramLink: environment.grantsProgramLink,
       workingGroup: environment.workingGroup
