@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core'
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
-import {filter, map, publishReplay, refCount, tap} from 'rxjs/operators'
+import {filter, map, publishReplay, refCount} from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {UserService} from '@services/user/user.service'
 import {RolesInterface} from '@services/user/user.interface'
@@ -36,8 +36,7 @@ export class StaticService {
         publishReplay(1),
         refCount()
       )
-    res.subscribe(e => {
-    })
+    res.subscribe()
 
     return res
   }
