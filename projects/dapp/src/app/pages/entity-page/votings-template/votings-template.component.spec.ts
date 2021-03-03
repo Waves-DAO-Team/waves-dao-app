@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-
-import { DisruptiveTemplateComponent } from './disruptive-template.component'
 import { MatDialogModule } from '@angular/material/dialog'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { provideApi, provideAppConstants } from '@constants'
@@ -13,10 +11,12 @@ import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import {FlowTextModule} from '@ui/flow-text/flow-text.module'
+import {VotingsTemplateComponent} from '@pages/entity-page/votings-template/votings-template.component'
+import {ScoreListModule} from '@ui/score-list/score-list.module'
 
 describe('DisruptiveTemplateComponent', () => {
-  let component: DisruptiveTemplateComponent
-  let fixture: ComponentFixture<DisruptiveTemplateComponent>
+  let component: VotingsTemplateComponent
+  let fixture: ComponentFixture<VotingsTemplateComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -25,9 +25,10 @@ describe('DisruptiveTemplateComponent', () => {
         VoteForTaskModule,
         StepperModule,
         NoopAnimationsModule,
-        FlowTextModule
+        FlowTextModule,
+        ScoreListModule
       ],
-      declarations: [DisruptiveTemplateComponent],
+      declarations: [VotingsTemplateComponent],
       providers: [
         provideAppConstants(),
         provideApi(),
@@ -41,7 +42,7 @@ describe('DisruptiveTemplateComponent', () => {
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DisruptiveTemplateComponent)
+    fixture = TestBed.createComponent(VotingsTemplateComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
