@@ -22,16 +22,17 @@
     }
   },
   "footer": {
-    "copyright": "© 2020 Waves Association"
+    "copyright": "© 2020 Waves Association",
+    "telegram": "Ask in Telegram"
   },
   "tooltip": {
-    "not_enough_money": "Not enough money on the balance sheet"
+    "not_enough_money": "Not enough money on balance sheet"
   },
   "flow": {
     "disruptive": {
       "null": "Grant idea was proposed to the Members. The reward amount will be decided later.",
       "no_status": "Grant idea was proposed to the Members. The reward amount will be decided later.",
-      "proposed": "Grant was proposed and now is being voted by Association members. Current vote is {{voteScore}} with {{votesAmount}} members voted. We are waiting for a qorum to accept/decline the grant.",
+      "proposed": "Grant was proposed and now is being voted by Association members. Current vote is {{voteScore}} with {{votesAmount}} members voted. We are waiting for a quorum to accept/decline the grant.",
       "ready_to_apply": "Grant is open for team applications. If you feel ready to implement the task, fill the form and send the application.",
       "rejected": "Grant was rejected by the Association members. After voting the score is {{voteScore}}.",
       "voting_started": " ",
@@ -41,8 +42,8 @@
       "work_finished": "The task was successfully completed by {{performerName}} team. The work result is accessible at <a target='_blank' rel='noopener nofollow noreferrer' href='{{reportLink}}'>link</a>."
     },
     "interhack": {
-      "null": "Hackathon was proposed by the Working Group. Details are discussed and will be published later.",
-      "no_status": "Hackathon was proposed by the Working Group. Details are discussed and will be published later.",
+      "null": "Hackathon was proposed by the Working Group. Details are to be discussed and will be published later.",
+      "no_status": "Hackathon was proposed by the Working Group. Details are to be discussed and will be published later.",
       "proposed": "Hackathon task was proposed by the Working Group and is now voted by Association members. Current score is {{voteScore}} with {{votesAmount}} members voted so far.",
       "ready_to_apply": "Hackathon was approved by the Association. Teams are welcome to apply for a hackathon to join the participants list.",
       "ready_to_submit": "Team applications are closed. {{teamsAmount}} hackathon participants have been selected and are welcome to submit their solutions.",
@@ -384,7 +385,7 @@
           "ready_to_apply": {
             "undefined": "{{count}} applications",
             "false": "You can apply. {{count}} applications",
-            "true": "You have submitted an application. Please wait until the application deadline"
+            "true": "You have submitted an application. Please wait till the application deadline"
           }
         },
         "workingGroup": {
@@ -464,7 +465,7 @@
       "all": "All"
     },
     "title": "Waves Association DAO",
-    "list_empty": "List is a empty",
+    "list_empty": "List is empty",
     "loading": "Loading",
     "reward": "Reward",
     "list": {
@@ -475,7 +476,7 @@
   "all_teams": {
     "title": "Teams applied to:",
     "score": "Score",
-    "learn_about_team": "Learn more about the team"
+    "learn_about_team": "Learn more about team"
   },
   "entity": {
     "score": "Score",
@@ -498,8 +499,8 @@
     "winner": "WINNER",
     "performer": "Performer",
     "approved": "APPROVED",
-    "learn_about_team": "Learn more about the team",
-    "learn_about_solution": "Learn more about the solution",
+    "learn_about_team": "Learn more about team",
+    "learn_about_solution": "Learn more about solution",
     "add_reward": "Add reward",
     "finish_vote": "Finish vote",
     "vote_for_solution": "Vote for solution",
@@ -523,7 +524,7 @@
         },
         "true": {
           "text": "Your voice is important",
-          "subtext": "Vote for the grant to make this happened."
+          "subtext": "Vote for the grant to make this happen."
         },
         "process": {
           "text": "Thanks for your vote!",
@@ -543,7 +544,7 @@
       },
       "status": {
         "proposed": {
-          "subtext": "Wait. We contact with you",
+          "subtext": "Wait. We'll be in contact with you",
           "text": "You won this grant"
         },
         "rejected": {
@@ -569,7 +570,7 @@
     "work_group": "Working Group",
     "working_group_member": "Working Group Member",
     "dao_is": "is a member of the Waves Association, a whitelisted individual who can vote. For a decision to be passed, the DAO needs at least 50% of the votes.",
-    "wg_is": "is a member of the Waves Association’s working group, a whitelisted individual who is responsible for managing tasks, votes and",
+    "wg_is": "is a member of the Waves Association working group, a whitelisted individual who is responsible for managing tasks, votes and",
     "performers": "performers",
     "address": "Address",
     "form": {
@@ -607,7 +608,7 @@
     "form": {
       "name": {
         "label": "Grant name",
-        "placeholder": "Enter the name of the grant"
+        "placeholder": "Enter the name of grant"
       },
       "reward": {
         "label": "Reward",
@@ -623,7 +624,7 @@
       },
       "description": {
         "label": "Description",
-        "placeholder": "Please provide a description of the grant"
+        "placeholder": "Please provide a description of grant"
       },
       "apply": "Apply"
     }
@@ -687,7 +688,7 @@
     "error": "error",
     "errors": {
       "analyzing_failed": "Analyzing url is failed",
-      "conditions_link": "Conditions is not equal a link",
+      "conditions_link": "Condition is not equal to link",
       "entity_not_found": "Entity not found",
       "invalid_specified": "Invalid safe type specified",
       "contract_not_found": "Contract not found",
@@ -697,17 +698,17 @@
     "enable_submissions": "Enable submissions",
     "getBalanceError": "getBalance error",
     "submit_solution": "Submit solution",
-    "addTask": "The proposal has been completed. The transaction is confirmed in the blockchain Waves",
-    "voteForTaskProposal": "The vote has been completed. The transaction is confirmed in the blockchain Waves",
-    "finishTaskProposalVoting": "The finish has been completed. The transaction is confirmed in the blockchain Waves",
-    "voteForApplicant": "The vote has been completed. The transaction is confirmed in the blockchain Waves",
-    "finishApplicantsVoting": "The finish has been completed. The transaction is confirmed in the blockchain Waves",
-    "rejectTask": "The reject has been completed. The transaction is confirmed in the blockchain Waves",
-    "acceptWorkResult": "The accept work has been completed. The transaction is confirmed in the blockchain Waves",
-    "startWork": "The start work has been completed. The transaction is confirmed in the blockchain Waves",
-    "initTaskVoting": "The init task has been completed. The transaction is confirmed in the blockchain Waves",
+    "addTask": "The proposal has been completed. The transaction is confirmed in the Waves blockchain",
+    "voteForTaskProposal": "The vote has been completed. The transaction is confirmed in the Waves blockchain",
+    "finishTaskProposalVoting": "The finish has been completed. The transaction is confirmed in the Waves blockchain",
+    "voteForApplicant": "The vote has been completed. The transaction is confirmed in the Waves blockchain",
+    "finishApplicantsVoting": "The finish has been completed. The transaction is confirmed in the Waves blockchain",
+    "rejectTask": "The reject has been completed. The transaction is confirmed in the Waves blockchain",
+    "acceptWorkResult": "The accept work has been completed. The transaction is confirmed in the Waves blockchain",
+    "startWork": "The start work has been completed. The transaction is confirmed in the Waves blockchain",
+    "initTaskVoting": "The init task has been completed. The transaction is confirmed in the Waves blockchain",
     "addReword": "The grant is now available for voting. The transaction is confirmed in the block list.",
-    "startTransaction": "We sent the transaction to Waves Blockchain.  You can continue using the application, we will inform you when the transaction is confirmed in Blockchain."
+    "startTransaction": "We sent the transaction to Waves Blockchain. You can continue using the application, we will inform you when the transaction is confirmed in Blockchain."
   },
   "add-reward": {
     "title": "Add reward",
@@ -719,8 +720,8 @@
       "preview": "assets/img/disruptive-type-preview.png",
       "img": "assets/img/disruptive-type.png",
       "title": "Disruptive Tech Grants",
-      "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem’s needs.",
-      "banner": "Call for applications will be announced in Q1 2021. Stay tuned!",
+      "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem needs.",
+      "banner": "Call for applications will be announced in Q2 2021. Stay tuned!",
       "about": "https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grants-about.md",
       "landing": "Major development or research tasks are proposed, which can be useful for the development and adoption of blockchain technology. You and your team can apply for one of these grants and receive a reward."
     },
@@ -729,8 +730,8 @@
       "preview": "assets/img/web3-type-preview.png",
       "img": "assets/img/web3-type.png",
       "title": "Web 3.0 Dev Grants",
-      "desc": "Web 3.0 Development Grants can be proposed by the community and are awarded to the teams that foster mass adoption of blockchain technology.",
-      "banner": "Apply with your project before May 1, 2021 to receive a grant of up to 100k WAVES",
+      "desc": "Web 3.0 Development Grants can be proposed by the community and awarded to the teams that foster mass adoption of blockchain technology.",
+      "banner": "Apply with your project before May 1, 2021 to receive grant of up to 100k WAVES",
       "about": "https://github.com/vlzhr/WavesDAO/blob/master/web3-grants-about.md",
       "landing": "You propose ideas for grants of this type. Usually this is a decentralized application or startup."
     },
@@ -763,16 +764,16 @@
     "howToDAO": "How to DAO",
     "howToDAO_1": "Login with your Waves account",
     "howToDAO_2": "Observe existing grants and voting statuses",
-    "howToDAO_3": "Become a member and participate in votings",
+    "howToDAO_3": "Become a member and participate in voting",
     "howToDAO_4": "Apply for a grant with your project",
 
     "introDesc": "Waves DAO is a framework used by the Waves Association. The purpose is making decisions on supporting initiatives and projects, based on the Waves protocol in the ecosystem: Waves Protocol, Gravity, Neutrino and others. The main feature is the transparency of processes. For example, you can observe what decisions are being discussed, who exactly is behind their adoption to finance projects, and also how the voting takes place.",
     "whatAreRoles": "What are the Roles",
     "applicantDesc": "A user who can apply for a grant. If their application is approved by the DAO Member vote, the applicant will be awarded a <strong>Performer</strong> status.<br><br>In the Waves Association: all users submitting applications to execute a grant. To apply, users need a Waves account.",
-    "workingGroupDesc": "A body composed of several DAO members and dedicated to providing specific expertise and performing certain functions.<br><br>In the Waves Association: the Working Group for Funding & Grants suggests a grant, accesses and validates incoming applications, proposes tasks for grants, opens / closes votes for teams, prepares reports. Currently, the working group includes 8 people.",
-    "daoDesc": "DAO Members vote to make a decision on grant issue.<br><br>In the Waves Association: this entity represents the general meeting, which is the main entity that participates in votes and makes decisions. Currently the association has 30 members.",
-    "daoManagerDesc": "This entity plays a supportive function, setting DAO Members and Working Group lists before grants distribution. <br><br>In the Waves Association, the DAO Manager represents the association’s secretary’s account. The DAO Manager does not participate in DAO votes.",
-    "boardDesc": "The Board approves decisions made by DAO Members and accepts work of the Working Group.<br><br>In the Waves Association, the Board plays a major role, including the association’s president and heads of 3 working groups. The Board approves all solutions made by the general meeting.",
+    "workingGroupDesc": "A body composed of several DAO Members and dedicated to providing specific expertise and performing certain functions.<br><br>In the Waves Association: suggests a grant, accesses and validates incoming applications, proposes tasks for grants, opens / closes votes for teams, prepares reports. Currently, the working group includes 8 people.",
+    "daoDesc": "DAO Members are all eligible members to vote for a decision on grant issue.<br><br>In the Waves Association: this entity represents the general meeting, which is the main entity that participates in votes and makes decisions. Currently the association has 30 members.",
+    "daoManagerDesc": "This entity plays a supportive function, setting DAO Members and Working Group lists before grants distribution.<br><br>In the Waves Association, the DAO Manager represents the association’s secretary’s account. The DAO Manager does not participate in DAO votes.",
+    "boardDesc": "A body composed of certain DAO Members who are performing the final validation function approves decisions made by DAO Members and accepts work of the Working Group.<br><br>In the Waves Association, the final approval body is the Board. The Board approves all solutions made by the general meeting.",
 
     "whyDAO": "Why DAO",
     "whyDAO_title_1": "The power of community",

@@ -5,6 +5,7 @@
     <span>{{'footer.copyright' | transloco}}</span>
     <div class="footer__social">
       <a target="_blank" rel="noopener noreferrer nofollow" href="mailto:{{api?.emails?.grants}}">{{api?.emails?.grants}}</a>
+      <a target="_blank" rel="noopener noreferrer nofollow" [href]="api?.links?.telegram">{{'footer.telegram' | transloco}}</a>
       <div class="footer__social-icons">
         <a target="_blank" rel="noopener noreferrer nofollow" [href]="api?.links?.facebook" class="footer__social-facebook"></a>
         <a target="_blank" rel="noopener noreferrer nofollow" [href]="api?.links?.medium" class="footer__social-medium"></a>
