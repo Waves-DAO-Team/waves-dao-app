@@ -13,15 +13,21 @@ import { Web3TemplateComponent } from '@pages/entity-page/web3-template/web3-tem
 import { DisruptiveTemplateComponent } from '@pages/entity-page/disruptive-template/disruptive-template.component'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
-import { TeamsAndSolutionsModule } from '@ui/teams-and-solutions/teams-and-solutions.module'
 import { SubmitSolutionModule } from '@ui/modals/submit-solution/submit-solution.module'
 import {AllTeamsBtnModule} from '@ui/all-teams-btn/all-teams-btn.module'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import {FlowTextModule} from '@ui/flow-text/flow-text.module'
 import {ScoreListModule} from '@ui/score-list/score-list.module'
+import {VotingsTemplateComponent} from '@pages/entity-page/votings-template/votings-template.component'
 
 @NgModule({
-  declarations: [ EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
+  declarations: [
+    EntityPageComponent,
+    Web3TemplateComponent,
+    InterhackTemplateComponent,
+    VotingsTemplateComponent,
+    DisruptiveTemplateComponent
+  ],
   imports: [
     MatTooltipModule,
     AllTeamsBtnModule,
@@ -33,7 +39,6 @@ import {ScoreListModule} from '@ui/score-list/score-list.module'
     NotFoundPageModule,
     LoadingPageModule,
     VoteForTaskModule,
-    TeamsAndSolutionsModule,
     SubmitSolutionModule,
     StepperModule,
     FlowTextModule,

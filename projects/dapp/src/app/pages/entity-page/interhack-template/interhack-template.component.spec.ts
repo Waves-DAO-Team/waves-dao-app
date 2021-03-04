@@ -12,8 +12,8 @@ import { MarkdownModule, MarkdownService, SECURITY_CONTEXT } from 'ngx-markdown'
 import { VoteForTaskModule } from '@ui/vote-for-task/vote-for-task.module'
 import { StepperModule } from '@ui/stepper/stepper.module'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import {TeamsAndSolutionsModule} from '@ui/teams-and-solutions/teams-and-solutions.module'
 import {FlowTextModule} from '@ui/flow-text/flow-text.module'
+import {ScoreListModule} from '@ui/score-list/score-list.module'
 
 describe('InterhackTemplateComponent', () => {
   let component: InterhackTemplateComponent
@@ -26,8 +26,8 @@ describe('InterhackTemplateComponent', () => {
         VoteForTaskModule,
         StepperModule,
         NoopAnimationsModule,
-        TeamsAndSolutionsModule,
-        FlowTextModule
+        FlowTextModule,
+        ScoreListModule
       ],
       declarations: [InterhackTemplateComponent],
       providers: [

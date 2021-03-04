@@ -1,19 +1,21 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit
+  Component, Inject,
+  Input
 } from '@angular/core'
-import { UserDataInterface } from '@services/user/user.interface'
-import { AppApiInterface, AppConstantsInterface } from '@constants'
-import { MatDialog } from '@angular/material/dialog'
-import { DialogComponent } from '@ui/dialog/dialog.component'
-import { ProposeGrantComponent } from '@ui/modals/propose-grant/propose-grant.component'
-import { CommunityContractService } from '@services/contract/community-contract.service'
-import { translate } from '@ngneat/transloco'
-import { SubmitCallBackProposeArg } from '@ui/dialog/dialog.tokens'
-import { GrantsVariationType } from '@services/static/static.model'
+import {UserDataInterface} from '@services/user/user.interface'
+import {API, AppApiInterface, AppConstantsInterface} from '@constants'
+import {MatDialog} from '@angular/material/dialog'
+import {DialogComponent} from '@ui/dialog/dialog.component'
+import {ProposeGrantComponent} from '@ui/modals/propose-grant/propose-grant.component'
+import {CommunityContractService} from '@services/contract/community-contract.service'
+import {translate} from '@ngneat/transloco'
+import {SubmitCallBackProposeArg} from '@ui/dialog/dialog.tokens'
+import {GrantsVariationType} from '@services/static/static.model'
+import {StaticService} from '@services/static/static.service'
+import {map} from 'rxjs/operators'
+import {Observable} from 'rxjs'
 
 @Component({
   selector: 'app-web3-template',
@@ -21,23 +23,23 @@ import { GrantsVariationType } from '@services/static/static.model'
   styleUrls: ['./web3-template.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Web3TemplateComponent implements OnInit {
+export class Web3TemplateComponent {
   @Input() public readonly user!: UserDataInterface
 
   @Input() public readonly contract!: GrantsVariationType
 
   @Input() public readonly constants!: AppConstantsInterface
 
-  @Input() public readonly api!: AppApiInterface
+  public readonly showMoreLink: Observable<string> = this.staticService.selectedContact$
+    .pipe(map(e => this.api.showMoreLink[e]))
 
   constructor (
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
+    public staticService: StaticService, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public communityContractService: CommunityContractService, // eslint-disable-line
     private readonly cdr: ChangeDetectorRef // eslint-disable-line
   ) {
-  }
-
-  ngOnInit (): void {
   }
 
   onProposeGrant (): void {

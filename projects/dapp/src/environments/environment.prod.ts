@@ -2,6 +2,12 @@ export const environment = {
   production: true,
   confirmations: 0,
   grantsProgramLink: '${GRANT_PROGRAM_LINK}',
+  showMoreLink: {
+    disruptive: '${DISRUPTIVE_SHOW_MORE}',
+    votings: '${VOTINGS_SHOW_MORE}',
+    web3: '${WEB3_SHOW_MORE}',
+    interhack: '${INTERHACK_SHOW_MORE}'
+  },
 
   apis: {
     // Mainnet
@@ -21,12 +27,14 @@ export const environment = {
     },
     contracts: {
       disruptive: '${DISRUPTIVE}',
+      votings: '${VOTINGS}',
       web3: '${WEB3}',
       interhack: '${INTERHACK}'
     },
 
     issues: {
       disruptive: '${DISRUPTIVE_ISSUE_TEMPLATE}',
+      votings: '${VOTINGS_ISSUE_TEMPLATE}',
       web3: '${WEB3_ISSUE_TEMPLATE}',
       interhack: '${INTERHACK_ISSUE_TEMPLATE}'
     },

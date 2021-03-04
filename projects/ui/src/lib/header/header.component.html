@@ -1,4 +1,4 @@
-<header >
+<div class="header">
   <div class="container" *ngIf="userRole$ | async as userRole">
     <div class="logo" >
       <img alt="logo" src="/assets/icons/logo-dao.svg" (click)="isToggleMenuOpen = false" [routerLink]="['/']">
@@ -16,13 +16,16 @@
     </div>
     <ul class="nav" [class.open]="isToggleMenuOpen">
 
-      <li *ngFor="let contract of contractsList$ | async"
-          class="mat-display-2"
-          (click)="isToggleMenuOpen = false"
-          [routerLink]="[constants.routes.listing | route : contract.name ]"
-          routerLinkActive="active">
+      <ng-container *ngFor="let contract of contractsList$ | async">
+        <li *ngIf="contract.type"
+            class="mat-display-2"
+            (click)="isToggleMenuOpen = false"
+            [routerLink]="[constants.routes.listing | route : contract.name ]"
+            routerLinkActive="active">
           {{ contract.navigation }}
-      </li>
+        </li>
+      </ng-container>
+
 
       <li
         class="mat-display-2"
@@ -59,7 +62,10 @@
           </div>
 
         </div>
-        <img alt="logout" src="assets/icons/logout.svg" (click)="logoutHandler(); isToggleMenuOpen = false">
+        <a class="header__logout" (click)="logoutHandler(); isToggleMenuOpen = false">
+          <img class="header__logout-bracket" alt="logout" src="assets/icons/log-out-bracket.svg" >
+          <img class="header__logout-arrow" alt="logout" src="assets/icons/log-out-arrow.svg" >
+        </a>
       </li>
       <li *ngIf="userRole === roleEnum.unauthorized" class="profile mat-display-2">
         <button (click)="signupHandler(); isToggleMenuOpen = false">
@@ -69,4 +75,4 @@
       </li>
     </ul>
   </div>
-</header>
+</div>

@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
+import {ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core'
 import { UserDataInterface } from '@services/user/user.interface'
-import { AppApiInterface, AppConstantsInterface } from '@constants'
+import {API, AppApiInterface, AppConstantsInterface} from '@constants'
 import { DialogComponent } from '@ui/dialog/dialog.component'
 import { ProposeGrantComponent } from '@ui/modals/propose-grant/propose-grant.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -8,6 +8,9 @@ import { CommonContractService } from '@services/contract/common-contract.servic
 import { translate } from '@ngneat/transloco'
 import { SubmitCallBackProposeArg } from '@ui/dialog/dialog.tokens'
 import { GrantsVariationType } from '@services/static/static.model'
+import {Observable} from 'rxjs'
+import {map} from 'rxjs/operators'
+import {StaticService} from '@services/static/static.service'
 
 @Component({
   selector: 'app-default-template',
@@ -21,9 +24,12 @@ export class DefaultTemplateComponent implements OnInit {
 
   @Input() public readonly constants!: AppConstantsInterface
 
-  @Input() public readonly api!: AppApiInterface
+  public readonly showMoreLink: Observable<string> = this.staticService.selectedContact$
+    .pipe(map(e => this.api.showMoreLink[e]))
 
   constructor (
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
+    public staticService: StaticService, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public commonContractService: CommonContractService, // eslint-disable-line
     private readonly cdr: ChangeDetectorRef // eslint-disable-line

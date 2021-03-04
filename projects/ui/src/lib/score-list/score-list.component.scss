@@ -2,10 +2,9 @@
 @import '~include-media/dist/_include-media.scss';
 
 @mixin mid() {
+
   &__mid-container {
     display: grid;
-    //width: calc(100% - 155px);
-    //grid-template-columns: 1fr 1fr 1fr;
   }
 
   &__name {
@@ -13,13 +12,22 @@
     display: flex;
     font-weight: bold;
     margin: 15px auto $padding / 2 0;
-
     padding-left: $padding * 2;
-    //overflow: hidden;
-    //padding-left: $padding;
-    text-overflow: ellipsis;
-    //white-space: nowrap;
-    width: 95%;
+    ui-statuses {
+      margin-left: $padding;
+    }
+    @media (max-width: 1200px) {
+      padding-right: $padding * 2;
+      display: block;
+      span {
+        margin-bottom: $padding;
+        display: block;
+      }
+      ui-statuses {
+        margin-left: 0;
+      }
+    }
+
   }
 
   &__mid-container-bottom {
@@ -27,13 +35,21 @@
     flex-direction: row;
     max-height: 45px;
     min-height: 45px;
+    padding-left: $padding * 2;
 
-    @include media('<desktop') {
+    @media (max-width: 1200px) {
       display: block;
     }
 
     > a {
       padding-top: $padding / 3;
+    }
+  }
+
+  &__solution-link {
+    padding-left: $padding;
+    @media (max-width: 1200px) {
+      padding-left: 0;
     }
   }
 
@@ -44,11 +60,11 @@
     line-height: 1;
     margin: 0;
     margin-right: $padding * 1.5;
-    padding-left: $padding * 2;
+    //padding-left: $padding * 2;
     position: relative;
     white-space: nowrap;
 
-    @include media('<tablet') {
+    @media (max-width: 1200px) {
       display: block;
       max-width: 70%;
       overflow: hidden;
@@ -91,25 +107,6 @@
     border: 1px solid $color_waves_blue;
   }
 
-  &__winner {
-    align-self: center;
-    color: $color_waves_blue;
-    grid-template-columns: auto 1fr;
-    justify-self: center;
-    line-height: 1;
-    margin: 0 $padding * 2 0 0;
-    min-width: 100px;
-
-    @include media('<desktop') {
-      display: none;
-    }
-
-    img {
-      margin-bottom: -4px;
-      margin-right: $padding / 2;
-    }
-  }
-
   &__li {
     border: 1px solid $color_light_gray;
     display: grid;
@@ -126,27 +123,39 @@
       width: 20%;
     }
 
-    &__right {
-      align-items: center;
-      color: $color_waves_blue;
-      display: flex;
-      justify-content: center;
-      margin: 0;
-      max-width: 100px;
-      min-width: 100px;
-      padding-right: $padding * 2;
-
-      img {
-        margin-right: $padding / 2;
-      }
-      @media (max-width: 1200px) {
-        display: none;
-      }
-    }
-
     &:last-child {
       margin-bottom: 0;
     }
   }
 
+}
+
+.score-list {
+  &__left-container {
+    background: $color_light_gray;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.score-list {
+  &__winner {
+    align-self: center;
+    color: $color_waves_blue;
+    grid-template-columns: auto 1fr;
+    justify-self: center;
+    line-height: 1;
+    margin: 0 $padding * 2 0 0;
+    min-width: 100px;
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
+
+    img {
+      margin-bottom: -4px;
+      margin-right: $padding / 2;
+    }
+  }
 }

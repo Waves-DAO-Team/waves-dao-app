@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import { CONTRACT, ENTITY, ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/entity-page.providers'
-import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
   ContractGrantModel
@@ -17,6 +17,7 @@ import { GrantsVariationType } from '@services/static/static.model'
 })
 export class EntityPageComponent implements OnInit, OnDestroy {
   constructor (
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
     private readonly location: Location, // eslint-disable-line
     @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType>, // eslint-disable-line
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface, // eslint-disable-line

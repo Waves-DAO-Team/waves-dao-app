@@ -15,19 +15,23 @@ export const environment = {
     },
     contracts: {
       disruptive: '3N1vwPpGTfCSYkJxLkA47nYiyJSDPyeVDFD',
+      votings: '3N1vwPpGTfCSYkJxLkA47nYiyJSDPyeVDFD',
       web3: '3Ms9uNDuJGQrtsFzhPUy4gHbHF2cHMSQQHB',
       interhack: '3Mqn3vqCeTsYQgHyvh7GGseW25rC4U12AMj'
     },
     issues: {
       disruptive: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
-          'KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-' +
-          'tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
+        'KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-' +
+        'tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
+      votings: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
+        'KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-' +
+        'tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
       web3: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
-          'KardanovIR&labels=Web3.0+Development+Grant&template=track-2--web3-' +
-          '0-development-grant.md&title=%5BTrack+2.+Web3.0+Development+Grant%5D+',
+        'KardanovIR&labels=Web3.0+Development+Grant&template=track-2--web3-' +
+        '0-development-grant.md&title=%5BTrack+2.+Web3.0+Development+Grant%5D+',
       interhack: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
-          'KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.' +
-          'md&title=%5BTrack+3.+Interhack+Grant%5D+'
+        'KardanovIR&labels=Interhack+Grant&template=track-3--interhack-grant.' +
+        'md&title=%5BTrack+3.+Interhack+Grant%5D+'
     },
     links: {
       telegram: 'https://t.me/WavesDAO',

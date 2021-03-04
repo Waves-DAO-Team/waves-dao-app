@@ -188,7 +188,7 @@
         {{'landing-page.exploreGrantsTitle' | transloco}}
       </div>
 
-      <div class="landing-page__grants-cards">
+      <div class="landing-page__grants-cards" *ngIf="api.contracts.disruptive">
         <div class="landing-page__grants-cards-card">
           <div class="landing-page__grants-cards-card-title mat-display-4">
             {{ 'contracts.disruptive.title' | transloco }}
@@ -206,7 +206,7 @@
         <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/disruptive-type-landing.png">
       </div>
 
-      <div class="landing-page__grants-cards">
+      <div class="landing-page__grants-cards" *ngIf="api.contracts.web3">
         <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/web3-type-landing.png">
         <div class="landing-page__grants-cards-card">
           <div class="landing-page__grants-cards-card-title mat-display-4">
@@ -224,7 +224,7 @@
         </div>
       </div>
 
-      <div class="landing-page__grants-cards">
+      <div class="landing-page__grants-cards" *ngIf="api.contracts.interhack">
         <div class="landing-page__grants-cards-card">
           <div class="landing-page__grants-cards-card-title mat-display-4">
             {{ 'contracts.interhack.title' | transloco }}
@@ -240,6 +240,24 @@
           </a>
         </div>
         <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/interhack-type-landing.png">
+      </div>
+
+      <div class="landing-page__grants-cards" *ngIf="api.contracts.votings">
+        <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/special-votings-type-landing.png">
+        <div class="landing-page__grants-cards-card">
+          <div class="landing-page__grants-cards-card-title mat-display-4">
+            {{ 'contracts.votings.title' | transloco }}
+          </div>
+          <div class="landing-page__grants-cards-card-desc mat-display-2">
+            {{ 'contracts.votings.landing' | transloco }}
+          </div>
+
+          <a
+            class="button landing-page__grants-cards-card-button btn active"
+            [routerLink]="constants.routes.listing | route: 'votings'">
+            {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
+          </a>
+        </div>
       </div>
     </div>
 
@@ -257,14 +275,17 @@
 
       <mat-tab-group disableRipple dynamicHeight class="landing-page__workflow-tabs">
 
-        <mat-tab label="{{ 'contracts.disruptive.title' | transloco }}">
+        <mat-tab label="{{ 'contracts.disruptive.title' | transloco }}" *ngIf="api.contracts.disruptive">
           <img class="landing-page__workflow-image" alt="img" src="assets/img/diagram_disruptive_2x.png">
         </mat-tab>
-        <mat-tab label="{{ 'contracts.web3.title' | transloco }}">
+        <mat-tab label="{{ 'contracts.web3.title' | transloco }}" *ngIf="api.contracts.web3">
           <img class="landing-page__workflow-image" alt="img" src="assets/img/diagram_web3_2x.png">
         </mat-tab>
-        <mat-tab label="{{ 'contracts.interhack.title' | transloco }}">
+        <mat-tab label="{{ 'contracts.interhack.title' | transloco }}" *ngIf="api.contracts.interhack">
           <img class="landing-page__workflow-image" alt="img" src="assets/img/diagram_interhack_2x.png">
+        </mat-tab>
+        <mat-tab label="{{ 'contracts.votings.title' | transloco }}" *ngIf="api.contracts.votings">
+          <img class="landing-page__workflow-image" alt="img" src="assets/img/diagram_votings_2x.png">
         </mat-tab>
       </mat-tab-group>
     </div>
