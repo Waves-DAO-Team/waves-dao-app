@@ -5,6 +5,7 @@ import {
   publishReplay,
   refCount
 } from 'rxjs/operators'
+import {isDevMode} from "@angular/core";
 
 export interface LoadingWrapperModel<T> {
   data$: Observable<T>
@@ -29,7 +30,9 @@ export class LoadingWrapper<T> {
       refCount(),
       catchError((error) => {
         // Todo решить где и как обрабатывать ошибку
-        console.log('LoadingWrapper::Error\n', error)
+        if (isDevMode()) {
+          console.log('LoadingWrapper::Error\n', error)
+        }
         setTimeout(() => {
           this.errorLoading$.next(true)
         })

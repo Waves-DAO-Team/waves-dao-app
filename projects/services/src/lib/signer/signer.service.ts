@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core'
+import {Inject, Injectable, isDevMode} from '@angular/core'
 import { Signer, IUserData } from '@waves/signer/'
 import Provider from '@waves.exchange/provider-web'
 import { API, AppApiInterface } from '@constants'
@@ -111,8 +111,9 @@ export class SignerService {
       map((data: TransactionState[]) => {
         const confirmation = data.find((state: TransactionState) =>
           state.status === 'confirmed' && state.confirmations >= this.api.confirmations)
-
-        console.log('Confirmation', confirmation)
+          if (isDevMode()) {
+            console.log('Confirmation', confirmation)
+          }
         if (!confirmation) {
           throw new Error('wait')
         }

@@ -41,7 +41,6 @@ export class LinkContentService {
         }
       }),
       switchMap((data: LinkDataModel) => {
-        console.log(translate('messages.transaction_rejected'))
         if (data.url && !(data?.isGH && (data?.isFile || data?.isIssues || data?.separatorCounter === 5))) {
           if (isDevMode()) {
             throw new Error(translate('messages.errors.conditions_link'))
