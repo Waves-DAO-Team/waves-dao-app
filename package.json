@@ -7,7 +7,7 @@
     "start:env": "envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.local.ts",
     "start:serve": "ng serve",
     "build": "run-s build:*",
-    "build:env": "envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.prod.ts",
+    "build:env": "envsub --env-file .env ./projects/dapp/src/environments/environment.prod.template.ts ./projects/dapp/src/environments/environment.prod.ts",
     "build:build": "ng build --prod",
     "test": "ng test",
     "tests": "yarn start:env && run-p  test:*",

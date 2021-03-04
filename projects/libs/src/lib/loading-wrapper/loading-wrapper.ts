@@ -5,7 +5,7 @@ import {
   publishReplay,
   refCount
 } from 'rxjs/operators'
-import {isDevMode} from "@angular/core";
+import {isDevMode} from '@angular/core'
 
 export interface LoadingWrapperModel<T> {
   data$: Observable<T>

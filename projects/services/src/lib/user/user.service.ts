@@ -70,14 +70,14 @@ export class UserService {
       refCount()
     ).subscribe()
 
-  constructor(
+  constructor (
     @Inject(API) private readonly api: AppApiInterface, // eslint-disable-line
     private readonly signerService: SignerService, // eslint-disable-line
     private readonly contractService: ContractService // eslint-disable-line
   ) {
   }
 
-  private defineApply(userAddress: string, tasks: { [index: string]: ContractGrantRawModel }): string[] {
+  private defineApply (userAddress: string, tasks: { [index: string]: ContractGrantRawModel }): string[] {
     const result: string[] = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
@@ -94,7 +94,7 @@ export class UserService {
     return result
   }
 
-  private defineVoted(userAddress: string, tasks: { [s: string]: ContractGrantRawModel }): string[] {
+  private defineVoted (userAddress: string, tasks: { [s: string]: ContractGrantRawModel }): string[] {
     const result = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
@@ -108,7 +108,7 @@ export class UserService {
     return result
   }
 
-  private defineRol(
+  private defineRol (
     managerAddress: string,
     masterAddress: string,
     userAddress: string,

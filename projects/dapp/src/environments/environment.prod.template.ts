@@ -1,6 +1,6 @@
 
 export const environment = {
-  production: false,
+  production: true,
   confirmations: 0,
   grantsProgramLink: '${GRANT_PROGRAM_LINK}',
   showMoreLink: {
