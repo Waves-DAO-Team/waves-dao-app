@@ -24,7 +24,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: sudo apt-get install google-chrome-stable
       - run: yarn install
       - run: yarn build
       - run: yarn tests
