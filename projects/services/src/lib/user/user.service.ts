@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@angular/core'
-import { RoleEnum, RoleRowInterface, UserDataInterface } from '@services/user/user.interface'
-import { SignerService } from '@services/signer/signer.service'
-import { ContractService } from '@services/contract/contract.service'
-import { BehaviorSubject, combineLatest } from 'rxjs'
-import { map, publishReplay, refCount, tap } from 'rxjs/operators'
-import { ContractGrantRawModel } from '@services/contract/contract.model'
-import { API, AppApiInterface } from '@constants'
+import {Inject, Injectable, isDevMode} from '@angular/core'
+import {RoleEnum, RoleRowInterface, UserDataInterface} from '@services/user/user.interface'
+import {SignerService} from '@services/signer/signer.service'
+import {ContractService} from '@services/contract/contract.service'
+import {BehaviorSubject, combineLatest} from 'rxjs'
+import {map, publishReplay, refCount, tap} from 'rxjs/operators'
+import {ContractGrantRawModel} from '@services/contract/contract.model'
+import {API, AppApiInterface} from '@constants'
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +62,9 @@ export class UserService {
         if (userAddressText !== this.lastAddress) {
           this.lastAddress = userAddressText
         }
-        console.log('user data: ', this.data.getValue())
+        if (isDevMode()) {
+          console.log('-user data: ', this.data.getValue())
+        }
       }),
       publishReplay(1),
       refCount()
@@ -72,9 +74,10 @@ export class UserService {
     @Inject(API) private readonly api: AppApiInterface, // eslint-disable-line
     private readonly signerService: SignerService, // eslint-disable-line
     private readonly contractService: ContractService // eslint-disable-line
-  ) {}
+  ) {
+  }
 
-  private defineApply (userAddress: string, tasks: {[index: string]: ContractGrantRawModel}): string[] {
+  private defineApply (userAddress: string, tasks: { [index: string]: ContractGrantRawModel }): string[] {
     const result: string[] = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {
@@ -91,7 +94,7 @@ export class UserService {
     return result
   }
 
-  private defineVoted (userAddress: string, tasks: {[s: string]: ContractGrantRawModel}): string[] {
+  private defineVoted (userAddress: string, tasks: { [s: string]: ContractGrantRawModel }): string[] {
     const result = []
     if (tasks) {
       for (const key of Object.keys(tasks)) {

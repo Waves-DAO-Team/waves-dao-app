@@ -11,7 +11,7 @@ ENV BUILD_DEPS="" \
     RUNTIME_DEPS="" \
     NODE_ENV="production" \
     CONFIG="stage" \
-    NODE_OPTIONS="--max_old_space_size=2048"
+    NODE_OPTIONS="--max_old_space_size=5120"
 
 WORKDIR /home/source
 
@@ -23,9 +23,18 @@ RUN echo "ENV CONFIG = $CONFIG"
 
 COPY . .
 
-RUN yarn install --production=false && \
-    yarn envsub && \
-    yarn build
+RUN yarn add global @angular/cli
+RUN npm link @angular/cli
+
+
+RUN yarn install
+RUN yarn add @angular-devkit/build-angular
+RUN yarn envsub
+#RUN npm update
+#RUN yarn upgrade
+
+RUN export PATH="$HOME/.npm-global/bin:$PATH"
+RUN yarn build
 
 # -----------
 # Production image
@@ -36,7 +45,7 @@ ENV NODE_ENV="production" \
     PORT="3000" \
     USER="app" \
     FRONTEND_INSTANCES="1" \
-    FRONTEND_MEMORY="256M" \
+    FRONTEND_MEMORY="512M" \
     LABEL="Untld frontend"
 
 WORKDIR /home/$USER
