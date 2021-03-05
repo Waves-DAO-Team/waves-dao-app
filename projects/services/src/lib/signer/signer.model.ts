@@ -1,4 +1,4 @@
-import {UserData} from "@waves/signer/";
+import {UserData} from '@waves/signer/'
 
 export interface TransactionState {
   id: string
@@ -36,4 +36,7 @@ export interface SignerInvokeArgBinary {
 export interface SignerInvokeArgs {
   type: number | string,
   value: number | string,
+}
+export interface ISignerInvokeAnyData {
+  [s: string]: any // eslint-disable-line
 }

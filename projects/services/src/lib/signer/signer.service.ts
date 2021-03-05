@@ -1,20 +1,20 @@
 import {Inject, Injectable, isDevMode} from '@angular/core'
 import {Signer, UserData} from '@waves/signer/'
 import {ProviderWeb} from '@waves.exchange/provider-web'
-import { API, AppApiInterface } from '@constants'
+import {API, AppApiInterface} from '@constants'
 import {
   SignerUser,
   TransactionRawState,
   TransactionState,
-  TransactionsSuccessResult
+  TransactionsSuccessResult, ISignerInvokeAnyData
 } from './signer.model'
-import { BehaviorSubject, from, Observable } from 'rxjs'
-import { publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take } from 'rxjs/operators'
-import { HttpClient } from '@angular/common/http'
-import { translate } from '@ngneat/transloco'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { StorageService } from '@services/storage/storage.service'
-import {InvokeScriptCallArgument} from "@waves/ts-types/src/parts";
+import {BehaviorSubject, from, Observable} from 'rxjs'
+import {publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take} from 'rxjs/operators'
+import {HttpClient} from '@angular/common/http'
+import {translate} from '@ngneat/transloco'
+import {MatSnackBar} from '@angular/material/snack-bar'
+import {StorageService} from '@services/storage/storage.service'
+import {InvokeScriptCallArgument} from '@waves/ts-types/src/parts'
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,12 @@ import {InvokeScriptCallArgument} from "@waves/ts-types/src/parts";
 export class SignerService {
   public readonly signer!: Signer
 
-  private readonly user$: BehaviorSubject<SignerUser> = new BehaviorSubject({ name: '', address: '', publicKey: '', balance: '' })
+  private readonly user$: BehaviorSubject<SignerUser> = new BehaviorSubject({
+    name: '',
+    address: '',
+    publicKey: '',
+    balance: ''
+  })
 
   public user: Observable<SignerUser> = this.user$.pipe(tap((data) => {
     this.storageService.userData = data
@@ -40,8 +45,9 @@ export class SignerService {
       NODE_URL: api.nodes // eslint-disable-line
     })
     this.signer.setProvider(new ProviderWeb(api.signer)).catch((e) => {
-      if(isDevMode())
+      if (isDevMode()) {
         console.log('Error ProviderWeb:', e)
+      }
     })
 
     this.user$.next(this.storageService.userData as SignerUser)
@@ -53,8 +59,9 @@ export class SignerService {
         .then((user: UserData) => {
           this.signer.getBalance()
             .then((res) => {
-              if (isDevMode())
+              if (isDevMode()) {
                 console.log('getBalance:', res)
+              }
               this.user$.next({
                 ...user,
                 balance: res[0].amount.toString(),
@@ -71,7 +78,7 @@ export class SignerService {
   }
 
   public logout (): Observable<void> {
-    this.user$.next({ name: '', address: '', publicKey: '', balance: '' })
+    this.user$.next({name: '', address: '', publicKey: '', balance: ''})
     return from(this.signer.logout())
   }
 
@@ -84,14 +91,15 @@ export class SignerService {
       amount: number | string,
     }[] = []
   ): Observable<TransactionsSuccessResult> {
-    if (isDevMode())
+    if (isDevMode()) {
       console.log('invokeProcess params contractAddress:', contractAddress)
       console.log('invokeProcess params command:', command)
       console.log('invokeProcess params args:', args)
       console.log('invokeProcess params payment:', payment)
+    }
     return from(this.signer.invoke({
       ...(payment && payment.length ? {
-        payment: payment
+        payment
       } : {}),
       dApp: contractAddress,
       call: {
@@ -106,9 +114,17 @@ export class SignerService {
       }),
       switchMap((tx) => from(this.signer.broadcast(tx).catch((e) => {
         console.warn(e)
-        throw("broadcast could not process the request:")
+        throw new Error('broadcast could not process the request:')
       }))),
-      switchMap((data: any) => this.status(data?.id)),
+      tap(
+        (e) => console.log('+++', e)
+      ),
+      switchMap((data) => {
+        const d: ISignerInvokeAnyData = {
+          ...data
+        }
+        return this.status(d.id)
+      }),
       tap(() => {
         this.snackBar.open('Transaction is complete', translate('messages.ok'))
       })
@@ -121,7 +137,7 @@ export class SignerService {
       params: {
         id: tx
       },
-      headers: { accept: 'application/json; charset=utf-8' }
+      headers: {accept: 'application/json; charset=utf-8'}
     }).pipe(
       map((data: TransactionState[]) => {
         const confirmation = data.find((state: TransactionState) =>
