@@ -116,9 +116,6 @@ export class SignerService {
         console.warn(e)
         throw new Error('broadcast could not process the request:')
       }))),
-      tap(
-        (e) => console.log('+++', e)
-      ),
       switchMap((data) => {
         const d: ISignerInvokeAnyData = {
           ...data
@@ -143,7 +140,8 @@ export class SignerService {
         const confirmation = data.find((state: TransactionState) =>
           state.status === 'confirmed' && state.confirmations >= this.api.confirmations)
 
-        console.log('Confirmation', confirmation)
+        if(isDevMode())
+          console.log('Confirmation', confirmation)
         if (!confirmation) {
           throw new Error('wait')
         }
