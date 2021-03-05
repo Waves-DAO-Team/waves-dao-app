@@ -1,4 +1,4 @@
-import { IUserData } from '@waves/signer/cjs/interface'
+import {UserData} from '@waves/signer/'
 
 export interface TransactionState {
   id: string
@@ -8,12 +8,12 @@ export interface TransactionState {
 
 export type TransactionRawState = TransactionState[]
 
-export interface TransactionsSuccessResult extends TransactionState{
+export interface TransactionsSuccessResult extends TransactionState {
   applicationStatus: 'succeeded'
   height: number
 }
 
-export interface SignerUser extends IUserData {
+export interface SignerUser extends UserData {
   name: string
   balance: string
 }
@@ -33,4 +33,10 @@ export interface SignerInvokeArgBinary {
   value: number
 }
 
-export type SignerInvokeArgs = SignerInvokeArgString | SignerInvokeArgInteger | SignerInvokeArgBinary
+export interface SignerInvokeArgs {
+  type: number | string,
+  value: number | string,
+}
+export interface ISignerInvokeAnyData {
+  [s: string]: any // eslint-disable-line
+}
