@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core'
+import {Inject, Injectable, isDevMode} from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import {
   map,
@@ -42,7 +42,9 @@ export class ContractService {
       ...members
     })),
     tap((data) => {
-      console.log('CONTRACT DATA', data)
+        if (isDevMode()) {
+          console.log('CONTRACT DATA', data)
+        }
     }),
     publishReplay(1),
     refCount()

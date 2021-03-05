@@ -19,11 +19,10 @@ RUN set -x && \
     apk add --update $RUNTIME_DEPS && \
     apk add --no-cache --virtual build_deps $BUILD_DEPS
 
-RUN echo "ENV CONFIG = $CONFIG"
-
 COPY . .
 
-RUN yarn install --production=false && \
+RUN yarn global add @angular/cli && \
+    yarn install --production=false && \
     yarn envsub && \
     yarn build
 

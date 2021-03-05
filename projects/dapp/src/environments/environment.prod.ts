@@ -1,3 +1,4 @@
+
 export const environment = {
   production: true,
   confirmations: 0,
@@ -8,20 +9,11 @@ export const environment = {
     web3: '${WEB3_SHOW_MORE}',
     interhack: '${INTERHACK_SHOW_MORE}'
   },
-
   apis: {
-    // Mainnet
-    // nodes: 'https://nodes.wavesnodes.com',
-    // signer: 'https://waves.exchange/signer/',
-    // rest: 'https://nodes.wavesnodes.com',
-    // explorer: 'https://wavesexplorer.com/address/',
-
-    nodes: '${API_NODES}',        //'https://nodes-testnet.wavesnodes.com',
-    signer: '${API_SIGNER}',      //'https://testnet.waves.exchange/signer/',
-    rest: '${API_NODES}',         //'https://nodes-testnet.wavesnodes.com',
-    explorer: '${API_EXPLORER}',  // 'https://testnet.wavesexplorer.com/address/',
-
-    // USE SYSTEM ENVIRONMENTS ON BUILD PROJECT
+    nodes: 'https://nodes-testnet.wavesnodes.com',
+    signer: 'https://testnet.waves.exchange/signer/',
+    rest: 'https://nodes-testnet.wavesnodes.com',
+    explorer: 'https://testnet.wavesexplorer.com/address/',
     management: {
       membership: '${MEMBERSHIP}'
     },
@@ -31,14 +23,12 @@ export const environment = {
       web3: '${WEB3}',
       interhack: '${INTERHACK}'
     },
-
     issues: {
       disruptive: '${DISRUPTIVE_ISSUE_TEMPLATE}',
       votings: '${VOTINGS_ISSUE_TEMPLATE}',
       web3: '${WEB3_ISSUE_TEMPLATE}',
       interhack: '${INTERHACK_ISSUE_TEMPLATE}'
     },
-
     links: {
       telegram: 'https://t.me/WavesDAO',
       facebook: 'https://www.facebook.com/wavesassociation',

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core'
+import {Inject, Injectable, isDevMode} from '@angular/core'
 import { EMPTY, Observable, Subject } from 'rxjs'
 import { TransactionsSuccessResult } from '@services/signer/signer.model'
 import {
@@ -116,7 +116,9 @@ export class MembershipService {
   }
 
   refresh (): void {
-    console.log('Refresh memberships')
+    if (isDevMode()) {
+      console.log('Refresh memberships')
+    }
     this.refresh$.next(null)
   }
 }
