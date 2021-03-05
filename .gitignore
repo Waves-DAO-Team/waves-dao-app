@@ -47,3 +47,4 @@ Thumbs.db
 /temp/*
 .env
 **/environment.local.ts
+/.husky
