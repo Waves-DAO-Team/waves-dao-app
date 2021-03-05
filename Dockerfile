@@ -23,18 +23,13 @@ RUN echo "ENV CONFIG = $CONFIG"
 
 COPY . .
 
-RUN yarn add global @angular/cli
-RUN npm link @angular/cli
-
-
-RUN yarn install
-RUN yarn add @angular-devkit/build-angular
-RUN yarn envsub
-#RUN npm update
-#RUN yarn upgrade
-
-RUN export PATH="$HOME/.npm-global/bin:$PATH"
-RUN yarn build
+RUN yarn add global @angular/cli && \
+    npm link @angular/cli && \
+    yarn install && \
+    yarn add @angular-devkit/build-angular && \
+    yarn envsub && \
+    export PATH="$HOME/.npm-global/bin:$PATH" && \
+    yarn build
 
 # -----------
 # Production image
