@@ -140,8 +140,9 @@ export class SignerService {
         const confirmation = data.find((state: TransactionState) =>
           state.status === 'confirmed' && state.confirmations >= this.api.confirmations)
 
-        if(isDevMode())
+        if(isDevMode()) {
           console.log('Confirmation', confirmation)
+        }
         if (!confirmation) {
           throw new Error('wait')
         }
