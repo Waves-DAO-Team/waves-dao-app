@@ -189,7 +189,12 @@
               ]
             },
             "allowedCommonJsDependencies": [
-              "@waves/signer",
+              "@waves/waves-browser-bus",
+              "@waves/node-api-js/cjs/tools/transactions/broadcast",
+              "@waves/node-api-js/cjs/tools/transactions/wait",
+              "@waves/node-api-js/cjs/tools/blocks/getNetworkByte",
+              "@waves/node-api-js/cjs/api-node/assets",
+              "@waves/node-api-js/cjs/api-node/addresses",
               "lodash"
             ]
           },
