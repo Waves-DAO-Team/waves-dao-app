@@ -8,7 +8,7 @@
     "start:serve": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
-    "tests": "yarn start:env && run-p  test:*",
+    "tests": "yarn start:env && run-s test:*",
     "test:dapp": "ng test dapp --browsers=ChromeHeadless --watch=false --progress=false",
     "test:services": "ng test services --browsers=ChromeHeadless --watch=false --progress=false",
     "test:ui": "ng test ui --browsers=ChromeHeadless --watch=false --progress=false",

@@ -8,7 +8,7 @@ jobs:
   # when a job name is not provided
   build:
     # Name the Job
-    name: Testing code base
+    name: E2E tests
     # Set the type of machine to run on
     runs-on: ubuntu-latest
 
@@ -26,6 +26,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
       - run: yarn build
-      - run: yarn tests
+      - run: yarn e2e
         env:
           NODE_ENV: production
