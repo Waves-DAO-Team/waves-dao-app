@@ -3,7 +3,7 @@ export const environment = {
   production: true,
   confirmations: 0,
   grantsProgramLink: '${GRANT_PROGRAM_LINK}',
-  showMoreLink: {
+  about: {
     disruptive: '${DISRUPTIVE_SHOW_MORE}',
     votings: '${VOTINGS_SHOW_MORE}',
     web3: '${WEB3_SHOW_MORE}',
