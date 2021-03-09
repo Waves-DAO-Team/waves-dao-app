@@ -14,7 +14,7 @@
     "test:ui": "ng test ui --browsers=ChromeHeadless --watch=false --progress=false",
     "lint": "run-s lint:es",
     "lint:es": "ng lint",
-    "e2e": "ng e2e --port 0",
+    "e2e": "yarn start:env && ng e2e --port 0",
     "lint:code": "ts-standard",
     "commit": "lint-staged --allow-empty",
     "push": "run-s lint:es build",
