@@ -26,7 +26,6 @@
         </li>
       </ng-container>
 
-
       <li
         class="mat-display-2"
         (click)="isToggleMenuOpen = false"
@@ -35,38 +34,41 @@
         {{ 'app.header.members' | transloco }}
       </li>
 
-      <li *ngIf="(user$ | async)?.name" class="profile mat-display-2">
-        <div class="icon" *ngIf="userService.data.getValue().userRole as role">
-          <img alt="avatar" src="assets/icons/avatar/master.svg" *ngIf="role === roleEnum.master || role === roleEnum.manager">
-          <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="role === roleEnum.daoMember">
-          <img alt="avatar" src="assets/icons/avatar/wg.svg" *ngIf="role === roleEnum.workingGroup">
-          <img alt="avatar" src="assets/icons/avatar/auth.svg" *ngIf="role === roleEnum.authorized">
-        </div>
-        <div class="content">
-          <div class="name mat-display-2">
-            {{(user$ | async)?.name}}
+      <ng-container *ngIf="(user$ | async)?.name as userName">
+        <li *ngIf="userName" class="profile mat-display-2">
+          <div class="icon">
+            <img alt="avatar" src="assets/icons/avatar/master.svg" *ngIf="userRole === roleEnum.master || userRole === roleEnum.manager">
+            <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="userRole === roleEnum.daoMember">
+            <img alt="avatar" src="assets/icons/avatar/wg.svg" *ngIf="userRole === roleEnum.workingGroup">
+            <img alt="avatar" src="assets/icons/avatar/auth.svg" *ngIf="userRole === roleEnum.authorized">
           </div>
-          <div class="role mat-display-1">
-            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.manager">
-              {{ 'role.manager' | transloco }}
-            </ng-container>
-            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.workingGroup">
-              {{ 'role.wg' | transloco }}
-            </ng-container>
-            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.daoMember">
-              {{ 'role.dao' | transloco }}
-            </ng-container>
-            <ng-container *ngIf="userService.data.getValue().userRole === roleEnum.authorized">
-              {{ 'role.auth' | transloco }}
-            </ng-container>
-          </div>
+          <div class="content">
+            <div class="name mat-display-2">
+              {{userName}}
+            </div>
+            <div class="role mat-display-1">
+              <ng-container *ngIf="userRole === roleEnum.manager">
+                {{ 'role.manager' | transloco }}
+              </ng-container>
+              <ng-container *ngIf="userRole === roleEnum.workingGroup">
+                {{ 'role.wg' | transloco }}
+              </ng-container>
+              <ng-container *ngIf="userRole === roleEnum.daoMember">
+                {{ 'role.dao' | transloco }}
+              </ng-container>
+              <ng-container *ngIf="userRole === roleEnum.authorized">
+                {{ 'role.auth' | transloco }}
+              </ng-container>
+            </div>
 
-        </div>
-        <a class="header__logout" (click)="logoutHandler(); isToggleMenuOpen = false">
-          <img class="header__logout-bracket" alt="logout" src="assets/icons/log-out-bracket.svg" >
-          <img class="header__logout-arrow" alt="logout" src="assets/icons/log-out-arrow.svg" >
-        </a>
-      </li>
+          </div>
+          <a class="header__logout" (click)="logoutHandler(); isToggleMenuOpen = false">
+            <img class="header__logout-bracket" alt="logout" src="assets/icons/log-out-bracket.svg" >
+            <img class="header__logout-arrow" alt="logout" src="assets/icons/log-out-arrow.svg" >
+          </a>
+        </li>
+      </ng-container>
+
       <li *ngIf="userRole === roleEnum.unauthorized" class="profile mat-display-2">
         <button (click)="signupHandler(); isToggleMenuOpen = false">
           {{ 'app.header.login' | transloco }}
