@@ -41,6 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isToggleMenuOpen = false
 
   public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => data.userRole))
+
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     private readonly signerService: SignerService,
