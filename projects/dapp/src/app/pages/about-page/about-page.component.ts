@@ -9,13 +9,13 @@ import {Location} from '@angular/common'
 import {ABOUT_PAGE_PROVIDERS, CONTRACT} from './about-page.provider'
 import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {LinkContentService} from '@services/link-content/link-content.service'
-import {filter, map, switchMap, takeUntil, tap} from 'rxjs/operators'
+import {filter, map, switchMap, takeUntil} from 'rxjs/operators'
 import {GrantsVariationType, GrantTypesEnum} from '@services/static/static.model'
-import {API, AppApiInterface} from "@constants";
-import {combineLatest, Observable, Subject} from "rxjs";
-import {GrantUrl} from "@services/interface";
-import {ContractService} from "@services/contract/contract.service";
-import {StaticService} from "@services/static/static.service";
+import {API, AppApiInterface} from '@constants'
+import {combineLatest, Observable, Subject} from 'rxjs'
+import {GrantUrl} from '@services/interface'
+import {ContractService} from '@services/contract/contract.service'
+import {StaticService} from '@services/static/static.service'
 
 @Component({
   selector: 'app-about-page',
@@ -40,7 +40,12 @@ export class AboutPageComponent implements OnInit, OnDestroy {
     .pipe(
       map((e): string => e.contractType),
       map((e) => {
-        if (e === GrantTypesEnum.disruptive || e === GrantTypesEnum.interhack || e === GrantTypesEnum.web3 || e === GrantTypesEnum.votings) {
+        if (
+          e === GrantTypesEnum.disruptive
+          || e === GrantTypesEnum.interhack
+          || e === GrantTypesEnum.web3
+          || e === GrantTypesEnum.votings
+        ) {
           return this.api.about[e]
         } else {
           return ''
@@ -48,10 +53,10 @@ export class AboutPageComponent implements OnInit, OnDestroy {
       })
     )
 
-  public readonly content$ = combineLatest([this.contract.data$, this.mdLink$])
-    .pipe(switchMap(([contractInfo, link]) => this.linkContentService.getContent(link)))
+  public readonly content$ = combineLatest([this.mdLink$, this.contract.data$])
+    .pipe(switchMap(([link]) => this.linkContentService.getContent(link)))
 
-  constructor(
+  constructor (
     private readonly contractService: ContractService,
     public staticService: StaticService, // eslint-disable-line
     private readonly location: Location, // eslint-disable-line
@@ -61,14 +66,14 @@ export class AboutPageComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
-  goBack(): void {
+  goBack (): void {
     this.location.back()
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.contract.destroy()
     this.destroyed$.next(null)
     this.destroyed$.complete()
