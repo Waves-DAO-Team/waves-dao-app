@@ -1,5 +1,5 @@
 import {Inject, Injectable, isDevMode} from '@angular/core'
-import {Signer, UserData} from '@waves/signer/'
+import {UserData, Signer} from '@waves/signer/'
 import {ProviderWeb} from '@waves.exchange/provider-web'
 import {API, AppApiInterface} from '@constants'
 import {
@@ -106,7 +106,7 @@ export class SignerService {
         function: command,
         args
       },
-      feeAssetId: null
+      feeAssetId: undefined
     }).sign()).pipe(
       take(1),
       tap(() => {
