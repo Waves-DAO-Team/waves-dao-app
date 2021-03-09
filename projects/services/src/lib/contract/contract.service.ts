@@ -120,7 +120,10 @@ export class ContractService {
     if (!contracts[type]) {
       throw new Error('ContractService::switchContract | Contract ' + type + ' is not found ')
     }
-    this.refresh(contracts[type])
+
+    if (this.contractAddress$.getValue() !== contracts[type]) {
+      this.refresh(contracts[type])
+    }
   }
 
   private group (
