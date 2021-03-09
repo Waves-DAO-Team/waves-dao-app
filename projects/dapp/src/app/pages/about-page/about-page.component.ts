@@ -5,12 +5,17 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core'
-import { Location } from '@angular/common'
-import { ABOUT_PAGE_PROVIDERS, CONTRACT } from './about-page.provider'
-import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
-import { LinkContentService } from '@services/link-content/link-content.service'
-import { switchMap } from 'rxjs/operators'
-import { GrantsVariationType } from '@services/static/static.model'
+import {Location} from '@angular/common'
+import {ABOUT_PAGE_PROVIDERS, CONTRACT} from './about-page.provider'
+import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
+import {LinkContentService} from '@services/link-content/link-content.service'
+import {filter, map, switchMap, takeUntil} from 'rxjs/operators'
+import {GrantsVariationType, GrantTypesEnum} from '@services/static/static.model'
+import {API, AppApiInterface} from '@constants'
+import {combineLatest, Observable, Subject} from 'rxjs'
+import {GrantUrl} from '@services/interface'
+import {ContractService} from '@services/contract/contract.service'
+import {StaticService} from '@services/static/static.service'
 
 @Component({
   selector: 'app-about-page',
@@ -20,17 +25,49 @@ import { GrantsVariationType } from '@services/static/static.model'
   providers: ABOUT_PAGE_PROVIDERS
 })
 export class AboutPageComponent implements OnInit, OnDestroy {
-  public readonly content$ = this.contract.data$.pipe(
-    switchMap((contractInfo) => this.linkContentService.getContent(contractInfo.about))
+
+  private readonly destroyed$ = new Subject()
+
+  public grantUrl$: Observable<GrantUrl> = combineLatest(
+    [this.contractService.entityId$, this.staticService.selectedContact$]
+  ).pipe(
+    takeUntil(this.destroyed$),
+    filter(([entityId, contractType]) => entityId !== undefined && contractType !== undefined),
+    map(([entityId, contractType]) => ({entityId, contractType})),
   )
 
+  public readonly mdLink$: Observable<string> = this.grantUrl$
+    .pipe(
+      map((e): string => e.contractType),
+      map((e) => {
+        if (
+          e === GrantTypesEnum.disruptive
+          || e === GrantTypesEnum.interhack
+          || e === GrantTypesEnum.web3
+          || e === GrantTypesEnum.votings
+        ) {
+          return this.api.about[e]
+        } else {
+          return ''
+        }
+      })
+    )
+
+  public readonly content$ = combineLatest([this.mdLink$, this.contract.data$])
+    .pipe(switchMap(([link]) => this.linkContentService.getContent(link)))
+
   constructor (
+    private readonly contractService: ContractService,
+    public staticService: StaticService, // eslint-disable-line
     private readonly location: Location, // eslint-disable-line
     public linkContentService: LinkContentService, // eslint-disable-line
+    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
     @Inject(CONTRACT) public readonly contract: LoadingWrapperModel<GrantsVariationType> // eslint-disable-line
-  ) {}
+  ) {
+  }
 
-  ngOnInit (): void {}
+  ngOnInit (): void {
+  }
 
   goBack (): void {
     this.location.back()
@@ -38,5 +75,7 @@ export class AboutPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy (): void {
     this.contract.destroy()
+    this.destroyed$.next(null)
+    this.destroyed$.complete()
   }
 }

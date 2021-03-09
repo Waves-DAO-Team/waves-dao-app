@@ -14,8 +14,6 @@ import {translate} from '@ngneat/transloco'
 import {SubmitCallBackProposeArg} from '@ui/dialog/dialog.tokens'
 import {GrantsVariationType} from '@services/static/static.model'
 import {StaticService} from '@services/static/static.service'
-import {map} from 'rxjs/operators'
-import {Observable} from 'rxjs'
 
 @Component({
   selector: 'app-web3-template',
@@ -29,9 +27,6 @@ export class Web3TemplateComponent {
   @Input() public readonly contract!: GrantsVariationType
 
   @Input() public readonly constants!: AppConstantsInterface
-
-  public readonly showMoreLink: Observable<string> = this.staticService.selectedContact$
-    .pipe(map(e => this.api.showMoreLink[e]))
 
   constructor (
     @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line

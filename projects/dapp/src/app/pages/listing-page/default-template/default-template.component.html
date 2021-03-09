@@ -30,8 +30,8 @@
     <div>
         {{ contract?.desc }}
     </div>
-    <div class="listing-page__about" *ngIf="contract?.about">
-        <a [routerLink]="showMoreLink | async">
+    <div class="listing-page__about" *ngIf="contract?.name as contractName">
+        <a [routerLink]="['/', 'grants', contractName, 'about']">
             {{ 'listing.more' | transloco }}
         </a>
     </div>

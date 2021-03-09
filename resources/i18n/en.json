@@ -731,7 +731,6 @@
       "title": "Disruptive Tech Grants",
       "desc": "Disruptive Tech Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem needs.",
       "banner": "Call for applications will be announced in Q2 2021. Stay tuned!",
-      "about": "https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grants-about.md",
       "landing": "Major development or research tasks are proposed, which can be useful for the development and adoption of blockchain technology. You and your team can apply for one of these grants and receive a reward."
     },
     "web3": {
@@ -741,7 +740,6 @@
       "title": "Web 3.0 Dev Grants",
       "desc": "Web 3.0 Development Grants can be proposed by the community and awarded to the teams that foster mass adoption of blockchain technology.",
       "banner": "Apply with your project before May 1, 2021 to receive grant of up to 100k WAVES",
-      "about": "https://github.com/vlzhr/WavesDAO/blob/master/web3-grants-about.md",
       "landing": "You propose ideas for grants of this type. Usually this is a decentralized application or startup."
     },
     "interhack": {
@@ -751,7 +749,6 @@
       "title": "Interhack Grants",
       "desc": "Interhack Grants are awarded for building innovative solutions at hackathons in accordance with assignments provided by the Waves Association.",
       "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool",
-      "about": "https://github.com/vlzhr/WavesDAO/blob/master/interhack-grants-about.md",
       "landing": "These grants are as close as possible to the usual hackathon format. The Association puts forward an idea and a proposed a reward, and you with the team compete in implementation after being selected as a candidate"
     },
     "votings": {
@@ -761,7 +758,6 @@
       "title": "Special votings",
       "desc": "This smart contract verifies new tokens on exchange.waves by means of voting",
       "banner": "We decide what tokens to appear on Waves Exchange. Deal with it.",
-      "about": "https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grants-about.md",
       "landing": "This smart contract verifies new tokens on exchange.waves by means of voting."
     }
   },

@@ -8,8 +8,6 @@ import { CommonContractService } from '@services/contract/common-contract.servic
 import { translate } from '@ngneat/transloco'
 import { SubmitCallBackProposeArg } from '@ui/dialog/dialog.tokens'
 import { GrantsVariationType } from '@services/static/static.model'
-import {Observable} from 'rxjs'
-import {map} from 'rxjs/operators'
 import {StaticService} from '@services/static/static.service'
 
 @Component({
@@ -23,9 +21,6 @@ export class DefaultTemplateComponent implements OnInit {
   @Input() public readonly contract!: GrantsVariationType
 
   @Input() public readonly constants!: AppConstantsInterface
-
-  public readonly showMoreLink: Observable<string> = this.staticService.selectedContact$
-    .pipe(map(e => this.api.showMoreLink[e]))
 
   constructor (
     @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line

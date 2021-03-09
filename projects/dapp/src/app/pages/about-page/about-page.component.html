@@ -11,11 +11,10 @@
 <!--      <div class="mat-h2">{{ contract?.title }}</div>-->
       <a
         target="_blank"
-        rel="noopener nofollow noreferrer" [attr.href]="contract.about | linkHttp">
+        rel="noopener nofollow noreferrer" [attr.href]="mdLink$ | async | linkHttp">
         {{'about.github' | transloco}}
       </a>
     </div>
-
     <markdown [data]="content$ | async"></markdown>
 
   </div>
