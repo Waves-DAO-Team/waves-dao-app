@@ -1,4 +1,4 @@
-import {UserData} from '@waves/signer/'
+import {IUserData} from '@waves/signer/'
 
 export interface TransactionState {
   id: string
@@ -13,7 +13,7 @@ export interface TransactionsSuccessResult extends TransactionState {
   height: number
 }
 
-export interface SignerUser extends UserData {
+export interface SignerUser extends IUserData {
   name: string
   balance: string
 }

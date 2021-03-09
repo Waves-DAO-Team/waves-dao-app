@@ -1,5 +1,5 @@
 import {Inject, Injectable, isDevMode} from '@angular/core'
-import {Signer, UserData} from '@waves/signer/'
+import {IUserData, Signer} from '@waves/signer/'
 import {ProviderWeb} from '@waves.exchange/provider-web'
 import {API, AppApiInterface} from '@constants'
 import {
@@ -14,7 +14,7 @@ import {HttpClient} from '@angular/common/http'
 import {translate} from '@ngneat/transloco'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {StorageService} from '@services/storage/storage.service'
-import {InvokeScriptCallArgument} from '@waves/ts-types/src/parts'
+import {TInvokeScriptCallArgument} from '@waves/ts-types/src/parts'
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +56,7 @@ export class SignerService {
   public login (): Observable<Observable<SignerUser>> {
     return from(
       this.signer.login()
-        .then((user: UserData) => {
+        .then((user: IUserData) => {
           this.signer.getBalance()
             .then((res) => {
               if (isDevMode()) {
@@ -85,7 +85,7 @@ export class SignerService {
   public invokeProcess (
     contractAddress: string,
     command: string,
-    args: Array<InvokeScriptCallArgument<string | number>>,
+    args: Array<TInvokeScriptCallArgument<string | number>>,
     payment: {
       assetId: string,
       amount: number | string,
@@ -106,7 +106,7 @@ export class SignerService {
         function: command,
         args
       },
-      feeAssetId: null
+      feeAssetId: undefined
     }).sign()).pipe(
       take(1),
       tap(() => {
