@@ -205,39 +205,10 @@ export class ListingComponent implements OnDestroy {
           important: userServiceData.roles.isAuth ?
             grant?.applicants && grant?.applicants?.value.indexOf(userServiceData?.userAddress) >= 0 : undefined
         }
-      case GrantStatusEnum.approved:
-        return {
-          ...textOptions,
-        }
-      case GrantStatusEnum.rejected:
-        return {
-          ...textOptions,
-        }
-      case GrantStatusEnum.teamChosen:
-        return {
-          ...textOptions,
-        }
-      case GrantStatusEnum.solutionChosen:
-        return {
-          ...textOptions,
-        }
-      case GrantStatusEnum.workStarted:
-        return {
-          ...textOptions,
-        }
-      case GrantStatusEnum.workFinished:
-        return {
-          ...textOptions,
-        }
-      case GrantStatusEnum.votingStarted:
-        return {
-          ...textOptions,
-        }
-      case GrantStatusEnum.noStatus:
+      default:
         return {
           ...textOptions,
         }
     }
-    return {}
   }
 }
