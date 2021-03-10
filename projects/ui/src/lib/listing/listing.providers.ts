@@ -20,8 +20,11 @@ export const grantsFactory = (
 ): LoadingWrapperModel<ContractGrantRawModel[]> => new LoadingWrapper(
   contractService.streamTasks.pipe(
     catchError((error) => {
-      // Todo обработать ошибки в нормальное сообщение
-      snackBar.open(error, translate('messages.ok'))
+      if (error.status === 503) {
+        snackBar.open(translate('messages.503'), translate('messages.ok'))
+      } else {
+        snackBar.open(error.message, translate('messages.ok'))
+      }
       return []
     }))
 )
