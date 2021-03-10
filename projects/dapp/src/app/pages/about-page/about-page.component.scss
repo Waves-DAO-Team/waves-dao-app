@@ -31,9 +31,63 @@
     }
   }
 }
-
-markdown {
+.about__markdown {
   align-items: center;
   display: flex;
   flex-direction: column;
+
+
+
+  .mat-typography {
+    font-weight: unset;
+  }
+
+  ::ng-deep markdown {
+
+    ul {
+      margin-bottom: 0;
+
+      li {
+        margin-bottom: 12px;
+
+        p .mat-body .mat-body-1 .mat-typography {
+          margin-bottom: 0;
+        }
+
+      }
+
+      .mat-body .mat-body-1 .mat-typography h3 {
+        font-size: $font_size_h3 !important;
+        font-weight: 700;
+        color: $color_waves_blue;
+        font-style: italic;
+      }
+    }
+
+    h2 {
+      font-size: $font_size_h3 !important;
+      font-weight: 700 !important;
+    }
+
+    h3 {
+      font-size: $font_size_h4 !important;
+      font-weight: 700;
+    }
+  }
+  //  align-items: center;
+  //  display: flex;
+  //  flex-direction: column;
+  //
+  //    ul {
+  //      list-style: none;
+  //      li {
+  //        h2 {
+  //          g-emoji {
+  //            display: none;
+  //          }
+  //        }
+  //      }
+  //    }
+  //
+  //}
 }
