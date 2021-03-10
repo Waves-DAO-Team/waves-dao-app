@@ -27,6 +27,9 @@ import {ActivatedRoute} from '@angular/router'
 import {Async} from '@libs/decorators/async-input.decorator'
 import {UserDataInterface} from '@services/user/user.interface'
 import {TextOptions} from '@services/text-options/text-options'
+import {log} from '@libs/log/log.rxjs-operator'
+import {debug$} from '@libs/decorators/debug$.decorator'
+
 
 @Component({
   selector: 'ui-listing',
@@ -46,7 +49,9 @@ export class ListingComponent implements OnDestroy {
   public readonly grantStatusEnum = GrantStatusEnum
   public selectedTagName$ = new BehaviorSubject<string>('all')
 
+  @debug$
   public readonly listGrantStatuses$: Observable<string[]> = this.grants.data$.pipe(
+    log('ListingComponent::listGrantStatuses$'),
     map((grants: ContractGrantRawModel[]): string[] =>
         grants instanceof Array ? Object.values(
             grants.reduce<{[s: string]: string}>(
@@ -56,10 +61,10 @@ export class ListingComponent implements OnDestroy {
                     ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
                     : {[grant?.status?.value]: grant?.status?.value})
                 }), {})) : []),
-    map((list: string[]) => list.length > 0 ? ['all'].concat(list as []) : list.length === 1 ? ['all'] : []))
+    map((list: string[]) => list.length > 0 ? ['all'].concat(list as []) : list.length === 1 ? ['all'] : []),
+  )
 
-  public readonly user$ = this.userService.data
-
+  @debug$
   public readonly grantsList$: Observable<ContractGrantModel[]> = combineLatest(
     [this.grants.data$, this.userService.data, this.selectedTagName$, this.contract$]
   )
@@ -84,6 +89,7 @@ export class ListingComponent implements OnDestroy {
       refCount()
     )
 
+  @debug$
   public otherGrantList$: Observable<ContractGrantModel[] | null> = this.grantsList$
   .pipe(
       map((grants) => grants
@@ -92,6 +98,7 @@ export class ListingComponent implements OnDestroy {
       map(grants => grants.length > 0 ? grants : null)
   )
 
+  @debug$
   public importantGrantList$: Observable<ContractGrantModel[] | null> = this.grantsList$
   .pipe(
       map((grants) => grants
