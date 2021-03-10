@@ -1,14 +1,58 @@
 markdown {
+
+  strong {
+    font-size: $font_size_h4 !important;
+  }
+  ul {
+    list-style: none;
+    margin-left: -40px;
+    empty-cells: hide;
+    margin-bottom: 12px;
+    margin-top: 0;
+
+    li {
+      margin-top: 0;
+      margin-bottom: 12px;
+      :nth-child(odd) {
+        margin-bottom: 0;
+      }
+      :nth-child(even) {
+        margin-bottom: 15px;
+      }
+      p {
+        margin-bottom: 0;
+      }
+
+      .mat-body .mat-body-1 .mat-typography h3 {
+        font-size: $font_size_h4 !important;
+        font-weight: 700;
+        color: $color_waves_blue;
+        font-style: italic;
+      }
+    }
+  }
   h1 {
     font-size: $font_size_h2 !important;
+    font-weight: 700;
+    g-emoji {
+      display: none;
+      appearance: none;
+    }
+  }
+
+  g-emoji {
+    display: none;
+    appearance: none;
   }
 
   h2 {
-    font-size: $font_size_h3 !important;
+    font-size: $font_size_h2 !important;
+    font-weight: 500 !important;
   }
 
   h3 {
-    font-size: $font_size_h4 !important;
+    font-size: $font_size_h3 !important;
+    font-weight: 500 !important;
   }
 
   h4 {
