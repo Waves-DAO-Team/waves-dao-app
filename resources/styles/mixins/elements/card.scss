@@ -91,6 +91,20 @@
         //white-space: nowrap;
       }
 
+      //TODO change this accordingly
+      &__desc {
+        align-items: flex-end;
+        color: #000;
+        cursor: pointer;
+        display: flex;
+        font-size: $font-size-medium;
+        font-weight: 400;
+        //margin-top: 0.5em;
+        max-width: 85%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       &__address {
         color: $gray;
         cursor: pointer;
