@@ -54,6 +54,11 @@
           margin-bottom: 0;
         }
 
+        g-emoji {
+          display: none;
+          appearance: none;
+        }
+
       }
 
       .mat-body .mat-body-1 .mat-typography h3 {
@@ -67,6 +72,7 @@
     h2 {
       font-size: $font_size_h3 !important;
       font-weight: 700 !important;
+
     }
 
     h3 {
