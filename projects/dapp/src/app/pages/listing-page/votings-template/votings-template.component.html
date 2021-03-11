@@ -1,0 +1,38 @@
+<div class="listing-page__intro">
+  <img alt="promo" [attr.src]="'/assets/img/special-votings-type.png'" width="100%" height="auto"/>
+
+<!--  <div class="listing-page__banner mat-display-4">-->
+<!--    {{ contract?.banner }}-->
+<!--  </div>-->
+</div>
+<div class="listing-page__header">
+  <h2 class="listing-page__title">Votings?</h2>
+
+<!--  <div class="listing-page__controls">-->
+<!--    <button-->
+<!--      class="active"-->
+<!--      routerLinkActive="active"-->
+
+<!--    >-->
+<!--      works!-->
+<!--    </button>-->
+<!--  </div>-->
+</div>
+<div class="listing-page__address mat-display-1">
+  <a class="a a--alt" [attr.href]="" target="_blank" rel="noopener nofollow noreferrer">
+    email@email.com
+  </a>
+</div>
+
+<div class="listing-page__description">
+  <div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat volutpat eget vitae nulla sit rhoncus, morbi. Mi turpis justo diam ut tempus.
+    Pretium, dolor integer laoreet tempor mauris, urna. Molestie commodo nisl, tincidunt et sapien aliquet vulputate cras nunc.
+  </div>
+  <div class="listing-page__about" *ngIf="contract?.name as contractName">
+    <a [routerLink]="['/', 'grants', contractName, 'about']">
+<!--      {{ 'listing.more' | transloco }}-->
+      read more?
+    </a>
+  </div>
+</div>

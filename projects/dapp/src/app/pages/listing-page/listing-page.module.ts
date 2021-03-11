@@ -11,9 +11,10 @@ import { RouterModule } from '@angular/router'
 import { DefaultTemplateComponent } from './default-template/default-template.component'
 import { Web3TemplateComponent } from './web3-template/web3-template.component'
 import { ProposeGrantModule } from '@ui/modals/propose-grant/propose-grant.module'
+import { VotingsTemplateComponent } from './votings-template/votings-template.component'
 
 @NgModule({
-  declarations: [ListingPageComponent, DefaultTemplateComponent, Web3TemplateComponent],
+  declarations: [ListingPageComponent, DefaultTemplateComponent, Web3TemplateComponent, VotingsTemplateComponent],
   imports: [
     CommonModule,
     ListingPageRoutingModule,
