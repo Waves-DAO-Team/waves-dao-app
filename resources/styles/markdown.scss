@@ -3,6 +3,12 @@ markdown {
   strong {
     font-size: $font_size_h4 !important;
   }
+
+  g-emoji {
+    display: none;
+    appearance: none;
+  }
+
   ul {
     list-style: none;
     margin-left: -40px;
@@ -22,22 +28,11 @@ markdown {
       p {
         margin-bottom: 0;
       }
-
-      .mat-body .mat-body-1 .mat-typography h3 {
-        font-size: $font_size_h4 !important;
-        font-weight: 700;
-        color: $color_waves_blue;
-        font-style: italic;
-      }
     }
   }
   h1 {
     font-size: $font_size_h2 !important;
-    font-weight: 700;
-    g-emoji {
-      display: none;
-      appearance: none;
-    }
+    font-weight: 700 !important;
   }
 
   g-emoji {
@@ -48,11 +43,28 @@ markdown {
   h2 {
     font-size: $font_size_h2 !important;
     font-weight: 500 !important;
+    border-bottom: 4px solid $color_waves_blue;
+    width: max-content;
+    padding-bottom: 8px;
+    g-emoji {
+      display: none !important;
+      appearance: none !important;
+    }
+    .emoji {
+      display: none !important;
+      appearance: none !important;
+    }
   }
 
   h3 {
     font-size: $font_size_h3 !important;
     font-weight: 500 !important;
+  }
+
+  h6 {
+    font-size: $font_size_h4 !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
   }
 
   h4 {
