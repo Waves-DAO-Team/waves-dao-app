@@ -695,6 +695,7 @@
   "messages": {
     "ok": "OK",
     "error": "error",
+    "503": "Blockchain node is not available. Try later",
     "errors": {
       "analyzing_failed": "Analyzing url is failed",
       "conditions_link": "Condition is not equal to link",
