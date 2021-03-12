@@ -22,7 +22,7 @@ import { CommonContractService } from '@services/contract/common-contract.servic
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MembersPageComponent {
-  public readonly user$ = this.userService.data
+  public readonly user$ = this.userService.stream$
 
   constructor (
     private readonly commonContractService: CommonContractService,  // eslint-disable-line

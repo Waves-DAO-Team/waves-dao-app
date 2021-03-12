@@ -1,11 +1,16 @@
-import {Inject, Injectable, isDevMode} from '@angular/core'
+import {Inject, Injectable} from '@angular/core'
 import {RoleEnum, RoleRowInterface, UserDataInterface} from '@services/user/user.interface'
 import {SignerService} from '@services/signer/signer.service'
 import {ContractService} from '@services/contract/contract.service'
 import {BehaviorSubject, combineLatest} from 'rxjs'
-import {map, publishReplay, refCount, tap} from 'rxjs/operators'
+import {
+  map,
+  publishReplay,
+  refCount,
+} from 'rxjs/operators'
 import {ContractGrantRawModel} from '@services/contract/contract.model'
 import {API, AppApiInterface} from '@constants'
+import {log} from '@libs/log/log.rxjs-operator'
 
 @Injectable({
   providedIn: 'root'
@@ -38,44 +43,54 @@ export class UserService {
       map((e) => e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005))
     )
 
-  private readonly data$ = combineLatest([this.signerService.user, this.contractService.stream])
+  public readonly stream$ = combineLatest([this.signerService.user, this.contractService.membershipStream])
     .pipe(
-      tap(([userAddress, contract]) => {
-        const addressWorkGroup = Object.keys(contract?.working?.group?.member || {})
-        const addressDAOMember = Object.keys(contract?.dao?.member || {})
-        const userAddressText = userAddress && userAddress.address ? userAddress.address : ''
-        const userBalanceText = userAddress && userAddress.balance ? userAddress.balance : '0'
-        const dr = this.defineRol(contract?.manager, contract.address, userAddressText, addressDAOMember, addressWorkGroup)
+      log('%c UserService::stream$::input', 'color: pink'),
+      map(([user, contract]) => {
+        const addressWorkGroup = Object.keys(contract?.payload?.working?.group?.member || {})
+        const addressDAOMember = Object.keys(contract?.payload?.dao?.member || {})
+        const userAddressText = user && user.address ? user.address : ''
+        const userBalanceText = user && user.balance ? user.balance : '0'
+        const dr = this.defineRol(
+            contract?.payload?.manager || '',
+            contract.payload?.address || '',
+            userAddressText,
+            addressDAOMember,
+            addressWorkGroup
+        )
         const newData: UserDataInterface = {
           addressDAOMember,
           addressWorkGroup,
-          manager: contract?.manager,
-          masterAddress: contract.address,
+          manager: contract?.payload?.manager || '',
+          masterAddress: contract.payload?.address || '',
           userAddress: userAddressText,
           userRole: dr.mainRole,
           roles: dr.roles,
-          voted: this.defineVoted(userAddressText, contract?.tasks || {}),
-          apply: this.defineApply(userAddressText, contract?.tasks || {}),
+          // Todo delete unused property
+          voted: this.defineVoted(userAddressText, {}),
+          // Todo delete unused property
+          apply: this.defineApply(userAddressText, {}),
           balance: userBalanceText
         }
+
         this.data.next(newData)
+
         if (userAddressText !== this.lastAddress) {
           this.lastAddress = userAddressText
         }
-        if (isDevMode()) {
-          console.log('-user data: ', this.data.getValue())
-        }
+
+        return newData
       }),
+      log('%c UserService::stream$::output', 'color: pink'),
       publishReplay(1),
       refCount()
-    ).subscribe()
+    )
 
   constructor (
     @Inject(API) private readonly api: AppApiInterface, // eslint-disable-line
     private readonly signerService: SignerService, // eslint-disable-line
     private readonly contractService: ContractService // eslint-disable-line
-  ) {
-  }
+  ) {}
 
   private defineApply (userAddress: string, tasks: { [index: string]: ContractGrantRawModel }): string[] {
     const result: string[] = []

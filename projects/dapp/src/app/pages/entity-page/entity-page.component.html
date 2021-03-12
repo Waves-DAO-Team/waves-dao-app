@@ -1,40 +1,42 @@
-<div class="container" *ngIf="contract.data$ | async as info; else loadingOrErrorTemplate" >
-  <div class="container__left">
-    <button class="container__left__back-btn" (click)="goBack()">
-      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
-    </button>
-  </div>
-  <div class="container__mid">
-    <div class="entity-page" [ngSwitch]="info.name">
-      <ng-template ngSwitchCase="web3">
-        <app-web3-template
-          [grant]="entity.data$ | async"
-          [contract]="info"
-        ></app-web3-template>
-      </ng-template>
-      <ng-template ngSwitchCase="interhack">
-        <app-interhack-template
-          [grant]="entity.data$ | async"
-          [contract]="info"
-        ></app-interhack-template>
-      </ng-template>
-      <ng-template ngSwitchCase="disruptive">
-        <app-disruptive-template
-          [grant]="entity.data$ | async"
-          [contract]="info"
-        ></app-disruptive-template>
-      </ng-template>
-      <ng-template ngSwitchCase="votings">
-        <app-special-votings-template
-          [grant]="entity.data$ | async"
-          [contract]="info"
-        ></app-special-votings-template>
-      </ng-template>
+<ng-container *ngIf="contract.data$ | async as info">
+  <div class="container" *ngIf="entity.data$ | async as entityData; else loadingOrErrorTemplate" >
+    <div class="container__left">
+      <button class="container__left__back-btn" (click)="goBack()">
+        <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
+      </button>
+    </div>
+    <div class="container__mid">
+      <div class="entity-page" [ngSwitch]="info.name">
+        <ng-template ngSwitchCase="web3">
+          <app-web3-template
+            [grant]="entityData"
+            [contract]="info"
+          ></app-web3-template>
+        </ng-template>
+        <ng-template ngSwitchCase="interhack">
+          <app-interhack-template
+            [grant]="entityData"
+            [contract]="info"
+          ></app-interhack-template>
+        </ng-template>
+        <ng-template ngSwitchCase="disruptive">
+          <app-disruptive-template
+            [grant]="entityData"
+            [contract]="info"
+          ></app-disruptive-template>
+        </ng-template>
+        <ng-template ngSwitchCase="votings">
+          <app-special-votings-template
+            [grant]="entityData"
+            [contract]="info"
+          ></app-special-votings-template>
+        </ng-template>
+      </div>
+    </div>
+    <div class="container__right">
     </div>
   </div>
-  <div class="container__right">
-  </div>
-</div>
+</ng-container>
 
 
 <ng-template #loadingOrErrorTemplate>

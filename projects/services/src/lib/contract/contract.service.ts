@@ -1,81 +1,130 @@
-import {Inject, Injectable, isDevMode} from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import {Inject, Injectable} from '@angular/core'
+import {HttpClient} from '@angular/common/http'
 import {
+  distinctUntilChanged,
+  filter,
   map,
+  mergeMap,
   publishReplay,
-  refCount,
-  skip,
-  switchMap, take, tap
+  refCount, tap,
 } from 'rxjs/operators'
-import { API, AppApiInterface } from '@constants'
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs'
+import {API, AppApiInterface} from '@constants'
+import {BehaviorSubject, Observable} from 'rxjs'
 import {
-  ContractDataIterationModel,
-  ContractDataModel, ContractGrantFullAppModel, ContractGrantModel,
+  ContractDataRawModel, ContractGrantAppModel,
+  ContractGrantModel,
   ContractGrantRawModel,
+  ContractGroupContext,
+  ContractMembershipDataModel,
   ContractRawData,
   ContractRawDataEntityId,
   ContractRawDataString,
 } from './contract.model'
-import { StorageService } from '@services/storage/storage.service'
-import { TranslocoService } from '@ngneat/transloco'
-import { GrantStatusEnum } from '@services/static/static.model'
-import { MembershipService } from '@services/membership/membership.service'
-import { RequestsService } from '@services/requests-service/requests.service'
+import {StorageService} from '@services/storage/storage.service'
+import {TranslocoService} from '@ngneat/transloco'
+import {GrantStatusEnum} from '@services/static/static.model'
+import {MembershipService} from '@services/membership/membership.service'
+import {RequestService} from '@services/request/request.service'
+import {log} from '@libs/log/log.rxjs-operator'
+import {RequestModel, RequestStatus} from '@services/request/request.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
   private readonly contractAddress$: BehaviorSubject<string> =
-  new BehaviorSubject(this.storageService.contactAddress || this.api.contracts.web3)
+  new BehaviorSubject(this.api.contracts.web3)
 
   private readonly contractState = this.contractAddress$.pipe(
-    switchMap((address) => this.getContractData(address)),
+    log('%c ContractService::contractState', 'color:yellow'),
+    mergeMap((address: string) => this.getContractData(address)),
     publishReplay(1),
-    refCount()
+    refCount(),
+    log('%c ContractService::contractState -> getContractData', 'color:yellow'),
   )
+
   public entityId$: BehaviorSubject<string> = new BehaviorSubject<string>('')
-  public readonly stream: Observable<ContractGrantFullAppModel> = combineLatest([this.contractState, this.membershipService.stream]).pipe(
-    map(([data, members]) => ({
-      ...data,
-      ...members
-    })),
-    tap((data) => {
-        if (isDevMode()) {
-          console.log('CONTRACT DATA', data)
-        }
-    }),
+
+  public readonly membershipStream: Observable<RequestModel<ContractMembershipDataModel>> =
+      this.membershipService.stream.pipe(
+          log('%c ContractService::membershipStream', 'color:yellow'),
+          tap(),
+          publishReplay(1),
+          refCount()
+      )
+
+  public readonly stream: Observable<RequestModel<ContractDataRawModel>> = this.contractState.pipe(
     publishReplay(1),
-    refCount()
+    refCount(),
+    distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+    log('%c ContractService::stream', 'color:yellow'),
   )
 
-  public readonly streamTasks: Observable<ContractGrantRawModel[]> = this.stream.pipe(map((contract) =>
-    Object.keys(contract?.tasks || {}).map((entityKey: string) => ({
-      ...contract?.tasks[entityKey],
-      id: entityKey
-    }))))
+  public readonly streamTasks: Observable<RequestModel<ContractGrantModel[]>> = this.stream.pipe(
+      map((contract: RequestModel<ContractDataRawModel>) => ({
+          ...contract,
+          payload: (contract?.payload?.tasks ?
+              Object.keys(contract?.payload?.tasks || {}).map((entityKey: string) => ({
+                ...(contract?.payload?.tasks ? contract?.payload?.tasks[entityKey] : {}),
+                id: entityKey
+              })) : []) as ContractGrantModel[]
+        })),
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b) ),
+      publishReplay(1),
+      refCount(),
+      log('%c ContractService::streamTasks', 'color:yellow'),
+  )
 
-  public entityById (entityId: ContractRawDataEntityId): Observable<ContractGrantModel> {
+  public entityById (entityId: ContractRawDataEntityId): Observable<RequestModel<ContractGrantModel>> {
     this.entityId$.next(entityId)
+
     return this.stream.pipe(
-      map((data: ContractDataModel) => {
-        const grant: ContractGrantRawModel = data.tasks[entityId]
+      filter((data) => !!data?.payload?.tasks),
+      log('%c ContractService::entityById::input', 'color:yellow'),
+      map((data: RequestModel<ContractDataRawModel>): RequestModel<ContractGrantModel> => {
+        if (!data?.payload?.tasks) {
+          return {
+            status: RequestStatus.error,
+            error: {
+              status: 404,
+              message: 'Entity is not exist in contract'
+            },
+            payload: {}
+          }
+        }
+
+        const grant: ContractGrantRawModel | null = data?.payload?.tasks ? data?.payload?.tasks[entityId] : null
+
+        if (!grant) {
+          return {
+            status: RequestStatus.error,
+            error: {
+              status: 404,
+              message: 'Entity not fount'
+            },
+            payload: {}
+          }
+        }
 
         return {
-          ...grant,
-          isShowAppliers: ![
-            '',
-            GrantStatusEnum.noStatus.toString(),
-            GrantStatusEnum.proposed.toString()
-          ].includes(grant?.status?.value || ''),
-          app: grant.app ? Object.keys(grant.app).map((appKey) => ({
-            ...grant?.app?.[appKey],
-            key: appKey
-          })) : [],
-          id: entityId
-        } as ContractGrantModel
-      })
+          status: data.status,
+          error: data.error,
+          payload: {
+            ...grant,
+            isShowAppliers: ![
+              '',
+              GrantStatusEnum.noStatus.toString(),
+              GrantStatusEnum.proposed.toString()
+            ].includes(grant?.status?.value || ''),
+            app: (grant?.app ? Object.keys(grant.app).map((appKey: string) => ({
+              ...(grant?.app ? grant?.app?.[appKey] : null),
+              key: appKey
+            })) : []) as ContractGrantAppModel[],
+            id: entityId
+          }
+        }
+      }),
+      log('%c ContractService::entityById::output', 'color:yellow')
     )
   }
 
@@ -90,24 +139,31 @@ export class ContractService {
     private storageService: StorageService,
     private readonly translocoService: TranslocoService,
     private readonly membershipService: MembershipService,
-    private readonly requestsService: RequestsService,
-    @Inject(API) private readonly api: AppApiInterface
+    @Inject(API) private readonly api: AppApiInterface,
+    private readonly requestService: RequestService,
   ) {
   }
 
-  public getContractData (address: string): Observable<ContractDataModel> {
-    return this.requestsService.getContractData(address).pipe(
-      map((data: ContractRawData) => ({
-        ...this.prepareData(data),
-        address
-      }))
+  public getContractData (address: string): Observable<RequestModel<ContractDataRawModel>> {
+    return this.requestService.getContract(address).pipe(
+      log('getContractData'),
+      map((data: RequestModel<ContractRawData>): RequestModel<ContractDataRawModel> => ({
+        status: data.status,
+        error: data.error,
+        payload: {
+          ...this.prepareData(data.payload),
+          address
+        }
+      })),
+      log('%c ContractService::getContractData', 'color:yellow')
     )
   }
 
-  public refresh (address: string = this.getAddress()): Observable<ContractDataModel> {
-    this.storageService.contactAddress = address
+  public refresh (address: string = this.getAddress()): void {
+    console.log('REFRESH', address)
+    // this.storageService.contractAddress = address
     this.contractAddress$.next(address)
-    return this.contractState.pipe(skip(1), take(1))
+    // return this.contractState.pipe(skip(1), take(1))
   }
 
   public switchContract (type: string | undefined): void {
@@ -128,9 +184,9 @@ export class ContractService {
 
   private group (
     keys: string[],
-    context: ContractDataIterationModel,
+    context: ContractGroupContext,
     value: ContractRawDataString
-  ): ContractDataIterationModel | undefined {
+  ): undefined {
     const key: string | undefined = keys.shift()
     if (!key) {
       return undefined
@@ -139,14 +195,20 @@ export class ContractService {
     if (!context[key]) {
       context[key] = keys.length === 0 ? value : {}
     }
-    return this.group(keys, context[key], value)
+    return this.group(keys, context[key] as ContractGroupContext, value)
   }
 
-  private prepareData (data: ContractRawData): ContractDataModel {
-    return data.reduce((orig, item) => {
+  private prepareData (data: ContractRawData | null): ContractRawData | null {
+    if (!data) {
+      return null
+    }
+
+    // Todo rewrite this recursive functions
+    // @ts-ignore: Complex case
+    return data.reduce((orig: ContractGroupContext, item: ContractRawDataString) => {
       const keys = item.key.split('_')
       this.group(keys, orig, item)
       return orig
-    }, {}) as ContractDataModel
+    }, {})
   }
 }

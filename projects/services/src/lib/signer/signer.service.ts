@@ -42,9 +42,10 @@ export class SignerService {
 
     this.signer = new Signer({
       // Specify URL of the node on Testnet
-      NODE_URL: api.nodes // eslint-disable-line
+      // eslint-disable-next-line
+      NODE_URL: api.testnet.nodes
     })
-    this.signer.setProvider(new ProviderWeb(api.signer)).catch((e) => {
+    this.signer.setProvider(new ProviderWeb(api.testnet.signer)).catch((e) => {
       if (isDevMode()) {
         console.log('Error ProviderWeb:', e)
       }
@@ -129,7 +130,7 @@ export class SignerService {
   }
 
   status (tx: string): Observable<TransactionsSuccessResult> {
-    const url = new URL('/transactions/status/', this.api.rest)
+    const url = new URL('/transactions/status/', this.api.testnet.rest)
     return this.http.get<TransactionRawState>(url.href, {
       params: {
         id: tx

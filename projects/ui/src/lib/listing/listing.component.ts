@@ -5,7 +5,9 @@ import {
 } from '@angular/core'
 import {GRANTS, GRANTS_PROVIDERS} from './listing.providers'
 import {
-  ContractGrantModel, ContractGrantRawModel, GrantParams,
+  ContractGrantModel,
+  ContractGrantRawModel,
+  GrantParams,
 } from '@services/contract/contract.model'
 import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -15,20 +17,25 @@ import {
   AppConstantsInterface
 } from '@constants'
 import {UserService} from '@services/user/user.service'
-import {map, publishReplay, refCount} from 'rxjs/operators'
+import {
+  distinctUntilChanged,
+  map,
+  publishReplay,
+  refCount,
+  takeUntil
+} from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
-import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
+import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {
   GrantStatusEnum,
   GrantsVariationType, GrantTypesEnum,
 } from '@services/static/static.model'
-import {ActivatedRoute} from '@angular/router'
 import {Async} from '@libs/decorators/async-input.decorator'
 import {UserDataInterface} from '@services/user/user.interface'
 import {TextOptions} from '@services/text-options/text-options'
 import {log} from '@libs/log/log.rxjs-operator'
-import {debug$} from '@libs/decorators/debug$.decorator'
+import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 
 
 @Component({
@@ -39,82 +46,104 @@ import {debug$} from '@libs/decorators/debug$.decorator'
   providers: GRANTS_PROVIDERS
 })
 export class ListingComponent implements OnDestroy {
-  statusPriority = []
 
-  @Input() public type: 'default' | 'active' | undefined
+  @DestroyedSubject() destroyed$!: Subject<null>
 
+  // Contract data
   @Async() @Input('contract') public readonly contract$!: Observable<GrantsVariationType>
 
-  public readonly grantsVariationActive = '1'
-  public readonly grantStatusEnum = GrantStatusEnum
+  // Tag for list filter
   public selectedTagName$ = new BehaviorSubject<string>('all')
-
-  @debug$
-  public readonly listGrantStatuses$: Observable<string[]> = this.grants.data$.pipe(
-    log('ListingComponent::listGrantStatuses$'),
-    map((grants: ContractGrantRawModel[]): string[] =>
-        grants instanceof Array ? Object.values(
-            grants.reduce<{[s: string]: string}>(
-                (origin, grant) => ({
-                  ...origin,
-                  ...(grant?.status?.value === undefined
-                    ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
-                    : {[grant?.status?.value]: grant?.status?.value})
-                }), {})) : []),
-    map((list: string[]) => list.length > 0 ? ['all'].concat(list as []) : list.length === 1 ? ['all'] : []),
+  public selectedTagNameStream$ = this.selectedTagName$.pipe(
+      distinctUntilChanged()
   )
 
-  @debug$
+  // Common grants list
   public readonly grantsList$: Observable<ContractGrantModel[]> = combineLatest(
-    [this.grants.data$, this.userService.data, this.selectedTagName$, this.contract$]
+    [
+      this.grants.data$,
+      this.userService.stream$,
+      this.selectedTagNameStream$,
+      this.contract$
+    ]
   )
     .pipe(
-      map(([grants, userServiceData, selectedTagName, contract]) => grants
-          .filter((grant: ContractGrantRawModel) => [
-            grant?.status?.value || GrantStatusEnum.noStatus,
-            'all'].includes(selectedTagName))
-          .map((grant: ContractGrantRawModel): ContractGrantModel => {
-            const label = this.createLabel(grant, userServiceData, contract)
+      takeUntil(this.destroyed$),
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      map(([
+           grants,
+           userServiceData,
+           selectedTagName,
+           contract
+         ]) => grants ? grants
+        .filter((grant: ContractGrantRawModel) => [
+          grant?.status?.value || GrantStatusEnum.noStatus,
+          'all'].includes(selectedTagName))
+        .map((grant: ContractGrantRawModel): ContractGrantModel => {
+          const label = this.createLabel(grant, userServiceData, contract)
 
-            return {
-              ...grant,
-              app: grant.app ? Object.values(grant.app) : [],
-              // Check labels with attribute grant in lang file
-              label
-            } as ContractGrantModel
-          })
-          .sort(this.sort)
+          return {
+            ...grant,
+            app: grant.app ? Object.values(grant.app) : [],
+            // Check labels with attribute grant in lang file
+            label
+          } as ContractGrantModel
+        })
+        .sort(this.sort.bind(this)) : []
       ),
+      log('%c ListingComponent::grantsList$', 'color: purple'),
       publishReplay(1),
       refCount()
     )
 
-  @debug$
+  // Filtered other grants list
   public otherGrantList$: Observable<ContractGrantModel[] | null> = this.grantsList$
   .pipe(
+      takeUntil(this.destroyed$),
       map((grants) => grants
         .filter((grant: ContractGrantModel) => !grant?.label?.important)
       ),
-      map(grants => grants.length > 0 ? grants : null)
+      map(grants => grants.length > 0 ? grants : null),
+      publishReplay(1),
+      refCount()
   )
 
-  @debug$
+  // Filtered important grants
   public importantGrantList$: Observable<ContractGrantModel[] | null> = this.grantsList$
   .pipe(
+      takeUntil(this.destroyed$),
       map((grants) => grants
           .filter((grant: ContractGrantModel) => !!grant?.label?.important)
       ),
-      map(grants => grants.length > 0 ? grants : null)
+      map(grants => grants.length > 0 ? grants : null),
+      publishReplay(1),
+      refCount()
+  )
+
+  // Statuses on current grant list
+  public readonly listGrantStatuses$: Observable<string[]> = this.grants.data$.pipe(
+      takeUntil(this.destroyed$),
+      map((grants: ContractGrantRawModel[] | null): string[] =>
+          grants instanceof Array ? Object.values(
+              grants.reduce<{[s: string]: string}>(
+                  (origin, grant) => ({
+                    ...origin,
+                    ...(grant?.status?.value === undefined
+                        ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
+                        : {[grant?.status?.value]: grant?.status?.value})
+                  }), {})) : []),
+      map((list: string[]) => list.length > 0 ? ['all'].concat(list as []) : list.length === 1 ? ['all'] : []),
+      publishReplay(1),
+      refCount()
   )
 
   constructor (
-    public route: ActivatedRoute,
-    public cdr: ChangeDetectorRef,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     @Inject(API) public readonly api: AppApiInterface,
-    @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantRawModel[]>,
+    @Inject(GRANTS) public grants: LoadingWrapperModel<ContractGrantRawModel[]>,
     public userService: UserService,
     public contractService: ContractService,
+    public cdr: ChangeDetectorRef,
   ) {}
 
   selectTag ($event: string): void {
@@ -126,45 +155,51 @@ export class ListingComponent implements OnDestroy {
   }
 
   private sort (grantA: ContractGrantModel, grantB: ContractGrantModel): number {
-    // TODO check this function
+      let weight = 0
+      // First priority, status
+      weight = this.sortCheck(
+          weight,
+          4,
+          grantA?.status?.value === GrantStatusEnum.rejected,
+          grantB?.status?.value === GrantStatusEnum.rejected
+      )
 
-    let weight = 0
-    // First priority, status
-    if (grantA?.status?.value === GrantStatusEnum.rejected) {
-      weight = weight + 4
-    }
-    if (grantB?.status?.value === GrantStatusEnum.rejected) {
-      weight = weight - 4
+      // priority, finished grant
+      weight = this.sortCheck(
+          weight,
+          3,
+          grantA?.status?.value === GrantStatusEnum.workFinished,
+          grantB?.status?.value === GrantStatusEnum.workFinished
+      )
+
+      // priority, grant with label
+      weight = this.sortCheck(
+          weight,
+          3,
+          !!grantB?.label?.label,
+          !!grantA?.label?.label
+      )
+
+      // priority, zero reward
+      weight = this.sortCheck(
+          weight,
+          2,
+          !grantA?.reward?.value,
+          !grantB?.reward?.value
+      )
+
+      return weight
     }
 
-    // priority, zero reward
-    if (!grantA?.reward?.value) {
-      weight = weight + 2
+  private sortCheck (value: number, priority: number, positive: boolean, negative: boolean): number {
+    if (positive) {
+      value = value + priority
     }
-    if (!grantB?.reward?.value) {
-      weight = weight - 2
-    }
-
-    // priority, finished grant
-    if (grantA?.status?.value === GrantStatusEnum.workFinished) {
-      weight = weight + 3
-    }
-    if (grantB?.status?.value === GrantStatusEnum.workFinished) {
-      weight = weight - 3
+    if (negative) {
+      value = value - priority
     }
 
-    // priority, grant with label
-    if (!!grantA?.label?.label) {
-      weight = weight - 3
-    }
-    if (grantB?.label?.label) {
-      weight = weight + 3
-    }
-
-    // Thirty priority, date
-    // Todo realize date in contracts
-
-    return weight
+    return value
   }
 
   private createLabel (grant: ContractGrantRawModel, userServiceData: UserDataInterface, contract: GrantsVariationType): GrantParams {

@@ -13,21 +13,16 @@ export const destroyQueue = (target: any, func: () => void) => {
     console.error(`${target.constructor.name} is using @DestroyedSubject but does not implement OnDestroy`)
   }
 
-  // Создаем метадату для того что бы в ней хранить очередь событий для дестроя
   const metadata = Reflect.getMetadata(METADATA_KEY, target, METADATA_PROPERTY_KEY)
 
   Reflect.defineMetadata(METADATA_KEY, (metadata || []).concat([func]), target, METADATA_PROPERTY_KEY)
 
-  Reflect.set(
-      target,
-      'ngOnDestroy',
-      function (...args: any[]) {
-        if (typeof originalDestroy === 'function') {
-          // @ts-ignore: Decorators are poorly typed
-          originalDestroy.apply(this, args)
-        }
+  Reflect.set(target, 'ngOnDestroy', function (...args: any[]) {
+    if (typeof originalDestroy === 'function') {
+      // @ts-ignore: Decorators are poorly typed
+      originalDestroy.apply(this, args)
+    }
 
-        Reflect.getMetadata(METADATA_KEY, target, METADATA_PROPERTY_KEY).reduce((orig: any, fn: any) => fn(), null)
-      }.bind(target),
-  )
+    Reflect.getMetadata(METADATA_KEY, target, METADATA_PROPERTY_KEY).reduce((orig: any, fn: any) => fn(), null)
+  })
 }

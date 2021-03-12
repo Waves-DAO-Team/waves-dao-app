@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return */
-import {Observable} from 'rxjs'
+import {MonoTypeOperatorFunction, Observable} from 'rxjs'
 import {isDevMode} from '@angular/core'
 
 class Log {
+  public log<T> (...messages: string[]): MonoTypeOperatorFunction<T> {
 
-  public log (name: string = '') {
-    return (source: any): Observable<any> => {
+    return (source: Observable<T>): Observable<T> => {
       if (!isDevMode()) {
         return source
       }
@@ -13,7 +13,9 @@ class Log {
       return new Observable(observer => source.subscribe({
           next: (x: any) => {
             if (isDevMode()) {
-              console.log(name, x)
+              console.groupCollapsed(...messages)
+              console.log(x)
+              console.groupEnd()
             }
 
             observer.next(x)
@@ -27,10 +29,3 @@ class Log {
 
 export const logger = new Log()
 export const log = logger.log.bind(logger)
-
-
-
-
-
-
-

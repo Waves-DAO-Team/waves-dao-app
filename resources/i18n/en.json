@@ -22,7 +22,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2020 Waves Association",
+    "copyright": "© 2021 Waves Association",
     "telegram": "Ask in Telegram"
   },
   "tooltip": {
@@ -474,7 +474,7 @@
       "all": "All"
     },
     "title": "Waves Association DAO",
-    "list_empty": "List is empty",
+    "contract_not_loaded": "The contract did not load",
     "loading": "Loading",
     "reward": "Reward",
     "list": {
