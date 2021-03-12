@@ -21,6 +21,7 @@
         ></ui-sub-list>
       </div>
 
+<!--      TODO Vitaly добавить условие для Voting - при этом предыдущий блок становится неактивным. Также проверить внутренние параметры для <ui-sub-lists-votings-->
       <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
         <ui-sub-list-votings
           [type]="'active'"

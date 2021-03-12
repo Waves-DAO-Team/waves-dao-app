@@ -1,7 +1,7 @@
 <div class="listing-page__intro">
   <img alt="promo" [attr.src]="'/assets/img/special-votings-type.png'" width="100%" height="auto"/>
 
-<!--  //TODO connect banner from en.json {{ contract?.banner }}-->
+<!--  //TODO Marina connect banner from en.json {{ contract?.banner }}. Баннер необязательный-->
 <!--  <div class="listing-page__banner mat-display-4">-->
 <!--    {{ contract?.banner }}-->
 <!--  </div>-->
@@ -9,33 +9,26 @@
 </div>
 <div class="listing-page__header">
 
-<!--  TODO connect name from contract when it exists {{ contract?.title }}-->
+<!--  TODO Vitaly: connect name from contract when it exists {{ contract?.title }}-->
   <h2 class="listing-page__title">Special Votings</h2>
 
-<!--  <div class="listing-page__controls">-->
-<!--    <button-->
-<!--      class="active"-->
-<!--      routerLinkActive="active"-->
-
-<!--    >-->
-<!--      works!-->
-<!--    </button>-->
-<!--  </div>-->
 </div>
 <div class="listing-page__address mat-display-1">
-  <!--  TODO connect address from contract when it exists-->
+  <!--  TODO Vitaly: connect address from contract when it exists-->
 <!--  <a class="a a&#45;&#45;alt" [attr.href]="api?.explorer + contract?.type | linkHttp" target="_blank" rel="noopener nofollow noreferrer">-->
 <!--    {{ contract?.type }}-->
 <!--  </a>-->
 </div>
 
+<!--  TODO Marina: Add description to the whole special votings-->
 <div class="listing-page__description">
   <div>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat volutpat eget vitae nulla sit rhoncus, morbi. Mi turpis justo diam ut tempus.
     Pretium, dolor integer laoreet tempor mauris, urna. Molestie commodo nisl, tincidunt et sapien aliquet vulputate cras nunc.
   </div>
   <div class="listing-page__about" >
-    <!--  TODO connect "read more" link from contract when it exists-->
+
+    <!--  TODO Vitaly: connect "read more" link from contract when it exists-->
     <a [routerLink]="['/']">
 <!--      {{ 'listing.more' | transloco }}-->
       read more link

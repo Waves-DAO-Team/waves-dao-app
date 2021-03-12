@@ -59,7 +59,9 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     )
     .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
 
-  public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
+  // TODO Vitaly: Удалить все неиспользуемые методы
+
+    public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
       map((grants: ContractGrantModel): ContractGrantAppModel[] => grants?.app || []),
