@@ -9,7 +9,17 @@ import {
   TransactionsSuccessResult, ISignerInvokeAnyData
 } from './signer.model'
 import {BehaviorSubject, from, Observable} from 'rxjs'
-import {publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take} from 'rxjs/operators'
+import {
+  publishReplay,
+  refCount,
+  tap,
+  switchMap,
+  retryWhen,
+  delay,
+  map,
+  take,
+  distinctUntilChanged,
+} from 'rxjs/operators'
 import {HttpClient} from '@angular/common/http'
 import {translate} from '@ngneat/transloco'
 import {MatSnackBar} from '@angular/material/snack-bar'
@@ -31,7 +41,9 @@ export class SignerService {
 
   public user: Observable<SignerUser> = this.user$.pipe(tap((data) => {
     this.storageService.userData = data
-  }), publishReplay(1), refCount())
+  }),
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      publishReplay(1), refCount())
 
   constructor (
     @Inject(API) private readonly api: AppApiInterface,

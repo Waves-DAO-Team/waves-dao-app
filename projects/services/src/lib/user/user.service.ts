@@ -45,7 +45,6 @@ export class UserService {
 
   public readonly stream$ = combineLatest([this.signerService.user, this.contractService.membershipStream])
     .pipe(
-      log('%c UserService::stream$::input', 'color: pink'),
       map(([user, contract]) => {
         const addressWorkGroup = Object.keys(contract?.payload?.working?.group?.member || {})
         const addressDAOMember = Object.keys(contract?.payload?.dao?.member || {})
@@ -81,7 +80,7 @@ export class UserService {
 
         return newData
       }),
-      log('%c UserService::stream$::output', 'color: pink'),
+      log('%c UserService::stream$', 'color: pink'),
       publishReplay(1),
       refCount()
     )

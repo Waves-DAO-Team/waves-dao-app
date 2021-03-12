@@ -45,7 +45,6 @@ export class LoadingWrapper<T> {
 
         return context?.payload
       }),
-      log(`%c LoadingWrapper::data$::${ name }`, 'color:orange'),
       publishReplay(1),
       refCount()
     )

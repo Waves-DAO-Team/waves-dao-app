@@ -146,7 +146,6 @@ export class ContractService {
 
   public getContractData (address: string): Observable<RequestModel<ContractDataRawModel>> {
     return this.requestService.getContract(address).pipe(
-      log('getContractData'),
       map((data: RequestModel<ContractRawData>): RequestModel<ContractDataRawModel> => ({
         status: data.status,
         error: data.error,

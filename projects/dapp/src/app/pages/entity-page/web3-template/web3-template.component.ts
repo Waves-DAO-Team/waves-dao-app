@@ -18,7 +18,7 @@ import { AddTaskDetailsComponent } from '@ui/modals/add-task-details/add-task-de
 import { CommunityContractService } from '@services/contract/community-contract.service'
 import { UserService } from '@services/user/user.service'
 import { AcceptWorkResultComponent } from '@ui/modals/accept-work-result/accept-work-result.component'
-import { combineLatest, Subject } from 'rxjs'
+import {BehaviorSubject, combineLatest, Subject} from 'rxjs'
 
 @Component({
   selector: 'app-web3-template',
@@ -36,7 +36,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract, OnDestr
     isVoteInProcess: false
   }
 
-  grant$ = new Subject<ContractGrantModel>()
+  grant$ = new BehaviorSubject<ContractGrantModel>({})
 
   isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(

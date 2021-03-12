@@ -41,6 +41,7 @@ import {InterhackContractService} from '@services/contract/Interhack-contract.se
 import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
 import {AcceptWorkResultInterhackComponent} from '@ui/modals/accept-work-result-interhack/accept-work-result-interhack.component'
+import { log } from '@libs/log'
 
 @Component({
   selector: 'app-interhack-template',
@@ -84,7 +85,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     isVote: false,
     isVoteInProcess: false
   }
-  grant$ = new Subject<ContractGrantModel>()
+  grant$ = new BehaviorSubject<ContractGrantModel>({})
 
   public readonly isStopSubmissionsBtn$: Observable<boolean> =
     combineLatest([this.userService.data, this.grant$])
@@ -219,13 +220,14 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
 
   public readonly teamsAndSolutionHeader$: Observable<IScore.IHeader> = combineLatest(
     [
-      this.grant$,
-      this.userService.data,
-      this.userService.isBalanceMoreCommission$,
-      this.titleText$,
-      this.teamsAndSolutionsControls$
+      this.grant$.pipe(log('1')),
+      this.userService.stream$.pipe(log('2')),
+      this.userService.isBalanceMoreCommission$.pipe(log('3')),
+      this.titleText$.pipe(log('4')),
+      this.teamsAndSolutionsControls$.pipe(log('5'))
     ])
     .pipe(
+      log('HEADER'),
       filter(([grant]) => grant !== null && grant !== undefined),
       map(([grant, user, isBalance, titleText, controls]): IScore.IHeader =>
         prepareTeamsAndSolutionHeaderData(grant, user, isBalance, titleText, controls))
