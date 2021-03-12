@@ -49,7 +49,24 @@ export interface ContractGrantFullAppModel {
     members: ContractRawDataString
     size: ContractRawDataNumber
   }
-  tasks: {[s: string]: ContractGrantRawModel}
+  tasks: {[s: string]: ContractGrantRawModel},
+  description?: {
+    [s: string]: {
+      [s: string]: ContractRawDataNumber
+    }
+  },
+  email?: {
+    [s: string]: ContractRawDataNumber
+  },
+  link?: {
+    [s: string]: ContractRawDataNumber
+  },
+  logo?: {
+    [s: string]: ContractRawDataNumber
+  },
+  ticker?: {
+    [s: string]: ContractRawDataNumber
+  }
 }
 
 export interface ContractGrantAppModel {
@@ -205,4 +222,14 @@ export interface ContractDataModel {
     size: ContractRawDataNumber
   }
   tasks: {[s: string]: ContractGrantRawModel}
+}
+export namespace IVotings {
+  export interface ITask {
+    status?: string
+    logo?: string
+    description?: string
+    link?: string
+    email?: string
+    ticker?: string
+  }
 }
