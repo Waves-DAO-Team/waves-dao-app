@@ -16,7 +16,6 @@ export class VotingsTemplateComponent implements OnInit {
 
   tasks$: Observable<IVotings.ITask[]>  = this.contractService.stream
     .pipe(
-      tap((e) => console.log('++++', e)),
       map((dataIn) => {
         let tasks: IVotings.ITask[] = []
         const oldTasks = dataIn.tasks

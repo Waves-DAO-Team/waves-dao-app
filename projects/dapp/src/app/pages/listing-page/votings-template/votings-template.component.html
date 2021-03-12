@@ -16,7 +16,7 @@
 <div class="listing-page__address mat-display-1">
   <!--  TODO Vitaly: connect address from contract when it exists-->
 <!--  <a class="a a&#45;&#45;alt" [attr.href]="api?.explorer + contract?.type | linkHttp" target="_blank" rel="noopener nofollow noreferrer">-->
-<!--    {{ contract?.type }}-->
+<!--   {{ contract?.type }}-->
 <!--  </a>-->
 </div>
 
@@ -30,11 +30,8 @@
 
     <!--  TODO Vitaly: connect "read more" link from contract when it exists-->
     <a [routerLink]="['/']">
-<!--      {{ 'listing.more' | transloco }}-->
+      {{ 'listing.more' | transloco }}
       read more link
     </a>
   </div>
 </div>
-
-
-{{tasks$ | async | json}}
