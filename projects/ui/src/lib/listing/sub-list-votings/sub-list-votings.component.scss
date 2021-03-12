@@ -1,0 +1,36 @@
+@import 'const';
+@import 'mixins/elements/card';
+@import 'mixins/elements/icon-logo';
+//
+:host {
+  display: none;
+  padding-bottom: 3rem;
+
+  &.enable {
+    display: block;
+  }
+
+  .rejected {
+    background: $color_light_gray;
+    .card__header__left-block__title,
+    .card__header__left-block__address,
+    .card__header__left-block__status,
+    .card__header__right-block__text,
+    .card__header__right-block__price{
+      color: $color_dark_gray;
+    }
+    .icon-logo {
+      background: $color_dark_gray !important;
+    }
+  }
+}
+
+.title {
+  font-weight: 500;
+  margin-bottom: $padding;
+}
+
+.card {
+  @include card;
+}
+

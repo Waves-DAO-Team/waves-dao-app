@@ -20,6 +20,20 @@
                 [grants]="otherGrantList"
         ></ui-sub-list>
       </div>
+
+      <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
+        <ui-sub-list-votings
+          [type]="'active'"
+          [isImportant]="true"
+          [title]="'Votings on tokens verification'"
+        ></ui-sub-list-votings>
+        <ui-sub-list-votings
+          [type]="'default'"
+          [isImportant]="false"
+          [title]="'All tokens'"
+        ></ui-sub-list-votings>
+      </div>
+
       <ng-template #loadingOrErrorTemplate>
         <ng-container *ngIf="grants.error$ | async; else loading">
           {{'listing.list_empty' | transloco}}

@@ -114,6 +114,16 @@
         white-space: nowrap;
       }
 
+      //TODO change this accordingly
+      &__email {
+        color: $gray;
+        cursor: pointer;
+        font-size: $font-size-small;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
       &__status {
         align-items: flex-end;
         color: $gray;
@@ -145,6 +155,17 @@
         color: $gray;
         font-size: $font-size-small;
         padding-bottom: $padding / 2;
+      }
+
+      &__token-logo {
+        width: 96px;
+        height: 96px;
+      }
+
+      &__ticker {
+        color: $gray;
+        font-size: $font-size-small;
+        padding-top: $padding * 4;
       }
 
       &__price {
