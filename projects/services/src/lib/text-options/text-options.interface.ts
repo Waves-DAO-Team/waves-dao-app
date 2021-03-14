@@ -1,6 +1,7 @@
 export namespace ITextOptions {
   export interface IGenerateAll {
-    winnerName: string,
+    my: boolean,
+    winnerName: string | null,
     count: string,
     amount: string,
     score: string,

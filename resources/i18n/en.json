@@ -267,7 +267,7 @@
             "undefined": ""
           },
           "voting_started": {
-            "undefined": "Log in and vote for grant"
+            "undefined": ""
           },
           "rejected": {
             "undefined": ""
@@ -276,7 +276,7 @@
             "undefined": ""
           },
           "proposed": {
-            "undefined": "Log in and vote for the team"
+            "undefined": ""
           }
         },
         "authorized": {
@@ -293,6 +293,7 @@
             "undefined": ""
           },
           "approved": {
+            "true": "To confirm grant work",
             "undefined": ""
           }
         },
@@ -310,7 +311,8 @@
             "undefined": ""
           },
           "approved": {
-            "undefined": "You can start working on grant"
+            "true": "To confirm grant work",
+            "undefined": ""
           },
           "proposed": {
             "undefined": "Please enable vote"
@@ -324,12 +326,20 @@
             "undefined": ""
           },
           "voting_started": {
-            "undefined": "Please vote for grant"
+            "true": "Please vote for grant",
+            "undefined": "Voting is still going on"
           },
           "rejected": {
             "undefined": ""
           },
           "approved": {
+            "true": "To confirm grant work",
+            "undefined": ""
+          }
+        },
+        "manager": {
+          "approved": {
+            "true": "To confirm grant work",
             "undefined": ""
           }
         }

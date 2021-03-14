@@ -14,6 +14,10 @@
         <div class="card__header__left-block__status__role-text" *ngIf="grant?.label?.label">
           {{ grant?.label?.label }}
         </div>
+
+        <div class="card__header__left-block__status__role-text" *ngIf="!grant?.status?.value">
+          {{ grant?.createdAt.value | date }}
+        </div>
       </div>
       <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
 <!--      <div class="card__header__left-block__address">{{ grant.id }}</div>-->

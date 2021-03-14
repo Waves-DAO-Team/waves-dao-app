@@ -22,7 +22,8 @@ import {
   map,
   publishReplay,
   refCount,
-  takeUntil
+  takeUntil,
+  tap
 } from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
@@ -81,7 +82,6 @@ export class ListingComponent implements OnDestroy {
           'all'].includes(selectedTagName))
         .map((grant: ContractGrantRawModel): ContractGrantModel => {
           const label = this.createLabel(grant, userServiceData, contract)
-
           return {
             ...grant,
             app: grant.app ? Object.values(grant.app) : [],
@@ -155,59 +155,19 @@ export class ListingComponent implements OnDestroy {
   }
 
   private sort (grantA: ContractGrantModel, grantB: ContractGrantModel): number {
-      let weight = 0
-      // First priority, status
-      weight = this.sortCheck(
-          weight,
-          4,
-          grantA?.status?.value === GrantStatusEnum.rejected,
-          grantB?.status?.value === GrantStatusEnum.rejected
-      )
-
-      // priority, finished grant
-      weight = this.sortCheck(
-          weight,
-          3,
-          grantA?.status?.value === GrantStatusEnum.workFinished,
-          grantB?.status?.value === GrantStatusEnum.workFinished
-      )
-
-      // priority, grant with label
-      weight = this.sortCheck(
-          weight,
-          3,
-          !!grantB?.label?.label,
-          !!grantA?.label?.label
-      )
-
-      // priority, zero reward
-      weight = this.sortCheck(
-          weight,
-          2,
-          !grantA?.reward?.value,
-          !grantB?.reward?.value
-      )
-
-      // priority, create date
-      weight = this.sortCheck(
-          weight,
-          1,
-          !grantA?.createdAt,
-          !grantB?.createdAt
-      )
-
-      return weight
+      let weightA = this.getWeightProposal(grantA, (grantA?.createdAt?.value || 0) > (grantB?.createdAt?.value || 0));
+      let weightB = this.getWeightProposal(grantB, (grantB?.createdAt?.value || 0) > (grantA?.createdAt?.value || 0));
+      return weightB - weightA;
     }
 
-  private sortCheck (value: number, priority: number, positive: boolean, negative: boolean): number {
-    if (positive) {
-      value = value + priority
-    }
-    if (negative) {
-      value = value - priority
-    }
-
-    return value
+  private getWeightProposal(proposal: ContractGrantModel, k: boolean): number {
+    return 0 +
+        (proposal?.status?.value === GrantStatusEnum.rejected ? -25 : 0) + // to bottom
+        (proposal?.status?.value === GrantStatusEnum.workFinished ? -15 : 0) + // to previous rejected
+        (!proposal?.status?.value ? -5 : 0) + // to previous rejected
+        (!!proposal?.label?.my ? 10 : 0) +
+        (!!proposal?.reward?.value ? 0 : -3) +
+        (k ? 1 : 0)
   }
 
   private createLabel (grant: ContractGrantRawModel, userServiceData: UserDataInterface, contract: GrantsVariationType): GrantParams {
@@ -238,18 +198,14 @@ export class ListingComponent implements OnDestroy {
     const textOptions = (new TextOptions(grant, userServiceData, contractType)).generateAll()
     switch (grant?.status?.value) {
       case GrantStatusEnum.proposed:
+      case GrantStatusEnum.votingStarted:
         return {
           ...textOptions,
-          important: userServiceData.roles.isDAO ? !(grant?.voted && grant?.voted[userServiceData?.userAddress]) : undefined
-        }
-      case GrantStatusEnum.readyToApply:
-        return {
-          ...textOptions,
-          important: userServiceData.roles.isAuth ?
-            grant?.applicants && grant?.applicants?.value.indexOf(userServiceData?.userAddress) >= 0 : undefined
+          important: textOptions.my || (userServiceData.roles.isDAO ? !(grant?.voted && grant?.voted[userServiceData?.userAddress]) : undefined)
         }
       default:
         return {
+          important: textOptions.my || undefined,
           ...textOptions,
         }
     }

@@ -1,6 +1,9 @@
-import {ContractGrantRawModel} from '@services/contract/contract.model'
-import {UserDataInterface} from '@services/user/user.interface'
-import {GrantTypesEnum} from '@services/static/static.model'
+import {
+  ContractGrantModel,
+  ContractGrantRawModel,
+} from '@services/contract/contract.model';
+import {RoleEnum, UserDataInterface} from '@services/user/user.interface'
+import {GrantStatusEnum, GrantTypesEnum} from '@services/static/static.model';
 import {ITextOptions} from '@services/text-options/text-options.interface'
 
 export class TextOptions {
@@ -28,6 +31,7 @@ export class TextOptions {
    */
   public generateAll (): ITextOptions.IGenerateAll {
     return {
+      my: this.checkMy(),
       winnerName: this.getWinnerName(),
       count: this.getCount(),
       amount: this.getAmount(),
@@ -44,7 +48,7 @@ export class TextOptions {
    *
    * @return Возвращает строку с именем команды или с id команды.
    */
-  public getWinnerName (): string {
+  public getWinnerName (): string | null {
     switch (this.contractType) {
       case GrantTypesEnum.disruptive:
         let performerName = ''
@@ -57,7 +61,7 @@ export class TextOptions {
         }
         return performerName
       case GrantTypesEnum.web3:
-        return this.grant.leader?.value || ''
+        return this.grant?.status?.value === GrantStatusEnum.approved ? this.grant?.leader?.value || null : null
       default:
         let winnerName = ''
         if (this.grant?.app) {
@@ -153,6 +157,19 @@ export class TextOptions {
    */
   public getGrantVoteScore (): string {
     return this.grant.voting?.amount?.value.toString() || '0'
+  }
+
+  public checkMy (): boolean {
+    switch (this.contractType) {
+      case GrantTypesEnum.disruptive:
+          return (this.grant?.applicants?.value || "").split(';').indexOf(this.userServiceData?.userAddress) >= 0
+      case GrantTypesEnum.web3:
+          return this.userServiceData?.userAddress === this.grant?.leader?.value
+      case GrantTypesEnum.interhack:
+        return (this.grant?.applicants?.value || "").split(';').indexOf(this.userServiceData?.userAddress) >= 0
+    }
+
+    return false;
   }
 
 }

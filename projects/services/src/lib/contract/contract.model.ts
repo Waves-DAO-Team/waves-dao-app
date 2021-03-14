@@ -107,6 +107,7 @@ export interface ContractGrantCommonModel {
 }
 
 export interface GrantParams {
+  my?: boolean,
   amount?: string,
   score?: string,
   count?: string,
@@ -114,7 +115,7 @@ export interface GrantParams {
   min?: string
   label?: string
   important?: boolean
-  winnerName?: string
+  winnerName?: string | null
   allTeamVoteScore?: string
   solutionCount?: string
   teamVoteScore?: string
@@ -134,6 +135,7 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   report?: ContractRawDataString,
   label?: GrantParams
   createdAt?: ContractRawDataNumber
+  winnerName?: string
 }
 
 // export interface ContractGrantRawModel extends ContractGrantCommonModel {

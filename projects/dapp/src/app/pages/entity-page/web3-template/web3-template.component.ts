@@ -127,7 +127,7 @@ export class Web3TemplateComponent implements TemplateComponentAbstract, OnDestr
     )
 
   private inputGrant: ContractGrantModel = {}
-  private user$ = this.userService.data
+  private user$ = this.userService.stream$
     .pipe(
       takeUntil(this.destroyed$),
       filter(() => this.inputGrant?.id !== undefined)
