@@ -190,12 +190,12 @@ Show in sample.env file
 - `INTERHACK_ISSUE_TEMPLATE` = "...link to issue tempalte..."
 - `VOTINGS_ISSUE_TEMPLATE` = "...link to issue tempalte..."
 
-### Link to show more page
+### Links to information about grants
 
-- `DISRUPTIVE_SHOW_MORE`="...link to show more..."
-- `VOTINGS_SHOW_MORE`="...link to show more..."
-- `WEB3_SHOW_MORE`="...link to show more..."
-- `INTERHACK_SHOW_MORE`="...link to show more..."
+- `DISRUPTIVE_ABOUT_LINK`="...link to md..."
+- `VOTINGS_ABOUT_LINK`="...link to md..."
+- `WEB3_ABOUT_LINK`="...link to md..."
+- `INTERHACK_ABOUT_LINK`="...link to md..."
 
 ### Link to description on githib about DAO system
 
