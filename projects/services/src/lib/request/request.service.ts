@@ -3,9 +3,10 @@ import {
   ContractRawData,
 } from '@services/contract/contract.model'
 import {
+  NEVER,
   Observable,
-  of,
-} from 'rxjs'
+  of, Subject,
+} from 'rxjs';
 import {RequestConfigNode, RequestError, RequestModel, RequestStatus} from '@services/request/request.model'
 import {API, AppApiInterface} from '@constants'
 import {HttpClient} from '@angular/common/http'
@@ -14,9 +15,10 @@ import {
   catchError,
   map,
   publishReplay,
-  refCount,
+  refCount, repeatWhen,
   startWith,
-} from 'rxjs/operators'
+  switchMap,
+} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,8 @@ import {
 export class RequestService {
 
   private cache: {[s: string]: Observable<RequestModel<ContractRawData>>} = {}
+
+  private readonly refresh$ = new Subject()
 
   constructor (
       private readonly http: HttpClient,
@@ -43,6 +47,18 @@ export class RequestService {
       headers: { accept: 'application/json; charset=utf-8' }
     }).pipe(
         log(`%c RequestService::getContract::${address}`, 'color: blue'),
+        // Repeat request on contract if refresh this
+        repeatWhen((data) => {
+          return this.refresh$.pipe(switchMap((addr) => {
+            // Check refresh address
+            if (address === addr) {
+              // Return refresh subject
+              return of(null);
+            }
+            // Block refresh action
+            return NEVER;
+          }))
+        }),
         map((data: ContractRawData) => ({
             status: RequestStatus.complete,
             error: null,
@@ -75,6 +91,10 @@ export class RequestService {
     }
 
     throw new Error(`Contract address ${address} is not valid`)
+  }
+
+  public refresh(address: string) {
+    this.refresh$.next(address);
   }
 
 }

@@ -133,6 +133,7 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   isShowAppliers?: boolean
   report?: ContractRawDataString,
   label?: GrantParams
+  createdAt?: ContractRawDataNumber
 }
 
 // export interface ContractGrantRawModel extends ContractGrantCommonModel {

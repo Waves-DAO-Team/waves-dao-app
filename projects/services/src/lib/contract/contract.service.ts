@@ -6,10 +6,10 @@ import {
   map,
   mergeMap,
   publishReplay,
-  refCount, tap,
-} from 'rxjs/operators'
+  refCount, repeatWhen, tap,
+} from 'rxjs/operators';
 import {API, AppApiInterface} from '@constants'
-import {BehaviorSubject, Observable} from 'rxjs'
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {
   ContractDataRawModel, ContractGrantAppModel,
   ContractGrantModel,
@@ -158,11 +158,15 @@ export class ContractService {
     )
   }
 
-  public refresh (address: string = this.getAddress()): void {
+  public refresh (address: string = this.getAddress(), force = true): void {
     console.log('REFRESH', address)
     // this.storageService.contractAddress = address
     this.contractAddress$.next(address)
     // return this.contractState.pipe(skip(1), take(1))
+
+    if (force) {
+      this.requestService.refresh(address);
+    }
   }
 
   public switchContract (type: string | undefined): void {

@@ -30,7 +30,6 @@ export class MembershipService {
   private readonly address = this.api.management.membership
   private readonly membershipState$ = this.requestService.getContract(this.address)
   .pipe(
-      repeatWhen(() => this.refresh$),
       map((data: RequestModel<ContractRawData>): RequestModel<ContractMembershipDataModel> => ({
         status: data.status,
         error: data.error,
@@ -41,7 +40,6 @@ export class MembershipService {
         }
       }))
   )
-  private readonly refresh$ = new Subject()
 
   public stream = this.membershipState$.pipe(
     publishReplay(1),
@@ -99,7 +97,7 @@ export class MembershipService {
     if (isDevMode()) {
       console.log('Refresh memberships')
     }
-    this.refresh$.next(null)
+    this.requestService.refresh(this.address);
   }
 
   private group (

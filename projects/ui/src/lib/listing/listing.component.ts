@@ -188,6 +188,14 @@ export class ListingComponent implements OnDestroy {
           !grantB?.reward?.value
       )
 
+      // priority, create date
+      weight = this.sortCheck(
+          weight,
+          1,
+          !grantA?.createdAt,
+          !grantB?.createdAt
+      )
+
       return weight
     }
 
