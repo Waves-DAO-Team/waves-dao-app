@@ -2,13 +2,12 @@ import {Inject, Injectable} from '@angular/core'
 import {RoleEnum, RoleRowInterface, UserDataInterface} from '@services/user/user.interface'
 import {SignerService} from '@services/signer/signer.service'
 import {ContractService} from '@services/contract/contract.service'
-import {BehaviorSubject, combineLatest} from 'rxjs'
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import {
   map,
   publishReplay,
   refCount,
 } from 'rxjs/operators'
-import {ContractGrantRawModel} from '@services/contract/contract.model'
 import {API, AppApiInterface} from '@constants'
 import {log} from '@libs/log/log.rxjs-operator'
 
@@ -31,8 +30,6 @@ export class UserService {
       isAuth: false,
       isUnauthorized: true
     },
-    voted: [],
-    apply: [],
     balance: ''
   })
 
@@ -43,7 +40,7 @@ export class UserService {
       map((e) => e.balance.length > 0 && (parseInt(e.balance, 10) > 0.005))
     )
 
-  public readonly stream$ = combineLatest([this.signerService.user, this.contractService.membershipStream])
+  public readonly stream$: Observable<UserDataInterface> = combineLatest([this.signerService.user, this.contractService.membershipStream])
     .pipe(
       map(([user, contract]) => {
         const addressWorkGroup = Object.keys(contract?.payload?.working?.group?.member || {})
@@ -65,10 +62,6 @@ export class UserService {
           userAddress: userAddressText,
           userRole: dr.mainRole,
           roles: dr.roles,
-          // Todo delete unused property
-          voted: this.defineVoted(userAddressText, {}),
-          // Todo delete unused property
-          apply: this.defineApply(userAddressText, {}),
           balance: userBalanceText
         }
 
@@ -90,37 +83,6 @@ export class UserService {
     private readonly signerService: SignerService, // eslint-disable-line
     private readonly contractService: ContractService // eslint-disable-line
   ) {}
-
-  private defineApply (userAddress: string, tasks: { [index: string]: ContractGrantRawModel }): string[] {
-    const result: string[] = []
-    if (tasks) {
-      for (const key of Object.keys(tasks)) {
-        if (
-          userAddress &&
-          tasks &&
-          tasks[key]?.applicants?.value.includes(userAddress)
-        ) {
-          result.push(key)
-        }
-      }
-    }
-
-    return result
-  }
-
-  private defineVoted (userAddress: string, tasks: { [s: string]: ContractGrantRawModel }): string[] {
-    const result = []
-    if (tasks) {
-      for (const key of Object.keys(tasks)) {
-        const grant: ContractGrantRawModel = tasks[key]
-        if (grant.voted && Object.keys(grant.voted).includes(userAddress)) {
-          result.push(key)
-        }
-      }
-    }
-
-    return result
-  }
 
   private defineRol (
     managerAddress: string,

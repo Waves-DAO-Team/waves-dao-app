@@ -1,9 +1,8 @@
 import {
-  ContractGrantModel,
   ContractGrantRawModel,
-} from '@services/contract/contract.model';
-import {RoleEnum, UserDataInterface} from '@services/user/user.interface'
-import {GrantStatusEnum, GrantTypesEnum} from '@services/static/static.model';
+} from '@services/contract/contract.model'
+import {UserDataInterface} from '@services/user/user.interface'
+import {GrantStatusEnum, GrantTypesEnum} from '@services/static/static.model'
 import {ITextOptions} from '@services/text-options/text-options.interface'
 
 export class TextOptions {
@@ -162,14 +161,14 @@ export class TextOptions {
   public checkMy (): boolean {
     switch (this.contractType) {
       case GrantTypesEnum.disruptive:
-          return (this.grant?.applicants?.value || "").split(';').indexOf(this.userServiceData?.userAddress) >= 0
+          return (this.grant?.applicants?.value || '').split(';').indexOf(this.userServiceData?.userAddress) >= 0
       case GrantTypesEnum.web3:
           return this.userServiceData?.userAddress === this.grant?.leader?.value
       case GrantTypesEnum.interhack:
-        return (this.grant?.applicants?.value || "").split(';').indexOf(this.userServiceData?.userAddress) >= 0
+        return (this.grant?.applicants?.value || '').split(';').indexOf(this.userServiceData?.userAddress) >= 0
     }
 
-    return false;
+    return false
   }
 
 }

@@ -21,6 +21,7 @@ export class FlowTextComponent implements OnDestroy {
 
   @Input() isShowStatus = false
   @Input() isShowFlow = false
+
   private grant$: BehaviorSubject<ContractGrantModel> = new BehaviorSubject<ContractGrantModel>({})
 
   @Input() set grant (data: ContractGrantModel) {

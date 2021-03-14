@@ -305,7 +305,7 @@
             "undefined": "You can accept the results of work"
           },
           "voting_started": {
-            "undefined": "You can finish voting on the grant. Already voted {{grantVoteScore}} participants."
+            "undefined": "You can finish voting on the grant. Already voted {{amount}} participants."
           },
           "rejected": {
             "undefined": ""
@@ -422,11 +422,11 @@
             "undefined": ""
           },
           "proposed": {
-            "true": "You can finish voting on the grant. Already voted {{grantVoteScore}} participants.",
+            "true": "You can finish voting on the grant. Already voted {{amount}} participants.",
             "false": "Please enter the reward"
           },
           "ready_to_apply": {
-            "undefined": "You can finish voting on the team. Already voted {{allTeamVoteScore}} participants."
+            "undefined": "You can finish voting on the team. Already voted {{amount}} participants."
           },
           "team_chosen" : {
             "undefined": "Awaiting team decision. Perhaps we need to notify them"

@@ -10,7 +10,7 @@ import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {
   ContractGrantModel,
-} from '@services/contract/contract.model';
+} from '@services/contract/contract.model'
 
 @Component({
   selector: 'ui-sub-list',

@@ -23,7 +23,6 @@ import {
   publishReplay,
   refCount,
   takeUntil,
-  tap
 } from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
@@ -155,12 +154,12 @@ export class ListingComponent implements OnDestroy {
   }
 
   private sort (grantA: ContractGrantModel, grantB: ContractGrantModel): number {
-      let weightA = this.getWeightProposal(grantA, (grantA?.createdAt?.value || 0) > (grantB?.createdAt?.value || 0));
-      let weightB = this.getWeightProposal(grantB, (grantB?.createdAt?.value || 0) > (grantA?.createdAt?.value || 0));
-      return weightB - weightA;
+      const weightA = this.getWeightProposal(grantA, (grantA?.createdAt?.value || 0) > (grantB?.createdAt?.value || 0))
+      const weightB = this.getWeightProposal(grantB, (grantB?.createdAt?.value || 0) > (grantA?.createdAt?.value || 0))
+      return weightB - weightA
     }
 
-  private getWeightProposal(proposal: ContractGrantModel, k: boolean): number {
+  private getWeightProposal (proposal: ContractGrantModel, k: boolean): number {
     return 0 +
         (proposal?.status?.value === GrantStatusEnum.rejected ? -25 : 0) + // to bottom
         (proposal?.status?.value === GrantStatusEnum.workFinished ? -15 : 0) + // to previous rejected
@@ -201,7 +200,9 @@ export class ListingComponent implements OnDestroy {
       case GrantStatusEnum.votingStarted:
         return {
           ...textOptions,
-          important: textOptions.my || (userServiceData.roles.isDAO ? !(grant?.voted && grant?.voted[userServiceData?.userAddress]) : undefined)
+          important: textOptions.my ||
+              (userServiceData.roles.isDAO ?
+                  !(grant?.voted && grant?.voted[userServiceData?.userAddress]) : undefined)
         }
       default:
         return {

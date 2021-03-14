@@ -1,12 +1,11 @@
-import {Inject, Injectable, isDevMode} from '@angular/core'
-import { EMPTY, Observable, Subject } from 'rxjs'
+import {Inject, Injectable } from '@angular/core'
+import { EMPTY, Observable } from 'rxjs'
 import { TransactionsSuccessResult } from '@services/signer/signer.model'
 import {
   catchError,
   map,
   publishReplay,
   refCount,
-  repeatWhen,
   tap
 } from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
@@ -94,10 +93,7 @@ export class MembershipService {
   }
 
   refresh (): void {
-    if (isDevMode()) {
-      console.log('Refresh memberships')
-    }
-    this.requestService.refresh(this.address);
+    this.requestService.refresh(this.address)
   }
 
   private group (

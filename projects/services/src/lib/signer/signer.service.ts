@@ -127,7 +127,8 @@ export class SignerService {
       }),
       switchMap((tx) => from(this.signer.broadcast(tx).catch((e) => {
         console.warn(e)
-        throw new Error('broadcast could not process the request:')
+        this.snackBar.open(translate(e.message), translate('messages.ok'))
+        throw new Error(e.message)
       }))),
       switchMap((data) => {
         const d: ISignerInvokeAnyData = {

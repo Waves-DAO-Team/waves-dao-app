@@ -6,9 +6,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import 'reflect-metadata'
-import { ReplaySubject } from 'rxjs'
-import { publishReplay, refCount } from 'rxjs/operators'
+import {BehaviorSubject} from 'rxjs'
 import { destroyQueue } from './common.decorator'
+import {log} from '@libs/log'
 
 /* USE
  *
@@ -25,35 +25,31 @@ import { destroyQueue } from './common.decorator'
 export function Async (): (target: any, propertyKey: string) => void {
   // eslint-disable-line
   return (target: any, propName: string) => {
-    // eslint-disable-line
-    const name = '_async_prop_' + propName
-    const stream = '_async_stream_' + propName
+    const name: string = '_async_prop_' + propName
 
-    // Create subject
     Reflect.defineProperty(target, name, {
-      value: new ReplaySubject(1),
-      writable: true,
-    })
-
-    // Create stream subject with destroy
-    Reflect.defineProperty(target, stream, {
-      value: target[name].pipe(publishReplay(1), refCount()),
+      value: new BehaviorSubject(undefined),
       writable: true,
     })
 
     Reflect.defineProperty(target, propName, {
-      set: (item): void => {
-        target[name].next(item)
+      set (item: any): void {
+        // @ts-ignore: use this context
+        this[name].next(item)
       },
-      get: (): any => target[stream],
+      get (): any {
+        // @ts-ignore: use this context
+        return this[name].pipe(
+            log(`%c Get @Async argument ${propName} from ${target.constructor.name}`, 'color:cyan')
+        )
+      },
+      enumerable: true,
+      configurable: true,
     })
 
     destroyQueue(
       target,
-      function () {
-        // @ts-ignore: Decorators are poorly typed
-        this[name].complete()
-      }.bind(target),
+      function () {}.bind(target),
     )
   }
 }
