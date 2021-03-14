@@ -4,10 +4,10 @@ export const environment = {
   confirmations: 0,
   grantsProgramLink: '${GRANT_PROGRAM_LINK}',
   about: {
-    disruptive: '${DISRUPTIVE_SHOW_MORE}',
-    votings: '${VOTINGS_SHOW_MORE}',
-    web3: '${WEB3_SHOW_MORE}',
-    interhack: '${INTERHACK_SHOW_MORE}'
+    disruptive: '${DISRUPTIVE_ABOUT_LINK}',
+    votings: '${VOTINGS_ABOUT_LINK}',
+    web3: '${WEB3_ABOUT_LINK}',
+    interhack: '${INTERHACK_ABOUT_LINK}'
   },
   apis: {
     testnet: {
