@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return */
 import {MonoTypeOperatorFunction, Observable} from 'rxjs'
-import {isDevMode} from '@angular/core'
+import { isDevMode } from '@angular/core'
 
 class Log {
   public log<T> (...messages: string[]): MonoTypeOperatorFunction<T> {
@@ -12,11 +12,9 @@ class Log {
 
       return new Observable(observer => source.subscribe({
           next: (x: any) => {
-            if (isDevMode()) {
-              console.groupCollapsed(...messages)
-              console.log(x)
-              console.groupEnd()
-            }
+            console.groupCollapsed(...messages)
+            console.log(x)
+            console.groupEnd()
 
             observer.next(x)
           },
