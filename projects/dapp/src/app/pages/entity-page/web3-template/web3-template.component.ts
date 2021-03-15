@@ -150,7 +150,7 @@ export class Web3TemplateComponent implements OnDestroy {
     })
   }
 
-  addReward (status: string, id: string): void {
+  addReward (status: string | null = null, id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',

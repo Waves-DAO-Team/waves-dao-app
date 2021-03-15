@@ -23,6 +23,7 @@
             (click)="isToggleMenuOpen = false"
             [routerLink]="[constants.routes.listing | route : contract.name ]"
             routerLinkActive="active">
+          <span class="nav-badge" *ngIf="contract.type.indexOf('3P') === 0">mainnet</span>
           {{ contract.navigation }}
         </li>
 
