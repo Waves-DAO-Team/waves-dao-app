@@ -46,6 +46,11 @@
 
 .card {
   @include card;
+  cursor: default;
+
+  & div {
+    cursor: default;
+  }
 
   &__header {
     &__left-block {
@@ -55,6 +60,31 @@
     }
     &__right-block {
       justify-content: flex-start !important;
+
+      &-cover {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        top:0;
+        bottom:0;
+        left: 0;
+        right: 0;
+        border: 1px solid $color_dark_gray;
+        border-radius: 100px;
+        background: gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      img {
+        width: 70px !important;
+        height: 70px !important;
+      }
     }
+  }
+
+  &:hover &__header {
+    border: 1px solid #e7e7eb !important;
   }
 }

@@ -25,10 +25,10 @@
         ></app-disruptive-template>
       </ng-template>
       <ng-template ngSwitchCase="votings">
-        <app-special-votings-template
+        <app-votings-template
           [grant]="entity.data$ | async"
           [contract]="info"
-        ></app-special-votings-template>
+        ></app-votings-template>
       </ng-template>
     </div>
   </div>

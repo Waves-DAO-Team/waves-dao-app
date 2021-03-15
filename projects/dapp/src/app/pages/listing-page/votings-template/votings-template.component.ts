@@ -1,10 +1,12 @@
 import {Component, Inject, Input, OnInit} from '@angular/core'
 import {GrantsVariationType} from '@services/static/static.model'
-import {ContractDataModel, ContractGrantRawModel, IVotings} from '@services/contract/contract.model'
+import {ContractDataRawModel, IVotings} from '@services/contract/contract.model'
 import {Observable} from 'rxjs'
 import {ContractService} from '@services/contract/contract.service'
-import {map, tap} from 'rxjs/operators'
+import {map} from 'rxjs/operators'
 import {API, AppApiInterface} from '@constants'
+import {RequestModel} from '@services/request/request.model'
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-votings-template',
@@ -14,44 +16,44 @@ import {API, AppApiInterface} from '@constants'
 export class VotingsTemplateComponent implements OnInit {
 
   @Input() public readonly contract!: GrantsVariationType
-  @Inject(API) public readonly api: AppApiInterface | undefined // eslint-disable-line
+  @Inject(API) public readonly api: AppApiInterface | undefined
 
   tasks$: Observable<IVotings.ITask[]>  = this.contractService.stream
     .pipe(
-      map((dataIn) => {
-        const tasks: IVotings.ITask[] = []
-        const oldTasks = dataIn.tasks
+      map((dataIn: RequestModel<ContractDataRawModel>) => {
+        const oldTasks = dataIn?.payload?.tasks
 
-        for (const key of Object.keys(oldTasks)) {
-          const newTask = {
+        console.log('oldTasks', oldTasks)
+
+        const tasks: IVotings.ITask[] = oldTasks ? Object.keys(oldTasks).map((key) => ({
             status: oldTasks[key]?.status?.value || '',
             ticker: key
-          }
-          tasks.push(newTask)
-        }
+          })) : []
 
         tasks.forEach((task) => {
           if (
-            dataIn.description
+            dataIn?.payload?.description
             && task.ticker
-            && dataIn.email
-            && dataIn.link
-            && dataIn.logo
-            && dataIn.ticker
+            && dataIn?.payload?.email
+            && dataIn?.payload?.link
+            && dataIn?.payload?.logo
+            && dataIn?.payload?.ticker
           ) {
             const strangeTicker = `<${task?.ticker}>`
-            task.description =  dataIn.description['<en>'][strangeTicker].value
-            task.email = dataIn.email[strangeTicker].value
-            task.link = dataIn.link[strangeTicker].value
-            task.logo = dataIn.logo[strangeTicker].value
-            task.ticker = dataIn.ticker[strangeTicker].value
+            task.description =  dataIn?.payload?.description['<en>'][strangeTicker].value
+            task.email = dataIn?.payload?.email[strangeTicker].value
+            task.link = dataIn?.payload?.link[strangeTicker].value
+            task.logo = dataIn?.payload?.logo[strangeTicker].value
+            task.ticker = dataIn?.payload?.ticker[strangeTicker].value
           }
         })
         return tasks
       })
     )
 
-  constructor (private readonly contractService: ContractService) { }
+  constructor (private readonly contractService: ContractService,
+               public domSanitizer: DomSanitizer
+  ) { }
 
   ngOnInit (): void {
   }
