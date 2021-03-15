@@ -22,7 +22,7 @@ import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { StaticService } from '@services/static/static.service'
 import { log } from '@libs/log'
 import { HeaderComponentUserModel } from './header.model'
-import {RoleEnum} from '@services/user/user.interface';
+import {RoleEnum} from '@services/user/user.interface'
 
 @Component({
   selector: 'ui-header',
@@ -31,7 +31,7 @@ import {RoleEnum} from '@services/user/user.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  public roleEnum = RoleEnum;
+  public roleEnum = RoleEnum
 
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
@@ -39,12 +39,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       combineLatest([this.signerService.user, this.userService.stream$]).pipe(
           takeUntil(this.destroyed$),
           log('HeaderComponent::user$'),
-          map(([balance, user]) => {
-            return {
+          map(([balance, user]) => ({
               ...user,
               ...balance
-            }
-          })
+            }))
       )
 
 

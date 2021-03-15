@@ -1,4 +1,4 @@
-import {UserDataInterface} from '@services/user/user.interface';
+import {UserDataInterface} from '@services/user/user.interface'
 
 export interface HeaderComponentUserModel extends UserDataInterface {
   name: string;
