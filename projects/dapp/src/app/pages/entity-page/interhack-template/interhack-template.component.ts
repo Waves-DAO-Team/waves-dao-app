@@ -42,16 +42,19 @@ import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
 import {AcceptWorkResultInterhackComponent} from '@ui/modals/accept-work-result-interhack/accept-work-result-interhack.component'
 import { log } from '@libs/log'
+import {DestroyedSubject} from "@libs/decorators";
 
 @Component({
   selector: 'app-interhack-template',
   templateUrl: './interhack-template.component.html',
   styleUrls: ['./interhack-template.component.scss']
 })
-export class InterhackTemplateComponent implements TemplateComponentAbstract, OnDestroy {
+export class InterhackTemplateComponent implements TemplateComponentAbstract {
 
   @Input() public readonly contract!: GrantsVariationType
-  private readonly destroyed$ = new Subject()
+
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>
+
   grantStatusEnum = GrantStatusEnum
   eScore = IScore.EStepType
 
@@ -446,7 +449,4 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     }
   }
 
-  ngOnDestroy (): void {
-    this.destroyed$.next()
-  }
 }

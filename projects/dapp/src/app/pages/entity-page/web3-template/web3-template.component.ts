@@ -25,7 +25,7 @@ import { log } from '@libs/log'
   templateUrl: './web3-template.component.html',
   styleUrls: ['./web3-template.component.scss']
 })
-export class Web3TemplateComponent implements OnDestroy {
+export class Web3TemplateComponent  {
   @Input() public readonly contract!: GrantsVariationType
 
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
@@ -180,7 +180,4 @@ export class Web3TemplateComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy (): void {
-    this.destroyed$.next()
-  }
 }

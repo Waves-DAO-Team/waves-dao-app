@@ -37,20 +37,21 @@ import {
 import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
 import {FinishApplicantsVotingComponent} from '@ui/modals/finish-applicants-voting/finish-applicants-voting.component'
+import {DestroyedSubject} from "@libs/decorators";
 
 @Component({
   selector: 'app-votings-template',
   templateUrl: './votings-template.component.html',
   styleUrls: ['./votings-template.component.scss']
 })
-export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDestroy {
+export class VotingsTemplateComponent implements TemplateComponentAbstract {
   @Input() public readonly contract!: GrantsVariationType
 
   grantStatusEnum = GrantStatusEnum
 
   grant$ = new BehaviorSubject<ContractGrantModel>({})
 
-  private readonly destroyed$ = new Subject()
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
   private user$ = this.userService.data
     .pipe(
@@ -308,7 +309,4 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     }
   }
 
-  ngOnDestroy (): void {
-    this.destroyed$.next()
-  }
 }
