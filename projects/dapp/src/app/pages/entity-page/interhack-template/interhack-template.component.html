@@ -29,7 +29,7 @@
 
   <ng-template #headerControlsTemplate>
 
-    <button class="active" (click)="addReward(entityData.id, entityData.status.value)" *ngIf="isShowAddRewardBtn$ | async">
+    <button class="active" (click)="addReward(entityData.id, entityData?.status?.value)" *ngIf="isShowAddRewardBtn$ | async">
       {{'entity.add_reward' | transloco}}
     </button>
 

@@ -149,7 +149,7 @@ export class InterhackTemplateComponent {
   public readonly winnerSolution$ = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
-      filter(e => e !== null && e.app !== undefined && e.app.length > 0),
+      filter(e => e !== null && e?.app !== undefined && e?.app.length > 0),
       map((e: ContractGrantModel): ContractGrantAppModel[] => e.app as ContractGrantAppModel[]),
       map((e: ContractGrantAppModel[]) => {
         let solution = e[0]
