@@ -1,12 +1,11 @@
-import {Inject, Injectable, isDevMode} from '@angular/core'
-import { EMPTY, Observable, Subject } from 'rxjs'
+import {Inject, Injectable } from '@angular/core'
+import { EMPTY, Observable } from 'rxjs'
 import { TransactionsSuccessResult } from '@services/signer/signer.model'
 import {
   catchError,
   map,
   publishReplay,
   refCount,
-  repeatWhen,
   tap
 } from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
@@ -16,20 +15,30 @@ import { API, AppApiInterface } from '@constants'
 import { SignerService } from '@services/signer/signer.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import {
-  ContractDataIterationModel,
-  ContractDataModel,
-  ContractRawData, ContractRawDataNumber,
-  ContractRawDataString
+  ContractGroupContext, ContractMembershipDataModel,
+  ContractRawData,
+  ContractRawDataString,
 } from '@services/contract/contract.model'
-import { RequestsService } from '@services/requests-service/requests.service'
+import {RequestService} from '@services/request/request.service'
+import {RequestModel} from '@services/request/request.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class MembershipService {
   private readonly address = this.api.management.membership
-  private readonly membershipState$ = this.getContractData(this.address)
-  private readonly refresh$ = new Subject()
+  private readonly membershipState$ = this.requestService.getContract(this.address)
+  .pipe(
+      map((data: RequestModel<ContractRawData>): RequestModel<ContractMembershipDataModel> => ({
+        status: data.status,
+        error: data.error,
+        payload: {
+          ...this.prepareData(data.payload),
+          manager: this.address,
+          address: this.address
+        }
+      }))
+  )
 
   public stream = this.membershipState$.pipe(
     publishReplay(1),
@@ -41,41 +50,9 @@ export class MembershipService {
     private readonly snackBar: MatSnackBar,
     private readonly http: HttpClient,
     private readonly storageService: StorageService,
-    private readonly requestsService: RequestsService,
+    private readonly requestService: RequestService,
     @Inject(API) private readonly api: AppApiInterface
   ) {
-  }
-
-  public getContractData (address: string): Observable<ContractDataModel> {
-    return this.requestsService.getContractData(address)
-      .pipe(
-        repeatWhen(() => this.refresh$),
-        map((data: ContractRawData) => ({
-          ...this.prepareData(data),
-          manager: address
-        }))
-      )
-  }
-
-  private group (keys: string[], context: ContractDataIterationModel, value: ContractRawDataString | ContractRawDataNumber): void {
-    const key: string | undefined = keys.shift()
-    if (!key) {
-      return
-    }
-
-    if (!context[key]) {
-      context[key] = keys.length === 0 ? value : {}
-    }
-
-    return this.group(keys, context[key], value)
-  }
-
-  private prepareData (data: ContractRawData): ContractDataModel {
-    return data.reduce((orig: ContractDataIterationModel, item) => {
-      const keys = item.key.split('_')
-      this.group(keys, orig, item)
-      return orig
-    }, {}) as ContractDataModel
   }
 
   public addDAOMember (members: string): Observable<TransactionsSuccessResult> {
@@ -116,9 +93,36 @@ export class MembershipService {
   }
 
   refresh (): void {
-    if (isDevMode()) {
-      console.log('Refresh memberships')
+    this.requestService.refresh(this.address)
+  }
+
+  private group (
+      keys: string[],
+      context: ContractGroupContext,
+      value: ContractRawDataString
+  ): undefined {
+    const key: string | undefined = keys.shift()
+    if (!key) {
+      return undefined
     }
-    this.refresh$.next(null)
+
+    if (!context[key]) {
+      context[key] = keys.length === 0 ? value : {}
+    }
+    return this.group(keys, context[key] as ContractGroupContext, value)
+  }
+
+  private prepareData (data: ContractRawData | null): ContractRawData | null {
+    if (!data) {
+      return null
+    }
+
+    // Todo rewrite this recursive function
+    // @ts-ignore: Complex case
+    return data.reduce((orig: ContractGroupContext, item: ContractRawDataString) => {
+      const keys = item.key.split('_')
+      this.group(keys, orig, item)
+      return orig
+    }, {})
   }
 }

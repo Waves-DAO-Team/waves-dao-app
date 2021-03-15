@@ -73,7 +73,7 @@
             "fileReplacements": [
               {
                 "replace": "projects/dapp/src/environments/environment.ts",
-                "with": "projects/dapp/src/environments/environment.local.ts"
+                "with": "projects/dapp/src/environments/environment.prod.ts"
               }
             ]
           }
@@ -121,7 +121,7 @@
             "fileReplacements": [
               {
                 "replace": "projects/dapp/src/environments/environment.ts",
-                "with": "projects/dapp/src/environments/environment.local.ts"
+                "with": "projects/dapp/src/environments/environment.prod.ts"
               }
             ],
             "stylePreprocessorOptions": {
@@ -263,7 +263,7 @@
             "fileReplacements": [
               {
                 "replace": "projects/dapp/src/environments/environment.ts",
-                "with": "projects/dapp/src/environments/environment.local.ts"
+                "with": "projects/dapp/src/environments/environment.prod.ts"
               }
             ],
             "assets": [

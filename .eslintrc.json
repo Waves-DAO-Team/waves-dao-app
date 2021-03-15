@@ -5,6 +5,9 @@
   ],
   "overrides": [
     {
+      "plugins": [
+        "unused-imports"
+      ],
       "files": [
         "*.ts", "*.js"
       ],

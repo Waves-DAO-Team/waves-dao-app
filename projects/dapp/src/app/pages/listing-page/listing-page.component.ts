@@ -3,7 +3,9 @@ import {
   CONTRACT,
   LISTING_PAGE_PROVIDERS
 } from './listing-page.providers'
-import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
+import {
+  LoadingWrapperModel,
+} from '@libs/loading-wrapper/loading-wrapper'
 import { UserService } from '@services/user/user.service'
 import {
   API,

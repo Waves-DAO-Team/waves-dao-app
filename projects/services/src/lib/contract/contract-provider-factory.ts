@@ -1,44 +1,42 @@
-import { translate } from '@ngneat/transloco'
-import { ActivatedRoute, Router } from '@angular/router'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import {ActivatedRoute} from '@angular/router'
 import {
   LoadingWrapper,
-  LoadingWrapperModel
+  LoadingWrapperModel,
 } from '@libs/loading-wrapper/loading-wrapper'
+import {filter, map, publishReplay, refCount, switchMap} from 'rxjs/operators'
+import {FactoryProvider, InjectionToken} from '@angular/core'
+import {StaticService} from '@services/static/static.service'
 import {
-  catchError,
-  filter,
-  publishReplay,
-  refCount,
-  switchMap
-} from 'rxjs/operators'
-import { Observable } from 'rxjs'
-import { FactoryProvider, InjectionToken } from '@angular/core'
-import { StaticService } from '@services/static/static.service'
-import { GrantsVariationType } from '@services/static/static.model'
+  GrantsVariationType,
+} from '@services/static/static.model'
+import {
+  RequestModel,
+  RequestStatus,
+} from '@services/request/request.model'
+
 
 export const contractProviderFactory = (
   staticService: StaticService,
-  route: ActivatedRoute,
-  router: Router,
-  snackBar: MatSnackBar
-): LoadingWrapperModel<GrantsVariationType> => new LoadingWrapper(
-  route.params.pipe(
-    filter(({ contractType }) => !!contractType),
-    switchMap(({ contractType }): Observable<GrantsVariationType> => staticService.getStaticContract(contractType)),
-    catchError((error) => {
-      // Todo обработать ошибки
-      snackBar.open(error, translate('messages.ok'))
-      throw new Error(translate('messages.errors.contract_not_found'))
-    }),
-    publishReplay(1),
-    refCount()
+  route: ActivatedRoute
+): LoadingWrapperModel<GrantsVariationType> =>
+   new LoadingWrapper(
+      route.params.pipe(
+          filter(({ contractType }) => !!contractType),
+          switchMap(({ contractType }) => staticService.getStaticContract(contractType)),
+          map((data: GrantsVariationType): RequestModel<GrantsVariationType> => ({
+              status: RequestStatus.complete,
+              error: null,
+              payload: data
+            })),
+          publishReplay(1),
+          refCount()
+      ),
+      `pages/ListingPageComponent::${ route?.snapshot?.params?.contractType as string }`
   )
-)
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const ContractProviderDefine = (tokenName: InjectionToken<GrantsVariationType>): FactoryProvider => ({
+export const ContractProviderDefine = (tokenName: InjectionToken<RequestModel<GrantsVariationType>>): FactoryProvider => ({
   provide: tokenName,
-  deps: [StaticService, ActivatedRoute, Router, MatSnackBar],
+  deps: [StaticService, ActivatedRoute],
   useFactory: contractProviderFactory
 })

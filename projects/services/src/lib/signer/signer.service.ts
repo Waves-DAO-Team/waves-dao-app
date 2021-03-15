@@ -9,7 +9,17 @@ import {
   TransactionsSuccessResult, ISignerInvokeAnyData
 } from './signer.model'
 import {BehaviorSubject, from, Observable} from 'rxjs'
-import {publishReplay, refCount, tap, switchMap, retryWhen, delay, map, take} from 'rxjs/operators'
+import {
+  publishReplay,
+  refCount,
+  tap,
+  switchMap,
+  retryWhen,
+  delay,
+  map,
+  take,
+  distinctUntilChanged,
+} from 'rxjs/operators'
 import {HttpClient} from '@angular/common/http'
 import {translate} from '@ngneat/transloco'
 import {MatSnackBar} from '@angular/material/snack-bar'
@@ -31,7 +41,9 @@ export class SignerService {
 
   public user: Observable<SignerUser> = this.user$.pipe(tap((data) => {
     this.storageService.userData = data
-  }), publishReplay(1), refCount())
+  }),
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      publishReplay(1), refCount())
 
   constructor (
     @Inject(API) private readonly api: AppApiInterface,
@@ -42,9 +54,10 @@ export class SignerService {
 
     this.signer = new Signer({
       // Specify URL of the node on Testnet
-      NODE_URL: api.nodes // eslint-disable-line
+      // eslint-disable-next-line
+      NODE_URL: api.testnet.nodes
     })
-    this.signer.setProvider(new ProviderWeb(api.signer)).catch((e) => {
+    this.signer.setProvider(new ProviderWeb(api.testnet.signer)).catch((e) => {
       if (isDevMode()) {
         console.log('Error ProviderWeb:', e)
       }
@@ -114,7 +127,8 @@ export class SignerService {
       }),
       switchMap((tx) => from(this.signer.broadcast(tx).catch((e) => {
         console.warn(e)
-        throw new Error('broadcast could not process the request:')
+        this.snackBar.open(translate(e.message), translate('messages.ok'))
+        throw new Error(e.message)
       }))),
       switchMap((data) => {
         const d: ISignerInvokeAnyData = {
@@ -129,7 +143,7 @@ export class SignerService {
   }
 
   status (tx: string): Observable<TransactionsSuccessResult> {
-    const url = new URL('/transactions/status/', this.api.rest)
+    const url = new URL('/transactions/status/', this.api.testnet.rest)
     return this.http.get<TransactionRawState>(url.href, {
       params: {
         id: tx

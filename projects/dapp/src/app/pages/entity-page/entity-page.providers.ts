@@ -1,5 +1,10 @@
 import { InjectionToken, Provider } from '@angular/core'
-import {switchMap, publishReplay, refCount, catchError} from 'rxjs/operators'
+import {
+  switchMap,
+  publishReplay,
+  refCount,
+  map,
+} from 'rxjs/operators'
 import { ActivatedRoute } from '@angular/router'
 import { LoadingWrapper, LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
 import {
@@ -10,6 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { ContractProviderDefine } from '@services/contract/contract-provider-factory'
 import { GrantsVariationType } from '@services/static/static.model'
+import { log } from '@libs/log'
+import {RequestModel, RequestStatus} from '@services/request/request.model'
 
 export const ENTITY = new InjectionToken<LoadingWrapperModel<ContractGrantModel>>(
   'A stream with current contract'
@@ -23,17 +30,26 @@ export const entityFactory = (
   contactService: ContractService,
   route: ActivatedRoute,
   snackBar: MatSnackBar
-): LoadingWrapperModel<ContractGrantModel> => new LoadingWrapper(
+): LoadingWrapperModel<ContractGrantModel | null> => new LoadingWrapper(
   route.params.pipe(
     switchMap(({ entityId }) => contactService.entityById(entityId)),
-    catchError((error) => {
-      // Todo обработать ошибки (404)
-      snackBar.open(error, translate('messages.ok'))
-      throw new Error(translate('messages.errors.entity_not_found'))
+    log('EntityPageComponent::entityFactory'),
+    map((data: RequestModel<ContractGrantModel>) => {
+      if (data.status === RequestStatus.error) {
+        if (data?.error?.status === 503) {
+          snackBar.open(translate('messages.503'),
+              translate('messages.ok'))
+        } else {
+          snackBar.open(translate(data?.error?.message || 'Unexpected error'), translate('messages.ok'))
+        }
+      }
+
+      return data
     }),
     publishReplay(1),
     refCount()
-  )
+  ),
+    `pages/EntityPageComponent::${ route?.snapshot?.params?.entityId as string }`
 )
 
 // По этому токену будет идти стрим с необходимой компоненту информацией:

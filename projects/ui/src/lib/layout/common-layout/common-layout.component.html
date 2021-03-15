@@ -8,9 +8,9 @@
   <header class="layout__header">
     <ng-container *ngxComponentOutlet="headerComponent"></ng-container>
   </header>
-  <content class="layout__content" #content>
+  <section class="layout__content" #content>
     <router-outlet (activate)="onActivateComponent($event)"></router-outlet>
-  </content>
+  </section>
   <footer class="layout__footer">
     <ng-container *ngTemplateOutlet="footerExtension"></ng-container>
     <ng-container *ngxComponentOutlet="footerComponent"></ng-container>

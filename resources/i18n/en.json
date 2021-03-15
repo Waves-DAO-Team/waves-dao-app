@@ -22,7 +22,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2020 Waves Association",
+    "copyright": "© 2021 Waves Association",
     "telegram": "Ask in Telegram"
   },
   "tooltip": {
@@ -267,7 +267,7 @@
             "undefined": ""
           },
           "voting_started": {
-            "undefined": "Log in and vote for grant"
+            "undefined": ""
           },
           "rejected": {
             "undefined": ""
@@ -276,7 +276,7 @@
             "undefined": ""
           },
           "proposed": {
-            "undefined": "Log in and vote for the team"
+            "undefined": ""
           }
         },
         "authorized": {
@@ -293,6 +293,7 @@
             "undefined": ""
           },
           "approved": {
+            "true": "To confirm grant work",
             "undefined": ""
           }
         },
@@ -304,13 +305,14 @@
             "undefined": "You can accept the results of work"
           },
           "voting_started": {
-            "undefined": "You can finish voting on the grant. Already voted {{grantVoteScore}} participants."
+            "undefined": "You can finish voting on the grant. Already voted {{amount}} participants."
           },
           "rejected": {
             "undefined": ""
           },
           "approved": {
-            "undefined": "You can start working on grant"
+            "true": "To confirm grant work",
+            "undefined": ""
           },
           "proposed": {
             "undefined": "Please enable vote"
@@ -324,12 +326,20 @@
             "undefined": ""
           },
           "voting_started": {
-            "undefined": "Please vote for grant"
+            "true": "Please vote for grant",
+            "undefined": "Voting is still going on"
           },
           "rejected": {
             "undefined": ""
           },
           "approved": {
+            "true": "To confirm grant work",
+            "undefined": ""
+          }
+        },
+        "manager": {
+          "approved": {
+            "true": "To confirm grant work",
             "undefined": ""
           }
         }
@@ -412,11 +422,11 @@
             "undefined": ""
           },
           "proposed": {
-            "true": "You can finish voting on the grant. Already voted {{grantVoteScore}} participants.",
+            "true": "You can finish voting on the grant. Already voted {{amount}} participants.",
             "false": "Please enter the reward"
           },
           "ready_to_apply": {
-            "undefined": "You can finish voting on the team. Already voted {{allTeamVoteScore}} participants."
+            "undefined": "You can finish voting on the team. Already voted {{amount}} participants."
           },
           "team_chosen" : {
             "undefined": "Awaiting team decision. Perhaps we need to notify them"
@@ -474,7 +484,7 @@
       "all": "All"
     },
     "title": "Waves Association DAO",
-    "list_empty": "List is empty",
+    "contract_not_loaded": "The contract did not load",
     "loading": "Loading",
     "reward": "Reward",
     "list": {
@@ -695,6 +705,7 @@
   "messages": {
     "ok": "OK",
     "error": "error",
+    "503": "Blockchain node is not available. Try later",
     "errors": {
       "analyzing_failed": "Analyzing url is failed",
       "conditions_link": "Condition is not equal to link",

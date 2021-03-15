@@ -1,6 +1,3 @@
-import { Subject } from 'rxjs'
-import { ContractGrantModel } from '@services/contract/contract.model'
-
 export interface VoteEventInterface {
   voteValue: 'like' | 'dislike'
   teamIdentifier: string
@@ -11,11 +8,10 @@ export interface VoteTeamEventInterface {
 }
 
 export abstract class TemplateComponentAbstract {
-  public grant$: Subject<ContractGrantModel> | undefined
-  public abstract vote (value: 'like' | 'dislike'): void // eslint-disable-line
+  public abstract vote (value: 'like' | 'dislike', id: ''): void
   public abstract signup (): void
   public abstract openApplyModal (): void
-  public abstract voteTeam ($event: VoteTeamEventInterface): void // eslint-disable-line
+  public abstract voteTeam ($event: VoteTeamEventInterface): void
   public abstract finishVote (): void
   public abstract startWork (): void
   public abstract reject (): void
