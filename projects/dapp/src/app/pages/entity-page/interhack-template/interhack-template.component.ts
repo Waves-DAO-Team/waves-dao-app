@@ -208,7 +208,6 @@ export class InterhackTemplateComponent {
       map(([user, grant]) => prepareIsShowAddRewardBtnData(grant, user))
     )
 
-  private inputGrant: ContractGrantModel = {}
   public readonly teamsAndSolutionHeader$: Observable<IScore.IHeader> = combineLatest(
     [
       this.grant$.pipe(log('1')),
@@ -403,7 +402,7 @@ export class InterhackTemplateComponent {
     this.disruptiveContractService.stopSubmissions(id).subscribe()
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel = this.inputGrant) {
+  private prepareVoteForTaskData (grant: ContractGrantModel = {}) {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === GrantStatusEnum.proposed &&

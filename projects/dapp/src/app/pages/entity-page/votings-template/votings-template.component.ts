@@ -302,7 +302,7 @@ export class VotingsTemplateComponent {
     })
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel = {}) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
