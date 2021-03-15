@@ -73,7 +73,7 @@
             "fileReplacements": [
               {
                 "replace": "projects/dapp/src/environments/environment.ts",
-                "with": "projects/dapp/src/environments/environment.prod.ts"
+                "with": "projects/dapp/src/environments/environment.local.ts"
               }
             ]
           }
@@ -121,7 +121,7 @@
             "fileReplacements": [
               {
                 "replace": "projects/dapp/src/environments/environment.ts",
-                "with": "projects/dapp/src/environments/environment.prod.ts"
+                "with": "projects/dapp/src/environments/environment.local.ts"
               }
             ],
             "stylePreprocessorOptions": {
@@ -164,6 +164,7 @@
             "main": "projects/dapp/src/main.ts",
             "polyfills": "projects/dapp/src/polyfills.ts",
             "tsConfig": "projects/dapp/tsconfig.app.json",
+            "aot": true,
             "assets": [
               "projects/dapp/src/favicon.ico",
               {
@@ -212,7 +213,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": true,
-              "buildOptimizer": false,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -263,7 +264,7 @@
             "fileReplacements": [
               {
                 "replace": "projects/dapp/src/environments/environment.ts",
-                "with": "projects/dapp/src/environments/environment.prod.ts"
+                "with": "projects/dapp/src/environments/environment.local.ts"
               }
             ],
             "assets": [

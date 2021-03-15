@@ -2,6 +2,7 @@
 
 [![Linter](https://github.com/rieset/waves-grants/workflows/Linter/badge.svg)](https://github.com/rieset/waves-grants/actions)
 [![Testing](https://github.com/rieset/waves-grants/workflows/Testing/badge.svg)](https://github.com/rieset/waves-grants/actions)
+[![E2E](https://github.com/rieset/waves-grants/workflows/E2E/badge.svg)](https://github.com/rieset/waves-grants/actions)
 
 Waves DAO is a tool that facilitates the application and distribution of grants
 provided by the Waves Association.
