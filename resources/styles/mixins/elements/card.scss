@@ -112,6 +112,9 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        margin-top: 3rem;
+        text-decoration: underline;
+        cursor: pointer;
       }
 
       //TODO change this accordingly
@@ -119,6 +122,7 @@
         color: $gray;
         cursor: pointer;
         font-size: $font-size-small;
+        font-weight: 400;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -158,8 +162,8 @@
       }
 
       &__token-logo {
-        width: 96px;
-        height: 96px;
+        width: 32px;
+        height: 32px;
       }
 
       &__ticker {

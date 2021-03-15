@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Inject, Input, OnInit} from '@angular/core'
 import {GrantsVariationType} from '@services/static/static.model'
-import {ContractDataModel, ContractGrantRawModel, IVotings} from "@services/contract/contract.model";
-import {Observable} from "rxjs";
-import {ContractService} from "@services/contract/contract.service";
-import {map, tap} from "rxjs/operators";
+import {ContractDataModel, ContractGrantRawModel, IVotings} from '@services/contract/contract.model'
+import {Observable} from 'rxjs'
+import {ContractService} from '@services/contract/contract.service'
+import {map, tap} from 'rxjs/operators'
+import {API, AppApiInterface} from '@constants'
 
 @Component({
   selector: 'app-votings-template',
@@ -13,15 +14,16 @@ import {map, tap} from "rxjs/operators";
 export class VotingsTemplateComponent implements OnInit {
 
   @Input() public readonly contract!: GrantsVariationType
+  @Inject(API) public readonly api: AppApiInterface | undefined // eslint-disable-line
 
   tasks$: Observable<IVotings.ITask[]>  = this.contractService.stream
     .pipe(
       map((dataIn) => {
-        let tasks: IVotings.ITask[] = []
+        const tasks: IVotings.ITask[] = []
         const oldTasks = dataIn.tasks
 
         for (const key of Object.keys(oldTasks)) {
-          let newTask = {
+          const newTask = {
             status: oldTasks[key]?.status?.value || '',
             ticker: key
           }

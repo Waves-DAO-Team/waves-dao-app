@@ -1,7 +1,7 @@
 <div class="listing-page__intro">
   <img alt="promo" [attr.src]="'/assets/img/special-votings-type.png'" width="100%" height="auto"/>
 
-<!--  //TODO Marina connect banner from en.json {{ contract?.banner }}. Баннер необязательный-->
+<!--  //TODO Banner needed? ask Vova-->
 <!--  <div class="listing-page__banner mat-display-4">-->
 <!--    {{ contract?.banner }}-->
 <!--  </div>-->
@@ -9,29 +9,63 @@
 </div>
 <div class="listing-page__header">
 
-<!--  TODO Vitaly: connect name from contract when it exists {{ contract?.title }}-->
-  <h2 class="listing-page__title">Special Votings</h2>
+  <h1 class="listing-page__title">{{ contract?.title }}</h1>
 
 </div>
 <div class="listing-page__address mat-display-1">
-  <!--  TODO Vitaly: connect address from contract when it exists-->
-<!--  <a class="a a&#45;&#45;alt" [attr.href]="api?.explorer + contract?.type | linkHttp" target="_blank" rel="noopener nofollow noreferrer">-->
-<!--   {{ contract?.type }}-->
-<!--  </a>-->
+  <a class="a a--alt" [attr.href]="api?.explorer + contract?.type  | linkHttp" target="_blank" rel="noopener nofollow noreferrer">
+    {{ contract?.type }}
+  </a>
 </div>
 
-<!--  TODO Marina: Add description to the whole special votings-->
 <div class="listing-page__description">
   <div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat volutpat eget vitae nulla sit rhoncus, morbi. Mi turpis justo diam ut tempus.
-    Pretium, dolor integer laoreet tempor mauris, urna. Molestie commodo nisl, tincidunt et sapien aliquet vulputate cras nunc.
+    {{ contract?.desc }}
   </div>
-  <div class="listing-page__about" >
-
-    <!--  TODO Vitaly: connect "read more" link from contract when it exists-->
-    <a [routerLink]="['/']">
+  <div class="listing-page__about" *ngIf="contract?.name as contractName">
+    <a [routerLink]="['/', 'grants', contractName, 'about']">
       {{ 'listing.more' | transloco }}
-      read more link
     </a>
   </div>
+
+  <div class="title mat-display-4" >Important tokens</div>
+
+  <div class="listing" *ngFor="let task of tasks$ | async">
+
+    <div class="content">
+<!--      TODO put statuses for tokens-->
+<!--      <ui-tag [tags]="listGrantStatuses$ | async" (selectedTag)="selectTag($event)"></ui-tag>-->
+
+    <div
+      class="card important"
+      >
+
+
+      <div class="card__header">
+        <div class="card__header__left-block">
+          <div class="card__header__left-block__status">
+            <div class="card__header__left-block__title" >{{ task?.ticker || 'UNKNOWN TICKER' }}</div>
+            <div class="card__header__left-block__status__role-text">
+              {{ task?.status }}
+            </div>
+          </div>
+
+          <div class="card__header__left-block__desc">
+            {{ task?.description || 'Follow link to read the description' }}
+          </div>
+          <div class="card__header__left-block__address">{{ task?.link }}</div>
+          <div class="card__header__left-block__email">{{ task?.email }}</div>
+        </div>
+
+        <div class="card__header__right-block" [class.card__header__right-block--active]="1">
+          <img class="card__header__right-block__token-logo" alt="img" src="data:image/png;base64,{{ task?.logo }}=">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
 </div>

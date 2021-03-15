@@ -9,6 +9,7 @@ import {RouterTestingModule} from '@angular/router/testing'
 import {MatSnackBarModule} from '@angular/material/snack-bar'
 import {ListingModule} from '@ui/listing/listing.module'
 import {provideApi, provideAppConstants} from '@constants'
+import {TagModule} from '@ui/tag/tag.module'
 
 describe('VotingsTemplateComponent', () => {
   let component: VotingsTemplateComponent
@@ -23,7 +24,8 @@ describe('VotingsTemplateComponent', () => {
         getTranslocoModule(),
         RouterTestingModule,
         MatSnackBarModule,
-        ListingModule
+        ListingModule,
+        TagModule,
       ],
       declarations: [VotingsTemplateComponent],
       providers: [
