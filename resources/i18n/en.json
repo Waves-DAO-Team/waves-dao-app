@@ -767,9 +767,9 @@
       "preview": "assets/img/special-votings-type-preview.png",
       "img": "assets/img/special-votings-type.png",
       "title": "Special votings",
-      "desc": "This smart contract verifies new tokens on exchange.waves by means of voting",
+      "desc": "This smart contract verifies new tokens on Waves.Exchange by means of voting",
       "banner": "We decide what tokens to appear on Waves Exchange. Deal with it.",
-      "landing": "This smart contract verifies new tokens on exchange.waves by means of voting."
+      "landing": "This smart contract verifies new tokens on Waves.Exchange by means of voting."
     }
   },
   "landing-page": {
