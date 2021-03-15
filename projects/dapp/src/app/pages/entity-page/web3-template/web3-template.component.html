@@ -1,65 +1,68 @@
-<ng-template #controlsBtn>
+<ng-container *ngIf="entityData$ | async as entityData">
 
-  <button class="marginTB" (click)="initTaskVoting()" *ngIf="isInitTaskVotingtBtn$ | async">
-    {{ 'modal.btn.init_task_voting' | transloco }}
-  </button>
+  <ng-template #controlsBtn>
 
-  <button class="marginTB" (click)="finishVote()" *ngIf="isFinishVoteBtn$ | async">
-    {{'entity.finish_vote' | transloco}}
-  </button>
+    <button class="marginTB" (click)="initTaskVoting(entityData.id)" *ngIf="isInitTaskVotingtBtn$ | async">
+      {{ 'modal.btn.init_task_voting' | transloco }}
+    </button>
 
-  <button (click)="acceptWorkResult()" class="marginTB" *ngIf="isAcceptWorkResultBtn$ | async">
-    {{'entity.accept_work_result' | transloco}}
-  </button>
+    <button class="marginTB" (click)="finishVote(entityData.id)" *ngIf="isFinishVoteBtn$ | async">
+      {{'entity.finish_vote' | transloco}}
+    </button>
 
-  <button class="marginTB" *ngIf="isRejectBtn$ | async" (click)="reject()">
-    {{'entity.reject' | transloco}}
-  </button>
+    <button (click)="acceptWorkResult(entityData.id)" class="marginTB" *ngIf="isAcceptWorkResultBtn$ | async">
+      {{'entity.accept_work_result' | transloco}}
+    </button>
 
-</ng-template>
+    <button class="marginTB" *ngIf="isRejectBtn$ | async" (click)="reject(entityData.id)">
+      {{'entity.reject' | transloco}}
+    </button>
 
-<ng-template #headerControlsTemplate>
+  </ng-template>
 
-  <button class="active" (click)="addReward()" *ngIf="isShowAddRewardBtn$ | async">
-    <span *ngIf="!grant?.reward?.value; else hasReward">{{'entity.add_reward' | transloco}}</span>
-    <ng-template #hasReward>{{'entity.edit_task_details' | transloco}}</ng-template>
-  </button>
+  <ng-template #headerControlsTemplate>
 
-  <button class="active" (click)="startWork()" *ngIf="isStartWorkBtn$ | async">
-    {{'entity.start_work' | transloco}}
-  </button>
+    <button class="active" (click)="addReward(entityData.status.value, entityData.id)" *ngIf="isShowAddRewardBtn$ | async">
+      <span *ngIf="entityData.isReward; else hasReward">{{'entity.add_reward' | transloco}}</span>
+      <ng-template #hasReward>{{'entity.edit_task_details' | transloco}}</ng-template>
+    </button>
 
-</ng-template>
+    <button class="active" (click)="startWork(entityData.id)" *ngIf="isStartWorkBtn$ | async">
+      {{'entity.start_work' | transloco}}
+    </button>
 
-<ng-template #voteForTask>
-  <ui-vote-for-task
-    *ngIf="voteForTaskData.isShow"
-    [isVote]="voteForTaskData.isVote"
-    [isVoteInProcess]="voteForTaskData.isVoteInProcess"
-    (newVoteEvent)="vote($event)"
-  ></ui-vote-for-task>
-</ng-template>
+  </ng-template>
 
-<ng-template #stepper>
-  <ui-stepper [setType]="'web3'" [status]="grant?.status?.value"></ui-stepper>
-  <ui-flow-text
-    [isShowFlow]="true"
-    [grant]="(grant$ | async)"
-    [status]="(grant$ | async)?.status?.value"
-  ></ui-flow-text>
-</ng-template>
+  <ng-template #voteForTask>
+    <ui-vote-for-task
+      *ngIf="entityData.isShowVoting"
+      [isVote]="entityData.isVoteForGrant"
+      [isVoteInProcess]="isVoteInProcess"
+      (newVoteEvent)="vote($event, entityData.id)"
+    ></ui-vote-for-task>
+  </ng-template>
 
-<ui-entity
-  [contract]="contract"
-  [grant]="grant"
-  (newFinishVoteEvent)="finishVote()"
-  (newStartWorkEvent)="startWork()"
-  (newRejectEvent)="reject()"
-  (newAcceptWorkResultEvent)="acceptWorkResult()"
-  (newAddRewardEvent)="addReward()"
-  [controlsTemplate]="controlsBtn"
-  [headerControlsTemplate]="headerControlsTemplate"
-  [voteForTaskTemplate]="voteForTask"
-  [stepperTemplate]="stepper"
-></ui-entity>
+  <ng-template #stepper>
+    <ui-stepper [setType]="'web3'" [status]="entityData?.status?.value"></ui-stepper>
+    <ui-flow-text
+      [isShowFlow]="true"
+      [grant]="entityData"
+      [status]="entityData?.status?.value"
+    ></ui-flow-text>
+  </ng-template>
 
+  <ui-entity
+    [contract]="contract"
+    [grant]="entityData"
+    (newFinishVoteEvent)="finishVote(entityData.id)"
+    (newStartWorkEvent)="startWork(entityData.id)"
+    (newRejectEvent)="reject(entityData.id)"
+    (newAcceptWorkResultEvent)="acceptWorkResult(entityData.id)"
+    (newAddRewardEvent)="addReward(entityData?.status?.value, entityData.id)"
+    [controlsTemplate]="controlsBtn"
+    [headerControlsTemplate]="headerControlsTemplate"
+    [voteForTaskTemplate]="voteForTask"
+    [stepperTemplate]="stepper"
+  ></ui-entity>
+
+</ng-container>

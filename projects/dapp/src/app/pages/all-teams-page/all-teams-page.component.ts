@@ -4,7 +4,7 @@ import {LoadingWrapperModel} from '@libs/loading-wrapper/loading-wrapper'
 import {ContractGrantAppModel, ContractGrantModel,} from '@services/contract/contract.model'
 import {filter, map, takeUntil} from 'rxjs/operators'
 import {combineLatest, Observable, Subject} from 'rxjs'
-import {ALL_TEAM, ALL_TEAM_PAGE_PROVIDERS} from './all-teams-page-routing.providers'
+import {ALL_TEAM, ALL_TEAM_PAGE_PROVIDERS} from './all-teams-page.providers'
 import {ActivatedRoute} from '@angular/router'
 import {GrantUrl, IScore} from '@services/interface'
 import {GrantTypesEnum} from '@services/static/static.model'
@@ -32,15 +32,15 @@ export class AllTeamsPageComponent implements OnDestroy {
   public title$: Observable<string> = this.entity.data$
     .pipe(
       takeUntil(this.destroyed$),
-      map((data: ContractGrantModel) => data?.title?.value || ''),
+      map((data: ContractGrantModel | null) => data?.title?.value || ''),
     )
 
   public teams$: Observable<IScore.IUnit[]> = this.entity.data$
     .pipe(
       takeUntil(this.destroyed$),
-      filter((data: ContractGrantModel) => data !== null && data !== undefined),
-      filter((data: ContractGrantModel) => data.app !== null && data.app !== undefined),
-      map((data: ContractGrantModel): ContractGrantAppModel[] => data.app || []),
+      filter((data: ContractGrantModel | null) => data !== null && data !== undefined),
+      filter((data: ContractGrantModel | null) => data?.app !== null && data?.app !== undefined),
+      map((data: ContractGrantModel | null): ContractGrantAppModel[] => data?.app || []),
       map((apps: ContractGrantAppModel[]) => {
         const res: IScore.IUnit[] = []
 

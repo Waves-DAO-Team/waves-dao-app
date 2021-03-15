@@ -1,12 +1,19 @@
 import {Inject, Injectable} from '@angular/core'
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
-import {filter, map, publishReplay, refCount} from 'rxjs/operators'
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  publishReplay,
+  refCount,
+} from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {UserService} from '@services/user/user.service'
 import {RolesInterface} from '@services/user/user.interface'
 import {GrantsVariationType, GrantTypesEnum} from './static.model'
 import {translate, TranslocoService} from '@ngneat/transloco'
 import {API, AppApiInterface} from '@constants'
+import { log } from '@libs/log/log.rxjs-operator'
 
 @Injectable({
   providedIn: 'root'
@@ -50,12 +57,14 @@ export class StaticService {
   getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
     this.selectedContact$.next(contractType)
+
     return combineLatest([
       this.getContactInfo(contractType),
-      this.userService.data
+      this.userService.stream$
     ]).pipe(
+      distinctUntilChanged(([prevA, prevB], [nextA, nextB]) => prevA?.type === nextA?.type && prevB?.userAddress === nextB?.userAddress),
       filter(([contract, user]) => !!contract && !!user),
-      map(([contractInfo, user]) => {
+      map(([contractInfo, user]): GrantsVariationType => {
         if (!contractInfo) {
           throw new Error(translate('messages.errors.contract_not_found'))
         }
@@ -66,7 +75,8 @@ export class StaticService {
           permissionVote: this.checkPermissionVoted(contractInfo.name, user.roles),
           permissionSettings: this.checkPermissionSettings(contractInfo.name, user.roles)
         }
-      })
+      }),
+      log('%c StaticService::getStaticContract', 'color: gray')
     )
   }
 

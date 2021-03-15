@@ -1,43 +1,52 @@
-import { Observable, Subject, EMPTY } from 'rxjs'
+import {Observable, Subject, BehaviorSubject} from 'rxjs'
 import {
-  catchError,
   takeUntil,
   publishReplay,
-  refCount
+  refCount, map,
 } from 'rxjs/operators'
-import {isDevMode} from '@angular/core'
+import { log } from '@libs/log/log.rxjs-operator'
+import {RequestModel} from '@services/request/request.model'
 
 export interface LoadingWrapperModel<T> {
-  data$: Observable<T>
+  data$: Observable<T | null>
   error$: Observable<boolean>
   destroy: () => void
 }
 
 export class LoadingWrapper<T> {
-  readonly data$: Observable<T>
-  private readonly errorLoading$ = new Subject<boolean>()
+  readonly data$: Observable<T | null>
+  private readonly errorLoading$ = new BehaviorSubject<boolean>(false)
   private readonly destroyed$ = new Subject()
-  readonly error$: Observable<boolean> = this.errorLoading$.pipe(
-    takeUntil(this.destroyed$),
-    publishReplay(1),
-    refCount()
-  )
-
-  constructor (data: Observable<T>) {
-    this.data$ = data.pipe(
+  public error$: Observable<boolean> = this.errorLoading$.pipe(
       takeUntil(this.destroyed$),
       publishReplay(1),
-      refCount(),
-      catchError((error) => {
-        // Todo решить где и как обрабатывать ошибку
-        if (isDevMode()) {
-          console.log('LoadingWrapper::Error\n', error)
+      refCount()
+  )
+
+  constructor (data: Observable<RequestModel<T>>, name: string = '') {
+    this.data$ = data.pipe(
+      log(`%c LoadingWrapper::data$::${ name }`, 'color:orange'),
+      takeUntil(this.destroyed$),
+      map((context: RequestModel<T>): T | null => {
+        if (!context) {
+          return null
         }
-        setTimeout(() => {
+
+        if (context?.status === 'loading') {
+          return null
+        }
+
+        if (context?.status === 'error') {
           this.errorLoading$.next(true)
-        })
-        return EMPTY
-      })
+          return null
+        } else {
+          this.errorLoading$.next(false)
+        }
+
+        return context?.payload
+      }),
+      publishReplay(1),
+      refCount()
     )
   }
 

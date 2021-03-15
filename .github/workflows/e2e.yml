@@ -3,6 +3,33 @@ name: Testing
 # Run this workflow every time a new commit pushed to your repository
 on: push
 
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  DOCKER_USERNAME: "_"
+  DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
+  PROJECT: ${{ secrets.PROJECT }}
+
+  API_SIGNER: https://testnet.waves.exchange/signer/
+  API_NODES: https://nodes-testnet.wavesnodes.com
+  API_EXPLORER: https://testnet.wavesexplorer.com/address/
+
+  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
+  MEMBERSHIP: ${{ secrets.MEMBERSHIP }}
+  INTERHACK: ${{ secrets.INTERHACK }}
+  WEB3: ${{ secrets.WEB3 }}
+  DISRUPTIVE: ${{ secrets.DISRUPTIVE }}
+  VOTINGS: ${{ secrets.VOTINGS }}
+  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
+  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE }}
+  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE }}
+  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK }}
+  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
+  DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
+  VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
+  WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
+  INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
+
 jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
@@ -17,7 +44,6 @@ jobs:
         node-version: [ 14.x ]
 
     steps:
-      # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -26,6 +52,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
       - run: yarn build
+      - run: yarn envsub
       - run: yarn e2e
         env:
           NODE_ENV: production

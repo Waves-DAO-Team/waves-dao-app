@@ -22,9 +22,9 @@ import {StaticService} from '@services/static/static.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Web3TemplateComponent {
-  @Input() public readonly user!: UserDataInterface
+  @Input() public user!: UserDataInterface
 
-  @Input() public readonly contract!: GrantsVariationType
+  @Input() public contract!: GrantsVariationType
 
   @Input() public readonly constants!: AppConstantsInterface
 
@@ -34,8 +34,7 @@ export class Web3TemplateComponent {
     private readonly dialog: MatDialog, // eslint-disable-line
     public communityContractService: CommunityContractService, // eslint-disable-line
     private readonly cdr: ChangeDetectorRef // eslint-disable-line
-  ) {
-  }
+  ) {}
 
   onProposeGrant (): void {
     this.dialog.open(DialogComponent, {

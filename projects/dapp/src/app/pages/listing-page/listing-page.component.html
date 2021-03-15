@@ -4,7 +4,7 @@
         <!-- Example variant -->
          <ng-template ngSwitchCase="web3">
              <app-web3-template
-                     [user]="userService.data | async"
+                     [user]="userService.stream$ | async"
                      [contract]="contract"
                      [constants]="constants"
              ></app-web3-template>
@@ -13,7 +13,7 @@
         <!-- Default template with content for listing -->
         <ng-template ngSwitchDefault>
             <app-default-template
-                    [user]="userService.data | async"
+                    [user]="userService.stream$ | async"
                     [contract]="contract"
                     [constants]="constants"
             ></app-default-template>
