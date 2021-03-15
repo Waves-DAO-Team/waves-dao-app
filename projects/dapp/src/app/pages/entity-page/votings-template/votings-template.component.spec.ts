@@ -13,7 +13,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import {FlowTextModule} from '@ui/flow-text/flow-text.module'
 import {VotingsTemplateComponent} from '@pages/entity-page/votings-template/votings-template.component'
 import {ScoreListModule} from '@ui/score-list/score-list.module'
-import {UserService} from "@services/user/user.service";
+import {UserService} from '@services/user/user.service'
 
 describe('DisruptiveTemplateComponent', () => {
   let component: VotingsTemplateComponent
