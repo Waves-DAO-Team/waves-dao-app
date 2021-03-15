@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
+import {ChangeDetectorRef, Component, Input} from '@angular/core'
 import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
@@ -15,14 +15,11 @@ import {
   SubmitCallBackRewardArg
 } from '@ui/dialog/dialog.tokens'
 import {MatDialog} from '@angular/material/dialog'
-import {
-  TemplateComponentAbstract,
-  VoteTeamEventInterface
-} from '@pages/entity-page/entity.interface'
+import {VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
-import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
+import {combineLatest, Observable, Subject} from 'rxjs'
 import {
   getWinnerTeamId,
   isAcceptWorkResultBtn,
@@ -37,9 +34,9 @@ import {
 import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
 import {FinishApplicantsVotingComponent} from '@ui/modals/finish-applicants-voting/finish-applicants-voting.component'
-import {Async, DestroyedSubject} from "@libs/decorators";
-import {Web3TemplateInterface} from "@pages/entity-page/web3-template/web3-template.interface";
-import {log} from "@libs/log";
+import {Async, DestroyedSubject} from '@libs/decorators'
+import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
+import {log} from '@libs/log'
 
 @Component({
   selector: 'app-votings-template',
@@ -77,22 +74,22 @@ export class VotingsTemplateComponent {
     tap(grant => {
       this.teamIdList = []
       if (grant && grant?.app)
-        grant?.app.forEach(el => {
+        {grant?.app.forEach(el => {
           if (el?.score?.value && +el?.score?.value > 0) {
             this.teamIdList.push(el.id.value)
           }
-        })
+        })}
     }),
     tap(e => this.prepareVoteForTaskData(e)),
     publishReplay(1),
     refCount()
   )
 
-  private user$ = combineLatest([this.userService.data, this.entityData$])
+  private user$ = combineLatest([this.entityData$, this.userService.data])
     .pipe(
       takeUntil(this.destroyed$)
     )
-    .subscribe(([user, data]) => this.prepareVoteForTaskData(data))
+    .subscribe(([data]) => this.prepareVoteForTaskData(data))
 
   public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
@@ -167,7 +164,7 @@ export class VotingsTemplateComponent {
     )
 
 
-  constructor(
+  constructor (
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -178,7 +175,7 @@ export class VotingsTemplateComponent {
   ) {
   }
 
-  vote(value: 'like' | 'dislike', id: string): void {
+  vote (value: 'like' | 'dislike', id: string): void {
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
       complete: () => {
@@ -188,7 +185,7 @@ export class VotingsTemplateComponent {
     })
   }
 
-  signup(): void {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -197,7 +194,7 @@ export class VotingsTemplateComponent {
       })
   }
 
-  openApplyModal(grant: ContractGrantModel): void {
+  openApplyModal (grant: ContractGrantModel): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -217,25 +214,25 @@ export class VotingsTemplateComponent {
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface, id: string): void {
+  voteTeam ($event: VoteTeamEventInterface, id: string): void {
     const teamId = $event.teamIdentifier
     const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote(id: string): void {
+  finishVote (id: string): void {
     this.disruptiveContractService.finishTaskProposalVoting(id).subscribe()
   }
 
-  startWork(id: string): void {
+  startWork (id: string): void {
     this.disruptiveContractService.startWork(id).subscribe()
   }
 
-  reject(id: string): void {
+  reject (id: string): void {
     this.disruptiveContractService.rejectTask(id).subscribe()
   }
 
-  acceptWorkResult(id: string): void {
+  acceptWorkResult (id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -255,7 +252,7 @@ export class VotingsTemplateComponent {
     })
   }
 
-  finishApplicantsVote(grant: ContractGrantModel, id: string): void {
+  finishApplicantsVote (grant: ContractGrantModel, id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -280,7 +277,7 @@ export class VotingsTemplateComponent {
     })
   }
 
-  addReward(status: string, id: string): void {
+  addReward (status: string, id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -303,7 +300,7 @@ export class VotingsTemplateComponent {
     })
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
+import {ChangeDetectorRef, Component, Input} from '@angular/core'
 import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
@@ -15,10 +15,7 @@ import {
   SubmitCallBackRewardArg
 } from '@ui/dialog/dialog.tokens'
 import {MatDialog} from '@angular/material/dialog'
-import {
-  TemplateComponentAbstract,
-  VoteTeamEventInterface
-} from '@pages/entity-page/entity.interface'
+import {VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
@@ -36,9 +33,9 @@ import {
 import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
 import {FinishApplicantsVotingComponent} from '@ui/modals/finish-applicants-voting/finish-applicants-voting.component'
-import {Async, DestroyedSubject} from "@libs/decorators";
-import {Web3TemplateInterface} from "@pages/entity-page/web3-template/web3-template.interface";
-import {log} from "@libs/log";
+import {Async, DestroyedSubject} from '@libs/decorators'
+import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
+import {log} from '@libs/log'
 
 @Component({
   selector: 'app-disruptive-template',
@@ -74,11 +71,11 @@ export class DisruptiveTemplateComponent {
     tap(grant => {
       this.teamIdList = []
       if (grant && grant?.app)
-        grant?.app.forEach(el => {
+        {grant?.app.forEach(el => {
           if (el?.score?.value && +el?.score?.value > 0) {
             this.teamIdList.push(el.id.value)
           }
-        })
+        })}
     }),
     tap( e => this.prepareVoteForTaskData(e)),
     publishReplay(1),

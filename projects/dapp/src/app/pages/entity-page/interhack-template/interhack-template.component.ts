@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
+import {ChangeDetectorRef, Component, Input} from '@angular/core'
 import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
@@ -14,11 +14,7 @@ import {
   SubmitCallBackRewardArg, SubmitCallBackSubmitSolutionResultArg
 } from '@ui/dialog/dialog.tokens'
 import {MatDialog} from '@angular/material/dialog'
-import {
-  TeamsAndSolutionsControlsInterface,
-  TemplateComponentAbstract,
-  VoteTeamEventInterface
-} from '@pages/entity-page/entity.interface'
+import {TeamsAndSolutionsControlsInterface, VoteTeamEventInterface} from '@pages/entity-page/entity.interface'
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
@@ -42,8 +38,8 @@ import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
 import {AcceptWorkResultInterhackComponent} from '@ui/modals/accept-work-result-interhack/accept-work-result-interhack.component'
 import { log } from '@libs/log'
-import {Async, DestroyedSubject} from "@libs/decorators";
-import {Web3TemplateInterface} from "@pages/entity-page/web3-template/web3-template.interface";
+import {Async, DestroyedSubject} from '@libs/decorators'
+import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
 
 @Component({
   selector: 'app-interhack-template',
