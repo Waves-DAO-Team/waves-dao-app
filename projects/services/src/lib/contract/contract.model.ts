@@ -156,6 +156,12 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
 export interface ContractDataRawModel {
   address?: string
   tasks?: {[s: string]: ContractGrantRawModel}
+
+  description?: {[s: string]: {[s: string]: ContractRawDataString}}
+  email?: {[s: string]: ContractRawDataString}
+  link?: {[s: string]: ContractRawDataString}
+  logo?: {[s: string]: ContractRawDataString}
+  ticker?: {[s: string]: ContractRawDataString}
 }
 
 export interface ContractDataModel {
@@ -181,5 +187,16 @@ export interface ContractMembershipDataModel {
       }}
     members: ContractRawDataString
     size: ContractRawDataNumber
+  }
+}
+
+export namespace IVotings {
+  export interface ITask {
+    status?: string
+    logo?: string
+    description?: string
+    link?: string
+    email?: string
+    ticker?: string
   }
 }

@@ -91,7 +91,9 @@ export class VotingsTemplateComponent {
     )
     .subscribe(([data]) => this.prepareVoteForTaskData(data))
 
-  public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
+  // TODO Vitaly: Удалить все неиспользуемые методы
+
+    public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
       map((grants: ContractGrantModel): ContractGrantAppModel[] => grants?.app || []),
