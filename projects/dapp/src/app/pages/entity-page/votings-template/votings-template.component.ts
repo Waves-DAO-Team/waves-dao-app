@@ -22,7 +22,7 @@ import {
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
 import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
-import {combineLatest, Observable, Subject} from 'rxjs'
+import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {
   getWinnerTeamId,
   isAcceptWorkResultBtn,
@@ -48,7 +48,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
 
   grantStatusEnum = GrantStatusEnum
 
-  grant$ = new Subject<ContractGrantModel>()
+  grant$ = new BehaviorSubject<ContractGrantModel>({})
 
   private readonly destroyed$ = new Subject()
 
@@ -303,7 +303,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     } else {
       this.voteForTaskData.isShow = false
     }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+    if (grant && grant.id && grant?.voted && !!grant?.voted[this.userService.data.getValue()?.userAddress]) {
       this.voteForTaskData.isVote = true
     } else {
       this.voteForTaskData.isVote = false

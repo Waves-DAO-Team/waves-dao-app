@@ -4,16 +4,24 @@ export const environment = {
   confirmations: 0,
   grantsProgramLink: '${GRANT_PROGRAM_LINK}',
   about: {
-    disruptive: '${DISRUPTIVE_SHOW_MORE}',
-    votings: '${VOTINGS_SHOW_MORE}',
-    web3: '${WEB3_SHOW_MORE}',
-    interhack: '${INTERHACK_SHOW_MORE}'
+    disruptive: '${DISRUPTIVE_ABOUT_LINK}',
+    votings: '${VOTINGS_ABOUT_LINK}',
+    web3: '${WEB3_ABOUT_LINK}',
+    interhack: '${INTERHACK_ABOUT_LINK}'
   },
   apis: {
-    nodes: 'https://nodes-testnet.wavesnodes.com',
-    signer: 'https://testnet.waves.exchange/signer/',
-    rest: 'https://nodes-testnet.wavesnodes.com',
-    explorer: 'https://testnet.wavesexplorer.com/address/',
+    testnet: {
+      nodes: 'https://nodes-testnet.wavesnodes.com',
+      signer: 'https://testnet.waves.exchange/signer/',
+      rest: 'https://nodes-testnet.wavesnodes.com',
+      explorer: 'https://testnet.wavesexplorer.com/address/',
+    },
+    mainnet: {
+      nodes: 'https://nodes.wavesnodes.com',
+      signer: 'https://waves.exchange/signer/',
+      rest: 'https://nodes.wavesnodes.com',
+      explorer: 'https://wavesexplorer.com/address/',
+    },
     management: {
       membership: '${MEMBERSHIP}'
     },

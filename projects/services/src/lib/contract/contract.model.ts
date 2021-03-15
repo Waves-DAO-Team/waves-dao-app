@@ -17,57 +17,9 @@ export interface ContractRawDataNumber {
   type: ContractRawDataTypeNumber
 }
 
-export interface TeamsScoreLinkModel {
-  name: string,
-  link: string,
-  score: number | string
-}
-
 export type ContractRawData = ContractRawDataString[]
-export interface ContractGrantExtendedParentModel {
-  grants: ContractGrantExtendedModel[]
-  selectedTag: string
-  isDAO: boolean
-}
-export interface ContractGrantFullAppModel {
-  manager: string
-  address: string
-  working: {
-    group: {
-      member: {
-        [s: string]: { weight: ContractRawDataString
-        }
-      }
-      name: ContractRawDataString
-      size: ContractRawDataNumber
-    }
-  }
-  dao: {
-    member: {[s: string]: {
-      weight: ContractRawDataString
-    }}
-    members: ContractRawDataString
-    size: ContractRawDataNumber
-  }
-  tasks: {[s: string]: ContractGrantRawModel},
-  description?: {
-    [s: string]: {
-      [s: string]: ContractRawDataNumber
-    }
-  },
-  email?: {
-    [s: string]: ContractRawDataNumber
-  },
-  link?: {
-    [s: string]: ContractRawDataNumber
-  },
-  logo?: {
-    [s: string]: ContractRawDataNumber
-  },
-  ticker?: {
-    [s: string]: ContractRawDataNumber
-  }
-}
+
+export type ContractGroupContext = {[s: string]: ContractRawDataString | ContractGroupContext}
 
 export interface ContractGrantAppModel {
   id: ContractRawDataString
@@ -141,7 +93,11 @@ export interface ContractGrantCommonModel {
   link?: ContractRawDataString
   reward?: ContractRawDataNumber
   status?: ContractRawDataString
+  leader?: ContractRawDataString
   title?: ContractRawDataString
+  performer?: ContractRawDataString
+  isShowAppliers?: boolean
+  report?: ContractRawDataString,
   vh?: {[s: string]: ContractRawDataString}
   voted?: {[s: string]: ContractRawDataString}
   voting?: {
@@ -150,20 +106,8 @@ export interface ContractGrantCommonModel {
   }
 }
 
-export interface ContractDataIterationModel {
-  [s: string]: any // eslint-disable-line
-}
-
-export interface ContractGrantRawModel extends ContractGrantCommonModel {
-  leader?: {
-    key: string
-    type: string
-    value: string
-  }
-  app?: {[s: string]: ContractGrantAppModel}
-}
-
 export interface GrantParams {
+  my?: boolean,
   amount?: string,
   score?: string,
   count?: string,
@@ -171,10 +115,14 @@ export interface GrantParams {
   min?: string
   label?: string
   important?: boolean
-  winnerName?: string
+  winnerName?: string | null
   allTeamVoteScore?: string
   solutionCount?: string
   teamVoteScore?: string
+}
+
+export interface ContractGrantRawModel extends ContractGrantCommonModel {
+  app?: {[s: string]: ContractGrantAppModel}
 }
 
 export interface ContractGrantModel extends ContractGrantCommonModel {
@@ -186,50 +134,52 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   isShowAppliers?: boolean
   report?: ContractRawDataString,
   label?: GrantParams
+  createdAt?: ContractRawDataNumber
+  winnerName?: string
 }
 
-export interface ContractGrantExtendedModel extends ContractGrantModel {
-  grants: ContractGrantExtendedModel[]
-  voteText?: string
-  statusText?: string
-  rewardText?: string
-  canBeCompleted?: string[]
-}
+// export interface ContractGrantRawModel extends ContractGrantCommonModel {
+//   tasks?: {[s: string]: ContractGrantModel}
+//   app?: {[s: string]: ContractGrantAppModel}
+// }
 
-export interface ContractGrantExtendedParentModel extends ContractGrantExtendedModel{
-  grants: ContractGrantExtendedModel[]
-  selectedTag: string
-  isDAO: boolean
+
+
+// export interface ContractGrantExtendedModel extends ContractGrantModel {
+//   grants: ContractGrantExtendedModel[]
+//   voteText?: string
+//   statusText?: string
+//   rewardText?: string
+//   canBeCompleted?: string[]
+// }
+
+export interface ContractDataRawModel {
+  address?: string
+  tasks?: {[s: string]: ContractGrantRawModel}
 }
 
 export interface ContractDataModel {
   address: string
-  manager: string
-  working: {
+  tasks: ContractGrantModel[]
+}
+
+export interface ContractMembershipDataModel {
+  address?: string
+  manager?: string
+  working?: {
     group: {
       member: {[s: string]: {
-        weight: ContractRawDataString
-      }}
+          weight: ContractRawDataString
+        }}
       name: ContractRawDataString
       size: ContractRawDataNumber
     }
   }
-  dao: {
+  dao?: {
     member: {[s: string]: {
-      weight: ContractRawDataString
-    }}
+        weight: ContractRawDataString
+      }}
     members: ContractRawDataString
     size: ContractRawDataNumber
-  }
-  tasks: {[s: string]: ContractGrantRawModel}
-}
-export namespace IVotings {
-  export interface ITask {
-    status?: string
-    logo?: string
-    description?: string
-    link?: string
-    email?: string
-    ticker?: string
   }
 }

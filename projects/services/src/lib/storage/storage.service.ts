@@ -67,11 +67,11 @@ export class StorageService {
   }
 
   // Access token
-  public get contactAddress (): string | null {
+  public get contractAddress (): string | null {
     return this.getLocal(this.currentContractAddress)
   }
 
-  public set contactAddress (value: string | null) {
+  public set contractAddress (value: string | null) {
     if (!value) {
       this.deleteLocal(this.currentContractAddress)
       return

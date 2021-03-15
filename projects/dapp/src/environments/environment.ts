@@ -10,10 +10,18 @@ export const environment = {
     interhack: '${INTERHACK_ABOUT_LINK}'
   },
   apis: {
-    nodes: 'https://nodes-testnet.wavesnodes.com',
-    signer: 'https://testnet.waves.exchange/signer/',
-    rest: 'https://nodes-testnet.wavesnodes.com',
-    explorer: 'https://testnet.wavesexplorer.com/address/',
+    testnet: {
+      nodes: 'https://nodes-testnet.wavesnodes.com',
+      signer: 'https://testnet.waves.exchange/signer/',
+      rest: 'https://nodes-testnet.wavesnodes.com',
+      explorer: 'https://testnet.wavesexplorer.com/address/',
+    },
+    mainnet: {
+      nodes: 'https://nodes.wavesnodes.com',
+      signer: 'https://waves.exchange/signer/',
+      rest: 'https://nodes.wavesnodes.com',
+      explorer: 'https://wavesexplorer.com/address/',
+    },
     management: {
       membership: '${MEMBERSHIP}'
     },

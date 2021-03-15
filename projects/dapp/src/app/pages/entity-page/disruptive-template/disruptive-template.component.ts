@@ -300,7 +300,7 @@ export class DisruptiveTemplateComponent implements TemplateComponentAbstract, O
     } else {
       this.voteForTaskData.isShow = false
     }
-    if (grant && grant.id && this.userService.data.getValue().voted.includes(grant.id)) {
+    if (grant && grant.id && grant?.voted && !!grant?.voted[this.userService.data.getValue()?.userAddress]) {
       this.voteForTaskData.isVote = true
     } else {
       this.voteForTaskData.isVote = false

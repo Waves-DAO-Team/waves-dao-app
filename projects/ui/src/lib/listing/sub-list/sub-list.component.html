@@ -1,5 +1,4 @@
 <div class="title mat-display-4" *ngIf="title && grants?.length > 0">{{title}}</div>
-
 <a
   class="card"
   *ngFor="let grant of grants"
@@ -13,6 +12,10 @@
 
         <div class="card__header__left-block__status__role-text" *ngIf="grant?.label?.label">
           {{ grant?.label?.label }}
+        </div>
+
+        <div class="card__header__left-block__status__role-text" *ngIf="!grant?.status?.value">
+          {{ grant?.createdAt.value | date }}
         </div>
       </div>
       <div class="card__header__left-block__title">{{grant?.title?.value}}</div>

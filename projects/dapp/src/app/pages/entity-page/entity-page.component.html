@@ -24,15 +24,12 @@
           [contract]="info"
         ></app-disruptive-template>
       </ng-template>
-
-<!--      TODO Vitaly: Здесь не знаю - нужно ли менять параметры?-->
       <ng-template ngSwitchCase="votings">
         <app-special-votings-template
           [grant]="entity.data$ | async"
           [contract]="info"
         ></app-special-votings-template>
       </ng-template>
-
     </div>
   </div>
   <div class="container__right">

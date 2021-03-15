@@ -164,6 +164,7 @@
             "main": "projects/dapp/src/main.ts",
             "polyfills": "projects/dapp/src/polyfills.ts",
             "tsConfig": "projects/dapp/tsconfig.app.json",
+            "aot": true,
             "assets": [
               "projects/dapp/src/favicon.ico",
               {
@@ -212,7 +213,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": true,
-              "buildOptimizer": false,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",

@@ -1,4 +1,3 @@
-// eslint-disable
 export enum RoleEnum {
   unauthorized = 'unauthorized',
   authorized = 'authorized',
@@ -29,8 +28,6 @@ export interface UserDataInterface {
   addressWorkGroup: string[]
   masterAddress: string
   roles: RolesInterface
-  voted: string[]
-  apply: string[]
   balance: string
   manager: string
 }

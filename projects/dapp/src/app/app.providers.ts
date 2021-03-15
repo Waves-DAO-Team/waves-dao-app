@@ -14,10 +14,18 @@ export interface UserInterface {
 }
 
 export interface AppApiInterface {
-  nodes: string
-  signer: string
-  rest: string
-  explorer: string
+  testnet: {
+    nodes: string
+    signer: string
+    rest: string
+    explorer: string
+  }
+  mainnet: {
+    nodes: string
+    signer: string
+    rest: string
+    explorer: string
+  }
   confirmations: number
   management: {
     membership: string

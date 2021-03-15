@@ -10,18 +10,19 @@ import {
   AppConstantsInterface
 } from '@constants'
 import { SignerService } from '@services/signer/signer.service'
-import { SignerUser } from '@services/signer/signer.model'
-import { Observable, Subject } from 'rxjs'
+import {combineLatest, Observable, Subject } from 'rxjs'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { translate } from '@ngneat/transloco'
 import { Router } from '@angular/router'
 import { UserService } from '@services/user/user.service'
-import { RoleEnum } from '@services/user/user.interface'
 import { Location } from '@angular/common'
 import { ContractService } from '@services/contract/contract.service'
 import { map, take, takeUntil } from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { StaticService } from '@services/static/static.service'
+import { log } from '@libs/log'
+import { HeaderComponentUserModel } from './header.model'
+import {RoleEnum} from '@services/user/user.interface'
 
 @Component({
   selector: 'ui-header',
@@ -30,17 +31,25 @@ import { StaticService } from '@services/static/static.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  public roleEnum = RoleEnum
+
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
-  public readonly user$: Observable<SignerUser> = this.signerService.user
+  public readonly user$: Observable<HeaderComponentUserModel> =
+      combineLatest([this.signerService.user, this.userService.stream$]).pipe(
+          takeUntil(this.destroyed$),
+          log('HeaderComponent::user$'),
+          map(([balance, user]) => ({
+              ...user,
+              ...balance
+            }))
+      )
+
 
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   public readonly contractsList$ = this.staticService.getContactsList()
-  public readonly roleEnum = RoleEnum
   isToggleMenuOpen = false
-
-  public readonly userRole$ = this.userService.data.pipe(takeUntil(this.destroyed$), map((data) => data.userRole))
 
   constructor (
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,

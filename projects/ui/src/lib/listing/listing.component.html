@@ -1,5 +1,5 @@
 <div class="listing">
-    <div class="content">
+  <div class="content">
       <ui-tag [tags]="listGrantStatuses$ | async" (selectedTag)="selectTag($event)"></ui-tag>
 
       <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
@@ -22,8 +22,8 @@
       </div>
 
       <ng-template #loadingOrErrorTemplate>
-        <ng-container *ngIf="grants.error$ | async; else loading">
-          {{'listing.list_empty' | transloco}}
+        <ng-container *ngIf="(grants.error$ | async); else loading">
+          {{'listing.contract_not_loaded' | transloco}}
         </ng-container>
       </ng-template>
 

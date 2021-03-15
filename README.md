@@ -1,7 +1,8 @@
 # Waves Association DAO
 
-[![Linter](https://github.com/rieset/waves-grants/workflows/Linter/badge.svg)](https://github.com/rieset/waves-grants/actions)
-[![Testing](https://github.com/rieset/waves-grants/workflows/Testing/badge.svg)](https://github.com/rieset/waves-grants/actions)
+[![Linter](https://github.com/rieset/waves-dao-app/actions/workflows/githublinter.yml/badge.svg)](https://github.com/rieset/waves-dao-app/actions/workflows/githublinter.yml)
+[![Testing](https://github.com/rieset/waves-dao-app/actions/workflows/testing.yml/badge.svg)](https://github.com/rieset/waves-dao-app/actions/workflows/testing.yml)
+[![E2E](https://github.com/rieset/waves-dao-app/actions/workflows/e2e.yml/badge.svg)](https://github.com/rieset/waves-dao-app/actions/workflows/e2e.yml)
 
 Waves DAO is a tool that facilitates the application and distribution of grants
 provided by the Waves Association.
