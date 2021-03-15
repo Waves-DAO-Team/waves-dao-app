@@ -70,7 +70,7 @@ export class DisruptiveTemplateComponent {
       isShowVoting: user.roles.isDAO && grant?.status?.value === GrantStatusEnum.votingStarted,
       isVoteForGrant: user.roles.isDAO && !!grant?.voted && !!grant?.voted[user.userAddress]
     })),
-    log('Web3TemplateComponent::entityData$'),
+    log('DisruptiveTemplateComponent::entityData$'),
     tap(grant => {
       this.teamIdList = []
       if (grant && grant?.app)
