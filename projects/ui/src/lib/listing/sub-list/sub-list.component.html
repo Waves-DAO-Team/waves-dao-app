@@ -15,7 +15,7 @@
         </div>
 
         <div class="card__header__left-block__status__role-text" *ngIf="!grant?.status?.value">
-          {{ grant?.createdAt.value | date }}
+          {{ grant?.createdAt?.value | date }}
         </div>
       </div>
       <div class="card__header__left-block__title">{{grant?.title?.value}}</div>

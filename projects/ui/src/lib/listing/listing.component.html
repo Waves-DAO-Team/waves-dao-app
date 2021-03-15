@@ -20,6 +20,7 @@
                 [grants]="otherGrantList"
         ></ui-sub-list>
       </div>
+
       <ng-template #loadingOrErrorTemplate>
         <ng-container *ngIf="(grants.error$ | async); else loading">
           {{'listing.contract_not_loaded' | transloco}}
