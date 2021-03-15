@@ -13,6 +13,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import {FlowTextModule} from '@ui/flow-text/flow-text.module'
 import {VotingsTemplateComponent} from '@pages/entity-page/votings-template/votings-template.component'
 import {ScoreListModule} from '@ui/score-list/score-list.module'
+import {UserService} from "@services/user/user.service";
 
 describe('DisruptiveTemplateComponent', () => {
   let component: VotingsTemplateComponent
@@ -20,7 +21,13 @@ describe('DisruptiveTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatDialogModule, HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, MatSnackBarModule, EntityModule,
+      imports: [
+        MatDialogModule,
+        HttpClientTestingModule,
+        getTranslocoModule(),
+        RouterTestingModule,
+        MatSnackBarModule,
+        EntityModule,
         MarkdownModule,
         VoteForTaskModule,
         StepperModule,
@@ -30,6 +37,7 @@ describe('DisruptiveTemplateComponent', () => {
       ],
       declarations: [VotingsTemplateComponent],
       providers: [
+        UserService,
         provideAppConstants(),
         provideApi(),
         MarkdownService, {
