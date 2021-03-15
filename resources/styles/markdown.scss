@@ -15,16 +15,17 @@ markdown {
     empty-cells: hide;
     margin-bottom: 12px;
     margin-top: 0;
+    :nth-child(odd) {
+      margin-bottom: 0;
+    }
+    :nth-child(even) {
+      margin-bottom: 15px;
+    }
 
     li {
       margin-top: 0;
-      margin-bottom: 12px;
-      :nth-child(odd) {
-        margin-bottom: 0;
-      }
-      :nth-child(even) {
-        margin-bottom: 15px;
-      }
+      //margin-bottom: 12px;
+
       p {
         margin-bottom: 0;
       }
@@ -32,19 +33,8 @@ markdown {
   }
   h1 {
     font-size: $font_size_h2 !important;
-    font-weight: 700 !important;
-  }
-
-  g-emoji {
-    display: none;
-    appearance: none;
-  }
-
-  h2 {
-    font-size: $font_size_h2 !important;
-    font-weight: 500 !important;
+    width: auto;
     border-bottom: 4px solid $color_waves_blue;
-    width: max-content;
     padding-bottom: 8px;
     g-emoji {
       display: none !important;
@@ -56,8 +46,28 @@ markdown {
     }
   }
 
-  h3 {
+  g-emoji {
+    display: none;
+    appearance: none;
+  }
+
+  h2 {
     font-size: $font_size_h3 !important;
+    font-weight: 500 !important;
+    width: auto;
+    padding-top: 16px;
+    g-emoji {
+      display: none !important;
+      appearance: none !important;
+    }
+    .emoji {
+      display: none !important;
+      appearance: none !important;
+    }
+  }
+
+  h3 {
+    font-size: $font_size_h34 !important;
     font-weight: 500 !important;
   }
 
