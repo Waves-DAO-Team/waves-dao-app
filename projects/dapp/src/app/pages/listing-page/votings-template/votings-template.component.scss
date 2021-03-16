@@ -60,6 +60,12 @@
       &__status {
         align-items: center;
       }
+
+      &__desc {
+        @include media('<=phone') {
+          max-width: unset;
+        }
+      }
     }
     &__right-block {
       justify-content: flex-start !important;

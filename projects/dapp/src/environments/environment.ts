@@ -62,6 +62,7 @@ export const environment = {
     landing: '',
     guide: 'guide',
     listing: 'grants/:contractType',
+    community: 'community/:contractType',
     about: 'grants/:contractType/about',
     entity: 'grants/:contractType/:entityId',
     createGrant: 'grants/:contractType/create-grant',
