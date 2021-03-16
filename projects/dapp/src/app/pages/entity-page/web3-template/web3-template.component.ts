@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -25,7 +25,7 @@ import { log } from '@libs/log'
   templateUrl: './web3-template.component.html',
   styleUrls: ['./web3-template.component.scss']
 })
-export class Web3TemplateComponent  {
+export class Web3TemplateComponent implements OnDestroy {
   @Input() public readonly contract!: GrantsVariationType
 
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
@@ -179,5 +179,7 @@ export class Web3TemplateComponent  {
       })
     }
   }
+
+  ngOnDestroy (): void {}
 
 }

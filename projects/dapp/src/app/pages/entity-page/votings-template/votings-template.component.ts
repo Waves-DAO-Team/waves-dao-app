@@ -39,19 +39,19 @@ import {IScore} from '@services/interface'
 import {FinishApplicantsVotingComponent} from '@ui/modals/finish-applicants-voting/finish-applicants-voting.component'
 import {Web3TemplateInterface} from "@pages/entity-page/web3-template/web3-template.interface";
 import {log} from "@libs/log";
-import {Async} from "@libs/decorators";
+import {Async, DestroyedSubject} from "@libs/decorators";
 
 @Component({
   selector: 'app-votings-template',
   templateUrl: './votings-template.component.html',
   styleUrls: ['./votings-template.component.scss']
 })
-export class VotingsTemplateComponent {
+export class VotingsTemplateComponent implements OnDestroy {
 
   @Input() public readonly contract!: GrantsVariationType
   @Async() @Input('grant') public readonly grant$!: Observable<ContractGrantModel>
 
-  private readonly destroyed$ = new Subject()
+  @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
   public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
     takeUntil(this.destroyed$),
@@ -93,5 +93,7 @@ export class VotingsTemplateComponent {
         this.snackBar.open(error, translate('messages.ok'))
       })
   }
+
+  ngOnDestroy (): void {}
 
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
@@ -42,7 +42,7 @@ import {log} from '@libs/log'
   templateUrl: './disruptive-template.component.html',
   styleUrls: ['./disruptive-template.component.scss']
 })
-export class DisruptiveTemplateComponent {
+export class DisruptiveTemplateComponent implements OnDestroy {
   @Input() public readonly contract!: GrantsVariationType
 
   @Async() @Input('grant') public readonly grant$!: Observable<ContractGrantModel>
@@ -302,5 +302,7 @@ export class DisruptiveTemplateComponent {
       this.voteForTaskData.isVote = false
     }
   }
+
+  ngOnDestroy (): void {}
 
 }

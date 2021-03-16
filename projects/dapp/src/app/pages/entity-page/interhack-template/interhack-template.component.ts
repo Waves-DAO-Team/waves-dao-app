@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core'
+import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
@@ -46,7 +46,7 @@ import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-templ
   templateUrl: './interhack-template.component.html',
   styleUrls: ['./interhack-template.component.scss']
 })
-export class InterhackTemplateComponent {
+export class InterhackTemplateComponent implements OnDestroy {
 
   @Input() public readonly contract!: GrantsVariationType
 
@@ -419,5 +419,7 @@ export class InterhackTemplateComponent {
       this.voteForTaskData.isVote = false
     }
   }
+
+  ngOnDestroy (): void {}
 
 }
