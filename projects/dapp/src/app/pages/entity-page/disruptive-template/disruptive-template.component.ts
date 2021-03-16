@@ -82,14 +82,6 @@ export class DisruptiveTemplateComponent {
     refCount()
   )
 
-
-  // private user$ = this.userService.data
-  //   .pipe(
-  //     takeUntil(this.destroyed$),
-  //     filter(() => this.inputGrant?.id !== undefined)
-  //   )
-  //   .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
-
   public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
@@ -161,22 +153,6 @@ export class DisruptiveTemplateComponent {
       takeUntil(this.destroyed$),
       map(([user, grant]) => prepareIsRejectBtnData(grant, user))
     )
-
-
-  // @Input() set grant (data: ContractGrantModel) {
-  //   if (data !== this.inputGrant) {
-  //     this.inputGrant = data
-  //     this.prepareVoteForTaskData(data)
-  //   }
-  //   this.grant$.next(data)
-  // }
-
-  // get grant ():
-  //   ContractGrantModel {
-  //   return this.inputGrant
-  // }
-
-  // private inputGrant: ContractGrantModel = {}
 
   constructor (
     private route: ActivatedRoute, // eslint-disable-line

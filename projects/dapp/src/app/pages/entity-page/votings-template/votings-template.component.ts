@@ -58,68 +58,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
       filter(() => this.inputGrant?.id !== undefined)
     )
     .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
-
-  // TODO Vitaly: Удалить все неиспользуемые методы
-
-  public readonly isShowTeamsBtn$: Observable<boolean> = this.grant$
-    .pipe(
-      takeUntil(this.destroyed$),
-      map((grants: ContractGrantModel): ContractGrantAppModel[] => grants?.app || []),
-      map((app: ContractGrantAppModel[]) => !!app.find((a) => !!a.process))
-    )
-
-  public readonly teamsHeader$: Observable<IScore.IHeader> = combineLatest(
-    [this.grant$, this.userService.data, this.userService.isBalanceMoreCommission$])
-    .pipe(
-      filter(([grant]) => grant !== null && grant !== undefined),
-      map(([grant, user, isBalance]): IScore.IHeader => prepareTeamsHeaderData(grant, user, isBalance))
-    )
-
-  public readonly teams$: Observable<IScore.IUnit[]> = combineLatest(
-    [this.grant$, this.userService.data, this.isShowTeamsBtn$]
-  )
-    .pipe(
-      takeUntil(this.destroyed$),
-      filter(([grant]) => grant !== null && grant !== undefined),
-      map(([grant, user, isProcess]) => prepareTeamsData(grant, user, isProcess))
-    )
-
-  public readonly isShowStepperAndTeam$: Observable<boolean> = this.grant$
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(e => typeof e?.status?.value === 'string' ? e?.status?.value : ''),
-      map(e => e !== GrantStatusEnum.rejected),
-    )
-
-  public readonly isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => isShowAddRewardBtn(user, grant))
-    )
-
-  public readonly isStartWorkBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => isStartWorkBtn(user, grant))
-    )
-
-  public readonly isFinishApplicantsVoteBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => isFinishApplicantsVoteBtn(user, grant))
-    )
-
-  public readonly isAcceptWorkResultBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => isAcceptWorkResultBtn(user, grant))
-    )
-
-  public readonly isFinishVoteBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => isFinishVoteBtn(user, grant))
-    )
+  
 
   public voteForTaskData = {
     isShow: false,
@@ -127,14 +66,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     isVoteInProcess: false
   }
 
-  public readonly isRejectBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => prepareIsRejectBtnData(grant, user))
-    )
-
-
-  @Input() set grant (data: ContractGrantModel) {
+  @Input() set grant(data: ContractGrantModel) {
     if (data !== this.inputGrant) {
       this.inputGrant = data
       this.prepareVoteForTaskData(data)
@@ -142,14 +74,14 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     this.grant$.next(data)
   }
 
-  get grant ():
+  get grant():
     ContractGrantModel {
     return this.inputGrant
   }
 
   private inputGrant: ContractGrantModel = {}
 
-  constructor (
+  constructor(
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -160,7 +92,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
   ) {
   }
 
-  vote (value: 'like' | 'dislike'): void {
+  vote(value: 'like' | 'dislike'): void {
     const id = this.grant.id || ''
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
@@ -171,7 +103,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     })
   }
 
-  signup (): void {
+  signup(): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -180,7 +112,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
       })
   }
 
-  openApplyModal (): void {
+  openApplyModal(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -200,26 +132,26 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     })
   }
 
-  voteTeam ($event: VoteTeamEventInterface): void {
+  voteTeam($event: VoteTeamEventInterface): void {
     const id = this.grant?.id as string
     const teamId = $event.teamIdentifier
     const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote (): void {
+  finishVote(): void {
     this.disruptiveContractService.finishTaskProposalVoting(this.grant?.id as string).subscribe()
   }
 
-  startWork (): void {
+  startWork(): void {
     this.disruptiveContractService.startWork(this.grant?.id as string).subscribe()
   }
 
-  reject (): void {
+  reject(): void {
     this.disruptiveContractService.rejectTask(this.grant?.id as string).subscribe()
   }
 
-  acceptWorkResult (): void {
+  acceptWorkResult(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -239,7 +171,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     })
   }
 
-  finishApplicantsVote (): void {
+  finishApplicantsVote(): void {
 
     const teamIdList: string[] = []
     this.grant.app?.forEach(el => {
@@ -273,7 +205,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     })
   }
 
-  addReward (): void {
+  addReward(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -297,7 +229,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     })
   }
 
-  private prepareVoteForTaskData (grant: ContractGrantModel) {
+  private prepareVoteForTaskData(grant: ContractGrantModel) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === this.grantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
@@ -310,7 +242,7 @@ export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDe
     }
   }
 
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     this.destroyed$.next()
   }
 }

@@ -69,8 +69,8 @@
 
     <ui-flow-text
       [isShowFlow]="true"
-      [grant]="(grant$ | async)"
-      [status]="(grant$ | async)?.status?.value"
+      [grant]="entityData"
+      [status]="entityData?.status?.value"
     ></ui-flow-text>
 
   </ng-template>
