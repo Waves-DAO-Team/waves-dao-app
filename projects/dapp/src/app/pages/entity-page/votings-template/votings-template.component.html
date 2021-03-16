@@ -1,3 +1,5 @@
-<ui-entity
-  [contract]="contract" [grant]="grant"
-></ui-entity>
+<ng-container *ngIf="entityData$ | async as entityData">
+  <ui-entity
+    [contract]="contract" [grant]="entityData"
+  ></ui-entity>
+</ng-container>
