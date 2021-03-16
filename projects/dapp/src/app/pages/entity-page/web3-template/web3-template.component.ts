@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { GrantsVariationType } from '@services/static/static.model'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
 import {map, publishReplay, refCount, take, takeUntil} from 'rxjs/operators'
@@ -19,7 +19,7 @@ import {combineLatest, Observable, Subject} from 'rxjs'
 import {Async, DestroyedSubject} from '@libs/decorators'
 import { Web3TemplateInterface } from './web3-template.interface'
 import { log } from '@libs/log'
-import {getEntityData} from "@pages/entity-page/functions";
+import {getEntityData} from '@pages/entity-page/functions'
 
 @Component({
   selector: 'app-web3-template',

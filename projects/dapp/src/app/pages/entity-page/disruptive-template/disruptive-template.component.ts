@@ -36,7 +36,7 @@ import {FinishApplicantsVotingComponent} from '@ui/modals/finish-applicants-voti
 import {Async, DestroyedSubject} from '@libs/decorators'
 import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
 import {log} from '@libs/log'
-import {getEntityData} from "@pages/entity-page/functions";
+import {getEntityData} from '@pages/entity-page/functions'
 
 @Component({
   selector: 'app-disruptive-template',

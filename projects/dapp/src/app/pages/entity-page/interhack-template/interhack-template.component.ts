@@ -40,7 +40,7 @@ import {AcceptWorkResultInterhackComponent} from '@ui/modals/accept-work-result-
 import { log } from '@libs/log'
 import {Async, DestroyedSubject} from '@libs/decorators'
 import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
-import {getEntityData} from "@pages/entity-page/functions";
+import {getEntityData} from '@pages/entity-page/functions'
 
 @Component({
   selector: 'app-interhack-template',
@@ -66,13 +66,11 @@ export class InterhackTemplateComponent implements OnDestroy {
     refCount()
   )
 
-
   voteForTaskData = {
     isShow: false,
     isVote: false,
     isVoteInProcess: false
   }
-  // grant$ = new BehaviorSubject<ContractGrantModel>({})
 
   public readonly isStopSubmissionsBtn$: Observable<boolean> =
     combineLatest([this.userService.data, this.grant$])

@@ -175,7 +175,7 @@ export const prepareTeamsHeaderData = (
     }
   })
 
-  const res: IScore.IHeader = {
+  return {
     applyBtnText: translate('entity.apply'),
     isApplyBtn: teamsControls(user, grant).isApplyBtn || false,
     isBalanceMoreCommission: isBalance !== false,
@@ -184,8 +184,6 @@ export const prepareTeamsHeaderData = (
     titleText: translate('entity.teams'),
     isShowLogInForApplyBtn: user.roles.isUnauthorized && !isProcess
   }
-
-  return res
 
 }
 

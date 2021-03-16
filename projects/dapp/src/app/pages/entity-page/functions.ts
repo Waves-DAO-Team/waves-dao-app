@@ -1,8 +1,8 @@
-import {UserDataInterface} from "@services/user/user.interface";
-import {ContractGrantModel} from "@services/contract/contract.model";
-import {GrantStatusEnum} from "@services/static/static.model";
+import {UserDataInterface} from '@services/user/user.interface'
+import {ContractGrantExtendedModel, ContractGrantModel} from '@services/contract/contract.model'
+import {GrantStatusEnum} from '@services/static/static.model'
 
-export function getEntityData(user: UserDataInterface, grant: ContractGrantModel) {
+export const getEntityData = (user: UserDataInterface, grant: ContractGrantModel): ContractGrantExtendedModel => {
   return {
     ...grant,
     isApproved: grant?.status?.value === GrantStatusEnum.approved,
