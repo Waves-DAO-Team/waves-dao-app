@@ -40,6 +40,7 @@ import {FinishApplicantsVotingComponent} from '@ui/modals/finish-applicants-voti
 import {Web3TemplateInterface} from "@pages/entity-page/web3-template/web3-template.interface";
 import {log} from "@libs/log";
 import {Async, DestroyedSubject} from "@libs/decorators";
+import {getEntityData} from "@pages/entity-page/functions";
 
 @Component({
   selector: 'app-votings-template',
@@ -55,20 +56,7 @@ export class VotingsTemplateComponent implements OnDestroy {
 
   public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
     takeUntil(this.destroyed$),
-    map(([user, grant]) => ({
-      ...grant,
-      isApproved: grant?.status?.value === GrantStatusEnum.approved,
-      isLeader: grant?.leader?.value === user.userAddress,
-      isAmount: !!grant?.voting?.amount,
-      isVotingStarted: grant?.status?.value === GrantStatusEnum.votingStarted,
-      isWG: user.roles.isWG,
-      isReward: !!grant?.reward?.value,
-      isNewGrant: !grant?.status?.value,
-      isCanceled: grant?.status?.value !== GrantStatusEnum.workFinished && grant?.status?.value !== GrantStatusEnum.rejected,
-      isWorkStarted: grant?.status?.value === GrantStatusEnum.workStarted,
-      isShowVoting: user.roles.isDAO && grant?.status?.value === GrantStatusEnum.votingStarted,
-      isVoteForGrant: user.roles.isDAO && !!grant?.voted && !!grant?.voted[user.userAddress]
-    })),
+    map(([user, grant]) => (getEntityData(user, grant))),
     log('VotingsTemplateComponent::entityData$'),
     publishReplay(1),
     refCount()
