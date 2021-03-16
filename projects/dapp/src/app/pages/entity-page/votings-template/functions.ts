@@ -8,76 +8,21 @@ import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
 
 const linkHttpPipe = new LinkHttpPipe()
 
-export const isFinishApplicantsVoteBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
-  if (grant && grant.app) {
-    const isStatusMatch = grant?.status?.value === GrantStatusEnum.readyToApply
-    const isWG = user.roles.isWG
-    let isVote = false
-    grant.app.forEach((app) => {
-      if (app.voted) {
-        isVote = true
-      }
-    })
-    return isVote && isWG && isStatusMatch
-  } else {
-    return false
-  }
-}
-
-export const getWinnerTeamId = (grant: ContractGrantModel): string => {
-  const res = {
-    key: '',
-    score: 0
-  }
-  if (grant.app) {
-    grant.app.forEach((app) => {
-      if (app.key && app.score && app.score.value) {
-        const score = parseInt(app.score.value, 10)
-        if (res.score <= score) {
-          res.key = app.key
-          res.score = score
-        }
-      }
-    })
-  }
-  return res.key
-}
-
-export const isAcceptWorkResultBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
-  let result = false
-  if (grant && grant.app && grant.status && grant.status.value === GrantStatusEnum.workStarted) {
-    let isPerformer = false
-    const isWG = user.roles.isWG
-    grant.app.forEach((app) => {
-      if (
-        app && app.process && app.process.value && app.process.value === GrantStatusEnum.workStarted
-        // && app.leader.value === user.userAddress
-      ) {
-        isPerformer = true
-      }
-    })
-    result = isPerformer && isWG
-  }
-  return result
-}
-
 export const teamsControls = (user: UserDataInterface, grant: ContractGrantModel): TeamsControlsInterface => {
 
-  const result: TeamsControlsInterface = {
-    isVoteControls: 'show',
-    voteFor: [],
-    isApplyBtn: false
-  }
+  let isVoteControls: 'show' | 'hidden' = 'show'
+  const voteFor: string[] = []
+  let isApplyBtn = false
 
   // isApplyBtn
   if (user.roles.isAuth && grant && grant.app && grant.status && grant.status.value) {
     const status = grant.status.value
     if (GrantStatusEnum.readyToApply === status) {
-      result.isApplyBtn = true
+      isApplyBtn = true
     }
     grant.app.forEach((app) => {
       if (app.leader && app.leader.value && app.leader.value === user.userAddress) {
-        result.isApplyBtn = false
+        isApplyBtn = false
       }
     })
   }
@@ -86,47 +31,23 @@ export const teamsControls = (user: UserDataInterface, grant: ContractGrantModel
   if (grant.app) {
     grant.app.forEach((app) => {
       if (app.key && app.voted && app.voted.value && app.voted.value.includes(user.userAddress)) {
-        result.voteFor.push(app.key)
+        voteFor.push(app.key)
       }
     })
   }
 
   if (grant && grant.status && grant.status.value && grant.status.value === GrantStatusEnum.readyToApply) {
-    result.isVoteControls = 'show'
+    isVoteControls = 'show'
   } else {
-    result.isVoteControls = 'hidden'
+    isVoteControls = 'hidden'
   }
 
-  return result
+  return {
+    isVoteControls,
+    voteFor,
+    isApplyBtn
+  }
 
-}
-
-export const isStartWorkBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
-  let result = false
-  const temp = {
-    leader: '',
-    score: 0
-  }
-  if (grant && grant.app) {
-    grant.app.forEach((app) => {
-      // if (app.leader && app.score && app.score.value) {
-      //   const score = parseInt(app.score.value, 10)
-      //   if (temp.score <= score) {
-      //     temp.leader = app.leader.value
-      //     temp.score = score
-      //   }
-      // }
-      if(app?.process?.value && app?.score?.value) {
-        const score = parseInt(app.score.value, 10)
-        temp.leader = app.leader.value
-        temp.score = score
-      }
-    })
-  }
-  if (grant && grant.status && grant.status.value === GrantStatusEnum.teamChosen && temp.leader === user.userAddress) {
-    result = true
-  }
-  return result
 }
 
 export const isShowAddRewardBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
@@ -142,24 +63,6 @@ export const isShowAddRewardBtn = (user: UserDataInterface, grant: ContractGrant
   } else {
     return false
   }
-}
-
-export const isFinishVoteBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
-
-  if (grant && grant.app) {
-
-    const isVoted = !!grant.voted
-    const isStatusMatch = grant?.status?.value === GrantStatusEnum.proposed
-    const isWG = user.roles.isWG
-
-    return isVoted && isWG && isStatusMatch
-
-  } else {
-
-    return false
-
-  }
-
 }
 
 export const prepareTeamsHeaderData = (
@@ -239,19 +142,12 @@ export const prepareIsRejectBtnData = (
   grant: ContractGrantModel,
   user: UserDataInterface,
 ): boolean => {
-
   if (grant) {
-
     const isWG = user.roles.isWG
     const isStatusMatch = grant?.status?.value !== GrantStatusEnum.rejected
-
     return isWG && isStatusMatch
-
   } else {
-
     return false
-
   }
-
 }
 
