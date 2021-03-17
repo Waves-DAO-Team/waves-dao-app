@@ -17,7 +17,7 @@ import { Router } from '@angular/router'
 import { UserService } from '@services/user/user.service'
 import { Location } from '@angular/common'
 import { ContractService } from '@services/contract/contract.service'
-import {map, take, takeUntil, tap} from 'rxjs/operators'
+import {map, take, takeUntil} from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { StaticService } from '@services/static/static.service'
 import { log } from '@libs/log'
@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       combineLatest([this.signerService.user, this.userService.stream$]).pipe(
           takeUntil(this.destroyed$),
           log('HeaderComponent::user$'),
-          tap(([e, st]) => console.log('+++', e, st)),
           map(([balance, user]) => ({
               ...user,
               ...balance
