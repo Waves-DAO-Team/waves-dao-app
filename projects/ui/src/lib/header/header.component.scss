@@ -17,6 +17,7 @@
     .name {
       color: $color_black;
       margin: 0;
+      cursor: pointer;
     }
 
     .role {
@@ -197,6 +198,30 @@
         color: gray;
         right: 0;
         bottom: 75%;
+
+        @media (max-width: 1200px) {
+          margin: 1rem 1rem -1rem;
+        }
+
+        @media (min-width: 860px) and (max-width: 1200px) {
+          left: 15%;
+        }
+
+        @media (min-width: 601px) and (max-width: 859px) {
+          left: 20%;
+        }
+
+        @media (min-width: 420px) and (max-width: 600px) {
+          left: 30%;
+        }
+
+        @media (min-width: 320px) and (max-width: 419px) {
+          left: 40%;
+        }
+
+        @media (max-width: 319px) {
+          left: unset;
+        }
       }
 
       li {
