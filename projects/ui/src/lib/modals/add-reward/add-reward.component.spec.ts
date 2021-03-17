@@ -49,6 +49,8 @@ describe('AddRewardComponent', () => {
       {in: '10,10', out: '1000000000'},
       {in: '10.10', out: '1010000000'},
       {in: '10-10', out: '1000000000'},
+      {in: 0.00002, out: '0'},
+      {in: '0.00002', out: '0'},
     ]
     testData.forEach( d => {
       expect(component.fixReward(d.in)).toBe(d.out)

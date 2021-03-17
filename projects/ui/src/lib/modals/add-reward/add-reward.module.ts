@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { AddRewardComponent } from './add-reward.component'
-import { TranslocoModule } from '@ngneat/transloco'
-import { ReactiveFormsModule } from '@angular/forms'
-import { RewardModule } from '@libs/directives/reward.module'
+import {NgModule} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {AddRewardComponent} from './add-reward.component'
+import {TranslocoModule} from '@ngneat/transloco'
+import {ReactiveFormsModule} from '@angular/forms'
+import {RewardModule} from '@libs/directives/reward.module'
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatInputModule} from '@angular/material/input'
 
 @NgModule({
   declarations: [AddRewardComponent],
@@ -11,8 +13,11 @@ import { RewardModule } from '@libs/directives/reward.module'
     RewardModule,
     CommonModule,
     ReactiveFormsModule,
-    TranslocoModule
+    TranslocoModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [AddRewardComponent]
 })
-export class AddRewardModule { }
+export class AddRewardModule {
+}
