@@ -17,11 +17,22 @@
 
     <ul class="nav" [class.open]="isToggleMenuOpen">
       <ng-container *ngFor="let contract of contractsList$ | async">
-        <li *ngIf="contract.type"
+
+        <li *ngIf="contract.type && contract.name !== 'votings'"
             class="mat-display-2"
             (click)="isToggleMenuOpen = false"
             [routerLink]="[constants.routes.listing | route : contract.name ]"
             routerLinkActive="active">
+          <span class="nav-badge" *ngIf="contract.type.indexOf('3P') === 0">mainnet</span>
+          {{ contract.navigation }}
+        </li>
+
+        <li *ngIf="contract.type && contract.name === 'votings'"
+            class="mat-display-2"
+            (click)="isToggleMenuOpen = false"
+            [routerLink]="[constants.routes.community | route : contract.name ]"
+            routerLinkActive="active">
+          <span class="nav-badge" *ngIf="contract.type.indexOf('3P') === 0">mainnet</span>
           {{ contract.navigation }}
         </li>
       </ng-container>

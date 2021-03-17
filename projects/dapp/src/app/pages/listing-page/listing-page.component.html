@@ -10,6 +10,13 @@
              ></app-web3-template>
          </ng-template>
 
+        <!-- Votings-->
+        <ng-template ngSwitchCase="votings">
+          <app-votings-template
+            [contract]="contract"
+          ></app-votings-template>
+        </ng-template>
+
         <!-- Default template with content for listing -->
         <ng-template ngSwitchDefault>
             <app-default-template

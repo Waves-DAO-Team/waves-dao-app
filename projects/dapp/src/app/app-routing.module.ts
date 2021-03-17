@@ -30,6 +30,11 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: environment.routing.community,
+        loadChildren: async () => await import('./pages/listing-page/listing-page.module').then((m) => m.ListingPageModule),
+        pathMatch: 'full'
+      },
+      {
         path: environment.routing.about,
         loadChildren: async () => await import('./pages/about-page/about-page.module').then((m) => m.AboutPageModule),
         pathMatch: 'full'
