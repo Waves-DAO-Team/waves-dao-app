@@ -21,13 +21,13 @@ export class AddRewardComponent {
   ) {
   }
 
-  fixReward(reward: number | string): string {
+  fixReward (reward: number | string): string {
     if(typeof reward === 'string')
-      reward = parseFloat(reward)
+      {reward = parseFloat(reward)}
     if (reward < 0)
-      reward = 0
+      {reward = 0}
     if (!reward)
-      reward = 0
+      {reward = 0}
     return (reward * 100000000).toString()
   }
 
