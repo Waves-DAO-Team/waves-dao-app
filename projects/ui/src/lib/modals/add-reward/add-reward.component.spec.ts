@@ -35,4 +35,23 @@ describe('AddRewardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy()
   })
+
+  it('should give the correct reward', () => {
+    const testData: {in: string | number, out: string}[] = [
+      {in: '2', out: '200000000'},
+      {in: 2, out: '200000000'},
+      {in: '0', out: '0'},
+      {in: 0, out: '0'},
+      {in: -10, out: '0'},
+      {in: '-10', out: '0'},
+      {in: 'bam bam', out: '0'},
+      {in: '10 10', out: '1000000000'},
+      {in: '10,10', out: '1000000000'},
+      {in: '10.10', out: '1010000000'},
+      {in: '10-10', out: '1000000000'},
+    ]
+    testData.forEach( d => {
+      expect(component.fixReward(d.in)).toBe(d.out)
+    })
+  })
 })
