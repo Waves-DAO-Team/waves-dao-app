@@ -4,6 +4,8 @@ import { HeaderComponent } from './header.component'
 import { TranslocoModule } from '@ngneat/transloco'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { RouterModule } from '@angular/router'
+import {MatTooltipModule} from '@angular/material/tooltip'
+import {ClipboardModule} from '@angular/cdk/clipboard'
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -11,7 +13,9 @@ import { RouterModule } from '@angular/router'
     CommonModule,
     TranslocoModule,
     PipesModule,
-    RouterModule
+    RouterModule,
+    MatTooltipModule,
+    ClipboardModule
   ],
   exports: [HeaderComponent]
 })
