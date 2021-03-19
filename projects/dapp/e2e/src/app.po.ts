@@ -1,19 +1,35 @@
-import { browser, by, element } from 'protractor'
+import {browser, by, element, protractor} from 'protractor'
 
 export class AppPage {
-  async navigateTo (): Promise<unknown> {
-    return browser.get(browser.baseUrl)
+
+  async navigateTo (path: string = browser.baseUrl): Promise<unknown> {
+    return await browser.get(path) as Promise<unknown>
   }
 
-  async getTitleText (): Promise<string> {
-    return element(by.css('app-root .profile button')).getText()
+  async getLandingTitleText (): Promise<string> {
+    return element(by.css('.landing-page__title')).getText()
   }
 
-  // async getActiveMenuItemText(): Promise<string> {
-  //   return element(by.css('app-root .nav li')).getText();
-  // }
+  async logoClickable (): Promise<string> {
+    const EC = protractor.ExpectedConditions
+    return browser.wait(EC.elementToBeClickable(element(by.css('.logo'))), 5000)
+  }
 
-  // async getCssValue(): Promise<string> {
-  //   return element(by.css('.nav li.active')).getCssValue('color');
-  // }
+  async footerIsPresent (): Promise<string> {
+      const EC = protractor.ExpectedConditions
+      return browser.wait(EC.presenceOf(element(by.css('.footer'))), 5000)
+  }
+
+  async headerIsPresent (): Promise<string> {
+    const EC = protractor.ExpectedConditions
+    return browser.wait(EC.presenceOf(element(by.css('.header'))), 5000)
+  }
+
+  async getTitleOfGrantsPage (): Promise<string> {
+    return element(by.css('.listing-page__title')).getText()
+  }
+
+  async getTitleOfMembersPage (): Promise<string> {
+    return element(by.css('.members-page__title')).getText()
+  }
 }
