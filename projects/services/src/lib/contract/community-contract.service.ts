@@ -28,8 +28,8 @@ export class CommunityContractService {
     return this.contractService.stream
   }
 
-  public addTask (taskName: string, link: string): Observable<TransactionsSuccessResult> {
-    return this.commonContractService.addTask(taskName, link)
+  public addTask (taskName: string, link: string, hash: string = ''): Observable<TransactionsSuccessResult> {
+    return this.commonContractService.addTask(taskName, link, hash)
   }
 
   public initTaskVoting (taskId: string): Observable<TransactionsSuccessResult> {
