@@ -40,10 +40,9 @@
         ></ui-voting-square>
       </div>
 
-
       <div class="score-list__mid-container">
         <div class="score-list__name" title="{{el.name}}">
-          <span>{{el.name}}</span>
+          <span>  <ui-hash [status]="el.isHashValid | async"></ui-hash> {{el.name}}</span>
           <ui-statuses
             [isHasSolution]="el.status.isSolution"
             [isRejected]="el.status.isRejected"

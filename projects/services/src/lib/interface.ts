@@ -14,6 +14,7 @@ export namespace IScore {
     solutionLink: string | null
     square: ISquare
     status: IStatus
+    isHashValid?: Promise<boolean | null>
   }
   export interface IStatus {
     isSolution: boolean

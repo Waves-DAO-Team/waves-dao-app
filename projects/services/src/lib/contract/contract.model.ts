@@ -27,6 +27,7 @@ export interface ContractGrantAppModel {
   name: ContractRawDataString
   link: ContractRawDataString
   key?: string
+  hash?: ContractRawDataString
   manager?: string
   process?: {
     key: string
@@ -83,6 +84,7 @@ export interface ContractGrantAppModel {
       value: string
     }
   }
+  isHashValid?: Promise<boolean | null>
 }
 
 export interface ContractGrantCommonModel {

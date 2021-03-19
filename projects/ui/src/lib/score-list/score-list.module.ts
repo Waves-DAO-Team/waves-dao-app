@@ -6,6 +6,7 @@ import {StatusesModule} from '@ui/statuses/statuses.module'
 import {TranslocoModule} from '@ngneat/transloco'
 import {PipesModule} from '@libs/pipes/pipes.module'
 import {MatTooltipModule} from '@angular/material/tooltip'
+import {HashModule} from "@ui/hash/hash.module";
 
 @NgModule({
   declarations: [ScoreListComponent],
@@ -15,7 +16,8 @@ import {MatTooltipModule} from '@angular/material/tooltip'
         StatusesModule,
         TranslocoModule,
         PipesModule,
-        MatTooltipModule
+        MatTooltipModule,
+        HashModule
     ],
   exports: [ScoreListComponent]
 })
