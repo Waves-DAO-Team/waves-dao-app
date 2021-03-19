@@ -20,6 +20,7 @@ import {Async, DestroyedSubject} from '@libs/decorators'
 import { Web3TemplateInterface } from './web3-template.interface'
 import { log } from '@libs/log'
 import {getEntityData} from '@pages/entity-page/functions'
+import {HashService} from "@services/hash/hash.service";
 
 @Component({
   selector: 'app-web3-template',
@@ -38,6 +39,10 @@ export class Web3TemplateComponent implements OnDestroy {
   public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
+    map((grant) => {
+      grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+      return grant
+    }),
     log('Web3TemplateComponent::entityData$'),
     publishReplay(1),
     refCount()
@@ -80,6 +85,7 @@ export class Web3TemplateComponent implements OnDestroy {
     )
 
   constructor (
+    public hashService: HashService,
     private readonly dialog: MatDialog,
     public communityContractService: CommunityContractService,
     private readonly snackBar: MatSnackBar,
