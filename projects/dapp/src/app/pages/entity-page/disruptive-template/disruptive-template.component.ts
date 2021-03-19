@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
-import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
+import {ContractGrantAppModel, ContractGrantExtendedModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
@@ -37,6 +37,7 @@ import {Async, DestroyedSubject} from '@libs/decorators'
 import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
 import {log} from '@libs/log'
 import {getEntityData} from '@pages/entity-page/functions'
+import {HashService} from "@services/hash/hash.service";
 
 @Component({
   selector: 'app-disruptive-template',
@@ -64,6 +65,10 @@ export class DisruptiveTemplateComponent implements OnDestroy {
             this.teamIdList.push(el.id.value)
           }
         })}
+    }),
+    map((grant) => {
+      grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+      return grant
     }),
     tap( e => this.prepareVoteForTaskData(e)),
     publishReplay(1),
@@ -143,6 +148,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
     )
 
   constructor (
+    public hashService: HashService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line

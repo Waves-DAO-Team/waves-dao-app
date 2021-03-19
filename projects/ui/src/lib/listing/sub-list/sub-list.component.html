@@ -1,13 +1,17 @@
-<div class="title mat-display-4" *ngIf="title && grants?.length > 0">{{title}}</div>
+<div class="title mat-display-4" *ngIf="title && (grants$ | async)?.length > 0">{{title}}</div>
 <a
   class="card"
-  *ngFor="let grant of grants"
+  *ngFor="let grant of grants$ | async"
   [class.important]="isImportant"
   [class.rejected]="grant?.status?.value === grantStatusEnum.rejected"
   [routerLink]="constants.routes.entity | route: contract?.name : grant?.id">
   <div class="card__header">
     <div class="card__header__left-block">
+
       <div class="card__header__left-block__status">
+
+        <ui-hash [status]="grant.isHashValid | async"></ui-hash>
+
         {{ 'listing.status.' + grant?.status?.value | transloco }}
 
         <div class="card__header__left-block__status__role-text" *ngIf="grant?.label?.label">

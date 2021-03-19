@@ -130,6 +130,7 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   id?: ContractRawDataEntityId
   performer?: ContractRawDataString
   link?: ContractRawDataString
+  hash?: ContractRawDataString
   leader?: ContractRawDataString
   isShowAppliers?: boolean
   report?: ContractRawDataString,
@@ -150,6 +151,7 @@ export interface ContractGrantExtendedModel extends ContractGrantModel{
   isWorkStarted: boolean,
   isShowVoting: boolean,
   isVoteForGrant: boolean
+  isHashValid?: Promise<boolean | null>
 }
 
 // export interface ContractGrantRawModel extends ContractGrantCommonModel {

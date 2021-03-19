@@ -14,5 +14,5 @@ export const getEntityData = (user: UserDataInterface, grant: ContractGrantModel
     isCanceled: grant?.status?.value !== GrantStatusEnum.workFinished && grant?.status?.value !== GrantStatusEnum.rejected,
     isWorkStarted: grant?.status?.value === GrantStatusEnum.workStarted,
     isShowVoting: user.roles.isDAO && grant?.status?.value === GrantStatusEnum.votingStarted,
-    isVoteForGrant: user.roles.isDAO && !!grant?.voted && !!grant?.voted[user.userAddress]
+    isVoteForGrant: user.roles.isDAO && !!grant?.voted && !!grant?.voted[user.userAddress],
   })

@@ -7,11 +7,13 @@ export interface SubmitCallBackApplyArg {
   id: string
   team: string
   link: string
+  hash?: string
 }
 
 export interface SubmitCallBackProposeArg {
   name: string
   link: string
+  hash?: string
 }
 
 export interface SubmitCallBackRewardArg {
@@ -46,6 +48,7 @@ export interface DialogParams {
   grant?: ContractGrantModel
   grantId?: string
   dialogRef: MatDialogRef<DialogComponent>
+  hash?: string
   submitCallBack?: (data:
                       SubmitCallBackProposeArg |
                       FinishApplicantsVotingArg |

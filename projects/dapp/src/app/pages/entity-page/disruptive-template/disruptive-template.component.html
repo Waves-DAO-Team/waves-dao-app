@@ -1,5 +1,4 @@
 <ng-container *ngIf="entityData$ | async as entityData">
-
   <ng-template #headerControlsTemplate>
 
     <button class="active" (click)="addReward(entityData, entityData.id)" *ngIf="isShowAddRewardBtn$ | async">

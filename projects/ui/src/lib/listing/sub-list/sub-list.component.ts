@@ -6,11 +6,18 @@ import {
   Input
 } from '@angular/core'
 
-import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import {APP_CONSTANTS, AppConstantsInterface} from '@constants'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {
+  ContractDataRawModel, ContractGrantExtendedModel,
   ContractGrantModel,
 } from '@services/contract/contract.model'
+import {HashService} from "@services/hash/hash.service";
+import {BehaviorSubject, from, Observable, Subject} from "rxjs";
+import {Async} from "@libs/decorators";
+import {filter, map, publishReplay, refCount, tap} from "rxjs/operators";
+import {RequestModel} from "@services/request/request.model";
+import {log} from "@libs/log";
 
 @Component({
   selector: 'ui-sub-list',
@@ -19,15 +26,31 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubListComponent {
+
   grantStatusEnum = GrantStatusEnum
+
   @Input() contract: GrantsVariationType | null = null
-  @HostBinding('class.enable') @Input() grants: ContractGrantModel[] | null = null
+  @Async() @HostBinding('class.enable') @Input() grants!: Observable<ContractGrantModel[]>
   @Input() isImportant = false
+
+  public readonly grants$ = this.grants.pipe(
+    filter(e => !!e),
+    map((grants) => grants as ContractGrantExtendedModel[]),
+    map((grants) => grants.map(grant => ({
+        ...grant,
+        isHashValid: this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+      })
+    )),
+    log('SubListComponent::grants$'),
+    publishReplay(1),
+    refCount()
+  )
 
   @Input() public type: 'default' | 'active' = 'default'
   @Input() title: string | null = null
 
-  constructor (
+  constructor(
+    public hashService: HashService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
 }
