@@ -41,6 +41,7 @@ import { log } from '@libs/log'
 import {Async, DestroyedSubject} from '@libs/decorators'
 import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
 import {getEntityData} from '@pages/entity-page/functions'
+import {HashService} from "@services/hash/hash.service";
 
 @Component({
   selector: 'app-interhack-template',
@@ -62,6 +63,10 @@ export class InterhackTemplateComponent implements OnDestroy {
     map(([user, grant]) => (getEntityData(user, grant))),
     log('InterhackTemplateComponent::entityData$'),
     tap( e => this.prepareVoteForTaskData(e)),
+    map((grant) => {
+      grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+      return grant
+    }),
     publishReplay(1),
     refCount()
   )
@@ -235,6 +240,7 @@ export class InterhackTemplateComponent implements OnDestroy {
     )
 
   constructor (
+    public hashService: HashService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
