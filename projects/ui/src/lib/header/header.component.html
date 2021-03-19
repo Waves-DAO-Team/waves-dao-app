@@ -41,7 +41,8 @@
         class="mat-display-2"
         (click)="isToggleMenuOpen = false"
         [routerLink]="[constants.routes.members | route]"
-        routerLinkActive="active">
+        routerLinkActive="active"
+        #members>
         {{ 'app.header.members' | transloco }}
       </li>
 
