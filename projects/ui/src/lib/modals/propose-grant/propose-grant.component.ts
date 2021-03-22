@@ -23,7 +23,7 @@ export class ProposeGrantComponent {
   }
 
 
-  onSubmit (): void {
+  onSubmit (): void { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
     this.params.dialogRef.close()
     const link = this.grantForm.controls.link.value
     this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises

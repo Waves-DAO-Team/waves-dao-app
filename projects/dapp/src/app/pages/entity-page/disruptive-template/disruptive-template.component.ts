@@ -38,6 +38,7 @@ import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-templ
 import {log} from '@libs/log'
 import {getEntityData} from '@pages/entity-page/functions'
 import {HashService} from '@services/hash/hash.service'
+import {CommunityContractService} from "@services/contract/community-contract.service";
 
 @Component({
   selector: 'app-disruptive-template',
@@ -106,6 +107,11 @@ export class DisruptiveTemplateComponent implements OnDestroy {
       map(e => e !== GrantStatusEnum.rejected),
     )
 
+  public readonly isResetHashBtn$: Observable<boolean> = this.userService.data
+    .pipe(
+      map(data => data.roles.isWG)
+    )
+
   public readonly isShowAddRewardBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
@@ -150,6 +156,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
 
   constructor (
     public hashService: HashService,
+    public communityContractService: CommunityContractService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -296,6 +303,13 @@ export class DisruptiveTemplateComponent implements OnDestroy {
     } else {
       this.voteForTaskData.isVote = false
     }
+  }
+
+  resetHash (id: string, link: string): void {
+    this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises
+      .then((hash: string = '') => {
+        this.communityContractService.resetHash(id, hash).subscribe()
+      })
   }
 
   ngOnDestroy (): void {

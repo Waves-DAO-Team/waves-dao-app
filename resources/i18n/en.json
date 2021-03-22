@@ -498,6 +498,7 @@
     "learn_about_team": "Learn more about team"
   },
   "entity": {
+    "reset_hash": "Reset hash",
     "score": "Score",
     "show_summary": "Show summary",
     "show_full_content": "Show full content",
@@ -526,6 +527,7 @@
     "enable_submissions": "Enable submissions",
     "submit_solution": "Submit solution",
     "stop_submissions": "Stop submissions",
+    "reset_hash_complete": "Reset hash complete",
     "accept_work_result": "Accept work result",
     "finish_applicants_voting": "Finish applicants voting",
     "accept_work_result_report_link": "Report link",

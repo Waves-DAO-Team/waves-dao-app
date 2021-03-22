@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing'
 
 import { HashService } from './hash.service'
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {RouterTestingModule} from "@angular/router/testing";
-import {getTranslocoModule} from "@dapp/src/app/transloco-module.spec";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {provideApi, provideAppConstants} from "@constants";
-import {ContractService} from "@services/contract/contract.service";
-import {StorageService} from "@services/storage/storage.service";
-import {StaticService} from "@services/static/static.service";
+import {HttpClientTestingModule} from '@angular/common/http/testing'
+import {RouterTestingModule} from '@angular/router/testing'
+import {getTranslocoModule} from '@dapp/src/app/transloco-module.spec'
+import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {provideApi, provideAppConstants} from '@constants'
+import {ContractService} from '@services/contract/contract.service'
+import {StorageService} from '@services/storage/storage.service'
 
 describe('HashService', () => {
   let service: HashService

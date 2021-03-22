@@ -84,6 +84,11 @@ export class Web3TemplateComponent implements OnDestroy {
       map((web3Grant: Web3TemplateInterface) => web3Grant.isLeader && web3Grant.isNewGrant)
     )
 
+  public readonly isResetHashBtn$: Observable<boolean> = this.userService.data
+    .pipe(
+      map(data => data.roles.isWG)
+    )
+
   constructor (
     public hashService: HashService,
     private readonly dialog: MatDialog,
@@ -175,5 +180,12 @@ export class Web3TemplateComponent implements OnDestroy {
   }
 
   ngOnDestroy (): void {}
+
+  resetHash (id: string, link: string): void {
+    this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises
+      .then((hash: string = '') => {
+        this.communityContractService.resetHash(id, hash).subscribe()
+      })
+  }
 
 }

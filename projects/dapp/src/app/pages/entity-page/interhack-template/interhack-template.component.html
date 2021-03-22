@@ -29,6 +29,10 @@
 
   <ng-template #headerControlsTemplate>
 
+    <button class="active" *ngIf="isResetHashBtn$ | async" (click)="resetHash(entityData.id, entityData.link.value)">
+      {{'entity.reset_hash' | transloco}}
+    </button>
+
     <button class="active" (click)="addReward(entityData.id, entityData?.status?.value)" *ngIf="isShowAddRewardBtn$ | async">
       {{'entity.add_reward' | transloco}}
     </button>

@@ -42,6 +42,7 @@ import {Async, DestroyedSubject} from '@libs/decorators'
 import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
 import {getEntityData} from '@pages/entity-page/functions'
 import {HashService} from '@services/hash/hash.service'
+import {CommunityContractService} from "@services/contract/community-contract.service";
 
 @Component({
   selector: 'app-interhack-template',
@@ -246,7 +247,13 @@ export class InterhackTemplateComponent implements OnDestroy {
       ),
     )
 
+  public readonly isResetHashBtn$: Observable<boolean> = this.userService.data
+    .pipe(
+      map(data => data.roles.isWG)
+    )
+
   constructor (
+    public communityContractService: CommunityContractService,
     public hashService: HashService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
@@ -420,6 +427,13 @@ export class InterhackTemplateComponent implements OnDestroy {
   }
 
   ngOnDestroy (): void {
+  }
+
+  resetHash (id: string, link: string): void {
+    this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises
+      .then((hash: string = '') => {
+        this.communityContractService.resetHash(id, hash).subscribe()
+      })
   }
 
 }
