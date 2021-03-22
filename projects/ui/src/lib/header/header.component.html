@@ -54,7 +54,7 @@
             <img alt="avatar" src="assets/icons/avatar/auth.svg" *ngIf="user.userRole === roleEnum.authorized">
           </div>
           <div class="content">
-            <div class="name mat-display-2">
+            <div class="name mat-display-2" matTooltip="Copy {{user.address}}" matTooltipClass="name-tooltip" (click)="copyUserName(user.address)">
               {{user.name}}
             </div>
             <div class="role mat-display-1">
