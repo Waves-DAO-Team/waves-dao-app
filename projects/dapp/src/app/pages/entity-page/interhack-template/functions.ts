@@ -147,6 +147,7 @@ export const teamsAndSolutionTypeTeam = (
       && GrantStatusEnum.workStarted !== grant?.status?.value
 
     const unit: IScore.IUnit = {
+      hash: app.hash?.value,
       isWinner: false,
       isPerformer: !!app.process?.value,
       isWinnerIcon: !!app.process?.value,
@@ -206,6 +207,7 @@ export const teamsAndSolutionTypeSolution = (
       isWinnerIcon: true,
       isPerformerIcon: true,
       name: app.name.value,
+      solutionHash: app?.solution?.hash.value,
       solutionLink: app?.solution?.value ? app?.solution?.value : null,
       status: {
         isSolution: app?.solution?.value ? true : false,

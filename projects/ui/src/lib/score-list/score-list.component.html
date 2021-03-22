@@ -30,6 +30,7 @@
   <ul>
 
     <li *ngFor="let el of list | sortByScore" [class.winner]="el.isWinner || el.isPerformer" class="score-list__li">
+
       <div class="score-list__left-container">
         <ui-voting-square
           [votes]="el.square.score"
@@ -42,7 +43,8 @@
 
       <div class="score-list__mid-container">
         <div class="score-list__name" title="{{el.name}}">
-          <span>  <ui-hash [status]="el.isHashValid | async"></ui-hash> {{el.name}}</span>
+
+          <span>  <ui-hash [status]="el.isHashValid | async"></ui-hash> <ui-hash [status]="el.isSolutionHashValid | async"></ui-hash>  {{el.name}}</span>
           <ui-statuses
             [isHasSolution]="el.status.isSolution"
             [isRejected]="el.status.isRejected"

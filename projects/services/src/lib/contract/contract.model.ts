@@ -65,6 +65,7 @@ export interface ContractGrantAppModel {
     }
   }
   solution?: {
+    hash: ContractRawDataString
     key: string
     type: string
     value: string

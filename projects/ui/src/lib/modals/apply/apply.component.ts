@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { API, AppApiInterface } from '@constants'
 import { ContractGrantModel } from '@services/contract/contract.model'
 import { StaticService } from '@services/static/static.service'
+import {HashService} from "@services/hash/hash.service";
 
 @Component({
   selector: 'ui-apply',
@@ -20,6 +21,7 @@ export class ApplyComponent {
   })
 
   constructor (
+    public hashService: HashService,
     public staticService: StaticService, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
     @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
@@ -35,14 +37,16 @@ export class ApplyComponent {
 
   onSubmitApplyGrantForm (): void {
     if (this.grant?.id && this.applyGrantForm?.value?.team && this.applyGrantForm?.value?.link) {
-      if (this.params.submitCallBack) {
-        this.params.submitCallBack({
-          id: this.grant?.id,
-          team: this.applyGrantForm?.value?.team,
-          link: this.applyGrantForm?.value?.link
-        })
-      }
-
+      this.hashService.init(this.applyGrantForm.controls['link'].value).then((hash: string = '') => {
+        if (this.params.submitCallBack) {
+          this.params.submitCallBack({
+            id: this.grant?.id || '',
+            team: this.applyGrantForm?.value?.team,
+            link: this.applyGrantForm?.value?.link,
+            hash: hash
+          })
+        }
+      })
       this.modalGoTo('CLOSE')
     }
   }

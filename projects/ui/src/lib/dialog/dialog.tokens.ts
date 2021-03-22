@@ -34,7 +34,8 @@ export interface SubmitCallBackAddMemberArg {
 }
 
 export interface SubmitCallBackSubmitSolutionResultArg {
-  solutionLink?: string
+  solutionLink?: string,
+  hash: string
 }
 
 export interface DialogParams {
