@@ -1,5 +1,5 @@
 import { AppPage } from './app.po'
-import { browser, logging } from 'protractor'
+import {browser, logging} from 'protractor'
 
 describe('workspace-project App', () => {
   let page: AppPage
@@ -8,27 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage()
   })
 
-  it('Test1: should display title on Landing page', async () => {
-    await page.navigateTo()
-    expect(await page.getLandingTitleText()).toEqual('Waves Association DAO')
-  })
-
-  it('Test2: should check that logo icon is clickable', async () => {
-    await page.navigateTo()
-    // @ts-ignore this is necessary maybe
-    expect(await page.logoClickable()).toBe(true)
-  })
-
   it('Test3: footer is present', async () => {
     await page.navigateTo()
     // @ts-ignore this is necessary maybe
     expect(await page.footerIsPresent()).toBe(true)
-  })
-
-  it('Test4: header is present', async () => {
-    await page.navigateTo()
-    // @ts-ignore this is necessary maybe
-    expect(await page.headerIsPresent()).toBe(true)
   })
 
   it('Test5: loads Disruptive grants page and gives its title', async () => {
