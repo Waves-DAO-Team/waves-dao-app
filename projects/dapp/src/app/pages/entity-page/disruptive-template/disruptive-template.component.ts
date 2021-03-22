@@ -38,7 +38,7 @@ import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-templ
 import {log} from '@libs/log'
 import {getEntityData} from '@pages/entity-page/functions'
 import {HashService} from '@services/hash/hash.service'
-import {CommunityContractService} from "@services/contract/community-contract.service";
+import {CommunityContractService} from '@services/contract/community-contract.service'
 
 @Component({
   selector: 'app-disruptive-template',

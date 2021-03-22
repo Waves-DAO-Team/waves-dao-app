@@ -205,7 +205,7 @@ export class CommunityContractService {
     )
   }
 
-  resetHash(taskId: string, hash: string): Observable<TransactionsSuccessResult>  {
+  resetHash (taskId: string, hash: string): Observable<TransactionsSuccessResult>  {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'resetHash',
       [
         {type: 'string', value: taskId},
