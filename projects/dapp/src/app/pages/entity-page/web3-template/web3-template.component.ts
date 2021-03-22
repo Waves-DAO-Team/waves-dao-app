@@ -20,7 +20,7 @@ import {Async, DestroyedSubject} from '@libs/decorators'
 import { Web3TemplateInterface } from './web3-template.interface'
 import { log } from '@libs/log'
 import {getEntityData} from '@pages/entity-page/functions'
-import {HashService} from "@services/hash/hash.service";
+import {HashService} from '@services/hash/hash.service'
 
 @Component({
   selector: 'app-web3-template',

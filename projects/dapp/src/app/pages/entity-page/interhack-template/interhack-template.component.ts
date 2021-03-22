@@ -41,7 +41,7 @@ import {log} from '@libs/log'
 import {Async, DestroyedSubject} from '@libs/decorators'
 import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
 import {getEntityData} from '@pages/entity-page/functions'
-import {HashService} from "@services/hash/hash.service";
+import {HashService} from '@services/hash/hash.service'
 
 @Component({
   selector: 'app-interhack-template',
@@ -238,17 +238,15 @@ export class InterhackTemplateComponent implements OnDestroy {
         }
       ),
       map((apps) =>
-         apps.map(app => {
-          return {
+         apps.map(app => ({
             ...app,
             isHashValid: this.hashService.isHashValid(app.hash || '', app.teamLink || ''),
             isSolutionHashValid: this.hashService.isHashValid(app.solutionHash || '', app.solutionLink || ''),
-          }
-        })
+          }))
       ),
     )
 
-  constructor(
+  constructor (
     public hashService: HashService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
@@ -261,7 +259,7 @@ export class InterhackTemplateComponent implements OnDestroy {
   ) {
   }
 
-  vote(value: 'like' | 'dislike', id: string): void {
+  vote (value: 'like' | 'dislike', id: string): void {
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
       complete: () => {
@@ -271,7 +269,7 @@ export class InterhackTemplateComponent implements OnDestroy {
     })
   }
 
-  signup(): void {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -280,7 +278,7 @@ export class InterhackTemplateComponent implements OnDestroy {
       })
   }
 
-  openApplyModal(grant: ContractGrantModel): void {
+  openApplyModal (grant: ContractGrantModel): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -301,25 +299,25 @@ export class InterhackTemplateComponent implements OnDestroy {
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface, status: string, id: string): void {
+  voteTeam ($event: VoteTeamEventInterface, status: string, id: string): void {
     if (status === GrantStatusEnum.readyToApply) {
       this.disruptiveContractService.voteForApplicant(id, $event.teamIdentifier, $event.voteValue).subscribe()
     }
   }
 
-  finishVote(id: string): void {
+  finishVote (id: string): void {
     this.disruptiveContractService.finishTaskProposalVoting(id).subscribe()
   }
 
-  startWork(id: string): void {
+  startWork (id: string): void {
     this.disruptiveContractService.startWork(id).subscribe()
   }
 
-  reject(id: string): void {
+  reject (id: string): void {
     this.disruptiveContractService.rejectTask(id).subscribe()
   }
 
-  acceptWorkResult(id: string): void {
+  acceptWorkResult (id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -342,11 +340,11 @@ export class InterhackTemplateComponent implements OnDestroy {
     })
   }
 
-  finishApplicantsVote(id: string): void {
+  finishApplicantsVote (id: string): void {
     this.interhackContractService.finishApplicantsVoting(id).subscribe()
   }
 
-  addReward(id: string, status: string): void {
+  addReward (id: string, status: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -369,11 +367,11 @@ export class InterhackTemplateComponent implements OnDestroy {
     })
   }
 
-  enableSubmissions(id: string): void {
+  enableSubmissions (id: string): void {
     this.disruptiveContractService.enableSubmissions(id, '').subscribe()
   }
 
-  submitSolution(id: string): void {
+  submitSolution (id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -395,15 +393,15 @@ export class InterhackTemplateComponent implements OnDestroy {
     })
   }
 
-  voteSolution($event: VoteTeamEventInterface, id: string): void {
+  voteSolution ($event: VoteTeamEventInterface, id: string): void {
     this.disruptiveContractService.voteForSolution(id, $event.teamIdentifier, $event.voteValue).subscribe()
   }
 
-  stopSubmissions(id: string): void {
+  stopSubmissions (id: string): void {
     this.disruptiveContractService.stopSubmissions(id).subscribe()
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel = {}) {
+  private prepareVoteForTaskData (grant: ContractGrantModel = {}) {
     if (
       this.userService.data.getValue().roles.isDAO &&
       grant?.status?.value === GrantStatusEnum.proposed &&
@@ -421,7 +419,7 @@ export class InterhackTemplateComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
   }
 
 }

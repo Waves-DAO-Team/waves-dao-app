@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router'
 import { TranslocoModule } from '@ngneat/transloco'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { TagModule } from '@ui/tag/tag.module'
-import {HashModule} from "@ui/hash/hash.module";
+import {HashModule} from '@ui/hash/hash.module'
 
 @NgModule({
   declarations: [SubListComponent],

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core'
 
 @Component({
   selector: 'ui-hash',
@@ -9,8 +9,8 @@ export class HashComponent implements OnInit {
 
   @Input() public readonly status: boolean | null = null
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit(): void {}
+  ngOnInit (): void {}
 
 }

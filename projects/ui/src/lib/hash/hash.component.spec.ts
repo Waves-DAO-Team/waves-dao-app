@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { HashComponent } from './hash.component';
+import { HashComponent } from './hash.component'
 
 describe('HashComponent', () => {
-  let component: HashComponent;
-  let fixture: ComponentFixture<HashComponent>;
+  let component: HashComponent
+  let fixture: ComponentFixture<HashComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ HashComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HashComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(HashComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

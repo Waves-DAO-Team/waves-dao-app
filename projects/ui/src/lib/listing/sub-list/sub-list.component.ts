@@ -8,16 +8,14 @@ import {
 
 import {APP_CONSTANTS, AppConstantsInterface} from '@constants'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {
-  ContractDataRawModel, ContractGrantExtendedModel,
+import {ContractGrantExtendedModel,
   ContractGrantModel,
 } from '@services/contract/contract.model'
-import {HashService} from "@services/hash/hash.service";
-import {BehaviorSubject, from, Observable, Subject} from "rxjs";
-import {Async} from "@libs/decorators";
-import {filter, map, publishReplay, refCount, tap} from "rxjs/operators";
-import {RequestModel} from "@services/request/request.model";
-import {log} from "@libs/log";
+import {HashService} from '@services/hash/hash.service'
+import {Observable} from 'rxjs'
+import {Async} from '@libs/decorators'
+import {filter, map, publishReplay, refCount} from 'rxjs/operators'
+import {log} from '@libs/log'
 
 @Component({
   selector: 'ui-sub-list',
@@ -49,7 +47,7 @@ export class SubListComponent {
   @Input() public type: 'default' | 'active' = 'default'
   @Input() title: string | null = null
 
-  constructor(
+  constructor (
     public hashService: HashService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}

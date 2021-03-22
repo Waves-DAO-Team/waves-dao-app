@@ -5,7 +5,7 @@ import { TeamsControlsInterface } from '@pages/entity-page/entity.interface'
 import {IScore} from '@services/interface'
 import {translate} from '@ngneat/transloco'
 import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
-import {HashService} from "@services/hash/hash.service";
+import {HashService} from '@services/hash/hash.service'
 
 const linkHttpPipe = new LinkHttpPipe()
 

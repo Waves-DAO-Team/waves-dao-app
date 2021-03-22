@@ -2,7 +2,7 @@ import {Component, Inject} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {UserService} from '@services/user/user.service'
 import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens'
-import {HashService} from "@services/hash/hash.service";
+import {HashService} from '@services/hash/hash.service'
 
 @Component({
   selector: 'ui-propose-grant',
@@ -15,7 +15,7 @@ export class ProposeGrantComponent {
     link: new FormControl('', Validators.required)
   })
 
-  constructor(
+  constructor (
     public hashService: HashService,
     public userService: UserService,
     @Inject(DIALOG_DATA) public params: DialogParams
@@ -23,14 +23,16 @@ export class ProposeGrantComponent {
   }
 
 
-  onSubmit(): void {
+  onSubmit (): void {
     this.params.dialogRef.close()
-      this.hashService.init(this.grantForm.controls['link'].value).then((hash: string = '') => {
+    const link = this.grantForm.controls.link.value
+    this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises
+      .then((hash: string = '') => {
         if (this.params.submitCallBack) {
           this.params.submitCallBack({
-            name: this.grantForm.controls['name'].value,
-            link: this.grantForm.controls['link'].value,
-            hash: hash
+            name: this.grantForm.controls.name.value,
+            link: this.grantForm.controls.link.value,
+            hash
           })
         }
       })

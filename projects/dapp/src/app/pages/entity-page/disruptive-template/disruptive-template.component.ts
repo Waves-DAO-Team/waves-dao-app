@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
-import {ContractGrantAppModel, ContractGrantExtendedModel, ContractGrantModel} from '@services/contract/contract.model'
+import {ContractGrantAppModel, ContractGrantModel} from '@services/contract/contract.model'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
@@ -37,7 +37,7 @@ import {Async, DestroyedSubject} from '@libs/decorators'
 import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
 import {log} from '@libs/log'
 import {getEntityData} from '@pages/entity-page/functions'
-import {HashService} from "@services/hash/hash.service";
+import {HashService} from '@services/hash/hash.service'
 
 @Component({
   selector: 'app-disruptive-template',
@@ -148,7 +148,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
       map(([user, grant]) => prepareIsRejectBtnData(grant, user))
     )
 
-  constructor(
+  constructor (
     public hashService: HashService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
@@ -160,7 +160,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
   ) {
   }
 
-  vote(value: 'like' | 'dislike', id: string): void {
+  vote (value: 'like' | 'dislike', id: string): void {
     this.voteForTaskData.isVoteInProcess = true
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
       complete: () => {
@@ -170,7 +170,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
     })
   }
 
-  signup(): void {
+  signup (): void {
     this.signerService.login()
       .pipe(take(1))
       .subscribe(() => {
@@ -179,7 +179,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
       })
   }
 
-  openApplyModal(grant: ContractGrantModel): void {
+  openApplyModal (grant: ContractGrantModel): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -199,25 +199,25 @@ export class DisruptiveTemplateComponent implements OnDestroy {
     })
   }
 
-  voteTeam($event: VoteTeamEventInterface, id: string): void {
+  voteTeam ($event: VoteTeamEventInterface, id: string): void {
     const teamId = $event.teamIdentifier
     const vote = $event.voteValue
     this.disruptiveContractService.voteForApplicant(id, teamId, vote).subscribe()
   }
 
-  finishVote(id: string): void {
+  finishVote (id: string): void {
     this.disruptiveContractService.finishTaskProposalVoting(id).subscribe()
   }
 
-  startWork(id: string): void {
+  startWork (id: string): void {
     this.disruptiveContractService.startWork(id).subscribe()
   }
 
-  reject(id: string): void {
+  reject (id: string): void {
     this.disruptiveContractService.rejectTask(id).subscribe()
   }
 
-  acceptWorkResult(id: string): void {
+  acceptWorkResult (id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -237,7 +237,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
     })
   }
 
-  finishApplicantsVote(grant: ContractGrantModel, id: string): void {
+  finishApplicantsVote (grant: ContractGrantModel, id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -262,7 +262,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
     })
   }
 
-  addReward(grant: ContractGrantModel, id: string): void {
+  addReward (grant: ContractGrantModel, id: string): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -285,7 +285,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
     })
   }
 
-  private prepareVoteForTaskData(grant: ContractGrantModel) {
+  private prepareVoteForTaskData (grant: ContractGrantModel) {
     if (this.userService.data.getValue().roles.isDAO && grant.status?.value === GrantStatusEnum.proposed) {
       this.voteForTaskData.isShow = true
     } else {
@@ -298,7 +298,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
   }
 
 }

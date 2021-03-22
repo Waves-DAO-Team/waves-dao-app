@@ -1,11 +1,11 @@
-import { Component, Inject } from '@angular/core'
-import { DIALOG_DATA, DialogParams } from '@ui/dialog/dialog.tokens'
-import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { API, AppApiInterface } from '@constants'
-import { ContractGrantModel } from '@services/contract/contract.model'
-import { StaticService } from '@services/static/static.service'
-import {HashService} from "@services/hash/hash.service";
+import {Component, Inject} from '@angular/core'
+import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens'
+import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
+import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {API, AppApiInterface} from '@constants'
+import {ContractGrantModel} from '@services/contract/contract.model'
+import {StaticService} from '@services/static/static.service'
+import {HashService} from '@services/hash/hash.service'
 
 @Component({
   selector: 'ui-apply',
@@ -37,16 +37,18 @@ export class ApplyComponent {
 
   onSubmitApplyGrantForm (): void {
     if (this.grant?.id && this.applyGrantForm?.value?.team && this.applyGrantForm?.value?.link) {
-      this.hashService.init(this.applyGrantForm.controls['link'].value).then((hash: string = '') => {
-        if (this.params.submitCallBack) {
-          this.params.submitCallBack({
-            id: this.grant?.id || '',
-            team: this.applyGrantForm?.value?.team,
-            link: this.applyGrantForm?.value?.link,
-            hash: hash
-          })
-        }
-      })
+      const link = this.applyGrantForm.controls.link.value
+      this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises
+        .then((hash: string = '') => {
+          if (this.params.submitCallBack) {
+            this.params.submitCallBack({
+              id: this.grant?.id || '',
+              team: this.applyGrantForm?.value?.team,
+              link: this.applyGrantForm?.value?.link,
+              hash
+            })
+          }
+        })
       this.modalGoTo('CLOSE')
     }
   }
