@@ -22,9 +22,6 @@ export class VotingsTemplateComponent implements OnInit {
     .pipe(
       map((dataIn: RequestModel<ContractDataRawModel>) => {
         const oldTasks = dataIn?.payload?.tasks
-
-        console.log('oldTasks', oldTasks)
-
         const tasks: IVotings.ITask[] = oldTasks ? Object.keys(oldTasks).map((key) => ({
             status: oldTasks[key]?.status?.value || '',
             ticker: key

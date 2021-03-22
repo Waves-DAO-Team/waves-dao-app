@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {catchError,take} from "rxjs/operators";
+import {catchError, take} from "rxjs/operators";
 import {EMPTY} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
@@ -14,7 +14,8 @@ export class HashService {
 
   private cache: { [s: string]: boolean | null } = {}
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+  }
 
   public init(url: string): Promise<string> {
     if (!this.isGithubUrl(url))
@@ -41,7 +42,7 @@ export class HashService {
   }
 
   private isGithubUrl(url: string): boolean {
-    if (url.length < 7) return false
+    if (url.length < 7 || !this.validURL(url)) return false
     let urlObj = new URL(url)
     if (
       (urlObj.host !== 'api.github.com' && urlObj.host !== "github.com")
@@ -72,6 +73,16 @@ export class HashService {
     return 4294967296 * (2097151 & h2) + (h1 >>> 0);
   }
 
+  validURL(str: string) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return !!pattern.test(str);
+  }
+
 
   public isHashValid(hash: string, link: string): Promise<boolean | null> {
     if (this.cache[hash]) {
@@ -80,7 +91,7 @@ export class HashService {
       })
     } else {
       return new Promise((resolve) => {
-        if (!!hash || !!link ) {
+        if (!!hash) {
           this.getHtml(this.transformUrl(link)).subscribe((e) => {
               resolve(this.getHash(e.body).toString() === hash);
               this.cache[hash] = this.getHash(e.body).toString() === hash

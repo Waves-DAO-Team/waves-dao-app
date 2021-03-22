@@ -97,7 +97,6 @@ export class DisruptiveTemplateComponent implements OnDestroy {
       takeUntil(this.destroyed$),
       filter(([grant]) => grant !== null && grant !== undefined),
       map(([grant, user, isProcess]) => prepareTeamsData(grant, user, isProcess, this.hashService)),
-      tap((e) => console.log('+++ eee', e)),
     )
 
   public readonly isShowStepperAndTeam$: Observable<boolean> = this.grant$
