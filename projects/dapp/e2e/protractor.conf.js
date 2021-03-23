@@ -13,7 +13,14 @@ exports.config = {
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    browserName: 'chrome'
+    browserName: 'chrome',
+    // chromeOptions: {
+    //   binary: require('puppeteer').executablePath(),
+    // },
+    chromeOptions: {
+      args: ['--headless', '--no-sandbox', '--disable-gpu'],
+      binary: require('puppeteer').executablePath(),
+    },
   },
   directConnect: true,
   SELENIUM_PROMISE_MANAGER: false,
