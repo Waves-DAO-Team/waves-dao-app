@@ -8,28 +8,22 @@ describe('workspace-project App', () => {
     page = new Header()
   })
 
-  it('Test2: should check that logo icon is clickable', async () => {
+  it('Test6: should check that logo icon is clickable', async () => {
     await page.navigateTo()
     // @ts-ignore this is necessary maybe
     expect(await page.logoClickable()).toBe(true)
   })
 
-  it('Test4: header is present', async () => {
+  it('Test7: header is present', async () => {
     await page.navigateTo()
     // @ts-ignore this is necessary maybe
     expect(await page.headerIsPresent()).toBe(true)
   })
 
-  it('Test9: goes to Disruptive page and checks that active menu item has blue color', async () => {
+  it('Test8: goes to Disruptive page and checks that active menu item has blue color', async () => {
     await page.navigateTo('/grants/disruptive')
     expect(await page.getActiveMenuItemColor()).toBe('rgba(0, 85, 255, 1)')
   })
-
-  // it('Test11: Login button clicked', async () => {
-  //   await page.navigateTo()
-  //   // @ts-ignore this is necessary maybe
-  //   expect(await page.clickLoginButton()).toBe(true)
-  // })
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

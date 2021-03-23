@@ -8,7 +8,7 @@ describe('workspace-project App', () => {
     page = new LandingPage()
   })
 
-  it('Test1: should display title on Landing page', async () => {
+  it('Test9: should display title on Landing page', async () => {
     await page.navigateTo()
     expect(await page.getLandingTitleText()).toEqual('Waves Association DAO')
   })
