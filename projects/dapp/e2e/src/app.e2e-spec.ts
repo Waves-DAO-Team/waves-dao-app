@@ -1,11 +1,8 @@
 import { AppPage } from './app.po'
-import {browser, by, element, logging, protractor} from 'protractor'
+import {browser, logging} from 'protractor'
 
 describe('workspace-project App', () => {
   let page: AppPage
-
-  const EC = protractor.ExpectedConditions;
-  const DEFAULT_TIMEOUT_IN_MS = 5000;
 
   beforeEach(() => {
     page = new AppPage()
