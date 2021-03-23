@@ -20,4 +20,8 @@ export class Header {
     return element(by.css('.header .container .nav li.active')).getCssValue('color')
   }
 
+  // async clickLoginButton (): Promise<void> {
+  //   return element(by.binding('Log in')).click()
+  // }
+
 }

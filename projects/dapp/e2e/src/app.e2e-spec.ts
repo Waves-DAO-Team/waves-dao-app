@@ -1,8 +1,11 @@
 import { AppPage } from './app.po'
-import {browser, logging} from 'protractor'
+import {browser, by, element, logging, protractor} from 'protractor'
 
 describe('workspace-project App', () => {
   let page: AppPage
+
+  const EC = protractor.ExpectedConditions;
+  const DEFAULT_TIMEOUT_IN_MS = 5000;
 
   beforeEach(() => {
     page = new AppPage()
@@ -32,6 +35,18 @@ describe('workspace-project App', () => {
   it('Test8: loads Members page and gives its title', async () => {
     await page.navigateTo('/members')
     expect(await page.getTitleOfMembersPage()).toEqual('Members')
+  })
+
+  it("Test11: login as WG and create a Web3.0 grant", async () => {
+    await page.navigateTo('/grants/web3')
+    const loginButton = element(by.method("signupHandler"));
+    const passwordField = element(by.id("password")); //ye_bQSZ1vNbmu6j1
+
+    // browser.wait(EC.elementToBeClickable(element(loginButton)), DEFAULT_TIMEOUT_IN_MS)
+    loginButton.click()
+    browser.wait(EC.visibilityOf(passwordField), DEFAULT_TIMEOUT_IN_MS);
+    passwordField.sendKeys("ye_bQSZ1vNbmu6j1");
+
   })
 
   afterEach(async () => {

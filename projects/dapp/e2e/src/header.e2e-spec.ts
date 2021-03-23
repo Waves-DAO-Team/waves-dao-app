@@ -25,6 +25,12 @@ describe('workspace-project App', () => {
     expect(await page.getActiveMenuItemColor()).toBe('rgba(0, 85, 255, 1)')
   })
 
+  // it('Test11: Login button clicked', async () => {
+  //   await page.navigateTo()
+  //   // @ts-ignore this is necessary maybe
+  //   expect(await page.clickLoginButton()).toBe(true)
+  // })
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER)
