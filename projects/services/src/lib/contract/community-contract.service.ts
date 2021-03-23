@@ -225,4 +225,23 @@ export class CommunityContractService {
       )
   }
 
+  hide (taskId: string): Observable<TransactionsSuccessResult>  {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'hideTask',
+      [
+        {type: 'string', value: taskId}
+      ]
+    )
+      .pipe(
+        catchError((error) => {
+          const mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
+          return EMPTY
+        }),
+        tap(() => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('entity.hide'), translate('messages.ok'))
+        })
+      )
+  }
+
 }

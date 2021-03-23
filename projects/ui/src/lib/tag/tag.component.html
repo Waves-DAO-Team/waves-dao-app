@@ -4,7 +4,7 @@
       class="mat-display-2"
       (click)="select(tag)"
       [class.active]="tag === lastTag"
-      *ngIf="tag !== 'team_chosen' && tag !== 'team_choosen'">
+      *ngIf="tag !== 'team_chosen' && tag !== 'team_choosen' && tag !== 'hide'">
       {{'listing.status.' + tag | transloco}}
     </li>
   </ng-container>

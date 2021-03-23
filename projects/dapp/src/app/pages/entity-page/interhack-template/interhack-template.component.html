@@ -29,6 +29,10 @@
 
   <ng-template #headerControlsTemplate>
 
+    <button class="active" *ngIf="isResetHashBtn$ | async" (click)="hide(entityData.id)">
+      {{'entity.hide' | transloco}}
+    </button>
+
     <button class="active" *ngIf="isResetHashBtn$ | async" (click)="resetHash(entityData.id, entityData.link.value)">
       {{'entity.reset_hash' | transloco}}
     </button>

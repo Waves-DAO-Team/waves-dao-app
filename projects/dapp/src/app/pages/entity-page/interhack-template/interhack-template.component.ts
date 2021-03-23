@@ -436,4 +436,7 @@ export class InterhackTemplateComponent implements OnDestroy {
       })
   }
 
+  hide(taskId: string) {
+    this.communityContractService.hide(taskId).subscribe()
+  }
 }
