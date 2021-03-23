@@ -21,7 +21,13 @@ describe('DisruptiveTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatDialogModule, HttpClientTestingModule, getTranslocoModule(), RouterTestingModule, MatSnackBarModule, EntityModule,
+      imports: [
+        MatDialogModule,
+        HttpClientTestingModule,
+        getTranslocoModule(),
+        RouterTestingModule,
+        MatSnackBarModule,
+        EntityModule,
         MarkdownModule,
         VoteForTaskModule,
         StepperModule,

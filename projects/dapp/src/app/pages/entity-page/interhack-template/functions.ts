@@ -234,7 +234,7 @@ export const teamsAndSolutionTypeSolution = (
 export const isStopSubmissionsBtn = (user: UserDataInterface, grant: ContractGrantModel): boolean => {
   const isStatusMatch = grant?.status?.value === GrantStatusEnum.workStarted
   let isVoteForSolution = false
-  if (grant.app) {
+  if (grant?.app) {
     grant.app.forEach((app) => {
       if (app.solution) {
         isVoteForSolution = true
@@ -248,7 +248,7 @@ export const isStopSubmissionsBtn = (user: UserDataInterface, grant: ContractGra
 export const prepareSquareFakeBlockVotingData = (grant: ContractGrantModel): boolean => {
   const isStatusMatch = grant?.status?.value === GrantStatusEnum.workStarted
   let isVoteForSolution = false
-  if (grant.app) {
+  if (grant?.app) {
     grant.app.forEach((app) => {
       if (app.solution) {
         isVoteForSolution = true
