@@ -16,14 +16,11 @@ import { DomSanitizer } from '@angular/platform-browser'
 export class VotingsTemplateComponent implements OnInit {
 
   @Input() public readonly contract!: GrantsVariationType
-  @Inject(API) public readonly api: AppApiInterface | undefined
 
   tasks$: Observable<IVotings.ITask[]>  = this.contractService.stream
     .pipe(
       map((dataIn: RequestModel<ContractDataRawModel>) => {
         const oldTasks = dataIn?.payload?.tasks
-
-        console.log('oldTasks', oldTasks)
 
         const tasks: IVotings.ITask[] = oldTasks ? Object.keys(oldTasks).map((key) => ({
             status: oldTasks[key]?.status?.value || '',
@@ -51,8 +48,10 @@ export class VotingsTemplateComponent implements OnInit {
       })
     )
 
-  constructor (private readonly contractService: ContractService,
-               public domSanitizer: DomSanitizer
+  constructor (
+      private readonly contractService: ContractService,
+      public domSanitizer: DomSanitizer,
+      @Inject(API) public readonly api: AppApiInterface,
   ) { }
 
   ngOnInit (): void {
