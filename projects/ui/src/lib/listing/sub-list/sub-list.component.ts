@@ -14,7 +14,7 @@ import {ContractGrantExtendedModel,
 import {HashService} from '@services/hash/hash.service'
 import {Observable} from 'rxjs'
 import {Async} from '@libs/decorators'
-import {filter, map, publishReplay, refCount, tap} from 'rxjs/operators'
+import {filter, map, publishReplay, refCount} from 'rxjs/operators'
 import {log} from '@libs/log'
 
 @Component({
@@ -39,7 +39,7 @@ export class SubListComponent {
         isHashValid: this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
       })
     )),
-    map( grants => grants.filter((item) => {return item?.status?.value !== 'hide'})),
+    map( grants => grants.filter((item) => item?.status?.value !== 'hide')),
     log('SubListComponent::grants$'),
     publishReplay(1),
     refCount()

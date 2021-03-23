@@ -315,7 +315,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
   ngOnDestroy (): void {
   }
 
-  hide(taskId: string) {
+  hide (taskId: string): void {
     this.communityContractService.hide(taskId).subscribe()
   }
 }
