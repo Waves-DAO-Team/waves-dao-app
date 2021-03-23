@@ -138,6 +138,20 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   winnerName?: string
 }
 
+export interface ContractGrantExtendedModel extends ContractGrantModel{
+  isApproved: boolean,
+  isLeader: boolean,
+  isAmount: boolean,
+  isVotingStarted: boolean,
+  isWG: boolean,
+  isReward: boolean,
+  isNewGrant: boolean,
+  isCanceled: boolean,
+  isWorkStarted: boolean,
+  isShowVoting: boolean,
+  isVoteForGrant: boolean
+}
+
 // export interface ContractGrantRawModel extends ContractGrantCommonModel {
 //   tasks?: {[s: string]: ContractGrantModel}
 //   app?: {[s: string]: ContractGrantAppModel}

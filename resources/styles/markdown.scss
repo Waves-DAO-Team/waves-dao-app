@@ -1,30 +1,52 @@
 markdown {
 
-  strong {
-    font-size: $font_size_h4 !important;
-  }
-
   g-emoji {
     display: none;
     appearance: none;
   }
 
-  ul {
-    list-style: none;
-    margin-left: -40px;
+  ul, ol {
+    margin-left: -1.8rem;
     empty-cells: hide;
-    margin-bottom: 12px;
+  }
+
+  ol {
+    li::marker {
+      color: $color_waves_blue;
+      font-weight: bold;
+    }
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+
+  ul {
+    list-style-image: url("../assets/icons/waves-square.svg");
     margin-top: 0;
+    margin-bottom: 0 !important;
+    //:nth-child(odd) {
+    //  margin-bottom: 0;
+    //}
+    //:nth-child(even) {
+    //  margin-bottom: 15px;
+    //}
+
+    li::ng-deep ul::marker {
+      list-style: square !important;
+    }
+
+    li::marker {
+      width: auto;
+      height: auto;
+
+      ::ng-deep li::marker {
+        list-style: square !important;
+      }
+    }
 
     li {
       margin-top: 0;
-      margin-bottom: 12px;
-      :nth-child(odd) {
-        margin-bottom: 0;
-      }
-      :nth-child(even) {
-        margin-bottom: 15px;
-      }
+
       p {
         margin-bottom: 0;
       }
@@ -32,7 +54,14 @@ markdown {
   }
   h1 {
     font-size: $font_size_h2 !important;
-    font-weight: 700 !important;
+    max-width: 100%;
+    width: auto;
+    border-bottom: 2px solid rgba(0, 85, 255, 0.6);
+    padding-bottom: 8px;
+    .g-emoji {
+      display: none !important;
+      appearance: none !important;
+    }
   }
 
   g-emoji {
@@ -41,30 +70,31 @@ markdown {
   }
 
   h2 {
-    font-size: $font_size_h2 !important;
+    font-size: $font_size_h3 !important;
     font-weight: 500 !important;
-    border-bottom: 4px solid $color_waves_blue;
-    width: max-content;
+    width: auto;
+    border-bottom: 1px solid $color_dark_gray;
+    max-width: 100%;
+    padding-top: 16px;
     padding-bottom: 8px;
-    g-emoji {
-      display: none !important;
-      appearance: none !important;
-    }
-    .emoji {
+    .g-emoji {
       display: none !important;
       appearance: none !important;
     }
   }
 
   h3 {
-    font-size: $font_size_h3 !important;
+    font-size: $font_size_h34 !important;
     font-weight: 500 !important;
+    //margin-top: 2rem !important;
+    padding-top: 16px;
   }
 
   h6 {
     font-size: $font_size_h4 !important;
     font-weight: 600 !important;
     margin: 0 !important;
+    padding-top: 8px;
   }
 
   h4 {
@@ -80,5 +110,6 @@ markdown {
 
   img {
     max-width: 100%;
+    padding: 1rem 0;
   }
 }

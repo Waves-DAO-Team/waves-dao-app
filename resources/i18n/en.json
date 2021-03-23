@@ -732,7 +732,12 @@
   },
   "add-reward": {
     "title": "Add reward",
-    "disabled_submit_text": "Wait, processing is in progress!"
+    "disabled_submit_text": "Wait, processing is in progress!",
+    "errors": {
+      "minValue": "Minimum value 0.01",
+      "noEmpty": "The field should not be empty",
+      "decimal": "It can be no more than two decimal places"
+    }
   },
   "contracts": {
     "disruptive": {

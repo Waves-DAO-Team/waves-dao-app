@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core'
 import { ContractGrantModel } from '@services/contract/contract.model'
-import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.model'
+import { GrantsVariationType } from '@services/static/static.model'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SignerService } from '@services/signer/signer.service'
 import {map, publishReplay, refCount, take, takeUntil} from 'rxjs/operators'
@@ -19,6 +19,7 @@ import {combineLatest, Observable, Subject} from 'rxjs'
 import {Async, DestroyedSubject} from '@libs/decorators'
 import { Web3TemplateInterface } from './web3-template.interface'
 import { log } from '@libs/log'
+import {getEntityData} from '@pages/entity-page/functions'
 
 @Component({
   selector: 'app-web3-template',
@@ -36,20 +37,7 @@ export class Web3TemplateComponent implements OnDestroy {
 
   public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
     takeUntil(this.destroyed$),
-    map(([user, grant]) => ({
-        ...grant,
-        isApproved: grant?.status?.value === GrantStatusEnum.approved,
-        isLeader: grant?.leader?.value === user.userAddress,
-        isAmount: !!grant?.voting?.amount,
-        isVotingStarted: grant?.status?.value === GrantStatusEnum.votingStarted,
-        isWG: user.roles.isWG,
-        isReward: !!grant?.reward?.value,
-        isNewGrant: !grant?.status?.value,
-        isCanceled: grant?.status?.value !== GrantStatusEnum.workFinished && grant?.status?.value !== GrantStatusEnum.rejected,
-        isWorkStarted: grant?.status?.value === GrantStatusEnum.workStarted,
-        isShowVoting: user.roles.isDAO && grant?.status?.value === GrantStatusEnum.votingStarted,
-        isVoteForGrant: user.roles.isDAO && !!grant?.voted && !!grant?.voted[user.userAddress]
-      })),
+    map(([user, grant]) => (getEntityData(user, grant))),
     log('Web3TemplateComponent::entityData$'),
     publishReplay(1),
     refCount()
@@ -180,7 +168,6 @@ export class Web3TemplateComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy (): void {
-    this.destroyed$.next()
-  }
+  ngOnDestroy (): void {}
+
 }

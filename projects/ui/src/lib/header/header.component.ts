@@ -17,12 +17,13 @@ import { Router } from '@angular/router'
 import { UserService } from '@services/user/user.service'
 import { Location } from '@angular/common'
 import { ContractService } from '@services/contract/contract.service'
-import { map, take, takeUntil } from 'rxjs/operators'
+import {map, take, takeUntil} from 'rxjs/operators'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { StaticService } from '@services/static/static.service'
 import { log } from '@libs/log'
 import { HeaderComponentUserModel } from './header.model'
 import {RoleEnum} from '@services/user/user.interface'
+import {Clipboard} from '@angular/cdk/clipboard'
 
 @Component({
   selector: 'ui-header',
@@ -45,13 +46,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
             }))
       )
 
-
   // Subject activate if component destroyed
   // And unsubscribe all subscribers used takeUntil(this.destroyed$)
   public readonly contractsList$ = this.staticService.getContactsList()
   isToggleMenuOpen = false
 
   constructor (
+    private clipboard: Clipboard,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
     private readonly signerService: SignerService,
     private readonly snackBar: MatSnackBar,
@@ -70,6 +71,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.snackBar.open(error, translate('messages.ok'))
     })
+  }
+
+  copyUserName (str: string): void {
+    const pending = this.clipboard.beginCopy(str)
+
+    let remainingAttempts = 3
+    const attempt = () => {
+      const result = pending.copy()
+      if (!result && --remainingAttempts) {
+        setTimeout(attempt)
+      } else {
+        pending.destroy()
+      }
+    }
+    attempt()
+    console.log('copied to clipboard')
   }
 
   logoutHandler (): void {
