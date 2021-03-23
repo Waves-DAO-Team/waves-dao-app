@@ -23,11 +23,11 @@ export class DefaultTemplateComponent implements OnInit {
   @Input() public readonly constants!: AppConstantsInterface
 
   constructor (
-    @Inject(API) public readonly api: AppApiInterface, // eslint-disable-line
-    public staticService: StaticService, // eslint-disable-line
-    private readonly dialog: MatDialog, // eslint-disable-line
-    public commonContractService: CommonContractService, // eslint-disable-line
-    private readonly cdr: ChangeDetectorRef // eslint-disable-line
+    @Inject(API) public readonly api: AppApiInterface,
+    public staticService: StaticService,
+    private readonly dialog: MatDialog,
+    public commonContractService: CommonContractService,
+    private readonly cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit (): void {

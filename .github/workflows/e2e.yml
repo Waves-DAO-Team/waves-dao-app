@@ -54,9 +54,9 @@ jobs:
         uses: mshick/fast-envsubst@v1
         with:
           in-file: ./projects/dapp/src/environments/environment.prod.ts
-          out-file: ./projects/dapp/src/environments/environment.local.ts
+          out-file: ./projects/dapp/src/environments/environment.prod.ts
       - run: yarn install
       - run: ./node_modules/protractor/bin/webdriver-manager update --versions.chrome=88.0.4324.182
-      - run: yarn e2e
+      - run: ./node_modules/.bin/ng e2e --port 0 --configuration=production --webdriver-update=false
         env:
           NODE_ENV: production
