@@ -1,11 +1,22 @@
-import { browser, by, element } from 'protractor'
+import {browser, by, element, protractor} from 'protractor'
 
 export class AppPage {
-  async navigateTo (): Promise<unknown> {
-    return await browser.get(browser.baseUrl) as Promise<unknown>
+
+  async navigateTo (path: string = browser.baseUrl): Promise<unknown> {
+    return await browser.get(path) as Promise<unknown>
   }
 
-  async getTitleText (): Promise<string> {
-    return await element(by.css('app-root header .header__title')).getText()
+  async footerIsPresent (): Promise<string> {
+      const EC = protractor.ExpectedConditions
+      return browser.wait(EC.presenceOf(element(by.css('.footer'))), 5000)
   }
+
+  async getTitleOfGrantsPage (): Promise<string> {
+    return element(by.css('.listing-page__title')).getText()
+  }
+
+  async getTitleOfMembersPage (): Promise<string> {
+    return element(by.css('.members-page__title')).getText()
+  }
+
 }
