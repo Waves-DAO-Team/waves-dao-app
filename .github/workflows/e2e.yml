@@ -1,9 +1,7 @@
 
-name: Build Angular App and Deploy on Firebase
-on:
-  push:
-    branches:
-      - refactor
+name: E2E
+
+on: push
 
 jobs:
   build:

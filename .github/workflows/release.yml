@@ -1,79 +1,79 @@
-name: Release
-
-on:
-  release:
-    types: [ published ]
-
-env:
-  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-  DOCKER_USERNAME: "_"
-  DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
-  PROJECT: ${{ secrets.PROJECT_PROD }}
-
-  API_SIGNER: https://testnet.waves.exchange/signer/
-  API_NODES: https://nodes-testnet.wavesnodes.com
-  API_EXPLORER: https://testnet.wavesexplorer.com/address/
-
-  WORKING_GROUP: ${{ secrets.WORKING_GROUP_PROD }}
-  MEMBERSHIP: ${{ secrets.MEMBERSHIP_PROD }}
-  INTERHACK: ${{ secrets.INTERHACK_PROD }}
-  VOTINGS: ${{ secrets.VOTINGS_PROD }}
-  WEB3: ${{ secrets.WEB3_PROD }}
-  DISRUPTIVE: ${{ secrets.DISRUPTIVE_PROD }}
-  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE_PROD }}
-  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE_PROD }}
-  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE_PROD }}
-  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}
-  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK_PROD }}
-  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
-  DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
-  VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
-  WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
-  INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set config
-        uses: mshick/fast-envsubst@v1
-        with:
-          in-file: ./projects/dapp/src/environments/environment.prod.ts
-          out-file: ./projects/dapp/src/environments/environment.prod.ts
-
-      - name: Set analytics
-        uses: mshick/fast-envsubst@v1
-        with:
-          in-file: ./projects/dapp/src/index.html
-          out-file: ./projects/dapp/src/index.html
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to Heroku Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: registry.heroku.com
-          username: ${{ env.DOCKER_USERNAME }}
-          password: ${{ env.DOCKER_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          push: true
-          tags: registry.heroku.com/${{ env.PROJECT }}/web
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Release
-        run: |
-          heroku container:release -a ${{ env.PROJECT }} web
+#name: Release
+#
+#on:
+#  release:
+#    types: [ published ]
+#
+#env:
+#  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+#  DOCKER_USERNAME: "_"
+#  DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
+#  PROJECT: ${{ secrets.PROJECT_PROD }}
+#
+#  API_SIGNER: https://testnet.waves.exchange/signer/
+#  API_NODES: https://nodes-testnet.wavesnodes.com
+#  API_EXPLORER: https://testnet.wavesexplorer.com/address/
+#
+#  WORKING_GROUP: ${{ secrets.WORKING_GROUP_PROD }}
+#  MEMBERSHIP: ${{ secrets.MEMBERSHIP_PROD }}
+#  INTERHACK: ${{ secrets.INTERHACK_PROD }}
+#  VOTINGS: ${{ secrets.VOTINGS_PROD }}
+#  WEB3: ${{ secrets.WEB3_PROD }}
+#  DISRUPTIVE: ${{ secrets.DISRUPTIVE_PROD }}
+#  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE_PROD }}
+#  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE_PROD }}
+#  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE_PROD }}
+#  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}
+#  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK_PROD }}
+#  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
+#  DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
+#  VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
+#  WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
+#  INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      - name: Set config
+#        uses: mshick/fast-envsubst@v1
+#        with:
+#          in-file: ./projects/dapp/src/environments/environment.prod.ts
+#          out-file: ./projects/dapp/src/environments/environment.prod.ts
+#
+#      - name: Set analytics
+#        uses: mshick/fast-envsubst@v1
+#        with:
+#          in-file: ./projects/dapp/src/index.html
+#          out-file: ./projects/dapp/src/index.html
+#
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v1
+#
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v1
+#
+#      - name: Login to Heroku Container Registry
+#        uses: docker/login-action@v1
+#        with:
+#          registry: registry.heroku.com
+#          username: ${{ env.DOCKER_USERNAME }}
+#          password: ${{ env.DOCKER_TOKEN }}
+#
+#      - name: Build and push
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: ./
+#          push: true
+#          tags: registry.heroku.com/${{ env.PROJECT }}/web
+#
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    steps:
+#      - name: Release
+#        run: |
+#          heroku container:release -a ${{ env.PROJECT }} web

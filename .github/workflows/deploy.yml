@@ -1,106 +1,106 @@
-name: Create && Deploy
-
-on: push
-
-env:
-  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-  DOCKER_USERNAME: "_"
-  DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
-  PROJECT: ${{ secrets.PROJECT }}
-
-  API_SIGNER: https://testnet.waves.exchange/signer/
-  API_NODES: https://nodes-testnet.wavesnodes.com
-  API_EXPLORER: https://testnet.wavesexplorer.com/address/
-
-  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
-  MEMBERSHIP: ${{ secrets.MEMBERSHIP }}
-  INTERHACK: ${{ secrets.INTERHACK }}
-  WEB3: ${{ secrets.WEB3 }}
-  DISRUPTIVE: ${{ secrets.DISRUPTIVE }}
-  VOTINGS: ${{ secrets.VOTINGS }}
-  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
-  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE }}
-  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE }}
-  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
-  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK }}
-  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
-  DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
-  VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
-  WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
-  INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
-
-
-jobs:
-  create:
-    runs-on: ubuntu-latest
-    if: contains( github.ref, 'refs/tags/') == false
-    continue-on-error: true
-    steps:
-      - name: Set ENV
-        run: |
-          echo "HEROKU_APPLICATION_BASE=${{ env.PROJECT }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
-
-      - name: Create an applications if it does not exist
-        continue-on-error: true
-        run: |
-          heroku create ${HEROKU_APPLICATION_BASE}
-
-      - name: Set env to heroku server
-        run: |
-          heroku config:set \
-            LABEL="Waves Association DAO. $HEROKU_APPLICATION_BASE" \
-            -a $HEROKU_APPLICATION_BASE
-
-  build:
-    runs-on: ubuntu-latest
-    needs: create
-    steps:
-      - name: Set ENV
-        run: echo "HEROKU_APPLICATION=$PROJECT-${GITHUB_REF##*/}" >> $GITHUB_ENV
-
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set config
-        uses: mshick/fast-envsubst@v1
-        with:
-          in-file: ./projects/dapp/src/environments/environment.prod.ts
-          out-file: ./projects/dapp/src/environments/environment.prod.ts
-
-      - name: Set analytics
-        uses: mshick/fast-envsubst@v1
-        with:
-          in-file: ./projects/dapp/src/index.html
-          out-file: ./projects/dapp/src/index.html
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to Heroku Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: registry.heroku.com
-          username: ${{ env.DOCKER_USERNAME }}
-          password: ${{ env.DOCKER_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-          tags: registry.heroku.com/${{ env.HEROKU_APPLICATION }}/web
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Set ENV
-        run: echo "HEROKU_APPLICATION=${{ env.PROJECT }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
-
-      - name: Release
-        run: |
-          heroku container:release web -a $HEROKU_APPLICATION
+#name: Create && Deploy
+#
+#on: push
+#
+#env:
+#  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+#  DOCKER_USERNAME: "_"
+#  DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
+#  PROJECT: ${{ secrets.PROJECT }}
+#
+#  API_SIGNER: https://testnet.waves.exchange/signer/
+#  API_NODES: https://nodes-testnet.wavesnodes.com
+#  API_EXPLORER: https://testnet.wavesexplorer.com/address/
+#
+#  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
+#  MEMBERSHIP: ${{ secrets.MEMBERSHIP }}
+#  INTERHACK: ${{ secrets.INTERHACK }}
+#  WEB3: ${{ secrets.WEB3 }}
+#  DISRUPTIVE: ${{ secrets.DISRUPTIVE }}
+#  VOTINGS: ${{ secrets.VOTINGS }}
+#  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
+#  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE }}
+#  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE }}
+#  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+#  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK }}
+#  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
+#  DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
+#  VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
+#  WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
+#  INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
+#
+#
+#jobs:
+#  create:
+#    runs-on: ubuntu-latest
+#    if: contains( github.ref, 'refs/tags/') == false
+#    continue-on-error: true
+#    steps:
+#      - name: Set ENV
+#        run: |
+#          echo "HEROKU_APPLICATION_BASE=${{ env.PROJECT }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
+#
+#      - name: Create an applications if it does not exist
+#        continue-on-error: true
+#        run: |
+#          heroku create ${HEROKU_APPLICATION_BASE}
+#
+#      - name: Set env to heroku server
+#        run: |
+#          heroku config:set \
+#            LABEL="Waves Association DAO. $HEROKU_APPLICATION_BASE" \
+#            -a $HEROKU_APPLICATION_BASE
+#
+#  build:
+#    runs-on: ubuntu-latest
+#    needs: create
+#    steps:
+#      - name: Set ENV
+#        run: echo "HEROKU_APPLICATION=$PROJECT-${GITHUB_REF##*/}" >> $GITHUB_ENV
+#
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      - name: Set config
+#        uses: mshick/fast-envsubst@v1
+#        with:
+#          in-file: ./projects/dapp/src/environments/environment.prod.ts
+#          out-file: ./projects/dapp/src/environments/environment.prod.ts
+#
+#      - name: Set analytics
+#        uses: mshick/fast-envsubst@v1
+#        with:
+#          in-file: ./projects/dapp/src/index.html
+#          out-file: ./projects/dapp/src/index.html
+#
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v1
+#
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v1
+#
+#      - name: Login to Heroku Container Registry
+#        uses: docker/login-action@v1
+#        with:
+#          registry: registry.heroku.com
+#          username: ${{ env.DOCKER_USERNAME }}
+#          password: ${{ env.DOCKER_TOKEN }}
+#
+#      - name: Build and push
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: ./
+#          file: ./Dockerfile
+#          push: true
+#          tags: registry.heroku.com/${{ env.HEROKU_APPLICATION }}/web
+#
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    steps:
+#      - name: Set ENV
+#        run: echo "HEROKU_APPLICATION=${{ env.PROJECT }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
+#
+#      - name: Release
+#        run: |
+#          heroku container:release web -a $HEROKU_APPLICATION
