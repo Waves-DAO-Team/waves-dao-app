@@ -18,4 +18,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Run Tests
-        run: ng e2e
+        run: ./node_modules/.bin/ng e2e
