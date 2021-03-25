@@ -67,6 +67,7 @@ export class AddRewardComponent {
     if (this.params.submitCallBack) {
       this.isInProcess = true
       this.params.submitCallBack({
+        
         reward: this.fixReward(this.grantForm.value.reward)
       })
     }
