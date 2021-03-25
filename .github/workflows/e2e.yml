@@ -1,18 +1,21 @@
-
 name: E2E
 
 on: push
 
 jobs:
   build:
-    name: Build & Deploy
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Install Dependencies
-        run: npm install
+      - name: Install Node
+        uses: actions/setup-node@v1
+          with:
+            node-version: 12.8
+      - name: npm dependencies
+          run: npm install
       - name: Build
-        run: npm run build
+          run: npm run build -- --prod
       - name: Run Tests
         run: ng e2e
