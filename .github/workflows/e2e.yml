@@ -1,22 +1,20 @@
-name: Node.js CI
 
-on: push
-
+name: Build Angular App and Deploy on Firebase
+on:
+  push:
+    branches:
+      - refactor
 
 jobs:
   build:
-
+    name: Build & Deploy
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x]
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2-beta
-      - uses: actions/cache@v2
-      - run: npm install
-      - run: npm run build
-      - run: npm run e2e
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Run Tests
+        run: ng e2e
