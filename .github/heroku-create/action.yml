@@ -1,0 +1,28 @@
+name: 'Heroku create'
+description: 'Pass environments from secrets'
+inputs:
+  project:
+    description: 'Project name'
+    required: true
+  label:
+    description: 'Project label'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Set ENV
+      run: |
+        echo "HEROKU_APPLICATION_BASE=${{ inputs.project }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Create an applications if it does not exist
+      run: |
+        heroku create ${HEROKU_APPLICATION_BASE}
+      shell: bash
+
+    - name: Set env to heroku server
+      run: |
+        heroku config:set \
+          LABEL="${{ inputs.label }} | $HEROKU_APPLICATION_BASE" \
+          -a $HEROKU_APPLICATION_BASE
+      shell: bash
