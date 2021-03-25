@@ -1,63 +1,89 @@
-name: E2E
 
-# Run this workflow every time a new commit pushed to your repository
-on: push
+# GitHub Actions docs
+# https://help.github.com/en/articles/about-github-actions
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+name: CI
 
-env:
-  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-  DOCKER_USERNAME: "_"
-  DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
-  PROJECT: ${{ secrets.PROJECT }}
-
-  API_SIGNER: https://testnet.waves.exchange/signer/
-  API_NODES: https://nodes-testnet.wavesnodes.com
-  API_EXPLORER: https://testnet.wavesexplorer.com/address/
-
-  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
-  MEMBERSHIP: ${{ secrets.MEMBERSHIP }}
-  INTERHACK: ${{ secrets.INTERHACK }}
-  WEB3: ${{ secrets.WEB3 }}
-  DISRUPTIVE: ${{ secrets.DISRUPTIVE }}
-  VOTINGS: ${{ secrets.VOTINGS }}
-  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
-  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE }}
-  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE }}
-  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
-  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK }}
-  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
-  DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
-  VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
-  WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
-  INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
+on: [push]
 
 jobs:
-  # Set the job key. The key is displayed as the job name
-  # when a job name is not provided
   build:
-    # Name the Job
-    name: E2E tests
-    # Set the type of machine to run on
-    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [ 14.x ]
+    # Machine environment:
+    # https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions#ubuntu-1804-lts
+    # We specify the Node.js version manually below, and use versioned Chrome from Puppeteer.
+    runs-on: ubuntu-18.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12.8
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Set config
-        uses: mshick/fast-envsubst@v1
-        with:
-          in-file: ./projects/dapp/src/environments/environment.prod.ts
-          out-file: ./projects/dapp/src/environments/environment.local.ts
-      - run: yarn install
-      - run: node ./node_modules/protractor/bin/webdriver-manager clean
-      - run: node ./node_modules/protractor/bin/webdriver-manager update
-      - run: ./node_modules/.bin/ng e2e
-        env:
-          NODE_ENV: production
+          node-version: 12.8
+      - name: Install dependencies
+        run: npm install
+      - name: E2E
+        run: npm run e2e -- --configuration=ci
+#name: E2E
+#
+## Run this workflow every time a new commit pushed to your repository
+#on: push
+#
+#env:
+#  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+#  DOCKER_USERNAME: "_"
+#  DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
+#  PROJECT: ${{ secrets.PROJECT }}
+#
+#  API_SIGNER: https://testnet.waves.exchange/signer/
+#  API_NODES: https://nodes-testnet.wavesnodes.com
+#  API_EXPLORER: https://testnet.wavesexplorer.com/address/
+#
+#  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
+#  MEMBERSHIP: ${{ secrets.MEMBERSHIP }}
+#  INTERHACK: ${{ secrets.INTERHACK }}
+#  WEB3: ${{ secrets.WEB3 }}
+#  DISRUPTIVE: ${{ secrets.DISRUPTIVE }}
+#  VOTINGS: ${{ secrets.VOTINGS }}
+#  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
+#  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE }}
+#  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE }}
+#  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+#  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK }}
+#  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
+#  DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
+#  VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
+#  WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
+#  INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
+#
+#jobs:
+#  # Set the job key. The key is displayed as the job name
+#  # when a job name is not provided
+#  build:
+#    # Name the Job
+#    name: E2E tests
+#    # Set the type of machine to run on
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [ 14.x ]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#      - name: Set config
+#        uses: mshick/fast-envsubst@v1
+#        with:
+#          in-file: ./projects/dapp/src/environments/environment.prod.ts
+#          out-file: ./projects/dapp/src/environments/environment.local.ts
+#      - run: yarn install
+#      - run: node ./node_modules/protractor/bin/webdriver-manager clean
+#      - run: node ./node_modules/protractor/bin/webdriver-manager update
+#      - run: ./node_modules/.bin/ng e2e
+#        env:
+#          NODE_ENV: production
