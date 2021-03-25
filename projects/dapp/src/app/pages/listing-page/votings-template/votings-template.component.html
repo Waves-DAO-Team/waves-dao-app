@@ -8,7 +8,8 @@
 
 </div>
 <div class="listing-page__address mat-display-1">
-  <a class="a a--alt" [attr.href]="(api?.mainnet?.explorer + contract?.type )| linkHttp" target="_blank" rel="noopener nofollow noreferrer">
+  <a class="a a--alt" [attr.href]="(api?.mainnet?.explorer + contract?.type )| linkHttp" target="_blank"
+     rel="noopener nofollow noreferrer">
     {{ contract?.type }}
   </a>
 </div>
@@ -25,42 +26,38 @@
 
   <br/>
   <br/>
-  <div class="title mat-display-4" >Tokens</div>
+  <div class="title mat-display-4">Tokens</div>
 
   <div class="listing" *ngFor="let task of tasks$ | async">
 
     <div class="content">
-<!--      TODO put statuses for tokens-->
-<!--      <ui-tag [tags]="listGrantStatuses$ | async" (selectedTag)="selectTag($event)"></ui-tag>-->
+      <div class="card important">
 
-    <div
-      class="card important"
-      >
-
-      <div class="card__header">
-        <div class="card__header__left-block">
-          <div class="card__header__left-block__status">
-            <div class="card__header__left-block__title" >{{ task?.ticker || 'UNKNOWN TICKER' }}</div>
-            <div class="card__header__left-block__status__role-text">
-              {{ task?.status }}
+        <div class="card__header">
+          <div class="card__header__left-block">
+            <div class="card__header__left-block__status">
+              <div class="card__header__left-block__title">{{ task?.ticker || 'UNKNOWN TICKER' }}</div>
+              <div class="card__header__left-block__status__role-text">
+                {{ task?.status }}
+              </div>
             </div>
+
+            <div class="card__header__left-block__desc">
+              {{ task?.description || 'Follow link to read the description' }}
+            </div>
+            <div class="card__header__left-block__address">{{ task?.link }}</div>
+            <div class="card__header__left-block__email">{{ task?.email }}</div>
           </div>
 
-          <div class="card__header__left-block__desc">
-            {{ task?.description || 'Follow link to read the description' }}
-          </div>
-          <div class="card__header__left-block__address">{{ task?.link }}</div>
-          <div class="card__header__left-block__email">{{ task?.email }}</div>
-        </div>
-
-        <div class="card__header__right-block" [class.card__header__right-block--active]="1">
-          <div class="card__header__right-block-cover">
-            <img class="card__header__right-block__token-logo" alt="img" [attr.src]="domSanitizer.bypassSecurityTrustUrl(task.logo)">
+          <div class="card__header__right-block" [class.card__header__right-block--active]="1">
+            <div class="card__header__right-block-cover">
+              <img class="card__header__right-block__token-logo" alt="img"
+                   [attr.src]="domSanitizer.bypassSecurityTrustUrl(task.logo)">
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 </div>

@@ -57,11 +57,14 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
       grant.app.forEach((app) => {
         const id = app.leader.value
         const score = app?.score?.applicant?.value || 0
-        if (app.solution && app.solution.key.includes(user.userAddress.slice(-15))) {
-          result.isSubmitSolutionBtn = false
-        } else if (
-          id === user.userAddress
-          && score < 1
+        if (
+          (
+            app.solution && app.solution.key.includes(user.userAddress.slice(-15))
+          ) ||
+          (
+            id === user.userAddress
+            && score < 1
+          )
         ) {
           result.isSubmitSolutionBtn = false
         }
@@ -82,7 +85,7 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
     // teamVoteKeys
     let userKey = user.userAddress.slice(-15)
     const teamKeys: string[] = []
-    if (!!grant && grant.app) {
+    if (grant !== undefined && grant.app) {
       grant.app.forEach((e) => {
         if (e.key) {
           teamKeys.push(userKey + e.key)
@@ -223,8 +226,9 @@ export const teamsAndSolutionTypeSolution = (
 
     const applicantScore = app?.score?.applicant?.value || 0
 
-    if (applicantScore > 0)
-      {res.push(unit)}
+    if (applicantScore > 0) {
+      res.push(unit)
+    }
 
   })
 

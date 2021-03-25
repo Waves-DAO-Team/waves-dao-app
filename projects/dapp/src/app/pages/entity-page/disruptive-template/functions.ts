@@ -197,7 +197,10 @@ export const prepareTeamsData = (
   apps.forEach(app => {
 
     const isCanVote =
-      (!(controls?.isVoteControls === 'hidden')&& GrantStatusEnum.rejected !== grant?.status?.value)
+      (
+        controls?.isVoteControls !== 'hidden'
+        && GrantStatusEnum.rejected !== grant?.status?.value
+      )
       && !controls?.voteFor.includes(app?.id?.value)
     const score = app?.score?.value || 0
 
