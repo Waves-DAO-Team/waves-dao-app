@@ -15,6 +15,8 @@ jobs:
           node-version: 14.8
       - name: npm dependencies
         run: npm install
+      - name: ENV
+        run: npm run start:env
       - name: Build
         run: npm run build
       - name: Run Tests
