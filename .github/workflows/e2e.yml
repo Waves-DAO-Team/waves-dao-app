@@ -11,11 +11,11 @@ jobs:
         uses: actions/checkout@master
       - name: Install Node
         uses: actions/setup-node@v1
-          with:
-            node-version: 12.8
+        with:
+          node-version: 14.8
       - name: npm dependencies
-          run: npm install
+        run: npm install
       - name: Build
-          run: npm run build -- --prod
+        run: npm run build
       - name: Run Tests
         run: ng e2e
