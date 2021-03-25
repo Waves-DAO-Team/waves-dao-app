@@ -8,35 +8,30 @@ env:
   DOCKER_USERNAME: "_"
   DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
   PROJECT: ${{ secrets.PROJECT }}
+  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
 
-  API_SIGNER: https://testnet.waves.exchange/signer/
-  API_NODES: https://nodes-testnet.wavesnodes.com
-  API_EXPLORER: https://testnet.wavesexplorer.com/address/
+  WORKING_GROUP: "" # Working group list
+  MEMBERSHIP: "" # Address membership contract
+  INTERHACK: "" # Address interhack contract
+  WEB3: "" # Address web3 contract
+  DISRUPTIVE: "" # Address disruptive contract
+  VOTINGS: "" # Address voting contract
 
-  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
-  MEMBERSHIP: ${{ secrets.MEMBERSHIP }}
-  INTERHACK: ${{ secrets.INTERHACK }}
-  WEB3: ${{ secrets.WEB3 }}
-  DISRUPTIVE: ${{ secrets.DISRUPTIVE }}
-  VOTINGS: ${{ secrets.VOTINGS }}
   DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
   VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE }}
   INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE }}
   WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+
   GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK }}
-  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
   DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
   VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
   WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
   INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
 
 jobs:
-  # Set the job key. The key is displayed as the job name
-  # when a job name is not provided
+
   build:
-    # Name the Job
     name: Testing code base
-    # Set the type of machine to run on
     runs-on: ubuntu-latest
 
     strategy:
@@ -49,12 +44,19 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Set variables for environment
+        uses: ./.github/set-env/
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Set config
         uses: mshick/fast-envsubst@v1
         with:

@@ -88,7 +88,7 @@ export class RequestService {
       return this.api.testnet
     }
 
-    throw new Error(`Contract address ${address} is not valid`)
+    throw new Error(`Contract address ${address ? address.substr(0, 10) : address} is not valid`)
   }
 
   public refresh (address: string): void {

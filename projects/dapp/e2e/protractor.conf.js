@@ -14,11 +14,8 @@ exports.config = {
   ],
   capabilities: {
     browserName: 'chrome',
-    // chromeOptions: {
-    //   binary: require('puppeteer').executablePath(),
-    // },
     chromeOptions: {
-      args: ['--headless', '--no-sandbox', '--disable-gpu'],
+      args: ['--headless', '--no-sandbox'],
       binary: require('puppeteer').executablePath(),
     },
   },

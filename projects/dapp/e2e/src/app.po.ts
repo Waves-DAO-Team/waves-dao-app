@@ -3,7 +3,7 @@ import {browser, by, element, protractor} from 'protractor'
 export class AppPage {
 
   async navigateTo (path: string = browser.baseUrl): Promise<unknown> {
-    return await browser.get(path) as Promise<unknown>
+    return await browser.get(path, 30000) as Promise<unknown>
   }
 
   async footerIsPresent (): Promise<string> {

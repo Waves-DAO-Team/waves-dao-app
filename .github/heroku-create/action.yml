@@ -12,7 +12,7 @@ runs:
   steps:
     - name: Set ENV
       run: |
-        echo "HEROKU_APPLICATION_BASE=${{ inputs.project }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
+        echo "HEROKU_APPLICATION_BASE=${{ inputs.project }}" >> $GITHUB_ENV
       shell: bash
 
     - name: Create an applications if it does not exist

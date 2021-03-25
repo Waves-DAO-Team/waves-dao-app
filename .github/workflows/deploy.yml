@@ -13,30 +13,28 @@ env:
   DOCKER_USERNAME: "_"
   DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
   PROJECT: ${{ secrets.PROJECT }}
+  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
 
-  API_SIGNER: https://testnet.waves.exchange/signer/
-  API_NODES: https://nodes-testnet.wavesnodes.com
-  API_EXPLORER: https://testnet.wavesexplorer.com/address/
+  WORKING_GROUP: "" # Working group list
+  MEMBERSHIP: "" # Address membership contract
+  INTERHACK: "" # Address interhack contract
+  WEB3: "" # Address web3 contract
+  DISRUPTIVE: "" # Address disruptive contract
+  VOTINGS: "" # Address voting contract
 
-  WORKING_GROUP: ${{ secrets.WORKING_GROUP }}
-  MEMBERSHIP: ${{ secrets.MEMBERSHIP }}
-  INTERHACK: ${{ secrets.INTERHACK }}
-  WEB3: ${{ secrets.WEB3 }}
-  DISRUPTIVE: ${{ secrets.DISRUPTIVE }}
-  VOTINGS: ${{ secrets.VOTINGS }}
   DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
   VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE }}
   INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE }}
   WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+
   GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK }}
-  TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
   DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
   VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
   WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
   INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
 
-
 jobs:
+
   create:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -46,20 +44,19 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Set ENV
-        run: |
-          echo "HEROKU_APPLICATION_BASE=${{ env.PROJECT }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Create an applications if it does not exist
-        continue-on-error: true
-        run: |
-          heroku create ${HEROKU_APPLICATION_BASE}
+      - name: Set variables for environment
+        uses: ./.github/set-env/
+        with:
+          secrets: ${{ toJSON(secrets) }}
 
-      - name: Set env to heroku server
-        run: |
-          heroku config:set \
-            LABEL="Waves Association DAO. $HEROKU_APPLICATION_BASE" \
-            -a $HEROKU_APPLICATION_BASE
+      - name: Create heroku application
+        uses: ./.github/heroku-create/
+        with:
+          project: ${{ env.PROJECT }}-${GITHUB_REF##*/}
+          label: "Waves Association DAO"
 
   build:
     runs-on: ubuntu-latest
@@ -70,11 +67,16 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Set ENV
-        run: echo "HEROKU_APPLICATION=$PROJECT-${GITHUB_REF##*/}" >> $GITHUB_ENV
-
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Set variables for environment
+        uses: ./.github/set-env/
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Set ENV
+        run: echo "HEROKU_APPLICATION=$PROJECT-${GITHUB_REF##*/}" >> $GITHUB_ENV
 
       - name: Set config
         uses: mshick/fast-envsubst@v1
@@ -117,6 +119,14 @@ jobs:
         uses: styfle/cancel-workflow-action@0.4.1
         with:
           access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set variables for environment
+        uses: ./.github/set-env/
+        with:
+          secrets: ${{ toJSON(secrets) }}
 
       - name: Set ENV
         run: echo "HEROKU_APPLICATION=${{ env.PROJECT }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
