@@ -1,6 +1,12 @@
 name: Create && Deploy
 
-on: push
+on:
+  push:
+    branches:
+      - master
+      - develop
+    tags-ignore:
+      - '*'
 
 env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -33,9 +39,13 @@ env:
 jobs:
   create:
     runs-on: ubuntu-latest
-    if: contains( github.ref, 'refs/tags/') == false
     continue-on-error: true
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
       - name: Set ENV
         run: |
           echo "HEROKU_APPLICATION_BASE=${{ env.PROJECT }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
@@ -55,6 +65,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: create
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
       - name: Set ENV
         run: echo "HEROKU_APPLICATION=$PROJECT-${GITHUB_REF##*/}" >> $GITHUB_ENV
 
@@ -98,6 +113,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
       - name: Set ENV
         run: echo "HEROKU_APPLICATION=${{ env.PROJECT }}-${GITHUB_REF##*/}" >> $GITHUB_ENV
 
