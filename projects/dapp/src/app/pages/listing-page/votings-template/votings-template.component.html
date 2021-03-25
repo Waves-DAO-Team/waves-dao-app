@@ -1,11 +1,6 @@
 <div class="listing-page__intro">
   <img alt="promo" [attr.src]="'/assets/img/special-votings-type.png'" width="100%" height="auto"/>
 
-<!--  //TODO Banner needed? ask Vova-->
-<!--  <div class="listing-page__banner mat-display-4">-->
-<!--    {{ contract?.banner }}-->
-<!--  </div>-->
-
 </div>
 <div class="listing-page__header">
 
@@ -13,7 +8,7 @@
 
 </div>
 <div class="listing-page__address mat-display-1">
-  <a class="a a--alt" [attr.href]="api?.mainnet?.explorer + contract?.type  | linkHttp" target="_blank" rel="noopener nofollow noreferrer">
+  <a class="a a--alt" [attr.href]="(api?.mainnet?.explorer + contract?.type )| linkHttp" target="_blank" rel="noopener nofollow noreferrer">
     {{ contract?.type }}
   </a>
 </div>
