@@ -38,6 +38,7 @@
     "@types/lodash": "^4.14.168",
     "@waves.exchange/provider-web": "^1.0.2",
     "@waves/signer": "1.0.2",
+    "angular-gtag": "^1.0.4",
     "envsub": "^4.0.7",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",

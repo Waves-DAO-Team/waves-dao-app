@@ -72,5 +72,6 @@ export const environment = {
     addReward: 'grants/:contractType/add-reward/:entityId'
   },
 
-  showDevTools: false
+  showDevTools: false,
+  gtag: '${TAG_MANAGER}'
 }
