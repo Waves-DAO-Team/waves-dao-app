@@ -36,6 +36,7 @@ env:
 jobs:
 
   create:
+    environment: 'develop'
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
@@ -53,12 +54,14 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Create heroku application
+        continue-on-error: true
         uses: ./.github/heroku-create/
         with:
           project: ${{ env.PROJECT }}-${GITHUB_REF##*/}
           label: "Waves Association DAO"
 
   build:
+    environment: 'develop'
     runs-on: ubuntu-latest
     needs: create
     steps:
@@ -112,6 +115,7 @@ jobs:
           tags: registry.heroku.com/${{ env.HEROKU_APPLICATION }}/web
 
   deploy:
+    environment: 'develop'
     runs-on: ubuntu-latest
     needs: build
     steps:

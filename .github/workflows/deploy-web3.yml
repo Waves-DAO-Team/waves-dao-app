@@ -53,6 +53,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Create heroku application
+        continue-on-error: true
         uses: ./.github/heroku-create/
         with:
           project: ${{ env.PROJECT }}-${GITHUB_REF##*/}
