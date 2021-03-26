@@ -43,7 +43,8 @@ ENV NODE_ENV="production" \
     USER="app" \
     FRONTEND_INSTANCES="1" \
     FRONTEND_MEMORY="256M" \
-    LABEL="Untld frontend"
+    LABEL="Untld frontend" \
+    TAG_MANAGER=""
 
 WORKDIR /home/$USER
 
