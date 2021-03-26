@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
   ngOnInit (): void {
     this.iconService.registerIcons()
 
-    this.router.events.subscribe((evt) => {
+    this.router.events
+    .subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return
       }

@@ -1,11 +1,11 @@
 FROM node:14-alpine as source
 
-LABEL authors="Albert Iblyaminov <rieset@yandex.ru>" \
-      org.label-schema.vendor="Waves Association DAO" \
+LABEL org.label-schema.vendor="Waves Association DAO" \
       org.label-schema.name="Waves Association DAO Image" \
       org.label-schema.description="Waves Association DAO" \
       org.label-schema.url="https://dao.wavesassociation.org" \
-      org.label-schema.schema-version="1.0"
+      org.label-schema.schema-version="1.0" \
+      org.opencontainers.image.source="https://github.com/Waves-DAO-Team/waves-dao-app"
 
 ENV BUILD_DEPS="" \
     RUNTIME_DEPS="" \
@@ -31,12 +31,20 @@ RUN yarn global add @angular/cli && \
 
 FROM node:14-alpine
 
+LABEL org.label-schema.vendor="Waves Association DAO" \
+      org.label-schema.name="Waves Association DAO Image" \
+      org.label-schema.description="Waves Association DAO" \
+      org.label-schema.url="https://dao.wavesassociation.org" \
+      org.label-schema.schema-version="1.0" \
+      org.opencontainers.image.source="https://github.com/Waves-DAO-Team/waves-dao-app"
+
 ENV NODE_ENV="production" \
     PORT="3000" \
     USER="app" \
     FRONTEND_INSTANCES="1" \
     FRONTEND_MEMORY="256M" \
-    LABEL="Untld frontend"
+    LABEL="Untld frontend" \
+    TAG_MANAGER=""
 
 WORKDIR /home/$USER
 
