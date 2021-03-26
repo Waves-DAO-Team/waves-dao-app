@@ -17,7 +17,7 @@ runs:
 
     - name: Create an applications if it does not exist
       run: |
-        heroku create ${HEROKU_APPLICATION_BASE}
+        heroku create ${HEROKU_APPLICATION_BASE} --region eu
       shell: bash
 
     - name: Set env to heroku server

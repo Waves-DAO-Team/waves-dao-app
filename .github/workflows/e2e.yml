@@ -69,7 +69,7 @@ jobs:
           out-file: ./projects/dapp/src/environments/environment.prod.ts
       - run: yarn install
       - run: node ./node_modules/protractor/bin/webdriver-manager clean
-      - run: node ./node_modules/protractor/bin/webdriver-manager update
-      - run: ./node_modules/.bin/ng e2e --configuration=production
+      - run: node ./node_modules/protractor/bin/webdriver-manager update --versions.chrome 89.0.4389.23
+      - run: ./node_modules/.bin/ng e2e --configuration=production --webdriver-update false
         env:
           NODE_ENV: production
