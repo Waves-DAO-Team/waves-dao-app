@@ -8,35 +8,45 @@ env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
   DOCKER_USERNAME: "_"
   DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
-  PROJECT: ${{ secrets.PROJECT_PROD }}
-
-  API_SIGNER: https://testnet.waves.exchange/signer/
-  API_NODES: https://nodes-testnet.wavesnodes.com
-  API_EXPLORER: https://testnet.wavesexplorer.com/address/
-
-  WORKING_GROUP: ${{ secrets.WORKING_GROUP_PROD }}
-  MEMBERSHIP: ${{ secrets.MEMBERSHIP_PROD }}
-  INTERHACK: ${{ secrets.INTERHACK_PROD }}
-  VOTINGS: ${{ secrets.VOTINGS_PROD }}
-  WEB3: ${{ secrets.WEB3_PROD }}
-  DISRUPTIVE: ${{ secrets.DISRUPTIVE_PROD }}
-  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE_PROD }}
-  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE_PROD }}
-  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE_PROD }}
-  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE_PROD }}
-  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK_PROD }}
+  PROJECT: ${{ secrets.PROJECT }}
   TAG_MANAGER: ${{ secrets.TAG_MANAGER }}
+
+  WORKING_GROUP: "" # Working group list
+  MEMBERSHIP: "" # Address membership contract
+  INTERHACK: "" # Address interhack contract
+  WEB3: "" # Address web3 contract
+  DISRUPTIVE: "" # Address disruptive contract
+  VOTINGS: "" # Address voting contract
+
+  DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
+  VOTINGS_ISSUE_TEMPLATE: ${{ secrets.VOTINGS_ISSUE_TEMPLATE }}
+  INTERHACK_ISSUE_TEMPLATE: ${{ secrets.INTERHACK_ISSUE_TEMPLATE }}
+  WEB3_ISSUE_TEMPLATE: ${{ secrets.WEB3_ISSUE_TEMPLATE }}
+
+  GRANT_PROGRAM_LINK: ${{ secrets.GRANT_PROGRAM_LINK }}
   DISRUPTIVE_ABOUT_LINK: $${{ secrets.DISRUPTIVE_ABOUT_LINK }}
   VOTINGS_ABOUT_LINK: ${{ secrets.VOTINGS_ABOUT_LINK }}
   WEB3_ABOUT_LINK: ${{ secrets.WEB3_ABOUT_LINK }}
   INTERHACK_ABOUT_LINK: ${{ secrets.INTERHACK_ABOUT_LINK }}
 
 jobs:
+
   build:
+    environment: 'production'
     runs-on: ubuntu-latest
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Set variables for environment
+        uses: ./.github/set-env/
+        with:
+          secrets: ${{ toJSON(secrets) }}
 
       - name: Set config
         uses: mshick/fast-envsubst@v1
@@ -71,9 +81,23 @@ jobs:
           tags: registry.heroku.com/${{ env.PROJECT }}/web
 
   deploy:
+    environment: 'production'
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set variables for environment
+        uses: ./.github/set-env/
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
       - name: Release
         run: |
           heroku container:release -a ${{ env.PROJECT }} web
