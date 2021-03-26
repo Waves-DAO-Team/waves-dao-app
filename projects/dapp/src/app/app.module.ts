@@ -25,7 +25,8 @@ import {
 } from '@angular/material/snack-bar'
 import { MarkdownModule } from 'ngx-markdown'
 import { MatDialogModule } from '@angular/material/dialog'
-
+import { environment } from '@dapp/src/environments/environment'
+import { GtagModule } from 'angular-gtag'
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MatDialogModule } from '@angular/material/dialog'
     FooterModule,
     PipesModule,
     MatSnackBarModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    GtagModule.forRoot({ trackingId: environment.gtag, trackPageviews: true })
   ],
   providers: [
     WINDOW_PROVIDERS,
