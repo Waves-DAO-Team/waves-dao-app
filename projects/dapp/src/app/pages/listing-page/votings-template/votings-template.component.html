@@ -50,10 +50,8 @@
           </div>
 
           <div class="card__header__right-block" [class.card__header__right-block--active]="1">
-            <div class="card__header__right-block-cover">
-              <img class="card__header__right-block__token-logo" alt="img"
-                   [attr.src]="domSanitizer.bypassSecurityTrustUrl(task.logo)">
-            </div>
+            <img class="card__header__right-block__token-logo" alt="img"
+                 [attr.src]="domSanitizer.bypassSecurityTrustUrl(task.logo) || 'assets/icons/token-placeholder.svg'">
           </div>
         </div>
       </div>
