@@ -2,7 +2,11 @@
   class="card__header__hash"
   [class.safely]="status === true"
   [class.unsafe]="status === false"
-  *ngIf="status !== null"
->
-  <span class="material-icons">security</span>
+  [class.null]="status === null">
+
+  <div class="card__header__hash-icon"></div>
+  <p class="card__header__hash-desc" *ngIf="status === true">checked</p>
+  <p class="card__header__hash-desc" *ngIf="status === false">changed</p>
+  <p class="card__header__hash-desc" *ngIf="status === null">not Github</p>
+
 </div>

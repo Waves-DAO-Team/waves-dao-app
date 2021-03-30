@@ -82,9 +82,11 @@
       flex-direction: column;
       justify-content: center;
 
-      //&__hash {
-      //  background: red;
-      //}
+      &__hash {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
 
 
       &__title {

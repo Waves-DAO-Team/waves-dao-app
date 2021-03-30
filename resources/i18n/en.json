@@ -563,7 +563,7 @@
       "statuses": {
         "has_solution": "HAS SOLUTION",
         "rejected": "REJECTED",
-        "approve": "APPROVE"
+        "approve": "APPROVED"
       },
       "status": {
         "proposed": {
