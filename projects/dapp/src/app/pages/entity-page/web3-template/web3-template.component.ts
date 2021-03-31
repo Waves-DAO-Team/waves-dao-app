@@ -188,4 +188,8 @@ export class Web3TemplateComponent implements OnDestroy {
       })
   }
 
+  hide (taskId: string): void {
+    this.communityContractService.hide(taskId).subscribe()
+  }
+
 }
