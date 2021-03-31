@@ -1,8 +1,8 @@
-<div class="title mat-display-4" *ngIf="title && (grants$ | async)?.length > 0">{{title}}</div>
+<div class="title mat-display-4" *ngIf="importantGrantList.length > 0">{{'listing.list.important' | transloco}}</div>
 <a
   class="card"
-  *ngFor="let grant of grants$ | async"
-  [class.important]="isImportant"
+  *ngFor="let grant of importantGrantList"
+  [class.important]="true"
   [class.rejected]="grant?.status?.value === grantStatusEnum.rejected"
   [routerLink]="constants.routes.entity | route: contract?.name : grant?.id">
   <div class="card__header">
@@ -21,7 +21,6 @@
         </div>
       </div>
       <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
-<!--      <div class="card__header__left-block__address">{{ grant.id }}</div>-->
       <ui-hash [status]="grant.isHashValid | async"></ui-hash>
     </div>
     <div class="card__header__right-block" [class.card__header__right-block--active]="grant?.reward?.value > 0">
@@ -33,4 +32,41 @@
     </div>
   </div>
 </a>
+
+
+<div class="title mat-display-4" *ngIf="otherGrantList.length > 0">{{'listing.list.grants' | transloco}}</div>
+<a
+  class="card"
+  *ngFor="let grant of otherGrantList"
+  [class.important]="false"
+  [class.rejected]="grant?.status?.value === grantStatusEnum.rejected"
+  [routerLink]="constants.routes.entity | route: contract?.name : grant?.id">
+  <div class="card__header">
+    <div class="card__header__left-block">
+
+      <div class="card__header__left-block__status">
+
+        {{ 'listing.status.' + grant?.status?.value | transloco }}
+
+        <div class="card__header__left-block__status__role-text" *ngIf="grant?.label?.label">
+          {{ grant?.label?.label }}
+        </div>
+
+        <div class="card__header__left-block__status__role-text" *ngIf="!grant?.status?.value">
+          {{ grant?.createdAt?.value | date }}
+        </div>
+      </div>
+      <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
+      <ui-hash [status]="grant.isHashValid | async"></ui-hash>
+    </div>
+    <div class="card__header__right-block" [class.card__header__right-block--active]="grant?.reward?.value > 0">
+      <div class="card__header__right-block__text">{{ 'listing.reward' | transloco}}</div>
+      <div class="card__header__right-block__price">
+        {{grant?.reward?.value | PriceFormatting}}
+        <div class="logo"></div>
+      </div>
+    </div>
+  </div>
+</a>
+
 

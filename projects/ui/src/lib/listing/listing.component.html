@@ -1,35 +1,26 @@
 <div class="listing">
   <div class="content">
-      <ui-tag [tags]="listGrantStatuses$ | async" (selectedTag)="selectTag($event)"></ui-tag>
+    <ui-tag [tags]="listGrantStatuses$ | async" (selectedTag)="selectTag($event)"></ui-tag>
 
-      <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
-        <ui-sub-list
-                *ngIf="importantGrantList$ | async as importantGrantList"
-                [contract]="contract$ | async"
-                [type]="'active'"
-                [isImportant]="true"
-                [title]="'listing.list.important' | transloco"
-                [grants]="importantGrantList"
-        ></ui-sub-list>
-        <ui-sub-list
-                *ngIf="otherGrantList$ | async as otherGrantList"
-                [type]="'default'"
-                [contract]="contract$ | async"
-                [isImportant]="false"
-                [title]="'listing.list.grants' | transloco"
-                [grants]="otherGrantList"
-        ></ui-sub-list>
-      </div>
-
-      <ng-template #loadingOrErrorTemplate>
-        <ng-container *ngIf="(grants.error$ | async); else loading">
-          {{'listing.contract_not_loaded' | transloco}}
-        </ng-container>
-      </ng-template>
-
-      <ng-template #loading>
-        {{'listing.loading' | transloco}}...
-      </ng-template>
-
+    <div class="listing-list" *ngIf="grants.data$ | async as list; else loadingOrErrorTemplate">
+      <ui-sub-list
+        [contract]="contract$ | async"
+        [type]="'active'"
+        [isImportant]="true"
+        [title]="'listing.list.important' | transloco"
+        [grants]="grantsList$ | async"
+      ></ui-sub-list>
     </div>
+
+    <ng-template #loadingOrErrorTemplate>
+      <ng-container *ngIf="(grants.error$ | async); else loading">
+        {{'listing.contract_not_loaded' | transloco}}
+      </ng-container>
+    </ng-template>
+
+    <ng-template #loading>
+      {{'listing.loading' | transloco}}...
+    </ng-template>
+
+  </div>
 </div>
