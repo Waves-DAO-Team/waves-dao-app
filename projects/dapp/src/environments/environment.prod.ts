@@ -26,10 +26,26 @@ export const environment = {
       membership: '${MEMBERSHIP}'
     },
     contracts: {
-      disruptive: '${DISRUPTIVE}',
-      votings: '${VOTINGS}',
-      web3: '${WEB3}',
-      interhack: '${INTERHACK}'
+      disruptive: {
+        address: '${DISRUPTIVE}',
+        asset: null,
+        icon: 'https://raw.githubusercontent.com/Waves-DAO-Team/waves-dao-app/master/resources/assets/icons/waves-square.svg'
+      },
+      votings: {
+        address: '${VOTINGS}',
+        asset: null,
+        assetIcon: 'https://raw.githubusercontent.com/Waves-DAO-Team/waves-dao-app/master/resources/assets/icons/waves-square.svg'
+      },
+      web3: {
+        address: '${WEB3}' || '',
+        asset: '${WEB3_ASSET}' || null,
+        assetIcon: '${WEB3_ICON}' || 'https://raw.githubusercontent.com/Waves-DAO-Team/waves-dao-app/master/resources/assets/icons/waves-square.svg'
+      },
+      interhack: {
+        address: '${INTERHACK}',
+        asset: null,
+        assetIcon: 'https://raw.githubusercontent.com/Waves-DAO-Team/waves-dao-app/master/resources/assets/icons/waves-square.svg'
+      },
     },
     issues: {
       disruptive: '${DISRUPTIVE_ISSUE_TEMPLATE}',

@@ -178,23 +178,19 @@
         display: flex;
         font-size: $font-size-medium;
         font-weight: 600;
+      }
 
-        .logo {
-          @include icon-logo(21px);
-          margin-left: 5px;
-        }
+      &__logo {
+        @include icon-logo(21px);
+        margin-left: 5px;
+      }
 
-        &--active {
-          .logo {
-            @include icon-logo(21px, 'active');
-          }
-        }
+      &--active &__logo {
+        @include icon-logo(21px, 'active');
+      }
 
-        &--default {
-          .logo {
-            @include icon-logo(21px, 'default');
-          }
-        }
+      &--default &__logo {
+        @include icon-logo(21px, 'default');
       }
     }
   }

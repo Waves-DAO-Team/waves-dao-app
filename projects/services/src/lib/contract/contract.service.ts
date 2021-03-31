@@ -8,7 +8,7 @@ import {
   publishReplay,
   refCount, tap,
 } from 'rxjs/operators'
-import {API, AppApiInterface} from '@constants'
+import {API, AppApiInterface, ContractApiInterface} from '@constants';
 import {BehaviorSubject, Observable } from 'rxjs'
 import {
   ContractDataRawModel, ContractGrantAppModel,
@@ -32,12 +32,12 @@ import {RequestModel, RequestStatus} from '@services/request/request.model'
   providedIn: 'root'
 })
 export class ContractService {
-  private readonly contractAddress$: BehaviorSubject<string> =
+  private readonly contractAddress$: BehaviorSubject<ContractApiInterface> =
   new BehaviorSubject(this.api.contracts.web3)
 
   private readonly contractState = this.contractAddress$.pipe(
     log('%c ContractService::contractState', 'color:yellow'),
-    mergeMap((address: string) => this.getContractData(address)),
+    mergeMap((address: ContractApiInterface) => this.getContractData(address.address)),
     publishReplay(1),
     refCount(),
     log('%c ContractService::contractState -> getContractData', 'color:yellow'),
@@ -128,8 +128,12 @@ export class ContractService {
     )
   }
 
-  public getAddress (): string {
+  public getContract (): ContractApiInterface {
     return this.contractAddress$.getValue()
+  }
+
+  public getAddress (): string {
+    return this.contractAddress$.getValue().address
   }
 
   public applicants: string[] = []
@@ -158,13 +162,13 @@ export class ContractService {
     )
   }
 
-  public refresh (address: string = this.getAddress(), force = true): void {
+  public refresh (address: ContractApiInterface = this.getContract(), force = true): void {
     // this.storageService.contractAddress = address
     this.contractAddress$.next(address)
     // return this.contractState.pipe(skip(1), take(1))
 
     if (force) {
-      this.requestService.refresh(address)
+      this.requestService.refresh(address.address)
     }
   }
 
@@ -173,13 +177,13 @@ export class ContractService {
       return
     }
 
-    const contracts = this.api.contracts as { [s: string]: string }
+    const contracts = this.api.contracts as { [s: string]: ContractApiInterface }
 
     if (!contracts[type]) {
       throw new Error('ContractService::switchContract | Contract ' + type + ' is not found ')
     }
 
-    if (this.contractAddress$.getValue() !== contracts[type]) {
+    if (this.contractAddress$.getValue().address !== contracts[type].address) {
       this.refresh(contracts[type])
     }
   }

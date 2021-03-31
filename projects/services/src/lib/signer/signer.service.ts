@@ -126,7 +126,6 @@ export class SignerService {
         this.snackBar.open(translate('messages.startTransaction'), translate('messages.ok'))
       }),
       switchMap((tx) => from(this.signer.broadcast(tx).catch((e) => {
-        console.warn(e)
         this.snackBar.open(translate(e.message), translate('messages.ok'))
         throw new Error(e.message)
       }))),

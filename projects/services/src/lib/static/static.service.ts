@@ -12,7 +12,7 @@ import {UserService} from '@services/user/user.service'
 import {RolesInterface} from '@services/user/user.interface'
 import {GrantsVariationType, GrantTypesEnum} from './static.model'
 import {translate, TranslocoService} from '@ngneat/transloco'
-import {API, AppApiInterface} from '@constants'
+import {API, AppApiInterface, ContractApiInterface} from '@constants'
 import { log } from '@libs/log/log.rxjs-operator'
 
 @Injectable({
@@ -31,14 +31,15 @@ export class StaticService {
 
   public getContactsList (): Observable<GrantsVariationType[]> {
 
-    const contracts = this.api.contracts as { [s: string]: string }
+    const contracts = this.api.contracts as { [s: string]: ContractApiInterface }
 
     const res = this.translocoService.selectTranslateObject('contracts')
       .pipe(
         map((data: { [s: string]: GrantsVariationType }) => Object.keys(data).map((key) => ({
           ...data[key],
           name: key,
-          type: contracts[key] || null
+          type: contracts[key].address || null,
+          ...contracts[key]
         } as GrantsVariationType))),
         publishReplay(1),
         refCount()

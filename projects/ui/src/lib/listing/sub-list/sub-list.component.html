@@ -24,7 +24,9 @@
       <div class="card__header__right-block__text">{{ 'listing.reward' | transloco}}</div>
       <div class="card__header__right-block__price">
         {{grant?.reward?.value | PriceFormatting}}
-        <div class="logo"></div>
+        <div class="card__header__right-block__logo">
+          {{ contract?.icon }}
+        </div>
       </div>
     </div>
   </div>
