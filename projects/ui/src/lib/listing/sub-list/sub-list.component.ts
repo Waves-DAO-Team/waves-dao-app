@@ -3,7 +3,8 @@ import {
   Component,
   HostBinding,
   Inject,
-  Input
+  Input,
+  OnDestroy
 } from '@angular/core'
 
 import {APP_CONSTANTS, AppConstantsInterface} from '@constants'
@@ -23,7 +24,7 @@ import {log} from '@libs/log'
   styleUrls: ['./sub-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SubListComponent {
+export class SubListComponent implements OnDestroy {
 
   grantStatusEnum = GrantStatusEnum
 
@@ -52,4 +53,8 @@ export class SubListComponent {
     public hashService: HashService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
+
+  ngOnDestroy () {
+
+  }
 }
