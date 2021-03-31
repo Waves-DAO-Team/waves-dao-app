@@ -44,12 +44,20 @@
       <div class="score-list__mid-container">
         <div class="score-list__name" title="{{el.name}}">
 
-          <span>  <ui-hash [status]="el.isHashValid | async"></ui-hash> <ui-hash [status]="el.isSolutionHashValid | async"></ui-hash>  {{el.name}}</span>
+          <div class="score-list__hash score-list__hash-solution">
+            <ui-hash [status]="el.isSolutionHashValid | async"></ui-hash>
+            <p>
+              solution link
+            </p>
+          </div>
           <ui-statuses
             [isHasSolution]="el.status.isSolution"
             [isRejected]="el.status.isRejected"
             [isApprove]="el.status.isApprove"
           ></ui-statuses>
+        </div>
+        <div class="score-list__team-name mat-display-2">
+          {{el.name}}
         </div>
         <div class="score-list__mid-container-bottom">
           <a
@@ -68,6 +76,12 @@
             {{'entity.learn_about_solution' | transloco}}
             <img alt="link" src="assets/icons/link.svg">
           </a>
+        </div>
+        <div class="score-list__hash score-list__hash-team">
+          <ui-hash [status]="el.isHashValid | async"></ui-hash>
+          <p>
+            team link
+          </p>
         </div>
       </div>
 

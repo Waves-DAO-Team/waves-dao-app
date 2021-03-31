@@ -30,19 +30,21 @@
 
   }
 
-  &__mid-container-bottom {
-    display: flex;
-    flex-direction: row;
-    max-height: 45px;
-    min-height: 45px;
-    padding-left: $padding * 2;
+  &__mid-container {
+    &-bottom {
+      display: flex;
+      flex-direction: row;
+      max-height: 45px;
+      min-height: 45px;
+      padding-left: $padding * 2;
 
-    @media (max-width: 1200px) {
-      display: block;
-    }
+      @media (max-width: 1200px) {
+        display: block;
+      }
 
-    > a {
-      padding-top: $padding / 3;
+      > a {
+        padding-top: $padding / 3;
+      }
     }
   }
 
@@ -96,6 +98,12 @@
     margin-bottom: 0;
   }
 
+  &__team-name {
+    padding-left: $padding * 2;
+    font-weight: 600;
+    margin-bottom: $padding !important;
+  }
+
   ul {
     list-style: none;
     margin: 0;
@@ -128,6 +136,32 @@
     }
   }
 
+  &__hash {
+    ::ng-deep .card__header__hash {
+      margin-top: unset !important;
+    }
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: auto;
+    margin-top: auto;
+    p {
+      margin-bottom: unset;
+      margin-left: 4px;
+      color: $color_gray;
+    }
+
+    &-solution {
+      padding-left: 0;
+      @media (max-width: 1200px) {
+        margin-bottom: $padding / 2;
+      }
+    }
+    &-team {
+      padding-left: $padding * 2;
+      margin-bottom: $padding;
+    }
+  }
 }
 
 .score-list {
