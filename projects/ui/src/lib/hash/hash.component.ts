@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core'
 export class HashComponent implements OnInit {
 
   @Input() public readonly status: boolean | null = null
+  @Input() public readonly linkText: string | null = null
 
   constructor () { }
 

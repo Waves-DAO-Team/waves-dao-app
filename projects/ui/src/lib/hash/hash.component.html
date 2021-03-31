@@ -1,12 +1,16 @@
-<div
-  class="card__header__hash"
-  [class.safely]="status === true"
-  [class.unsafe]="status === false"
-  [class.null]="status === null">
+<div class="card__header__hash" *ngIf="status !== null">
+  <div
+    class="card__header__hash-status"
+    [class.safely]="status === true"
+    [class.unsafe]="status === false"
+    >
 
-  <div class="card__header__hash-icon"></div>
-  <p class="card__header__hash-desc" *ngIf="status === true">checked</p>
-  <p class="card__header__hash-desc" *ngIf="status === false">changed</p>
-  <p class="card__header__hash-desc" *ngIf="status === null">not Github</p>
+    <div class="card__header__hash-status-icon"></div>
+    <p class="card__header__hash-status-desc" *ngIf="status === true">checked</p>
+    <p class="card__header__hash-status-desc" *ngIf="status === false">changed</p>
 
+  </div>
+  <p class="card__header__hash-linkText" *ngIf="!!linkText">
+    {{ linkText }}
+  </p>
 </div>

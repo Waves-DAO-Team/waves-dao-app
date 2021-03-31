@@ -82,12 +82,19 @@
       flex-direction: column;
       justify-content: center;
 
+      &-hash {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-top: $padding / 2;
+      }
+
       &__hash {
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
+        margin-top: $padding / 2;
       }
-
 
       &__title {
         align-items: flex-end;
