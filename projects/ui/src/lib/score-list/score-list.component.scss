@@ -14,7 +14,7 @@
     margin: 15px auto $padding / 2 0;
     padding-left: $padding * 2;
     ui-statuses {
-      margin-left: $padding;
+      //margin-left: $padding;
     }
     @media (max-width: 1200px) {
       padding-right: $padding * 2;
@@ -35,7 +35,6 @@
       display: flex;
       flex-direction: row;
       max-height: 45px;
-      min-height: 45px;
       padding-left: $padding * 2;
 
       @media (max-width: 1200px) {
@@ -60,9 +59,7 @@
     color: #05f;
     font-weight: 500;
     line-height: 1;
-    margin: 0;
-    margin-right: $padding * 1.5;
-    //padding-left: $padding * 2;
+    margin-right: 0 $padding * 1.5 0 0;
     position: relative;
     white-space: nowrap;
 
@@ -137,43 +134,28 @@
   }
 
   &__hash {
-    ::ng-deep .card__header__hash {
-      margin-top: unset !important;
-    }
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: auto;
-    margin-top: auto;
-    p {
-      margin-bottom: unset;
-      margin-left: 4px;
-      color: $color_gray;
-    }
 
     &-solution {
       padding-left: 0;
-      @media (max-width: 1200px) {
-        margin-bottom: $padding / 2;
-      }
+      margin-right: $padding;
     }
     &-team {
       padding-left: $padding * 2;
       margin-bottom: $padding;
+      margin-top: $padding;
     }
   }
-}
 
-.score-list {
   &__left-container {
     background: $color_light_gray;
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
-}
 
-.score-list {
   &__winner {
     align-self: center;
     color: $color_waves_blue;

@@ -66,4 +66,15 @@
   &__bottom-left {
     line-height: 2;
   }
+
+  &__hash {
+    ::ng-deep .card__header__hash {
+      margin-top: unset !important;
+    }
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: auto;
+    margin-top: auto;
+  }
 }

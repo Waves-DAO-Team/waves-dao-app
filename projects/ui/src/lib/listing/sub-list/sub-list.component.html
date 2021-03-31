@@ -22,7 +22,9 @@
       </div>
       <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
 <!--      <div class="card__header__left-block__address">{{ grant.id }}</div>-->
-      <ui-hash [status]="grant.isHashValid | async"></ui-hash>
+      <div class="card__header__left-block-hash">
+        <ui-hash [status]="grant.isHashValid | async"></ui-hash>
+      </div>
     </div>
     <div class="card__header__right-block" [class.card__header__right-block--active]="grant?.reward?.value > 0">
       <div class="card__header__right-block__text">{{ 'listing.reward' | transloco}}</div>
