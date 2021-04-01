@@ -28,23 +28,23 @@ export const environment = {
     contracts: {
       disruptive: {
         address: '${DISRUPTIVE}',
-        asset: null,
-        icon: 'https://raw.githubusercontent.com/Waves-DAO-Team/waves-dao-app/master/resources/assets/icons/waves-square.svg'
+        rewardAsset: '${DISRUPTIVE_REWARD_ASSET}' || 'WAVES',
+        rewardAssetIcon: '${DISRUPTIVE_REWARD_ASSET_ICON}' || null
       },
       votings: {
         address: '${VOTINGS}',
-        asset: null,
-        assetIcon: 'https://raw.githubusercontent.com/Waves-DAO-Team/waves-dao-app/master/resources/assets/icons/waves-square.svg'
+        rewardAsset: null,
+        rewardAssetIcon: null
       },
       web3: {
         address: '${WEB3}' || '',
-        asset: '${WEB3_ASSET}' || null,
-        assetIcon: '${WEB3_ICON}' || 'https://raw.githubusercontent.com/Waves-DAO-Team/waves-dao-app/master/resources/assets/icons/waves-square.svg'
+        rewardAsset: '${WEB3_REWARD_ASSET}' || 'WAVES',
+        rewardAssetIcon: '${WEB3_REWARD_ASSET_ICON}' || null
       },
       interhack: {
         address: '${INTERHACK}',
-        asset: null,
-        assetIcon: 'https://raw.githubusercontent.com/Waves-DAO-Team/waves-dao-app/master/resources/assets/icons/waves-square.svg'
+        rewardAsset: '${INTERHACK_REWARD_ASSET}' || 'WAVES',
+        rewardAssetIcon: '${INTERHACK_REWARD_ASSET_ICON}' || null
       },
     },
     issues: {

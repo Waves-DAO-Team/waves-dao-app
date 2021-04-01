@@ -15,8 +15,8 @@ export interface UserInterface {
 
 export interface ContractApiInterface {
   address: string;
-  asset: string | null;
-  assetIcon: string;
+  rewardAsset: string | null;
+  rewardAssetIcon: string | null;
 }
 
 export interface AppApiInterface {

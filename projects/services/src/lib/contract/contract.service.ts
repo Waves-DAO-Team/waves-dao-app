@@ -136,6 +136,14 @@ export class ContractService {
     return this.contractAddress$.getValue().address
   }
 
+  public getRewardAsset (): string | null {
+    return this.contractAddress$.getValue().rewardAsset
+  }
+
+  public getRewardAssetIcon (): string | null {
+    return this.contractAddress$.getValue().rewardAssetIcon
+  }
+
   public applicants: string[] = []
 
   constructor (

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { ContractService } from '@services/contract/contract.service'
 import { SignerService } from '@services/signer/signer.service'
 import { catchError, tap } from 'rxjs/operators'
-import { EMPTY, Observable } from 'rxjs'
+import { EMPTY, Observable, of } from 'rxjs'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
@@ -54,13 +54,20 @@ export class CommonContractService {
   }
 
   public addReward (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
+    const rewardAsset = this.contractService.getRewardAsset();
+
+    if (!rewardAsset) {
+      this.snackBar.open(translate('messages.transaction_no_asset'))
+      return EMPTY
+    }
+
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addReward',
       [
         { type: 'string', value: taskId }
       ],
-      [{ assetId: 'WAVES', amount: reward }]
+      [{ assetId: rewardAsset, amount: reward }]
     )
       .pipe(
         catchError((error) => {
