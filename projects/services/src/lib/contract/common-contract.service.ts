@@ -30,13 +30,14 @@ export class CommonContractService {
     return this.membershipService.addGroupMember(members)
   }
 
-  public addTask (taskName: string, link: string): Observable<TransactionsSuccessResult> {
+  public addTask (taskName: string, link: string, hash: string = ''): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addTask',
       [
         { type: 'string', value: taskName },
-        { type: 'string', value: link }
+        { type: 'string', value: link },
+        { type: 'string', value: hash }
       ]
     )
       .pipe(
@@ -81,4 +82,5 @@ export class CommonContractService {
         })
       )
   }
+
 }

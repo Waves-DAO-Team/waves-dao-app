@@ -90,7 +90,7 @@ export class ListingComponent implements OnDestroy {
         })
         .sort(this.sort.bind(this)) : []
       ),
-      log('%c ListingComponent::grantsList$', 'color: purple'),
+      log('%c ListingComponent::grantsList$', 'color: green'),
       publishReplay(1),
       refCount()
     )
@@ -103,6 +103,7 @@ export class ListingComponent implements OnDestroy {
         .filter((grant: ContractGrantModel) => !grant?.label?.important)
       ),
       map(grants => grants.length > 0 ? grants : null),
+      log('%c ListingComponent::otherGrantList$', 'color: green'),
       publishReplay(1),
       refCount()
   )
@@ -115,6 +116,7 @@ export class ListingComponent implements OnDestroy {
           .filter((grant: ContractGrantModel) => !!grant?.label?.important)
       ),
       map(grants => grants.length > 0 ? grants : null),
+      log('%c ListingComponent::importantGrantList$', 'color: green'),
       publishReplay(1),
       refCount()
   )

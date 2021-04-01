@@ -6,9 +6,7 @@ import {
   , EventEmitter,
   OnDestroy
 } from '@angular/core'
-import {
-  ContractGrantModel
-} from '@services/contract/contract.model'
+import {ContractGrantExtendedModel} from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
 import { LinkContentService } from '@services/link-content/link-content.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
@@ -24,7 +22,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntityComponent implements OnDestroy {
-  @Input() public readonly grant: ContractGrantModel = {}
+  @Input() public readonly grant!: ContractGrantExtendedModel
   @Input() public readonly contract!: GrantsVariationType
   @Input() controlsTemplate: TemplateRef<Component> | undefined
   @Input() stepperTemplate: TemplateRef<Component> | undefined

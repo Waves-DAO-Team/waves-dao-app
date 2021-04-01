@@ -3,6 +3,7 @@
   <div class="card">
 
     <ui-header
+      [isHashValid]="grant.isHashValid | async"
       [status]="grant?.status?.value || grantStatusEnum.noStatus"
       [title]="grant?.title?.value"
       [reward]="grant?.reward?.value"

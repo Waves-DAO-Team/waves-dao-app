@@ -43,7 +43,7 @@ export class DefaultTemplateComponent implements OnInit {
           title: translate('modal.texts.propose_grant'),
           submitBtnText: translate('modal.btn.propose_grant'),
           submitCallBack: (data: SubmitCallBackProposeArg) => {
-            this.commonContractService.addTask(data.name, data.link)
+            this.commonContractService.addTask(data.name, data.link, data.hash)
               .subscribe(() => {
                 this.cdr.markForCheck()
               })

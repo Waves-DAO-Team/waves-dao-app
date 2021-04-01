@@ -1,0 +1,49 @@
+@import "const";
+@import '~include-media/dist/_include-media.scss';
+
+.card__header__hash {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  &-status {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    &-desc {
+      margin: auto 0 auto 4px;
+    }
+
+    &-icon {
+      width: 16px;
+      height: 14px;
+    }
+  }
+
+  &-linkText {
+    margin-bottom: unset;
+    margin-left: 4px !important;
+    color: $color_gray;
+    margin-right: $padding;
+    @include media('<=tablet') {
+      display: none;
+    }
+  }
+}
+
+.safely {
+  color: $color_success;
+
+  .card__header__hash-status-icon {
+    background: url('/assets/icons/github-checked-green.svg') left no-repeat;
+  }
+}
+
+.unsafe {
+  color: $color_error;
+
+  .card__header__hash-status-icon {
+    background: url('/assets/icons/github-checked-red.svg') left no-repeat;
+  }
+}

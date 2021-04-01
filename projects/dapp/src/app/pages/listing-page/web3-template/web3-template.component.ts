@@ -46,7 +46,7 @@ export class Web3TemplateComponent {
           title: translate('modal.texts.propose_web_grant'),
           submitBtnText: translate('modal.btn.propose_grant'),
           submitCallBack: (data: SubmitCallBackProposeArg) => {
-            this.communityContractService.addTask(data.name, data.link)
+            this.communityContractService.addTask(data.name, data.link, data.hash)
               .subscribe(() => {
                 this.cdr.markForCheck()
               })
