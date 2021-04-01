@@ -481,6 +481,7 @@
       "null": "Proposed",
       "ready_to_submit": "Ready to submit",
       "approved": "Grant Approved",
+      "hide": "Hide",
       "all": "All"
     },
     "title": "Waves Association DAO",
@@ -497,7 +498,12 @@
     "score": "Score",
     "learn_about_team": "Learn more about team"
   },
+  "hash": {
+    "checked": "checked"
+  },
   "entity": {
+    "reset_hash": "Reset hash",
+    "hide": "Hide",
     "score": "Score",
     "show_summary": "Show summary",
     "show_full_content": "Show full content",
