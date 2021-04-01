@@ -12,7 +12,7 @@ import {ContractGrantExtendedModel,
   ContractGrantModel,
 } from '@services/contract/contract.model'
 import {HashService} from '@services/hash/hash.service'
-import {Observable} from 'rxjs'
+import {BehaviorSubject, Observable} from 'rxjs'
 import {Async} from '@libs/decorators'
 import {filter, map, publishReplay, refCount} from 'rxjs/operators'
 import {log} from '@libs/log'
@@ -26,12 +26,15 @@ import {log} from '@libs/log'
 export class SubListComponent {
 
   grantStatusEnum = GrantStatusEnum
+  grantsInput$: BehaviorSubject<ContractGrantModel[]> = new BehaviorSubject<ContractGrantModel[]>([])
+  @HostBinding('class.enable') @Input() set grants(value: ContractGrantModel[]) {
+    this.grantsInput$.next(value)
+  }
 
   @Input() contract: GrantsVariationType | null = null
-  @Async() @HostBinding('class.enable') @Input() grants!: Observable<ContractGrantModel[]>
   @Input() isImportant = false
 
-  public readonly grants$ = this.grants.pipe(
+  public readonly grants$ = this.grantsInput$.pipe(
     filter(e => !!e),
     map((grants) => grants as ContractGrantExtendedModel[]),
     map((grants) => grants.map(grant => ({
