@@ -1,0 +1,16 @@
+<div class="card__header__hash" *ngIf="status !== null">
+  <div
+    class="card__header__hash-status"
+    [class.safely]="status === true"
+    [class.unsafe]="status === false"
+    >
+
+    <div class="card__header__hash-status-icon"></div>
+    <p class="card__header__hash-status-desc" *ngIf="status === true">{{'hash.checked' | transloco}}</p>
+    <p class="card__header__hash-status-desc" *ngIf="status === false">{{'hash.checked' | transloco}}</p>
+
+  </div>
+  <p class="card__header__hash-linkText" *ngIf="!!linkText">
+    {{ linkText }}
+  </p>
+</div>
