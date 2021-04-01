@@ -20,6 +20,7 @@ import {Async, DestroyedSubject} from '@libs/decorators'
 import { Web3TemplateInterface } from './web3-template.interface'
 import { log } from '@libs/log'
 import {getEntityData} from '@pages/entity-page/functions'
+import {HashService} from '@services/hash/hash.service'
 
 @Component({
   selector: 'app-web3-template',
@@ -38,6 +39,10 @@ export class Web3TemplateComponent implements OnDestroy {
   public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
+    map((grant) => {
+      grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+      return grant
+    }),
     log('Web3TemplateComponent::entityData$'),
     publishReplay(1),
     refCount()
@@ -79,7 +84,13 @@ export class Web3TemplateComponent implements OnDestroy {
       map((web3Grant: Web3TemplateInterface) => web3Grant.isLeader && web3Grant.isNewGrant)
     )
 
+  public readonly isResetHashBtn$: Observable<boolean> = this.userService.data
+    .pipe(
+      map(data => data.roles.isWG)
+    )
+
   constructor (
+    public hashService: HashService,
     private readonly dialog: MatDialog,
     public communityContractService: CommunityContractService,
     private readonly snackBar: MatSnackBar,
@@ -169,5 +180,16 @@ export class Web3TemplateComponent implements OnDestroy {
   }
 
   ngOnDestroy (): void {}
+
+  resetHash (id: string, link: string): void {
+    this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises
+      .then((hash: string = '') => {
+        this.communityContractService.resetHash(id, hash).subscribe()
+      })
+  }
+
+  hide (taskId: string): void {
+    this.communityContractService.hide(taskId).subscribe()
+  }
 
 }

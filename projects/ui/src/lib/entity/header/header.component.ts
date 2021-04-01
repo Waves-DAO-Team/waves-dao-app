@@ -7,6 +7,8 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
+  @Input() isHashValid: null | boolean = null
+  @Input() grant = ''
   @Input() status = ''
   @Input() title = ''
   @Input() link = ''
