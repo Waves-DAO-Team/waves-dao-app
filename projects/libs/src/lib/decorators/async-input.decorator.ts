@@ -8,7 +8,6 @@
 import 'reflect-metadata'
 import {BehaviorSubject} from 'rxjs'
 import { destroyQueue } from './common.decorator'
-import {log} from '@libs/log'
 
 /* USE
  *
