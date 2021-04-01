@@ -27,24 +27,28 @@ export const environment = {
     },
     contracts: {
       disruptive: {
-        address: '${DISRUPTIVE}',
+        address: '${DISRUPTIVE}' || null,
         rewardAsset: '${DISRUPTIVE_REWARD_ASSET}' || 'WAVES',
-        rewardAssetIcon: '${DISRUPTIVE_REWARD_ASSET_ICON}' || null
+        rewardAssetIcon: '${DISRUPTIVE_REWARD_ASSET_ICON}' || null,
+        rewardDecimals: '${DISRUPTIVE_REWARD_DECIMALS}' || 2
       },
       votings: {
-        address: '${VOTINGS}',
+        address: '${VOTINGS}' || null,
         rewardAsset: null,
-        rewardAssetIcon: null
+        rewardAssetIcon: null,
+        rewardDecimals: 0
       },
       web3: {
-        address: '${WEB3}' || '',
+        address: '${WEB3}' || null,
         rewardAsset: '${WEB3_REWARD_ASSET}' || 'WAVES',
-        rewardAssetIcon: '${WEB3_REWARD_ASSET_ICON}' || null
+        rewardAssetIcon: '${WEB3_REWARD_ASSET_ICON}' || null,
+        rewardDecimals: '${WEB3_REWARD_DECIMALS}' || 2
       },
       interhack: {
-        address: '${INTERHACK}',
+        address: '${INTERHACK}' || null,
         rewardAsset: '${INTERHACK_REWARD_ASSET}' || 'WAVES',
-        rewardAssetIcon: '${INTERHACK_REWARD_ASSET_ICON}' || null
+        rewardAssetIcon: '${INTERHACK_REWARD_ASSET_ICON}' || null,
+        rewardDecimals: '${INTERHACK_REWARD_DECIMALS}' || 2
       },
     },
     issues: {

@@ -17,6 +17,7 @@ export interface ContractApiInterface {
   address: string;
   rewardAsset: string | null;
   rewardAssetIcon: string | null;
+  rewardDecimals: number;
 }
 
 export interface AppApiInterface {

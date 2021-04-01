@@ -18,7 +18,7 @@
     "lint:code": "ts-standard",
     "commit": "lint-staged --allow-empty",
     "push": "run-s lint:es build",
-    "envsub": "envsub --diff ./projects/dapp/src/environments/environment.prod.ts",
+    "envsub": "envsub --diff ./projects/dapp/src/environments/environment.ts",
     "postinstall": "husky install"
   },
   "private": true,

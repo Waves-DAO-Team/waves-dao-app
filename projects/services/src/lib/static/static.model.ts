@@ -17,8 +17,9 @@ export interface GrantsVariationType {
   banner: string
   about: string
   address: string
-  asset: string | null
-  icon: string
+  rewardAsset: string | null
+  rewardAssetIcon: string
+  rewardDecimals: number
 
   permissionCreateGrant?: boolean
   permissionFinishCreateGrant?: boolean
