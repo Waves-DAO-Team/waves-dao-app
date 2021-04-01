@@ -195,7 +195,7 @@ export class DisruptiveTemplateComponent implements OnDestroy {
         params: {
           grant,
           submitCallBack: (data: SubmitCallBackApplyArg) => {
-            this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
+            this.disruptiveContractService.applyForTask(data.id, data.team, data.link, data.hash)
               .pipe(take(1))
               .subscribe()
             dialog.close()
