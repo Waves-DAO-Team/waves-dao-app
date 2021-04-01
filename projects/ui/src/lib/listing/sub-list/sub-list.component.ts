@@ -3,14 +3,20 @@ import {
   Component,
   HostBinding,
   Inject,
-  Input
+  Input,
+  OnDestroy
 } from '@angular/core'
 
-import { APP_CONSTANTS, AppConstantsInterface } from '@constants'
+import {APP_CONSTANTS, AppConstantsInterface} from '@constants'
 import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.model'
-import {
+import {ContractGrantExtendedModel,
   ContractGrantModel,
 } from '@services/contract/contract.model'
+import {HashService} from '@services/hash/hash.service'
+import {Observable} from 'rxjs'
+import {Async} from '@libs/decorators'
+import {filter, map, publishReplay, refCount} from 'rxjs/operators'
+import {log} from '@libs/log'
 
 @Component({
   selector: 'ui-sub-list',
@@ -18,16 +24,37 @@ import {
   styleUrls: ['./sub-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SubListComponent {
+export class SubListComponent implements OnDestroy {
+
   grantStatusEnum = GrantStatusEnum
+
   @Input() contract: GrantsVariationType | null = null
-  @HostBinding('class.enable') @Input() grants: ContractGrantModel[] | null = null
+  @Async() @HostBinding('class.enable') @Input() grants!: Observable<ContractGrantModel[]>
   @Input() isImportant = false
+
+  public readonly grants$ = this.grants.pipe(
+    filter(e => !!e),
+    map((grants) => grants as ContractGrantExtendedModel[]),
+    map((grants) => grants.map(grant => ({
+        ...grant,
+        isHashValid: this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+      })
+    )),
+    map( grants => grants.filter((item) => item?.status?.value !== 'hide')),
+    log('SubListComponent::grants$'),
+    publishReplay(1),
+    refCount()
+  )
 
   @Input() public type: 'default' | 'active' = 'default'
   @Input() title: string | null = null
 
   constructor (
+    public hashService: HashService,
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
+
+  ngOnDestroy (): void {
+
+  }
 }

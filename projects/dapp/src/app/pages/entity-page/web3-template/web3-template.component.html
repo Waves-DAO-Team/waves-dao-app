@@ -22,8 +22,16 @@
 
   <ng-template #headerControlsTemplate>
 
+    <button class="active" *ngIf="isResetHashBtn$ | async" (click)="hide(entityData.id)">
+      {{'entity.hide' | transloco}}
+    </button>
+
+    <button class="active" *ngIf="isResetHashBtn$ | async" (click)="resetHash(entityData.id, entityData.link.value)">
+      {{'entity.reset_hash' | transloco}}
+    </button>
+
     <button class="active" (click)="addReward(entityData?.status?.value, entityData.id)" *ngIf="isShowAddRewardBtn$ | async">
-      <span *ngIf="entityData.isReward; else hasReward">{{'entity.add_reward' | transloco}}</span>
+      <span *ngIf="!entityData.isReward; else hasReward">{{'entity.add_reward' | transloco}}</span>
       <ng-template #hasReward>{{'entity.edit_task_details' | transloco}}</ng-template>
     </button>
 

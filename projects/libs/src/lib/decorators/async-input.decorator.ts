@@ -28,28 +28,42 @@ export function Async (): (target: any, propertyKey: string) => void {
     const name: string = '_async_prop_' + propName
 
     Reflect.defineProperty(target, name, {
-      value: new BehaviorSubject(undefined),
+      value: null,
       writable: true,
+      enumerable: true,
+      configurable: true,
     })
 
-    Reflect.defineProperty(target, propName, {
+    const descriptor = {
       set (item: any): void {
+        // @ts-ignore: use this context
+        if (!this[name]) {
+          // @ts-ignore: use this context
+          this[name] = new BehaviorSubject(undefined)
+        }
+
         // @ts-ignore: use this context
         this[name].next(item)
       },
       get (): any {
         // @ts-ignore: use this context
-        return this[name].pipe(
-            log(`%c Get @Async argument ${propName} from ${target.constructor.name}`, 'color:cyan')
-        )
+        if (!this[name]) {
+          // @ts-ignore: use this context
+          this[name] = new BehaviorSubject(undefined)
+        }
+
+        // @ts-ignore: use this context
+        return this[name]
       },
       enumerable: true,
       configurable: true,
-    })
+    }
 
     destroyQueue(
       target,
       function () {}.bind(target),
     )
+
+    return descriptor
   }
 }

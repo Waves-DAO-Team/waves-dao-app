@@ -12,4 +12,5 @@ export interface Web3TemplateInterface extends ContractGrantModel {
   isWorkStarted: boolean;
   isShowVoting: boolean;
   isVoteForGrant: boolean;
+  isHashValid?: Promise<boolean | null>
 }
