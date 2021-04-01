@@ -13,9 +13,6 @@
     font-weight: bold;
     margin: 15px auto $padding / 2 0;
     padding-left: $padding * 2;
-    ui-statuses {
-      //margin-left: $padding;
-    }
     @media (max-width: 1200px) {
       padding-right: $padding * 2;
       display: block;
@@ -36,6 +33,7 @@
       flex-direction: row;
       max-height: 45px;
       padding-left: $padding * 2;
+      margin-bottom:  $padding * 2;
 
       @media (max-width: 1200px) {
         display: block;
@@ -48,7 +46,7 @@
   }
 
   &__solution-link {
-    padding-left: $padding;
+    padding-left: $padding * 2.5;
     @media (max-width: 1200px) {
       padding-left: 0;
     }
@@ -118,6 +116,12 @@
     grid-template-columns: auto 10fr auto;
     margin-bottom: $padding;
 
+    .mat-display-1 {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+
     &__mid {
       align-items: flex-start;
       display: flex;
@@ -140,12 +144,13 @@
 
     &-solution {
       padding-left: 0;
-      margin-right: $padding;
     }
     &-team {
-      padding-left: $padding * 2;
       margin-bottom: $padding;
       margin-top: $padding;
+    }
+    @include media('<desktop') {
+      display: block;
     }
   }
 

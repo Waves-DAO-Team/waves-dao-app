@@ -6,9 +6,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import 'reflect-metadata'
-import {BehaviorSubject, of} from 'rxjs'
+import {BehaviorSubject} from 'rxjs'
 import { destroyQueue } from './common.decorator'
-import {log} from '@libs/log'
 
 /* USE
  *
@@ -39,7 +38,7 @@ export function Async (): (target: any, propertyKey: string) => void {
         // @ts-ignore: use this context
         if (!this[name]) {
           // @ts-ignore: use this context
-          this[name] = new BehaviorSubject(undefined);
+          this[name] = new BehaviorSubject(undefined)
         }
 
         // @ts-ignore: use this context
@@ -49,11 +48,11 @@ export function Async (): (target: any, propertyKey: string) => void {
         // @ts-ignore: use this context
         if (!this[name]) {
           // @ts-ignore: use this context
-          this[name] = new BehaviorSubject(undefined);
+          this[name] = new BehaviorSubject(undefined)
         }
 
         // @ts-ignore: use this context
-        return this[name];
+        return this[name]
       },
       enumerable: true,
       configurable: true,
@@ -64,6 +63,6 @@ export function Async (): (target: any, propertyKey: string) => void {
       function () {}.bind(target),
     )
 
-    return descriptor;
+    return descriptor
   }
 }

@@ -202,6 +202,7 @@ export const teamsAndSolutionTypeSolution = (
       && app?.id?.value === winnerSolutionId
 
     const unit: IScore.IUnit = {
+      hash: app.hash?.value,
       isWinner,
       isPerformer: false,
       isWinnerIcon: true,

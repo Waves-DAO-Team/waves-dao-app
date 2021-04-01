@@ -31,6 +31,8 @@
 
     <li *ngFor="let el of list | sortByScore" [class.winner]="el.isWinner || el.isPerformer" class="score-list__li">
 
+<!--      {{el.isHashValid | async | json}}-->
+
       <div class="score-list__left-container">
         <ui-voting-square
           [votes]="el.square.score"
@@ -46,6 +48,7 @@
 
           <div class="score-list__hash score-list__hash-solution">
             <ui-hash [status]="el.isSolutionHashValid | async" [linkText]="'solution link'"></ui-hash>
+            <ui-hash class="score-list__hash score-list__hash-team" [status]="(el.isHashValid | async) " [linkText]="'team link'"></ui-hash>
           </div>
           <ui-statuses
             [isHasSolution]="el.status.isSolution"
@@ -74,7 +77,6 @@
             <img alt="link" src="assets/icons/link.svg">
           </a>
         </div>
-        <ui-hash class="score-list__hash score-list__hash-team" [status]="el.isHashValid | async" [linkText]="'team link'"></ui-hash>
       </div>
 
       <div class="score-list__winner mat-display-2" *ngIf="el.isWinner && el.isWinnerIcon">

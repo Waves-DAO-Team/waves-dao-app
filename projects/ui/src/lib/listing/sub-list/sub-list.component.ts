@@ -54,7 +54,7 @@ export class SubListComponent implements OnDestroy {
     @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) {}
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
 
   }
 }

@@ -238,13 +238,12 @@ export class InterhackTemplateComponent implements OnDestroy {
           return prepareTeamsAndSolutionData(grant, user, controls, step.toString(), fake, winnerSolutionId)
         }
       ),
-      map((apps) =>
-         apps.map(app => ({
-            ...app,
-            isHashValid: this.hashService.isHashValid(app.hash || '', app.teamLink || ''),
-            isSolutionHashValid: this.hashService.isHashValid(app.solutionHash || '', app.solutionLink || ''),
-          }))
-      ),
+      map((apps) => apps.map(app => ({
+              ...app,
+              isHashValid: this.hashService.isHashValid(app.hash || '', app.teamLink || ''),
+              isSolutionHashValid: this.hashService.isHashValid(app.solutionHash || '', app.solutionLink || ''),
+            }))
+      )
     )
 
   public readonly isResetHashBtn$: Observable<boolean> = this.userService.data

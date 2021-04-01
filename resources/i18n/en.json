@@ -498,6 +498,9 @@
     "score": "Score",
     "learn_about_team": "Learn more about team"
   },
+  "hash": {
+    "checked": "checked"
+  },
   "entity": {
     "reset_hash": "Reset hash",
     "hide": "Hide",

@@ -91,7 +91,7 @@ export class HashService {
   public isHashValid (hash: string, link: string): Promise<boolean | null> {
     if (this.cache[hash]) {
       return new Promise((resolve) => {
-        resolve(this.cache[hash])
+        resolve(this.cache[hash] || this.cache[link])
       })
     } else {
       return new Promise((resolve) => {
