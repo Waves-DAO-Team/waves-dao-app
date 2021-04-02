@@ -204,7 +204,7 @@
               "fileReplacements": [
                 {
                   "replace": "projects/dapp/src/environments/environment.ts",
-                  "with": "projects/dapp/src/environments/environment.prod.ts"
+                  "with": "projects/dapp/src/environments/environment.local.ts"
                 }
               ],
               "optimization": true,

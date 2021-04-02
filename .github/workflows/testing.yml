@@ -14,8 +14,17 @@ env:
   WORKING_GROUP: "" # Working group list
   MEMBERSHIP: "" # Address membership contract
   INTERHACK: "" # Address interhack contract
+  INTERHACK_REWARD_ASSET: ""
+  INTERHACK_REWARD_ASSET_ICON: ""
+  INTERHACK_REWARD_DECIMALS=: ""
   WEB3: "" # Address web3 contract
+  WEB3_REWARD_ASSET: ""
+  WEB3_REWARD_ASSET_ICON: ""
+  WEB3_REWARD_DECIMALS=: ""
   DISRUPTIVE: "" # Address disruptive contract
+  DISRUPTIVE_REWARD_ASSET: ""
+  DISRUPTIVE_REWARD_ASSET_ICON: ""
+  DISRUPTIVE_REWARD_DECIMALS=: ""
   VOTINGS: "" # Address voting contract
 
   DISRUPTIVE_ISSUE_TEMPLATE: ${{ secrets.DISRUPTIVE_ISSUE_TEMPLATE }}
@@ -57,12 +66,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Set config
-        uses: mshick/fast-envsubst@v1
-        with:
-          in-file: ./projects/dapp/src/environments/environment.ts
-          out-file: ./projects/dapp/src/environments/environment.prod.ts
       - name: Set config
         uses: mshick/fast-envsubst@v1
         with:
@@ -70,6 +73,8 @@ jobs:
           out-file: ./projects/dapp/src/environments/environment.local.ts
       - run: yarn install
       - run: yarn build
-      - run: yarn tests
+      - run: yarn test:dapp
+      - run: yarn test:ui
+      - run: yarn test:services
         env:
           NODE_ENV: production

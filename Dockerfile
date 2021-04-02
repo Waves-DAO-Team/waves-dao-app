@@ -9,6 +9,7 @@ LABEL org.label-schema.vendor="Waves Association DAO" \
 
 ENV BUILD_DEPS="" \
     RUNTIME_DEPS="" \
+    PRODUCTION="true" \
     NODE_ENV="production" \
     CONFIG="stage" \
     NODE_OPTIONS="--max_old_space_size=2048"
@@ -23,7 +24,6 @@ COPY . .
 
 RUN yarn global add @angular/cli && \
     yarn install --production=false && \
-    yarn envsub && \
     yarn build
 
 # -----------
