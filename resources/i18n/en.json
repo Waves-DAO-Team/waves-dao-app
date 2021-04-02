@@ -499,7 +499,8 @@
     "learn_about_team": "Learn more about team"
   },
   "hash": {
-    "checked": "checked"
+    "checked": "checked",
+    "changed": "changed"
   },
   "entity": {
     "reset_hash": "Reset hash",
