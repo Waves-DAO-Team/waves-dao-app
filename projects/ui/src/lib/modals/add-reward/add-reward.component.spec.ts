@@ -5,6 +5,11 @@ import { provideApi, provideAppConstants } from '@constants'
 import { DIALOG_DATA } from '@ui/dialog/dialog.tokens'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { ReactiveFormsModule } from '@angular/forms'
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatInputModule} from '@angular/material/input'
+import {RewardModule} from '@libs/directives/reward.module'
+import {MatButtonModule} from '@angular/material/button'
+import {NoopAnimationsModule} from '@angular/platform-browser/animations'
 
 describe('AddRewardComponent', () => {
   let component: AddRewardComponent
@@ -12,7 +17,15 @@ describe('AddRewardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [getTranslocoModule(), ReactiveFormsModule],
+      imports: [
+        getTranslocoModule(),
+        RewardModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NoopAnimationsModule,
+      ],
       providers: [
         provideAppConstants(),
         provideApi(),

@@ -86,7 +86,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
     attempt()
-    console.log('copied to clipboard')
   }
 
   logoutHandler (): void {

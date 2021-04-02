@@ -1,5 +1,6 @@
 node_modules
 **/environment.local.ts
+**/environment.prod.ts
 **/.env
 coverage/**
 dist/**

@@ -178,23 +178,13 @@
         display: flex;
         font-size: $font-size-medium;
         font-weight: 600;
+      }
 
-        .logo {
-          @include icon-logo(21px);
-          margin-left: 5px;
-        }
-
-        &--active {
-          .logo {
-            @include icon-logo(21px, 'active');
-          }
-        }
-
-        &--default {
-          .logo {
-            @include icon-logo(21px, 'default');
-          }
-        }
+      &__logo {
+        margin-left: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }
@@ -246,14 +236,6 @@
     .card__header {
       &:hover {
         border: 1px solid #717781;
-      }
-    }
-
-    .icon-logo {
-      background: $color_waves_blue;
-
-      &::after {
-        background: $color_white;
       }
     }
   }

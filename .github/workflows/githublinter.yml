@@ -25,6 +25,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Set config
+        uses: mshick/fast-envsubst@v1
+        with:
+          in-file: ./projects/dapp/src/environments/environment.ts
+          out-file: ./projects/dapp/src/environments/environment.prod.ts
+      - name: Set config
+        uses: mshick/fast-envsubst@v1
+        with:
+          in-file: ./projects/dapp/src/environments/environment.ts
+          out-file: ./projects/dapp/src/environments/environment.local.ts
       - run: yarn install
       - run: yarn build
       - run: yarn lint
