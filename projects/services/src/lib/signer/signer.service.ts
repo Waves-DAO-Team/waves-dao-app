@@ -72,9 +72,6 @@ export class SignerService {
         .then((user: UserData) => {
           this.signer.getBalance()
             .then((res) => {
-              if (isDevMode()) {
-                console.log('getBalance:', res)
-              }
               this.user$.next({
                 ...user,
                 balance: res[0].amount.toString(),

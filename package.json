@@ -9,7 +9,7 @@
     "start:serve": "ng serve",
     "build": "ng build --configuration=production",
     "test": "ng test",
-    "tests": "yarn start:prod && run-s test:*",
+    "tests": "run-s test:*",
     "test:dapp": "ng test dapp --browsers=ChromeHeadless --watch=false --progress=false",
     "test:services": "ng test services --browsers=ChromeHeadless --watch=false --progress=false",
     "test:ui": "ng test ui --browsers=ChromeHeadless --watch=false --progress=false",
