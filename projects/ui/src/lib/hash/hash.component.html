@@ -16,12 +16,13 @@
     <img class="card__header__hash-status-icon" *ngIf="status === 'changed'" src="assets/icons/github-checked-red.svg"
          alt="verify">
 
-
     <p class="card__header__hash-status-desc" *ngIf="status === 'changed'">{{'hash.changed' | transloco}}</p>
     <p class="card__header__hash-status-desc" *ngIf="status === 'checked'">{{'hash.checked' | transloco}}</p>
     <p class="card__header__hash-status-desc" (click)="verify()"
        *ngIf="status === 'notVerified'">{{'hash.verifyDescription' | transloco}}</p>
     <p class="card__header__hash-status-desc" *ngIf="status === 'notGitHub'">{{'hash.notGitHub' | transloco}}</p>
+
+    <p class="card__header__hash-linkText" *ngIf="!!text">{{ text }}</p>
 
   </div>
 

@@ -21,6 +21,17 @@
       height: 14px;
     }
   }
+
+  &-linkText {
+    margin-bottom: unset;
+    margin-left: 4px !important;
+    color: $color_gray;
+    margin-right: $padding;
+    @include media('<=tablet') {
+      display: none;
+    }
+  }
+
 }
 
 .checked {

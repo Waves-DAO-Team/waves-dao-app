@@ -1,8 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core'
-import {Async} from "@libs/decorators";
-import {ContractGrantModel} from "@services/contract/contract.model";
 import {BehaviorSubject, combineLatest, Observable} from "rxjs";
-import {GrantsVariationType} from "@services/static/static.model";
 import {map} from "rxjs/operators";
 import {HashService} from "@services/hash/hash.service";
 
