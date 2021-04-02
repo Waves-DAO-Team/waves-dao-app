@@ -26,7 +26,8 @@
 
   <br/>
   <br/>
-  <div class="title mat-display-4">Tokens</div>
+  <div *ngIf="!!tasks$" class="title mat-display-4">Tokens</div>
+  <div *ngIf="tasks$ == null" class="title mat-display-3">New tokens will appear here...</div>
 
   <div class="listing" *ngFor="let task of tasks$ | async">
 
