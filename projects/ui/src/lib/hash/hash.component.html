@@ -3,26 +3,29 @@
     class="card__header__hash-status"
     [class.changed]="status === 'changed'"
     [class.checked]="status === 'checked'"
-    [class.notGitHub]="status === 'notGitHub'"
     [class.notVerified]="status === 'notVerified'"
+    [class.notGitHub]="status === 'notGitHub'"
   >
 
-    <img class="card__header__hash-status-icon" *ngIf="status === 'notGitHub'"
-         src="assets/icons/github-checked-gray.svg" alt="github">
-    <img class="card__header__hash-status-icon" *ngIf="status === 'notVerified'" src="assets/icons/verify.svg"
-         alt="verify">
-    <img class="card__header__hash-status-icon" *ngIf="status === 'checked'" src="assets/icons/github-checked-green.svg"
-         alt="verify">
-    <img class="card__header__hash-status-icon" *ngIf="status === 'changed'" src="assets/icons/github-checked-red.svg"
-         alt="verify">
+    <ng-container *ngIf="status === 'notVerified'">
+      <img class="card__header__hash-status-icon" (click)="verify()" src="assets/icons/verify.svg"
+           alt="github">
+      <p class="card__header__hash-linkText" (click)="verify()" *ngIf="!!text">{{'hash.check' | transloco}} {{ text }}</p>
+    </ng-container>
 
-    <p class="card__header__hash-status-desc" *ngIf="status === 'changed'">{{'hash.changed' | transloco}}</p>
-    <p class="card__header__hash-status-desc" *ngIf="status === 'checked'">{{'hash.checked' | transloco}}</p>
-    <p class="card__header__hash-status-desc" (click)="verify()"
-       *ngIf="status === 'notVerified'">{{'hash.verifyDescription' | transloco}}</p>
-    <p class="card__header__hash-status-desc" *ngIf="status === 'notGitHub'">{{'hash.notGitHub' | transloco}}</p>
+    <ng-container *ngIf="status === 'changed'">
+      <img class="card__header__hash-status-icon" *ngIf="status === 'changed'" src="assets/icons/github-checked-red.svg"
+           alt="verify">
+      <p class="card__header__hash-linkText" (click)="verify()" *ngIf="!!text">{{ text }}</p>
+      <p class="card__header__hash-status-desc" *ngIf="status === 'changed'">{{'hash.updated' | transloco}}</p>
+    </ng-container>
 
-    <p class="card__header__hash-linkText" *ngIf="!!text">{{ text }}</p>
+    <ng-container *ngIf="status === 'checked'">
+      <img class="card__header__hash-status-icon" src="assets/icons/github-checked-green.svg"
+           alt="verify">
+      <p class="card__header__hash-linkText">{{ text }} </p>
+      <p class="card__header__hash-status-desc" *ngIf="status === 'checked'">{{'hash.isOriginal' | transloco}}</p>
+    </ng-container>
 
   </div>
 

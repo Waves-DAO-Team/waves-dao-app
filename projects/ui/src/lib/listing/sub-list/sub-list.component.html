@@ -22,7 +22,7 @@
       </div>
       <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
       <div class="card__header__left-block-hash">
-        <ui-hash (click)="stopPropagation($event)" [link]="grant?.link?.value" [hash]="grant?.hash?.value"></ui-hash>
+        <ui-hash (click)="stopPropagation($event)" [link]="grant?.link?.value" [hash]="grant?.hash?.value" text="{{'hash.grantInfo' | transloco }}"></ui-hash>
       </div>
     </div>
     <div class="card__header__right-block" [class.card__header__right-block--active]="grant?.reward?.value > 0">

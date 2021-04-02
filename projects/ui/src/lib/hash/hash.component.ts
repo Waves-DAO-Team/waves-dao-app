@@ -20,9 +20,9 @@ export class HashComponent {
   )
     .pipe(
       map(([link, hash, validation]) => {
-        console.log('++++', link, hash, validation)
-        if(!link || !hash)
+        if(!link || !hash){
           return 'notGitHub'
+        }
         else {
           if (validation === null)
             return 'notVerified'
