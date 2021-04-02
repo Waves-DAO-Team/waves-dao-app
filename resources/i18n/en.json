@@ -499,7 +499,10 @@
     "learn_about_team": "Learn more about team"
   },
   "hash": {
-    "checked": "checked"
+    "checked": "checked",
+    "changed": "changed",
+    "notGitHub": "not GitHub",
+    "verifyDescription": "Verify description"
   },
   "entity": {
     "reset_hash": "Reset hash",

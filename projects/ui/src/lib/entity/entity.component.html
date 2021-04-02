@@ -1,9 +1,9 @@
 <div class="entity">
 
   <div class="card">
-
+<!--    [isHashValid]="grant.isHashValid | async"-->
     <ui-header
-      [isHashValid]="grant.isHashValid | async"
+      [hash]="grant?.hash?.value"
       [status]="grant?.status?.value || grantStatusEnum.noStatus"
       [title]="grant?.title?.value"
       [reward]="grant?.reward?.value"

@@ -40,7 +40,7 @@ export class Web3TemplateComponent implements OnDestroy {
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
     map((grant) => {
-      grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+      // grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
       return grant
     }),
     log('Web3TemplateComponent::entityData$'),

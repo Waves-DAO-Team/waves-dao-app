@@ -2,6 +2,7 @@
 @import '~include-media/dist/_include-media.scss';
 
 .card__header__hash {
+  cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -16,34 +17,26 @@
     }
 
     &-icon {
-      width: 16px;
+      width: 14px;
       height: 14px;
     }
   }
-
-  &-linkText {
-    margin-bottom: unset;
-    margin-left: 4px !important;
-    color: $color_gray;
-    margin-right: $padding;
-    @include media('<=tablet') {
-      display: none;
-    }
-  }
 }
 
-.safely {
-  color: $color_success;
-
-  .card__header__hash-status-icon {
-    background: url('/assets/icons/github-checked-green.svg') left no-repeat;
-  }
+.checked {
+  color: #14C77A;
+  align-items: center;
 }
-
-.unsafe {
-  color: $color_error;
-
-  .card__header__hash-status-icon {
-    background: url('/assets/icons/github-checked-red.svg') left no-repeat;
-  }
+.changed {
+  color: #FF3D19;
+  align-items: center;
+}
+.notVerified {
+  //color: #FFBA20;
+  color: #C6C9CD;
+  align-items: center;
+}
+.notGitHub {
+  color: #C6C9CD;
+  align-items: center;
 }

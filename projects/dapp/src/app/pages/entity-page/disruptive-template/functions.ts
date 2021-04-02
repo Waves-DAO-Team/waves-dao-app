@@ -225,7 +225,7 @@ export const prepareTeamsData = (
         isShowResult: !user.roles.isDAO,
       },
       teamLink: linkHttpPipe.transform(app?.link?.value),
-      isHashValid: hashService.isHashValid(app.hash?.value || '', app.link?.value || '')
+      // isHashValid: hashService.isHashValid(app.hash?.value || '', app.link?.value || '')
     }
 
     if(isProcess && score> 0 || !isProcess) {

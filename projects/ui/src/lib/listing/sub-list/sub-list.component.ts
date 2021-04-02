@@ -37,7 +37,7 @@ export class SubListComponent implements OnDestroy {
     map((grants) => grants as ContractGrantExtendedModel[]),
     map((grants) => grants.map(grant => ({
         ...grant,
-        isHashValid: this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+        // isHashValid: this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
       })
     )),
     map( grants => grants.filter((item) => item?.status?.value !== 'hide')),
@@ -56,5 +56,10 @@ export class SubListComponent implements OnDestroy {
 
   ngOnDestroy (): void {
 
+  }
+
+  stopPropagation($event: MouseEvent) {
+    $event.stopPropagation();
+    return;
   }
 }

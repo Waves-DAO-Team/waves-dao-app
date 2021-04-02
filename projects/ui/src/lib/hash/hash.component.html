@@ -1,16 +1,28 @@
-<div class="card__header__hash" *ngIf="status !== null">
+<div class="card__header__hash" *ngIf="linkStatus$ | async as status">
   <div
     class="card__header__hash-status"
-    [class.safely]="status === true"
-    [class.unsafe]="status === false"
-    >
+    [class.changed]="status === 'changed'"
+    [class.checked]="status === 'checked'"
+    [class.notGitHub]="status === 'notGitHub'"
+    [class.notVerified]="status === 'notVerified'"
+  >
 
-    <div class="card__header__hash-status-icon"></div>
-    <p class="card__header__hash-status-desc" *ngIf="status === true">{{'hash.checked' | transloco}}</p>
-    <p class="card__header__hash-status-desc" *ngIf="status === false">{{'hash.checked' | transloco}}</p>
+    <img class="card__header__hash-status-icon" *ngIf="status === 'notGitHub'"
+         src="assets/icons/github-checked-gray.svg" alt="github">
+    <img class="card__header__hash-status-icon" *ngIf="status === 'notVerified'" src="assets/icons/verify.svg"
+         alt="verify">
+    <img class="card__header__hash-status-icon" *ngIf="status === 'checked'" src="assets/icons/github-checked-green.svg"
+         alt="verify">
+    <img class="card__header__hash-status-icon" *ngIf="status === 'changed'" src="assets/icons/github-checked-red.svg"
+         alt="verify">
+
+
+    <p class="card__header__hash-status-desc" *ngIf="status === 'changed'">{{'hash.changed' | transloco}}</p>
+    <p class="card__header__hash-status-desc" *ngIf="status === 'checked'">{{'hash.checked' | transloco}}</p>
+    <p class="card__header__hash-status-desc" (click)="verify()"
+       *ngIf="status === 'notVerified'">{{'hash.verifyDescription' | transloco}}</p>
+    <p class="card__header__hash-status-desc" *ngIf="status === 'notGitHub'">{{'hash.notGitHub' | transloco}}</p>
 
   </div>
-  <p class="card__header__hash-linkText" *ngIf="!!linkText">
-    {{ linkText }}
-  </p>
+
 </div>
