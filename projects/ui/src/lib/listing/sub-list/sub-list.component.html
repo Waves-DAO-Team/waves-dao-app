@@ -19,6 +19,8 @@
         <div class="card__header__left-block__status__role-text" *ngIf="!grant?.status?.value">
           {{ grant?.createdAt?.value | date }}
         </div>
+
+        {{ contract?.rewardAssetIcon }}
       </div>
       <div class="card__header__left-block__title">{{grant?.title?.value}}</div>
       <div class="card__header__left-block-hash">
@@ -28,8 +30,10 @@
     <div class="card__header__right-block" [class.card__header__right-block--active]="grant?.reward?.value > 0">
       <div class="card__header__right-block__text">{{ 'listing.reward' | transloco}}</div>
       <div class="card__header__right-block__price">
-        {{grant?.reward?.value | PriceFormatting}}
-        <div class="logo"></div>
+        {{grant?.reward?.value | PriceFormatting : contract?.rewardDecimals}}
+        <div class="card__header__right-block__logo">
+          <img [attr.src]="contract?.rewardAssetIcon" width="20" height="20"/>
+        </div>
       </div>
     </div>
   </div>

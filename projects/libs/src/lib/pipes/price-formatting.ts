@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({ name: 'PriceFormatting' })
 export class PriceFormattingPipe implements PipeTransform {
-  transform (value: string | number | bigint): string {
+  transform (value: string | number | bigint, decimals: number): string {
     value = value && typeof value === 'string' ? parseInt(value, 10) : value as number
-    value = (value / 100000000).toFixed(2)
+    value = (value / 100000000).toFixed(decimals)
     value = this.numberWithSpaces(value)
     return value
   }

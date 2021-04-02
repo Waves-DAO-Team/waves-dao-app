@@ -72,9 +72,6 @@ export class SignerService {
         .then((user: UserData) => {
           this.signer.getBalance()
             .then((res) => {
-              if (isDevMode()) {
-                console.log('getBalance:', res)
-              }
               this.user$.next({
                 ...user,
                 balance: res[0].amount.toString(),
@@ -126,7 +123,6 @@ export class SignerService {
         this.snackBar.open(translate('messages.startTransaction'), translate('messages.ok'))
       }),
       switchMap((tx) => from(this.signer.broadcast(tx).catch((e) => {
-        console.warn(e)
         this.snackBar.open(translate(e.message), translate('messages.ok'))
         throw new Error(e.message)
       }))),

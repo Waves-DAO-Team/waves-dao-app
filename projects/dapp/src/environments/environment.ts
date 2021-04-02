@@ -1,13 +1,19 @@
+import {
+  parseBoolean,
+  parseJson,
+  parseNumber,
+  parseValue,
+} from './utils'
 
 export const environment = {
-  production: false,
+  production: parseBoolean('${PRODUCTION}', false),
   confirmations: 0,
-  grantsProgramLink: '${GRANT_PROGRAM_LINK}',
+  grantsProgramLink: parseValue('${GRANT_PROGRAM_LINK}', ''),
   about: {
-    disruptive: '${DISRUPTIVE_ABOUT_LINK}',
-    votings: '${VOTINGS_ABOUT_LINK}',
-    web3: '${WEB3_ABOUT_LINK}',
-    interhack: '${INTERHACK_ABOUT_LINK}'
+    disruptive: parseValue('${DISRUPTIVE_ABOUT_LINK}', ''),
+    votings: parseValue('${VOTINGS_ABOUT_LINK}', ''),
+    web3: parseValue('${WEB3_ABOUT_LINK}', ''),
+    interhack: parseValue('${INTERHACK_ABOUT_LINK}', ''),
   },
   apis: {
     testnet: {
@@ -23,19 +29,39 @@ export const environment = {
       explorer: 'https://wavesexplorer.com/address/',
     },
     management: {
-      membership: '${MEMBERSHIP}'
+      membership: parseValue('${MEMBERSHIP}', ''),
     },
     contracts: {
-      disruptive: '${DISRUPTIVE}',
-      votings: '${VOTINGS}',
-      web3: '${WEB3}',
-      interhack: '${INTERHACK}'
+      disruptive: {
+        address: parseValue('${DISRUPTIVE}', ''),
+        rewardAsset: parseValue('${DISRUPTIVE_REWARD_ASSET}', 'WAVES'),
+        rewardAssetIcon: parseValue('${DISRUPTIVE_REWARD_ASSET_ICON}', '/assets/coins/waves.svg'),
+        rewardDecimals: parseNumber('${DISRUPTIVE_REWARD_DECIMALS}', 2),
+      },
+      votings: {
+        address: parseValue('${VOTINGS}', ''),
+        rewardAsset: null,
+        rewardAssetIcon: null,
+        rewardDecimals: 0,
+      },
+      web3: {
+        address: parseValue('${WEB3}', ''),
+        rewardAsset: parseValue('${WEB3_REWARD_ASSET}', 'WAVES'),
+        rewardAssetIcon: parseValue('${WEB3_REWARD_ASSET_ICON}', '/assets/coins/waves.svg'),
+        rewardDecimals: parseNumber('${WEB3_REWARD_DECIMALS}', 2),
+      },
+      interhack: {
+        address: parseValue('${INTERHACK}', ''),
+        rewardAsset: parseValue('${INTERHACK_REWARD_ASSET}', 'WAVES'),
+        rewardAssetIcon: parseValue('${INTERHACK_REWARD_ASSET_ICON}', '/assets/coins/waves.svg'),
+        rewardDecimals: parseNumber('${INTERHACK_REWARD_DECIMALS}', 2),
+      },
     },
     issues: {
-      disruptive: '${DISRUPTIVE_ISSUE_TEMPLATE}',
-      votings: '${VOTINGS_ISSUE_TEMPLATE}',
-      web3: '${WEB3_ISSUE_TEMPLATE}',
-      interhack: '${INTERHACK_ISSUE_TEMPLATE}'
+      disruptive: parseValue('${DISRUPTIVE_ISSUE_TEMPLATE}', ''),
+      votings: parseValue('${VOTINGS_ISSUE_TEMPLATE}', ''),
+      web3: parseValue('${WEB3_ISSUE_TEMPLATE}', ''),
+      interhack: parseValue('${INTERHACK_ISSUE_TEMPLATE}', ''),
     },
     links: {
       telegram: 'https://t.me/WavesDAO',
@@ -46,15 +72,15 @@ export const environment = {
         api: 'https://api.github.com/repos',
         raw: 'https://raw.githubusercontent.com/',
         mdEnd: '/contents/README.md',
-      }
+      },
     },
     emails: {
-      grants: 'grants@wavesassociation.org'
-    }
+      grants: 'grants@wavesassociation.org',
+    },
   },
 
   /* eslint-disable */
-  workingGroup: JSON.parse('${WORKING_GROUP}' || '{}'),
+  workingGroup: parseJson('${WORKING_GROUP}'),
   /* eslint-enable */
 
   // Routing constants on page
@@ -69,9 +95,10 @@ export const environment = {
     allTeams: 'grants/:contractType/:entityId/all-teams',
     members: 'members',
     stylesheet: 'stylesheet',
-    addReward: 'grants/:contractType/add-reward/:entityId'
+    addReward: 'grants/:contractType/add-reward/:entityId',
   },
 
   showDevTools: false,
-  gtag: '${TAG_MANAGER}'
+  gtag: parseValue('${TAG_MANAGER}', ''),
 }
+

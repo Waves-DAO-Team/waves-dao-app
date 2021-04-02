@@ -9,7 +9,7 @@ export interface TransactionState {
 export type TransactionRawState = TransactionState[]
 
 export interface TransactionsSuccessResult extends TransactionState {
-  applicationStatus: 'succeeded'
+  applicationStatus: 'succeeded' | 'error'
   height: number
 }
 

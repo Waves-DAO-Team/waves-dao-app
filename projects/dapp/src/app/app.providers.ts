@@ -13,6 +13,13 @@ export interface UserInterface {
   linkedin?: string
 }
 
+export interface ContractApiInterface {
+  address: string;
+  rewardAsset: string | null;
+  rewardAssetIcon: string | null;
+  rewardDecimals: number;
+}
+
 export interface AppApiInterface {
   testnet: {
     nodes: string
@@ -31,10 +38,10 @@ export interface AppApiInterface {
     membership: string
   }
   contracts: {
-    disruptive: string
-    votings: string
-    web3: string
-    interhack: string
+    disruptive: ContractApiInterface
+    votings: ContractApiInterface
+    web3: ContractApiInterface
+    interhack: ContractApiInterface
   }
   grantsProgramLink: string
   issues: {

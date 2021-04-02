@@ -55,13 +55,20 @@ export class CommonContractService {
   }
 
   public addReward (taskId: string, reward: string): Observable<TransactionsSuccessResult> {
+    const rewardAsset = this.contractService.getRewardAsset()
+
+    if (!rewardAsset) {
+      this.snackBar.open(translate('messages.transaction_no_asset'))
+      return EMPTY
+    }
+
     return this.signerService.invokeProcess(
       this.contractService.getAddress(),
       'addReward',
       [
         { type: 'string', value: taskId }
       ],
-      [{ assetId: 'WAVES', amount: reward }]
+      [{ assetId: rewardAsset, amount: reward }]
     )
       .pipe(
         catchError((error) => {

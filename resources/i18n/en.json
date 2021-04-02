@@ -727,6 +727,7 @@
       "contract_not_found": "Contract not found",
       "not_implemented": "Not implemented"
     },
+    "transaction_no_asset": "Asset ID is not defined. Write to the support chat about the error",
     "transaction_rejected": "The transaction was rejected",
     "enable_submissions": "Enable submissions",
     "getBalanceError": "getBalance error",

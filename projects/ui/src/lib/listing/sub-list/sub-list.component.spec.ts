@@ -5,6 +5,8 @@ import { provideApi, provideAppConstants } from '@constants'
 import { PipesModule } from '@libs/pipes/pipes.module'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import {HttpClientTestingModule} from '@angular/common/http/testing'
+import {HashModule} from '@ui/hash/hash.module'
+import {TagModule} from '@ui/tag/tag.module'
 
 describe('CardComponent', () => {
   let component: SubListComponent
@@ -12,7 +14,13 @@ describe('CardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, PipesModule, getTranslocoModule()],
+      imports: [
+        HttpClientTestingModule,
+        PipesModule,
+        HashModule,
+        TagModule,
+        getTranslocoModule()
+      ],
       declarations: [SubListComponent],
       providers: [
         provideAppConstants(),

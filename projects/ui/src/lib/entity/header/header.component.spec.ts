@@ -11,6 +11,7 @@ import {RouterTestingModule} from '@angular/router/testing'
 import {ActivatedRoute} from '@angular/router'
 import {of} from 'rxjs'
 import {provideApi, provideAppConstants} from '@constants'
+import {HashModule} from '@ui/hash/hash.module'
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent
@@ -18,7 +19,14 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatSnackBarModule, HttpClientTestingModule, getTranslocoModule(), PipesModule, FlowTextModule],
+      imports: [
+        MatSnackBarModule,
+        HttpClientTestingModule,
+        getTranslocoModule(),
+        PipesModule,
+        FlowTextModule,
+        HashModule
+      ],
       declarations: [HeaderComponent],
       providers: [
         provideAppConstants(),
