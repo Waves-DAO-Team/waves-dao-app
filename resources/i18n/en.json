@@ -502,7 +502,9 @@
     "checked": "checked",
     "changed": "changed",
     "notGitHub": "not GitHub",
-    "verifyDescription": "Verify description"
+    "verifyDescription": "Verify description",
+    "solutionLink": "solution link",
+    "teamLink": "team link"
   },
   "entity": {
     "reset_hash": "Reset hash",

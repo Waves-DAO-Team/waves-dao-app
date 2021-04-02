@@ -35,6 +35,7 @@ export class HashComponent {
       })
     )
 
+  @Input() text: string | null = null
   @Input() set link(link: string | null) {
     this.link$.next(link)
   }
