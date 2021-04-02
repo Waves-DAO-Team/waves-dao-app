@@ -9,8 +9,7 @@ value === '' ? def : value
 
 export const parseNumber = (
     value: string, def: number = 0): number => /^\${.+}$/.test(value) ?
-    def :
-    parseFloat(value)
+    def : (parseFloat(value) || def)
 
 export const parseJson = (
     value: string,
