@@ -499,7 +499,14 @@
     "learn_about_team": "Learn more about team"
   },
   "hash": {
-    "checked": "checked"
+    "check": "check",
+    "changed": "changed",
+    "solutionLink": "solution information",
+    "teamLink": "team information",
+    "grantInfo": "grant information",
+    "stable": "is a stable",
+    "updated": "updated",
+    "isOriginal": "is original"
   },
   "entity": {
     "reset_hash": "Reset hash",

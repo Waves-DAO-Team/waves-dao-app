@@ -63,10 +63,10 @@ export class InterhackTemplateComponent implements OnDestroy {
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
     tap(e => this.prepareVoteForTaskData(e)),
-    map((grant) => {
-      grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
-      return grant
-    }),
+    map((grant) =>
+      // grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+       grant
+    ),
     publishReplay(1),
     refCount(),
     log('InterhackTemplateComponent::entityData$'),
@@ -234,8 +234,8 @@ export class InterhackTemplateComponent implements OnDestroy {
       ),
       map((apps) => apps.map(app => ({
           ...app,
-          isHashValid: this.hashService.isHashValid(app.hash || '', app.teamLink || ''),
-          isSolutionHashValid: this.hashService.isHashValid(app.solutionHash || '', app.solutionLink || ''),
+          // isHashValid: this.hashService.isHashValid(app.hash || '', app.teamLink || ''),
+          // isSolutionHashValid: this.hashService.isHashValid(app.solutionHash || '', app.solutionLink || ''),
         }))
       )
     )

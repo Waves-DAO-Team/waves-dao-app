@@ -39,10 +39,10 @@ export class Web3TemplateComponent implements OnDestroy {
   public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
-    map((grant) => {
-      grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
-      return grant
-    }),
+    map((grant) =>
+      // grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+       grant
+    ),
     log('Web3TemplateComponent::entityData$'),
     publishReplay(1),
     refCount()
