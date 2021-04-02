@@ -31,5 +31,6 @@
 
 .card {
   @include card;
+  cursor: pointer;
 }
 
