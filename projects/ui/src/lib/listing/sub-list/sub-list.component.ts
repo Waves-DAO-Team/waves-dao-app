@@ -58,8 +58,8 @@ export class SubListComponent implements OnDestroy {
 
   }
 
-  stopPropagation($event: MouseEvent) {
-    $event.stopPropagation();
-    return;
+  stopPropagation ($event: MouseEvent): boolean {
+    $event.stopPropagation()
+    return false
   }
 }

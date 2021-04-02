@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core'
-import {BehaviorSubject, combineLatest, Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {HashService} from "@services/hash/hash.service";
+import {Component, Input} from '@angular/core'
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
+import {map} from 'rxjs/operators'
+import {HashService} from '@services/hash/hash.service'
 
 
 @Component({
@@ -20,43 +20,45 @@ export class HashComponent {
   )
     .pipe(
       map(([link, hash, validation]) => {
-        if(!link || !hash){
+        if (!link || !hash) {
           return 'notGitHub'
-        }
-        else {
-          if (validation === null)
+        } else {
+          if (validation === null) {
             return 'notVerified'
-          else
+          } else {
             return validation ? 'checked' : 'changed'
+          }
         }
       })
     )
 
   @Input() text: string | null = null
-  @Input() set link(link: string | null) {
+
+  @Input() set link (link: string | null) {
     this.link$.next(link)
   }
 
-  @Input() set hash(hash: string | null) {
+  @Input() set hash (hash: string | null) {
     this.hash$.next(hash)
   }
 
-  constructor(public hashService: HashService) {
+  constructor (public hashService: HashService) {
   }
 
-  public verify(){
+  public verify (): void {
 
     const link = this.link$.getValue()
     const hash = this.hash$.getValue()
 
     if (link && hash) {
-      this.hashService.isHashValid(hash, link).then( res => {
-        if (typeof res === "boolean") {
-          this.validation$.next(res)
-        } else {
-          this.validation$.next(false)
-        }
-      })
+      this.hashService.isHashValid(hash, link) // eslint-disable-line @typescript-eslint/no-floating-promises
+        .then(res => {
+          if (typeof res === 'boolean') {
+            this.validation$.next(res)
+          } else {
+            this.validation$.next(false)
+          }
+        })
     }
 
   }

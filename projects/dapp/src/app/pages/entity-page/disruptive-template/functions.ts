@@ -5,7 +5,6 @@ import { TeamsControlsInterface } from '@pages/entity-page/entity.interface'
 import {IScore} from '@services/interface'
 import {translate} from '@ngneat/transloco'
 import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
-import {HashService} from '@services/hash/hash.service'
 
 const linkHttpPipe = new LinkHttpPipe()
 
@@ -188,8 +187,7 @@ export const prepareTeamsHeaderData = (
 export const prepareTeamsData = (
   grant: ContractGrantExtendedModel | ContractGrantModel,
   user: UserDataInterface,
-  isProcess: boolean,
-  hashService: HashService
+  isProcess: boolean
 ): IScore.IUnit[] => {
 
   const res: IScore.IUnit[] = []

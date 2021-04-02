@@ -63,10 +63,10 @@ export class InterhackTemplateComponent implements OnDestroy {
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
     tap(e => this.prepareVoteForTaskData(e)),
-    map((grant) => {
+    map((grant) =>
       // grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
-      return grant
-    }),
+       grant
+    ),
     publishReplay(1),
     refCount(),
     log('InterhackTemplateComponent::entityData$'),
