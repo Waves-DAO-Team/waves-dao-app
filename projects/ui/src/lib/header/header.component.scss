@@ -3,6 +3,11 @@
 @import 'container';
 /* stylelint-disable */
 
+.name-tooltip {
+  background: $color-waves_blue;
+  color: $color_white;
+}
+
 @mixin profile() {
 
   .icon {
@@ -19,9 +24,16 @@
       margin: 0;
       cursor: pointer;
 
-      &__image {
-        width: 12px;
-        height: auto;
+      ::ng-deep mat-tooltip-component {
+        .name-tooltip {
+          background: $color-waves_blue !important;
+          color: $color_white !important;
+        }
+      }
+
+      &-tooltip {
+        background: $color-waves_blue !important;
+        color: $color_white !important;
       }
     }
 

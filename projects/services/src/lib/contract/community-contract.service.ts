@@ -28,8 +28,8 @@ export class CommunityContractService {
     return this.contractService.stream
   }
 
-  public addTask (taskName: string, link: string): Observable<TransactionsSuccessResult> {
-    return this.commonContractService.addTask(taskName, link)
+  public addTask (taskName: string, link: string, hash: string = ''): Observable<TransactionsSuccessResult> {
+    return this.commonContractService.addTask(taskName, link, hash)
   }
 
   public initTaskVoting (taskId: string): Observable<TransactionsSuccessResult> {
@@ -204,4 +204,44 @@ export class CommunityContractService {
       })
     )
   }
+
+  resetHash (taskId: string, hash: string): Observable<TransactionsSuccessResult>  {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'resetHash',
+      [
+        {type: 'string', value: taskId},
+        {type: 'string', value: hash}
+      ]
+    )
+      .pipe(
+        catchError((error) => {
+          const mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
+          return EMPTY
+        }),
+        tap(() => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('entity.reset_hash_complete'), translate('messages.ok'))
+        })
+      )
+  }
+
+  hide (taskId: string): Observable<TransactionsSuccessResult>  {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'hideTask',
+      [
+        {type: 'string', value: taskId}
+      ]
+    )
+      .pipe(
+        catchError((error) => {
+          const mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
+          return EMPTY
+        }),
+        tap(() => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('entity.hide'), translate('messages.ok'))
+        })
+      )
+  }
+
 }

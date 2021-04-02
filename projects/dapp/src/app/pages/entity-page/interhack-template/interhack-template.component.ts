@@ -41,6 +41,8 @@ import { log } from '@libs/log'
 import {Async, DestroyedSubject} from '@libs/decorators'
 import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-template.interface'
 import {getEntityData} from '@pages/entity-page/functions'
+import {HashService} from '@services/hash/hash.service'
+import {CommunityContractService} from '@services/contract/community-contract.service'
 
 @Component({
   selector: 'app-interhack-template',
@@ -60,10 +62,14 @@ export class InterhackTemplateComponent implements OnDestroy {
   public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
-    log('InterhackTemplateComponent::entityData$'),
-    tap( e => this.prepareVoteForTaskData(e)),
+    tap(e => this.prepareVoteForTaskData(e)),
+    map((grant) => {
+      grant.isHashValid = this.hashService.isHashValid(grant.hash?.value || '', grant.link?.value || '')
+      return grant
+    }),
     publishReplay(1),
-    refCount()
+    refCount(),
+    log('InterhackTemplateComponent::entityData$'),
   )
 
   voteForTaskData = {
@@ -136,17 +142,17 @@ export class InterhackTemplateComponent implements OnDestroy {
       map((e: ContractGrantAppModel[]) => {
         let solution = e[0]
         const solutionIdList: string[] = []
-        e.forEach(el => {
+        e.forEach(e => {
 
-          const eScore = el.score?.solution?.value || 0
+          const eScore = e.score?.solution?.value || 0
           const sScore = solution.score?.solution?.value || 0
 
-          if(eScore > 0 && el.key) {
-            solutionIdList.push(el.key)
+          if (eScore > 0 && e.key) {
+            solutionIdList.push(e.key)
           }
 
           if (eScore >= sScore) {
-            solution = el
+            solution = e
           }
 
         })
@@ -225,10 +231,23 @@ export class InterhackTemplateComponent implements OnDestroy {
       filter(([grant]) => grant !== null && grant !== undefined),
       map(([grant, user, controls, step, fake, winnerSolutionId]) =>
         prepareTeamsAndSolutionData(grant, user, controls, step.toString() , fake, winnerSolutionId)
+      ),
+      map((apps) => apps.map(app => ({
+          ...app,
+          isHashValid: this.hashService.isHashValid(app.hash || '', app.teamLink || ''),
+          isSolutionHashValid: this.hashService.isHashValid(app.solutionHash || '', app.solutionLink || ''),
+        }))
       )
     )
 
+  public readonly isResetHashBtn$: Observable<boolean> = this.userService.data
+    .pipe(
+      map(data => data.roles.isWG)
+    )
+
   constructor (
+    public communityContractService: CommunityContractService,
+    public hashService: HashService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -268,7 +287,7 @@ export class InterhackTemplateComponent implements OnDestroy {
         params: {
           grant,
           submitCallBack: (data: SubmitCallBackApplyArg) => {
-            this.disruptiveContractService.applyForTask(data.id, data.team, data.link)
+            this.disruptiveContractService.applyForTask(data.id, data.team, data.link, data.hash)
               .pipe(take(1))
               .subscribe(() => {
                 dialog.close()
@@ -349,7 +368,7 @@ export class InterhackTemplateComponent implements OnDestroy {
   }
 
   enableSubmissions (id: string): void {
-      this.disruptiveContractService.enableSubmissions(id, '').subscribe()
+    this.disruptiveContractService.enableSubmissions(id, '').subscribe()
   }
 
   submitSolution (id: string): void {
@@ -364,7 +383,7 @@ export class InterhackTemplateComponent implements OnDestroy {
           grantId: id,
           submitCallBack: (data: SubmitCallBackSubmitSolutionResultArg) => {
             if (id) {
-              this.disruptiveContractService.submitSolution(id, data.solutionLink).subscribe()
+              this.disruptiveContractService.submitSolution(id, data.solutionLink, data.hash).subscribe()
             }
             dialog.close()
             this.cdr.markForCheck()
@@ -375,7 +394,7 @@ export class InterhackTemplateComponent implements OnDestroy {
   }
 
   voteSolution ($event: VoteTeamEventInterface, id: string): void {
-      this.disruptiveContractService.voteForSolution(id, $event.teamIdentifier, $event.voteValue).subscribe()
+    this.disruptiveContractService.voteForSolution(id, $event.teamIdentifier, $event.voteValue).subscribe()
   }
 
   stopSubmissions (id: string): void {
@@ -400,6 +419,17 @@ export class InterhackTemplateComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy (): void {}
+  ngOnDestroy (): void {
+  }
 
+  resetHash (id: string, link: string): void {
+    this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises
+      .then((hash: string = '') => {
+        this.communityContractService.resetHash(id, hash).subscribe()
+      })
+  }
+
+  hide (taskId: string): void {
+    this.communityContractService.hide(taskId).subscribe()
+  }
 }

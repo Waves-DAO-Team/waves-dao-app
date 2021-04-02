@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "run-s start:*",
-    "start:env": "envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.local.ts",
+    "start:local": "envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.local.ts",
+    "start:prod": "PRODUCTION=true envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.prod.ts",
     "start:serve": "ng serve",
     "build": "ng build --configuration=production",
     "test": "ng test",
@@ -18,7 +19,7 @@
     "lint:code": "ts-standard",
     "commit": "lint-staged --allow-empty",
     "push": "run-s lint:es build",
-    "envsub": "envsub --env-file .env --all --diff ./projects/dapp/src/environments/environment.prod.ts",
+    "envsub": "envsub --diff ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.prod.ts",
     "postinstall": "husky install"
   },
   "private": true,

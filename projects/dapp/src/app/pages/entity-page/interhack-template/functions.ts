@@ -57,14 +57,11 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
       grant.app.forEach((app) => {
         const id = app.leader.value
         const score = app?.score?.applicant?.value || 0
-        if (
-          (
-            app.solution && app.solution.key.includes(user.userAddress.slice(-15))
-          ) ||
-          (
-            id === user.userAddress
-            && score < 1
-          )
+        if (app.solution && app.solution.key.includes(user.userAddress.slice(-15))) {
+          result.isSubmitSolutionBtn = false
+        } else if (
+          id === user.userAddress
+          && score < 1
         ) {
           result.isSubmitSolutionBtn = false
         }
@@ -85,7 +82,7 @@ export const teamsAndSolutionsControls = (user: UserDataInterface, grant: Contra
     // teamVoteKeys
     let userKey = user.userAddress.slice(-15)
     const teamKeys: string[] = []
-    if (grant !== undefined && grant.app) {
+    if (!!grant && grant.app) {
       grant.app.forEach((e) => {
         if (e.key) {
           teamKeys.push(userKey + e.key)
@@ -150,6 +147,7 @@ export const teamsAndSolutionTypeTeam = (
       && GrantStatusEnum.workStarted !== grant?.status?.value
 
     const unit: IScore.IUnit = {
+      hash: app.hash?.value,
       isWinner: false,
       isPerformer: !!app.process?.value,
       isWinnerIcon: !!app.process?.value,
@@ -204,11 +202,13 @@ export const teamsAndSolutionTypeSolution = (
       && app?.id?.value === winnerSolutionId
 
     const unit: IScore.IUnit = {
+      hash: app.hash?.value,
       isWinner,
       isPerformer: false,
       isWinnerIcon: true,
       isPerformerIcon: true,
       name: app.name.value,
+      solutionHash: app?.solution?.hash.value,
       solutionLink: app?.solution?.value ? app?.solution?.value : null,
       status: {
         isSolution: app?.solution?.value ? true : false,
@@ -226,9 +226,8 @@ export const teamsAndSolutionTypeSolution = (
 
     const applicantScore = app?.score?.applicant?.value || 0
 
-    if (applicantScore > 0) {
-      res.push(unit)
-    }
+    if (applicantScore > 0)
+      {res.push(unit)}
 
   })
 

@@ -1,10 +1,11 @@
 import { UserDataInterface } from '@services/user/user.interface'
-import { ContractGrantModel } from '@services/contract/contract.model'
+import {ContractGrantExtendedModel, ContractGrantModel} from '@services/contract/contract.model'
 import { GrantStatusEnum } from '@services/static/static.model'
 import { TeamsControlsInterface } from '@pages/entity-page/entity.interface'
 import {IScore} from '@services/interface'
 import {translate} from '@ngneat/transloco'
 import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
+import {HashService} from '@services/hash/hash.service'
 
 const linkHttpPipe = new LinkHttpPipe()
 
@@ -185,9 +186,10 @@ export const prepareTeamsHeaderData = (
 }
 
 export const prepareTeamsData = (
-  grant: ContractGrantModel,
+  grant: ContractGrantExtendedModel | ContractGrantModel,
   user: UserDataInterface,
-  isProcess: boolean
+  isProcess: boolean,
+  hashService: HashService
 ): IScore.IUnit[] => {
 
   const res: IScore.IUnit[] = []
@@ -222,7 +224,8 @@ export const prepareTeamsData = (
         isCanVote,
         isShowResult: !user.roles.isDAO,
       },
-      teamLink: linkHttpPipe.transform(app?.link?.value)
+      teamLink: linkHttpPipe.transform(app?.link?.value),
+      isHashValid: hashService.isHashValid(app.hash?.value || '', app.link?.value || '')
     }
 
     if(isProcess && score> 0 || !isProcess) {
