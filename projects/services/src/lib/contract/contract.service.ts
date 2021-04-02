@@ -8,7 +8,7 @@ import {
   publishReplay,
   refCount, tap,
 } from 'rxjs/operators'
-import {API, AppApiInterface, ContractApiInterface} from '@constants';
+import {API, AppApiInterface, ContractApiInterface} from '@constants'
 import {BehaviorSubject, Observable } from 'rxjs'
 import {
   ContractDataRawModel, ContractGrantAppModel,

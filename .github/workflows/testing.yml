@@ -4,6 +4,7 @@ name: Testing
 on: push
 
 env:
+  PRODUCTION: true
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
   DOCKER_USERNAME: "_"
   DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
@@ -60,7 +61,7 @@ jobs:
       - name: Set config
         uses: mshick/fast-envsubst@v1
         with:
-          in-file: ./projects/dapp/src/environments/environment.prod.ts
+          in-file: ./projects/dapp/src/environments/environment.ts
           out-file: ./projects/dapp/src/environments/environment.local.ts
       - run: yarn install
       - run: yarn build

@@ -6,6 +6,7 @@ import {
   map,
   publishReplay,
   refCount,
+  tap,
 } from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {UserService} from '@services/user/user.service'
@@ -35,12 +36,15 @@ export class StaticService {
 
     const res = this.translocoService.selectTranslateObject('contracts')
       .pipe(
-        map((data: { [s: string]: GrantsVariationType }) => Object.keys(data).map((key) => ({
+        map((data: { [s: string]: GrantsVariationType }) => Object.keys(data).map((key) => {
+        return {
           ...data[key],
           name: key,
-          type: contracts[key].address || null,
+          type: contracts[key]?.address || null,
           ...contracts[key]
-        } as GrantsVariationType))),
+        } as GrantsVariationType
+
+        })),
         publishReplay(1),
         refCount()
       )

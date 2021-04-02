@@ -4,11 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "run-s start:*",
-    "start:env": "envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.local.ts",
+    "start:local": "envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.local.ts",
+    "start:prod": "PRODUCTION=true envsub --env-file .env ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.prod.ts",
     "start:serve": "ng serve",
     "build": "ng build --configuration=production",
     "test": "ng test",
-    "tests": "run-s test:*",
+    "tests": "yarn start:prod && run-s test:*",
     "test:dapp": "ng test dapp --browsers=ChromeHeadless --watch=false --progress=false",
     "test:services": "ng test services --browsers=ChromeHeadless --watch=false --progress=false",
     "test:ui": "ng test ui --browsers=ChromeHeadless --watch=false --progress=false",
@@ -18,7 +19,7 @@
     "lint:code": "ts-standard",
     "commit": "lint-staged --allow-empty",
     "push": "run-s lint:es build",
-    "envsub": "envsub --diff ./projects/dapp/src/environments/environment.ts",
+    "envsub": "envsub --diff ./projects/dapp/src/environments/environment.ts ./projects/dapp/src/environments/environment.prod.ts",
     "postinstall": "husky install"
   },
   "private": true,

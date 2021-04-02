@@ -8,6 +8,8 @@ on:
       - '*'
 
 env:
+  PRODUCTION: true
+
   # Base options
   PACKAGE_NAME: ${{ github.event.repository.name }}
   REPOSITORY_NAME: ${{ github.event.repository.name }}
