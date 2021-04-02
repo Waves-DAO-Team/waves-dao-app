@@ -35,7 +35,7 @@ export const environment = {
       disruptive: {
         address: parseValue('${DISRUPTIVE}', ''),
         rewardAsset: parseValue('${DISRUPTIVE_REWARD_ASSET}', 'WAVES'),
-        rewardAssetIcon: parseValue('${DISRUPTIVE_REWARD_ASSET_ICON}', ''),
+        rewardAssetIcon: parseValue('${DISRUPTIVE_REWARD_ASSET_ICON}', '/assets/coins/waves.svg'),
         rewardDecimals: parseNumber('${DISRUPTIVE_REWARD_DECIMALS}', 2),
       },
       votings: {
@@ -47,13 +47,13 @@ export const environment = {
       web3: {
         address: parseValue('${WEB3}', ''),
         rewardAsset: parseValue('${WEB3_REWARD_ASSET}', 'WAVES'),
-        rewardAssetIcon: parseValue('${WEB3_REWARD_ASSET_ICON}', ''),
+        rewardAssetIcon: parseValue('${WEB3_REWARD_ASSET_ICON}', '/assets/coins/waves.svg'),
         rewardDecimals: parseNumber('${WEB3_REWARD_DECIMALS}', 2),
       },
       interhack: {
         address: parseValue('${INTERHACK}', ''),
         rewardAsset: parseValue('${INTERHACK_REWARD_ASSET}', 'WAVES'),
-        rewardAssetIcon: parseValue('${INTERHACK_REWARD_ASSET_ICON}', ''),
+        rewardAssetIcon: parseValue('${INTERHACK_REWARD_ASSET_ICON}', '/assets/coins/waves.svg'),
         rewardDecimals: parseNumber('${INTERHACK_REWARD_DECIMALS}', 2),
       },
     },
