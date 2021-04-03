@@ -9,10 +9,16 @@ value === '' ? def : value
 
 export const parseNumber = (
     value: string, def: number = 0): number => /^\${.+}$/.test(value) ?
-    def :
-    parseFloat(value)
+    def : (parseFloat(value) || 0)
 
 export const parseJson = (
     value: string,
-    def: Record<string, unknown> | [] = {}): Record<string, unknown> | [] => /^\${.+}$/.test(
-    value) ? def : JSON.parse(value) as Record<string, unknown> | []
+    def: Record<string, unknown> | [] = {}): Record<string, unknown> | [] => {
+      try {
+        return /^\${.+}$/.test(value) ?
+            def :
+            JSON.parse(value) as Record<string, unknown> | []
+      } catch (e) {
+        return def
+      }
+}
