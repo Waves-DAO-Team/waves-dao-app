@@ -244,4 +244,28 @@ export class CommunityContractService {
       )
   }
 
+  addProposal (tokenId: string, description: string, email: string, link: string, logo: string, ticker: string, hash: string): Observable<TransactionsSuccessResult>  {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'addProposal',
+      [
+        {type: 'string', value: tokenId},
+        {type: 'string', value: description},
+        {type: 'string', value: email},
+        {type: 'string', value: link},
+        {type: 'string', value: logo},
+        {type: 'string', value: ticker},
+        {type: 'string', value: hash},
+      ]
+    )
+      .pipe(
+        catchError((error) => {
+          const mes = error.message ? error.message : translate('messages.transaction_rejected')
+          this.snackBar.open(mes)
+          return EMPTY
+        }),
+        tap(() => {
+          this.contractService.refresh()
+          this.snackBar.open(translate('entity.add_proposal'), translate('messages.ok'))
+        })
+      )
+  }
 }

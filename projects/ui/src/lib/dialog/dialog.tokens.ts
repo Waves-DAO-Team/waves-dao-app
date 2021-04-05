@@ -25,6 +25,16 @@ export interface SubmitCallBackAcceptWorkResultArg {
   winnerTeamId?: string
 }
 
+export interface SubmitCallBackAddProposalArg {
+  tokenId: string
+  description: string
+  email: string
+  link: string
+  hash: string
+  logo: string
+  ticker: string
+}
+
 export interface FinishApplicantsVotingArg {
   winnerTeamId?: string
 }
@@ -57,7 +67,8 @@ export interface DialogParams {
                       SubmitCallBackRewardArg |
                       SubmitCallBackAcceptWorkResultArg |
                       SubmitCallBackSubmitSolutionResultArg |
-                      SubmitCallBackAddMemberArg
+                      SubmitCallBackAddMemberArg |
+                      SubmitCallBackAddProposalArg
   ) => void
 }
 

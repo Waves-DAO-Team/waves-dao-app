@@ -66,6 +66,12 @@
   },
   "modal": {
     "texts": {
+      "tokenId": "Token Id",
+      "ticker": "Ticker",
+      "description": "Description",
+      "email": "Email",
+      "link": "Link",
+      "logo": "Logo",
       "add_reward": "Add reward",
       "add_task_details": "Add task details",
       "add_member": "Add member",
@@ -73,6 +79,7 @@
       "accept_work_result": "Accept work result",
       "propose_grant": "Request grant",
       "propose_web_grant": "Propose a Web 3.0 Dev Grant",
+      "propose_special_voting": "Propose a Special voting",
       "link_to_description": "Link to grant description",
       "link_to_apply": "Link to apply form",
       "hint_link": "After link is opened in new tab, come back here",
@@ -510,6 +517,7 @@
   },
   "entity": {
     "reset_hash": "Reset hash",
+    "add_proposal": "Add proposal",
     "hide": "Hide",
     "score": "Score",
     "show_summary": "Show summary",

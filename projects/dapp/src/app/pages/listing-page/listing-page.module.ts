@@ -12,6 +12,7 @@ import { DefaultTemplateComponent } from './default-template/default-template.co
 import { Web3TemplateComponent } from './web3-template/web3-template.component'
 import { ProposeGrantModule } from '@ui/modals/propose-grant/propose-grant.module'
 import { VotingsTemplateComponent } from './votings-template/votings-template.component'
+import {AddProposalModule} from "@ui/modals/add-proposal/add-proposal.module";
 
 @NgModule({
   declarations: [ListingPageComponent, DefaultTemplateComponent, Web3TemplateComponent, VotingsTemplateComponent],
@@ -24,7 +25,8 @@ import { VotingsTemplateComponent } from './votings-template/votings-template.co
     LoadingPageModule,
     PipesModule,
     RouterModule,
-    ProposeGrantModule
+    ProposeGrantModule,
+    AddProposalModule
   ]
 })
 export class ListingPageModule { }
