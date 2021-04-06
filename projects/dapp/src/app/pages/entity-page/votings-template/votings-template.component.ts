@@ -4,7 +4,7 @@ import { GrantsVariationType} from '@services/static/static.model'
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
-import {map, publishReplay, refCount, take, takeUntil, tap} from 'rxjs/operators'
+import {map, publishReplay, refCount, take, takeUntil} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {MatDialog} from '@angular/material/dialog'
 import {UserService} from '@services/user/user.service'
@@ -14,9 +14,9 @@ import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-templ
 import {log} from '@libs/log'
 import {Async, DestroyedSubject} from '@libs/decorators'
 import {getEntityData} from '@pages/entity-page/functions'
-import {HashService} from "@services/hash/hash.service";
-import {CommunityContractService} from "@services/contract/community-contract.service";
-import {VotingsContractService} from "@services/contract/votings-contract.service";
+import {HashService} from '@services/hash/hash.service'
+import {CommunityContractService} from '@services/contract/community-contract.service'
+import {VotingsContractService} from '@services/contract/votings-contract.service'
 
 @Component({
   selector: 'app-votings-template',
@@ -48,7 +48,7 @@ export class VotingsTemplateComponent implements OnDestroy {
   public readonly isVoteForTask$: Observable<boolean | null> = combineLatest([this.userService.stream$, this.grant$])
     .pipe(
       map(([user, grant]) => {
-        if (user.userAddress && grant?.status?.value === "proposed") {
+        if (user.userAddress && grant?.status?.value === 'proposed') {
           if(grant?.voted && grant.voted[user.userAddress]) {
             return grant.voted[user.userAddress] ? true : false
           } else {
@@ -62,12 +62,11 @@ export class VotingsTemplateComponent implements OnDestroy {
   isFinishApplicantsVoteBtn$: Observable<boolean> = combineLatest([this.userService.stream$, this.grant$])
     .pipe(
       map( ([user, grant]) => {
-        if (grant?.status?.value === "proposed" && user.roles.isWG) {
+        if (grant?.status?.value === 'proposed' && user.roles.isWG) {
           return true
         }
         return false
       }),
-      tap( e => console.log('+++isFinishApplicantsVoteBtn$', e))
     )
 
   isRejectBtn$: Observable<boolean> = this.entityData$
@@ -120,7 +119,7 @@ export class VotingsTemplateComponent implements OnDestroy {
     })
   }
 
-  finishTaskProposalVoting(entityData: Web3TemplateInterface, id: string) {
+  finishTaskProposalVoting (entityData: Web3TemplateInterface, id: string): void {
     this.votingsContractService.finishTaskProposalVoting(id).subscribe({
       complete: () => {
         this.cdr.markForCheck()

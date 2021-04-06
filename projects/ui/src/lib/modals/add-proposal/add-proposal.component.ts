@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {API, AppApiInterface} from "@constants";
-import {DIALOG_DATA, DialogParams} from "@ui/dialog/dialog.tokens";
-import {HashService} from "@services/hash/hash.service";
+import {Component, Inject} from '@angular/core'
+import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {API, AppApiInterface} from '@constants'
+import {DIALOG_DATA, DialogParams} from '@ui/dialog/dialog.tokens'
+import {HashService} from '@services/hash/hash.service'
 
 @Component({
   selector: 'ui-add-proposal',
@@ -39,7 +39,7 @@ export class AddProposalComponent {
             email: this.form.controls.email.value,
             link: this.form.controls.link.value,
             logo: this.form.controls.logo.value,
-            hash: hash,
+            hash,
           })
         }
       })

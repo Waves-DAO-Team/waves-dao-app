@@ -3,7 +3,7 @@ import {
   switchMap,
   publishReplay,
   refCount,
-  map, tap,
+  map,
 } from 'rxjs/operators'
 import { ActivatedRoute } from '@angular/router'
 import { LoadingWrapper, LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'

@@ -7,14 +7,13 @@ import {map} from 'rxjs/operators'
 import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
 import {RequestModel} from '@services/request/request.model'
 import { DomSanitizer } from '@angular/platform-browser'
-import {DialogComponent} from "@ui/dialog/dialog.component";
-import {ProposeGrantComponent} from "@ui/modals/propose-grant/propose-grant.component";
-import {translate} from "@ngneat/transloco";
-import {SubmitCallBackAddProposalArg, SubmitCallBackProposeArg} from "@ui/dialog/dialog.tokens";
-import {StaticService} from "@services/static/static.service";
-import {MatDialog} from "@angular/material/dialog";
-import {CommunityContractService} from "@services/contract/community-contract.service";
-import {AddProposalComponent} from "@ui/modals/add-proposal/add-proposal.component";
+import {DialogComponent} from '@ui/dialog/dialog.component'
+import {translate} from '@ngneat/transloco'
+import {SubmitCallBackAddProposalArg} from '@ui/dialog/dialog.tokens'
+import {StaticService} from '@services/static/static.service'
+import {MatDialog} from '@angular/material/dialog'
+import {CommunityContractService} from '@services/contract/community-contract.service'
+import {AddProposalComponent} from '@ui/modals/add-proposal/add-proposal.component'
 
 @Component({
   selector: 'app-votings-template',

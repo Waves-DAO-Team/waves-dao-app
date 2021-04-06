@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy } from '@angular/core'
 import { CONTRACT, ENTITY, ENTITY_PAGE_PROVIDERS } from '@pages/entity-page/entity-page.providers'
 import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
 import { LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'

@@ -244,7 +244,15 @@ export class CommunityContractService {
       )
   }
 
-  addProposal (tokenId: string, description: string, email: string, link: string, logo: string, ticker: string, hash: string): Observable<TransactionsSuccessResult>  {
+  addProposal (
+    tokenId: string,
+    description: string,
+    email: string,
+    link: string,
+    logo: string,
+    ticker: string,
+    hash: string
+  ): Observable<TransactionsSuccessResult>  {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'addProposal',
       [
         {type: 'string', value: tokenId},
