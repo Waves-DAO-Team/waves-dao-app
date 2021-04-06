@@ -16,6 +16,7 @@ import {Async, DestroyedSubject} from '@libs/decorators'
 import {getEntityData} from '@pages/entity-page/functions'
 import {HashService} from "@services/hash/hash.service";
 import {CommunityContractService} from "@services/contract/community-contract.service";
+import {VotingsContractService} from "@services/contract/votings-contract.service";
 
 @Component({
   selector: 'app-votings-template',
@@ -33,6 +34,7 @@ export class VotingsTemplateComponent implements OnDestroy {
     .pipe(
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
+
     log('VotingsTemplateComponent::entityData$'),
     publishReplay(1),
     refCount()
@@ -46,7 +48,6 @@ export class VotingsTemplateComponent implements OnDestroy {
   public readonly isVoteForTask$: Observable<boolean | null> = combineLatest([this.userService.stream$, this.grant$])
     .pipe(
       map(([user, grant]) => {
-        console.log(grant)
         if (user.userAddress && grant?.status?.value === "proposed") {
           if(grant?.voted && grant.voted[user.userAddress]) {
             return grant.voted[user.userAddress] ? true : false
@@ -57,9 +58,20 @@ export class VotingsTemplateComponent implements OnDestroy {
           return null
       })
     )
+  isFinishApplicantsVoteBtn$: Observable<boolean> = combineLatest([this.userService.stream$, this.grant$])
+    .pipe(
+      map( ([user, grant]) => {
+        if (grant?.status?.value === "proposed" && user.roles.isWG) {
+          return true
+        }
+        return false
+      }),
+      tap( e => console.log('+++isFinishApplicantsVoteBtn$', e))
+    )
 
   constructor (
     public hashService: HashService,
+    public votingsContractService: VotingsContractService,
     public communityContractService: CommunityContractService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
@@ -94,8 +106,15 @@ export class VotingsTemplateComponent implements OnDestroy {
   }
 
   vote (value: 'like' | 'dislike', id: string): void {
-    console.log('vote', value, id)
     this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
+      complete: () => {
+        this.cdr.markForCheck()
+      }
+    })
+  }
+
+  finishTaskProposalVoting(entityData: Web3TemplateInterface, id: string) {
+    this.votingsContractService.finishTaskProposalVoting(id).subscribe({
       complete: () => {
         this.cdr.markForCheck()
       }

@@ -22,6 +22,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntityComponent implements OnDestroy {
+  @Input() isShowRaw = false
   @Input() public readonly grant!: ContractGrantExtendedModel
   @Input() public readonly contract!: GrantsVariationType
   @Input() controlsTemplate: TemplateRef<Component> | undefined
@@ -48,7 +49,6 @@ export class EntityComponent implements OnDestroy {
   constructor (
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
-    public linkContentService: LinkContentService,
     public cdr: ChangeDetectorRef,
     @Inject(API) public readonly api: AppApiInterface
   ) {

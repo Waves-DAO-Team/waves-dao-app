@@ -8,15 +8,11 @@
     <button class="active" *ngIf="isResetHashBtn$ | async" (click)="resetHash(entityData.id, entityData.link.value)">
       {{'entity.reset_hash' | transloco}}
     </button>
+
+    <button class="active" (click)="finishTaskProposalVoting(entityData, entityData.id)" *ngIf="isFinishApplicantsVoteBtn$ | async">
+      {{'entity.finish_vote' | transloco}}
+    </button>
   </ng-template>
-
-<!--  [isShow]="voteForTaskData.isShow"-->
-<!--  [isVote]="voteForTaskData.isVote"-->
-<!--  [isVoteInProcess]="voteForTaskData.isVoteInProcess"-->
-
-<!--  <pre>-->
-<!--    {{isVoteForTask$ | async | json}}-->
-<!--  </pre>-->
 
   <ng-template #voteForTask>
     <ui-vote-for-task
@@ -28,7 +24,9 @@
   </ng-template>
 
   <ui-entity
-    [contract]="contract" [grant]="entityData"
+    [isShowRaw]="true"
+    [contract]="contract"
+    [grant]="entityData"
     [headerControlsTemplate]="headerControlsTemplate"
     [voteForTaskTemplate]="voteForTask"
   ></ui-entity>
