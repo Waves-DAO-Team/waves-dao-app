@@ -58,6 +58,7 @@ export class VotingsTemplateComponent implements OnDestroy {
           return null
       })
     )
+
   isFinishApplicantsVoteBtn$: Observable<boolean> = combineLatest([this.userService.stream$, this.grant$])
     .pipe(
       map( ([user, grant]) => {
@@ -67,6 +68,12 @@ export class VotingsTemplateComponent implements OnDestroy {
         return false
       }),
       tap( e => console.log('+++isFinishApplicantsVoteBtn$', e))
+    )
+
+  isRejectBtn$: Observable<boolean> = this.entityData$
+    .pipe(
+      takeUntil(this.destroyed$),
+      map((web3Grant: Web3TemplateInterface) => web3Grant.isCanceled && web3Grant.isWG)
     )
 
   constructor (
@@ -119,5 +126,9 @@ export class VotingsTemplateComponent implements OnDestroy {
         this.cdr.markForCheck()
       }
     })
+  }
+
+  reject (id: string): void {
+    this.communityContractService.rejectTask(id).subscribe()
   }
 }

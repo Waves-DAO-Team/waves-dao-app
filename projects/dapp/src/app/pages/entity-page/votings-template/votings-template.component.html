@@ -12,6 +12,10 @@
     <button class="active" (click)="finishTaskProposalVoting(entityData, entityData.id)" *ngIf="isFinishApplicantsVoteBtn$ | async">
       {{'entity.finish_vote' | transloco}}
     </button>
+
+    <button class="active" *ngIf="isRejectBtn$ | async" (click)="reject(entityData.id)">
+      {{'entity.reject' | transloco}}
+    </button>
   </ng-template>
 
   <ng-template #voteForTask>
