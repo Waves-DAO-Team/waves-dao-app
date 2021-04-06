@@ -1,7 +1,6 @@
 <ng-container *ngIf="entityData$ | async as entityData">
 
   <ng-template #headerControlsTemplate>
-
     <button class="active" *ngIf="isResetHashBtn$ | async" (click)="hide(entityData.id)">
       {{'entity.hide' | transloco}}
     </button>
@@ -9,12 +8,29 @@
     <button class="active" *ngIf="isResetHashBtn$ | async" (click)="resetHash(entityData.id, entityData.link.value)">
       {{'entity.reset_hash' | transloco}}
     </button>
+  </ng-template>
 
+<!--  [isShow]="voteForTaskData.isShow"-->
+<!--  [isVote]="voteForTaskData.isVote"-->
+<!--  [isVoteInProcess]="voteForTaskData.isVoteInProcess"-->
+
+<!--  <pre>-->
+<!--    {{isVoteForTask$ | async | json}}-->
+<!--  </pre>-->
+
+  <ng-template #voteForTask>
+    <ui-vote-for-task
+      *ngIf="(isVoteForTask$ | async) !== null"
+      [isShow]="true"
+      [isVote]="(isVoteForTask$ | async)"
+      (newVoteEvent)="vote($event, entityData.id)"
+    ></ui-vote-for-task>
   </ng-template>
 
   <ui-entity
     [contract]="contract" [grant]="entityData"
     [headerControlsTemplate]="headerControlsTemplate"
+    [voteForTaskTemplate]="voteForTask"
   ></ui-entity>
 
 </ng-container>

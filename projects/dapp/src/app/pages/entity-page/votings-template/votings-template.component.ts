@@ -29,17 +29,35 @@ export class VotingsTemplateComponent implements OnDestroy {
 
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
-  public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
+  public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$])
+    .pipe(
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
     log('VotingsTemplateComponent::entityData$'),
     publishReplay(1),
     refCount()
   )
+
   public readonly isResetHashBtn$: Observable<boolean> = this.userService.data
     .pipe(
       map(data => data.roles.isWG)
     )
+
+  public readonly isVoteForTask$: Observable<boolean | null> = combineLatest([this.userService.stream$, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        console.log(grant)
+        if (user.userAddress && grant?.status?.value === "proposed") {
+          if(grant?.voted && grant.voted[user.userAddress]) {
+            return grant.voted[user.userAddress] ? true : false
+          } else {
+            return false
+          }
+        }
+          return null
+      })
+    )
+
   constructor (
     public hashService: HashService,
     public communityContractService: CommunityContractService,
@@ -75,4 +93,12 @@ export class VotingsTemplateComponent implements OnDestroy {
       })
   }
 
+  vote (value: 'like' | 'dislike', id: string): void {
+    console.log('vote', value, id)
+    this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
+      complete: () => {
+        this.cdr.markForCheck()
+      }
+    })
+  }
 }
