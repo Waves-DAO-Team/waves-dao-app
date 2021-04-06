@@ -4,7 +4,7 @@ import {ContractDataRawModel, IVotings} from '@services/contract/contract.model'
 import {Observable} from 'rxjs'
 import {ContractService} from '@services/contract/contract.service'
 import {map} from 'rxjs/operators'
-import {API, AppApiInterface} from '@constants'
+import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
 import {RequestModel} from '@services/request/request.model'
 import { DomSanitizer } from '@angular/platform-browser'
 import {DialogComponent} from "@ui/dialog/dialog.component";
@@ -30,10 +30,14 @@ export class VotingsTemplateComponent implements OnInit {
       map((dataIn: RequestModel<ContractDataRawModel>) => {
         const oldTasks = dataIn?.payload?.tasks
 
-        const tasks: IVotings.ITask[] = oldTasks ? Object.keys(oldTasks).map((key) => ({
+        const tasks: IVotings.ITask[] = oldTasks ? Object.keys(oldTasks).map((key) =>
+          ({
             status: oldTasks[key]?.status?.value || '',
-            ticker: key
-          })) : []
+            ticker: key,
+            tickerId: key
+          })
+        ) : []
+
 
         tasks.forEach((task) => {
           if (
@@ -52,7 +56,6 @@ export class VotingsTemplateComponent implements OnInit {
             task.ticker = dataIn?.payload?.ticker[strangeTicker].value
           }
         })
-        console.log("=+", tasks)
         return tasks
       })
     )
@@ -64,7 +67,8 @@ export class VotingsTemplateComponent implements OnInit {
       public staticService: StaticService,
       private readonly dialog: MatDialog,
       public communityContractService: CommunityContractService,
-      private readonly cdr: ChangeDetectorRef
+      private readonly cdr: ChangeDetectorRef,
+      @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
   ) { }
 
   ngOnInit (): void {

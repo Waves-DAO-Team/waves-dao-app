@@ -40,8 +40,9 @@
   <div *ngIf="tasks$ == null" class="title mat-display-3">New tokens will appear here...</div>
 
   <div class="listing" *ngFor="let task of tasks$ | async">
+{{task | json}}
 
-    <div class="content">
+    <div class="content" [routerLink]="constants.routes.entity | route: contract?.name : task?.tickerId">
       <div class="card important">
 
         <div class="card__header">

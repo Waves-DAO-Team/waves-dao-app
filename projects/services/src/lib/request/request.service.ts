@@ -35,6 +35,7 @@ export class RequestService {
   ) { }
 
   getContract (address: string): Observable<RequestModel<ContractRawData>> {
+
     if (this.cache[address]) {
       return this.cache[address]
     }

@@ -3,7 +3,7 @@ import {
   switchMap,
   publishReplay,
   refCount,
-  map,
+  map, tap,
 } from 'rxjs/operators'
 import { ActivatedRoute } from '@angular/router'
 import { LoadingWrapper, LoadingWrapperModel } from '@libs/loading-wrapper/loading-wrapper'
@@ -43,11 +43,10 @@ export const entityFactory = (
           snackBar.open(translate(data?.error?.message || 'Unexpected error'), translate('messages.ok'))
         }
       }
-
       return data
     }),
     publishReplay(1),
-    refCount()
+    refCount(),
   ),
     `pages/EntityPageComponent::${ route?.snapshot?.params?.entityId as string }`
 )

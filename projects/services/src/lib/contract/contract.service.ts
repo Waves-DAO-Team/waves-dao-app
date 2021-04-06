@@ -9,7 +9,7 @@ import {
   refCount, tap,
 } from 'rxjs/operators'
 import {API, AppApiInterface, ContractApiInterface} from '@constants'
-import {BehaviorSubject, Observable } from 'rxjs'
+import {BehaviorSubject, Observable} from 'rxjs'
 import {
   ContractDataRawModel, ContractGrantAppModel,
   ContractGrantModel,
@@ -33,7 +33,7 @@ import {RequestModel, RequestStatus} from '@services/request/request.model'
 })
 export class ContractService {
   private readonly contractAddress$: BehaviorSubject<ContractApiInterface> =
-  new BehaviorSubject(this.api.contracts.web3)
+    new BehaviorSubject(this.api.contracts.web3)
 
   private readonly contractState = this.contractAddress$.pipe(
     log('%c ContractService::contractState', 'color:yellow'),
@@ -46,12 +46,12 @@ export class ContractService {
   public entityId$: BehaviorSubject<string> = new BehaviorSubject<string>('')
 
   public readonly membershipStream: Observable<RequestModel<ContractMembershipDataModel>> =
-      this.membershipService.stream.pipe(
-          log('%c ContractService::membershipStream', 'color:yellow'),
-          tap(),
-          publishReplay(1),
-          refCount()
-      )
+    this.membershipService.stream.pipe(
+      log('%c ContractService::membershipStream', 'color:yellow'),
+      tap(),
+      publishReplay(1),
+      refCount()
+    )
 
   public readonly stream: Observable<RequestModel<ContractDataRawModel>> = this.contractState.pipe(
     publishReplay(1),
@@ -61,25 +61,29 @@ export class ContractService {
   )
 
   public readonly streamTasks: Observable<RequestModel<ContractGrantModel[]>> = this.stream.pipe(
-      map((contract: RequestModel<ContractDataRawModel>) => ({
-          ...contract,
-          payload: (contract?.payload?.tasks ?
-              Object.keys(contract?.payload?.tasks || {}).map((entityKey: string) => ({
-                ...(contract?.payload?.tasks ? contract?.payload?.tasks[entityKey] : {}),
-                id: entityKey
-              })) : []) as ContractGrantModel[]
-        })),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b) ),
-      publishReplay(1),
-      refCount(),
-      log('%c ContractService::streamTasks', 'color:yellow'),
+    map((contract: RequestModel<ContractDataRawModel>) => ({
+      ...contract,
+      payload: (contract?.payload?.tasks ?
+        Object.keys(contract?.payload?.tasks || {}).map((entityKey: string) => ({
+          ...(contract?.payload?.tasks ? contract?.payload?.tasks[entityKey] : {}),
+          id: entityKey
+        })) : []) as ContractGrantModel[]
+    })),
+    distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+    publishReplay(1),
+    refCount(),
+    log('%c ContractService::streamTasks', 'color:yellow'),
   )
 
-  public entityById (entityId: ContractRawDataEntityId): Observable<RequestModel<ContractGrantModel>> {
+  // public entityById (entityId: ContractRawDataEntityId): Observable<RequestModel<ContractGrantModel>> {
+  public entityById(entityId: ContractRawDataEntityId) {
+    console.log('====!!!', entityId)
     this.entityId$.next(entityId)
 
     return this.stream.pipe(
       filter((data) => !!data?.payload?.tasks),
+      tap(e => console.log('++++++++++++++++++++++++++++HHH-1', e.payload)),
+
       log('%c ContractService::entityById::input', 'color:yellow'),
       map((data: RequestModel<ContractDataRawModel>): RequestModel<ContractGrantModel> => {
         if (!data?.payload?.tasks) {
@@ -106,6 +110,41 @@ export class ContractService {
           }
         }
 
+        if (
+          data?.payload?.description
+          && data?.payload?.description['<en>']
+          && data?.payload?.description['<en>'][`<${entityId}>`]
+        ) {
+          grant.description = data?.payload?.description['<en>'][`<${entityId}>`].value
+        }
+
+        if (data?.payload?.email && data?.payload?.email[`<${entityId}>`]) {
+          grant.email = data?.payload?.email[`<${entityId}>`].value
+        }
+
+        if (data?.payload?.ticker && data?.payload?.ticker[`<${entityId}>`]) {
+          grant.title = {
+            key: `<${entityId}>`,
+            type: 'string',
+            value: data?.payload?.ticker[`<${entityId}>`].value
+          }
+        }
+
+        if (data?.payload?.link && data?.payload?.link[`<${entityId}>`]) {
+          grant.link = {
+            key: `<${entityId}>`,
+            type: 'string',
+           value: data?.payload?.link[`<${entityId}>`].value
+          }
+        }
+
+        if (
+          data?.payload?.version
+          && data?.payload?.version[`<${entityId}>`]
+        ) {
+          grant.version = data?.payload?.version[`<${entityId}>`].value
+        }
+
         return {
           status: data.status,
           error: data.error,
@@ -128,25 +167,25 @@ export class ContractService {
     )
   }
 
-  public getContract (): ContractApiInterface {
+  public getContract(): ContractApiInterface {
     return this.contractAddress$.getValue()
   }
 
-  public getAddress (): string {
+  public getAddress(): string {
     return this.contractAddress$.getValue().address
   }
 
-  public getRewardAsset (): string | null {
+  public getRewardAsset(): string | null {
     return this.contractAddress$.getValue().rewardAsset
   }
 
-  public getRewardAssetIcon (): string | null {
+  public getRewardAssetIcon(): string | null {
     return this.contractAddress$.getValue().rewardAssetIcon
   }
 
   public applicants: string[] = []
 
-  constructor (
+  constructor(
     private readonly http: HttpClient,
     private storageService: StorageService,
     private readonly translocoService: TranslocoService,
@@ -156,7 +195,7 @@ export class ContractService {
   ) {
   }
 
-  public getContractData (address: string): Observable<RequestModel<ContractDataRawModel>> {
+  public getContractData(address: string): Observable<RequestModel<ContractDataRawModel>> {
     return this.requestService.getContract(address).pipe(
       map((data: RequestModel<ContractRawData>): RequestModel<ContractDataRawModel> => ({
         status: data.status,
@@ -170,7 +209,7 @@ export class ContractService {
     )
   }
 
-  public refresh (address: ContractApiInterface = this.getContract(), force = true): void {
+  public refresh(address: ContractApiInterface = this.getContract(), force = true): void {
     // this.storageService.contractAddress = address
     this.contractAddress$.next(address)
     // return this.contractState.pipe(skip(1), take(1))
@@ -180,7 +219,7 @@ export class ContractService {
     }
   }
 
-  public switchContract (type: string | undefined): void {
+  public switchContract(type: string | undefined): void {
     if (!type) {
       return
     }
@@ -196,7 +235,7 @@ export class ContractService {
     }
   }
 
-  private group (
+  private group(
     keys: string[],
     context: ContractGroupContext,
     value: ContractRawDataString
@@ -212,7 +251,7 @@ export class ContractService {
     return this.group(keys, context[key] as ContractGroupContext, value)
   }
 
-  private prepareData (data: ContractRawData | null): ContractRawData | null {
+  private prepareData(data: ContractRawData | null): ContractRawData | null {
     if (!data) {
       return null
     }

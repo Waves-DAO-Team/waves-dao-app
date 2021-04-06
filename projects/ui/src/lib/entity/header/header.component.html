@@ -13,7 +13,7 @@
   </div>
 
   <div class="card-header-entity__bottom">
-    <div class="card-header-entity__bottom-left">
+    <div class="card-header-entity__bottom-left" *ngIf="reward !== null">
       {{'entity.reward' | transloco}}: <span>{{reward | PriceFormatting : 2}} {{'listing.header.waves' | transloco}} </span>
     </div>
     <div class="card-header-entity__bottom-right">

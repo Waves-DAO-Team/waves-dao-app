@@ -23,7 +23,7 @@
   </mat-form-field>
   <mat-form-field [style.width.%]="100">
     <mat-label>{{'modal.texts.logo' | transloco}}</mat-label>
-    <input matInput formControlName="logo" type="text" >
+    <textarea matInput formControlName="logo" mat-autosize maxlength="4400" ></textarea>
   </mat-form-field>
 
   <div class="btn-container">
