@@ -20,6 +20,11 @@
     margin-bottom: $padding * 2;
     margin-top: $padding * 2;
 
+    &-title {
+      align-items: center;
+      display: flex;
+    }
+
     &-controls {
       display: flex;
       justify-content: flex-end;
