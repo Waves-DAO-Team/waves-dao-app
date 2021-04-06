@@ -30,15 +30,13 @@ export class VotingsTemplateComponent implements OnInit {
       map((dataIn: RequestModel<ContractDataRawModel>) => {
         const oldTasks = dataIn?.payload?.tasks
 
-        const tasks: IVotings.ITask[] = oldTasks ? Object.keys(oldTasks).map((key) =>
+        let tasks: IVotings.ITask[] = oldTasks ? Object.keys(oldTasks).map((key) =>
           ({
             status: oldTasks[key]?.status?.value || '',
             ticker: key,
             tickerId: key
           })
         ) : []
-
-
         tasks.forEach((task) => {
           if (
             dataIn?.payload?.description
@@ -56,6 +54,7 @@ export class VotingsTemplateComponent implements OnInit {
             task.ticker = dataIn?.payload?.ticker[strangeTicker].value
           }
         })
+        tasks = tasks.filter( e => e.status !== 'hide')
         return tasks
       })
     )
@@ -74,7 +73,6 @@ export class VotingsTemplateComponent implements OnInit {
   ngOnInit (): void {
   }
 
-  // tokenId: String, description: String, email: String, link: String, logo: String, ticker: String, hash: String
   onAddProposal (): void {
     this.dialog.open(DialogComponent, {
       width: '500px',
