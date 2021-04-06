@@ -26,7 +26,6 @@ jobs:
     environment: 'production'
     name: Create latest docker image
     runs-on: ubuntu-latest
-    if: contains( github.ref, 'refs/tags/') == false && github.ref == 'refs/heads/packages'
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.4.1
@@ -47,6 +46,12 @@ jobs:
         name: Create tag image
         run: |
           echo "IMAGE_TAG_NAME=${{ env.GHCR_REGISTRY_HOST }}/${GITHUB_REPOSITORY,,}:latest" >> ${GITHUB_ENV}
+
+      - name: Set config
+        uses: mshick/fast-envsubst@v1
+        with:
+          in-file: ./projects/dapp/src/environments/environment.ts
+          out-file: ./projects/dapp/src/environments/environment.local.ts
 
       -
         name: Set up QEMU
