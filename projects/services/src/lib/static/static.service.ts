@@ -13,7 +13,7 @@ import {RolesInterface} from '@services/user/user.interface'
 import {GrantsVariationType, GrantTypesEnum} from './static.model'
 import {translate, TranslocoService} from '@ngneat/transloco'
 import {API, AppApiInterface, ContractApiInterface} from '@constants'
-import { log } from '@libs/log/log.rxjs-operator'
+import {log} from '@libs/log/log.rxjs-operator'
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,9 @@ export class StaticService {
   ) {
   }
 
+  /**
+   * Returns list of information about a contacts (title, picture, etc.)
+   */
   public getContactsList (): Observable<GrantsVariationType[]> {
 
     const contracts = this.api.contracts as { [s: string]: ContractApiInterface }
@@ -42,19 +45,27 @@ export class StaticService {
           ...contracts[key]
         } as GrantsVariationType))),
         publishReplay(1),
-        refCount()
+        refCount(),
+        log('%c StaticService::getContactsList', 'color: chartreuse')
       )
     res.subscribe()
 
     return res
   }
 
+  /**
+   * Returns information about a contact (title, picture, etc.)
+   */
   getContactInfo (contactType: string): Observable<GrantsVariationType | null> {
     return this.getContactsList().pipe(
-      map((contracts: GrantsVariationType[]) => contracts.find((item) => item.name === contactType) || null)
+      map((contracts: GrantsVariationType[]) => contracts.find((item) => item.name === contactType) || null),
+      log('%c StaticService::getContactInfo', 'color: tomato')
     )
   }
 
+  /**
+   * Returns static information about a contact (title, picture, etc.)
+   */
   getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
     this.selectedContact$.next(contractType)
