@@ -40,6 +40,7 @@ export class ContractService {
 
   /**
    * Calls getContractData method to create payload
+   *
    * @return RequestModel<ContractDataRawModel>
    */
   private readonly contractState = this.contractAddress$.pipe(
@@ -97,7 +98,7 @@ export class ContractService {
   /**
    * Sets the address of the selected grant and returns data on it
    */
-  public entityById(entityId: ContractRawDataEntityId): Observable<RequestModel<ContractGrantModel>> {
+  public entityById (entityId: ContractRawDataEntityId): Observable<RequestModel<ContractGrantModel>> {
     this.entityId$.next(entityId)
 
     return this.stream.pipe(
@@ -150,25 +151,25 @@ export class ContractService {
     )
   }
 
-  public getContract(): ContractApiInterface {
+  public getContract (): ContractApiInterface {
     return this.contractAddress$.getValue()
   }
 
-  public getAddress(): string {
+  public getAddress (): string {
     return this.contractAddress$.getValue().address
   }
 
-  public getRewardAsset(): string | null {
+  public getRewardAsset (): string | null {
     return this.contractAddress$.getValue().rewardAsset
   }
 
-  public getRewardAssetIcon(): string | null {
+  public getRewardAssetIcon (): string | null {
     return this.contractAddress$.getValue().rewardAssetIcon
   }
 
   public applicants: string[] = []
 
-  constructor(
+  constructor (
     private readonly http: HttpClient,
     private storageService: StorageService,
     private readonly translocoService: TranslocoService,
@@ -181,7 +182,7 @@ export class ContractService {
   /**
    * Method for getting all contract data
    */
-  public getContractData(address: string): Observable<RequestModel<ContractDataRawModel>> {
+  public getContractData (address: string): Observable<RequestModel<ContractDataRawModel>> {
     return this.requestService.getContract(address).pipe(
       map((data: RequestModel<ContractRawData>): RequestModel<ContractDataRawModel> => ({
         status: data.status,
@@ -197,10 +198,11 @@ export class ContractService {
 
   /**
    * Sets the address for the contract to work
+   *
    * @param address - new address
    * @param force - force request to update data
    */
-  public refresh(address: ContractApiInterface = this.getContract(), force = true): void {
+  public refresh (address: ContractApiInterface = this.getContract(), force = true): void {
     // this.storageService.contractAddress = address
     this.contractAddress$.next(address)
     // return this.contractState.pipe(skip(1), take(1))
@@ -213,7 +215,7 @@ export class ContractService {
   /**
    * Switches contracts, requires loading data for an established contract
    */
-  public switchContract(type: string | undefined): void {
+  public switchContract (type: string | undefined): void {
     if (!type) {
       return
     }
@@ -232,7 +234,7 @@ export class ContractService {
   /**
    * Utility method for converting raw data
    */
-  private group(
+  private group (
     keys: string[],
     context: ContractGroupContext,
     value: ContractRawDataString
@@ -251,7 +253,7 @@ export class ContractService {
   /**
    * Utility method for converting raw data
    */
-  private prepareData(data: ContractRawData | null): ContractRawData | null {
+  private prepareData (data: ContractRawData | null): ContractRawData | null {
     if (!data) {
       return null
     }

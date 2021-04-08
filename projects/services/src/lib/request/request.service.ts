@@ -29,7 +29,7 @@ export class RequestService {
 
   private readonly refresh$ = new Subject()
 
-  constructor(
+  constructor (
     private readonly http: HttpClient,
     @Inject(API) private readonly api: AppApiInterface
   ) {
@@ -39,7 +39,7 @@ export class RequestService {
    * https://TYPE.wavesnodes.com/addresses/data/ADDRESS
    * Makes a request to wavesnodes with the specified contract address and returns raw data on it
    */
-  getContract(address: string): Observable<RequestModel<ContractRawData>> {
+  getContract (address: string): Observable<RequestModel<ContractRawData>> {
     if (this.cache[address]) {
       return this.cache[address]
     }
@@ -84,7 +84,7 @@ export class RequestService {
     return this.cache[address]
   }
 
-  private getConfigNode(address: string): RequestConfigNode {
+  private getConfigNode (address: string): RequestConfigNode {
     if (address.indexOf('3P') === 0) {
       return this.api.mainnet
     }
@@ -97,7 +97,7 @@ export class RequestService {
     return this.api.mainnet
   }
 
-  public refresh(address: string): void {
+  public refresh (address: string): void {
     this.refresh$.next(address)
   }
 
