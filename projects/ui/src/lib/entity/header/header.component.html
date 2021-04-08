@@ -6,6 +6,11 @@
     [isShowRaw]="isShowRaw"
   ></ui-flow-text>
 
+  <div class="card-header-entity__voted" *ngIf="votedCount">
+    {{'entity.voted' | transloco}}: {{votedCount}}
+  </div>
+
+
   <div class="card-header-entity__mid mat-h2">
     <div class="card-header-entity__mid-title">{{title}}</div>
     <div class="card-header-entity__mid-controls">

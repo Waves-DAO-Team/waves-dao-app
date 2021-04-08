@@ -82,4 +82,10 @@
     margin-bottom: auto;
     margin-top: auto;
   }
+
+  &__voted {
+    color: $color_dark_gray;
+    margin: 0;
+    font-size: 14px;
+  }
 }

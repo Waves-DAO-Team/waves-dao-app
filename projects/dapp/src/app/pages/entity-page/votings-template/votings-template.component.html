@@ -28,6 +28,7 @@
   </ng-template>
 
   <ui-entity
+    [votedCount]="votedCount$ | async"
     [isShowRaw]="true"
     [contract]="contract"
     [grant]="entityData"

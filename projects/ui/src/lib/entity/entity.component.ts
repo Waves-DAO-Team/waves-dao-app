@@ -22,6 +22,7 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
 })
 export class EntityComponent implements OnDestroy {
   @Input() isShowRaw = false
+  @Input() votedCount = null
   @Input() public readonly grant!: ContractGrantExtendedModel
   @Input() public readonly contract!: GrantsVariationType
   @Input() controlsTemplate: TemplateRef<Component> | undefined

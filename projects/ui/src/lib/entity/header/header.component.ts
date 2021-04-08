@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
+  @Input() votedCount = null
   @Input() isShowRaw = false
   @Input() hash = ''
   @Input() grant = ''
