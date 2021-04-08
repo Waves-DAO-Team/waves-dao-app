@@ -13,7 +13,7 @@ import {RolesInterface} from '@services/user/user.interface'
 import {GrantsVariationType, GrantTypesEnum} from './static.model'
 import {translate, TranslocoService} from '@ngneat/transloco'
 import {API, AppApiInterface, ContractApiInterface} from '@constants'
-import { log } from '@libs/log/log.rxjs-operator'
+import {log} from '@libs/log/log.rxjs-operator'
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ import { log } from '@libs/log/log.rxjs-operator'
 export class StaticService {
   public selectedContact$: BehaviorSubject<GrantTypesEnum> = new BehaviorSubject<GrantTypesEnum>(GrantTypesEnum.disruptive)
 
-  constructor (
+  constructor(
     private readonly contractService: ContractService, // eslint-disable-line
     private readonly userService: UserService, // eslint-disable-line
     private readonly translocoService: TranslocoService, // eslint-disable-line
@@ -29,7 +29,10 @@ export class StaticService {
   ) {
   }
 
-  public getContactsList (): Observable<GrantsVariationType[]> {
+  /**
+   * Returns list of information about a contacts (title, picture, etc.)
+   */
+  public getContactsList(): Observable<GrantsVariationType[]> {
 
     const contracts = this.api.contracts as { [s: string]: ContractApiInterface }
 
@@ -42,20 +45,28 @@ export class StaticService {
           ...contracts[key]
         } as GrantsVariationType))),
         publishReplay(1),
-        refCount()
+        refCount(),
+        log('%c StaticService::getContactsList', 'color: chartreuse')
       )
     res.subscribe()
 
     return res
   }
 
-  getContactInfo (contactType: string): Observable<GrantsVariationType | null> {
+  /**
+   * Returns information about a contact (title, picture, etc.)
+   */
+  getContactInfo(contactType: string): Observable<GrantsVariationType | null> {
     return this.getContactsList().pipe(
-      map((contracts: GrantsVariationType[]) => contracts.find((item) => item.name === contactType) || null)
+      map((contracts: GrantsVariationType[]) => contracts.find((item) => item.name === contactType) || null),
+      log('%c StaticService::getContactInfo', 'color: tomato')
     )
   }
 
-  getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
+  /**
+   * Returns static information about a contact (title, picture, etc.)
+   */
+  getStaticContract(contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
     this.selectedContact$.next(contractType)
 
@@ -81,19 +92,19 @@ export class StaticService {
     )
   }
 
-  checkPermissionSettings (contractType: string, roles: RolesInterface): boolean {
+  checkPermissionSettings(contractType: string, roles: RolesInterface): boolean {
     return roles.isManager
   }
 
-  checkPermissionCreateGrant (contractType: string, roles: RolesInterface): boolean {
+  checkPermissionCreateGrant(contractType: string, roles: RolesInterface): boolean {
     return contractType === GrantTypesEnum.web3 ? roles.isAuth : roles.isWG
   }
 
-  checkPermissionFinishCreateGrant (contractType: string, roles: RolesInterface): boolean {
+  checkPermissionFinishCreateGrant(contractType: string, roles: RolesInterface): boolean {
     return contractType === GrantTypesEnum.web3 ? roles.isAuth : roles.isWG
   }
 
-  checkPermissionVoted (contractType: string, roles: RolesInterface): boolean {
+  checkPermissionVoted(contractType: string, roles: RolesInterface): boolean {
     return roles.isDAO
   }
 }
