@@ -40,6 +40,7 @@ export class RequestService {
    * Makes a request to wavesnodes with the specified contract address and returns raw data on it
    */
   getContract (address: string): Observable<RequestModel<ContractRawData>> {
+
     if (this.cache[address]) {
       return this.cache[address]
     }

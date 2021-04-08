@@ -129,6 +129,41 @@ export class ContractService {
           }
         }
 
+        if (
+          data?.payload?.description
+          && data?.payload?.description['<en>']
+          && data?.payload?.description['<en>'][`<${entityId}>`]
+        ) {
+          grant.description = data?.payload?.description['<en>'][`<${entityId}>`].value
+        }
+
+        if (data?.payload?.email && data?.payload?.email[`<${entityId}>`]) {
+          grant.email = data?.payload?.email[`<${entityId}>`].value
+        }
+
+        if (data?.payload?.ticker && data?.payload?.ticker[`<${entityId}>`]) {
+          grant.title = {
+            key: `<${entityId}>`,
+            type: 'string',
+            value: data?.payload?.ticker[`<${entityId}>`].value
+          }
+        }
+
+        if (data?.payload?.link && data?.payload?.link[`<${entityId}>`]) {
+          grant.link = {
+            key: `<${entityId}>`,
+            type: 'string',
+           value: data?.payload?.link[`<${entityId}>`].value
+          }
+        }
+
+        if (
+          data?.payload?.version
+          && data?.payload?.version[`<${entityId}>`]
+        ) {
+          grant.version = data?.payload?.version[`<${entityId}>`].value
+        }
+
         return {
           status: data.status,
           error: data.error,

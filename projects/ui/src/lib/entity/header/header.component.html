@@ -3,6 +3,7 @@
   <ui-flow-text
     [isShowStatus]="true"
     [status]="status"
+    [isShowRaw]="isShowRaw"
   ></ui-flow-text>
 
   <div class="card-header-entity__mid mat-h2">
@@ -13,7 +14,7 @@
   </div>
 
   <div class="card-header-entity__bottom">
-    <div class="card-header-entity__bottom-left">
+    <div class="card-header-entity__bottom-left" *ngIf="reward !== null">
       {{'entity.reward' | transloco}}: <span>{{reward | PriceFormatting : 2}} {{'listing.header.waves' | transloco}} </span>
     </div>
     <div class="card-header-entity__bottom-right">

@@ -126,9 +126,13 @@ export interface GrantParams {
 
 export interface ContractGrantRawModel extends ContractGrantCommonModel {
   app?: {[s: string]: ContractGrantAppModel}
+  description?: string
+  email?: string
+  version?: string
 }
 
 export interface ContractGrantModel extends ContractGrantCommonModel {
+
   app?: ContractGrantAppModel[]
   id?: ContractRawDataEntityId
   performer?: ContractRawDataString
@@ -139,7 +143,10 @@ export interface ContractGrantModel extends ContractGrantCommonModel {
   report?: ContractRawDataString,
   label?: GrantParams
   createdAt?: ContractRawDataNumber
-  winnerName?: string
+  winnerName?: string,
+//   votings?: \ {
+//
+// }
 }
 
 export interface ContractGrantExtendedModel extends ContractGrantModel{
@@ -154,7 +161,11 @@ export interface ContractGrantExtendedModel extends ContractGrantModel{
   isWorkStarted: boolean,
   isShowVoting: boolean,
   isVoteForGrant: boolean
-  isHashValid?: Promise<boolean | null>
+  isHashValid?: Promise<boolean | null>,
+  logo?: string,
+  tasks?: string,
+  ticker?: string,
+  version?: string,
 }
 
 // export interface ContractGrantRawModel extends ContractGrantCommonModel {
@@ -178,6 +189,7 @@ export interface ContractDataRawModel {
 
   description?: {[s: string]: {[s: string]: ContractRawDataString}}
   email?: {[s: string]: ContractRawDataString}
+  version?: {[s: string]: ContractRawDataString}
   link?: {[s: string]: ContractRawDataString}
   logo?: {[s: string]: ContractRawDataString}
   ticker?: {[s: string]: ContractRawDataString}
@@ -217,5 +229,6 @@ export namespace IVotings {
     link?: string
     email?: string
     ticker?: string
+    tickerId?: string
   }
 }

@@ -43,11 +43,10 @@ export const entityFactory = (
           snackBar.open(translate(data?.error?.message || 'Unexpected error'), translate('messages.ok'))
         }
       }
-
       return data
     }),
     publishReplay(1),
-    refCount()
+    refCount(),
   ),
     `pages/EntityPageComponent::${ route?.snapshot?.params?.entityId as string }`
 )

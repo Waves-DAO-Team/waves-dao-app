@@ -21,6 +21,7 @@ export class FlowTextComponent implements OnDestroy {
 
   @Input() isShowStatus = false
   @Input() isShowFlow = false
+  @Input() isShowRaw = false
 
   private grant$: BehaviorSubject<ContractGrantModel> = new BehaviorSubject<ContractGrantModel>({})
 
@@ -39,8 +40,8 @@ export class FlowTextComponent implements OnDestroy {
         ([grantType, status, grant]) => {
           const param = this.prepareData(grant)
           const data = {
-            status: translate(`listing.status.${status}`, param),
-            flow: translate(`flow.${grantType}.${status}`, param)
+            status: this.isShowRaw ? status : translate(`listing.status.${status}`, param),
+            flow: this.isShowRaw ? status : translate(`flow.${grantType}.${status}`, param)
           }
           return data
         }

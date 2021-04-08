@@ -86,5 +86,15 @@
         margin-left: 0;
       }
     }
+  } @else if($type == adaptive) {
+    button {
+      width: 100%;
+      display: block;
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
   }
 }

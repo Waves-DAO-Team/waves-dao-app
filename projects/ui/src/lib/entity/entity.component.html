@@ -1,8 +1,9 @@
 <div class="entity">
 
   <div class="card">
-<!--    [isHashValid]="grant.isHashValid | async"-->
+
     <ui-header
+      [isShowRaw]="isShowRaw"
       [hash]="grant?.hash?.value"
       [status]="grant?.status?.value || grantStatusEnum.noStatus"
       [title]="grant?.title?.value"
