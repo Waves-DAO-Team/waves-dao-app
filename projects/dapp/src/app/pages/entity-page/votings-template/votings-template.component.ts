@@ -30,11 +30,9 @@ export class VotingsTemplateComponent implements OnDestroy {
 
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
-  public readonly votedCount$ = combineLatest([this.grant$, this.userService.data])
+  public readonly votedCount$ = this.grant$
     .pipe(
-    map(([grant, user]) =>
-      grant?.voting?.amount?.value && user.roles.isWG ? grant?.voting?.amount?.value : null
-    )
+    map((grant) => grant?.voting?.amount?.value ? grant?.voting?.amount?.value : null)
   )
 
   public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$])
