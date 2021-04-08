@@ -3,6 +3,7 @@
   <div class="card">
 
     <ui-header
+      [votedCount]="votedCount"
       [isShowRaw]="isShowRaw"
       [hash]="grant?.hash?.value"
       [status]="grant?.status?.value || grantStatusEnum.noStatus"

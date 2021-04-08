@@ -516,6 +516,7 @@
     "isOriginal": "is original"
   },
   "entity": {
+    "voted": "voted",
     "reset_hash": "Reset hash",
     "add_proposal": "Add proposal",
     "hide": "Hide",
