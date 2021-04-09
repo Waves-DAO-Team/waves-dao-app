@@ -1,0 +1,60 @@
+name: Create && Deploy
+
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+
+env:
+  # Use secrets after set environment
+  WD_MEMBERSHIP_ADDRESS: ""
+  WD_MEMBERSHIP_SEED: ""
+  WD_DEPOSIT_SEED: ""
+  WD_DISRUPTIVE_SEED: ""
+  WD_INTERHACK_SEED: ""
+  WD_VOTINGS_SEED: ""
+  WD_WEB3_SEED: ""
+
+jobs:
+  create:
+    environment: 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set variables for environment
+        uses: ./.github/set-env/
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Apply environment on contracts
+        run: |
+          npx envsub ./contracts/dao_membership.ride
+          npx envsub ./contracts/disruptive-grant.ride
+          npx envsub ./contracts/interhack-grant.ride
+          npx envsub ./contracts/web3-grant.ride
+          npx envsub ./contracts/token-votings.ride
+
+      - name: Waves deployer
+        uses: rieset/waves-deployer@v.1.0.0.action.alpha
+        id: deploy
+        with:
+          config: './contract-deploy.json'
+
+      - name: Output data
+        run: |
+          echo "${{ steps.deploy.outputs.contracts }}" >> ./contracts.json
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: contracts
+          path: ./contracts.json

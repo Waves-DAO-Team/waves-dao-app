@@ -21,7 +21,7 @@ func tryGetString(key: String) = {
     val
 }
 
-let mainContract = addressFromStringValue("3MwRzi2BmqZZXWrCGCwcRQLsnic2Aod6zhS") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
+let mainContract = addressFromStringValue("3NCsqf4pFGtECs3vM4j1nKqL6VA3HdiNGeZ") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
 
 func getGroup() = {
     let val = match getString(mainContract, "working_group_members") {
@@ -160,14 +160,32 @@ func acceptWorkResultConditions(address: Address) = {
 
 
 @Callable(i)
-func addTask(title: String, link: String) = {
+func addTask(title: String, link: String, hash: String) = {
     WriteSet([
         DataEntry("tasks_" + i.transactionId.toBase58String() + "_title", title),
         DataEntry("tasks_" + i.transactionId.toBase58String() + "_link", link),
+        # Hash for link validation
+        DataEntry("tasks_" + i.transactionId.toBase58String() + "_hash", hash),
         DataEntry("tasks_" + i.transactionId.toBase58String() + "_leader", i.caller.toString())
+
     ])
 }
 
+
+@Callable(i)
+func resetHash(taskId: String, hash: String) = {
+    WriteSet([
+        # Hash for link validation
+        DataEntry("tasks_"+taskId+"_hash", hash)
+    ])
+}
+
+@Callable(i)
+func hideTask(taskId: String) = {
+    WriteSet([
+        DataEntry("tasks_" + taskId + "_status", "hide")
+    ])
+}
 
 @Callable(i)
 func addReward(taskId: String, reward: Int) = {

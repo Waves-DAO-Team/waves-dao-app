@@ -1,0 +1,27 @@
+{
+  "host": "https://nodes-testnet.wavesnodes.com",
+  "chainId": "T",
+  "deposit": "${WD_DEPOSIT_SEED}",
+  "contracts": [
+    {
+      "script": "./contracts/dao-membership.ride",
+      "seed": "${WD_MEMBERSHIP_SEED}",
+    },
+    {
+      "script": "./contracts/disruptive-grant.ride",
+      "seed": "${WD_DISRUPTIVE_SEED}"
+    },
+    {
+      "script": "./contracts/interhack-grant.ride",
+      "seed": "${WD_INTERHACK_SEED}"
+    },
+    {
+      "script": "./contracts/web3-grant.ride",
+      "seed": "${WD_WEB3_SEED}"
+    },
+    {
+      "script": "./contracts/token-votings.ride",
+      "seed": "${WD_VOTINGS_SEED}"
+    }
+  ]
+}
