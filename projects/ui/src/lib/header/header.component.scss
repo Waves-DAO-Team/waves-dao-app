@@ -23,6 +23,13 @@
       color: $color_black;
       margin: 0;
       cursor: pointer;
+      display: flex;
+
+      &:hover {
+        .name__image {
+          background: url("/assets/icons/copy-blue.svg") center no-repeat;
+        }
+      }
 
       ::ng-deep mat-tooltip-component {
         .name-tooltip {
@@ -34,6 +41,17 @@
       &-tooltip {
         background: $color-waves_blue !important;
         color: $color_white !important;
+      }
+
+      &__image {
+        width: 12px;
+        height: auto;
+        background: url("/assets/icons/copy-gray.svg") center no-repeat;
+        background-size: auto;
+        margin-left: 4px;
+        &:hover {
+          background: url("/assets/icons/copy-blue.svg") center no-repeat;
+        }
       }
     }
 

@@ -55,7 +55,7 @@
           </div>
           <div class="content">
             <div class="name mat-display-2" matTooltip="Copy address" (click)="copyUserName(user.address)">
-              {{user.name}} <img class="name__image" alt="copy" src="assets/icons/copy.svg">
+              {{user.name}} <div class="name__image" ></div>
             </div>
             <div class="role mat-display-1">
               <ng-container *ngIf="user.userRole === roleEnum.manager">
