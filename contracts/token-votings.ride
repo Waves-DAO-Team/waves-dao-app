@@ -2,7 +2,7 @@
 {-# CONTENT_TYPE DAPP #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
 
-let mainContract = addressFromStringValue("3N97iacRapbKQMwDxobcwAvNk8WSb3TPwjx") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
+let mainContract = addressFromStringValue("${MEMBERSHIP_CONTRACT_ADDRESS}") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
 
 let QUORUM = 1  # 50% votes needed
 

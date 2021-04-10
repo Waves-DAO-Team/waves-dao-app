@@ -1,4 +1,4 @@
-name: Create && Deploy
+name: Deploy waves contracts
 
 on:
   push:
@@ -18,7 +18,9 @@ env:
   WD_WEB3_SEED: ""
 
 jobs:
-  create:
+  develop:
+    name: Update develop contracts
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
     environment: 'develop'
     runs-on: ubuntu-latest
     steps:
@@ -35,19 +37,54 @@ jobs:
         with:
           secrets: ${{ toJSON(secrets) }}
 
-      - name: Apply environment on contracts
+      - name: Apply environment on config
         run: |
-          npx envsub ./contracts/dao_membership.ride
-          npx envsub ./contracts/disruptive-grant.ride
-          npx envsub ./contracts/interhack-grant.ride
-          npx envsub ./contracts/web3-grant.ride
-          npx envsub ./contracts/token-votings.ride
+          npx envsub ./contracts/develop.json
 
       - name: Waves deployer
-        uses: rieset/waves-deployer@v.1.0.0.action.alpha
+        uses: rieset/waves-deployer@v.1.1.0
         id: deploy
         with:
-          config: './contract-deploy.json'
+          config: './contracts/develop.json'
+
+      - name: Output data
+        run: |
+          echo "${{ steps.deploy.outputs.contracts }}" >> ./contracts.json
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: contracts
+          path: ./contracts.json
+
+  testing:
+    name: Deploy new temporary contracts
+    if: github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop'
+    environment: 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set variables for environment
+        uses: ./.github/set-env/
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Apply environment on config
+        run: |
+          npx envsub ./contracts/testing.json
+
+      - name: Waves deployer
+        uses: rieset/waves-deployer@v.1.1.0
+        id: deploy
+        with:
+          config: './contracts/testing.json'
 
       - name: Output data
         run: |

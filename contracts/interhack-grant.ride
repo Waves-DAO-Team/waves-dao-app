@@ -4,7 +4,7 @@
 
 let QUORUM = 1  # 1% votes needed
 
-let mainContract = addressFromStringValue("3NCsqf4pFGtECs3vM4j1nKqL6VA3HdiNGeZ") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
+let mainContract = addressFromStringValue("${MEMBERSHIP_CONTRACT_ADDRESS}") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
 
 func tryGetInteger(key: String) = {
     let val = match getInteger(this, key) {

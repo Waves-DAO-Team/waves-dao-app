@@ -1,11 +1,12 @@
 {
-  "host": "https://nodes-testnet.wavesnodes.com",
+  "node": "https://nodes-testnet.wavesnodes.com",
   "chainId": "T",
   "deposit": "${WD_DEPOSIT_SEED}",
   "contracts": [
     {
+      "anchor": "MEMBERSHIP_CONTRACT_ADDRESS",
       "script": "./contracts/dao-membership.ride",
-      "seed": "${WD_MEMBERSHIP_SEED}",
+      "seed": "${WD_MEMBERSHIP_SEED}"
     },
     {
       "script": "./contracts/disruptive-grant.ride",

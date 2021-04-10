@@ -21,7 +21,7 @@ func tryGetString(key: String) = {
     val
 }
 
-let mainContract = addressFromStringValue("3NCsqf4pFGtECs3vM4j1nKqL6VA3HdiNGeZ") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
+let mainContract = addressFromStringValue("${MEMBERSHIP_CONTRACT_ADDRESS}") # HERE TO SET MEMBERSHIP SMART CONTRACT ADDRESS
 
 func getGroup() = {
     let val = match getString(mainContract, "working_group_members") {
