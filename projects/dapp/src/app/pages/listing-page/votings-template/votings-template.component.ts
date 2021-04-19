@@ -50,6 +50,9 @@ export class VotingsTemplateComponent implements OnInit {
             task.email = dataIn?.payload?.email[strangeTicker].value
             task.link = dataIn?.payload?.link[strangeTicker].value
             task.logo = dataIn?.payload?.logo[strangeTicker].value
+            if (!task.logo || !task.logo.startsWith('data:image')){
+              task.logo = 'assets/icons/token-placeholder.svg'
+            }
             task.ticker = dataIn?.payload?.ticker[strangeTicker].value
           }
         })
