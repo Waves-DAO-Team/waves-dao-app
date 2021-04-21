@@ -56,8 +56,10 @@
             <div class="card__header__left-block__desc">
               {{ task?.description || 'Follow link to read the description' }}
             </div>
-            <div class="card__header__left-block__address">{{ task?.link }}</div>
-            <div class="card__header__left-block__email">{{ task?.email }}</div>
+            <a class="card__header__left-block__address"
+               target="_blank"
+               rel="noopener nofollow noreferrer">{{ task?.link }}</a>
+            <a class="card__header__left-block__email" [href]="'mailto:' + task.email">{{ task?.email }}</a>
           </div>
 
           <div class="card__header__right-block" [class.card__header__right-block--active]="1">

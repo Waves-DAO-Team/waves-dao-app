@@ -29,15 +29,22 @@
 
   .rejected {
     background: $color_light_gray;
+
     .card__header__left-block__title,
     .card__header__left-block__address,
     .card__header__left-block__status,
     .card__header__right-block__text,
-    .card__header__right-block__price{
+    .card__header__right-block__price {
       color: $color_dark_gray;
     }
   }
 }
+
+.card__header__left-block__address,
+.card__header__left-block__email {
+  cursor: pointer !important;
+}
+
 
 .title {
   font-weight: 500;
