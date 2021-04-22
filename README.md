@@ -47,12 +47,12 @@ configuration file.
 - Go to the contract [repository](https://github.com/vlzhr/WavesDAO)
 and install like other project.
 
-- Run the deployment of contracts in the test network
+- Run the deployment of contracts in the test network.
 
-- Copy the file `.env` with the addresses of the contracts into the root
-directory of the project
+- Create the file `.env` with the addresses of the contracts into the root
+  directory of the project. For example use the example.env file.
 
-- Run project
+- Run project.
 
 ```bash
     yarn start
