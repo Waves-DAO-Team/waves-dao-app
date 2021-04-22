@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+
 import {ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core'
 import {GrantsVariationType} from '@services/static/static.model'
 import {ContractDataRawModel, IVotings} from '@services/contract/contract.model'
@@ -56,17 +58,11 @@ export class VotingsTemplateComponent implements OnInit {
             task.ticker = dataIn?.payload?.ticker[strangeTicker].value
           }
 
-          if (task.link?.substring(0, 8) !== "https://") {
-            task.link = "https://" + task.link;
-          }
         })
         tasks = tasks.filter( e => e.status !== 'hide')
         return tasks
       })
     )
-
-  // if($scope.link.substring(0, 7) != "http://"){
-  // $scope.link = "http://" + $scope.link;}
 
   constructor (
       private readonly contractService: ContractService,
@@ -80,7 +76,6 @@ export class VotingsTemplateComponent implements OnInit {
   ) { }
 
   ngOnInit (): void {
-
   }
 
   onAddProposal (): void {

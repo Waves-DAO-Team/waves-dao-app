@@ -33,18 +33,13 @@
     .card__header__left-block__title,
     .card__header__left-block__address,
     .card__header__left-block__status,
+    .card__header__left-block__tickerID,
     .card__header__right-block__text,
     .card__header__right-block__price {
       color: $color_dark_gray;
     }
   }
 }
-
-.card__header__left-block__address,
-.card__header__left-block__email {
-  cursor: pointer !important;
-}
-
 
 .title {
   font-weight: 500;
@@ -63,6 +58,7 @@
     @include media('<=phone') {
       flex-direction: column-reverse;
     }
+
     &__left-block {
       &__status {
         align-items: center;
@@ -73,7 +69,29 @@
           max-width: unset;
         }
       }
+
+      &__address {
+        cursor: pointer !important;
+        text-decoration: none;
+
+        &:hover {
+          color: $color-waves_blue;
+        }
+      }
+
+      &__email {
+        cursor: pointer !important;
+      }
+
+      &__tickerID {
+        color: $color_dark_gray;
+        width: min-content;
+        @media (max-width: 430px) {
+          font-size: 9px;
+        }
+      }
     }
+
     &__right-block {
       justify-content: flex-start !important;
       margin-right: -8px;
