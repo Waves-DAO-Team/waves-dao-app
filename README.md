@@ -185,11 +185,11 @@ Show in sample.env file
 
 ### Templates issue on github for different grant type
 
-- `DISRUPTIVE_ISSUE_TEMPLATE` = "...link to issue tempalte..."
-- `VOTINGS_ISSUE_TEMPLATE` = "...link to issue tempalte..."
-- `WEB3_ISSUE_TEMPLATE` = "...link to issue tempalte..."
-- `INTERHACK_ISSUE_TEMPLATE` = "...link to issue tempalte..."
-- `VOTINGS_ISSUE_TEMPLATE` = "...link to issue tempalte..."
+- `DISRUPTIVE_ISSUE_TEMPLATE` = "...link to issue template..."
+- `VOTINGS_ISSUE_TEMPLATE` = "...link to issue template..."
+- `WEB3_ISSUE_TEMPLATE` = "...link to issue template..."
+- `INTERHACK_ISSUE_TEMPLATE` = "...link to issue template..."
+- `VOTINGS_ISSUE_TEMPLATE` = "...link to issue template..."
 
 ### Links to information about grants
 
