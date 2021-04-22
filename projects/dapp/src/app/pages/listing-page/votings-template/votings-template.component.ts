@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+
 import {ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core'
 import {GrantsVariationType} from '@services/static/static.model'
 import {ContractDataRawModel, IVotings} from '@services/contract/contract.model'
@@ -55,6 +57,7 @@ export class VotingsTemplateComponent implements OnInit {
             }
             task.ticker = dataIn?.payload?.ticker[strangeTicker].value
           }
+
         })
         tasks = tasks.filter( e => e.status !== 'hide')
         return tasks

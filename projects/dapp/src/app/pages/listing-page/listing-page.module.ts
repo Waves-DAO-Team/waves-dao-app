@@ -13,20 +13,22 @@ import { Web3TemplateComponent } from './web3-template/web3-template.component'
 import { ProposeGrantModule } from '@ui/modals/propose-grant/propose-grant.module'
 import { VotingsTemplateComponent } from './votings-template/votings-template.component'
 import {AddProposalModule} from '@ui/modals/add-proposal/add-proposal.module'
+import {MatTooltipModule} from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [ListingPageComponent, DefaultTemplateComponent, Web3TemplateComponent, VotingsTemplateComponent],
-  imports: [
-    CommonModule,
-    ListingPageRoutingModule,
-    ListingModule,
-    TranslocoModule,
-    NotFoundPageModule,
-    LoadingPageModule,
-    PipesModule,
-    RouterModule,
-    ProposeGrantModule,
-    AddProposalModule
-  ]
+    imports: [
+        CommonModule,
+        ListingPageRoutingModule,
+        ListingModule,
+        TranslocoModule,
+        NotFoundPageModule,
+        LoadingPageModule,
+        PipesModule,
+        RouterModule,
+        ProposeGrantModule,
+        AddProposalModule,
+        MatTooltipModule
+    ]
 })
 export class ListingPageModule { }

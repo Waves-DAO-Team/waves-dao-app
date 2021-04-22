@@ -41,7 +41,9 @@
 
   <div class="listing" *ngFor="let task of tasks$ | async">
 
-    <div class="content" [routerLink]="constants.routes.entity | route: contract?.name : task?.tickerId">
+<!--    TODO put entity back if we need another design page, similar to entity for grant-->
+<!--    <div class="content" [routerLink]="constants.routes.entity | route: contract?.name : task?.tickerId">-->
+      <div class="content" >
       <div class="card important">
 
         <div class="card__header">
@@ -53,11 +55,19 @@
               </div>
             </div>
 
+            <a class="card__header__left-block__tickerID"
+               target="_blank"
+               rel="noopener nofollow noreferrer"
+               matTooltip="See on Waves Explorer"
+               [attr.href]="('https://wavesexplorer.com/tx/' + task?.tickerId )| linkHttp">{{ task?.tickerId }}</a>
+
             <div class="card__header__left-block__desc">
               {{ task?.description || 'Follow link to read the description' }}
             </div>
-            <div class="card__header__left-block__address">{{ task?.link }}</div>
-            <div class="card__header__left-block__email">{{ task?.email }}</div>
+            <a class="card__header__left-block__address"
+               target="_blank"
+               rel="noopener nofollow noreferrer" [href]="task.link | linkHttp">{{ task?.link }}</a>
+            <a class="card__header__left-block__email" [href]="'mailto:' + task.email">{{ task?.email }}</a>
           </div>
 
           <div class="card__header__right-block" [class.card__header__right-block--active]="1">
