@@ -177,6 +177,7 @@ Show in sample.env file
 ### Contracts <https://github.com/vlzhr/WavesDAO>
 
 - `MEMBERSHIP` = ...address...
+- `DAO_MEMBERSHIP` = ...address...
 - `DISRUPTIVE` = ...address...
 - `VOTINGS` = ...address...
 - `WEB3` = ...address...
@@ -190,7 +191,7 @@ Show in sample.env file
 - `WEB3_ISSUE_TEMPLATE` = "...link to issue template..."
 - `INTERHACK_ISSUE_TEMPLATE` = "...link to issue template..."
 - `VOTINGS_ISSUE_TEMPLATE` = "...link to issue template..."
-- `MEMBERSHIP_ISSUE_TEMPLATE` = "...link to issue template..."
+- `DAO_MEMBERSHIP_ISSUE_TEMPLATE` = "...link to issue template..."
 
 ### Links to information about grants
 
@@ -198,7 +199,7 @@ Show in sample.env file
 - `VOTINGS_ABOUT_LINK`="...link to md..."
 - `WEB3_ABOUT_LINK`="...link to md..."
 - `INTERHACK_ABOUT_LINK`="...link to md..."
-- `MEMBERSHIP_ABOUT_LINK`="...link to md..."
+- `DAO_MEMBERSHIP_ABOUT_LINK`="...link to md..."
 
 ### Link to description on githib about DAO system
 
