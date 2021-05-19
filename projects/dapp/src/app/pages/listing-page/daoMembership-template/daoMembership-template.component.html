@@ -39,6 +39,15 @@
   <div *ngIf="!!membership$" class="title mat-display-4">memberships</div>
   <div *ngIf="membership$ == null" class="title mat-display-3">New tokens will appear here...</div>
 
+  member
+  <ul class="listing" *ngFor="let member of member$ | async">
+    <li>
+      {{member.address}}
+      {{member.status}}
+      {{member.vote}}
+    </li>
+  </ul>
+  membership
   <ul class="listing" *ngFor="let membership of membership$ | async">
     <li>
       {{membership.address}}
@@ -46,3 +55,5 @@
     </li>
   </ul>
 </div>
+
+{{member$ | async | json}}

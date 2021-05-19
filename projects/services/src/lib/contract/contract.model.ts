@@ -6,8 +6,14 @@ export type ContractRawDataTypeNumber = 'integer'
 export type ContractRawDataEntityId = string
 
 export interface ContractRawDataString {
+
   status?: {
     value: string
+  };
+  voting?: {
+    state: {
+      value: string
+    };
   };
   key: ContractRawDataKey
   value: ContractRawDataValue
@@ -189,7 +195,9 @@ export interface ContractGrantExtendedModel extends ContractGrantModel{
 export interface ContractDataRawModel {
   address?: string
   tasks?: {[s: string]: ContractGrantRawModel}
-
+  dao?: {
+    member?: {[s: string]: ContractRawDataString}
+  };
   description?: {[s: string]: {[s: string]: ContractRawDataString}}
   email?: {[s: string]: ContractRawDataString}
   version?: {[s: string]: ContractRawDataString}
@@ -197,6 +205,7 @@ export interface ContractDataRawModel {
   logo?: {[s: string]: ContractRawDataString}
   ticker?: {[s: string]: ContractRawDataString}
   membership?: {[s: string]: ContractRawDataString}
+  member?: {[s: string]: ContractRawDataString}
 }
 
 export interface ContractDataModel {
@@ -241,5 +250,10 @@ export namespace DAOMembershipNamespace {
   export interface MembershipInterface {
     address?: string
     status?: string
+  }
+  export interface MemberInterface {
+    address?: string
+    status?: string
+    vote?: number
   }
 }

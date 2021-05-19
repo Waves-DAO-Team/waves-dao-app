@@ -26,7 +26,33 @@ export class DaoMembershipTemplateComponent {
 
   @Input() public readonly contract!: GrantsVariationType
 
-  membership$: Observable<any[]> = this.contractService.stream
+  member$: Observable<DAOMembershipNamespace.MemberInterface[]> = this.contractService.stream.pipe(
+    filter(data => data?.status === "complete"),
+    map((dataIn: RequestModel<ContractDataRawModel>) => {
+
+      let member = dataIn?.payload?.member
+      let members = dataIn?.payload?.dao?.member
+      let res: DAOMembershipNamespace.MemberInterface[] = []
+
+      if (member){
+        Object.keys(member).map((key) => {
+          if (member && members) {
+            res.push(
+              {
+                address: key,
+                vote: parseInt(member[key]?.voting?.state?.value || '0'),
+                status: members[key]?.status?.value || 'no status'
+              }
+            )
+          }
+        })
+      }
+
+      return res
+    })
+  )
+
+  membership$: Observable<DAOMembershipNamespace.MembershipInterface[]> = this.contractService.stream
     .pipe(
       filter(data => data?.status === "complete"),
       map((dataIn: RequestModel<ContractDataRawModel>) => {
