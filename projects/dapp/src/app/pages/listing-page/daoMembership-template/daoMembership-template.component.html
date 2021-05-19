@@ -1,0 +1,48 @@
+<div class="listing-page__intro">
+  <img alt="promo" [attr.src]="'/assets/img/special-votings-type.png'" width="100%" height="auto"/>
+</div>
+<div class="listing-page__header">
+
+  <h1 class="listing-page__title">{{ contract?.title }}</h1>
+
+  <div class="listing-page__controls">
+    <button
+      class="active"
+      *ngIf="contract?.permissionCreateGrant"
+      routerLinkActive="active"
+      (click)="onAddProposal()"
+    >
+      {{ 'app.controls.createGrant' | transloco }}
+    </button>
+  </div>
+
+</div>
+<div class="listing-page__address mat-display-1">
+  <a class="a a--alt" [attr.href]="(api?.mainnet?.explorer + contract?.type )| linkHttp" target="_blank"
+     rel="noopener nofollow noreferrer">
+    {{ contract?.type }}
+  </a>
+</div>
+
+<div class="listing-page__description">
+  <div>
+    {{ contract?.desc }}
+  </div>
+  <div class="listing-page__about" *ngIf="contract?.name as contractName">
+    <a [routerLink]="['/', 'grants', contractName, 'about']">
+      {{ 'listing.more' | transloco }}
+    </a>
+  </div>
+
+  <br/>
+  <br/>
+  <div *ngIf="!!membership$" class="title mat-display-4">memberships</div>
+  <div *ngIf="membership$ == null" class="title mat-display-3">New tokens will appear here...</div>
+
+  <ul class="listing" *ngFor="let membership of membership$ | async">
+    <li>
+      {{membership.address}}
+      {{membership.status}}
+    </li>
+  </ul>
+</div>

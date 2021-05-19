@@ -22,7 +22,7 @@ import {
   map,
   publishReplay,
   refCount,
-  takeUntil,
+  takeUntil, tap,
 } from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
@@ -68,6 +68,7 @@ export class ListingComponent implements OnDestroy {
     ]
   )
     .pipe(
+      tap( e => console.log('+++', e)),
       takeUntil(this.destroyed$),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
       map(([
@@ -145,7 +146,8 @@ export class ListingComponent implements OnDestroy {
     public userService: UserService,
     public contractService: ContractService,
     public cdr: ChangeDetectorRef,
-  ) {}
+  ) {
+  }
 
   selectTag ($event: string): void {
     this.selectedTagName$.next($event)

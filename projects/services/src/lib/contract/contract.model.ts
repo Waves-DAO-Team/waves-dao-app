@@ -6,6 +6,9 @@ export type ContractRawDataTypeNumber = 'integer'
 export type ContractRawDataEntityId = string
 
 export interface ContractRawDataString {
+  status?: {
+    value: string
+  };
   key: ContractRawDataKey
   value: ContractRawDataValue
   type: ContractRawDataTypeString | ContractRawDataTypeNumber
@@ -193,6 +196,7 @@ export interface ContractDataRawModel {
   link?: {[s: string]: ContractRawDataString}
   logo?: {[s: string]: ContractRawDataString}
   ticker?: {[s: string]: ContractRawDataString}
+  membership?: {[s: string]: ContractRawDataString}
 }
 
 export interface ContractDataModel {
@@ -230,5 +234,12 @@ export namespace IVotings {
     email?: string
     ticker?: string
     tickerId?: string
+  }
+}
+
+export namespace DAOMembershipNamespace {
+  export interface MembershipInterface {
+    address?: string
+    status?: string
   }
 }

@@ -24,7 +24,7 @@
             [routerLink]="[constants.routes.listing | route : contract.name ]"
             routerLinkActive="active">
           <span class="nav-badge" *ngIf="contract.type.indexOf('3P') === 0">mainnet</span>
-           {{ contract.navigation }}
+          {{ contract.navigation }}
         </li>
 
         <li *ngIf="contract.type && contract.name === 'votings'"

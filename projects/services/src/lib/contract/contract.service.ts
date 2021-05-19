@@ -218,6 +218,7 @@ export class ContractService {
    * Method for getting all contract data
    */
   public getContractData (address: string): Observable<RequestModel<ContractDataRawModel>> {
+    console.log('+++++++++!', address)
     return this.requestService.getContract(address).pipe(
       map((data: RequestModel<ContractRawData>): RequestModel<ContractDataRawModel> => ({
         status: data.status,

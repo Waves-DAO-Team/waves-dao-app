@@ -3,7 +3,7 @@ import {
   ContractGrantModel,
 } from '@services/contract/contract.model'
 import { ContractService } from '@services/contract/contract.service'
-import {map, publishReplay, refCount} from 'rxjs/operators'
+import {map, publishReplay, refCount, tap} from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import {
@@ -21,6 +21,7 @@ export const grantsFactory = (
   snackBar: MatSnackBar
 ): LoadingWrapperModel<ContractGrantModel[]> => new LoadingWrapper(
       contractService.streamTasks.pipe(
+        tap( e => console.log("+++++++", e)),
         map((data: RequestModel<ContractGrantModel[]>): RequestModel<ContractGrantModel[]>  => {
           if (data.status === RequestStatus.error) {
             if (data?.error?.status === 503) {

@@ -17,7 +17,7 @@ import {
   publishReplay,
   refCount, repeatWhen,
   startWith,
-  switchMap,
+  switchMap, tap,
 } from 'rxjs/operators'
 
 @Injectable({
@@ -40,6 +40,8 @@ export class RequestService {
    * Makes a request to wavesnodes with the specified contract address and returns raw data on it
    */
   getContract (address: string): Observable<RequestModel<ContractRawData>> {
+
+    console.log('+++ +++ getContract', address)
 
     if (this.cache[address]) {
       return this.cache[address]
@@ -80,6 +82,7 @@ export class RequestService {
       })),
       publishReplay(1),
       refCount(),
+      tap( e => console.log("+++123", e))
     )
 
     return this.cache[address]
