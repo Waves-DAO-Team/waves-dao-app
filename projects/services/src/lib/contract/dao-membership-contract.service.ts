@@ -70,4 +70,20 @@ export class DaoMembershipContractService {
       })
     )
   }
+
+  rejectMember(address: string): Observable<TransactionsSuccessResult> {
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'mRejectDAOMember', [
+      {type: 'string', value: address}
+    ]).pipe(
+      catchError((error) => {
+        const mes = error.message ? error.message : translate('messages.transaction_rejected')
+        this.snackBar.open(translate(mes))
+        return EMPTY
+      }),
+      tap(() => {
+        this.contractService.refresh()
+        this.snackBar.open(translate('messages.voteForTaskProposal'), translate('messages.ok'))
+      })
+    )
+  }
 }
