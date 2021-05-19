@@ -21,7 +21,6 @@ export const grantsFactory = (
   snackBar: MatSnackBar
 ): LoadingWrapperModel<ContractGrantModel[]> => new LoadingWrapper(
       contractService.streamTasks.pipe(
-        tap( e => console.log("+++++++", e)),
         map((data: RequestModel<ContractGrantModel[]>): RequestModel<ContractGrantModel[]>  => {
           if (data.status === RequestStatus.error) {
             if (data?.error?.status === 503) {

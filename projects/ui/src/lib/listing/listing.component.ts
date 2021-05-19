@@ -68,7 +68,6 @@ export class ListingComponent implements OnDestroy {
     ]
   )
     .pipe(
-      tap( e => console.log('+++', e)),
       takeUntil(this.destroyed$),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
       map(([
