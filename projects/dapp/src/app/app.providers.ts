@@ -42,6 +42,7 @@ export interface AppApiInterface {
     votings: ContractApiInterface
     web3: ContractApiInterface
     interhack: ContractApiInterface
+    daoMembership: ContractApiInterface
   }
   grantsProgramLink: string
   issues: {
@@ -49,12 +50,14 @@ export interface AppApiInterface {
     votings: string
     web3: string
     interhack: string
+    daoMembership: string
   },
   about: {
     disruptive: string
     votings: string
     web3: string
     interhack: string
+    daoMembership: string
   }
   workingGroup: {[s: string]: {
     name: string
