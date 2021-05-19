@@ -18,6 +18,7 @@ import {CommunityContractService} from '@services/contract/community-contract.se
 import {AddProposalComponent} from '@ui/modals/add-proposal/add-proposal.component'
 import {DaoMembershipContractService} from "@services/contract/dao-membership-contract.service";
 import {DaoMembershipAddMemberComponent} from "@ui/modals/dao-membership/add-member/add-member.component";
+import {DaoMembershipProposeMemberComponent} from "@ui/modals/dao-membership/propose-member/propose-member.component";
 
 @Component({
   selector: 'app-daoMembership-template',
@@ -94,36 +95,6 @@ export class DaoMembershipTemplateComponent {
   ) {
   }
 
-  ngOnInit(): void {
-  }
-
-  // onAddProposal(): void {
-  //   this.dialog.open(DialogComponent, {
-  //     width: '500px',
-  //     maxWidth: '100vw',
-  //     data: {
-  //       component: AddProposalComponent,
-  //       params: {
-  //         title: translate('modal.texts.propose_special_voting'),
-  //         submitCallBack: (data: SubmitCallBackAddProposalArg) => {
-  //           this.communityContractService.addProposal(
-  //             data.tokenId,
-  //             data.description,
-  //             data.email,
-  //             data.link,
-  //             data.logo,
-  //             data.ticker,
-  //             data.hash,
-  //           )
-  //             .subscribe(() => {
-  //               this.cdr.markForCheck()
-  //             })
-  //         }
-  //       }
-  //     }
-  //   })
-  // }
-
   onAddMember(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
@@ -131,14 +102,33 @@ export class DaoMembershipTemplateComponent {
       data: {
         component: DaoMembershipAddMemberComponent,
         params: {
+          // TODO: title
           title: translate('modal.texts.propose_special_voting'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.daoMembershipContractService.addMember(data.address).subscribe()
             dialog.close()
           }
         }
-    }
-  })
+      }
+    })
+  }
+
+  onProposeMember(): void {
+    const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
+      data: {
+        component: DaoMembershipProposeMemberComponent,
+        params: {
+          // TODO: title
+          title: translate('modal.texts.propose_special_voting'),
+          submitCallBack: (data: SubmitCallBackAddMemberArg) => {
+            this.daoMembershipContractService.proposeMember(data.address).subscribe()
+            dialog.close()
+          }
+        }
+      }
+    })
   }
 
   vote(address: string, voteValue: "like" | "dislike"): void {

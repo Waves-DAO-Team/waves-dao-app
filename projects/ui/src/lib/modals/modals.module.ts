@@ -10,6 +10,7 @@ import {SubmitSolutionModule} from '@ui/modals/submit-solution/submit-solution.m
 import {AcceptWorkResultInterhackModule} from '@ui/modals/accept-work-result-interhack/accept-work-result-interhack.module'
 import {AddProposalModule} from '@ui/modals/add-proposal/add-proposal.module'
 import {DaoMembershipAddMemberModule} from '@ui/modals/dao-membership/add-member/add-member.module'
+import {DaoMembershipProposeMemberModule} from "@ui/modals/dao-membership/propose-member/propose-member.module";
 
 export * from './accept-work-result/accept-work-result.module'
 export * from './add-reward/add-reward.module'
@@ -19,6 +20,7 @@ export * from './apply/apply.module'
 export * from './propose-grant/propose-grant.module'
 export * from './submit-solution/submit-solution.module'
 export * from './dao-membership/add-member/add-member.module'
+export * from './dao-membership/propose-member/propose-member.module'
 
 @NgModule({
   imports: [
@@ -32,7 +34,8 @@ export * from './dao-membership/add-member/add-member.module'
     AcceptWorkResultInterhackModule,
     SubmitSolutionModule,
     AddProposalModule,
-    DaoMembershipAddMemberModule
+    DaoMembershipAddMemberModule,
+    DaoMembershipProposeMemberModule
   ]
 })
 export class ModalsModule { }

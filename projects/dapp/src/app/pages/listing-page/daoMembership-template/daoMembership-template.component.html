@@ -40,6 +40,7 @@
   <div *ngIf="membership$ == null" class="title mat-display-3">New tokens will appear here...</div>
 
   <button (click)="onAddMember()">onAddMember</button>
+  <button (click)="onProposeMember()">onProposeMember</button>
 
   member
   <ul class="listing" *ngFor="let member of member$ | async">
