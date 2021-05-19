@@ -16,6 +16,7 @@ import {StaticService} from '@services/static/static.service'
 import {MatDialog} from '@angular/material/dialog'
 import {CommunityContractService} from '@services/contract/community-contract.service'
 import {AddProposalComponent} from '@ui/modals/add-proposal/add-proposal.component'
+import {DaoMembershipContractService} from "@services/contract/dao-membership-contract.service";
 
 @Component({
   selector: 'app-daoMembership-template',
@@ -34,7 +35,7 @@ export class DaoMembershipTemplateComponent {
       let members = dataIn?.payload?.dao?.member
       let res: DAOMembershipNamespace.MemberInterface[] = []
 
-      if (member){
+      if (member) {
         Object.keys(member).map((key) => {
           if (member && members) {
             res.push(
@@ -84,6 +85,7 @@ export class DaoMembershipTemplateComponent {
     public domSanitizer: DomSanitizer,
     @Inject(API) public readonly api: AppApiInterface,
     public staticService: StaticService,
+    private daoMembershipContractService: DaoMembershipContractService,
     private readonly dialog: MatDialog,
     public communityContractService: CommunityContractService,
     private readonly cdr: ChangeDetectorRef,
@@ -119,6 +121,10 @@ export class DaoMembershipTemplateComponent {
         }
       }
     })
+  }
+
+  vote(address: string, voteValue: "like" | "dislike"): void {
+    this.daoMembershipContractService.voteForDAOMember(address, voteValue).subscribe()
   }
 
 }
