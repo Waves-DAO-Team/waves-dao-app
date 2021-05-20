@@ -13,6 +13,7 @@ import {DaoMembershipAddMemberModule} from '@ui/modals/dao-membership/add-member
 import {DaoMembershipProposeMemberModule} from "@ui/modals/dao-membership/propose-member/propose-member.module";
 import {DaoMembershipRejectMemberModule} from "@ui/modals/dao-membership/reject-member/reject-member.module";
 import {DaoMembershipAddWorkingGroupModule} from "@ui/modals/dao-membership/add-working-group/add-working-group.module";
+import {DaoMembershipAddMembershipWorkingGroupModule} from "@ui/modals/dao-membership/add-membership-working-group/add-membership-working-group.module";
 
 export * from './accept-work-result/accept-work-result.module'
 export * from './add-reward/add-reward.module'
@@ -25,6 +26,7 @@ export * from './dao-membership/add-member/add-member.module'
 export * from './dao-membership/propose-member/propose-member.module'
 export * from './dao-membership/reject-member/reject-member.module'
 export * from './dao-membership/add-working-group/add-working-group.module'
+export * from './dao-membership/add-membership-working-group/add-membership-working-group.module'
 
 @NgModule({
   imports: [
@@ -41,6 +43,7 @@ export * from './dao-membership/add-working-group/add-working-group.module'
     DaoMembershipAddMemberModule,
     DaoMembershipProposeMemberModule,
     DaoMembershipAddWorkingGroupModule,
+    DaoMembershipAddMembershipWorkingGroupModule,
     DaoMembershipRejectMemberModule
   ]
 })

@@ -21,6 +21,7 @@ import {DaoMembershipAddMemberComponent} from "@ui/modals/dao-membership/add-mem
 import {DaoMembershipProposeMemberComponent} from "@ui/modals/dao-membership/propose-member/propose-member.component";
 import {DaoMembershipRejectMemberComponent} from "@ui/modals/dao-membership/reject-member/reject-member.component";
 import {DaoMembershipAddWorkingGroupComponent} from "@ui/modals/dao-membership/add-working-group/add-working-group.component";
+import {DaoMembershipAddMembershipWorkingGroupComponent} from "@ui/modals/dao-membership/add-membership-working-group/add-membership-working-group.component";
 
 @Component({
   selector: 'app-daoMembership-template',
@@ -166,6 +167,24 @@ export class DaoMembershipTemplateComponent {
           title: translate('modal.texts.propose_special_voting'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.daoMembershipContractService.addWorkingGroup(data.address).subscribe()
+            dialog.close()
+          }
+        }
+      }
+    })
+  }
+
+  onAddMembershipWorkingGroup() : void {
+    const dialog = this.dialog.open(DialogComponent, {
+      width: '500px',
+      maxWidth: '100vw',
+      data: {
+        component: DaoMembershipAddMembershipWorkingGroupComponent,
+        params: {
+          // TODO: title
+          title: translate('modal.texts.propose_special_voting'),
+          submitCallBack: (data: SubmitCallBackAddMemberArg) => {
+            this.daoMembershipContractService.addMembershipWorkingGroup(data.address).subscribe()
             dialog.close()
           }
         }

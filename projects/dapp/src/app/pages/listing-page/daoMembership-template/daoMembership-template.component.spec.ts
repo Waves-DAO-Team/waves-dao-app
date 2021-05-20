@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { DaoMembershipTemplateComponent } from './votings-template.component'
+import { DaoMembershipTemplateComponent } from './daoMembership-template.component'
 import {MatDialogModule} from '@angular/material/dialog'
 import {HttpClientTestingModule} from '@angular/common/http/testing'
 import {PipesModule} from '@libs/pipes/pipes.module'
