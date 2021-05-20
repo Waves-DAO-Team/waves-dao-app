@@ -66,6 +66,11 @@
   },
   "modal": {
     "texts": {
+      "add_membership_working_group": "Add membership working group",
+      "add_working_group": "Add working group",
+      "reject_member": "Reject member",
+      "propose_member": "Propose member",
+      "add_member": "Add member",
       "tokenId": "Token Id",
       "ticker": "Ticker",
       "description": "Description",

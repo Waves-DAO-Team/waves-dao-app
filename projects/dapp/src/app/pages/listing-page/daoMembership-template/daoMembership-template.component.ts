@@ -19,7 +19,6 @@ import {SubmitCallBackAddMemberArg, SubmitCallBackAddProposalArg} from '@ui/dial
 import {StaticService} from '@services/static/static.service'
 import {MatDialog} from '@angular/material/dialog'
 import {CommunityContractService} from '@services/contract/community-contract.service'
-import {AddProposalComponent} from '@ui/modals/add-proposal/add-proposal.component'
 import {DaoMembershipContractService} from "@services/contract/dao-membership-contract.service";
 import {DaoMembershipAddMemberComponent} from "@ui/modals/dao-membership/add-member/add-member.component";
 import {DaoMembershipProposeMemberComponent} from "@ui/modals/dao-membership/propose-member/propose-member.component";
@@ -139,8 +138,7 @@ export class DaoMembershipTemplateComponent {
       data: {
         component: DaoMembershipAddMemberComponent,
         params: {
-          // TODO: title
-          title: translate('modal.texts.propose_special_voting'),
+          title: translate('modal.texts.add_member'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.daoMembershipContractService.addMember(data.address).subscribe()
             dialog.close()
@@ -157,8 +155,7 @@ export class DaoMembershipTemplateComponent {
       data: {
         component: DaoMembershipProposeMemberComponent,
         params: {
-          // TODO: title
-          title: translate('modal.texts.propose_special_voting'),
+          title: translate('modal.texts.propose_member'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.daoMembershipContractService.proposeMember(data.address).subscribe()
             dialog.close()
@@ -175,8 +172,7 @@ export class DaoMembershipTemplateComponent {
       data: {
         component: DaoMembershipRejectMemberComponent,
         params: {
-          // TODO: title
-          title: translate('modal.texts.propose_special_voting'),
+          title: translate('modal.texts.reject_member'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.daoMembershipContractService.rejectMember(data.address).subscribe()
             dialog.close()
@@ -197,8 +193,7 @@ export class DaoMembershipTemplateComponent {
       data: {
         component: DaoMembershipAddWorkingGroupComponent,
         params: {
-          // TODO: title
-          title: translate('modal.texts.propose_special_voting'),
+          title: translate('modal.texts.add_working_group'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.daoMembershipContractService.addWorkingGroup(data.address).subscribe()
             dialog.close()
@@ -215,8 +210,7 @@ export class DaoMembershipTemplateComponent {
       data: {
         component: DaoMembershipAddMembershipWorkingGroupComponent,
         params: {
-          // TODO: title
-          title: translate('modal.texts.propose_special_voting'),
+          title: translate('modal.texts.add_membership_working_group'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.daoMembershipContractService.addMembershipWorkingGroup(data.address).subscribe()
             dialog.close()
