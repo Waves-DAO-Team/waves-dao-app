@@ -104,6 +104,20 @@ export class DaoMembershipTemplateComponent {
       })
     )
 
+  isManager$ = combineLatest([this.userService.stream$, this.contractService.stream])
+    .pipe(
+      filter(([user, stream]) => stream?.status === "complete"),
+      map(([user, stream]) => {
+        const userAddress = user.userAddress
+        const ownerAddress = stream.payload.address
+        if(userAddress === ownerAddress) {
+          return true
+        } else {
+          return false
+        }
+      })
+    )
+
   constructor(
     private readonly contractService: ContractService,
     public domSanitizer: DomSanitizer,

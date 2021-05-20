@@ -38,11 +38,12 @@
   <br/>
 
 <!--  TODO: условия кнопок-->
-  <button (click)="onAddMember()">onAddMember</button>
   <button (click)="onProposeMember()">onProposeMember</button>
-  <button (click)="onRejectMember()">onRejectMember</button>
-  <button (click)="onAddWorkingGroup()">mAddWorkingGroup</button>
-  <button (click)="onAddMembershipWorkingGroup()">onAddMembershipWorkingGroup</button>
+
+  <button (click)="onAddMember()" *ngIf="isManager$  | async">onAddMember</button>
+  <button (click)="onRejectMember()" *ngIf="isManager$  | async">onRejectMember</button>
+  <button (click)="onAddWorkingGroup()" *ngIf="isManager$  | async">mAddWorkingGroup</button>
+  <button (click)="onAddMembershipWorkingGroup()" *ngIf="isManager$  | async">onAddMembershipWorkingGroup</button>
 
   <hr>
 
