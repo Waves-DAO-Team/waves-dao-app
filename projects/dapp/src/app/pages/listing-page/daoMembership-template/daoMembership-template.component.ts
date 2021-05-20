@@ -36,50 +36,75 @@ export class DaoMembershipTemplateComponent {
     filter(data => data?.status === "complete"),
     map((dataIn: RequestModel<ContractDataRawModel>) => {
 
-      let member = dataIn?.payload?.member
+
       let members = dataIn?.payload?.dao?.member
       let res: DAOMembershipNamespace.MemberInterface[] = []
+      console.log('----dataIn', dataIn)
+      console.log('----members', members)
+      if (members) {
+        Object.keys(members).map((key) => {
 
-      if (member) {
-        Object.keys(member).map((key) => {
-          if (member && members) {
-            res.push(
-              {
-                address: key,
-                vote: parseInt(member[key]?.voting?.state?.value || '0'),
-                status: members[key]?.status?.value || 'no status'
-              }
-            )
-          }
+          // if (members) {
+          //   const status: string = members[key]?.status?.value || 'no status'
+          //
+          //     res.push(
+          //       {
+          //         address: key,
+          //         // vote: parseInt(members[key]?.vote?.value || '0'),
+          //         status
+          //       }
+          //     )
+          // }
+
+
+          // if (member && members) {
+          // if (member) {
+          //   res.push(
+          //     {
+          //       address: key,
+          //       // vote: parseInt(member[key]?.voting?.state?.value || '0'),
+          //       // status: members[key]?.status?.value || 'no status'
+          //     }
+          //   )
+          // }
         })
       }
+
+      console.log('----res', res)
 
       return res
     })
   )
 
-  membership$: Observable<DAOMembershipNamespace.MembershipInterface[]> = this.contractService.stream
+  mwg$: Observable<DAOMembershipNamespace.WGInterface[]> = this.contractService.stream
     .pipe(
       filter(data => data?.status === "complete"),
       map((dataIn: RequestModel<ContractDataRawModel>) => {
 
-        let membership = dataIn?.payload?.membership
-        let res: DAOMembershipNamespace.MembershipInterface[] = []
+        let res: DAOMembershipNamespace.WGInterface[] = []
 
-        if (membership) {
-          res = Object.keys(membership).map((key) => {
-            let status = ''
-            if (membership) {
-              let locStatus = membership[key]?.status?.value
-              if (locStatus)
-                status = locStatus
-            }
-            return ({
-              address: key,
-              status,
-            })
-          }).filter(e => e.status)
-        }
+        dataIn?.payload?.dao?.mwg?.members.value.split(';').filter(e => e.length > 0).forEach(e => {
+          res.push({
+            address: e
+          })
+        })
+
+        return res
+      })
+    )
+
+  wg$: Observable<DAOMembershipNamespace.WGInterface[]> = this.contractService.stream
+    .pipe(
+      filter(data => data?.status === "complete"),
+      map((dataIn: RequestModel<ContractDataRawModel>) => {
+
+        let res: DAOMembershipNamespace.WGInterface[] = []
+
+        dataIn?.payload?.dao?.wg?.members.value.split(';').filter(e => e.length > 0).forEach(e => {
+          res.push({
+            address: e
+          })
+        })
 
         return res
       })
@@ -156,7 +181,7 @@ export class DaoMembershipTemplateComponent {
     this.daoMembershipContractService.voteForDAOMember(address, voteValue).subscribe()
   }
 
-  onAddWorkingGroup() : void {
+  onAddWorkingGroup(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -174,7 +199,7 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  onAddMembershipWorkingGroup() : void {
+  onAddMembershipWorkingGroup(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',

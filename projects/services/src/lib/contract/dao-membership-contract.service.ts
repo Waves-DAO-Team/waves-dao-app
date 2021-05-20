@@ -109,7 +109,7 @@ export class DaoMembershipContractService {
   }
 
   addMembershipWorkingGroup(address: string): Observable<TransactionsSuccessResult> {
-    return this.signerService.invokeProcess(this.contractService.getAddress(), 'mAddWorkingGroup', [
+    return this.signerService.invokeProcess(this.contractService.getAddress(), 'mAddMembershipWorkingGroup', [
       {type: 'string', value: address}
     ]).pipe(
       catchError((error) => {
