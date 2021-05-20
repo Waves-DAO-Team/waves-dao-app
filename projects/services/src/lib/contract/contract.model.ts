@@ -21,9 +21,15 @@ export interface ContractMemberRawData {
       type: string
       value: string
     }
+  votes: {
+    key: string
+    type: string
+    value: string
+  }
 }
 export interface ContractRawDataString {
   // vote: string;
+
 
   status?: {
     value: string
@@ -280,6 +286,7 @@ export namespace DAOMembershipNamespace {
     address?: string
     status?: string
     vote?: number
+    isCanVote?: boolean
   }
   export interface WGInterface {
     address?: string

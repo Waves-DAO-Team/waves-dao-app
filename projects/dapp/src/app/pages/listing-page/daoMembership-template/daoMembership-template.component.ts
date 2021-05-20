@@ -7,7 +7,7 @@ import {
   DAOMembershipNamespace,
   IVotings
 } from '@services/contract/contract.model'
-import {Observable} from 'rxjs'
+import {combineLatest, Observable} from 'rxjs'
 import {ContractService} from '@services/contract/contract.service'
 import {filter, map, tap} from 'rxjs/operators'
 import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
@@ -26,6 +26,7 @@ import {DaoMembershipProposeMemberComponent} from "@ui/modals/dao-membership/pro
 import {DaoMembershipRejectMemberComponent} from "@ui/modals/dao-membership/reject-member/reject-member.component";
 import {DaoMembershipAddWorkingGroupComponent} from "@ui/modals/dao-membership/add-working-group/add-working-group.component";
 import {DaoMembershipAddMembershipWorkingGroupComponent} from "@ui/modals/dao-membership/add-membership-working-group/add-membership-working-group.component";
+import {UserService} from "@services/user/user.service";
 
 @Component({
   selector: 'app-daoMembership-template',
@@ -50,8 +51,9 @@ export class DaoMembershipTemplateComponent {
             res.push(
               {
                 address: key,
-                vote: member.vote.value,
-                status: member.status.value,
+                vote: member?.vote?.value,
+                status: member?.status?.value,
+                isCanVote: true
               }
             )
           }
@@ -95,6 +97,48 @@ export class DaoMembershipTemplateComponent {
         return res
       })
     )
+  // isCanVote$ = combineLatest([this.userService.stream$, this.contractService.stream])
+  //   .pipe(
+  //     map(([user, stream]) => {
+  //
+  //       let memberKey: string[] = Object.keys(stream?.payload?.dao?.member || {})
+  //
+  //
+  //
+  //       memberKey.forEach(key => {
+  //         if (stream?.payload?.dao?.member) {
+  //           let member: ContractMemberRawData = stream?.payload?.dao?.member[key] as unknown as ContractMemberRawData
+  //           console.log('$$$', key, member)
+  //           if(member?.votes) {
+  //       //       let alreadyVoted: string[] = Object.keys(member.votes)
+  //       //
+  //       //       console.log('alreadyVoted', alreadyVoted)
+  //           }
+  //       //
+  //       //
+  //         }
+  //       })
+  //
+  //
+  //       let res = false
+  //
+  //       const mwg = stream.payload.dao?.mwg?.members.value
+  //       const address = user.userAddress
+  //
+  //       if (mwg && address) {
+  //         const isUserMWG = mwg.includes(address);
+  //         if (isUserMWG) {
+  //           res = true;
+  //         }
+  //
+  //         console.log('-', address, stream.payload.dao)
+  //       }
+  //
+  //
+  //       return res
+  //
+  //     })
+  //   )
 
   constructor(
     private readonly contractService: ContractService,
@@ -105,7 +149,8 @@ export class DaoMembershipTemplateComponent {
     private readonly dialog: MatDialog,
     public communityContractService: CommunityContractService,
     private readonly cdr: ChangeDetectorRef,
-    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface
+    @Inject(APP_CONSTANTS) public readonly constants: AppConstantsInterface,
+    private readonly userService: UserService, // eslint-disable-line
   ) {
   }
 
