@@ -2,7 +2,11 @@
 
 import {ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core'
 import {GrantsVariationType} from '@services/static/static.model'
-import {ContractDataRawModel, DAOMembershipNamespace, IVotings} from '@services/contract/contract.model'
+import {
+  ContractDataRawModel, ContractMemberRawData,
+  DAOMembershipNamespace,
+  IVotings
+} from '@services/contract/contract.model'
 import {Observable} from 'rxjs'
 import {ContractService} from '@services/contract/contract.service'
 import {filter, map, tap} from 'rxjs/operators'
@@ -36,41 +40,23 @@ export class DaoMembershipTemplateComponent {
     filter(data => data?.status === "complete"),
     map((dataIn: RequestModel<ContractDataRawModel>) => {
 
-
       let members = dataIn?.payload?.dao?.member
       let res: DAOMembershipNamespace.MemberInterface[] = []
-      console.log('----dataIn', dataIn)
-      console.log('----members', members)
+
       if (members) {
         Object.keys(members).map((key) => {
-
-          // if (members) {
-          //   const status: string = members[key]?.status?.value || 'no status'
-          //
-          //     res.push(
-          //       {
-          //         address: key,
-          //         // vote: parseInt(members[key]?.vote?.value || '0'),
-          //         status
-          //       }
-          //     )
-          // }
-
-
-          // if (member && members) {
-          // if (member) {
-          //   res.push(
-          //     {
-          //       address: key,
-          //       // vote: parseInt(member[key]?.voting?.state?.value || '0'),
-          //       // status: members[key]?.status?.value || 'no status'
-          //     }
-          //   )
-          // }
+          if (members) {
+            const member: ContractMemberRawData = members[key] as unknown as ContractMemberRawData
+            res.push(
+              {
+                address: key,
+                vote: member.vote.value,
+                status: member.status.value,
+              }
+            )
+          }
         })
       }
-
-      console.log('----res', res)
 
       return res
     })

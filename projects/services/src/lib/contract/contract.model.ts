@@ -5,6 +5,23 @@ export type ContractRawDataTypeNumber = 'integer'
 
 export type ContractRawDataEntityId = string
 
+export interface ContractMemberRawData {
+    status:  {
+      key: string
+      type: string
+      value: string
+    }
+    vote: {
+      key: string
+      type: string
+      value: number
+    }
+    voted: {
+      key: string
+      type: string
+      value: string
+    }
+}
 export interface ContractRawDataString {
   // vote: string;
 
