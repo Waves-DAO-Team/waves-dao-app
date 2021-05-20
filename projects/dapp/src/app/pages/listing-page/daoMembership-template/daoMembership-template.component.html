@@ -49,8 +49,8 @@
   member
   <ul class="listing" *ngFor="let member of member$ | async">
     <li>
-      <button (click)="vote(member.address, 'dislike')" >-</button>
-      <button (click)="vote(member.address, 'like')">+</button>
+      <button (click)="vote(member.address, 'dislike')" *ngIf="member.isCanVote">-</button>
+      <button (click)="vote(member.address, 'like')" *ngIf="member.isCanVote">+</button>
       {{member.address}}
       {{member.status}}
       {{member.vote}}

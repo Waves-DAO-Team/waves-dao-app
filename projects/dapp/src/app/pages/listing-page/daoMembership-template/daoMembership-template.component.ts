@@ -37,32 +37,38 @@ export class DaoMembershipTemplateComponent {
 
   @Input() public readonly contract!: GrantsVariationType
 
-  member$: Observable<DAOMembershipNamespace.MemberInterface[]> = this.contractService.stream.pipe(
-    filter(data => data?.status === "complete"),
-    map((dataIn: RequestModel<ContractDataRawModel>) => {
+  member$: Observable<DAOMembershipNamespace.MemberInterface[]> =  combineLatest([this.userService.stream$, this.contractService.stream])
 
-      let members = dataIn?.payload?.dao?.member
-      let res: DAOMembershipNamespace.MemberInterface[] = []
+    .pipe(
+      filter(([user, stream]) => stream?.status === "complete"),
+      map(([user, stream]) => {
 
-      if (members) {
-        Object.keys(members).map((key) => {
-          if (members) {
-            const member: ContractMemberRawData = members[key] as unknown as ContractMemberRawData
-            res.push(
-              {
-                address: key,
-                vote: member?.vote?.value,
-                status: member?.status?.value,
-                isCanVote: true
+        let members = stream?.payload?.dao?.member
+        let res: DAOMembershipNamespace.MemberInterface[] = []
+
+        if (members) {
+          Object.keys(members).map((key) => {
+            if (members) {
+              const member: ContractMemberRawData = members[key] as unknown as ContractMemberRawData
+              let isCanVote = true
+              if(!user.userAddress || (member?.votes && Object.keys(member?.votes).includes(user.userAddress))) {
+                isCanVote = false
               }
-            )
-          }
-        })
-      }
+              res.push(
+                {
+                  address: key,
+                  vote: member?.vote?.value,
+                  status: member?.status?.value,
+                  isCanVote
+                }
+              )
+            }
+          })
+        }
 
-      return res
-    })
-  )
+        return res
+      })
+    )
 
   mwg$: Observable<DAOMembershipNamespace.WGInterface[]> = this.contractService.stream
     .pipe(
@@ -97,48 +103,6 @@ export class DaoMembershipTemplateComponent {
         return res
       })
     )
-  // isCanVote$ = combineLatest([this.userService.stream$, this.contractService.stream])
-  //   .pipe(
-  //     map(([user, stream]) => {
-  //
-  //       let memberKey: string[] = Object.keys(stream?.payload?.dao?.member || {})
-  //
-  //
-  //
-  //       memberKey.forEach(key => {
-  //         if (stream?.payload?.dao?.member) {
-  //           let member: ContractMemberRawData = stream?.payload?.dao?.member[key] as unknown as ContractMemberRawData
-  //           console.log('$$$', key, member)
-  //           if(member?.votes) {
-  //       //       let alreadyVoted: string[] = Object.keys(member.votes)
-  //       //
-  //       //       console.log('alreadyVoted', alreadyVoted)
-  //           }
-  //       //
-  //       //
-  //         }
-  //       })
-  //
-  //
-  //       let res = false
-  //
-  //       const mwg = stream.payload.dao?.mwg?.members.value
-  //       const address = user.userAddress
-  //
-  //       if (mwg && address) {
-  //         const isUserMWG = mwg.includes(address);
-  //         if (isUserMWG) {
-  //           res = true;
-  //         }
-  //
-  //         console.log('-', address, stream.payload.dao)
-  //       }
-  //
-  //
-  //       return res
-  //
-  //     })
-  //   )
 
   constructor(
     private readonly contractService: ContractService,
