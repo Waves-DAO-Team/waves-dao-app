@@ -150,10 +150,6 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  goBack (): void {
-    this.location.back()
-  }
-
   onProposeMember (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',

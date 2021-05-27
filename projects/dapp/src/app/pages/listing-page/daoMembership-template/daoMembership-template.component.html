@@ -17,7 +17,7 @@
 
 </div>
 <div class="listing-page__address mat-display-1">
-  <a class="a a--alt" [attr.href]="(api?.mainnet?.explorer + contract?.type )| linkHttp" target="_blank"
+  <a class="a a--alt" [attr.href]="(api?.testnet?.explorer + contract?.type )| linkHttp" target="_blank"
      rel="noopener nofollow noreferrer">
     {{ contract?.type }}
   </a>
@@ -48,8 +48,8 @@
 
         <div class="card__info__left__voting-square__result" *ngIf="member.vote || !member.isCanVote">
           <div class="card__info__left__voting-square__result-votes">
-            {{member.vote || 0}}
-            <div class="card__info__left__voting-square__result-votes-text mat-h5">{{'entity.score' | transloco}}</div>
+            {{ member.vote || 0 }}
+            <div class="card__info__left__voting-square__result-votes-text mat-h5">{{'entity.score' | transloco }}</div>
           </div>
         </div>
 
@@ -57,7 +57,7 @@
           <div class="card__info__left__voting-square__voting-arrow-up" *ngIf="member.isCanVote">
             <img src="assets/icons/arr-up-blue.svg" alt="vote up" (click)="vote(member.address, 'like')">
           </div>
-          <div class="card__info__left__voting-square__voting-votes">{{member.vote || 0}}</div>
+          <div class="card__info__left__voting-square__voting-votes">{{ member.vote || 0 }}</div>
           <div class="card__info__left__voting-square__voting-arrow-down" *ngIf="member.isCanVote">
             <img src="assets/icons/arr-down-red.svg" alt="vote down" (click)="vote(member.address, 'dislike')">
           </div>
@@ -70,9 +70,9 @@
         <div class="card__header__left-block">
 
           <div class="card__header__left-block__status">
-            <div class="card__header__left-block__title">{{ member?.address }}</div>
+            <div class="card__header__left-block__title">{{ member?.address || 'No members yet' }}</div>
             <div class="card__header__left-block__status__role-text">
-              {{member.status}}
+              {{ member.status }}
             </div>
           </div>
 
@@ -87,6 +87,7 @@
         </div>
       </div>
     </div>
+  </div>
 
     <button (click)="onProposeMember()" class="members-page__add-btn">{{ 'daoMembership.onProposeMember' | transloco }}</button>
     <button (click)="onAddMember()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.onAddMember' | transloco }}</button>
@@ -96,15 +97,7 @@
       Working Group
     </div>
     <div class="members-page__contract-block" *ngFor="let wg of wg$ | async">
-
-        <div class="card__header">
-          <div class="card__header__left-block">
-            <div class="card__header__left-block__status">
-              <div class="card__header__left-block__title"> {{wg.address}}</div>
-            </div>
-          </div>
-        </div>
-
+      {{ wg?.address || 'No members yet' }}
     </div>
     <button (click)="onAddWorkingGroup()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.mAddWorkingGroup' | transloco }}</button>
 
@@ -113,11 +106,8 @@
       Membership Working Group
     </div>
     <div class="members-page__contract-block" *ngFor="let mwg of mwg$ | async">
-      {{mwg.address}}
-
+      {{ mwg?.address || 'No members yet' }}
     </div>
     <button (click)="onAddMembershipWorkingGroup()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.onAddMembershipWorkingGroup' | transloco }}</button>
-
-</div>
 
 </div>

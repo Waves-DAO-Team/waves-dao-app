@@ -8,6 +8,13 @@
   color: $color_white;
 }
 
+.header__tab-membership {
+
+  :active {
+    color: $color-membership !important;
+  }
+}
+
 @mixin profile() {
 
   .icon {
@@ -270,6 +277,10 @@
         outline: none;
         &.active {
           color: $color_waves_blue;
+
+          .header__tab-membership.active {
+            color: $color-membership !important;
+          }
         }
         &.profile {
           @include profile()

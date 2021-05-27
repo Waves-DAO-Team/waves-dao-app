@@ -18,8 +18,8 @@
     <ul class="nav" [class.open]="isToggleMenuOpen">
       <ng-container *ngFor="let contract of contractsList$ | async">
 
-        <li *ngIf="contract.type && contract.name !== 'votings'"
-            class="mat-display-2"
+        <li *ngIf="contract.type && contract.name !== 'votings' && contract.name !== 'daoMembership'"
+            class="mat-display-1"
             (click)="isToggleMenuOpen = false"
             [routerLink]="[constants.routes.listing | route : contract.name ]"
             routerLinkActive="active">
@@ -28,7 +28,7 @@
         </li>
 
         <li *ngIf="contract.type && contract.name === 'votings'"
-            class="mat-display-2"
+            class="mat-display-1"
             (click)="isToggleMenuOpen = false"
             [routerLink]="[constants.routes.community | route : contract.name ]"
             routerLinkActive="active">
@@ -36,10 +36,18 @@
 
           {{ contract.navigation }}
         </li>
+
+        <li *ngIf="contract.type && contract.name === 'daoMembership'"
+            class="header__tab-membership mat-display-1"
+            (click)="isToggleMenuOpen = false"
+            [routerLink]="[constants.routes.listing | route : contract.name ]"
+            routerLinkActive="active">
+          {{ contract.navigation }}
+        </li>
       </ng-container>
 
       <li
-        class="mat-display-2"
+        class="mat-display-1"
         (click)="isToggleMenuOpen = false"
         [routerLink]="[constants.routes.members | route]"
         routerLinkActive="active">
@@ -47,7 +55,7 @@
       </li>
 
       <ng-container>
-        <li *ngIf="user.name" class="profile mat-display-2">
+        <li *ngIf="user.name" class="profile mat-display-1">
           <div class="icon">
             <img alt="avatar" src="assets/icons/avatar/master.svg" *ngIf="user.userRole === roleEnum.master || user.userRole === roleEnum.manager">
             <img alt="avatar" src="assets/icons/avatar/dao.svg" *ngIf="user.userRole === roleEnum.daoMember">
@@ -55,7 +63,7 @@
             <img alt="avatar" src="assets/icons/avatar/auth.svg" *ngIf="user.userRole === roleEnum.authorized">
           </div>
           <div class="content">
-            <div class="name mat-display-2" matTooltip="Copy address" (click)="copyUserName(user.address)">
+            <div class="name mat-display-1" matTooltip="Copy address" (click)="copyUserName(user.address)">
               {{user.name}} <div class="name__image" ></div>
             </div>
             <div class="role mat-display-1">
@@ -81,7 +89,7 @@
         </li>
       </ng-container>
 
-      <li *ngIf="user.userRole === roleEnum.unauthorized" class="profile mat-display-2">
+      <li *ngIf="user.userRole === roleEnum.unauthorized" class="profile mat-display-1">
         <button (click)="signupHandler(); isToggleMenuOpen = false">
           {{ 'app.header.login' | transloco }}
           <img alt="logout" src="assets/icons/arr-right.svg">

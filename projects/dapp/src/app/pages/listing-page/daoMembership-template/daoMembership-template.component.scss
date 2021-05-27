@@ -76,15 +76,23 @@
 }
 $width: 98px;
 
+.listing-page {
+  &__about a {
+    color: $color-membership;
+  }
+
+  &__address a:hover {
+    color: $color-membership !important;
+  }
+
+}
+
 .card {
   @include card;
   cursor: default;
   flex-direction: row;
   margin-bottom: 0 !important;
-
-  & div {
-    cursor: default;
-  }
+  margin-top: $padding;
 
   &__info__left {
     margin-bottom: 0 !important;
@@ -92,10 +100,10 @@ $width: 98px;
     &__voting-square {
       background: $color_light_gray;
       display: flex;
+      margin-bottom: 0 !important;
       max-width: $width;
       min-width: $width;
       padding: 0 !important;
-      margin-bottom: 0 !important;
       // result
       &__result {
         align-items: center;
@@ -156,6 +164,14 @@ $width: 98px;
       &__voting-votes {
         line-height: 1;
         margin: 0;
+      }
+
+      &__voting-arrow-up {
+        align-items: flex-end;
+      }
+
+      &__voting-arrow-down {
+        align-items: flex-start;
       }
     }
   }
