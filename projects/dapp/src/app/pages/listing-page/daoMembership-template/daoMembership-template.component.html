@@ -98,7 +98,7 @@
     </div>
   </div>
 
-    <button (click)="onProposeMember()" class="members-page__add-btn">{{ 'daoMembership.onProposeMember' | transloco }}</button>
+    <button (click)="onProposeMember()" *ngIf="(isManager$ | async) === false" class="members-page__add-btn">{{ 'daoMembership.onProposeMember' | transloco }}</button>
     <button (click)="onAddMember()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.onAddMember' | transloco }}</button>
 
     <div class="sub-title mat-display-4" *ngIf="(wg$ | async) !== null">
