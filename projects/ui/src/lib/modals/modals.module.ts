@@ -10,10 +10,11 @@ import {SubmitSolutionModule} from '@ui/modals/submit-solution/submit-solution.m
 import {AcceptWorkResultInterhackModule} from '@ui/modals/accept-work-result-interhack/accept-work-result-interhack.module'
 import {AddProposalModule} from '@ui/modals/add-proposal/add-proposal.module'
 import {DaoMembershipAddMemberModule} from '@ui/modals/dao-membership/add-member/add-member.module'
-import {DaoMembershipProposeMemberModule} from "@ui/modals/dao-membership/propose-member/propose-member.module";
-import {DaoMembershipRejectMemberModule} from "@ui/modals/dao-membership/reject-member/reject-member.module";
-import {DaoMembershipAddWorkingGroupModule} from "@ui/modals/dao-membership/add-working-group/add-working-group.module";
-import {DaoMembershipAddMembershipWorkingGroupModule} from "@ui/modals/dao-membership/add-membership-working-group/add-membership-working-group.module";
+import {DaoMembershipProposeMemberModule} from '@ui/modals/dao-membership/propose-member/propose-member.module'
+import {DaoMembershipRejectMemberModule} from '@ui/modals/dao-membership/reject-member/reject-member.module'
+import {DaoMembershipAddWorkingGroupModule} from '@ui/modals/dao-membership/add-working-group/add-working-group.module'
+// eslint-disable-next-line
+import {DaoMembershipAddMembershipWorkingGroupModule} from '@ui/modals/dao-membership/add-membership-working-group/add-membership-working-group.module'
 
 export * from './accept-work-result/accept-work-result.module'
 export * from './add-reward/add-reward.module'

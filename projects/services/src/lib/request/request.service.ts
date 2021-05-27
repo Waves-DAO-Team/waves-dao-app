@@ -17,7 +17,7 @@ import {
   publishReplay,
   refCount, repeatWhen,
   startWith,
-  switchMap, tap,
+  switchMap,
 } from 'rxjs/operators'
 
 @Injectable({

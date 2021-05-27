@@ -40,7 +40,7 @@ export class DaoMembershipContractService {
   }
 
 
-  addMember(address: string): Observable<TransactionsSuccessResult> {
+  addMember (address: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'mAddDAOMember', [
       {type: 'string', value: address}
     ]).pipe(
@@ -57,7 +57,7 @@ export class DaoMembershipContractService {
     )
   }
 
-  proposeMember(address: string): Observable<TransactionsSuccessResult> {
+  proposeMember (address: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'aProposeCandidateForDAOMember', [
       {type: 'string', value: address}
     ]).pipe(
@@ -74,7 +74,7 @@ export class DaoMembershipContractService {
     )
   }
 
-  rejectMember(address: string): Observable<TransactionsSuccessResult> {
+  rejectMember (address: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'mRejectDAOMember', [
       {type: 'string', value: address}
     ]).pipe(
@@ -91,7 +91,7 @@ export class DaoMembershipContractService {
     )
   }
 
-  addWorkingGroup(address: string): Observable<TransactionsSuccessResult> {
+  addWorkingGroup (address: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'mAddWorkingGroup', [
       {type: 'string', value: address}
     ]).pipe(
@@ -108,7 +108,7 @@ export class DaoMembershipContractService {
     )
   }
 
-  addMembershipWorkingGroup(address: string): Observable<TransactionsSuccessResult> {
+  addMembershipWorkingGroup (address: string): Observable<TransactionsSuccessResult> {
     return this.signerService.invokeProcess(this.contractService.getAddress(), 'mAddMembershipWorkingGroup', [
       {type: 'string', value: address}
     ]).pipe(

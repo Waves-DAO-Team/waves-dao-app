@@ -22,7 +22,7 @@ import {
   map,
   publishReplay,
   refCount,
-  takeUntil, tap,
+  takeUntil,
 } from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'

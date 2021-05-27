@@ -3,7 +3,7 @@ import {
   ContractGrantModel,
 } from '@services/contract/contract.model'
 import { ContractService } from '@services/contract/contract.service'
-import {map, publishReplay, refCount, tap} from 'rxjs/operators'
+import {map, publishReplay, refCount} from 'rxjs/operators'
 import { translate } from '@ngneat/transloco'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import {

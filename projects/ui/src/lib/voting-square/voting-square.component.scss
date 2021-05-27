@@ -3,39 +3,42 @@
 $width: 98px;
 
 .voting-square {
-  min-width: $width;
-  max-width: $width;
-  min-height: $width;
-  max-height: $width;
   background: $color_light_gray;
   display: flex;
+  max-height: $width;
+  max-width: $width;
+  min-height: $width;
+  min-width: $width;
   // result
   &__result {
-    flex: 1;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    display: flex;
+    flex: 1;
     flex-direction: column;
+    justify-content: center;
 
   }
+
   &__result-votes-text {
-    padding: 0;
     color: $color_dark_gray;
-    position: absolute;
-    top: -13px;
     left: 0;
-    right: 0;
     margin: auto;
-  }
-  &__result-votes, &__voting-votes {
     padding: 0;
-    margin: 0;
+    position: absolute;
+    right: 0;
+    top: -13px;
+  }
+
+  &__result-votes,
+  &__voting-votes {
     font-size: 26px;
     font-weight: bold;
     line-height: 1;
+    margin: 0;
+    padding: 0;
     position: relative;
-    width: 40px;
     text-align: center;
+    width: 40px;
   }
   // voting
   &__voting {
@@ -43,20 +46,26 @@ $width: 98px;
     flex-direction: column;
     width: 100%;
   }
-  &__voting-arrow-up, &__voting-votes, &__voting-arrow-down {
-    flex: 1;
-    display: flex;
-    width: 100%;
-    justify-content: center;
+
+  &__voting-arrow-up,
+  &__voting-votes,
+  &__voting-arrow-down {
     align-items: center;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    width: 100%;
   }
-  &__voting-arrow-up, &__voting-arrow-down {
+
+  &__voting-arrow-up,
+  &__voting-arrow-down {
     img {
-      width: 15px;
-      height: 15px;
       cursor: pointer;
+      height: 15px;
+      width: 15px;
     }
   }
+
   &__voting-votes {
     line-height: 1;
     margin: 0;

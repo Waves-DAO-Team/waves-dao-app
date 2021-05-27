@@ -5,7 +5,7 @@ import {
   filter,
   map,
   publishReplay,
-  refCount, tap
+  refCount
 } from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
 import {UserService} from '@services/user/user.service'

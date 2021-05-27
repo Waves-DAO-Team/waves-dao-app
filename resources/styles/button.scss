@@ -23,6 +23,23 @@
     opacity: 0.3 !important;
   }
 
+  &__membership {
+    background: transparent;
+    border: 1px solid $color_membership;
+    color: $color_membership;
+    cursor: pointer;
+    margin: 8px 8px 8px 0;
+    width: fit-content;
+    //filter: grayscale(0.8);
+    //opacity: 0.3 !important;
+
+    &:hover {
+      background: $color-membership;
+      border: 1px solid $color-membership;
+      color: $color-white;
+    }
+  }
+
   /*img {
     padding-left: $padding;
   }*/
