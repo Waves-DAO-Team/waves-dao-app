@@ -1,29 +1,38 @@
 <div class="listing-page__intro">
   <img alt="promo" [attr.src]="'/assets/img/dao-membership-type.png'" width="100%" height="auto"/>
 </div>
-<div class="listing-page__header">
 
-  <h1 class="listing-page__title">{{ contract?.title }}</h1>
-
-  <div class="listing-page__controls">
-    <button
-      class="active"
-      *ngIf="contract?.permissionCreateGrant"
-      routerLinkActive="active"
-    >
-      {{ 'app.controls.createGrant' | transloco }}
+<div class="container">
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
     </button>
   </div>
+  <div class="container__mid">
 
-</div>
-<div class="listing-page__address mat-display-1">
-  <a class="a a--alt" [attr.href]="(api?.testnet?.explorer + contract?.type )| linkHttp" target="_blank"
-     rel="noopener nofollow noreferrer">
-    {{ contract?.type }}
-  </a>
-</div>
+    <div class="listing-page__header">
 
-<div class="listing-page__description">
+      <h1 class="listing-page__title">{{ contract?.title }}</h1>
+
+      <div class="listing-page__controls">
+        <button
+          class="active"
+          *ngIf="contract?.permissionCreateGrant"
+          routerLinkActive="active"
+        >
+          {{ 'app.controls.createGrant' | transloco }}
+        </button>
+      </div>
+
+    </div>
+    <div class="listing-page__address mat-display-1">
+      <a class="a a--alt" [attr.href]="(api?.testnet?.explorer + contract?.type )| linkHttp" target="_blank"
+         rel="noopener nofollow noreferrer">
+        {{ contract?.type }}
+      </a>
+    </div>
+
+    <div class="listing-page__description">
   <div>
     {{ contract?.desc }}
   </div>
@@ -83,7 +92,7 @@
              [attr.href]="('https://wavesexplorer.com/tx/' + member?.address)| linkHttp">{{ member?.address }}</a>
         </div>
         <div class="card__header__right-block" [class.card__header__right-block--active]="1">
-          <button (click)="onRejectMember()" *ngIf="isManager$  | async" class="button__membership">{{ 'daoMembership.onRejectMember' | transloco }}</button>
+          <button (click)="onRejectMember()" *ngIf="isManager$  | async" class="button__membership button__membership-secondary">{{ 'daoMembership.onRejectMember' | transloco }}</button>
         </div>
       </div>
     </div>
@@ -92,7 +101,7 @@
     <button (click)="onProposeMember()" class="members-page__add-btn">{{ 'daoMembership.onProposeMember' | transloco }}</button>
     <button (click)="onAddMember()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.onAddMember' | transloco }}</button>
 
-    <div class="sub-title mat-display-4">
+    <div class="sub-title mat-display-4" *ngIf="(wg$ | async) !== null">
       <img src="assets/icons/avatar/wg.svg" alt="wg">
       Working Group
     </div>
@@ -101,7 +110,7 @@
     </div>
     <button (click)="onAddWorkingGroup()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.mAddWorkingGroup' | transloco }}</button>
 
-    <div class="sub-title mat-display-4">
+    <div class="sub-title mat-display-4" *ngIf="(mwg$ | async) !== null">
       <img src="assets/icons/avatar/mwg-avatar.svg" alt="mwg">
       Membership Working Group
     </div>
@@ -110,4 +119,6 @@
     </div>
     <button (click)="onAddMembershipWorkingGroup()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.onAddMembershipWorkingGroup' | transloco }}</button>
 
+</div>
+  </div>
 </div>

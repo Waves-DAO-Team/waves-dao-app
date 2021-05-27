@@ -205,6 +205,10 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
+  goBack (): void {
+    this.location.back()
+  }
+
   onAddMembershipWorkingGroup (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',

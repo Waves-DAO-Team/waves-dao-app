@@ -278,7 +278,7 @@
         &.active {
           color: $color_waves_blue;
 
-          .header__tab-membership.active {
+          .header__tab-membership:active {
             color: $color-membership !important;
           }
         }

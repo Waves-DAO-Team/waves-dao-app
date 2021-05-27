@@ -7,6 +7,7 @@
   <div class="container__mid" *ngIf="user$ | async as user">
     <div class="members-page__header">
       <div class="members-page__title mat-h1">{{'members.members' | transloco}}</div>
+      <button [routerLink]="[constants.routes.listing | route : 'daoMembership' ]" class="button__membership button__membership-primary">DAO Membership</button>
     </div>
 
     <!--master-->
