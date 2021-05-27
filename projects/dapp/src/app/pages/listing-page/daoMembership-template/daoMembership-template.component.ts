@@ -51,7 +51,12 @@ export class DaoMembershipTemplateComponent {
             if (members) {
               const member: ContractMemberRawData = members[key] as unknown as ContractMemberRawData
               let isCanVote = true
-              if(!user.userAddress || (member?.votes && Object.keys(member?.votes).includes(user.userAddress))) {
+
+              if(
+                !user.userAddress
+                || (member?.votes && Object.keys(member?.votes).includes(user.userAddress))
+                || user.userAddress === stream.payload.address
+              ) {
                 isCanVote = false
               }
               res.push(
