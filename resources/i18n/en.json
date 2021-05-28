@@ -124,7 +124,8 @@
     "dao": "DAO Members",
     "auth": "Authorized User",
     "applicant": "Applicant",
-    "board": "Association Board"
+    "board": "Association Board",
+    "mwg": "Membership Working Group"
   },
   "stepper": {
     "grant_propesed": "Grant proposed",

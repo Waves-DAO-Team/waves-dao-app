@@ -179,7 +179,7 @@ $width: 98px;
   &__header {
 
     margin: 0;
-    @include media('<=phone') {
+    @include media('<=tablet') {
       flex-direction: column-reverse;
     }
 

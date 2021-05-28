@@ -33,21 +33,19 @@
     </div>
 
     <div class="listing-page__description">
-  <div>
-    {{ contract?.desc }}
-  </div>
-  <div class="listing-page__about" *ngIf="contract?.name as contractName">
-    <a [routerLink]="['/', 'grants', contractName, 'about']">
-      {{ 'listing.more' | transloco }}
-    </a>
-  </div>
-
-  <br/>
-  <br/>
+      <div>
+        {{ contract?.desc }}
+      </div>
+      <div class="listing-page__about" *ngIf="contract?.name as contractName">
+        <a [routerLink]="['/', 'grants', contractName, 'about']">
+          {{ 'listing.more' | transloco }}
+        </a>
+      </div>
+    </div>
 
   <div class="sub-title mat-display-4">
     <img src="assets/icons/avatar/dao-member-avatar.svg" alt="dao">
-    DAO Members
+    {{ contract.title }}
   </div>
 
   <div class="listing" *ngFor="let member of member$ | async">
@@ -103,7 +101,7 @@
 
     <div class="sub-title mat-display-4" *ngIf="(wg$ | async) !== null">
       <img src="assets/icons/avatar/wg.svg" alt="wg">
-      Working Group
+      {{ 'role.wg' | transloco }}
     </div>
     <div class="members-page__contract-block" *ngFor="let wg of wg$ | async">
       {{ wg?.address || 'No members yet' }}
@@ -112,7 +110,7 @@
 
     <div class="sub-title mat-display-4" *ngIf="(mwg$ | async) !== null">
       <img src="assets/icons/avatar/mwg-avatar.svg" alt="mwg">
-      Membership Working Group
+      {{ 'role.mwg' | transloco }}
     </div>
     <div class="members-page__contract-block" *ngFor="let mwg of mwg$ | async">
       {{ mwg?.address || 'No members yet' }}
@@ -120,5 +118,5 @@
     <button (click)="onAddMembershipWorkingGroup()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.onAddMembershipWorkingGroup' | transloco }}</button>
 
 </div>
-  </div>
+
 </div>
