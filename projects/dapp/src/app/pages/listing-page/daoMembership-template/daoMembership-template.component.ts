@@ -117,7 +117,7 @@ export class DaoMembershipTemplateComponent {
       map(([user, stream]) => user.userAddress === stream.payload.address)
     )
 
-  constructor(
+  constructor (
     private readonly contractService: ContractService,
     public domSanitizer: DomSanitizer,
     @Inject(API) public readonly api: AppApiInterface,
@@ -132,7 +132,7 @@ export class DaoMembershipTemplateComponent {
   ) {
   }
 
-  onAddMember(): void {
+  onAddMember (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -149,7 +149,7 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  onProposeMember(): void {
+  onProposeMember (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -166,7 +166,7 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  onRejectMember(): void {
+  onRejectMember (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -183,11 +183,11 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  vote(address: string, voteValue: 'like' | 'dislike'): void {
+  vote (address: string, voteValue: 'like' | 'dislike'): void {
     this.daoMembershipContractService.voteForDAOMember(address, voteValue).subscribe()
   }
 
-  onAddWorkingGroup(): void {
+  onAddWorkingGroup (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -204,11 +204,11 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  goBack(): void {
+  goBack (): void {
     this.location.back()
   }
 
-  onAddMembershipWorkingGroup(): void {
+  onAddMembershipWorkingGroup (): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
