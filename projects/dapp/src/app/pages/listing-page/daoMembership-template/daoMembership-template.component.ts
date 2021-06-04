@@ -1,32 +1,32 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 
-import {ChangeDetectorRef, Component, Inject, Input} from '@angular/core'
-import {GrantsVariationType} from '@services/static/static.model'
+import { ChangeDetectorRef, Component, Inject, Input } from '@angular/core'
+import { GrantsVariationType } from '@services/static/static.model'
 import {
   ContractDataRawModel, ContractMemberRawData,
   DAOMembershipNamespace
 } from '@services/contract/contract.model'
-import {combineLatest, Observable} from 'rxjs'
-import {ContractService} from '@services/contract/contract.service'
-import {filter, map} from 'rxjs/operators'
-import {API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface} from '@constants'
-import {RequestModel} from '@services/request/request.model'
-import {DomSanitizer} from '@angular/platform-browser'
-import {DialogComponent} from '@ui/dialog/dialog.component'
-import {translate} from '@ngneat/transloco'
-import {SubmitCallBackAddMemberArg} from '@ui/dialog/dialog.tokens'
-import {StaticService} from '@services/static/static.service'
-import {MatDialog} from '@angular/material/dialog'
-import {CommunityContractService} from '@services/contract/community-contract.service'
-import {DaoMembershipContractService} from '@services/contract/dao-membership-contract.service'
-import {DaoMembershipAddMemberComponent} from '@ui/modals/dao-membership/add-member/add-member.component'
-import {DaoMembershipProposeMemberComponent} from '@ui/modals/dao-membership/propose-member/propose-member.component'
-import {DaoMembershipRejectMemberComponent} from '@ui/modals/dao-membership/reject-member/reject-member.component'
-import {DaoMembershipAddWorkingGroupComponent} from '@ui/modals/dao-membership/add-working-group/add-working-group.component'
+import { combineLatest, Observable } from 'rxjs'
+import { ContractService } from '@services/contract/contract.service'
+import { filter, map } from 'rxjs/operators'
+import { API, APP_CONSTANTS, AppApiInterface, AppConstantsInterface } from '@constants'
+import { RequestModel } from '@services/request/request.model'
+import { DomSanitizer } from '@angular/platform-browser'
+import { DialogComponent } from '@ui/dialog/dialog.component'
+import { translate } from '@ngneat/transloco'
+import { SubmitCallBackAddMemberArg } from '@ui/dialog/dialog.tokens'
+import { StaticService } from '@services/static/static.service'
+import { MatDialog } from '@angular/material/dialog'
+import { CommunityContractService } from '@services/contract/community-contract.service'
+import { DaoMembershipContractService } from '@services/contract/dao-membership-contract.service'
+import { DaoMembershipAddMemberComponent } from '@ui/modals/dao-membership/add-member/add-member.component'
+import { DaoMembershipProposeMemberComponent } from '@ui/modals/dao-membership/propose-member/propose-member.component'
+import { DaoMembershipRejectMemberComponent } from '@ui/modals/dao-membership/reject-member/reject-member.component'
+import { DaoMembershipAddWorkingGroupComponent } from '@ui/modals/dao-membership/add-working-group/add-working-group.component'
 // eslint-disable-next-line
-import {DaoMembershipAddMembershipWorkingGroupComponent} from '@ui/modals/dao-membership/add-membership-working-group/add-membership-working-group.component'
-import {UserService} from '@services/user/user.service'
-import {Location} from '@angular/common'
+import { DaoMembershipAddMembershipWorkingGroupComponent } from '@ui/modals/dao-membership/add-membership-working-group/add-membership-working-group.component'
+import { UserService } from '@services/user/user.service'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-dao-membership-template',
@@ -37,9 +37,10 @@ export class DaoMembershipTemplateComponent {
 
   @Input() public readonly contract!: GrantsVariationType
 
-  member$: Observable<DAOMembershipNamespace.MemberInterface[]> =  combineLatest([this.userService.stream$, this.contractService.stream])
+  member$: Observable<DAOMembershipNamespace.MemberInterface[]> = combineLatest([this.userService.stream$, this.contractService.stream])
 
     .pipe(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       filter(([user, stream]) => stream?.status === 'complete'),
       map(([user, stream]) => {
 
@@ -52,7 +53,7 @@ export class DaoMembershipTemplateComponent {
               const member: ContractMemberRawData = members[key] as unknown as ContractMemberRawData
               let isCanVote = true
 
-              if(
+              if (
                 !user.userAddress
                 || (member?.votes && Object.keys(member?.votes).includes(user.userAddress))
                 || user.userAddress === stream.payload.address
@@ -111,11 +112,12 @@ export class DaoMembershipTemplateComponent {
 
   isManager$ = combineLatest([this.userService.stream$, this.contractService.stream])
     .pipe(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       filter(([user, stream]) => stream?.status === 'complete'),
       map(([user, stream]) => user.userAddress === stream.payload.address)
     )
 
-  constructor (
+  constructor(
     private readonly contractService: ContractService,
     public domSanitizer: DomSanitizer,
     @Inject(API) public readonly api: AppApiInterface,
@@ -130,7 +132,7 @@ export class DaoMembershipTemplateComponent {
   ) {
   }
 
-  onAddMember (): void {
+  onAddMember(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -147,7 +149,7 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  onProposeMember (): void {
+  onProposeMember(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -164,7 +166,7 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  onRejectMember (): void {
+  onRejectMember(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -181,11 +183,11 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  vote (address: string, voteValue: 'like' | 'dislike'): void {
+  vote(address: string, voteValue: 'like' | 'dislike'): void {
     this.daoMembershipContractService.voteForDAOMember(address, voteValue).subscribe()
   }
 
-  onAddWorkingGroup (): void {
+  onAddWorkingGroup(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -202,11 +204,11 @@ export class DaoMembershipTemplateComponent {
     })
   }
 
-  goBack (): void {
+  goBack(): void {
     this.location.back()
   }
 
-  onAddMembershipWorkingGroup (): void {
+  onAddMembershipWorkingGroup(): void {
     const dialog = this.dialog.open(DialogComponent, {
       width: '500px',
       maxWidth: '100vw',

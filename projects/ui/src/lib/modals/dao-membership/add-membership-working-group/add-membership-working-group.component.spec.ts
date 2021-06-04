@@ -14,7 +14,7 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog'
 import {ReactiveFormsModule} from '@angular/forms'
-import {AddMemberComponent} from "@ui/modals/add-member/add-member.component";
+import {AddMemberComponent} from '@ui/modals/add-member/add-member.component'
 
 describe('AddMemberComponent', () => {
   let component: AddMemberComponent

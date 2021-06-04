@@ -12,7 +12,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog'
-import {PipesModule} from "@libs/pipes/pipes.module";
+import {PipesModule} from '@libs/pipes/pipes.module'
 
 describe('MembersPageComponent', () => {
   let component: MembersPageComponent
