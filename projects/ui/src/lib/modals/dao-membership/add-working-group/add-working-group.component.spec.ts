@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { AddMemberComponent } from './add-member.component'
+
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { getTranslocoModule } from '@dapp/src/app/transloco-module.spec'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -15,6 +15,7 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog'
 import {ReactiveFormsModule} from '@angular/forms'
+import {AddMemberComponent} from "@ui/modals/add-member/add-member.component";
 
 describe('AddMemberComponent', () => {
   let component: AddMemberComponent
