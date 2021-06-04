@@ -53,7 +53,7 @@ export class CommonLayoutComponent implements OnInit, OnDestroy, CommonLayoutInt
 
   public ngOnDestroy (): void {
     this.dispose()
-    this.destroyed$.next()
+    this.destroyed$.next('')
   }
 
   public onActivateComponent (component: CommonLayoutFooterExtensionInterface): void {

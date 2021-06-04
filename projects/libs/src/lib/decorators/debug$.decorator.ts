@@ -21,7 +21,7 @@ export const debug$ = (target: any, propertyKey: string) => {
   }
 
   function setter (value: any) {
-    if (value instanceof Observable) {
+    if (value instanceof Observable && value.source && value.source.source) {
       propertyValue = value.source.source.pipe(
         tap((data) => {
           const isArrayOfObjects = Array.isArray(data) && typeof data[0] === 'object'
