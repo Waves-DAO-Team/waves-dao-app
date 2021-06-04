@@ -2,8 +2,8 @@
   <div
     *ngFor="let el of formalStatuses; let i = index"
     [class.stepper__step-done]="i < stepId"
-    [class.stepper__step-pre-done]="i == stepId"
-    [class.stepper__step-last]="i + 1 == formalStatuses.length"
+    [class.stepper__step-pre-done]="i === stepId"
+    [class.stepper__step-last]="i + 1 === formalStatuses.length"
     class="stepper__step">
     <div class="stepper__text mat-h5">
       {{el.value}}

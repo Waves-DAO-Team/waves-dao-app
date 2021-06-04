@@ -18,7 +18,7 @@
     <ul class="nav" [class.open]="isToggleMenuOpen">
       <ng-container *ngFor="let contract of contractsList$ | async">
 
-        <li *ngIf="contract.type && contract.name !== 'votings'"
+        <li *ngIf="contract.type && contract.name !== 'votings' && contract.name !== 'daoMembership'"
             class="mat-display-2"
             (click)="isToggleMenuOpen = false"
             [routerLink]="[constants.routes.listing | route : contract.name ]"
@@ -33,8 +33,10 @@
             [routerLink]="[constants.routes.community | route : contract.name ]"
             routerLinkActive="active">
           <span class="nav-badge" *ngIf="contract.type.indexOf('3P') === 0">mainnet</span>
+
           {{ contract.navigation }}
         </li>
+
       </ng-container>
 
       <li
@@ -57,7 +59,7 @@
             <div class="name mat-display-2" matTooltip="Copy address" (click)="copyUserName(user.address)">
               {{user.name}} <div class="name__image" ></div>
             </div>
-            <div class="role mat-display-1">
+            <div class="role mat-display-2">
               <ng-container *ngIf="user.userRole === roleEnum.manager">
                 {{ 'role.manager' | transloco }}
               </ng-container>

@@ -80,7 +80,7 @@
 
   <ng-template #stepper>
     <ui-stepper
-      *ngIf="entityData?.status?.value != 'rejected'"
+      *ngIf="entityData?.status?.value !== 'rejected'"
       [status]="entityData?.status?.value"
       [setType]="'interhack'"
     ></ui-stepper>

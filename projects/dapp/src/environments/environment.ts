@@ -14,6 +14,7 @@ export const environment = {
     votings: parseValue('${VOTINGS_ABOUT_LINK}', ''),
     web3: parseValue('${WEB3_ABOUT_LINK}', ''),
     interhack: parseValue('${INTERHACK_ABOUT_LINK}', ''),
+    daoMembership: parseValue('${DAO_MEMBERSHIP_ABOUT_LINK}', ''),
   },
   apis: {
     testnet: {
@@ -56,12 +57,19 @@ export const environment = {
         rewardAssetIcon: parseValue('${INTERHACK_REWARD_ASSET_ICON}', '/assets/coins/waves.svg'),
         rewardDecimals: parseNumber('${INTERHACK_REWARD_DECIMALS}', 2),
       },
+      daoMembership: {
+        address: parseValue('${DAO_MEMBERSHIP}', ''),
+        rewardAsset: parseValue('${DAO_MEMBERSHIP_REWARD_ASSET}', 'WAVES'),
+        rewardAssetIcon: parseValue('${DAO_MEMBERSHIP_REWARD_ASSET_ICON}', '/assets/coins/waves.svg'),
+        rewardDecimals: parseNumber('${DAO_MEMBERSHIP_REWARD_DECIMALS}', 2),
+      },
     },
     issues: {
       disruptive: parseValue('${DISRUPTIVE_ISSUE_TEMPLATE}', ''),
       votings: parseValue('${VOTINGS_ISSUE_TEMPLATE}', ''),
       web3: parseValue('${WEB3_ISSUE_TEMPLATE}', ''),
       interhack: parseValue('${INTERHACK_ISSUE_TEMPLATE}', ''),
+      daoMembership: parseValue('${DAO_MEMBERSHIP_ISSUE_TEMPLATE}', ''),
     },
     links: {
       telegram: 'https://t.me/WavesDAO',

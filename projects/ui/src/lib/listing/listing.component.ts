@@ -145,7 +145,8 @@ export class ListingComponent implements OnDestroy {
     public userService: UserService,
     public contractService: ContractService,
     public cdr: ChangeDetectorRef,
-  ) {}
+  ) {
+  }
 
   selectTag ($event: string): void {
     this.selectedTagName$.next($event)

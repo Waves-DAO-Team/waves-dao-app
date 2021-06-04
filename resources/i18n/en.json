@@ -66,6 +66,11 @@
   },
   "modal": {
     "texts": {
+      "add_membership_working_group": "Add membership working group",
+      "add_working_group": "Add working group",
+      "reject_member": "Reject member",
+      "propose_member": "Propose member",
+      "add_member": "Add member",
       "tokenId": "Token Id",
       "ticker": "Ticker",
       "description": "Description",
@@ -119,7 +124,8 @@
     "dao": "DAO Members",
     "auth": "Authorized User",
     "applicant": "Applicant",
-    "board": "Association Board"
+    "board": "Association Board",
+    "mwg": "Membership Working Group"
   },
   "stepper": {
     "grant_propesed": "Grant proposed",
@@ -798,6 +804,24 @@
       "desc": "This smart contract verifies new tokens on Waves.Exchange by means of voting",
       "banner": "We decide what tokens to appear on Waves Exchange. Deal with it.",
       "landing": "This smart contract verifies new tokens on Waves.Exchange by means of voting."
+    },
+    "votings": {
+      "navigation": "Special votings",
+      "preview": "assets/img/special-votings-type-preview.png",
+      "img": "assets/img/special-votings-type.png",
+      "title": "Special votings",
+      "desc": "This smart contract verifies new tokens on Waves.Exchange by means of voting",
+      "banner": "We decide what tokens to appear on Waves Exchange. Deal with it.",
+      "landing": "This smart contract verifies new tokens on Waves.Exchange by means of voting."
+    },
+    "daoMembership": {
+      "navigation": "DAO membership",
+      "preview": "assets/img/dao-membership-type-preview.png",
+      "img": "assets/img/dao-membership-type.png",
+      "title": "DAO Members",
+      "desc": "Apply to become a DAO Member, get approved and vote for grants.",
+      "banner": "Apply to become a DAO Member, get approved and vote for grants.",
+      "landing": "Apply to become a DAO Member, get approved and vote for grants."
     }
   },
   "landing-page": {
@@ -841,5 +865,13 @@
     "workflow": "The Workflow",
     "workflow_description": "As a preparation for launching a grant process, the DAO Manager sets the lists of Waves Association and Working Group members."
   },
-  "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account"
+  "State check failed. Reason: Accounts balance errors": "Not enough WAVES on account",
+
+  "daoMembership": {
+    "onProposeMember": "Propose member",
+    "onAddMember": "Add member",
+    "onRejectMember": "Reject member",
+    "mAddWorkingGroup": "Add Working Group",
+    "onAddMembershipWorkingGroup": "Add Membership Working Group"
+  }
 }

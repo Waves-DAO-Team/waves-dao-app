@@ -1,0 +1,122 @@
+<div class="listing-page__intro">
+  <img alt="promo" [attr.src]="'/assets/img/dao-membership-type.png'" width="100%" height="auto"/>
+</div>
+
+<div class="container">
+  <div class="container__left">
+    <button class="container__left__back-btn" (click)="goBack()">
+      <img alt="back" src="assets/icons/arr-left.svg">{{'container.back' | transloco}}
+    </button>
+  </div>
+  <div class="container__mid">
+
+    <div class="listing-page__header">
+
+      <h1 class="listing-page__title">{{ contract?.title }}</h1>
+
+      <div class="listing-page__controls">
+        <button
+          class="active"
+          *ngIf="contract?.permissionCreateGrant"
+          routerLinkActive="active"
+        >
+          {{ 'app.controls.createGrant' | transloco }}
+        </button>
+      </div>
+
+    </div>
+    <div class="listing-page__address mat-display-1">
+      <a class="a a--alt" [attr.href]="(api?.testnet?.explorer + contract?.type )| linkHttp" target="_blank"
+         rel="noopener nofollow noreferrer">
+        {{ contract?.type }}
+      </a>
+    </div>
+
+    <div class="listing-page__description">
+      <div>
+        {{ contract?.desc }}
+      </div>
+      <div class="listing-page__about" *ngIf="contract?.name as contractName">
+        <a [routerLink]="['/', 'grants', contractName, 'about']">
+          {{ 'listing.more' | transloco }}
+        </a>
+      </div>
+    </div>
+
+  <div class="sub-title mat-display-4">
+    <img src="assets/icons/avatar/dao-member-avatar.svg" alt="dao">
+    {{ contract?.title }}
+  </div>
+
+  <div class="listing" *ngFor="let member of member$ | async">
+
+    <div class="card">
+      <div class="card__info__left__voting-square">
+
+        <div class="card__info__left__voting-square__result" *ngIf="member.vote || !member.isCanVote">
+          <div class="card__info__left__voting-square__result-votes">
+            {{ member.vote || 0 }}
+            <div class="card__info__left__voting-square__result-votes-text mat-h5">{{'entity.score' | transloco }}</div>
+          </div>
+        </div>
+
+        <div class="card__info__left__voting-square__voting" *ngIf="member.isCanVote">
+          <div class="card__info__left__voting-square__voting-arrow-up" *ngIf="member.isCanVote">
+            <img src="assets/icons/arr-up-blue.svg" alt="vote up" (click)="vote(member.address, 'like')">
+          </div>
+          <div class="card__info__left__voting-square__voting-votes">{{ member.vote || 0 }}</div>
+          <div class="card__info__left__voting-square__voting-arrow-down" *ngIf="member.isCanVote">
+            <img src="assets/icons/arr-down-red.svg" alt="vote down" (click)="vote(member.address, 'dislike')">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card__header">
+
+        <div class="card__header__left-block">
+
+          <div class="card__header__left-block__status">
+            <div class="card__header__left-block__title">{{ member?.address || 'No members yet' }}</div>
+            <div class="card__header__left-block__status__role-text">
+              {{ member.status }}
+            </div>
+          </div>
+
+          <a class="card__header__left-block__tickerID"
+             target="_blank"
+             rel="noopener nofollow noreferrer"
+             matTooltip="See on Waves Explorer"
+             [attr.href]="('https://wavesexplorer.com/tx/' + member?.address)| linkHttp">{{ member?.address }}</a>
+        </div>
+        <div class="card__header__right-block" [class.card__header__right-block--active]="1">
+          <button (click)="onRejectMember()" *ngIf="isManager$  | async" class="button__membership button__membership-secondary">{{ 'daoMembership.onRejectMember' | transloco }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <button (click)="onProposeMember()" *ngIf="(isManager$ | async) === false" class="members-page__add-btn">{{ 'daoMembership.onProposeMember' | transloco }}</button>
+    <button (click)="onAddMember()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.onAddMember' | transloco }}</button>
+
+    <div class="sub-title mat-display-4" *ngIf="(wg$ | async) !== null">
+      <img src="assets/icons/avatar/wg.svg" alt="wg">
+      {{ 'role.wg' | transloco }}
+    </div>
+    <div class="members-page__contract-block" *ngFor="let wg of wg$ | async">
+      {{ wg?.address || 'No members yet' }}
+    </div>
+    <button (click)="onAddWorkingGroup()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.mAddWorkingGroup' | transloco }}</button>
+
+    <div class="sub-title mat-display-4" *ngIf="(mwg$ | async) !== null">
+      <img src="assets/icons/avatar/mwg-avatar.svg" alt="mwg">
+      {{ 'role.mwg' | transloco }}
+    </div>
+    <div class="members-page__contract-block" *ngFor="let mwg of mwg$ | async">
+      {{ mwg?.address || 'No members yet' }}
+    </div>
+    <button (click)="onAddMembershipWorkingGroup()" *ngIf="isManager$  | async" class="members-page__add-btn">{{ 'daoMembership.onAddMembershipWorkingGroup' | transloco }}</button>
+
+</div>
+
+</div>

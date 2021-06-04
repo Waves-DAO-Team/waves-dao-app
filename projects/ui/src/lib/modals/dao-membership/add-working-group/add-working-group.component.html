@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="input">
+    <div class="input-wrp">
+      <br/>
+      <input type="text" formControlName="address" class="inputText" required>
+      <span class="floating-label">{{'modal.texts.members_address' | transloco}}</span>
+    </div>
+  </div>
+
+  <div class="btn-container">
+    <button type="submit" class="btn" (click)="closeModal()">
+      {{'modal.btn.cancel' | transloco}}
+    </button>
+    <button type="submit" class="btn active" [disabled]="!form.valid">
+      {{'modal.btn.add' | transloco}}
+    </button>
+  </div>
+
+</form>

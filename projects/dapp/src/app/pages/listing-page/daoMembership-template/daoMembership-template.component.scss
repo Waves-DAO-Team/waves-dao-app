@@ -1,0 +1,275 @@
+@import 'const';
+@import 'container';
+@import '~include-media/dist/_include-media.scss';
+@import 'mixins';
+@import 'mixins/elements/card';
+@import '../default-template/default-template.component.scss';
+@import '../listing-page.component.scss';
+@import 'mixins/elements/btn';
+
+.container {
+  @include container();
+}
+
+.inputText {
+  :focus {
+    border-color: $color-membership;
+  }
+}
+
+.daoMembership {
+  &__cta {
+    display: flex;
+  }
+}
+
+.sub-title {
+  display: flex;
+  item-align: center;
+  margin: $padding * 3 auto $padding auto;
+
+  img {
+    height: 40px;
+    margin-right: $padding;
+    width: 40px;
+  }
+}
+
+.listing {
+  .content {
+    display: unset;
+  }
+}
+
+.listing-page {
+  &__description {
+    //TODO remove this when statuses appear
+    max-width: unset;
+  }
+}
+
+:host {
+
+  padding-bottom: 3rem;
+
+  &.enable {
+    display: block;
+  }
+
+  .rejected {
+    background: $color_light_gray;
+
+    .card__header__left-block__title,
+    .card__header__left-block__address,
+    .card__header__left-block__status,
+    .card__header__left-block__tickerID,
+    .card__header__right-block__text,
+    .card__header__right-block__price {
+      color: $color_dark_gray;
+    }
+  }
+}
+
+.title {
+  font-weight: 500;
+  margin-bottom: $padding;
+}
+$width: 98px;
+
+.listing-page {
+  &__about a {
+    color: $color-membership;
+  }
+
+  &__address a:hover {
+    color: $color-membership !important;
+  }
+
+}
+
+.card {
+  @include card;
+  cursor: default;
+  flex-direction: row;
+  margin-bottom: 0 !important;
+  margin-top: $padding;
+
+  &__info__left {
+    margin-bottom: 0 !important;
+
+    &__voting-square {
+      background: $color_light_gray;
+      display: flex;
+      margin-bottom: 0 !important;
+      max-width: $width;
+      min-width: $width;
+      padding: 0 !important;
+      // result
+      &__result {
+        align-items: center;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+
+      }
+
+      &__result-votes-text {
+        color: $color_dark_gray;
+        left: 0;
+        margin: auto;
+        padding: 0;
+        position: absolute;
+        right: 0;
+        top: -13px;
+      }
+
+      &__result-votes,
+      &__voting-votes {
+        font-size: 26px;
+        font-weight: bold;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        text-align: center;
+        width: 40px;
+      }
+      // voting
+      &__voting {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      &__voting-arrow-up,
+      &__voting-votes,
+      &__voting-arrow-down {
+        align-items: center;
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        width: 100%;
+      }
+
+      &__voting-arrow-up,
+      &__voting-arrow-down {
+        img {
+          cursor: pointer;
+          height: 15px;
+          width: 15px;
+        }
+      }
+
+      &__voting-votes {
+        line-height: 1;
+        margin: 0;
+      }
+
+      &__voting-arrow-up {
+        align-items: flex-end;
+      }
+
+      &__voting-arrow-down {
+        align-items: flex-start;
+      }
+    }
+  }
+
+  &__header {
+
+    margin: 0;
+    @include media('<=tablet') {
+      flex-direction: column-reverse;
+    }
+
+    &__left-block {
+      &__status {
+        align-items: center;
+
+        &__role-text {
+          color: $color-membership !important;
+        }
+      }
+
+      &__desc {
+        @include media('<=phone') {
+          max-width: unset;
+        }
+      }
+
+
+      &__address {
+        cursor: pointer !important;
+        text-decoration: none;
+
+        &:hover {
+          color: $color_membership;
+        }
+      }
+
+      &__email {
+        cursor: pointer !important;
+      }
+
+      &__tickerID {
+        color: $color_dark_gray;
+        width: min-content;
+
+        &:hover {
+          color: $color_membership;
+        }
+        @media (max-width: 430px) {
+          font-size: 9px;
+        }
+      }
+    }
+
+    &__right-block {
+      justify-content: center;
+      margin-right: -8px;
+
+      img {
+        height: 64px !important;
+        width: 64px !important;
+
+        @include media('>phone', '<=tablet') {
+          height: 48px !important;
+          width: 48px !important;
+        }
+        @include media('<=phone') {
+          height: 32px !important;
+          margin-bottom: 0.5rem;
+          width: 32px !important;
+        }
+      }
+    }
+  }
+
+  &:hover &__header {
+    border: 1px solid #e7e7eb !important;
+  }
+}
+
+.members-page {
+  &__contract-block {
+    border: 1px solid $color_light_gray;
+    padding: $padding * 1.5 $padding * 2;
+  }
+
+  &__add-btn {
+    @include btn-prime-white();
+    color: $color-membership !important;
+
+    &:hover {
+      background: $color-membership;
+      border: 1px solid $color-membership;
+      color: $color-white !important;
+    }
+  }
+
+}
+
+
+
+

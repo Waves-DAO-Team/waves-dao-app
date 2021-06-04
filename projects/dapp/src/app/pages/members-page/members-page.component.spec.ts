@@ -12,6 +12,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog'
+import {PipesModule} from '@libs/pipes/pipes.module'
 
 describe('MembersPageComponent', () => {
   let component: MembersPageComponent
@@ -20,6 +21,7 @@ describe('MembersPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        PipesModule,
         RouterTestingModule,
         HttpClientTestingModule,
         MatSnackBarModule,

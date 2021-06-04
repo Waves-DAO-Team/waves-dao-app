@@ -14,9 +14,11 @@ import { ProposeGrantModule } from '@ui/modals/propose-grant/propose-grant.modul
 import { VotingsTemplateComponent } from './votings-template/votings-template.component'
 import {AddProposalModule} from '@ui/modals/add-proposal/add-proposal.module'
 import {MatTooltipModule} from '@angular/material/tooltip'
+import {DaoMembershipTemplateComponent} from '@pages/listing-page/daoMembership-template/daoMembership-template.component'
 
 @NgModule({
-  declarations: [ListingPageComponent, DefaultTemplateComponent, Web3TemplateComponent, VotingsTemplateComponent],
+  // eslint-disable-next-line
+  declarations: [ListingPageComponent, DefaultTemplateComponent, Web3TemplateComponent, VotingsTemplateComponent, DaoMembershipTemplateComponent],
     imports: [
         CommonModule,
         ListingPageRoutingModule,

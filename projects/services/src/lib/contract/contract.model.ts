@@ -5,7 +5,40 @@ export type ContractRawDataTypeNumber = 'integer'
 
 export type ContractRawDataEntityId = string
 
+export interface ContractMemberRawData {
+    status:  {
+      key: string
+      type: string
+      value: string
+    }
+    vote: {
+      key: string
+      type: string
+      value: number
+    }
+    voted: {
+      key: string
+      type: string
+      value: string
+    }
+  votes: {
+    key: string
+    type: string
+    value: string
+  }
+}
 export interface ContractRawDataString {
+  // vote: string;
+
+
+  status?: {
+    value: string
+  };
+  voting?: {
+    state: {
+      value: string
+    };
+  };
   key: ContractRawDataKey
   value: ContractRawDataValue
   type: ContractRawDataTypeString | ContractRawDataTypeNumber
@@ -184,15 +217,26 @@ export interface ContractGrantExtendedModel extends ContractGrantModel{
 // }
 
 export interface ContractDataRawModel {
+  working?: {
+    group?: {
+      member?: {[s: string]: ContractRawDataString}
+    }
+  }
   address?: string
   tasks?: {[s: string]: ContractGrantRawModel}
-
+  dao?: {
+    mwg?: {[s: string]: ContractRawDataString}
+    wg?: {[s: string]: ContractRawDataString}
+    member?: {[s: string]: ContractRawDataString}
+  };
   description?: {[s: string]: {[s: string]: ContractRawDataString}}
   email?: {[s: string]: ContractRawDataString}
   version?: {[s: string]: ContractRawDataString}
   link?: {[s: string]: ContractRawDataString}
   logo?: {[s: string]: ContractRawDataString}
   ticker?: {[s: string]: ContractRawDataString}
+  membership?: {[s: string]: ContractRawDataString}
+  member?: {[s: string]: ContractRawDataString}
 }
 
 export interface ContractDataModel {
@@ -230,5 +274,21 @@ export namespace IVotings {
     email?: string
     ticker?: string
     tickerId?: string
+  }
+}
+
+export namespace DAOMembershipNamespace {
+  export interface MembershipInterface {
+    address?: string
+    status?: string
+  }
+  export interface MemberInterface {
+    address?: string
+    status?: string
+    vote?: number
+    isCanVote?: boolean
+  }
+  export interface WGInterface {
+    address?: string
   }
 }

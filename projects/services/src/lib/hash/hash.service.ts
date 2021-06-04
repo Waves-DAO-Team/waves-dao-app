@@ -34,7 +34,6 @@ export class HashService {
   private transformUrl (url: string) {
     const urlObj = new URL(url)
     if (urlObj.host === 'github.com') {
-      const urlObj = new URL(url)
       return `${urlObj.protocol}//api.${urlObj.host}/repos${urlObj.pathname}`
     }
     return url

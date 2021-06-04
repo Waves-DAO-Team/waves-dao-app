@@ -23,10 +23,35 @@
     opacity: 0.3 !important;
   }
 
-  /*img {
-    padding-left: $padding;
-  }*/
+  &__membership {
 
+    cursor: pointer;
+    margin: 8px 0 8px 0;
+    width: fit-content;
+
+    &-primary {
+      background: $color_membership;
+      border: 1px solid $color_membership;
+      color: $color-white;
+
+      &:hover {
+        background: $color_black;
+        border: 1px solid $color_black;
+      }
+    }
+
+    &-secondary {
+      background: transparent;
+      border: 1px solid $color_membership;
+      color: $color_membership;
+
+      &:hover {
+        background: $color-membership;
+        border: 1px solid $color-membership;
+        color: $color-white;
+      }
+    }
+  }
   &:hover {
     border: 1px solid $color_waves_blue;
 

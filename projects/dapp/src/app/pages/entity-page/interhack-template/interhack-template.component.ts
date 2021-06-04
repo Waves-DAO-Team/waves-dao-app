@@ -142,17 +142,17 @@ export class InterhackTemplateComponent implements OnDestroy {
       map((e: ContractGrantAppModel[]) => {
         let solution = e[0]
         const solutionIdList: string[] = []
-        e.forEach(e => {
+        e.forEach(el => {
 
-          const eScore = e.score?.solution?.value || 0
+          const eScore = el.score?.solution?.value || 0
           const sScore = solution.score?.solution?.value || 0
 
-          if (eScore > 0 && e.key) {
-            solutionIdList.push(e.key)
+          if (eScore > 0 && el.key) {
+            solutionIdList.push(el.key)
           }
 
           if (eScore >= sScore) {
-            solution = e
+            solution = el
           }
 
         })

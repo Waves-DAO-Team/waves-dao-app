@@ -7,9 +7,10 @@
 }
 
 .sub-title {
-  margin: $padding * 3 auto $padding auto;
   display: flex;
   item-align: center;
+  margin: $padding * 3 auto $padding auto;
+
   img {
     margin-right: $padding;
   }
@@ -21,14 +22,23 @@
   margin-top: $padding * 3;
 }
 
+.mat-h1 {
+  margin-bottom: 0 !important;
+}
+
 .members-page {
   &__header {
     align-items: center;
     display: flex;
+    justify-content: space-between;
   }
 
   &__title {
     flex: 1 1 auto;
+
+    //::ng-deep .mat-h1 {
+    //  margin-bottom: 0 !important;
+    //}
   }
 
   ul {
@@ -37,7 +47,7 @@
 
   &__contract-block {
     border: 1px solid $color_light_gray;
-    padding: $padding * 1.5 $padding * 2
+    padding: $padding * 1.5 $padding * 2;
   }
 
   &__add-btn {

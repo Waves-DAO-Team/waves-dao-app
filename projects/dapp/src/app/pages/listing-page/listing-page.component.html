@@ -1,40 +1,48 @@
 <div class="container listing-page"
-    *ngIf="contract.data$ | async as contract; else loadingOrErrorTemplate">
-    <div class="container__mid" [ngSwitch]="contract.name">
-        <!-- Example variant -->
-         <ng-template ngSwitchCase="web3">
-             <app-web3-template
-                     [user]="userService.stream$ | async"
-                     [contract]="contract"
-                     [constants]="constants"
-             ></app-web3-template>
-         </ng-template>
+     *ngIf="contract.data$ | async as contract; else loadingOrErrorTemplate">
+  <div class="container__mid" [ngSwitch]="contract.name">
 
-        <!-- Votings-->
-        <ng-template ngSwitchCase="votings">
-          <app-votings-template
-            [contract]="contract"
-          ></app-votings-template>
-        </ng-template>
+    <!-- daoMembership -->
+    <ng-template ngSwitchCase="daoMembership">
+      <app-dao-membership-template
+        [contract]="contract"
+      ></app-dao-membership-template>
+    </ng-template>
 
-        <!-- Default template with content for listing -->
-        <ng-template ngSwitchDefault>
-            <app-default-template
-                    [user]="userService.stream$ | async"
-                    [contract]="contract"
-                    [constants]="constants"
-            ></app-default-template>
-        </ng-template>
-    </div>
+    <!-- Example variant -->
+    <ng-template ngSwitchCase="web3">
+      <app-web3-template
+        [user]="userService.stream$ | async"
+        [contract]="contract"
+        [constants]="constants"
+      ></app-web3-template>
+    </ng-template>
+
+    <!-- Votings-->
+    <ng-template ngSwitchCase="votings">
+      <app-votings-template
+        [contract]="contract"
+      ></app-votings-template>
+    </ng-template>
+
+    <!-- Default template with content for listing -->
+    <ng-template ngSwitchDefault>
+      <app-default-template
+        [user]="userService.stream$ | async"
+        [contract]="contract"
+        [constants]="constants"
+      ></app-default-template>
+    </ng-template>
+  </div>
 </div>
 
 
 <ng-template #loadingOrErrorTemplate>
-    <ng-container *ngIf="contract.error$ | async; else loading">
-        <app-not-found-page></app-not-found-page>
-    </ng-container>
+  <ng-container *ngIf="contract.error$ | async; else loading">
+    <app-not-found-page></app-not-found-page>
+  </ng-container>
 </ng-template>
 
 <ng-template #loading>
-    <app-loading-page></app-loading-page>
+  <app-loading-page></app-loading-page>
 </ng-template>
