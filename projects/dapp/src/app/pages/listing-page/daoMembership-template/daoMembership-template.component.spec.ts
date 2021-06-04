@@ -11,7 +11,7 @@ import {ListingModule} from '@ui/listing/listing.module'
 import {provideApi, provideAppConstants} from '@constants'
 import {TagModule} from '@ui/tag/tag.module'
 
-describe('VotingsTemplateComponent', () => {
+describe('DaoMembershipTemplateComponent', () => {
   let component: DaoMembershipTemplateComponent
   let fixture: ComponentFixture<DaoMembershipTemplateComponent>
 

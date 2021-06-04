@@ -45,7 +45,7 @@
 
   <div class="sub-title mat-display-4">
     <img src="assets/icons/avatar/dao-member-avatar.svg" alt="dao">
-    {{ contract.title }}
+    {{ contract?.title }}
   </div>
 
   <div class="listing" *ngFor="let member of member$ | async">
