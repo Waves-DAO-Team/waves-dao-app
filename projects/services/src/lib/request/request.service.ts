@@ -10,7 +10,7 @@ import {
 import {RequestConfigNode, RequestError, RequestModel, RequestStatus} from '@services/request/request.model'
 import {API, AppApiInterface} from '@constants'
 import {HttpClient} from '@angular/common/http'
-import { log } from '@libs/log/log.rxjs-operator'
+import {log} from '@libs/log/log.rxjs-operator'
 import {
   catchError,
   map,
@@ -25,16 +25,22 @@ import {
 })
 export class RequestService {
 
-  private cache: {[s: string]: Observable<RequestModel<ContractRawData>>} = {}
+  private cache: { [s: string]: Observable<RequestModel<ContractRawData>> } = {}
 
   private readonly refresh$ = new Subject()
 
   constructor (
-      private readonly http: HttpClient,
-      @Inject(API) private readonly api: AppApiInterface
-  ) { }
+    private readonly http: HttpClient,
+    @Inject(API) private readonly api: AppApiInterface
+  ) {
+  }
 
+  /**
+   * https://TYPE.wavesnodes.com/addresses/data/ADDRESS
+   * Makes a request to wavesnodes with the specified contract address and returns raw data on it
+   */
   getContract (address: string): Observable<RequestModel<ContractRawData>> {
+
     if (this.cache[address]) {
       return this.cache[address]
     }
@@ -44,36 +50,36 @@ export class RequestService {
     const url = new URL('/addresses/data/' + address, config.rest)
 
     this.cache[address] = this.http.get<ContractRawData>(url.href, {
-      headers: { accept: 'application/json; charset=utf-8' }
+      headers: {accept: 'application/json; charset=utf-8'}
     }).pipe(
-        log(`%c RequestService::getContract::${address}`, 'color: blue'),
-        // Repeat request on contract if refresh this
-        repeatWhen(() => this.refresh$.pipe(switchMap((addr) => {
-            // Check refresh address
-            if (address === addr) {
-              // Return refresh subject
-              return of(null)
-            }
-            // Block refresh action
-            return NEVER
-          }))),
-        map((data: ContractRawData) => ({
-            status: RequestStatus.complete,
-            error: null,
-            payload: data
-          })),
-        startWith({
-          status: RequestStatus.loading,
-          error: null,
-          payload: []
-        }),
-        catchError((error) => of({
-            status: RequestStatus.error,
-            error: error as RequestError,
-            payload: []
-          })),
-        publishReplay(1),
-        refCount()
+      log(`%c RequestService::getContract::${address}`, 'color: blue'),
+      // Repeat request on contract if refresh this
+      repeatWhen(() => this.refresh$.pipe(switchMap((addr) => {
+        // Check refresh address
+        if (address === addr) {
+          // Return refresh subject
+          return of(null)
+        }
+        // Block refresh action
+        return NEVER
+      }))),
+      map((data: ContractRawData) => ({
+        status: RequestStatus.complete,
+        error: null,
+        payload: data
+      })),
+      startWith({
+        status: RequestStatus.loading,
+        error: null,
+        payload: []
+      }),
+      catchError((error) => of({
+        status: RequestStatus.error,
+        error: error as RequestError,
+        payload: []
+      })),
+      publishReplay(1),
+      refCount(),
     )
 
     return this.cache[address]

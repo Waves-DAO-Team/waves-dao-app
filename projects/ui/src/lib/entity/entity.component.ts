@@ -8,7 +8,6 @@ import {
 } from '@angular/core'
 import {ContractGrantExtendedModel} from '@services/contract/contract.model'
 import { UserService } from '@services/user/user.service'
-import { LinkContentService } from '@services/link-content/link-content.service'
 import { DisruptiveContractService } from '@services/contract/disruptive-contract.service'
 import { DestroyedSubject } from '@libs/decorators/destroyed-subject.decorator'
 import { Subject } from 'rxjs'
@@ -22,6 +21,8 @@ import { GrantStatusEnum, GrantsVariationType } from '@services/static/static.mo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntityComponent implements OnDestroy {
+  @Input() isShowRaw = false
+  @Input() votedCount = null
   @Input() public readonly grant!: ContractGrantExtendedModel
   @Input() public readonly contract!: GrantsVariationType
   @Input() controlsTemplate: TemplateRef<Component> | undefined
@@ -48,7 +49,6 @@ export class EntityComponent implements OnDestroy {
   constructor (
     public userService: UserService,
     public disruptiveContractService: DisruptiveContractService,
-    public linkContentService: LinkContentService,
     public cdr: ChangeDetectorRef,
     @Inject(API) public readonly api: AppApiInterface
   ) {

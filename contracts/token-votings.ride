@@ -119,7 +119,6 @@ func finishTaskProposalVotingConditions(address: Address, taskId: String) = {
     } else true
 }
 
-
 @Callable(i)
 func initContract() = {
   WriteSet([
@@ -135,14 +134,16 @@ func initContract() = {
 
 
 @Callable(i)
-func addProposal(tokenId: String, description: String, email: String, link: String, logo: String, ticker: String) = {
+func addProposal(tokenId: String, description: String, email: String, link: String, logo: String, ticker: String, hash: String) = {
     if (addTaskConditions(i.caller)) then {
         WriteSet([
             DataEntry("description_<en>_<" + tokenId + ">", description),
             DataEntry("email_<" + tokenId + ">", email),
-            DataEntry("logo_<" + tokenId + ">", tokenId),
+            DataEntry("logo_<" + tokenId + ">", logo),
             DataEntry("ticker_<" + tokenId + ">", ticker),
             DataEntry("link_<" + tokenId + ">", link),
+            # Hash for link validation
+            DataEntry("tasks_" + tokenId + "_hash", hash),
             DataEntry("version_<" + tokenId + ">", 0),
             DataEntry("status_<" + tokenId + ">", 0),
             DataEntry("tasks_" + tokenId + "_status", "proposed")
@@ -150,6 +151,20 @@ func addProposal(tokenId: String, description: String, email: String, link: Stri
     } else throw("checks are not passed")
 }
 
+@Callable(i)
+func resetHash(taskId: String, hash: String) = {
+    WriteSet([
+        # Hash for link validation
+        DataEntry("tasks_"+taskId+"_hash", hash)
+    ])
+}
+
+@Callable(i)
+func hideTask(taskId: String) = {
+    WriteSet([
+        DataEntry("tasks_" + taskId + "_status", "hide")
+    ])
+}
 
 @Callable(i)
 func voteForTaskProposal(taskId: String, voteValue: String) = {

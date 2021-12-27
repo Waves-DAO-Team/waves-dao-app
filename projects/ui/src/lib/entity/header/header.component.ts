@@ -7,7 +7,8 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-  // @Input() isHashValid: null | boolean = null
+  @Input() votedCount = null
+  @Input() isShowRaw = false
   @Input() hash = ''
   @Input() grant = ''
   @Input() status = ''

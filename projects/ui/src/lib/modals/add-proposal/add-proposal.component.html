@@ -1,0 +1,38 @@
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field [style.width.%]="100">
+    <mat-label>{{'modal.texts.tokenId' | transloco}}</mat-label>
+    <input matInput formControlName="tokenId" type="text" >
+  </mat-form-field>
+  <mat-form-field [style.width.%]="100">
+    <mat-label>{{'modal.texts.ticker' | transloco}}</mat-label>
+    <input matInput formControlName="ticker" type="text" >
+  </mat-form-field>
+  <mat-form-field [style.width.%]="100">
+    <mat-label>{{'modal.texts.description' | transloco}}</mat-label>
+    <textarea matInput formControlName="description"  mat-autosize maxlength="300" ></textarea>
+  </mat-form-field>
+  <mat-form-field [style.width.%]="100">
+    <mat-label>{{'modal.texts.email' | transloco}}</mat-label>
+    <input matInput formControlName="email" type="email" name="email" ngModel [email]="true" >
+  </mat-form-field>
+  <mat-form-field [style.width.%]="100">
+    <mat-label>{{'modal.texts.link' | transloco}}</mat-label>
+    <input matInput formControlName="link" type="text" >
+  </mat-form-field>
+  <mat-form-field [style.width.%]="100">
+    <mat-label>{{'modal.texts.logo' | transloco}}</mat-label>
+    <textarea matInput formControlName="logo" mat-autosize maxlength="4000" ></textarea>
+  </mat-form-field>
+
+  <div class="btn-container">
+    <button mat-flat-button (click)="closeModal()">
+      {{'modal.btn.cancel' | transloco}}
+    </button>
+    <button mat-flat-button [disabled]="!form.valid" class="active" type="submit">
+      {{'modal.btn.apply' | transloco}}
+    </button>
+  </div>
+
+</form>

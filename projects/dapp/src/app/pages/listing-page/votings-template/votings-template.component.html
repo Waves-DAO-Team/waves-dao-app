@@ -1,10 +1,20 @@
 <div class="listing-page__intro">
   <img alt="promo" [attr.src]="'/assets/img/special-votings-type.png'" width="100%" height="auto"/>
-
 </div>
 <div class="listing-page__header">
 
   <h1 class="listing-page__title">{{ contract?.title }}</h1>
+
+  <div class="listing-page__controls">
+    <button
+      class="active"
+      *ngIf="contract?.permissionCreateGrant"
+      routerLinkActive="active"
+      (click)="onAddProposal()"
+    >
+      {{ 'app.controls.createGrant' | transloco }}
+    </button>
+  </div>
 
 </div>
 <div class="listing-page__address mat-display-1">
@@ -31,7 +41,7 @@
 
   <div class="listing" *ngFor="let task of tasks$ | async">
 
-    <div class="content">
+    <div class="content" [routerLink]="constants.routes.entity | route: contract?.name : task?.tickerId">
       <div class="card important">
 
         <div class="card__header">

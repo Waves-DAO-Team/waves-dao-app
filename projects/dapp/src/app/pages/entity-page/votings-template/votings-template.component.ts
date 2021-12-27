@@ -14,6 +14,9 @@ import {Web3TemplateInterface} from '@pages/entity-page/web3-template/web3-templ
 import {log} from '@libs/log'
 import {Async, DestroyedSubject} from '@libs/decorators'
 import {getEntityData} from '@pages/entity-page/functions'
+import {HashService} from '@services/hash/hash.service'
+import {CommunityContractService} from '@services/contract/community-contract.service'
+import {VotingsContractService} from '@services/contract/votings-contract.service'
 
 @Component({
   selector: 'app-votings-template',
@@ -27,15 +30,60 @@ export class VotingsTemplateComponent implements OnDestroy {
 
   @DestroyedSubject() private readonly destroyed$!: Subject<null>
 
-  public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$]).pipe(
+  public readonly votedCount$ = this.grant$
+    .pipe(
+    map((grant) => grant?.voting?.amount?.value ? grant?.voting?.amount?.value : null)
+  )
+
+  public entityData$: Observable<Web3TemplateInterface> = combineLatest([this.userService.stream$, this.grant$])
+    .pipe(
     takeUntil(this.destroyed$),
     map(([user, grant]) => (getEntityData(user, grant))),
+
     log('VotingsTemplateComponent::entityData$'),
     publishReplay(1),
     refCount()
   )
 
+  public readonly isResetHashBtn$: Observable<boolean> = this.userService.data
+    .pipe(
+      map(data => data.roles.isWG)
+    )
+
+  public readonly isVoteForTask$: Observable<boolean | null> = combineLatest([this.userService.stream$, this.grant$])
+    .pipe(
+      map(([user, grant]) => {
+        if (user.userAddress && grant?.status?.value === 'proposed' && !user.roles.isWG) {
+          if(grant?.voted && grant.voted[user.userAddress]) {
+            return grant.voted[user.userAddress] ? true : false
+          } else {
+            return false
+          }
+        }
+          return null
+      })
+    )
+
+  isFinishApplicantsVoteBtn$: Observable<boolean> = combineLatest([this.userService.stream$, this.grant$])
+    .pipe(
+      map( ([user, grant]) => {
+        if (grant?.status?.value === 'proposed' && user.roles.isWG) {
+          return true
+        }
+        return false
+      }),
+    )
+
+  isRejectBtn$: Observable<boolean> = this.entityData$
+    .pipe(
+      takeUntil(this.destroyed$),
+      map((web3Grant: Web3TemplateInterface) => web3Grant.isCanceled && web3Grant.isWG)
+    )
+
   constructor (
+    public hashService: HashService,
+    public votingsContractService: VotingsContractService,
+    public communityContractService: CommunityContractService,
     private route: ActivatedRoute, // eslint-disable-line
     private readonly dialog: MatDialog, // eslint-disable-line
     public disruptiveContractService: DisruptiveContractService, // eslint-disable-line
@@ -57,4 +105,34 @@ export class VotingsTemplateComponent implements OnDestroy {
 
   ngOnDestroy (): void {}
 
+  hide (taskId: string): void {
+    this.communityContractService.hide(taskId).subscribe()
+  }
+
+  resetHash (id: string, link: string): void {
+    this.hashService.init(link)  // eslint-disable-line @typescript-eslint/no-floating-promises
+      .then((hash: string = '') => {
+        this.communityContractService.resetHash(id, hash).subscribe()
+      })
+  }
+
+  vote (value: 'like' | 'dislike', id: string): void {
+    this.disruptiveContractService.voteForTaskProposal(id, value).subscribe({
+      complete: () => {
+        this.cdr.markForCheck()
+      }
+    })
+  }
+
+  finishTaskProposalVoting (entityData: Web3TemplateInterface, id: string): void {
+    this.votingsContractService.finishTaskProposalVoting(id).subscribe({
+      complete: () => {
+        this.cdr.markForCheck()
+      }
+    })
+  }
+
+  reject (id: string): void {
+    this.communityContractService.rejectTask(id).subscribe()
+  }
 }

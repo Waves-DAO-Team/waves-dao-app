@@ -8,9 +8,11 @@ import {ApplyModule} from '@ui/modals/apply/apply.module'
 import {ProposeGrantModule} from '@ui/modals/propose-grant/propose-grant.module'
 import {SubmitSolutionModule} from '@ui/modals/submit-solution/submit-solution.module'
 import {AcceptWorkResultInterhackModule} from '@ui/modals/accept-work-result-interhack/accept-work-result-interhack.module'
+import {AddProposalModule} from '@ui/modals/add-proposal/add-proposal.module'
 
 export * from './accept-work-result/accept-work-result.module'
 export * from './add-reward/add-reward.module'
+export * from './add-proposal/add-proposal.module'
 export * from './add-task-details/add-task-details.module'
 export * from './apply/apply.module'
 export * from './propose-grant/propose-grant.module'
@@ -26,7 +28,8 @@ export * from './submit-solution/submit-solution.module'
     ApplyModule,
     ProposeGrantModule,
     AcceptWorkResultInterhackModule,
-    SubmitSolutionModule
+    SubmitSolutionModule,
+    AddProposalModule
   ]
 })
 export class ModalsModule { }
